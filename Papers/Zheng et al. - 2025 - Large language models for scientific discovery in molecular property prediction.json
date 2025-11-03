@@ -1,0 +1,216 @@
+{
+  "objective": {
+    "answer": "The primary objective of the paper is to introduce LLM4SD, a framework that leverages large language models for scientific discovery in molecular property prediction by synthesizing knowledge from literature and inferring knowledge from scientific data. The authors aim to demonstrate that LLM4SD can outperform state-of-the-art models across a range of benchmark tasks for predicting molecular properties. They also seek to provide interpretable and potentially new insights to aid scientific discovery in this domain.",
+    "evidence": "In this work, we introduce LLM4SD, a framework designed to harness LLMs for driving scientific discovery in molecular property prediction by synthesizing knowledge from literature and inferring knowledge from scientific data. ... By using these features with interpretable models such as random forest, LLM4SD can outperform the current state of the art across a range of benchmark tasks for predicting molecular properties. We foresee it providing interpretable and potentially new insights, aiding scientific discovery in molecular property prediction."
+  },
+  "knowledge_gap": {
+    "answer": "The potential of large language models to drive scientific discovery in molecular property prediction remains largely unexplored, despite their demonstrated capabilities in understanding scientific concepts and reasoning.",
+    "evidence": "Although LLMs have seen initial applications in natural sciences, their potential for driving scientific discovery remains largely unexplored. ... In this context, LLMs possess extensive prior knowledge of molecular property prediction tasks. ... Given these two key abilities—understanding molecular property prediction tasks and interpreting SMILES—we are motivated to explore two questions: can LLMs leverage their prior knowledge and reasoning abilities to facilitate scientific discovery? Can LLMs be effectively used to help predicting the properties of molecules?"
+  },
+  "novelty": {
+    "answer": [
+      "Development of LLM4SD, a pipeline that combines knowledge synthesis from scientific literature and knowledge inference from data using large language models for molecular property prediction.",
+      "Transformation of synthesized and inferred rules into interpretable feature vectors for use with traditional machine learning models, enabling interpretable predictions.",
+      "Demonstration that LLM4SD-enhanced interpretable models can outperform state-of-the-art graph neural network baselines across diverse molecular property prediction tasks.",
+      "Validation that LLM4SD can uncover both well-established and potentially novel scientific rules, some of which are not found in existing literature."
+    ],
+    "evidence": [
+      "In this work, we propose LLM4SD (LLMs for Scientific Discovery). LLM4SD functions by performing two main tasks: synthesizing knowledge from existing literature and inferring knowledge by observing experimental data.",
+      "These rules are then used to create interpretable feature vectors for each molecule. By training an interpretable machine learning model using these vectors, we show that this pipeline achieves the current state of the art on molecular property prediction across 58 benchmark tasks...",
+      "By using these features with interpretable models such as random forest, LLM4SD can outperform the current state of the art across a range of benchmark tasks for predicting molecular properties.",
+      "By leveraging LLMs, our pipeline not only validates well-established scientific principles but also uncovers less documented and even potentially new rules. This facilitates a more effective and transparent interaction between scientists and the artificial intelligence (AI) system, enhancing both the quality and trustworthiness of the research output."
+    ]
+  },
+  "inspirational_papers": {
+    "answer": [
+      "- Wu et al. (2018) MoleculeNet: a benchmark for molecular machine learning. (Benchmark dataset and baseline comparisons)",
+      "- Rogers & Hahn (2010) Extended-connectivity fingerprints. (Baseline feature representation for random forest)",
+      "- Hu et al. (2020) Strategies for pre-training graph neural networks. (Baseline graph neural network methods)",
+      "- You et al. (2020) Graph contrastive learning with augmentations. (Baseline graph neural network methods)",
+      "- Wang et al. (2022) Molecular contrastive learning of representations via graph neural networks. (Baseline graph neural network methods)",
+      "- Stärk et al. (2022) 3D Infomax improves GNNs for molecular property prediction. (Baseline graph neural network methods)",
+      "- Liu et al. (2022) Pre-training molecular graph representation with 3D geometry. (Baseline graph neural network methods)",
+      "- Xia et al. (2023) Mole-bert: rethinking pre-training graph neural networks for molecules. (Baseline graph neural network methods)",
+      "- Rong et al. (2020) Self-supervised graph transformer on large-scale molecular data. (Baseline graph neural network methods)",
+      "- Zhou et al. (2023) Uni-mol: a universal 3D molecular representation learning framework. (Baseline graph neural network methods)"
+    ],
+    "evidence": [
+      "These tasks, encompassing both classification and regression, span four domains: physiology, biophysics, physical chemistry and quantum mechanics. ... from the MoleculeNet dataset curated by the Stanford PANDE group9.",
+      "As a standard baseline, we implemented random forest with ECFP4 (ref. 22) as input set features.",
+      "We compared LLM4SD’s performance with nine specialized, state-of-the-art supervised machine learning models. These are advanced graph or geometric neural networks (GNNs): AttrMask14, GraphCL15, MolCLR16, 3DInfomax17, GraphMVP18, MoleBERT19, Grover20 and UniMol21.",
+      "References: 9. Wu, Z. et al. MoleculeNet: a benchmark for molecular machine learning. Chem. Sci. 9, 513–530 (2018). 14. Hu, W. et al. Strategies for pre-training graph neural networks. In Proc. International Conference on Learning Representations (2020). 15. You, Y. et al. Graph contrastive learning with augmentations. Adv. Neural Inf. Process. Sys. 33, 5812–5823 (2020). 16. Wang, Y., Wang, J., Cao, Z. & Farimani, A. B. Molecular contrastive learning of representations via graph neural networks. Nat. Mach. Intell. 4, 279–287 (2022). 17. Stärk, H. et al. 3D Infomax improves GNNs for molecular property prediction. In Proc. International Conference on Machine Learning (eds Chaudhuri, K. et al.) 20479–20502 (PMLR, 2022). 18. Liu, S. et al. Pre-training molecular graph representation with 3D geometry. In Proc. 10th International Conference on Learning Representations (2022). 19. Xia, J. et al. Mole-bert: rethinking pre-training graph neural networks for molecules. In Proc. 11th International Conference on Learning Representations (2023). 20. Rong, Y. et al. Self-supervised graph transformer on large-scale molecular data. Adv. Neural Inf. Process. Sys. 33, 12559–12571 (2020). 21. Zhou, G. et al. Uni-mol: a universal 3D molecular representation learning framework. In Proc. 11th International Conference on Learning Representations (2023). 22. Rogers, D. & Hahn, M. Extended-connectivity fingerprints. J. Chem. Inf. Model. 50, 742–754 (2010)."
+    ]
+  },
+  "method": {
+    "steps": [
+      {
+        "step": "Knowledge synthesis from scientific literature",
+        "input": "Pretrained large language models with extensive scientific literature; prompt instructing the model to act as an experienced chemist and identify rules for molecular property prediction.",
+        "output": "A set of rules/features derived from literature that are relevant for predicting molecular properties.",
+        "tools": [
+          "Large language models (e.g., GPT-4, Galactica, Falcon): Used to synthesize rules based on their pretraining on scientific literature."
+        ],
+        "evidence": "In the knowledge synthesis from literature phase (Fig. 1a), LLMs use their pretrained understanding from extensive scientific literature5,10,11 to synthesize rules for predicting molecular properties."
+      },
+      {
+        "step": "Knowledge inference from data",
+        "input": "Experimental molecular data (e.g., SMILES strings and property labels); prompt instructing the model to analyze data and infer rules.",
+        "output": "A set of rules/features inferred from data patterns that are relevant for predicting molecular properties.",
+        "tools": [
+          "Large language models (e.g., GPT-4, Galactica, Falcon): Used to infer rules by analyzing relationships in provided data."
+        ],
+        "evidence": "In the knowledge inference from data phase (Fig. 1b), LLMs can utilize their inferential and analytical abilities to identify patterns in scientific data: for example, SMILES strings and their corresponding labels."
+      },
+      {
+        "step": "Rule-to-code conversion and feature vectorization",
+        "input": "Synthesized and inferred rules; cheminformatics software (e.g., RDKit); Python code generation via large language models.",
+        "output": "Executable code functions for each rule, enabling transformation of molecules into feature vectors.",
+        "tools": [
+          "GPT-4: Used to generate Python code for rule implementation.",
+          "RDKit: Cheminformatics library for molecular feature calculation."
+        ],
+        "evidence": "To convert these rules into corresponding executable code functions, we utilize GPT-4 to generate Python code using cheminformatics software such as RDKit13."
+      },
+      {
+        "step": "Model training with interpretable models",
+        "input": "Feature vectors for each molecule; corresponding property labels.",
+        "output": "Trained interpretable machine learning model (e.g., random forest, linear classifier) for molecular property prediction.",
+        "tools": [
+          "Random forest: Interpretable machine learning model for classification/regression.",
+          "Linear classifier: Interpretable model for classification."
+        ],
+        "evidence": "These rule-based features can then be used to train an interpretable model, such as a random forest or linear classifier (Fig. 1c)."
+      },
+      {
+        "step": "Interpretable insights and model explanation",
+        "input": "Trained interpretable model; feature vectors; rules.",
+        "output": "Prediction results, rule importance scores, and interpretable explanations for each prediction.",
+        "tools": [
+          "Random forest/linear classifier: Provide feature importance and interpretable decision paths."
+        ],
+        "evidence": "Once the interpretable models are trained (Fig. 1d), we can gain valuable insights. ... the model can reveal the significance of each rule, showing which are important for the final prediction."
+      }
+    ],
+    "tools": [
+      "Large language models (GPT-4, Galactica, Falcon): For rule synthesis and inference.",
+      "RDKit: Cheminformatics library for molecular feature calculation.",
+      "Random forest: Interpretable machine learning model.",
+      "Linear classifier: Interpretable machine learning model."
+    ],
+    "evidence": [
+      "In the knowledge synthesis from literature phase (Fig. 1a), LLMs use their pretrained understanding from extensive scientific literature5,10,11 to synthesize rules for predicting molecular properties.",
+      "In the knowledge inference from data phase (Fig. 1b), LLMs can utilize their inferential and analytical abilities to identify patterns in scientific data: for example, SMILES strings and their corresponding labels.",
+      "To convert these rules into corresponding executable code functions, we utilize GPT-4 to generate Python code using cheminformatics software such as RDKit13.",
+      "These rule-based features can then be used to train an interpretable model, such as a random forest or linear classifier (Fig. 1c).",
+      "Once the interpretable models are trained (Fig. 1d), we can gain valuable insights. ... the model can reveal the significance of each rule, showing which are important for the final prediction."
+    ]
+  },
+  "subject_area": {
+    "areas": [
+      "Chemical Sciences",
+      "Health Sciences",
+      "Physical Sciences"
+    ],
+    "evidence": [
+      "Molecular property prediction is crucial for advancing drug design and materials discovery. Understanding molecular properties helps identify key factors that drive chemical behaviour, providing deeper insights into chemistry.",
+      "To evaluate LLM4SD’s versatility, we conducted a comprehensive analysis of its performance across 58 molecular prediction tasks across four domains (Fig. 2). ... These tasks, encompassing both classification and regression, span four domains: physiology, biophysics, physical chemistry and quantum mechanics."
+    ]
+  },
+  "performance_summary": {
+    "performance_summary": [
+      "LLM4SD outperformed all existing baselines in physiology and biophysics, achieving state-of-the-art results, such as raising the area under the receiver operating characteristic curve (AUC-ROC) in physiology from 74.53% to 76.60%.",
+      "In quantum mechanics, LLM4SD showed a profound improvement of 48.2% over the best performing baseline, with an average mean absolute error (MAE) of 5.8233 compared to 11.2450.",
+      "In physical chemistry, LLM4SD achieved a root mean square error (RMSE) of 1.28, a 12.9% improvement over the baseline RMSE of 1.47.",
+      "LLM4SD consistently ranked among the top three methods in the majority of tasks across all domains and outperformed the average of all baselines."
+    ],
+    "baselines": [
+      "Random forest with extended connectivity fingerprint (ECFP4): Traditional machine learning baseline using molecular fingerprints.",
+      "AttrMask: Graph neural network pretrained by masking and predicting atom/bond attributes.",
+      "GraphCL: Graph contrastive learning with augmentations.",
+      "MolCLR: Molecular contrastive learning with graph neural networks.",
+      "3DInfomax: Graph neural network leveraging 3D molecular geometry.",
+      "GraphMVP: Pretraining with 3D geometry for molecular graphs.",
+      "MoleBERT: Graph neural network with vector quantized variational autoencoder-based tokenizer.",
+      "Grover: Self-supervised graph transformer on large-scale molecular data.",
+      "UniMol: Universal 3D molecular representation learning framework."
+    ],
+    "benchmark_datasets": [
+      "BBBP: 2,039 compounds labeled for blood-brain barrier permeability; used for classification.",
+      "ClinTox: 1,478 compounds with toxicological properties; used for toxicity prediction.",
+      "Tox21: 7,831 compounds with 12 classification tasks focused on toxicological targets.",
+      "SIDER: 1,427 compounds with 27 tasks on adverse drug reactions.",
+      "HIV: 17,930 compounds for classification of HIV inhibition.",
+      "BACE: 11,908 compounds for classification of BACE-1 enzyme inhibition.",
+      "ESOL: 1,128 compounds for regression of water solubility.",
+      "FreeSolv: 642 compounds for regression of hydration free energy.",
+      "Lipophilicity: 4,200 compounds for regression of lipophilicity.",
+      "QM9: 133,885 compounds with 12 regression tasks on quantum mechanical properties."
+    ],
+    "evaluation_metrics": [
+      "AUC-ROC: Measures the ability of the model to distinguish between classes; higher is better.",
+      "RMSE: Root mean square error, quantifies the difference between predicted and observed values; lower is better.",
+      "MAE: Mean absolute error, measures the average magnitude of errors between predicted and true values; lower is better."
+    ],
+    "evidence": [
+      "In both physiology and biophysics, our model outperformed all existing baselines (Fig. 2a). Notably, we attained state-of-the-art results in physiology, raising the area under the receiver operating characteristic curve (AUC-ROC) from a previous best of 74.53% to 76.60%, a gain of 2.07%. In biophysics, our model also achieved the best performance.",
+      "On tasks in quantum mechanics and physical chemistry, LLM4SD demonstrated substantial advancements (Fig. 2b). In the domain of quantum mechanics, it showed a profound improvement of 48.2% over the best performing baseline, registering an average mean absolute error (MAE) of 5.8233 across 12 tasks as opposed to 11.2450 achieved by the second-best baseline GraphMVP. Similarly, in physical chemistry, LLM4SD observed a noteworthy enhancement, with the model reaching an MAE of 1.28, marking an 12.9% advancement over the baseline root mean square error (RMSE) of 1.47.",
+      "We compared LLM4SD’s performance with nine specialized, state-of-the-art supervised machine learning models. These are advanced graph or geometric neural networks (GNNs): AttrMask14, GraphCL15, MolCLR16, 3DInfomax17, GraphMVP18, MoleBERT19, Grover20 and UniMol21. Each model was pretrained on large datasets with diverse molecular knowledge and then fine-tuned for specific tasks (Methods). As a standard baseline, we implemented random forest with ECFP4 (ref. 22) as input set features.",
+      "We conducted a thorough evaluation of LLM4SD, covering 58 subtasks across four unique domains for a robust assessment. The physiology domain included 41 tasks like BBBP, ClinTox and the 12-task Tox21, ranging from NR-AR to SR-p53, along with the 27-task SIDER suite covering various medical conditions. Biophysics offered two classification tasks: BACE and HIV. In physical chemistry, we addressed three regression tasks: ESOL, FreeSolv and Lipophilicity; and the quantum mechanics domain presented 12 regression tasks within the QM9 dataset, exploring properties from mu to G, providing a comprehensive insight into LLM4SD’s capabilities.",
+      "We assessed LLM4SD across 58 molecular property prediction tasks spanning four domains, utilizing distinct evaluation metrics tailored to each task’s nature. For the domains of physiology and biophysics, the AUC-ROC metric was employed. ... In the domain of physical chemistry, the RMSE was used. ... For quantum mechanics, we utilized the MAE metric."
+    ]
+  },
+  "limitations": {
+    "limitations": [
+      {
+        "label": "Limited Application Scope",
+        "explanation": "The study only focused on molecular property prediction and did not address more complex biological data such as protein or gene sequences.",
+        "evidence": "Our study only focused on molecular property prediction. However, LLM4SD’s promising results in molecular property prediction hold promise for the direct application of LLMs in more advanced applications, such as protein sequence or gene sequence analysis."
+      },
+      {
+        "label": "Challenges with Complex Biological Sequences",
+        "explanation": "Protein and gene sequences are much more complicated than the SMILES strings used in this study, posing challenges for large language models to understand long context domain-specific information.",
+        "evidence": "Protein and gene sequences are much more complicated than the SMILES strings in our study, which typically comprise up to dozens of characters. For example, protein sequences normally have 300–500 amino acids, whereas gene sequences typically contain many thousands of nucleotides. The complexity of these data poses great challenges for LLMs to understand long context domain-specific information, which requires extensive prior knowledge."
+      },
+      {
+        "label": "Context Window Limitations",
+        "explanation": "Even for models that support large input, they often cannot use the long context input effectively in practice.",
+        "evidence": "In addition, LLMs need a longer and effective context window to process this data. Even for models that support large input, they often cannot use the long context input effectively in practice36,37."
+      }
+    ],
+    "evidence": [
+      "Our study only focused on molecular property prediction. However, LLM4SD’s promising results in molecular property prediction hold promise for the direct application of LLMs in more advanced applications, such as protein sequence or gene sequence analysis.",
+      "Protein and gene sequences are much more complicated than the SMILES strings in our study, which typically comprise up to dozens of characters. For example, protein sequences normally have 300–500 amino acids, whereas gene sequences typically contain many thousands of nucleotides. The complexity of these data poses great challenges for LLMs to understand long context domain-specific information, which requires extensive prior knowledge.",
+      "In addition, LLMs need a longer and effective context window to process this data. Even for models that support large input, they often cannot use the long context input effectively in practice36,37."
+    ]
+  },
+  "future_directions": {
+    "future_directions": [
+      "Expand LLM4SD to more advanced applications such as protein sequence or gene sequence analysis.",
+      "Pretrain large language models on vast, diverse datasets of protein or gene sequences to improve understanding of complex biological patterns.",
+      "Incorporate retrieval-augmented generation with specialized biological knowledge bases, such as UniProt and GenBank, to enhance model understanding and contextual accuracy.",
+      "Develop efficient tokenization methods specifically tailored for biological sequences to improve processing and analysis."
+    ],
+    "evidence": [
+      "However, LLM4SD’s promising results in molecular property prediction hold promise for the direct application of LLMs in more advanced applications, such as protein sequence or gene sequence analysis.",
+      "To enhance LLMs’ ability to handle intricate biological data, pretraining them on vast, diverse datasets of protein or gene sequences may help the models understand the complex patterns more effectively.",
+      "Additionally, incorporating retrieval-augmented generation with specialized biological knowledge bases, such as UniProt38 and GenBank39, can provide additional knowledge to improve understanding and contextual accuracy.",
+      "Furthermore, developing efficient tokenization methods specifically tailored for biological sequences may enhance the model’s ability to process and analyse this type of data, leading to more accurate and insightful results."
+    ]
+  },
+  "resource_link": {
+    "answer": "https://github.com/zyzisastudyreallyhardguy/LLM4SD",
+    "evidence": "The GitHub link of the model is https://github.com/zyzisastudyreallyhardguy/LLM4SD (https://doi.org/10.5281/zenodo.13986921)43."
+  },
+  "paper_title": "Large language models for scientific discovery in molecular property prediction",
+  "authors": [
+    "Yizhen",
+    "Huan Yee",
+    "Jiaxin",
+    "Anh T. N.",
+    "Lauren T.",
+    "Geoffrey I.",
+    "Shirui"
+  ],
+  "published": "2025-03",
+  "link": "https://www.nature.com/articles/s42256-025-00994-z"
+}

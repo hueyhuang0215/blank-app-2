@@ -1,0 +1,210 @@
+{
+  "objective": {
+    "answer": "The primary objective of the paper is to present a novel structural framework, called the Budget AI Researcher, that leverages retrieval-augmented generation chains, vector databases, and topic-guided pairing to generate and refine practical research ideas by recombining concepts from hundreds of machine learning papers. The authors aim to address the challenge of guiding aspiring researchers toward actionable research ideas by grounding outputs in real-world literature and enhancing the concreteness and interestingness of generated ideas compared to standard prompting approaches.",
+    "evidence": "In this study, we present a novel structural framework for research ideation. Our framework, The Budget AI Researcher, uses retrieval-augmented generation (RAG) chains, vector databases, and topic-guided pairing to recombine concepts from hundreds of machine learning papers... By bridging the gap between academic data and creative generation, the Budget AI Researcher offers a practical, free tool for accelerating scientific discovery and lowering the barrier for aspiring researchers."
+  },
+  "knowledge_gap": {
+    "answer": "Existing large language models are effective at comprehension and summarization but often fail to guide users toward practical, actionable research ideas due to their shallow domain-specific reasoning, lack of up-to-date knowledge, and inability to accommodate user-specific queries.",
+    "evidence": "While LLMs are effective at aiding comprehension and summarization, they often fall short in guiding users toward practical research ideas due to their limitations... Most LLMs are trained broadly across a wide array of internet text, making them effective for general understanding that is often too shallow for domain-specific reasoning (et al. 2023). They also struggle to accommodate highly variable, user-specific queries that are common in research contexts. Furthermore, their outputs are not grounded in real-time, trusted external sources, which poses challenges for tasks that require up-to-date and verifiable knowledge (Cheng et al. 2024)."
+  },
+  "novelty": {
+    "answer": [
+      "The integration of retrieval-augmented generation chains, vector databases, and topic-guided pairing to generate and refine research abstracts by recombining distant concepts from a large corpus of machine learning papers.",
+      "Automatic construction of a hierarchical topic tree from nine major machine learning conferences to systematically identify and merge distant topics for ideation.",
+      "Iterative self-evaluation and refinement of generated abstracts using both relevant literature (via Semantic Scholar) and peer reviews (via OpenReview), enhancing novelty and grounding.",
+      "A free, accessible tool that delivers comparable or superior research ideation performance to paid large language models, even when using open-source or free models."
+    ],
+    "evidence": [
+      "Our framework, The Budget AI Researcher, uses retrieval-augmented generation (RAG) chains, vector databases, and topic-guided pairing to recombine concepts from hundreds of machine learning papers.",
+      "The system ingests papers from nine major AI conferences... and organizes them into a hierarchical topic tree. It uses the tree to identify distant topic pairs, generate novel research abstracts, and refine them through iterative self-evaluation against relevant literature and peer reviews...",
+      "The Budget AI Researcher also uses the abstracts retrieved from the Semantic Scholar API to polish its own abstracts, making them more professional and novel by imitating the style of retrieved abstracts. It also combines its own ideas with with ideas from the retrieved abstracts, increasing novelty as well as professionalism.",
+      "Furthermore, while 'The AI Scientist' is mainly limited to using paid LLMs like GPT-4 via the ChatGPT platform, our agent delivers comparable idea generation capabilities even when using a free model."
+    ]
+  },
+  "inspirational_papers": {
+    "answer": [
+      "Lu et al. (2024) The AI Scientist: Towards Fully Automated Open-Ended Scientific Discovery. (Methodological precursors, baseline for comparison)",
+      "Radensky et al. (2024) Scideator: Human-LLM Scientific Idea Generation Grounded in Research-Paper Facet Recombination. (Methodological precursor, limitations addressed)",
+      "Baek et al. (2024) ResearchAgent: Iterative Research Idea Generation over Scientific Literature with Large Language Models. (Methodological precursor)",
+      "Ifargan et al. (2024) Autonomous LLM-driven research from data to human-verifiable research papers. (Methodological precursor)",
+      "Wang et al. (2024) SciMON: Scientific Inspiration Machines Optimized for Novelty. (Methodological precursor)"
+    ],
+    "evidence": [
+      "A prominent example of a related large language model (LLM) agent designed to accelerate machine learning research is 'The AI Scientist.' ... our approach is more comprehensive, utilizing papers from nine different ML conferences. ... The AI Scientist is also limited to a few different predetermined templates... while the Budget AI Researcher is able to use all the ideas in 9 top ML conferences as a guide for ideation.",
+      "Another recent example of a research agent is 'Scideator,' a RAG and Semantic Scholar-powered tool for recombining multiple facets of papers in literature. ... Unlike the Budget AI Researcher, which automatically retrieves large subsets of papers from machine learning conference websites to begin the process, 'Scideator' relies on user-inputted papers to start the ideation process, limiting its scope to the user’s expertise.",
+      "Numerous idea-generation methods exist in academic literature, including iterative idea improvement through a reinforcement learning-like approach, (Baek et al. 2024; Ifargan et al. 2024; Wang et al. 2024), finding links between ideas using open/closed discovery (Henry and McInnes 2017), and idea generation through reasoning (Sel et al. 2024; Yao et al. 2023), with iterative idea generation being the most common."
+    ]
+  },
+  "method": {
+    "steps": [
+      {
+        "step": "Paper Collection and Extraction",
+        "input": "Paper titles and PDFs from nine major machine learning conferences (CVPR, ECCV, ICCV, NeurIPS, ICLR, ICML, ACL, EMNLP, NAACL)",
+        "output": "Extracted paper texts and metadata stored for further processing",
+        "tools": [
+          "Python requests module: For downloading paper lists and PDFs",
+          "BeautifulSoup: For parsing HTML and extracting links",
+          "PyPDF2: For extracting text from PDFs"
+        ],
+        "evidence": "We first extract all paper titles from the conference... We post requests to the accepted paper list of all nine websites, and the resulting source code from each website is retrieved. The source code is then analyzed using BeautifulSoup, which extracts links corresponding to the papers from the website (Richardson 2021)... The text is then extracted from the PDFs using PyPDF2 (Keawmanee 2024)."
+      },
+      {
+        "step": "Vectorization and Storage",
+        "input": "Extracted paper texts",
+        "output": "Vector embeddings of text stored in a Chroma vector database",
+        "tools": [
+          "LangChain RecursiveTextSplitter: For splitting text into manageable chunks",
+          "Chroma: For embedding and storing vectors and metadata"
+        ],
+        "evidence": "The extracted text is split using LangChain’s RecursiveTextSplitter into 3000-character documents... The resulting vector embeddings are added to a main collection in a Chroma database (Kedia 2024), which is then stored in the client’s computer."
+      },
+      {
+        "step": "Topic Tree Generation",
+        "input": "Vectorized paper database",
+        "output": "Hierarchical topic tree with papers categorized under topics",
+        "tools": [
+          "Llama 3.1 70b-Versatile: For generating frequent topics and descriptions",
+          "LangChain retrieval chain: For retrieving sources and descriptions"
+        ],
+        "evidence": "The Budget AI Researcher categorizes the papers by prompting the Llama 3.1 70b-Versatile (Dubey et al. 2024) LLM to generate the 5 most frequent topics using the research papers in the main database. We then use LangChain’s retrieval chain feature to prompt the same LLM to describe each topic..."
+      },
+      {
+        "step": "Topic Pairing for Ideation",
+        "input": "Topic tree and vectorized documents",
+        "output": "Pairs of distant topics identified for novel idea generation",
+        "tools": [
+          "Chroma similarity search with score: For finding topic pairs with highest distance (lowest similarity)"
+        ],
+        "evidence": "We use Chroma’s 'similarity search with score' function between representative documents from each category to find the pair of topics to consider merging to generate the abstract."
+      },
+      {
+        "step": "Abstract Generation",
+        "input": "Selected topic pairs and context from relevant papers",
+        "output": "Initial research abstracts combining distant topics",
+        "tools": [
+          "LLM (Llama 3.1 70b-Versatile or similar): For generating abstracts"
+        ],
+        "evidence": "We prompt the model to create an abstract about the two topics chosen in the previous step and to try to create new ideas if possible."
+      },
+      {
+        "step": "Abstract Evaluation and Polishing",
+        "input": "Generated abstracts, references and citations from Semantic Scholar, peer reviews from OpenReview",
+        "output": "Refined, professional, and novel research abstracts",
+        "tools": [
+          "Semantic Scholar API: For retrieving references and citations",
+          "Chroma: For storing and retrieving reference abstracts",
+          "OpenReview: For collecting peer reviews",
+          "LLM: For evaluating and polishing abstracts"
+        ],
+        "evidence": "We extract references and citations from relevant papers using the Semantic Scholar API... The Budget AI Researcher also uses the abstracts retrieved from the Semantic Scholar API to polish its own abstracts... The Budget AI Researcher uses the OpenReview pages of selected papers from conferences such as the ICLR and NeurIPS stored in the Reviewer Chroma database to evaluate the ideas it generated and improve its ideas."
+      },
+      {
+        "step": "Auxiliary Features: Question Answering and Summarization",
+        "input": "User queries or full papers",
+        "output": "Concise answers or summaries based on retrieved context",
+        "tools": [
+          "RAG chain (LangChain): For question answering",
+          "StuffChain (LangChain): For summarization"
+        ],
+        "evidence": "One of the functions of the Budget AI Researcher is to answer users’ questions about machine learning using the papers stored in the Chroma database. This feature is implemented using a RAG chain... Another function of the Budget AI Researcher is summarizing documents retrieved from the machine learning conferences. This tool directly inputs the complete research papers into the large language model using a StuffChain."
+      }
+    ],
+    "tools": [
+      "Python requests module: For downloading web content and PDFs.",
+      "BeautifulSoup: For parsing HTML and extracting links.",
+      "PyPDF2: For extracting text from PDF files.",
+      "LangChain: For chaining LLMs and retrieval-augmented generation, including RecursiveTextSplitter, retrieval chain, and StuffChain.",
+      "Chroma: An open-source vector database for storing and retrieving vector embeddings.",
+      "Llama 3.1 70b-Versatile: Large language model used for topic extraction, description, and abstract generation.",
+      "Semantic Scholar API: For retrieving references and citations of papers.",
+      "OpenReview: For collecting peer reviews of papers."
+    ],
+    "evidence": [
+      "We first extract all paper titles from the conference... The source code is then analyzed using BeautifulSoup, which extracts links corresponding to the papers from the website (Richardson 2021)... The text is then extracted from the PDFs using PyPDF2 (Keawmanee 2024).",
+      "The extracted text is split using LangChain’s RecursiveTextSplitter into 3000-character documents... The resulting vector embeddings are added to a main collection in a Chroma database (Kedia 2024), which is then stored in the client’s computer.",
+      "The Budget AI Researcher categorizes the papers by prompting the Llama 3.1 70b-Versatile (Dubey et al. 2024) LLM to generate the 5 most frequent topics using the research papers in the main database. We then use LangChain’s retrieval chain feature to prompt the same LLM to describe each topic...",
+      "We use Chroma’s 'similarity search with score' function between representative documents from each category to find the pair of topics to consider merging to generate the abstract.",
+      "We prompt the model to create an abstract about the two topics chosen in the previous step and to try to create new ideas if possible.",
+      "We extract references and citations from relevant papers using the Semantic Scholar API... The Budget AI Researcher also uses the abstracts retrieved from the Semantic Scholar API to polish its own abstracts... The Budget AI Researcher uses the OpenReview pages of selected papers from conferences such as the ICLR and NeurIPS stored in the Reviewer Chroma database to evaluate the ideas it generated and improve its ideas.",
+      "One of the functions of the Budget AI Researcher is to answer users’ questions about machine learning using the papers stored in the Chroma database. This feature is implemented using a RAG chain... Another function of the Budget AI Researcher is summarizing documents retrieved from the machine learning conferences. This tool directly inputs the complete research papers into the large language model using a StuffChain."
+    ]
+  },
+  "subject_area": {
+    "areas": [
+      "Applied Sciences & Engineering"
+    ],
+    "evidence": [
+      "The Budget AI Researcher is designed as a topic-guided ideation agent that generates and refines research abstracts using information retrieved from real-world machine learning papers.",
+      "By grounding its outputs in real-world research papers and recombining ideas using a topic-guided structure, the system significantly accelerates the early stages of the research process in a cost-free, accessible way."
+    ]
+  },
+  "performance_summary": {
+    "performance_summary": [
+      "The Budget AI Researcher significantly improves the concreteness, interestingness, and novelty of generated research ideas compared to standard prompting approaches and leading large language models.",
+      "Human evaluations show that the interestingness of ideas generated by the Budget AI Researcher is better than that of ideas generated by the AI Scientist, with comparable feasibility and novelty.",
+      "The Budget AI Researcher generates ideas more similar to those presented in the 2024 iterations of major machine learning conferences than leading large language models, demonstrating its ability to foresee advancements."
+    ],
+    "baselines": [
+      "GPT-4o-mini: A leading large language model with an October 2023 knowledge cutoff.",
+      "Llama 3.2 90B: A large language model with a December 2023 knowledge cutoff.",
+      "Claude Sonnet 3.5: A large language model with an April 2024 knowledge cutoff.",
+      "The AI Scientist: An automated research agent focused on peer review and idea generation using a limited set of conference papers."
+    ],
+    "benchmark_datasets": [
+      "Papers from the 2024 ECCV, NeurIPS, ICML, ICLR, and ACL conferences: Used as a 'future publication' benchmark to objectively compare the novelty and similarity of generated ideas."
+    ],
+    "evaluation_metrics": [
+      "Interestingness: Measures how engaging or intriguing the generated research ideas are, rated by humans and large language models.",
+      "Novelty: Assesses the originality of the generated ideas compared to existing literature.",
+      "Feasibility: Evaluates how practical and achievable the proposed research ideas are.",
+      "Similarity Score: Rates the similarity between generated abstracts and actual papers from 2024 conferences, on a scale from 0 to 1."
+    ],
+    "evidence": [
+      "Experiments using LLM-based metrics indicate that our method significantly improves the concreteness of generated research ideas relative to standard prompting approaches. Human evaluations further demonstrate a substantial enhancement in the perceived interestingness of the outputs.",
+      "Table 1: Performance of in Abstract-Generation Tasks (October 4, 2024-March 16, 2025)... The Budget AI Researcher, which uses Llama 3.2 11B Vision, generates comparably interesting, much more novel, and comparably feasible ideas than those generated by leading LLMs.",
+      "Table 2: Probability of Generating Similar Ideas to Those of Various 2024 ML Conferences... The Budget AI searcher... 0.60",
+      "Table 4: Human Evaluations Compared to the AI Scientist... the interestingness of ideas generated by the Budget AI Researcher is better than that of ideas generated by the AI Scientist, and the feasibility and novelty are comparable."
+    ]
+  },
+  "limitations": {
+    "limitations": [
+      {
+        "label": "Limited Corpus Scope",
+        "explanation": "The system is restricted to thousands of papers from nine conferences and their citations, which does not cover the entire breadth of available research.",
+        "evidence": "Although the Budget AI Researcher is a comprehensive research tool, it still has limitations. It is bound to a set of thousands of papers from 9 conferences and many of their citations, and while this encompasses most of the subjects in AI, it is far from what the entire Internet has to offer."
+      },
+      {
+        "label": "API Rate Limits",
+        "explanation": "API rate limits (e.g., Groq API) restrict the amount of context that can be processed, potentially leading to incomplete retrieval of experimental procedures.",
+        "evidence": "Since rate limits on the Groq API (typically 6000 tokens) can only encompass small bits and pieces of the conference papers, the LLM may not be able to retrieve all the experimental procedures required. This could lead to the experimental procedures to achieve the goals outlined in the abstracts being vague (Groq, Inc. 2024)."
+      }
+    ],
+    "evidence": [
+      "Although the Budget AI Researcher is a comprehensive research tool, it still has limitations. It is bound to a set of thousands of papers from 9 conferences and many of their citations, and while this encompasses most of the subjects in AI, it is far from what the entire Internet has to offer.",
+      "Since rate limits on the Groq API (typically 6000 tokens) can only encompass small bits and pieces of the conference papers, the LLM may not be able to retrieve all the experimental procedures required. This could lead to the experimental procedures to achieve the goals outlined in the abstracts being vague (Groq, Inc. 2024)."
+    ]
+  },
+  "future_directions": {
+    "future_directions": [
+      "Add an online search feature such as the Semantic Scholar API relevance search to strengthen the ideation process.",
+      "Employ chain-of-thought with a modified topic tree for finer-grained idea generation, breaking down each paper into task, method, and peer review.",
+      "Run large language models locally instead of using the Groq API to resolve rate limit issues."
+    ],
+    "evidence": [
+      "To resolve these limitations, we can add an online search feature such as the Semantic Scholar API relevance search to strengthen the ideation process.",
+      "To generate finer-grained ideas, we can employ chain-of-thought with a modified topic tree, where each paper in the tree would be broken down into the task, the method, and the peer review if it is available.",
+      "To resolve the limitation of rate limits, we can run the LLMs locally instead of using the Groq API."
+    ]
+  },
+  "resource_link": {
+    "answer": "https://github.com/hellojoeAoPS11235/ai-research-agent/tree/main",
+    "evidence": "Code — https://github.com/hellojoeAoPS11235/ai-research-agent/tree/main"
+  },
+  "paper_title": "The Budget AI Researcher and the Power of RAG Chains",
+  "authors": [
+    "Franklin",
+    "Tengfei"
+  ],
+  "published": "2025-06-14",
+  "link": "http://arxiv.org/abs/2506.12317"
+}

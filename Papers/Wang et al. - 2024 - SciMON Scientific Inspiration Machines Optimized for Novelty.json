@@ -1,0 +1,216 @@
+{
+  "objective": {
+    "answer": "The primary objective of the paper is to develop and evaluate a framework that enables neural language models to generate novel scientific directions grounded in literature, moving beyond traditional binary link prediction approaches. The authors aim to create models that take as input background contexts (such as problems, experimental settings, and goals) and output natural language ideas that are both relevant and novel with respect to prior literature.",
+    "evidence": "We explore and enhance the ability of neural language models to generate novel scientific directions grounded in literature. ... models use as input background contexts (e.g., problems, experimental settings, goals), and output natural language ideas grounded in literature. ... Our work represents a first step toward evaluating and developing language models that generate new ideas derived from the scientific literature."
+  },
+  "knowledge_gap": {
+    "answer": "Existing literature-based hypothesis generation methods are limited to binary link prediction between pairs of concepts, which restricts the expressivity and contextual nuance of generated scientific ideas and do not focus on optimizing novelty.",
+    "evidence": "Work on literature-based hypothesis generation has traditionally focused on binary link prediction—severely limiting the expressivity of hypotheses. This line of work also does not focus on optimizing novelty. ... A fundamental gap in this line of work is in the lack of approaches for modeling nuanced contexts (Sosa and Altman, 2022) (e.g., the specific settings in which a drug may be relevant for a disease) for generating ideas in open-ended problem settings with unbounded hypothesis spaces, and for optimizing novelty."
+  },
+  "novelty": {
+    "answer": [
+      "Introduction of a new generative, contextual setting where models generate natural language scientific ideas based on background problem contexts rather than binary concept links.",
+      "Development of the SCIMON framework, which retrieves inspirations from past literature and iteratively optimizes for novelty by comparing generated ideas to prior work and updating them.",
+      "Automated data collection methodology that extracts problem-idea pairs from scientific papers for model training.",
+      "Implementation of an in-context contrastive objective to discourage models from copying background context and encourage novelty.",
+      "Comprehensive human evaluation framework for assessing relevance, utility, novelty, and technical depth of generated ideas."
+    ],
+    "evidence": [
+      "In light of the strong progress recently made with large language models (LLMs), in this paper we explore a dramatically different setting: models that take descriptions of problem contexts—and return natural language suggestions of novel scientific directions that are grounded in literature.",
+      "We present SCIMON, a modeling framework that uses retrieval of “inspirations” from past scientific papers, and explicitly optimizes for novelty by iteratively comparing to prior papers and updating idea suggestions until sufficient novelty is achieved.",
+      "We first present an automated data collection methodology that collects examples of past problems and proposed ideas from scientific papers.",
+      "We introduce a new in-context contrastive objective, where negative examples are taken from the text in the input ... We compute an InfoNCE loss ... aiming to maximize the probability of the ground truth against those of in-context negatives.",
+      "We perform the first comprehensive evaluation of language models for generating scientific ideas in our new generative, contextual setting. ... We design extensive evaluation experiments using human annotators with domain expertise to assess relevance, utility, novelty, and technical depth."
+    ]
+  },
+  "inspirational_papers": {
+    "answer": [
+      "- Swanson (1986) Undiscovered public knowledge. (Methodological precursors: Origin of literature-based discovery and the ABC model.)",
+      "- Sybrandt et al. (2020) Agatha: automatic graph mining and transformer based hypothesis generation approach. (Experimental baselines: Prior work on link prediction for hypothesis generation.)",
+      "- Nadkarni et al. (2021) Scientific language models for biomedical knowledge base completion: an empirical study. (Papers with limitations addressed: Focused on knowledge graph link prediction, lacking nuanced context modeling.)",
+      "- Hope et al. (2023) A computational inflection for scientific discovery. (Methodological precursors: Cognitive aspects of innovation and inspiration retrieval.)"
+    ],
+    "evidence": [
+      "Nearly four decades have passed since Don Swanson pioneered Literature-Based Discovery (LBD), based on the premise that the literature can be used for generating hypotheses (Swanson, 1986). LBD has been focused on a very specific, narrow type of hypothesis: links between pairs of concepts (often drugs/diseases). The classic formalization of LBD goes back to Swanson (1986) who proposed the “ABC” model ...",
+      "More recent work has used word vectors (Tshitoyan et al., 2019) or link prediction models (Wang et al., 2019; Sybrandt et al., 2020; Xu et al., 2023) to discover scientific hypotheses as pairwise links between concepts.",
+      "A tightly related body of research focuses on scientific knowledge graph link prediction (Nadkarni et al., 2021), where predicted links may correspond to new hypotheses, and knowledge bases are reflections of existing scientific knowledge in specific domains, derived from literature. A fundamental gap in this line of work is in the lack of approaches for modeling nuanced contexts ...",
+      "We take broad inspiration from cognitive aspects of innovation (Hope et al., 2023): when researchers generate a new idea, they are grounded in a web of existing concepts and papers bearing on the new idea."
+    ]
+  },
+  "method": {
+    "steps": [
+      {
+        "step": "Automated Data Collection",
+        "input": "Titles and abstracts from 67,408 ACL Anthology papers (and PubMed for biomedical domain); scientific information extraction models.",
+        "output": "Pairs of background problem/motivation sentences and corresponding idea sentences, along with salient seed terms.",
+        "tools": [
+          "PL-Marker: Entity and relation extraction for scientific terms.",
+          "SciCo: Coreference resolution for entity normalization.",
+          "ScispaCy: Abbreviation detection and replacement.",
+          "Sentence classifier (Cohan et al., 2019): Classifies sentences into Background, Method, Objective, etc."
+        ],
+        "evidence": "We obtain training data derived from papers with scientific information extraction (IE) models—extracting past examples of background sentences and corresponding ideas (e.g., descriptions of methods used for specific problems in the background sentences), along with salient entities as seed terms."
+      },
+      {
+        "step": "Inspiration Retrieval",
+        "input": "Background context (problem/motivation, seed term); training set; constructed knowledge graph; citation network.",
+        "output": "Retrieved inspirations from three sources: semantic neighbors (similar problems/solutions), knowledge graph neighbors (related methods/tasks), and citation neighbors (cited paper titles).",
+        "tools": [
+          "SentenceBERT (all-mpnet-base-v2): Computes semantic similarity for retrieval.",
+          "Background knowledge graph: Nodes are tasks/methods/materials/metrics, edges are used-for relations.",
+          "Citation network: Paper titles and their citation links."
+        ],
+        "evidence": "As illustrated in Figure 2, for a given instance of the SCIMON task, our retrieval augmentation can retrieve from three types of sources. ... We then retrieve inputs from the training set that are semantically related to a new base input b, and obtain target sentences T corresponding to each retrieved training input."
+      },
+      {
+        "step": "Idea Generation",
+        "input": "Background context and retrieved inspirations.",
+        "output": "Generated idea sentences proposing novel scientific directions.",
+        "tools": [
+          "GPT-3.5 and GPT-4: Large language models for in-context learning.",
+          "T5: Transformer-based model for fine-tuning.",
+          "In-context contrastive objective: InfoNCE loss to discourage copying from context."
+        ],
+        "evidence": "The idea generation module is given retrieved inspirations i1, . . . , ik along with context M as input. ... We fine-tune T5 (Raffel et al., 2020) ... We introduce a new in-context contrastive objective, where negative examples are taken from the text in the input ..."
+      },
+      {
+        "step": "Iterative Novelty Boosting",
+        "input": "Initial generated idea; reference corpus of prior literature ideas.",
+        "output": "Updated idea with increased novelty, iteratively refined until it is sufficiently different from prior work.",
+        "tools": [
+          "SentenceBERT: Used to compute similarity between generated idea and reference ideas.",
+          "Iterative retrieve-compare-update scheme: Prompts the model to revise ideas based on similarity threshold."
+        ],
+        "evidence": "We further improve the novelty of generated ideas with a new iterative retrieve-compare-update scheme. ... At each time step t, we use the generated idea It as a query to retrieve k nearest ideas from the literature reference corpus R = {R1, ..., Rk} based on SentenceBERT, with the top-k highest cosine similarity scores to It (we use k = 20)."
+      },
+      {
+        "step": "Evaluation",
+        "input": "Generated ideas, human annotators with domain expertise.",
+        "output": "Human ratings on relevance, novelty, utility, and technical depth; automated metrics (ROUGE, BERTScore, BARTScore).",
+        "tools": [
+          "Human annotation interface.",
+          "ROUGE, BERTScore, BARTScore: Automated evaluation metrics."
+        ],
+        "evidence": "We design extensive evaluation experiments using human annotators with domain expertise to assess relevance, utility, novelty, and technical depth. ... Automated metrics such as ROUGE (Lin, 2004), BERTScore (Zhang* et al., 2020) and BARTScore (Yuan et al., 2021), that check the similarity between ground truth and generated output, may surface interesting findings."
+      }
+    ],
+    "tools": [
+      "PL-Marker: Entity and relation extraction for scientific terms.",
+      "SciCo: Coreference resolution for entity normalization.",
+      "ScispaCy: Abbreviation detection and replacement.",
+      "Sentence classifier (Cohan et al., 2019): Classifies sentences into Background, Method, Objective, etc.",
+      "SentenceBERT (all-mpnet-base-v2): Computes semantic similarity for retrieval.",
+      "Background knowledge graph: Nodes are tasks/methods/materials/metrics, edges are used-for relations.",
+      "Citation network: Paper titles and their citation links.",
+      "GPT-3.5 and GPT-4: Large language models for in-context learning.",
+      "T5: Transformer-based model for fine-tuning.",
+      "In-context contrastive objective: InfoNCE loss to discourage copying from context.",
+      "ROUGE, BERTScore, BARTScore: Automated evaluation metrics."
+    ],
+    "evidence": [
+      "We obtain training data derived from papers with scientific information extraction (IE) models—extracting past examples of background sentences and corresponding ideas ...",
+      "As illustrated in Figure 2, for a given instance of the SCIMON task, our retrieval augmentation can retrieve from three types of sources.",
+      "The idea generation module is given retrieved inspirations i1, . . . , ik along with context M as input.",
+      "We further improve the novelty of generated ideas with a new iterative retrieve-compare-update scheme.",
+      "We design extensive evaluation experiments using human annotators with domain expertise to assess relevance, utility, novelty, and technical depth."
+    ]
+  },
+  "subject_area": {
+    "areas": [
+      "Applied Sciences & Engineering",
+      "Health Sciences"
+    ],
+    "evidence": [
+      "We focus on AI/NLP ideas to facilitate analysis by AI researchers themselves, and also demonstrate generalization to the biomedical domain.",
+      "Our domain-agnostic framework can be applied to other domains by changing the IE system used in the preprocessing procedure. To demonstrate this, we conduct an additional initial experiment in the biochemical domain."
+    ]
+  },
+  "performance_summary": {
+    "performance_summary": [
+      "The SCIMON framework, especially GPT-4 with few-shot and knowledge graph inspirations, outperforms other models in generating relevant and helpful scientific ideas as rated by human annotators.",
+      "Iterative novelty boosting increases the novelty of generated ideas in over half of the cases where it is applied.",
+      "Despite improvements, generated ideas still fall short of the technical depth and novelty found in actual scientific papers.",
+      "In the biomedical domain, the adapted framework achieved 80% positive ratings from domain experts, sometimes surpassing ground truth in technical detail."
+    ],
+    "baselines": [
+      "GPT-3.5 zero-shot and few-shot: Large language model generating ideas without or with random in-context examples.",
+      "T5 fine-tuned: Transformer-based model trained on extracted problem-idea pairs.",
+      "GPT-4 zero-shot and few-shot: State-of-the-art language model with and without in-context examples.",
+      "T5 with semantic, knowledge graph, or citation inspirations: Variants using different retrieval augmentations."
+    ],
+    "benchmark_datasets": [
+      "67,408 ACL Anthology papers from S2ORC: Used for extracting problem-idea pairs for training, validation, and testing.",
+      "PubMed papers for biomedical domain: Used for domain generalization experiments."
+    ],
+    "evaluation_metrics": [
+      "Human annotation: Relevance, novelty, utility, and technical depth rated by domain experts.",
+      "ROUGE-L: Measures overlap between generated and reference texts.",
+      "BERTScore: Measures semantic similarity between generated and reference texts using SciBERT.",
+      "BARTScore: Evaluates generated text as text generation."
+    ],
+    "evidence": [
+      "Overall, GPT4FS and GPT4FS+KG outperform other models by a wide margin (Table 2).",
+      "For SN, in the first iteration 88.9% of updated ideas are substantially different from initial ideas, and for 55.6% we are able to increase novelty/creativity ... The 2nd iteration, further increases novelty for 57.8% of the ideas that continued to another iteration.",
+      "However, the most crucial aspect is comparing the results against the original ground truth idea on the quality of innovation. Here, we find that in 85% of comparisons, the ground truth is considered to have significantly higher technical level and novelty ...",
+      "We ask two biochemical domain experts with graduate-level education to evaluate the quality of the results as before, finding them to overall rate 80% of the generated directions positively.",
+      "We use BERTScore (Zhang* et al., 2020) with SciBERT checkpoint for both tasks. ... The automated evaluation results are in Table 9."
+    ]
+  },
+  "limitations": {
+    "limitations": [
+      {
+        "label": "Data Quality and Coverage",
+        "explanation": "The dataset is limited by the coverage and quality of crawled papers and the accuracy of information extraction models.",
+        "evidence": "The number of available papers is limited by the data we crawled from the Semantic Scholar Academic Graph. ... Our dataset is based on state-of-the-art IE systems, which may be noisy."
+      },
+      {
+        "label": "System Performance",
+        "explanation": "The models, including retrieval and generation components, are limited by hardware constraints and may not generalize to larger or more recent models.",
+        "evidence": "Due to hardware constraints, we mainly investigated models with up to 7 billion parameters. Due to API change and model randomness, our GPT3.5/4 results might not be easily reproducible."
+      },
+      {
+        "label": "Evaluation Limitations",
+        "explanation": "Human evaluation is limited to a small group of Ph.D. students and may not reflect broader expert consensus.",
+        "evidence": "We recruit annotators from Ph.D. students; their opinions may differ from annotators who have different levels of domain knowledge."
+      },
+      {
+        "label": "Potential Memorization",
+        "explanation": "There is a risk of language models memorizing training data, though steps were taken to minimize this.",
+        "evidence": "Carlini et al. (2023) reports that LLMs tend to memorize part of their training data, a well-known concern in evaluating current LLMs. ... Because we evaluate our models on papers published in 2022, the likelihood of test papers appearing in the pretraining corpora for the models is substantially reduced."
+      }
+    ],
+    "evidence": [
+      "The number of available papers is limited by the data we crawled from the Semantic Scholar Academic Graph. ... Our dataset is based on state-of-the-art IE systems, which may be noisy.",
+      "Due to hardware constraints, we mainly investigated models with up to 7 billion parameters. Due to API change and model randomness, our GPT3.5/4 results might not be easily reproducible.",
+      "We recruit annotators from Ph.D. students; their opinions may differ from annotators who have different levels of domain knowledge.",
+      "Carlini et al. (2023) reports that LLMs tend to memorize part of their training data, a well-known concern in evaluating current LLMs. ... Because we evaluate our models on papers published in 2022, the likelihood of test papers appearing in the pretraining corpora for the models is substantially reduced."
+    ]
+  },
+  "future_directions": {
+    "future_directions": [
+      "Expand SCIMON with multimodal analysis of formulas, tables, and figures to provide a more comprehensive background context.",
+      "Extend the models to papers written in other languages and other scientific domains.",
+      "Explore methods for generating ideas without a seed term and evaluate in an interactive setting with user-provided seed terms.",
+      "Investigate better retrieval models and larger language models as hardware constraints are alleviated."
+    ],
+    "evidence": [
+      "One interesting direction is to expand SCIMON with a multimodal analysis of formulas, tables, and figures to provide a more comprehensive background context.",
+      "We will expand our models to papers written in other languages and other domains in the future.",
+      "Future work could explore methods in the setting without a seed term, an even harder task, or evaluate in an interactive setting with user-provided seed terms.",
+      "The idea novelty boosting method is limited by the quality of retrieval models. Better retrieval models may be explored in the future. Due to hardware constraints, we mainly investigated models with up to 7 billion parameters."
+    ]
+  },
+  "resource_link": {
+    "answer": "https://github.com/eaglew/clbd",
+    "evidence": "Code, data, and resources are publicly available for research purposes: https://github.com/eaglew/clbd."
+  },
+  "paper_title": "SciMON: Scientific Inspiration Machines Optimized for Novelty",
+  "authors": [
+    "Qingyun",
+    "Doug",
+    "Heng",
+    "Tom"
+  ],
+  "published": "2024",
+  "link": "http://arxiv.org/abs/2305.14259"
+}

@@ -1,0 +1,229 @@
+{
+  "objective": {
+    "answer": "The primary objective of the paper is to develop and evaluate Scideator, a mixed-initiative, large language model-powered tool for scientific idea generation and novelty evaluation based on research-paper facet recombination. The authors aim to assist scientists in generating novel research ideas by extracting and recombining key facets (purpose, mechanism, evaluation) from input and analogous papers, and to help users assess the originality of these ideas relative to existing literature.",
+    "evidence": "In this work, we present Scideator, an LLM-powered tool for facet-based scientific idea generation and novelty evaluation. Scideator employs a human-AI approach (Fig 1). To begin, the user provides an ideation topic and set of input papers that they would like to use as a starting point for ideation. Scideator extracts key facets (purpose, mechanism, and evaluation) from the input papers... The tool generates analogies involving the candidate facets and produces ideas based on the most promising ones. Based on relevant retrieved literature and carefully constructed in-context examples, Scideator then provides a novelty classification and reason for proposed ideas, making it easy for scientists to verify the tool’s assessment."
+  },
+  "knowledge_gap": {
+    "answer": "Existing approaches to scientific ideation do not adequately support facet-based recombination of research concepts or provide integrated, interactive novelty evaluation, making it difficult for scientists to efficiently generate and assess novel research ideas.",
+    "evidence": "However, generating research ideas by recombining concepts from research papers is difficult for multiple reasons. For one, scientists must wade through an ever-expanding literature to find relevant concepts [6, 31]. Moreover, the phenomenon of fixation biases scientists against considering more diverse concepts and concept recombinations; instead, they are predisposed to think about a problem in familiar terms, which hinders the stimulation of novel ideas [18, 57]. Even if a scientist manages to identify interesting concept recombinations to form potential research ideas, assessing the ideas’ novelty relative to existing literature is a cumbersome yet critical task."
+  },
+  "novelty": {
+    "answer": [
+      "Introduction of Scideator, a mixed-initiative tool that enables facet-based scientific idea generation and novelty evaluation using large language models.",
+      "Development of three retrieval-augmented generation modules: Analogous Paper Facet Finder, Faceted Idea Generator, and Idea Novelty Checker.",
+      "Integration of interactive facet recombination (purpose, mechanism, evaluation) from input and analogous papers for idea synthesis.",
+      "Automated, explainable novelty assessment of generated ideas with literature-grounded rationale and suggestions for improvement.",
+      "Demonstration through a within-subjects user study that Scideator significantly increases creativity support, especially exploration, compared to a strong baseline."
+    ],
+    "evidence": [
+      "In this work, we present Scideator, an LLM-powered tool for facet-based scientific idea generation and novelty evaluation.",
+      "To support these tasks, Scideator introduces three LLM-powered retrieval-augmented generation (RAG) modules: Analogous Paper Facet Finder, Faceted Idea Generator, and Idea Novelty Checker.",
+      "Scideator extracts key facets — purposes, mechanisms, and evaluations — from these and related papers, allowing users to explore the idea space by interactively recombining facets to synthesize inventive ideas.",
+      "Based on relevant retrieved literature and carefully constructed in-context examples, Scideator then provides a novelty classification and reason for proposed ideas, making it easy for scientists to verify the tool’s assessment. Finally, the tool provides facet-based suggestions for how to improve ideas deemed not novel.",
+      "In a within-subjects user study (N=22) with computer-science researchers comparing Scideator to a strong baseline, our tool provided significantly more creativity support, particularly with respect to exploration, which participants considered the most important factor for idea generation."
+    ]
+  },
+  "inspirational_papers": {
+    "answer": [
+      "Hope et al. (2017) Accelerating innovation through analogy mining. (Methodological precursors)",
+      "Chan et al. (2018) Solvent: A mixed initiative system for finding analogies between research papers. (Methodological precursors)",
+      "Kang et al. (2022) Augmenting scientific creativity with an analogical search engine. (Methodological precursors)",
+      "Portenoy et al. (2022) Bursting scientific filter bubbles: Boosting innovation via novel author discovery. (Methodological precursors)",
+      "Liu et al. (2024) CoQuest: Supporting divergent generation of many ideas. (Experimental baseline/related tool)"
+    ],
+    "evidence": [
+      "Of particular note to scientific ideation is a line of work that describes ideas in terms of two facets: the purpose (i.e., the problem) and the mechanism (i.e., the proposed solution to the problem). Hope et al. found that this faceted idea framework helps identify useful analogies for ideation [27]. ... Subsequently, the framework has been shown to facilitate the creation of useful analogies between product ideas [27, 29], biological and design ideas [32], research papers [8, 33], and research-paper authors [55].",
+      "Prior work has demonstrated the effectiveness of using a facet-based approach to find analogies between research papers for idea inspiration [8, 33, 55].",
+      "With the rapid advancement of LLMs, recent work has explored LLM-powered scientific ideation tools [21]. For example, the tool CoQuest supports divergent generation of many ideas."
+    ]
+  },
+  "method": {
+    "steps": [
+      {
+        "step": "User provides an ideation topic and a set of input papers.",
+        "input": "Ideation topic and one or more research paper titles/abstracts.",
+        "output": "Initial set of papers for facet extraction.",
+        "tools": [
+          "Frontend: React and TypeScript",
+          "Backend: Python"
+        ],
+        "evidence": "A user enters a broad ideation topic2 and a set of one or more papers that they would like to use as a starting point."
+      },
+      {
+        "step": "Analogous Paper Facet Finder retrieves similar and analogous papers and extracts key facets.",
+        "input": "Input papers' titles and abstracts.",
+        "output": "Extracted facets (purpose, mechanism, evaluation) from input and analogous papers.",
+        "tools": [
+          "Semantic Scholar API: retrieves similar papers",
+          "LLM (gpt-4o-2024-08-06): extracts facets"
+        ],
+        "evidence": "Scideator’s Analogous Paper Facet Finder3 (Figure 3) first retrieves information for the input papers as well as four similar papers from the Semantic Scholar API [36]... Scideator then uses the input and very-near papers to create a summary of relevant works. ... Scideator’s LLM is prompted to extract the overarching purpose and mechanism of the input papers."
+      },
+      {
+        "step": "User selects or adds facets for idea generation.",
+        "input": "List of extracted facets; optional user-provided facets.",
+        "output": "Selected facets for recombination.",
+        "tools": [
+          "User interface for facet selection"
+        ],
+        "evidence": "As shown in the top half of Figure 2, the tool presents all of the extracted paper facets to the user. They can track facet provenance... Users can also type in their own facets directly."
+      },
+      {
+        "step": "Faceted Idea Generator recombines selected facets to generate new research ideas.",
+        "input": "Selected purpose, mechanism, and evaluation facets.",
+        "output": "Generated research ideas (short and expanded versions).",
+        "tools": [
+          "LLM (gpt-4o-2024-08-06, temperature 0.75): generates analogies and ideas"
+        ],
+        "evidence": "Based on the facet selection, the tool generates four ideas. Table 1 summarizes how Scideator’s Faceted Idea Generator module recombines facets for idea generation."
+      },
+      {
+        "step": "User evaluates ideas for novelty using the Idea Novelty Checker.",
+        "input": "Generated idea(s) and their facets.",
+        "output": "Novelty classification (novel/not novel), rationale, and related papers.",
+        "tools": [
+          "Semantic Scholar API: retrieves related papers and snippets",
+          "SPECTER embeddings: computes semantic similarity",
+          "RankGPT (LLM-based re-ranker): ranks papers by facet relevance",
+          "LLM (o3-mini): classifies novelty and provides rationale"
+        ],
+        "evidence": "The Idea Novelty Checker module (Figure 5) powers these interactions through four steps: 1) retrieve candidate relevant papers, 2) select most relevant papers, 3) evaluate idea novelty, and 4) suggest more novel ideas."
+      },
+      {
+        "step": "If idea is not novel, Scideator suggests more novel ideas by replacing one facet.",
+        "input": "Original idea, related papers, available facets.",
+        "output": "Three new idea suggestions, each with a different facet replaced.",
+        "tools": [
+          "LLM (gpt-4o-2024-08-06, temperature 0.75): generates suggestions"
+        ],
+        "evidence": "If the idea is classified as ‘not novel,’ the tool provides suggestions for more novel ideas, with one facet replaced."
+      }
+    ],
+    "tools": [
+      "Semantic Scholar API: retrieves similar and related papers, as well as text snippets.",
+      "LLM (gpt-4o-2024-08-06): used for facet extraction, idea generation, and suggestion generation.",
+      "LLM (o3-mini): used for novelty classification and reasoning.",
+      "SPECTER embeddings: computes semantic similarity between ideas and papers.",
+      "RankGPT: LLM-based re-ranking of papers by facet relevance.",
+      "Frontend: React and TypeScript; Backend: Python."
+    ],
+    "evidence": [
+      "The frontend of Scideator was developed using React and TypeScript, and the backend with Python. Unless noted otherwise, we used the LLM gpt-4o-2024-08-06 and a temperature of zero.",
+      "Scideator’s Analogous Paper Facet Finder3 (Figure 3) first retrieves information for the input papers as well as four similar papers from the Semantic Scholar API [36].",
+      "Scideator generates the key facets (purpose, mechanism, and evaluation) of the input papers and the 16 papers of varying distance from the input papers, based on their titles and abstracts. The LLM is prompted to write the facets as short phrases (no more than 7 words).",
+      "Scideator’s Faceted Idea Generator module recombines facets for idea generation.",
+      "The Idea Novelty Checker module (Figure 5) powers these interactions through four steps: 1) retrieve candidate relevant papers, 2) select most relevant papers, 3) evaluate idea novelty, and 4) suggest more novel ideas.",
+      "Scideator computes the semantic similarity between the idea and each paper in papers from STEP 1 using Semantic Scholar SPECTER embeddings [14]. It selects the top 𝑁most similar papers to the idea based on cosine similarity.",
+      "The second stage addresses this limitation with an LLM-based re-ranker, RankGPT [68], which goes beyond surface similarities."
+    ]
+  },
+  "subject_area": {
+    "areas": [
+      "Applied Sciences & Engineering",
+      "Social Sciences"
+    ],
+    "evidence": [
+      "We recruited 22 computer-science researchers (W: 7, M: 15) through institutional mailing lists and academic social networks.",
+      "The system is currently set up for computer science ideation topics but can be easily adjusted for other research areas.",
+      "The main objective of the paper is to develop and evaluate Scideator, a mixed-initiative, large language model-powered tool for scientific idea generation and novelty evaluation based on research-paper facet recombination."
+    ]
+  },
+  "performance_summary": {
+    "performance_summary": [
+      "Scideator provided significantly more creativity support for idea generation compared to a strong baseline, especially in terms of exploration.",
+      "Participants experienced more creativity support with Scideator (median CSI score 70.50) than with the baseline (median CSI score 61.00), with a statistically significant difference (Wilcoxon Signed-Rank Test, V=208.50, p<.01).",
+      "Scideator’s novelty checker improved agreement with human novelty ratings by more than 10x compared to a recent LLM-based approach, and approximately 13% higher agreement than another recent approach."
+    ],
+    "baselines": [
+      "Strong baseline tool: LLM-powered tool that supports combining ideas at the paper level instead of the facet level.",
+      "AI Scientist [44]: LLM-based novelty checker baseline.",
+      "AI Researcher [61]: Another recent LLM-based novelty checker baseline."
+    ],
+    "benchmark_datasets": [
+      "Expert-annotated dataset: 67 consensus-labeled examples of novelty classification (39 labeled as novel and 28 as non-novel), split into training and test sets (35 for training and 32 for testing)."
+    ],
+    "evaluation_metrics": [
+      "Creativity Support Index (CSI): Measures creativity support across factors such as exploration, expressiveness, enjoyment, immersion, and results-worth-effort.",
+      "Accuracy: Agreement of novelty checker with expert-labeled examples.",
+      "Precision, Recall, F1, Cohen Kappa: Used to evaluate novelty classification performance."
+    ],
+    "evidence": [
+      "In a within-subjects user study (N=22) with computer-science researchers comparing Scideator to a strong baseline, our tool provided significantly more creativity support, particularly with respect to exploration, which participants considered the most important factor for idea generation.",
+      "As shown in Figure 7a, participants experienced significantly more creativity support with Scideator (M=70.50, Q1=57.50, Q3=79.00) compared to the baseline (M=61.00, Q1=42.25, Q3=71.50) (Wilcoxon Signed-Rank Test, V=208.50, p<.01)",
+      "In an additional automated evaluation of our idea novelty checker, we compare our approach to recent automatic novelty evaluation methods ([44, 61]). For the same collection of papers relevant to an idea, the module improves agreement with human novelty ratings by more than 10x compared to a recent approach for LLM-based novelty ratings [44], and leads to approximately 13% higher agreement than another recent approach [61].",
+      "From our annotation studies for novelty assessment (Section 4.1), we collected 67 consensus-labeled examples of novelty classification (39 labeled as novel and 28 as non-novel) as our dataset.",
+      "Table 5: Experimental results on expert-annotated dataset comparing Scideator’s novelty checker to various baselines. Unless otherwise noted, GPT-4o was used to obtain these results."
+    ]
+  },
+  "limitations": {
+    "limitations": [
+      {
+        "label": "Domain Specificity",
+        "explanation": "The system was set up for computer science research ideas and all participants had some experience with large language models, which may limit generalizability to other domains.",
+        "evidence": "First, the system was set up for computer science research ideas, and all participants had some experience with LLMs. Future work may investigate how scientists in other research areas with different LLM-familiarity might work with a tool like Scideator."
+      },
+      {
+        "label": "Limited Analogy Scope",
+        "explanation": "Scideator currently looks for analogies of varying distance within a broad research area (i.e., computer science), but not across research areas.",
+        "evidence": "Second, Scideator currently looks for analogies of varying distance within a broad research area (i.e., computer science), but future work could explore extending to analogies across research areas."
+      },
+      {
+        "label": "Sample Size",
+        "explanation": "There were only 22 participants in the user study, which may affect the robustness of the findings.",
+        "evidence": "Third, there were only 22 participants. Given the small sample size, future work may validate the results observed here with larger samples."
+      },
+      {
+        "label": "Short Interaction Time",
+        "explanation": "Participants had limited time to interact with the tools, which may not be enough to master a system with multiple steps like Scideator.",
+        "evidence": "Fourth, participants had limited time to interact with the tools– not enough to master a system with multiple steps like Scideator˙Future studies may explore how scientists utilize a tool like Scideator over a longer period of time."
+      },
+      {
+        "label": "Limited Input and Output Scope",
+        "explanation": "The system only extracted papers’ titles and abstracts and only utilized 10 relevant papers from Semantic Scholar’s database to assess the novelty of an idea.",
+        "evidence": "Sixth, due to latency constraints, the system only extracted papers’ titles and abstracts and only utilized 10 relevant papers from Semantic Scholar’s database to assess the novelty of an idea."
+      },
+      {
+        "label": "Controlled Study Design",
+        "explanation": "To keep the study controlled, participants were assigned ideation topics and only three input papers, which may not reflect real-world usage.",
+        "evidence": "Seventh, to keep the study relatively simple, we provided three papers to the tools as input. Future work may evaluate how the interaction changes with more input papers. Eighth, to keep the study controlled, we assigned ideation topics to participants rather than letting them select their own."
+      }
+    ],
+    "evidence": [
+      "First, the system was set up for computer science research ideas, and all participants had some experience with LLMs. Future work may investigate how scientists in other research areas with different LLM-familiarity might work with a tool like Scideator.",
+      "Second, Scideator currently looks for analogies of varying distance within a broad research area (i.e., computer science), but future work could explore extending to analogies across research areas.",
+      "Third, there were only 22 participants. Given the small sample size, future work may validate the results observed here with larger samples.",
+      "Fourth, participants had limited time to interact with the tools– not enough to master a system with multiple steps like Scideator˙Future studies may explore how scientists utilize a tool like Scideator over a longer period of time.",
+      "Sixth, due to latency constraints, the system only extracted papers’ titles and abstracts and only utilized 10 relevant papers from Semantic Scholar’s database to assess the novelty of an idea.",
+      "Seventh, to keep the study relatively simple, we provided three papers to the tools as input. Future work may evaluate how the interaction changes with more input papers. Eighth, to keep the study controlled, we assigned ideation topics to participants rather than letting them select their own."
+    ]
+  },
+  "future_directions": {
+    "future_directions": [
+      "Investigate how scientists in other research areas with different large language model familiarity might work with a tool like Scideator.",
+      "Explore extending Scideator to analogies across research areas, not just within computer science.",
+      "Validate the results observed here with larger samples.",
+      "Examine how scientists utilize a tool like Scideator over a longer period of time."
+    ],
+    "evidence": [
+      "First, the system was set up for computer science research ideas, and all participants had some experience with LLMs. Future work may investigate how scientists in other research areas with different LLM-familiarity might work with a tool like Scideator.",
+      "Second, Scideator currently looks for analogies of varying distance within a broad research area (i.e., computer science), but future work could explore extending to analogies across research areas.",
+      "Third, there were only 22 participants. Given the small sample size, future work may validate the results observed here with larger samples.",
+      "Fourth, participants had limited time to interact with the tools– not enough to master a system with multiple steps like Scideator˙Future studies may explore how scientists utilize a tool like Scideator over a longer period of time."
+    ]
+  },
+  "resource_link": {
+    "answer": "",
+    "evidence": "No code repository, project website, or data repository link is provided in the paper."
+  },
+  "paper_title": "Scideator: Human-LLM Scientific Idea Generation Grounded in Research-Paper Facet Recombination",
+  "authors": [
+    "Marissa",
+    "Simra",
+    "Raymond",
+    "Pao",
+    "Tom",
+    "Daniel S."
+  ],
+  "published": "2025-04-29",
+  "link": "http://arxiv.org/abs/2409.14634"
+}

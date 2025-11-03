@@ -1,0 +1,169 @@
+{
+  "objective": {
+    "answer": "The primary objective of the paper is to introduce SciPIP, a novel framework that enhances large language model-based scientific idea proposal by improving both literature retrieval and idea generation. The authors aim to address the shortcomings of existing approaches that rely on keyword-based retrieval and limited use of full-text insights. SciPIP is designed to generate more innovative, feasible, and valuable scientific ideas by leveraging a comprehensive literature database and a dual-path idea generation process.",
+    "evidence": "To address these limitations, we introduce SciPIP, an innovative framework designed to enhance the LLM-based proposal of scientific ideas through improvements in both literature retrieval and idea generation. ... Our experiments, conducted across various domains such as natural language processing and computer vision, demonstrate SciPIP’s capability to generate a multitude of innovative and useful ideas."
+  },
+  "knowledge_gap": {
+    "answer": "Existing scientific idea generation approaches are limited by their reliance on keyword-based literature retrieval, which neglects semantic information and often results in incomplete retrieval, and by depending solely on the internal knowledge of large language models or paper metadata, thus overlooking valuable insights from full texts.",
+    "evidence": "However, existing approaches often fall short due to their reliance on keyword-based search tools during the retrieval phase, which neglects crucial semantic information and frequently results in incomplete retrieval outcomes. Similarly, in the idea generation phase, current methodologies tend to depend solely on the internal knowledge of LLMs or metadata from retrieved papers, thereby overlooking significant valuable insights contained within the full texts."
+  },
+  "novelty": {
+    "answer": [
+      "Construction of a comprehensive literature database for artificial intelligence papers, with structured extraction and embedding of key information for precise retrieval.",
+      "Introduction of a multi-granularity literature retrieval algorithm that integrates keyword, semantic, and citation co-occurrence information.",
+      "Development of a dual-path idea generation framework that explicitly combines insights from both retrieved literature and the internal knowledge of large language models.",
+      "Implementation of a clustering method to reduce redundancy and enhance diversity in retrieved literature."
+    ],
+    "evidence": [
+      "We construct a literature database for AI papers, with their key information and embeddings extracted, which can benefit the community for future research.",
+      "Based on the literature database, we introduce a multi-granularity literature retrieval algorithm.",
+      "We present an LLM-based dual-path idea generation framework, improving the proposed research ideas in terms of the novelty, clarity, feasibility, etc.",
+      "To mitigate redundancy in the retrieval results, we apply a clustering method to group papers with similar ideas, ensuring that the final retrieval results are free from highly similar references."
+    ]
+  },
+  "inspirational_papers": {
+    "answer": [
+      "Lu et al. (2024) AI Scientist: Relied on keyword-based search engines for literature retrieval, which SciPIP improves upon. (Methodological precursors)",
+      "Su et al. (2024): Employed a vector search database for semantic retrieval, which inspired the semantic component of SciPIP's retrieval. (Methodological precursors)",
+      "Baek et al. (2024) ResearchAgent: Utilized citation lists for reference selection, influencing SciPIP's citation-based retrieval. (Methodological precursors)",
+      "Xu et al. (2023): Explored concept co-occurrence for academic idea generation, which relates to SciPIP's co-occurrence-based retrieval. (Methodological precursors)"
+    ],
+    "evidence": [
+      "For instance, AI Scientist (Lu et al., 2024) relies on keyword-based search engines such as Semantic Scholar for literature retrieval, which fail to leverage the semantic information of the documents.",
+      "In contrast, (Su et al., 2024) employs a FAISS (Johnson et al., 2019) vector search database, where each vector is encoded from full titles, abstracts, and other metadata.",
+      "Some approaches such as (Baek et al., 2024) also utilize the citation lists of papers to select relevant references.",
+      "Xu et al., 2023; ... have explored how to generate research ideas using large language models. ... Xu et al., 2023; ... concept co-occurrence."
+    ]
+  },
+  "method": {
+    "steps": [
+      {
+        "step": "Literature Database Construction",
+        "input": "Approximately 78,000 papers from top-tier artificial intelligence conferences; extracted sections (title, abstract, introduction, methods, references)",
+        "output": "Structured quintuples for each paper (keywords, backgrounds, ideas, concise methods, references); embeddings for backgrounds and ideas; paper-keyword graph",
+        "tools": [
+          "PDF Parser: Extracts sections from paper PDFs.",
+          "Large Language Model (e.g., GPT-4o): Summarizes paper sections into structured information using prompt engineering.",
+          "Text-matching Embedding Model (e.g., jina-embedding-v3): Encodes backgrounds and ideas into embeddings for retrieval."
+        ],
+        "evidence": "A PDF parser is then employed to extract titles, abstracts, introductions, methods, and references. ... we use these sections as input and design a prompt template. By leveraging prompt engineering, we extract the background and ideas information effectively. ... we encode the extracted background and ideas into embeddings using a text-matching embedding model and construct the retrieval index."
+      },
+      {
+        "step": "Multi-granularity Literature Retrieval",
+        "input": "User's query (research background or problem statement)",
+        "output": "Set of relevant papers retrieved using semantics, keywords, and citation co-occurrence; clustered to reduce redundancy",
+        "tools": [
+          "Embedding Model: Encodes user query and paper backgrounds for semantic similarity search.",
+          "Prompt Engineering with Large Language Model: Extracts keywords from queries and papers.",
+          "Graph-based Traversal: Utilizes paper-keyword graph for efficient keyword and co-occurrence retrieval.",
+          "Clustering Algorithm: Groups similar papers to ensure diversity."
+        ],
+        "evidence": "Based on our constructed database, we present a multi-granularity literature retrieval framework that integrates three dimensions: keywords, semantics, and citation relationships. ... we apply a clustering method to group papers with similar ideas, ensuring that the final retrieval results are free from highly similar references."
+      },
+      {
+        "step": "Dual-path Idea Generation",
+        "input": "User's query; retrieved literature (summarized backgrounds, ideas, concise methods); internal knowledge of large language model",
+        "output": "Set of innovative, feasible, and detailed scientific ideas",
+        "tools": [
+          "Large Language Model: Generates ideas via two paths—brainstorming (internal knowledge) and retrieval-based (using literature).",
+          "Prompt Engineering: Structures user queries, extracts inspirations, and guides idea synthesis and expansion."
+        ],
+        "evidence": "Inspired by these cognitive processes, we propose a dual-path framework for LLM-based idea generation that emulates the reasoning patterns of researchers, as illustrated in Figure 3. ... The first path utilizes the literature retrieved ... The second path generates ideas without referencing external literature, relying entirely on the LLM’s internal knowledge. Finally, the ideas generated by both paths are integrated and refined."
+      }
+    ],
+    "tools": [
+      "PDF Parser: Extracts structured sections from research papers.",
+      "Large Language Model (e.g., GPT-4o): Summarizes, extracts entities, and generates ideas using prompt engineering.",
+      "Text-matching Embedding Model (e.g., jina-embedding-v3): Encodes text for semantic retrieval.",
+      "Graph-based Retrieval: Utilizes paper-keyword graph for efficient keyword and co-occurrence-based retrieval.",
+      "Clustering Algorithm: Reduces redundancy in retrieved literature."
+    ],
+    "evidence": [
+      "A PDF parser is then employed to extract titles, abstracts, introductions, methods, and references.",
+      "By leveraging prompt engineering, we extract the background and ideas information effectively.",
+      "we encode the extracted background and ideas into embeddings using a text-matching embedding model and construct the retrieval index",
+      "we present a multi-granularity literature retrieval framework that integrates three dimensions: keywords, semantics, and citation relationships.",
+      "we apply a clustering method to group papers with similar ideas, ensuring that the final retrieval results are free from highly similar references.",
+      "we propose a dual-path framework for LLM-based idea generation that emulates the reasoning patterns of researchers"
+    ]
+  },
+  "subject_area": {
+    "areas": [
+      "Applied Sciences & Engineering"
+    ],
+    "evidence": [
+      "We curate a comprehensive dataset comprising 78,571 papers from nine prominent conferences in machine learning, natural language processing, and computer vision (ICML, NeurIPS, ICLR, ACL, EMNLP, NAACL, CVPR, ICCV, and ECCV) published over the past decade."
+    ]
+  },
+  "performance_summary": {
+    "performance_summary": [
+      "SciPIP significantly outperforms existing idea generation approaches (including GPT-4o and AI Scientist) in both computer vision and natural language processing domains in terms of novelty, feasibility, clarity, and relevance.",
+      "SciPIP achieves higher percentages of ideas rated ≥4 for novelty, clarity, feasibility, and helpfulness compared to baselines.",
+      "In pairwise win-rate comparisons, SciPIP is rated as more novel, feasible, and helpful than AI Scientist by human evaluators."
+    ],
+    "baselines": [
+      "GPT-4o: Large language model generating ideas directly from user queries using prompt engineering.",
+      "AI Scientist: Framework that generates ideas using existing papers and codebases, relying on keyword-based retrieval."
+    ],
+    "benchmark_datasets": [
+      "Test Data Construction: 34 papers from ACL 2024 and 25 papers from CVPR 2024 were randomly selected; their research backgrounds were used as test cases."
+    ],
+    "evaluation_metrics": [
+      "Novelty: Measures how new or original the proposed idea is (rated 0–5).",
+      "Clarity: Assesses how clearly the idea is explained (rated 0–5).",
+      "Feasibility: Evaluates whether the idea is likely to work in practice (rated 0–5).",
+      "Relevance: Checks if the idea is relevant to the research background (rated 0–5).",
+      "Helpfulness: Binary metric indicating if the idea is helpful to researchers."
+    ],
+    "evidence": [
+      "Results show that SciPIP significantly outperforms existing idea generation approaches in both CV and NLP domains in terms of novelty, feasibility, clarity, relevance, etc.",
+      "The evaluation of proposed ideas is conducted by a panel of 12 human researchers. ... They are tasked with assessing each proposed idea across five dimensions: novelty, clarity, feasibility, relevance, and helpfulness, as detailed in Table 1.",
+      "All generated ideas were evaluated by invited researchers, and we calculated the percentage of ideas that received favorable ratings (≥4) from the evaluators. The results are presented in Table 2. As demonstrated, all three versions of SciPIP outperform GPT-4o and AI Scientist.",
+      "We conducted a comparative analysis of the win rates between SciPIP and AI Scientist. ... The results demonstrate that SciPIP consistently outperforms AI Scientist across all evaluation metrics. Notably, human researchers rated 80% of the ideas generated by SciPIP as more novel compared to those produced by AI Scientist."
+    ]
+  },
+  "limitations": {
+    "limitations": [
+      {
+        "label": "Subjective Feasibility Evaluation",
+        "explanation": "The feasibility of the generated ideas was evaluated subjectively by human experts, which may introduce bias.",
+        "evidence": "However, despite these promising results, the study has certain limitations. Specifically, the feasibility of the generated ideas was evaluated subjectively based on humans."
+      },
+      {
+        "label": "Limited Domain Scope",
+        "explanation": "The study focuses only on natural language processing and computer vision, limiting its generalizability to other fields.",
+        "evidence": "Moreover, this study focuses on two specific fields including NLP and CV, and we intend to extend SciPIP to other fields and disciplines to assess and demonstrate its broader applicability and generalizability."
+      }
+    ],
+    "evidence": [
+      "However, despite these promising results, the study has certain limitations. Specifically, the feasibility of the generated ideas was evaluated subjectively based on humans. Moreover, this study focuses on two specific fields including NLP and CV, and we intend to extend SciPIP to other fields and disciplines to assess and demonstrate its broader applicability and generalizability."
+    ]
+  },
+  "future_directions": {
+    "future_directions": [
+      "Extend SciPIP to other fields and disciplines to assess and demonstrate its broader applicability and generalizability."
+    ],
+    "evidence": [
+      "Moreover, this study focuses on two specific fields including NLP and CV, and we intend to extend SciPIP to other fields and disciplines to assess and demonstrate its broader applicability and generalizability."
+    ]
+  },
+  "resource_link": {
+    "answer": "",
+    "evidence": "No code repository, project website, or data repository link is provided in the paper."
+  },
+  "paper_title": "SciPIP: An LLM-based Scientific Paper Idea Proposer",
+  "authors": [
+    "Wenxiao",
+    "Lihui",
+    "Liye",
+    "Yunxiang",
+    "Yi",
+    "Chen",
+    "Liang",
+    "Binbin",
+    "Xiaofei",
+    "Jieping"
+  ],
+  "published": "2025-02-17",
+  "link": "http://arxiv.org/abs/2410.23166"
+}

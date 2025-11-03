@@ -1,0 +1,215 @@
+{
+  "objective": {
+    "answer": "The primary objective of the paper is to investigate the use of the Mamba state space model for scientific hypothesis generation, specifically within the SciMON framework. The authors aim to compare Mamba's performance to transformer-based models of similar sizes on complex hypothesis generation tasks. They also seek to assess Mamba's capabilities in handling long-context tasks and its potential as a baseline for scientific hypothesis generation.",
+    "evidence": "In this work, we investigate the use of Mamba for scientific hypothesis generation. Our preliminary findings indicate that Mamba achieves similar performance w.r.t. transformer-based models of similar sizes for a higher-order complex task like hypothesis generation."
+  },
+  "knowledge_gap": {
+    "answer": "Existing large language models, particularly transformer-based models, face limitations in scientific hypothesis generation due to their high parameter requirements for long sequences and challenges in generating outputs that match the depth and utility of real scientific papers.",
+    "evidence": "However, these models often require a significant number of parameters to manage long sequences, which can be a limitation. ... SciMON still faces limitations in generating outputs that match the depth and utility of real scientific papers."
+  },
+  "novelty": {
+    "answer": [
+      "Integration of the Mamba state space model into the SciMON scientific hypothesis generation framework.",
+      "Comprehensive empirical comparison between Mamba and transformer-based models for scientific hypothesis generation tasks.",
+      "Evaluation of Mamba's performance on both general in-context learning benchmarks and long-context tasks relevant to scientific reasoning.",
+      "Provision of reproducible experimental setup, including datasets, benchmark versions, and implementation scripts."
+    ],
+    "evidence": [
+      "To address these challenges, we have integrated a new LLM architecture called Mamba (Gu and Dao, 2023) into SciMON’s generation module.",
+      "Our work provides a comprehensive comparison of Mamba and Transformer-based models in scientific hypothesis generation tasks.",
+      "We evaluate Mamba’s performance on general in-context learning benchmarks and long-context tasks, assess its capabilities in downstream hypothesis generation, and investigate its potential as a baseline model for scientific hypothesis generation.",
+      "Throughout our study, we ensure reproducibility by providing detailed experimental setup information, including datasets, benchmark versions, and implementation scripts."
+    ]
+  },
+  "inspirational_papers": {
+    "answer": [
+      "Wang et al. (2024) SciMON: Scientific Inspiration Machines Optimized for Novelty. (Methodological precursor and experimental baseline)",
+      "Gu and Dao (2023) Mamba: Linear-time sequence modeling with selective state spaces. (Methodological precursor)",
+      "Zhou et al. (2024) HypoGeniC: Hypothesis generation with large language models. (Papers with limitations addressed)",
+      "O’Brien et al. (2024) FieldSHIFT: Machine learning for hypothesis generation in biology and medicine. (Methodological precursor)",
+      "Ciucă et al. (2023) Adversarial prompting for robust hypothesis generation in astronomy. (Experimental baseline)"
+    ],
+    "evidence": [
+      "Scientific Inspiration Machines Optimized for Novelty (SciMON) (Wang et al., 2024) represents a leading approach in LLM-based scientific hypothesis generation.",
+      "Mamba, based on selective state space models, combines the strengths of Transformer and recurrent architectures. ... (Gu and Dao, 2023)",
+      "HypoGeniC (Zhou et al., 2024) employed a multi-armed bandit-inspired reward function to iteratively improve hypotheses, outperforming few-shot prompting across multiple tasks.",
+      "The FieldSHIFT framework (O’Brien et al., 2024), for instance, utilized GPT-4 to translate concepts between neuroscience and developmental biology, successfully generating novel hypotheses and demonstrating potential for identifying symmetries across scientific domains.",
+      "In astronomy, (Ciuc˘a et al., 2023) applied adversarial prompting using multiple GPT-4 instances to generate, critique, and refine hypotheses, significantly improving their quality."
+    ]
+  },
+  "method": {
+    "steps": [
+      {
+        "step": "Data Preparation and Extraction",
+        "input": "ACL Anthology papers from S2ORC, filtered for English and available abstracts, divided into training (pre-2021), validation (2021), and test (2022) sets.",
+        "output": "Background and target sentences, seed and target terms, high-confidence instances for hypothesis generation.",
+        "tools": [
+          "PL-Marker: Extracts entities and their relationships from scientific text.",
+          "SciCo: Performs coreference resolution for entity normalization.",
+          "Scispacy: Expands abbreviations to full forms.",
+          "Sentence classification model (Cohan et al., 2019): Categorizes abstract sentences into Background, Method, Objective, Other, and Result."
+        ],
+        "evidence": "The papers are processed using several information extraction (IE) and natural language processing tools: 1. PL-Marker (Ye et al., 2022)... 2. SciCo (Cattan et al., 2021)... 3. Scispacy (Neumann et al., 2019)... 4. A sentence classification model by Cohan et al. (2019)..."
+      },
+      {
+        "step": "Inspiration Retrieval",
+        "input": "Seed term and background context from processed papers.",
+        "output": "Relevant inspirations from semantic neighbors, knowledge graph neighbors, and citation neighbors.",
+        "tools": [
+          "Semantic Neighbors: Finds similar problems and ideas in the training set based on sentence embeddings.",
+          "Knowledge Graph neighbors: Retrieves related concepts from a background knowledge graph built from the text dataset.",
+          "Citation Neighbors: Identifies relevant paper titles from the citation network of the input paper."
+        ],
+        "evidence": "At the core of SciMON is its inspiration retrieval module, which retrieves relevant inspirations from three external sources: 1. Semantic Neighbors... 2. Knowledge Graph (KG) neighbors... 3. Citation Neighbors..."
+      },
+      {
+        "step": "Hypothesis Generation",
+        "input": "Seed term, background context, and retrieved inspirations.",
+        "output": "Generated scientific hypothesis (target sentence).",
+        "tools": [
+          "Mamba: State space model for sequence modeling, used as the main generation model.",
+          "T5: Transformer-based language model used as a baseline.",
+          "GPT-4: Large language model used for few-shot in-context learning baseline."
+        ],
+        "evidence": "SciMON’s generation module utilizes either fine-tuned T5 language models or in-context learning with GPT-3.5 or GPT-4 LLMs. ... we have integrated a new LLM architecture called Mamba (Gu and Dao, 2023) into SciMON’s generation module."
+      },
+      {
+        "step": "Iterative Novelty Boosting",
+        "input": "Initial generated idea and reference corpus/training dataset.",
+        "output": "Updated idea with improved novelty, repeated until sufficient novelty is achieved.",
+        "tools": [
+          "Similarity thresholding: Compares generated ideas to existing ones and instructs the model to update if too similar."
+        ],
+        "evidence": "The next phase in the pipeline is Iterative Novelty Boosting. ... If the generated ideas are too similar to existing ones, the model is instructed to update the idea to improve its novelty. This process is repeated until a sufficient degree of novelty is achieved."
+      },
+      {
+        "step": "Evaluation",
+        "input": "Generated hypotheses and gold standard test set.",
+        "output": "Performance metrics (automatic, LLM-as-judge, human evaluation).",
+        "tools": [
+          "ROUGE: Measures overlap between generated and reference text.",
+          "BERTScore: Measures semantic similarity using SciBERT.",
+          "Claude-3.5: Used as an LLM-as-judge for qualitative evaluation.",
+          "Human experts: Provide manual evaluation based on structured criteria."
+        ],
+        "evidence": "To evaluate the effectiveness of SciMON, both automated metrics such as ROUGE and BERTScore were employed, as well as extensive human evaluation. ... we incorporate an LLM evaluation to assess the quality of the generated scientific hypotheses. Specifically, we employ Claude-3.5..."
+      }
+    ],
+    "tools": [
+      "PL-Marker: Entity and relation extraction from scientific text.",
+      "SciCo: Coreference resolution for entity normalization.",
+      "Scispacy: Abbreviation expansion.",
+      "Sentence classification model: Abstract sentence categorization.",
+      "Semantic Neighbors: Sentence embedding-based retrieval.",
+      "Knowledge Graph neighbors: Concept retrieval from knowledge graph.",
+      "Citation Neighbors: Citation network-based retrieval.",
+      "Mamba: State space model for efficient long-sequence modeling.",
+      "T5: Transformer-based language model.",
+      "GPT-4: Large language model for few-shot learning.",
+      "Similarity thresholding: Novelty comparison and boosting.",
+      "ROUGE: Text overlap metric.",
+      "BERTScore: Semantic similarity metric.",
+      "Claude-3.5: LLM-based qualitative evaluation.",
+      "Human experts: Manual evaluation."
+    ],
+    "evidence": [
+      "The papers are processed using several information extraction (IE) and natural language processing tools...",
+      "At the core of SciMON is its inspiration retrieval module, which retrieves relevant inspirations from three external sources...",
+      "SciMON’s generation module utilizes either fine-tuned T5 language models or in-context learning with GPT-3.5 or GPT-4 LLMs. ... we have integrated a new LLM architecture called Mamba (Gu and Dao, 2023) into SciMON’s generation module.",
+      "The next phase in the pipeline is Iterative Novelty Boosting. ... If the generated ideas are too similar to existing ones, the model is instructed to update the idea to improve its novelty. This process is repeated until a sufficient degree of novelty is achieved.",
+      "To evaluate the effectiveness of SciMON, both automated metrics such as ROUGE and BERTScore were employed, as well as extensive human evaluation."
+    ]
+  },
+  "subject_area": {
+    "areas": [
+      "Applied Sciences & Engineering"
+    ],
+    "evidence": [
+      "The system begins by extracting problems, motivations, and proposed ideas from scientific papers accessed through the ACL Anthology1. The dataset is derived from the Semantic Scholar Open Research Corpus (S2ORC) (Lo et al., 2020), comprising 67,408 ACL Anthology papers published between 1952 and 2022."
+    ]
+  },
+  "performance_summary": {
+    "performance_summary": [
+      "Mamba models perform comparably to T5 models of similar sizes on scientific hypothesis generation tasks, with Mamba-790M achieving the highest scores in automatic evaluations.",
+      "GPT-4 outperforms both Mamba and T5 in human and LLM-based evaluations, particularly in generating relevant, novel, and scientifically valid hypotheses.",
+      "Mamba demonstrates strength in processing longer input sequences, suggesting potential for complex scientific reasoning tasks, but shows instability with smaller inputs."
+    ],
+    "baselines": [
+      "T5: Transformer-based language model, fine-tuned for hypothesis generation.",
+      "GPT-4: Large language model used in few-shot in-context learning settings."
+    ],
+    "benchmark_datasets": [
+      "SciMON dataset: Derived from ACL Anthology papers in S2ORC, containing background and target sentences for hypothesis generation, split into training (pre-2021), validation (2021), and test (2022) sets.",
+      "ContractNLI: Document-level natural language inference for contracts.",
+      "QuALITY: Question answering with long input texts.",
+      "NarrativeQA: Reading comprehension challenge with long narrative texts."
+    ],
+    "evaluation_metrics": [
+      "ROUGE-L: Measures the longest common subsequence overlap between generated and reference text.",
+      "BERTScore: Measures semantic similarity between generated and reference text using SciBERT as encoder.",
+      "Accuracy: Used for classification tasks in ContractNLI and QuALITY.",
+      "F1 Score: Used for NarrativeQA to evaluate answer generation.",
+      "Human evaluation: Experts rate hypotheses on relevance, novelty, scientific validity, and clarity.",
+      "LLM-as-judge (Claude-3.5): Automated qualitative evaluation using structured prompts."
+    ],
+    "evidence": [
+      "Our findings indicate that both fine-tuned T5 and Mamba models show improved performance with increased model size, as evidenced by higher ROUGE-L (Lin, 2004) and BERTScore (Zhang et al., 2019) metrics in Table 1. Generally, Mamba models perform on par with T5 models of similar sizes, with the Mamba-790M model achieving the highest overall scores for three evaluations.",
+      "GPT-4 achieves the highest scores in both evaluations, with an accuracy of 76% in the Claude-3.5 evaluation and 68% in the human evaluation.",
+      "Mamba models perform significantly better with larger input lengths, as evidenced by Mamba-790M attaining the highest F1 score of 13.81 on scrolls_narrativeqa.",
+      "We select T5 (Raffel et al., 2019) and GPT-4 as our baseline models to compare with Mamba.",
+      "The dataset is derived from the Semantic Scholar Open Research Corpus (S2ORC) (Lo et al., 2020), comprising 67,408 ACL Anthology papers published between 1952 and 2022.",
+      "We selected three datasets, ranging from 102 to 106 words per input, to test the model’s ability in question answering and natural language inference, which are the basic ability for a scientific hypothesis generation model: ContractNLI (102 to 103.5) (Koreeda and Manning, 2021), QuALITY (103.3 to 103.7) (Pang et al., 2021), and Narrative (103.5 to 106) (Kociský et al., 2017).",
+      "To evaluate the effectiveness of SciMON, both automated metrics such as ROUGE and BERTScore were employed, as well as extensive human evaluation.",
+      "Specifically, we employ Claude-3.5 instead of the more mainstream GPT-4 to mitigate potential self-enhancement bias..."
+    ]
+  },
+  "limitations": {
+    "limitations": [
+      {
+        "label": "Limited Generalizability",
+        "explanation": "The dataset is exclusively composed of ACL Anthology papers, which may limit applicability to other scientific domains.",
+        "evidence": "One key limitation is the data scope, as SciMON’s dataset is exclusively composed of ACL Anthology papers from S2ORC. This specialized focus may limit the applicability of our results to other scientific domains, particularly those that rely on multimodal data such as visual representations in biology or chemical structures in materials science."
+      },
+      {
+        "label": "Restricted Model Comparison",
+        "explanation": "Comparative analysis was limited to models with constrained parameter sizes, possibly missing insights from larger models.",
+        "evidence": "Our comparative model analysis was restricted to an empirical comparison between Mamba and Transformer-based models under constrained parameter sizes. Future work could benefit from more extensive comparisons involving larger parameter settings, which may reveal additional insights into the relative performance of these models in hypothesis generation tasks."
+      },
+      {
+        "label": "Instability with Small Inputs",
+        "explanation": "Mamba exhibits instability on tasks with smaller input sizes, with non-converging training loss for large models.",
+        "evidence": "However, Mamba models exhibit instability on tasks with smaller inputs, as shown by the non-converging training loss when scaling to large-sized models. Similar instability has been observed in Mamba’s performance on the ImageNet dataset (Xu et al., 2024a), but the underlying cause remains unclear."
+      }
+    ],
+    "evidence": [
+      "One key limitation is the data scope, as SciMON’s dataset is exclusively composed of ACL Anthology papers from S2ORC. This specialized focus may limit the applicability of our results to other scientific domains, particularly those that rely on multimodal data such as visual representations in biology or chemical structures in materials science.",
+      "Our comparative model analysis was restricted to an empirical comparison between Mamba and Transformer-based models under constrained parameter sizes. Future work could benefit from more extensive comparisons involving larger parameter settings, which may reveal additional insights into the relative performance of these models in hypothesis generation tasks.",
+      "However, Mamba models exhibit instability on tasks with smaller inputs, as shown by the non-converging training loss when scaling to large-sized models. Similar instability has been observed in Mamba’s performance on the ImageNet dataset (Xu et al., 2024a), but the underlying cause remains unclear."
+    ]
+  },
+  "future_directions": {
+    "future_directions": [
+      "Expand the dataset to include diverse scientific domains beyond the ACL Anthology.",
+      "Investigate larger parameter settings and emerging state space models such as Jamba, Samba, and TTT.",
+      "Develop specialized benchmarks for long-sequence processing.",
+      "Address Mamba’s instability with smaller inputs."
+    ],
+    "evidence": [
+      "Future research should focus on expanding the dataset to diverse scientific domains, investigating larger parameter settings and emerging state space models, developing specialized benchmarks for long-sequence processing, and addressing Mamba’s instability with smaller inputs.",
+      "Recent innovations such as Jamba (Lieber et al., 2024), Samba (Ren et al., 2024), and TTT (Sun et al., 2024) were not included in our analysis but represent promising avenues for future research. Investigating these emerging models could potentially uncover novel approaches to improve the efficiency and effectiveness of scientific hypothesis generation."
+    ]
+  },
+  "resource_link": {
+    "answer": "https://github.com/fglx-c/Exploring-Scientific-Hypothesis-Generation-with-Mamba",
+    "evidence": "We have made our code available here: https://github.com/fglx-c/Exploring-Scientific-Hypothesis-Generation-with-Mamba"
+  },
+  "paper_title": "Exploring Scientific Hypothesis Generation with Mamba",
+  "authors": [
+    "Miaosen",
+    "Emily",
+    "Erick",
+    "Tirthankar"
+  ],
+  "published": "2024-11",
+  "link": "https://aclanthology.org/2024.nlp4science-1.17/"
+}

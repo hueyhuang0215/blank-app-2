@@ -1,0 +1,140 @@
+{
+  "objective": {
+    "answer": "The primary objective of the paper is to develop and evaluate a framework that enables large language models to realize combinatorial creativity for scientific research idea generation. The authors aim to explicitly implement combinatorial creativity theory using large language models, featuring a cross-domain knowledge retrieval system and a structured combinatorial process for generating creative scientific ideas.",
+    "evidence": "We present a framework that explicitly implements combinatorial creativity theory using LLMs, featuring a generalization-level retrieval system for cross-domain knowledge discovery and a structured combinatorial process for idea generation."
+  },
+  "knowledge_gap": {
+    "answer": "Recent work using large language models for research idea generation often overlooks established theoretical foundations from creativity theory, particularly the systematic implementation of combinatorial creativity and the balanced evaluation of both novelty and value in generated ideas.",
+    "evidence": "However, recent work using Large Language Models (LLMs) for research idea generation often overlooks these theoretical foundations. ... For example, they only care about the novelty of the generated idea, however, novelty is meaningless if it is valueless."
+  },
+  "novelty": {
+    "answer": [
+      "An explicit framework that implements combinatorial creativity theory in large language models for scientific idea generation.",
+      "A generalization-level retrieval system that maps concepts across different abstraction levels to enable meaningful cross-domain knowledge discovery.",
+      "A structured combinatorial process that systematically analyzes and recombines components from retrieved knowledge to generate novel and valuable solutions.",
+      "A semi-structured ideation format that captures both concrete details and abstract principles of innovations, supporting multi-level semantic matching."
+    ],
+    "evidence": [
+      "We present a framework that explicitly implements combinatorial creativity theory using LLMs, featuring a generalization-level retrieval system for cross-domain knowledge discovery and a structured combinatorial process for idea generation.",
+      "To address this challenge, we developed a generalization-level retrieval system, as shown in Figure 2, which enables effective cross-domain knowledge discovery through multi-level semantic matching.",
+      "After retrieving relevant innovations through our multi-level matching system, we implement a two-stage combinatorial process that specifically emphasizes combinatorial creativity - the ability to merge existing ideas and concepts in novel ways to generate innovative solutions.",
+      "As illustrated in the left part of Figure 2, we introduce a semi-structured 'ideation format' that captures both concrete details and abstract principles of innovations. This standardized format stores comprehensive metadata including innovation names, original problems, key mechanisms, novel insights, and most importantly, parallel generalization levels (L1-L4)."
+    ]
+  },
+  "inspirational_papers": {
+    "answer": [
+      "- Si et al. (2024) Conducted large-scale human studies on LLM-generated research ideas, highlighting the challenge of balancing novelty and value. (Experimental baselines)",
+      "- Kumar et al. (2024) Explored LLMs for generating novel scientific research ideas, providing a methodological precursor. (Methodological precursors)",
+      "- Wang et al. (2023) Developed methods for identifying novel research opportunities by analyzing conceptual relationships across papers. (Methodological precursors)",
+      "- Baek et al. (2024) ResearchAgent implements combinatorial creativity using entity-centric knowledge stores and academic knowledge graphs. (Methodological precursors)",
+      "- Lu et al. (2024) AI-Scientist models the entire creative process from literature review to idea generation and validation. (Methodological precursors)"
+    ],
+    "evidence": [
+      "Recent work has shown promising results in using Large Language Models (LLMs) for creative idea generation (Si et al. [2024], Kumar et al. [2024], Wang et al. [2023])",
+      "ResearchAgent (Baek et al. [2024]) implements a form of combinatorial creativity by using an entity-centric knowledge store and academic knowledge graphs to help LLMs identify and combine concepts across different papers.",
+      "Comprehensive research automation systems like AI-Scientist (Lu et al. [2024]) attempt to model the entire creative process, from literature review to idea generation and validation."
+    ]
+  },
+  "method": {
+    "steps": [
+      {
+        "step": "Knowledge Preparation: Idea Extraction and Retrieval",
+        "input": "A problem statement (core problem from a scientific paper) and a knowledge base consisting of important references, each structured in a semi-structured ideation format with multiple generalization levels.",
+        "output": "A set of relevant innovations retrieved from the knowledge base, matched at various abstraction levels to the problem statement.",
+        "tools": [
+          "OpenAI text-embedding-3-large model: Used for generating high-quality semantic embeddings for both problems and stored innovations.",
+          "Semi-structured ideation format (JSON): Used to store and process innovation metadata at multiple generalization levels."
+        ],
+        "evidence": "To address this challenge, we developed a generalization-level retrieval system, as shown in Figure 2, which enables effective cross-domain knowledge discovery through multi-level semantic matching."
+      },
+      {
+        "step": "Combinatorial Idea Generation: Two-Stage Combinatorial Process",
+        "input": "Relevant innovations retrieved at multiple generalization levels from the previous step.",
+        "output": "A set of novel, structured solution ideas that recombine components from the retrieved innovations, including problem structure, design rationale, universal principles, and key mechanisms.",
+        "tools": [
+          "Claude-3.5-Sonnet-20241022: Used as the large language model backend for idea generation and analysis.",
+          "Parallel processing agents: Specialized AI agents for combinational creativity and integration."
+        ],
+        "evidence": "After retrieving relevant innovations through our multi-level matching system, we implement a two-stage combinatorial process that specifically emphasizes combinatorial creativity - the ability to merge existing ideas and concepts in novel ways to generate innovative solutions."
+      }
+    ],
+    "tools": [
+      "OpenAI text-embedding-3-large model: Generates semantic embeddings for multi-level matching.",
+      "Claude-3.5-Sonnet-20241022: Large language model backend for idea generation and analysis.",
+      "Semi-structured ideation format (JSON): Stores innovation metadata at multiple abstraction levels."
+    ],
+    "evidence": [
+      "we utilize OpenAI’s text-embedding-3-large model for high-quality semantic embeddings.",
+      "We use Claude-3.5-Sonnet-20241022 as the LLM backend for all idea generation and analysis tasks.",
+      "Each innovation entry is structured in a consistent JSON format to ensure reliable processing and comparison."
+    ]
+  },
+  "subject_area": {
+    "areas": [
+      "Applied Sciences & Engineering"
+    ],
+    "evidence": [
+      "The ability to generate creative ideas is fundamental to human progress, spanning domains from scientific discovery to artistic expression. The emergence of Large Language Models (LLMs) presents unprecedented opportunities for computational systems to engage in creative processes.",
+      "Our work focuses specifically on combinatorial creativity theory, developing methods to help LLMs identify and recombine valuable concepts from scientific literature in theoretically-grounded ways."
+    ]
+  },
+  "performance_summary": {
+    "performance_summary": [
+      "The proposed framework consistently outperforms the baseline in generating ideas that align with real research developments, with improvements of 7%-10% across multiple similarity metrics.",
+      "The method achieves higher average similarity scores in design rationale, universal principle, and key mechanism fields compared to the baseline.",
+      "Qualitative analysis shows strong alignment between generated ideas and actual research developments, with minimal differences in core concepts and technical design."
+    ],
+    "baselines": [
+      "A baseline system that directly generates ideas given a problem statement, without multi-level retrieval or combinatorial processing."
+    ],
+    "benchmark_datasets": [
+      "OAG-Bench: Contains papers along with their important references, allowing assessment of how well the system can generate ideas that align with actual research developments. Used as the main evaluation dataset."
+    ],
+    "evaluation_metrics": [
+      "Semantic similarity scores (using allenai-specter model): Measures cosine similarity between generated idea fields and corresponding sections in target papers.",
+      "Problem Structure Similarity (PS-Sim): Assesses similarity in problem framing.",
+      "Design Rationale Similarity (DR-Sim): Assesses similarity in design rationale.",
+      "Universal Principle Similarity (UP-Sim): Assesses similarity in universal principles.",
+      "Key Mechanism Similarity (KM-Sim): Assesses similarity in technical mechanisms."
+    ],
+    "evidence": [
+      "Experiments on the OAG-Bench dataset demonstrate our framework’s effectiveness, consistently outperforming baseline approaches in generating ideas that align with real research developments (improving similarity scores by 7%-10% across multiple metrics).",
+      "Our framework demonstrates consistent superior performance over the baseline across all similarity metrics. ... our method achieves higher scores across all three key metrics: DR-Sim (0.85 vs 0.78), UP-Sim (0.83 vs 0.75), and KM-Sim (0.87 vs 0.77).",
+      "To evaluate our framework’s effectiveness in generating innovative ideas through combinatorial creativity, we conducted experiments using the OAG-Bench dataset(Zhang et al. [2024]).",
+      "To assess the quality of generated ideas, we compute semantic similarity scores between each field of the generated ideas and the corresponding sections in the target papers. We use allenai-specter model(Cohan et al. [2020]) to generate embeddings and calculate cosine similarity for each field: Problem Structure Similarity (PS-Sim), Design Rationale Similarity (DR-Sim), Universal Principle Similarity (UP-Sim), Key Mechanism Similarity (KM-Sim)."
+    ]
+  },
+  "limitations": {
+    "limitations": [],
+    "evidence": [
+      "No explicit limitations are directly stated in the paper. The conclusion and future work sections discuss possible extensions and improvements, but do not clearly enumerate current limitations."
+    ]
+  },
+  "future_directions": {
+    "future_directions": [
+      "Extend the framework to realize exploratory and transformational creativity by developing mechanisms for systematic conceptual space search and modification.",
+      "Enhance the process perspective by supporting different creative reasoning patterns such as analogical thinking and conceptual blending, and incorporating real-time feedback mechanisms.",
+      "Develop more comprehensive evaluation frameworks to assess different types and levels of creativity, including P-creativity, H-creativity, and the Four C’s model.",
+      "Adapt the framework to handle more diverse knowledge sources and specific domain requirements while maintaining theoretical grounding."
+    ],
+    "evidence": [
+      "Following Boden’s theoretical framework, our work on combinatorial creativity could be extended to realize exploratory creativity by developing mechanisms for systematically searching conceptual spaces, and transformative creativity by enabling the modification of these spaces’ constraints.",
+      "From the Process perspective, the framework could be enhanced to support different creative reasoning patterns such as analogical thinking and conceptual blending, while incorporating real-time feedback mechanisms to enable more dynamic creative processes.",
+      "From the Product perspective, there is a crucial need to develop more comprehensive evaluation frameworks that can assess different types of creativity. ... future work should develop metrics that can differentiate between P-creativity (ideas novel to the system) and H-creativity (historically novel ideas), as well as assess different levels of creative achievement following Kaufman and Beghetto’s 'Four C’s' model.",
+      "Furthermore, the framework could be extended to handle more diverse types of knowledge sources and adapt to specific domain requirements, all while maintaining theoretical grounding in established creativity models."
+    ]
+  },
+  "resource_link": {
+    "answer": "",
+    "evidence": "No code repository, project website, or data repository link is provided in the paper."
+  },
+  "paper_title": "LLMs can Realize Combinatorial Creativity: Generating Creative Ideas via LLMs for Scientific Research",
+  "authors": [
+    "Tianyang",
+    "Jingjin",
+    "Zhihao",
+    "HaoHong"
+  ],
+  "published": "2025-02-17",
+  "link": "http://arxiv.org/abs/2412.14141"
+}

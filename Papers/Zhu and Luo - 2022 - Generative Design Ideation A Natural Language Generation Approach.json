@@ -1,0 +1,186 @@
+{
+  "objective": {
+    "answer": "The primary objective of the paper is to explore a generative approach for knowledge-based design ideation by applying pre-trained language models, specifically fine-tuning a generative pre-trained transformer using the United States Patent and Trademark Office patent database. The authors aim to generate concise and understandable design ideas that synthesize target designs with external knowledge sources, with controllable knowledge distance. The method is tested in a case study of rolling toy design to evaluate its performance in generating ideas of varied novelty.",
+    "evidence": "This paper aims to explore a generative approach for knowledge-based design ideation by applying the latest pre-trained language models in artificial intelligence (AI). Specifically, a method of fine-tuning the generative pre-trained transformer using the USPTO patent database is proposed. The AI-generated ideas are not only in concise and understandable language but also able to synthesize the target design with external knowledge sources with controllable knowledge distance. The method is tested in a case study of rolling toy design and the results show good performance in generating ideas of varied novelty with near-field and far-field source knowledge."
+  },
+  "knowledge_gap": {
+    "answer": "Existing computer-aided ideation methods can retrieve external knowledge as stimuli but lack the ability to generate and represent ideas in understandable forms, making the quality and quantity of generated alternatives dependent on the designers' skills and experience.",
+    "evidence": "Existing computer-aided ideation methods can retrieve external knowledge as stimuli but lack the ability to generate and represent ideas in understandable forms. Therefore, experiences and skills are still required for designers to generate and articulate creative ideas when using these methods, and the quality and quantity of the alternatives for the convergence of ideation are dependent on the designers."
+  },
+  "novelty": {
+    "answer": [
+      "Application of fine-tuned generative pre-trained transformer models to generate design ideas in natural language based on patent data.",
+      "Integration of knowledge distance from external domains to control the novelty and feasibility of generated ideas.",
+      "Use of a workflow combining InnoGPS for knowledge domain selection and GPT-2 for idea generation, enabling virtual domain experts for ideation.",
+      "Evaluation of idea novelty using semantic distance metrics (TechNet) in the context of design ideation."
+    ],
+    "evidence": [
+      "Specifically, a method of fine-tuning the generative pre-trained transformer using the USPTO patent database is proposed.",
+      "The AI-generated ideas are not only in concise and understandable language but also able to synthesize the target design with external knowledge sources with controllable knowledge distance.",
+      "Each knowledge domain in the expert system, e.g., InnoGPS in this case, can have a fine-tuned GPT-2 model to generate ideas as the user may request, just like a virtual domain expert that can ideate for the user.",
+      "To test the hypothesis, we employ TechNet [Sarica et al., 2020] as a tool to measure idea novelty. When measuring term-term relevancy in TechNet, the lower relevancy score means the given pair of terms are more semantically distant in the design context."
+    ]
+  },
+  "inspirational_papers": {
+    "answer": [
+      "Luo et al. (2019) Introduced InnoGPS, a knowledge-based design expert system for retrieving near-domain and far-domain stimuli by knowledge distance. (Methodological precursors)",
+      "Luo et al. (2021) Extended InnoGPS to provide design stimuli at semantic, document, and field levels, and guided data-driven design ideation by knowledge distance. (Methodological precursors)",
+      "Sarica et al. (2020) Developed TechNet, a technology semantic network for identifying technical white space and measuring semantic distance, used here for evaluating idea novelty. (Experimental baseline and evaluation metric)"
+    ],
+    "evidence": [
+      "Luo et al [2019] introduced InnoGPS (http://www.innogps.com/), a knowledge-based design expert system based on all USTPO patents from 1974 to 2020 that guides the retrieval of near-domain and far-domain stimuli by knowledge distance to aid creative design ideation.",
+      "In InnoGPS 2.0 [Luo et al., 2021], the design stimuli are provided at the semantic, document and field levels simultaneously.",
+      "To test the hypothesis, we employ TechNet [Sarica et al., 2020] as a tool to measure idea novelty."
+    ]
+  },
+  "method": {
+    "steps": [
+      {
+        "step": "Domain Selection and Patent Data Gathering",
+        "input": "Target design domain keyword; InnoGPS system",
+        "output": "List of patent titles from selected knowledge domains",
+        "tools": [
+          "InnoGPS: A knowledge-based design expert system for retrieving patents and calculating knowledge distance."
+        ],
+        "evidence": "For a specific domain as the knowledge source, we gather the patent titles in this domain from InnoGPS and extract a keyword for each title using KeyBERT."
+      },
+      {
+        "step": "Keyword Extraction",
+        "input": "Patent titles from selected domain",
+        "output": "Keyword-title pairs for dataset preparation",
+        "tools": [
+          "KeyBERT: Uses BERT embeddings to extract keywords and key phrases from documents."
+        ],
+        "evidence": "KeyBERT [Sharma and Li, 2019] leverages BERT embeddings to extract keywords and key phrases that best represent a document."
+      },
+      {
+        "step": "Fine-tuning Language Model",
+        "input": "Prepared dataset of keyword-title pairs; GPT-2 base model",
+        "output": "Fine-tuned GPT-2 model for each knowledge domain",
+        "tools": [
+          "GPT-2: A generative pre-trained transformer model for natural language generation."
+        ],
+        "evidence": "The prepared dataset containing keyword-title pairs in the selected domain is then used to fine-tune the base model of GPT-2."
+      },
+      {
+        "step": "Idea Generation",
+        "input": "Target design keyword; fine-tuned GPT-2 model",
+        "output": "Generated design ideas in natural language",
+        "tools": [
+          "Fine-tuned GPT-2 model"
+        ],
+        "evidence": "Finally, given any target keyword representing the home design, the fine-tuned model will generate ideas for the target design based on external knowledge learned from the selected domain."
+      },
+      {
+        "step": "Novelty Evaluation",
+        "input": "Generated ideas",
+        "output": "Novelty scores for each idea based on semantic distance",
+        "tools": [
+          "TechNet: Technology semantic network for measuring semantic distance between terms."
+        ],
+        "evidence": "To test the hypothesis, we employ TechNet [Sarica et al., 2020] as a tool to measure idea novelty."
+      }
+    ],
+    "tools": [
+      "InnoGPS: A knowledge-based design expert system for retrieving patents and calculating knowledge distance.",
+      "KeyBERT: Uses BERT embeddings to extract keywords and key phrases from documents.",
+      "GPT-2: A generative pre-trained transformer model for natural language generation.",
+      "TechNet: Technology semantic network for measuring semantic distance between terms."
+    ],
+    "evidence": [
+      "For a specific domain as the knowledge source, we gather the patent titles in this domain from InnoGPS and extract a keyword for each title using KeyBERT.",
+      "The prepared dataset containing keyword-title pairs in the selected domain is then used to fine-tune the base model of GPT-2.",
+      "Finally, given any target keyword representing the home design, the fine-tuned model will generate ideas for the target design based on external knowledge learned from the selected domain.",
+      "To test the hypothesis, we employ TechNet [Sarica et al., 2020] as a tool to measure idea novelty."
+    ]
+  },
+  "subject_area": {
+    "areas": [
+      "Applied Sciences & Engineering"
+    ],
+    "evidence": [
+      "This research will leverage the recent progress of natural language processing (NLP) to creative design ideation tasks and provide new insights into computer-aided design ideation.",
+      "In recent years, knowledge-based methods and tools have been developed for computer-aided ideation.",
+      "The method’s capability of generating novel and understandable ideas is verified in a rolling toy design project."
+    ]
+  },
+  "performance_summary": {
+    "performance_summary": [
+      "The proposed method successfully generated concise and understandable design ideas in natural language, leveraging both near-field and far-field external knowledge.",
+      "Ideas generated from far-field knowledge domains were generally more novel, as measured by lower semantic relevancy scores, compared to those from near-field domains.",
+      "The percentage of unique ideas generated ranged from 35.8% to 76.4% depending on the knowledge domain.",
+      "The method enabled the creation of initial embodiment sketches based on generated ideas, demonstrating practical applicability."
+    ],
+    "baselines": [
+      "No explicit baseline methods were used for direct performance comparison; the study compares near-field and far-field knowledge domain models."
+    ],
+    "benchmark_datasets": [
+      "No traditional benchmark datasets were used; the study used patent data from selected domains in the United States Patent and Trademark Office database."
+    ],
+    "evaluation_metrics": [
+      "Minimum term-term semantic relevancy score (from TechNet): Measures the semantic distance between terms in generated ideas, with lower scores indicating higher novelty.",
+      "Percentage of unique ideas: Measures the diversity of generated ideas within each domain."
+    ],
+    "evidence": [
+      "In general, the proposed method can generate understandable and concise ideas in natural language that take advantage of external knowledge.",
+      "Therefore, our hypothesis is that the ideas generated by GPT-2 may follow the same pattern, i.e., far-domain virtual expert models may generate ideas with overall more novelty than near-domain virtual expert models.",
+      "Table 1 reports the percentage of unique ideas from each domain and some examples of generated rolling toy ideas.",
+      "To test the hypothesis, we employ TechNet [Sarica et al., 2020] as a tool to measure idea novelty.",
+      "When measuring term-term relevancy in TechNet, the lower relevancy score means the given pair of terms are more semantically distant in the design context."
+    ]
+  },
+  "limitations": {
+    "limitations": [
+      {
+        "label": "Human Interpretation Required",
+        "explanation": "Designers may need to further investigate and interpret unfamiliar terms in the generated output to make sense of the ideas.",
+        "evidence": "Designers may come across unfamiliar terms in the output that indicate unfamiliar knowledge, and therefore need further investigation to make sense of the ideas."
+      },
+      {
+        "label": "Variable Output Quality",
+        "explanation": "The quality and sensibility of generated ideas can vary, especially for those generated with far-field knowledge.",
+        "evidence": "The output may also vary in quality and some of the results could make less sense, especially for those generated with far-field knowledge."
+      },
+      {
+        "label": "Not a Fully Automated Designer",
+        "explanation": "The method is not intended to automatically design concepts but to assist human designers in ideation.",
+        "evidence": "The proposed method is not expected to be a ‘machine designer’ that design concepts automatically, but a design assistant that ideate and brainstorm with human designers to boost their creativity."
+      },
+      {
+        "label": "Lack of Statistical Assessment",
+        "explanation": "A statistical assessment approach regarding the performance and quality of idea generation is still a challenge.",
+        "evidence": "However, a statistical assessment approach regarding the performance of the idea generation and the quality of ideas is still a challenge in this context."
+      }
+    ],
+    "evidence": [
+      "Designers may come across unfamiliar terms in the output that indicate unfamiliar knowledge, and therefore need further investigation to make sense of the ideas.",
+      "The output may also vary in quality and some of the results could make less sense, especially for those generated with far-field knowledge.",
+      "The proposed method is not expected to be a ‘machine designer’ that design concepts automatically, but a design assistant that ideate and brainstorm with human designers to boost their creativity.",
+      "However, a statistical assessment approach regarding the performance of the idea generation and the quality of ideas is still a challenge in this context."
+    ]
+  },
+  "future_directions": {
+    "future_directions": [
+      "Explore the use of natural language understanding and sentence embedding techniques, such as BERT, for statistical assessment of idea generation performance.",
+      "Validate the choices for subsystems and investigate how different models, such as GPT-3 with few-shot learning, affect idea generation performance.",
+      "Conduct both machine and human calibration to further test the method.",
+      "Open new research paths for data-driven innovation using generative transformers for automatic design generation."
+    ],
+    "evidence": [
+      "Natural language understanding and sentence embedding techniques (e.g., BERT) could be an option for bridging this gap and will be explored in future works.",
+      "Moreover, as an initial attempt at idea generation using natural language generation, this paper does not validate the choices for the subsystems and how they might affect the performance, e.g., what if we use GPT-3 to do few-shot learning for the generation of ideas? This will also be tested in the future with both machine and human calibration.",
+      "In sum, we hope this preliminary work, by using generative transformers to derive creative artificial intelligence for automatic design generation, open a new path of research for data-driven innovation [Luo, 2022]."
+    ]
+  },
+  "resource_link": {
+    "answer": "http://www.innogps.com/",
+    "evidence": "Luo et al [2019] introduced InnoGPS (http://www.innogps.com/), a knowledge-based design expert system based on all USTPO patents from 1974 to 2020 that guides the retrieval of near-domain and far-domain stimuli by knowledge distance to aid creative design ideation."
+  },
+  "paper_title": "Generative Design Ideation: A Natural Language Generation Approach",
+  "authors": [
+    "Qihao",
+    "Jianxi"
+  ],
+  "published": "2022-03-28",
+  "link": "http://arxiv.org/abs/2204.09658"
+}

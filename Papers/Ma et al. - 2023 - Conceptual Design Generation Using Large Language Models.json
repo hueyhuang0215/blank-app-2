@@ -1,0 +1,191 @@
+{
+  "objective": {
+    "answer": "The primary objective of the paper is to leverage large language models to generate solutions for a set of 12 design problems and compare these to a baseline of crowdsourced solutions. The authors aim to evaluate the differences between generated and crowdsourced design solutions through human expert evaluations and computational metrics. They also investigate how prompt engineering can influence the quality and characteristics of large language model-generated design solutions.",
+    "evidence": "In this paper, we leverage LLMs to generate solutions for a set of 12 design problems and compare them to a baseline of crowdsourced solutions. We evaluate the differences between generated and crowdsourced design solutions through multiple perspectives, including human expert evaluations and computational metrics. ... We experiment with prompt engineering and ﬁnd that leveraging few-shot learning can lead to the generation of solutions that are more similar to the crowdsourced solutions."
+  },
+  "knowledge_gap": {
+    "answer": "There is a lack of comprehensive evaluation comparing large language model-generated design solutions to human-generated (crowdsourced) solutions, particularly using both expert and computational metrics to assess characteristics such as novelty, feasibility, and usefulness.",
+    "evidence": "Research on LLM’s application to design problems has been limited, however. The most recent work has shown that pre-trained LLMs, such as the generative pretrained transformers model series (GPT), are very capable of generating novel design concepts for the concept generation phase [14]. ... In this paper, we expand on prior work by evaluating design solutions generated with LLMs against a human baseline, using both computational and human expert metrics."
+  },
+  "novelty": {
+    "answer": [
+      "Direct comparison of large language model-generated design solutions with crowdsourced human solutions using both expert and computational evaluations.",
+      "Application and quantitative assessment of prompt engineering techniques (zero-shot and few-shot) to influence the attributes of large language model-generated design solutions.",
+      "Use of SentenceBERT embeddings and computational metrics (nearest generated sample and convex hull hypervolume) to evaluate similarity and novelty of design solution sets."
+    ],
+    "evidence": [
+      "In this work, we build on [14] by comparing design solutions generated with an LLM to a baseline of crowdsourced design solutions. We differentiate our methods from previous work by evaluating textual design solutions with computational metrics as well as human expert evaluations.",
+      "Finally, we explore different methods of prompt engineering to quantitatively evaluate its impact on design solutions generated from LLMs (Figure 1).",
+      "In this paper, we experiment with SentenceBERT [37], a faster version of BERT, to embed textual design solutions to enable more accurate computational evaluations at a large scale. ... To overcome the cost limitations that come with expert human evaluations, we implement two computational metrics from [58] to evaluate the output of the generative models: the mean of the nearest generated samples and the convex hull hypervolume of the solution sets."
+    ]
+  },
+  "inspirational_papers": {
+    "answer": [
+      "- Zhu et al. (2023) Generative transformers for design concept generation. (Methodological precursor, prior work on using GPT-3 for design concept generation)",
+      "- Goucher-Lambert et al. (2019) Crowdsourcing inspiration: Using crowd generated inspirational stimuli to support designer ideation. (Experimental baseline, source of crowdsourced dataset and prompts)",
+      "- Regenwetter et al. (2023) Beyond statistical similarity: Rethinking metrics for deep generative models in engineering design. (Limitations addressed, source of computational evaluation metrics)"
+    ],
+    "evidence": [
+      "In particular, Zhu et al. leveraged Generative Pre-Trained Transformers 3 (GPT-3), a speciﬁc LLM model, to generate 500 design solutions [14]. In [14], Zhu et al. , showed that GPT-3 was capable of generating novel and useful design solutions, and they laid out guidelines for deﬁning concept generation tasks using LLMs.",
+      "These design problems were taken from a previous paper that analyzed whether crowdsourcing data can be useful for generating inspirational stimuli [8]. We also used crowdsourced data from the same paper written by Goucher-Lambert et al. [8] to make baseline comparisons with the GPT-3 generated design solutions.",
+      "As described in Section 3.4.2. To overcome the cost limitations that come with expert human evaluations, we implement two computational metrics from [58] to evaluate the output of the generative models: the mean of the nearest generated samples and the convex hull hypervolume of the solution sets."
+    ]
+  },
+  "method": {
+    "steps": [
+      {
+        "step": "Selection of 12 design problem prompts",
+        "input": "Design problems from Goucher-Lambert et al. (2019) crowdsourcing study",
+        "output": "12 textual prompts for design solution generation",
+        "tools": [],
+        "evidence": "These design problems were taken from a previous paper that analyzed whether crowdsourcing data can be useful for generating inspirational stimuli [8]."
+      },
+      {
+        "step": "Generation of design solutions using GPT-3",
+        "input": "12 design prompts, each prefixed with 'Generate 100 design solutions for ...'",
+        "output": "100 design solutions per prompt generated by GPT-3",
+        "tools": [
+          "GPT-3 (davinci-003): Large language model used to generate textual design solutions."
+        ],
+        "evidence": "Design solutions were generated using the OpenAI playground and command-line interface (CLI). Within the OpenAI playground, the user can choose from several models, and we chose to use davinci-003 as it is reported to be the higher-performing model at the time of writing."
+      },
+      {
+        "step": "Prompt engineering experiments (zero-shot and few-shot)",
+        "input": "Modified prompts with adjectives (unique, novel, diverse) for zero-shot; base prompt plus 1-5 human examples for few-shot",
+        "output": "Alternative sets of 100 design solutions per prompt with varied characteristics",
+        "tools": [],
+        "evidence": "To create the zero-shot prompts, we take the 12 base prompts and modify them to include descriptive adjectives novel, diverse, and unique, to guide GPT-3 to generate solutions different from the base prompt. ... For our task, as shown in Figure 1(c), we append to the base prompt an example of a design solution, and then feed the expanded prompt into the model."
+      },
+      {
+        "step": "Collection of crowdsourced design solutions",
+        "input": "Crowdsourced data from Goucher-Lambert et al. (2019)",
+        "output": "100 human-generated design solutions per prompt",
+        "tools": [],
+        "evidence": "We also used crowdsourced data from the same paper written by Goucher-Lambert et al. [8] to make baseline comparisons with the GPT-3 generated design solutions."
+      },
+      {
+        "step": "Expert evaluation of design solutions",
+        "input": "Samples of GPT-3 and crowdsourced solutions",
+        "output": "Ratings for feasibility, novelty, and usefulness (0-2 scale) by two design experts",
+        "tools": [],
+        "evidence": "Two experts, both specializing in design theory and methodology, were trained to perform all ratings for both GPT-3 and crowdsourced design solutions."
+      },
+      {
+        "step": "Computational evaluation of solution sets",
+        "input": "All design solutions (GPT-3 and crowdsourced), embedded as vectors",
+        "output": "Similarity (mean nearest generated sample) and novelty (convex hull hypervolume) metrics",
+        "tools": [
+          "SentenceBERT (all-MiniLM-L6-v2): Used to embed textual design solutions into 384-dimensional vectors for computational analysis."
+        ],
+        "evidence": "we leverage a pre-trained textual embedding network, SentenceBERT [37], from Sentence-Transformers [29] to embed each individual design solution into a 384-dimensional vector."
+      }
+    ],
+    "tools": [
+      "GPT-3 (davinci-003): Large language model for generating design solutions.",
+      "SentenceBERT (all-MiniLM-L6-v2): Embedding model for converting text to semantic vectors.",
+      "OpenAI Playground/CLI: Interface for interacting with GPT-3."
+    ],
+    "evidence": [
+      "Design solutions were generated using the OpenAI playground and command-line interface (CLI). Within the OpenAI playground, the user can choose from several models, and we chose to use davinci-003 as it is reported to be the higher-performing model at the time of writing.",
+      "we leverage a pre-trained textual embedding network, SentenceBERT [37], from Sentence-Transformers [29] to embed each individual design solution into a 384-dimensional vector.",
+      "Two experts, both specializing in design theory and methodology, were trained to perform all ratings for both GPT-3 and crowdsourced design solutions."
+    ]
+  },
+  "subject_area": {
+    "areas": [
+      "Applied Sciences & Engineering"
+    ],
+    "evidence": [
+      "Research in engineering design points to the beneﬁts of gen- erating a large and diverse set of initial concepts during the early stage of design [1,2,3].",
+      "In this paper, we leverage LLMs to generate solutions for a set of 12 design problems and compare them to a baseline of crowdsourced solutions."
+    ]
+  },
+  "performance_summary": {
+    "performance_summary": [
+      "Expert evaluations indicate that large language model-generated solutions have higher average feasibility and usefulness, while crowdsourced solutions have higher novelty.",
+      "Few-shot prompt engineering leads to large language model-generated solutions that are more similar to crowdsourced solutions, but with decreased diversity.",
+      "Computational metrics show that few-shot large language model solutions are most similar to crowdsourced solutions (mean cosine similarity 0.804), but crowdsourced solutions cover a broader design space (higher convex hull volume)."
+    ],
+    "baselines": [
+      "Crowdsourced design solutions: 100 human-generated solutions per prompt from Amazon Mechanical Turk, as used in Goucher-Lambert et al. (2019)."
+    ],
+    "benchmark_datasets": [
+      "Crowdsourced dataset: 100 human-generated design solutions per prompt for 12 prompts, used as the baseline for comparison with large language model-generated solutions."
+    ],
+    "evaluation_metrics": [
+      "Expert ratings: Feasibility, novelty, and usefulness, each on a 0-2 anchored scale, rated by two design experts.",
+      "Mean nearest generated sample: Measures similarity between generated and crowdsourced solution sets using cosine similarity of SentenceBERT embeddings.",
+      "Convex hull hypervolume: Measures the breadth (novelty/diversity) of the solution set in embedding space."
+    ],
+    "evidence": [
+      "Expert evaluations indicate that the LLM-generated solutions have higher average feasibil- ity and usefulness while the crowdsourced solutions have more novelty.",
+      "We evaluate the similarity of the crowdsourced solution set to the GPT-3 Base, GPT-3 zero-shot, and GPT-3 few-shot sets per design prompt and calculate the mean and standard deviation referenced in Table 3. We ﬁnd that the GPT-3 few-shot results are, on average, the most similar to the crowdsourced set, with a mean cosine similarity of 0.804 (SD=0.06), while the GPT-3 zero-shot prompt modiﬁed with the unique adjective yields the lowest mean cosine similarity of 0.746 (SD=0.06).",
+      "This shows that the crowdsourced solution set has the high- est volume with 0.294 (SD=0.03) while augmenting the prompt with the novel adjective actually reduces novelty and yields the smallest convex hull volume of 0.186 (SD=0.07).",
+      "The metrics used to evaluate the design solutions were derived from literature [8,42,62]. ... we chose not to do expert evaluation of the quality measure and evaluated the solution output using only measures of feasibility, novelty, and usefulness.",
+      "To overcome the cost limitations that come with expert human evaluations, we im- plement two computational metrics from [58] to evaluate the out- put of the generative models: the mean of the nearest generated samples and the convex hull hypervolume of the solution sets."
+    ]
+  },
+  "limitations": {
+    "limitations": [
+      {
+        "label": "Repetition in Large Language Model Outputs",
+        "explanation": "Large language model-generated solutions often repeat themselves with slight modifications, reducing diversity.",
+        "evidence": "after a couple of design solutions, GPT-3 would frequently repeat the same solution but with slight modiﬁcations in adjectives and features. This is a major limitation to GPT-3 that has been described in [11], where Brown et al. noted that GPT-3 will repeat itself semantically until it starts to lose coherence over sufﬁciently long passages (inputs), causing the model to contradict itself."
+      },
+      {
+        "label": "Shorter and Less Informative Large Language Model Solutions",
+        "explanation": "Large language model-generated solutions are generally shorter and less descriptive than crowdsourced solutions.",
+        "evidence": "A qualitative evaluation of all design solutions used in this work shows that the generated solutions are shorter and contain less information than the crowdsourced solutions."
+      },
+      {
+        "label": "Sensitivity to Prompt Engineering",
+        "explanation": "The outputs of large language models are extremely sensitive to small changes in input prompts, leading to inconsistent results.",
+        "evidence": "Most notably, in design prompt 2, by adding the word diverse in its design prompt ... GPT-3 generated solutions increased in similarity from 0.627 (SD=0.05) to 0.805 (SD=0.07). On the other extreme, by adding the word diverse in design prompt 11, GPT-3 generated solutions decreased in similarity from 0.738 (SD=0.05) to 0.675 (SD=0.06)."
+      },
+      {
+        "label": "Limited to One Large Language Model",
+        "explanation": "The study only examines GPT-3, so findings may not generalize to other large language models.",
+        "evidence": "Additionally, this paper only examines one LLM, GPT-3, so there still remains a question of whether or not this issue is unique to GPT-3 or ubiquitous amongst all LLMs."
+      },
+      {
+        "label": "Lack of Computational Metrics for Usefulness and Feasibility",
+        "explanation": "Currently, usefulness and feasibility can only be evaluated by experts, not computationally.",
+        "evidence": "Currently, there exist methods to evaluate diversity, uniqueness, and similarity, but there are no computational meth- ods to evaluate usefulness and feasibility, which currently can only be done through expensive expert evaluations as described in Section 3.4.1."
+      }
+    ],
+    "evidence": [
+      "after a couple of design solutions, GPT-3 would frequently repeat the same solution but with slight modiﬁcations in adjectives and features. This is a major limitation to GPT-3 that has been described in [11], where Brown et al. noted that GPT-3 will repeat itself semantically until it starts to lose coherence over sufﬁciently long passages (inputs), causing the model to contradict itself.",
+      "A qualitative evaluation of all design solutions used in this work shows that the generated solutions are shorter and contain less information than the crowdsourced solutions.",
+      "Most notably, in design prompt 2, by adding the word diverse in its design prompt ... GPT-3 generated solutions increased in similarity from 0.627 (SD=0.05) to 0.805 (SD=0.07). On the other extreme, by adding the word diverse in design prompt 11, GPT-3 generated solutions decreased in similarity from 0.738 (SD=0.05) to 0.675 (SD=0.06).",
+      "Additionally, this paper only examines one LLM, GPT-3, so there still remains a question of whether or not this issue is unique to GPT-3 or ubiquitous amongst all LLMs.",
+      "Currently, there exist methods to evaluate diversity, uniqueness, and similarity, but there are no computational meth- ods to evaluate usefulness and feasibility, which currently can only be done through expensive expert evaluations as described in Section 3.4.1."
+    ]
+  },
+  "future_directions": {
+    "future_directions": [
+      "Fine-tuning large language models on domain-specific literature and leveraging different models for generating text.",
+      "Expanding and refining prompt engineering techniques to improve the quality and diversity of large language model-generated design solutions.",
+      "Developing computational metrics for evaluating usefulness and feasibility of design solutions.",
+      "Conducting human studies to directly evaluate the value of large language model-generated solution sets as inspirational stimuli for designers."
+    ],
+    "evidence": [
+      "Future work could expand on these methods by ﬁne-tuning LLMs on domain-speciﬁc litera- ture, leveraging different models for generating text, and expand on the prompt engineering that began with our zero-shot and few- shot experiments.",
+      "Future work should address this issue by investigating how designers can leverage existing prompt engineering techniques [66,67,68] to support early-stage design ideation.",
+      "Currently, there exist methods to evaluate diversity, uniqueness, and similarity, but there are no computational meth- ods to evaluate usefulness and feasibility, which currently can only be done through expensive expert evaluations as described in Section 3.4.1.",
+      "This could be evaluated more directly with a human study, where the design solutions created by subjects prompted by either human or LLM-generated solu- tions sets are evaluated."
+    ]
+  },
+  "resource_link": {
+    "answer": "https://github.com/kevinma1515/gpt_IDETC",
+    "evidence": "The generated data and supporting code are publicly available1.\n1https://github.com/kevinma1515/gpt_IDETC"
+  },
+  "paper_title": "Conceptual Design Generation Using Large Language Models",
+  "authors": [
+    "Kevin",
+    "Daniele",
+    "Christopher",
+    "Kosa"
+  ],
+  "published": "2023-05-30",
+  "link": "http://arxiv.org/abs/2306.01779"
+}

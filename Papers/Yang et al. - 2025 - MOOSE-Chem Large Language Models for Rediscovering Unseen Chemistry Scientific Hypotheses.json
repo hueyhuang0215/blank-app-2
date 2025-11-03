@@ -1,0 +1,165 @@
+{
+  "objective": {
+    "answer": "The primary objective of the paper is to investigate whether large language models can autonomously generate novel and valid hypotheses in chemistry, given only a research background, and to develop a practical framework for this task. The authors aim to mathematically decompose the hypothesis discovery process and implement an agentic large language model framework, MOOSE-Chem, to rediscover high-impact chemistry hypotheses published after the model's knowledge cutoff. They also construct a benchmark of recent high-impact chemistry papers to evaluate the framework's effectiveness.",
+    "evidence": "In this work, we investigate whether LLMs can discover high-quality chemistry hypotheses given only a research background—comprising a question and/or a survey—without restriction on the domain of the question. ... we propose a formal mathematical decomposition grounded in a fundamental assumption: that most chemistry hypotheses can be composed from a research background and a set of inspirations. ... We further develop an agentic LLM framework, MOOSE-Chem, that is a direct implementation of this mathematical decomposition. To evaluate this framework, we construct a benchmark of 51 high-impact chemistry papers published and online after January 2024, each manually annotated by PhD chemists with background, inspirations, and hypothesis."
+  },
+  "knowledge_gap": {
+    "answer": "It is unclear whether large language models can autonomously generate novel and valid scientific hypotheses in the natural sciences, specifically chemistry, given only a research background, and without risk of data contamination.",
+    "evidence": "However, it remains unclear whether LLMs can autonomously generate novel and valid hypotheses in chemistry. ... However, their method is limited in the catalyst discovery domain, and their evaluation relies on whether LLMs can rediscover existing commercially used catalysts, potentially influenced by a data contamination problem. As a result, it is still unclear how good LLMs are for chemistry scientific discovery."
+  },
+  "novelty": {
+    "answer": [
+      "A mathematical decomposition of the hypothesis discovery process in chemistry, making the problem practical and executable.",
+      "Development of MOOSE-Chem, a multi-agent large language model framework for chemistry and material science hypothesis discovery, featuring evolutionary algorithms and multi-step inspiration retrieval.",
+      "Construction of a new benchmark (TOMATO-Chem) of 51 high-impact, post-2024 chemistry papers, annotated with background, inspirations, and hypotheses.",
+      "Demonstration that large language models can rediscover core innovations of recent, high-impact chemistry hypotheses without data contamination."
+    ],
+    "evidence": [
+      "We provide the first mathematical derivation on how to decompose the seemingly impossible-to-solve question P(hypothesis|research background) into many executable and practical smaller steps.",
+      "We develop a scientific discovery framework directly based on the mathematical derivation. Different from previous works, we propose an evolutionary algorithm-based method to better associate background and inspiration, multi-step inspiration retrieval and composition, and an efficient ranking method. In addition, the framework can be applied to chemistry and material science, which are not covered by previous methods.",
+      "We construct a benchmark by three chemistry PhD students, consisting of 51 chemistry papers published on Nature, Science, or a similar level, decomposing each paper into the research background, inspirations, and hypothesis.",
+      "For the first time, we show that an LLM-based framework can largely rediscover the main innovations of many chemistry hypotheses that have been published in Nature and Science. The rediscovery is not because of data contamination, because we have controlled the date of the training corpus of the LLM and the online date of the chemistry papers."
+    ]
+  },
+  "inspirational_papers": {
+    "answer": [
+      "- Yang et al. (2024b) First find that LLMs can generate novel and valid enough hypotheses evaluated by experts, focusing on social science and using a multi-agent system. (Methodological precursors)",
+      "- Si et al. (2024) Validate LLMs' hypothesis generation in NLP, showing more novelty but slightly less validity than humans. (Experimental baseline)",
+      "- Sprueill et al. (2023; 2024) Adopt LLMs for catalyst discovery, but with limitations in domain and evaluation. (Papers with limitations addressed by this work)",
+      "- Wang et al. (2024b) Try to utilize LLMs to discover novel NLP and biochemical hypotheses, finding that hypotheses still fall far behind scientific papers. (Experimental baseline and limitations addressed)"
+    ],
+    "evidence": [
+      "Yang et al. (2024b) first find that LLMs can generate novel and valid enough hypotheses evaluated by experts. They focus on the social science domain and make discoveries by developing a multi-agent system...",
+      "Si et al. (2024) further validate this finding by employing a large group of scientists to evaluate LLMs’ generated hypotheses in the NLP domain and show that LLM can generate more novel but slightly less valid research hypotheses than human researchers.",
+      "Sprueill et al. (2023; 2024) adopt LLMs to conduct a search process for catalyst discovery. However, their method is limited in the catalyst discovery domain, and their evaluation relies on whether LLMs can rediscover existing commercially used catalysts, potentially influenced by a data contamination problem.",
+      "Wang et al. (2024b) try to utilize LLMs to discover novel NLP and biochemical hypotheses, and find the hypotheses still fall far behind scientific papers in terms of novelty, depth, and utility."
+    ]
+  },
+  "method": {
+    "steps": [
+      {
+        "step": "Inspiration Retrieval",
+        "input": "A research background (question and/or survey) and a large chemistry literature corpus (up to 3000 papers).",
+        "output": "A set of inspiration papers (titles and abstracts) that are potentially useful for the research background.",
+        "tools": [
+          "Large language models (e.g., GPT-4o, Llama-3.1-70B) are prompted to screen the literature and select inspiration papers."
+        ],
+        "evidence": "Specifically, for each inference, we (1) sequentially select a fixed number of papers from I, where the fixed number is called the screening window size (default is 15); (2) set up a prompt consisting of b, the title and abstract of the selected papers from I, and the previous h (if it is not ∅); and (3) instruct the LLM to generate three titles from the input that can best serve as i for b (and optionally previous h), and give reasons."
+      },
+      {
+        "step": "Hypothesis Composition",
+        "input": "The research background and the selected inspiration(s) from the previous step.",
+        "output": "A set of candidate research hypotheses, each associating the background with one or more inspirations.",
+        "tools": [
+          "Large language models are used to compose hypotheses, employing an evolutionary algorithm-based 'evolutionary unit' (EU) to generate, mutate, refine, and recombine hypotheses."
+        ],
+        "evidence": "With this motivation, we develop a simple evolutionary algorithm-based method, shown in the top-right of Figure 1. We call it 'evolutionary unit' (EU). Specifically, given b and i, EU will first generate multiple hypothesis 'mutations' m, where each m is a unique way to associate b and i together. Then EU further develops each m independently by providing feedback to each m in terms of validness, novelty, clarity, and significance, and then refining them based on the feedback."
+      },
+      {
+        "step": "Hypothesis Ranking",
+        "input": "The set of generated hypotheses from the previous step.",
+        "output": "A ranked list of hypotheses, scored on validness, novelty, significance, and potential.",
+        "tools": [
+          "Large language models are prompted to evaluate and score each hypothesis on four aspects: validness, novelty, significance, and potential."
+        ],
+        "evidence": "We adopt a simple and efficient way for R(h), which is to prompt an LLM to output evaluation scores for an input h in terms of validness, novelty, significance, and potential."
+      }
+    ],
+    "tools": [
+      "Large language models (e.g., GPT-4o, Llama-3.1-70B): Used for inspiration retrieval, hypothesis composition, and hypothesis ranking.",
+      "Evolutionary algorithm-based 'evolutionary unit' (EU): Generates, mutates, refines, and recombines hypotheses to increase diversity and quality."
+    ],
+    "evidence": [
+      "We develop a scientific discovery framework directly based on the mathematical derivation. Different from previous works, we propose an evolutionary algorithm-based method to better associate background and inspiration, multi-step inspiration retrieval and composition, and an efficient ranking method.",
+      "Specifically, for each inference, we (1) sequentially select a fixed number of papers from I, where the fixed number is called the screening window size (default is 15); (2) set up a prompt consisting of b, the title and abstract of the selected papers from I, and the previous h (if it is not ∅); and (3) instruct the LLM to generate three titles from the input that can best serve as i for b (and optionally previous h), and give reasons.",
+      "With this motivation, we develop a simple evolutionary algorithm-based method, shown in the top-right of Figure 1. We call it 'evolutionary unit' (EU).",
+      "We adopt a simple and efficient way for R(h), which is to prompt an LLM to output evaluation scores for an input h in terms of validness, novelty, significance, and potential."
+    ]
+  },
+  "subject_area": {
+    "areas": [
+      "Chemical Sciences",
+      "Applied Sciences & Engineering"
+    ],
+    "evidence": [
+      "In this paper, we investigate this central research question: Can LLMs automatically discover novel and valid chemistry research hypotheses (even at the Nature level) given only a chemistry research background...",
+      "In this paper, we target both chemistry and material science, but for simplicity, we only refer to them as chemistry in this paper."
+    ]
+  },
+  "performance_summary": {
+    "performance_summary": [
+      "MOOSE-Chem was able to rediscover many hypotheses with high similarity to ground truth, capturing core innovations of recent high-impact chemistry papers.",
+      "LLMs achieved high hit ratios in inspiration retrieval (e.g., over 83% of ground truth inspirations covered in top 4% of corpus).",
+      "MOOSE-Chem outperformed baselines (SciMON, MOOSE, Qi et al.) in terms of the highest Matched Score (Top MS) and average Matched Score (Average MS) for rediscovered hypotheses.",
+      "Expert evaluation confirmed that MOOSE-Chem-generated hypotheses often covered two or more main innovations of ground truth hypotheses."
+    ],
+    "baselines": [
+      "SciMON: A hypothesis discovery framework for NLP and biochemical domains, using semantic and citation neighbors for retrieval and self-refine for novelty.",
+      "MOOSE: A social science hypothesis discovery framework using LLMs for inspiration retrieval and self-refine for hypothesis improvement.",
+      "Qi et al. (2024): Biomedical domain hypothesis discovery using keyword-based retrieval and self-refine."
+    ],
+    "benchmark_datasets": [
+      "TOMATO-Chem: A benchmark of 51 chemistry and material science papers published in 2024, each annotated with background, inspirations, and hypothesis. Used for evaluating hypothesis rediscovery and ranking."
+    ],
+    "evaluation_metrics": [
+      "Hit Ratio: Measures the proportion of ground truth inspiration papers retrieved by the model.",
+      "Matched Score (MS): A 6-point Likert scale evaluating how well generated hypotheses match the key points of ground truth hypotheses.",
+      "Average/Top Matched Score: Average or highest MS for generated hypotheses per background.",
+      "Expert Evaluation: Human PhD chemists rate the quality and innovation coverage of generated hypotheses."
+    ],
+    "evidence": [
+      "Table 3 shows the main experiment results. The Hit Ratio is surprisingly high: More than 75% of the ground truth inspirations are covered by even only the 4% chosen papers from the chemistry literature corpus.",
+      "Table 10 shows the baseline results and the ablation study of MOOSE-Chem. It indicates that both mutation & recombination and the multi-step designs can significantly improve the best-performing h.",
+      "Table 7 shows the results. For each b, the top two h with the highest MS by GPT-4o are selected for expert evaluation (by two chemistry PhD students). It indicates that LLMs are quite capable of associating known knowledge into unknown knowledge that has a high probability to be valid (very close to oh).",
+      "The benchmark consists of 51 chemistry and material science papers and is constructed by multiple chemistry PhD students. We only select those papers published on top chemistry venues and be public on the internet after January 2024.",
+      "We use Hit Ratio as the evaluation metric, which is calculated by the number of selected ground truth inspiration papers divided by the number of all ground truth inspiration papers.",
+      "The evaluation criteria is called 'Matched score', which is in a 6-point Likert scale (from 5 to 0)."
+    ]
+  },
+  "limitations": {
+    "limitations": [
+      {
+        "label": "Evaluation Reliability in Chemistry",
+        "explanation": "Expert evaluation of hypotheses in chemistry is challenging due to the complexity and specificity of the field, making it hard to reliably assess hypothesis validity outside one's subdomain.",
+        "evidence": "The first challenge to answer Q2 is the evaluation method: The benchmark covers a large range of chemistry topics, and chemistry is a very complex discipline that a slight change of research topic would make a chemist unable to provide a reliable enough evaluation. In fact, a chemistry researcher might not be able to provide a reliable enough evaluation even if the hypothesis is in his domain."
+      },
+      {
+        "label": "Ranking Limitations",
+        "explanation": "LLMs may not reliably rank hypotheses by quality, as ground truth hypotheses are not always ranked at the top.",
+        "evidence": "Surprisingly, the ground truth hypotheses are not ranked to the top. There are three possible reasons: 1. LLM does poorly on ranking hypotheses; 2. The generated hypotheses tend to describe their novelty and significance (although they are prompted to not to), which might influence the judgment; 3. The generated hypotheses may surpass the original in quality."
+      },
+      {
+        "label": "Matched Score Limitation",
+        "explanation": "The Matched Score metric only measures similarity to ground truth, not the absolute quality or validity of generated hypotheses.",
+        "evidence": "MS only measures the similarity between the generated h and the ground truth h. Receiving an MS as 0 or 1 does not mean the generated h is bad. Only real lab experiments can check each h."
+      }
+    ],
+    "evidence": [
+      "The first challenge to answer Q2 is the evaluation method: The benchmark covers a large range of chemistry topics, and chemistry is a very complex discipline that a slight change of research topic would make a chemist unable to provide a reliable enough evaluation. In fact, a chemistry researcher might not be able to provide a reliable enough evaluation even if the hypothesis is in his domain.",
+      "Surprisingly, the ground truth hypotheses are not ranked to the top. There are three possible reasons: 1. LLM does poorly on ranking hypotheses; 2. The generated hypotheses tend to describe their novelty and significance (although they are prompted to not to), which might influence the judgment; 3. The generated hypotheses may surpass the original in quality.",
+      "MS only measures the similarity between the generated h and the ground truth h. Receiving an MS as 0 or 1 does not mean the generated h is bad. Only real lab experiments can check each h."
+    ]
+  },
+  "future_directions": {
+    "future_directions": [],
+    "evidence": "No explicit future directions were stated in the paper."
+  },
+  "resource_link": {
+    "answer": "",
+    "evidence": "No code repository, project website, or data repository link is provided in the paper."
+  },
+  "paper_title": "MOOSE-Chem: Large Language Models for Rediscovering Unseen Chemistry Scientific Hypotheses",
+  "authors": [
+    "Zonglin",
+    "Wanhao",
+    "Ben",
+    "Tong",
+    "Yuqiang",
+    "Wanli",
+    "Soujanya",
+    "Erik",
+    "Dongzhan"
+  ],
+  "published": "2025-05-18",
+  "link": "http://arxiv.org/abs/2410.07076"
+}

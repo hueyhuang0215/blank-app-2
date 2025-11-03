@@ -1,0 +1,231 @@
+{
+  "objective": {
+    "answer": "The primary objective of the paper is to introduce Robin, a multi-agent system that fully automates the key intellectual steps of the scientific discovery process, including literature search, hypothesis generation, experimental planning, data analysis, and iterative hypothesis refinement. The authors aim to demonstrate Robin's ability to autonomously discover and validate novel therapeutic candidates, specifically applying it to identify a new treatment for dry age-related macular degeneration.",
+    "evidence": "Here, we introduce Robin, the first multi-agent system capable of fully automating the key intellectual steps of the scientific process. By integrating literature search agents with data analysis agents, Robin can generate hypotheses, propose experiments, interpret experimental results, and generate updated hypotheses, achieving a semi-autonomous approach to scientific discovery. By applying this system, we were able to identify a novel treatment for dry age-related macular degeneration (dAMD), the major cause of blindness in the developed world."
+  },
+  "knowledge_gap": {
+    "answer": "Despite advances in artificial intelligence for scientific discovery, no system has yet automated all key intellectual stages of the scientific process—such as hypothesis generation, experimental planning, and data analysis—in a single, integrated workflow.",
+    "evidence": "Despite recent advancements in applying artificial intelligence to scientific discovery, no system has yet automated all of these stages in a single workflow. ... However, none of these systems are currently capable of fully automating the key intellectual steps of the scientific process, including generating hypotheses and experimental strategies, analyzing results from the experiments, and refining hypotheses in light of new data."
+  },
+  "novelty": {
+    "answer": [
+      "Development of Robin, the first multi-agent system that integrates literature search, hypothesis generation, experimental planning, data analysis, and iterative hypothesis refinement in a single workflow.",
+      "Robin's ability to autonomously discover and validate a novel therapeutic candidate through an iterative lab-in-the-loop framework.",
+      "Integration of specialized language agents (Crow, Falcon, Finch) for distinct scientific reasoning and data analysis tasks.",
+      "Implementation of an LLM-judged tournament for ranking hypotheses and candidates based on scientific rationale and evidence."
+    ],
+    "evidence": [
+      "Here, we introduce Robin, the first multi-agent system capable of fully automating the key intellectual steps of the scientific process.",
+      "As the first AI system to autonomously discover and validate a novel therapeutic candidate within an iterative lab-in-the-loop framework, Robin establishes a new paradigm for AI-driven scientific discovery.",
+      "Robin utilizes specialized language agents for literature search (Crow and Falcon) and data analysis (Finch) to enable semi-autonomous scientific discovery [27, 28].",
+      "The drug candidates are ranked by an LLM-judged tournament according to the strength of the scientific rationale, pharmacological profile, and methodology of the supporting literature."
+    ]
+  },
+  "inspirational_papers": {
+    "answer": [
+      "Skarlinski et al. (2024) Language agents achieve superhuman synthesis of scientific knowledge. (Methodological precursors)",
+      "Mitchener et al. (2025) Bixbench: A comprehensive benchmark for llm-based agents in computational biology. (Methodological precursors)",
+      "Wang et al. (2025) Automated Hypothesis Validation with Agentic Sequential Falsifications. (Methodological precursors)",
+      "Boiko et al. (2023) Autonomous chemical research with large language models. (Methodological precursors)",
+      "Lu et al. (2024) The AI Scientist: Towards Fully Automated Open-Ended Scientific Discovery. (Methodological precursors)",
+      "Gottweis et al. (2025) Towards an AI co-scientist. (Methodological precursors)"
+    ],
+    "evidence": [
+      "Crow and Falcon are literature search agents based on PaperQA2 that conduct concise and deep literature summaries, respectively [27].",
+      "Finch, initially introduced in BixBench, is an autonomous, Jupyter-native data analysis agent designed using the Aviary framework [32].",
+      "Several LLM systems have recently been developed to automate hypothesis generation [20, 21, 22, 23, 24, 25].",
+      "Specialized systems have also been developed to automate specific tasks in drug discovery, such as prediction of pharmacological properties and safety profiles [25, 22]."
+    ]
+  },
+  "method": {
+    "steps": [
+      {
+        "step": "Input disease name",
+        "input": "Name of the target disease provided by the scientist.",
+        "output": "Initiation of the hypothesis generation workflow.",
+        "tools": [
+          "Robin system interface"
+        ],
+        "evidence": "The scientist directs the system by providing the name of the disease to target."
+      },
+      {
+        "step": "Literature review and disease mechanism identification",
+        "input": "Disease name; queries generated for literature search.",
+        "output": "Concise literature reviews and identification of 10 potential causal disease mechanisms.",
+        "tools": [
+          "Crow (concise literature search agent based on PaperQA2)"
+        ],
+        "evidence": "Crow and Falcon are literature search agents based on PaperQA2 that conduct concise and deep literature summaries, respectively [27]."
+      },
+      {
+        "step": "Experimental assay selection",
+        "input": "Reports from Crow on disease mechanisms and in vitro models.",
+        "output": "Top-ranked in vitro model and experimental strategy for candidate generation.",
+        "tools": [
+          "LLM judge (Anthropic Claude 3.7 Sonnet) for pairwise comparison and ranking"
+        ],
+        "evidence": "Robin uses an LLM judge to make pairwise comparisons between reports, which are used to calculate their relative rankings (see Methods)."
+      },
+      {
+        "step": "Therapeutic candidate generation",
+        "input": "Selected in vitro model; literature reviews on disease mechanism and therapeutic landscape.",
+        "output": "List of 30 therapeutic candidates for experimental testing.",
+        "tools": [
+          "Crow (literature review)",
+          "Falcon (deep literature review and candidate evaluation)"
+        ],
+        "evidence": "Robin then queries Falcon to generate a detailed report to evaluate each candidate."
+      },
+      {
+        "step": "Candidate ranking",
+        "input": "Evaluation reports for each candidate.",
+        "output": "Ranked list of drug candidates for experimental testing.",
+        "tools": [
+          "LLM-judged tournament (Anthropic Claude 3.7 Sonnet)"
+        ],
+        "evidence": "The drug candidates are ranked by an LLM-judged tournament according to the strength of the scientific rationale, pharmacological profile, and methodology of the supporting literature."
+      },
+      {
+        "step": "Experimental testing",
+        "input": "Top-ranked drug candidates and experimental assay protocol.",
+        "output": "Experimental data (e.g., flow cytometry, RNA-seq).",
+        "tools": [
+          "Laboratory experiments (human-executed)"
+        ],
+        "evidence": "Researchers next conduct the experiments and provide the resulting data to Robin for autonomous analysis."
+      },
+      {
+        "step": "Experimental data analysis",
+        "input": "Raw or semi-processed experimental data; analysis prompt.",
+        "output": "Analysis results, statistical tests, and visualizations.",
+        "tools": [
+          "Finch (autonomous data analysis agent in Jupyter, using Python/R/Bash libraries)"
+        ],
+        "evidence": "Robin then deploys Finch to carry out the desired analysis. ... Finch executes analysis code in a Jupyter notebook and provides an interpretable and reproducible summary of its findings."
+      },
+      {
+        "step": "Meta-analysis and consensus",
+        "input": "Multiple Finch analysis trajectories.",
+        "output": "Consensus-driven conclusion and actionable scientific insights.",
+        "tools": [
+          "Meta-analysis module within Robin"
+        ],
+        "evidence": "Robin can launch 10 Finch analysis trajectories, each of which independently analyzes the experimental data. ... a meta-analysis can be conducted to synthesize all outputs into a consensus-driven conclusion."
+      },
+      {
+        "step": "Iterative hypothesis refinement",
+        "input": "Experimental insights and analysis results.",
+        "output": "Updated hypotheses and follow-up experimental plans.",
+        "tools": [
+          "Robin system (integrating all agents)"
+        ],
+        "evidence": "These experimental insights are used to inform the next cycle of therapeutic hypothesis generation. The cycle continues until a human has a satisfactory novel drug candidate."
+      }
+    ],
+    "tools": [
+      "Crow: Concise literature search agent based on PaperQA2, retrieves and summarizes scientific literature.",
+      "Falcon: Deep literature review agent, generates comprehensive evaluation reports for candidates.",
+      "Finch: Autonomous data analysis agent, performs bioinformatics workflows in Jupyter notebooks.",
+      "LLM judge (Anthropic Claude 3.7 Sonnet): Performs pairwise comparisons and rankings of hypotheses and candidates.",
+      "Aviary framework: Orchestrates agent execution and provides a reproducible environment."
+    ],
+    "evidence": [
+      "Robin utilizes specialized language agents for literature search (Crow and Falcon) and data analysis (Finch) to enable semi-autonomous scientific discovery [27, 28].",
+      "Finch, initially introduced in BixBench, is an autonomous, Jupyter-native data analysis agent designed using the Aviary framework [32].",
+      "Robin uses an LLM judge to make pairwise comparisons between reports, which are used to calculate their relative rankings (see Methods).",
+      "The drug candidates are ranked by an LLM-judged tournament according to the strength of the scientific rationale, pharmacological profile, and methodology of the supporting literature."
+    ]
+  },
+  "subject_area": {
+    "areas": [
+      "Health Sciences",
+      "Biological Sciences"
+    ],
+    "evidence": [
+      "As a primary goal of biomedical research is the development of new treatments for disease, our ability to produce new therapeutics may be the ultimate beneficiary of these approaches.",
+      "To demonstrate Robin’s ability to generate and refine novel therapeutic hypotheses, we attempted to identify potential new treatments for dry age-related macular degeneration (dAMD)."
+    ]
+  },
+  "performance_summary": {
+    "performance_summary": [
+      "Robin successfully identified a novel therapeutic candidate, ripasudil, for dry age-related macular degeneration, which significantly enhanced retinal pigment epithelium phagocytosis in vitro, outperforming other tested compounds.",
+      "Robin autonomously generated hypotheses, selected experimental assays, analyzed experimental data, and iteratively refined its hypotheses, demonstrating a fully integrated AI-driven scientific discovery process.",
+      "The LLM judge used for ranking hypotheses showed high concordance with human expert preferences, matching an average of 7.25 out of 10 top hypotheses and exhibiting higher intra-rater consistency than human experts."
+    ],
+    "baselines": [
+      "Human expert hypothesis ranking: Used to compare the LLM judge's ranking performance.",
+      "Human analysis of experimental data: Used to confirm Finch's automated analysis results."
+    ],
+    "benchmark_datasets": [
+      "Not reported in the paper. The study used experimental data generated in-house (e.g., flow cytometry and RNA-seq from ARPE-19 cells) rather than established benchmark datasets."
+    ],
+    "evaluation_metrics": [
+      "Concordance with human expert rankings: Measures overlap between LLM judge and human expert top-10 hypothesis selections.",
+      "Intra-rater consistency: Measures how often the LLM judge or human experts make the same selection when presented with identical pairwise comparisons.",
+      "Statistical significance in experimental assays: Dunnett’s test used to compare drug treatments to control in flow cytometry data.",
+      "Differential gene expression: |log2FC| > 1 and adjusted p < 0.05 used as thresholds in RNA-seq analysis."
+    ],
+    "evidence": [
+      "Ripasudil is a clinically-used rho kinase (ROCK) inhibitor that has never previously been proposed for treating dAMD. ... ripasudil, a ROCK inhibitor approved for treatment of glaucoma in Japan, outperformed Y-27632 and increased RPE cell phagocytosis 7.5-fold compared to DMSO controls (Figure 4A,B; human analysis showed 1.75-fold increase in Supplementary Figure S14).",
+      "All hypotheses, experimental plans, data analyses, and data figures in the main text of this report were produced by Robin.",
+      "When comparing the LLM judge’s preferences with experts’, the LLM judge demonstrated high concordance with expert preferences, with an average of 7.25 of its top 10 hypotheses matching those in the experts’ top 10 (Supplementary Figure S11A). ... the LLM judge selected the same hypothesis in 88% of comparisons, as compared with human experts who selected the same hypothesis 61% of the time.",
+      "Finch performs statistical tests to compare candidate drugs to the DMSO control and plots the results.",
+      "Raw gene counts were imported into R (v4.2.0) ... volcano plots were generated with EnhancedVolcano (v1.14.0) using thresholds of |log2FC| > 1 and adj. p < 0.05 [69]."
+    ]
+  },
+  "limitations": {
+    "limitations": [
+      {
+        "label": "Lack of Executable Protocols",
+        "explanation": "Robin generates experimental outlines but does not yet produce precise, executable laboratory protocols.",
+        "evidence": "For example, while Robin generates experimental outlines, it does not yet produce precise, executable protocols—future iterations aim to provide detailed methodologies that require minimal human translation for laboratory execution."
+      },
+      {
+        "label": "Prompt Engineering Dependency",
+        "explanation": "The Finch data analysis agent relies heavily on prompt engineering by domain experts to produce reliable analytical results.",
+        "evidence": "The Finch data analysis agent is also heavily reliant on prompt engineering by domain experts to produce reliable analytical results."
+      },
+      {
+        "label": "LLM Judge Alignment",
+        "explanation": "Further work is needed to better align hypothesis generation and evaluation with human scientific judgment for more reliable high-quality hypotheses.",
+        "evidence": "Finally, while Robin uses an LLM-judged tournament to nominate therapeutic hypotheses, future work on better aligning hypothesis generation and evaluation with human scientific judgment may be helpful in more reliably producing high-quality hypotheses."
+      }
+    ],
+    "evidence": [
+      "For example, while Robin generates experimental outlines, it does not yet produce precise, executable protocols—future iterations aim to provide detailed methodologies that require minimal human translation for laboratory execution.",
+      "The Finch data analysis agent is also heavily reliant on prompt engineering by domain experts to produce reliable analytical results.",
+      "Finally, while Robin uses an LLM-judged tournament to nominate therapeutic hypotheses, future work on better aligning hypothesis generation and evaluation with human scientific judgment may be helpful in more reliably producing high-quality hypotheses."
+    ]
+  },
+  "future_directions": {
+    "future_directions": [
+      "Develop Robin to generate detailed, executable laboratory protocols that require minimal human translation.",
+      "Adapt Finch to independently generate or adapt prompts to specific data modalities for a more autonomous discovery pipeline.",
+      "Improve alignment of hypothesis generation and evaluation with human scientific judgment to more reliably produce high-quality hypotheses."
+    ],
+    "evidence": [
+      "For example, while Robin generates experimental outlines, it does not yet produce precise, executable protocols—future iterations aim to provide detailed methodologies that require minimal human translation for laboratory execution.",
+      "Adapting Finch to independently generate or adapt prompts to specific data modalities would enable a more autonomous discovery pipeline.",
+      "Finally, while Robin uses an LLM-judged tournament to nominate therapeutic hypotheses, future work on better aligning hypothesis generation and evaluation with human scientific judgment may be helpful in more reliably producing high-quality hypotheses."
+    ]
+  },
+  "resource_link": {
+    "answer": "https://github.com/Future-House/robin",
+    "evidence": "Sample trajectories for Robin and Finch, as well as the code for Robin will be available at github.com/Future-House/robin"
+  },
+  "paper_title": "Robin: A multi-agent system for automating scientific discovery",
+  "authors": [
+    "Ali Essam",
+    "Benjamin",
+    "Ludovico",
+    "Angela",
+    "Caralyn J.",
+    "Jon M.",
+    "Muhammed T.",
+    "Andrew D.",
+    "Michaela M.",
+    "Samuel G."
+  ],
+  "published": "2025-05-19",
+  "link": "http://arxiv.org/abs/2505.13400"
+}

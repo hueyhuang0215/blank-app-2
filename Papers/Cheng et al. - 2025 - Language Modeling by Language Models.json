@@ -1,0 +1,208 @@
+{
+  "objective": {
+    "answer": "The primary objective of the paper is to develop and empirically validate an autonomous, large language model-driven system (Genesys) for discovering novel language model architectures that can outperform standard transformer-based models. The authors aim to simulate the full research process, from ideation and literature search to code implementation, pre-training, and evaluation, in order to efficiently generate and verify new language model designs. They seek to address foundational challenges in automated scientific discovery by focusing on the concrete and measurable task of neural architecture discovery.",
+    "evidence": "In this paper, we focus on discovery in machine learning and ask: Can we model the process of discovering novel language model architectures that improve on the standard transformer architecture?... Our system Genesys then consists of LLM-driven designer agents that propose new research ideas and produce executable architecture designs, and verifier agents that select designs and perform on-the-fly generative pre-training."
+  },
+  "knowledge_gap": {
+    "answer": "Existing automated scientific discovery systems often focus on open-ended research tasks with unclear goals and unverifiable discoveries, lacking clear objectives and evaluation criteria for impactful research problems such as neural architecture discovery.",
+    "evidence": "However, while many new large language model (LLM)-driven ASD systems have been recently proposed... much of this work focuses on open-ended research with unclear goals and where discoveries are hard to verify. This motivates the development of new tasks that address foundational challenges in ASD, tasks that are broad in scope and address impactful research problems, but that have clear goals and criteria for success."
+  },
+  "novelty": {
+    "answer": [
+      "A multi-agent large language model-driven system (Genesys) that simulates the full research process for autonomous language model architecture discovery.",
+      "A Ladder of Scales approach for efficient verification, where new designs are evaluated at progressively larger model scales with a narrowing budget.",
+      "A novel genetic programming backbone using a factorized, tree-based representation of model architectures (generalized autoregressive unit trees), enabling efficient mutation and crossover operations.",
+      "A unit-based, Viterbi-style code generation strategy that exponentially improves the success rate and efficiency of generating valid, complex model designs compared to direct prompting.",
+      "The largest reported automated scientific discovery experiment for language models, involving over 1,000 verified novel architectures and comprehensive system-level ablations."
+    ],
+    "evidence": [
+      "Inspired by real research, we propose a multi-agent LLM approach that simulates the conventional stages of research, from ideation and literature search (proposal stage) to design implementation (code generation), generative pre-training, and downstream evaluation (verification).",
+      "Using ideas from scaling laws, our system Genesys employs a Ladder of Scales approach; new designs are proposed, adversarially reviewed, implemented, and selectively verified at increasingly larger model scales (14M∼350M parameters) with a narrowing budget (the number of models we can train at each scale).",
+      "To help make discovery efficient and factorizable, Genesys uses a novel genetic programming backbone, which we show has empirical advantages over commonly used direct prompt generation workflows...",
+      "Through systematic ablations, we also find that our system leads to more stable discovery (e.g., measurable improvements in the fitness of new designs over time) and effective code generation (e.g., ∼86% percentage point improvement in successful design generation), which give broader insight into how to effectively build large-scale discovery systems.",
+      "We performed large-scale discovery experiments that resulted in 1,062 new architecture designs fully verified through pre-training (at the 14M-350M parameter scales)... To our knowledge, our work constitutes the largest ASD experiment of its kind, involving >1 billion tokens, 2.76M lines of code, and 86K agent interactions."
+    ]
+  },
+  "inspirational_papers": {
+    "answer": [
+      "Vaswani et al. (2017) Attention is all you need. (Experimental baselines, foundational transformer architecture)",
+      "Dao & Gu (2024) Transformers are ssms: Generalized models and efficient algorithms through structured state space duality. (Experimental baselines, alternative architectures)",
+      "Sun et al. (2023) Retentive network: A successor to transformer for large language models. (Experimental baselines, alternative architectures)",
+      "Peng et al. (2024) Eagle and finch: RWKV with matrix-valued states and dynamic recurrence. (Experimental baselines, alternative architectures)",
+      "Tay et al. (2022b) Efficient transformers: A survey. (Methodological precursor, operation space for neural architecture search)",
+      "Elsken et al. (2019) Neural architecture search: A survey. (Methodological precursor, genetic programming and NAS inspiration)",
+      "Romera-Paredes et al. (2024) Mathematical discoveries from program search with large language models. (Methodological precursor, LLM-driven program search and genetic programming)"
+    ],
+    "evidence": [
+      "Our system Genesys then consists of LLM-driven designer agents that propose new research ideas and produce executable architecture designs, and verifier agents that select designs and perform on-the-fly generative pre-training. At the core of Genesys is an evolution tree that stores seed designs and new discovery artifacts. These artifacts are implemented using a special code construct called a generalized autoregressive block (GAB) (Figure 3) that is capable of expressing a wide range of neural architecture types and factorizable into discrete tree representations that allow us to employ efficient genetic programming (GP)-style optimization.",
+      "The evolutionary tree is initially populated with several state-of-the-art architecture designs, including the transformer/GPT (Biderman et al., 2023), Mamba2 (Dao & Gu, 2024), RetNet (Sun et al., 2023), RWKV6 (Peng et al., 2024), and TTT (Sun et al., 2024).",
+      "We take inspiration from the NAS literature (Chitty-Venkata et al., 2022; White et al., 2023; Elsken et al., 2019; Chen et al., 2023)... We follow many approaches in NAS that employ genetic programming techniques (GP) (Koza, 1994) and more recent approaches that mix GP with LLMs (Hemberg et al., 2024; Romera-Paredes et al., 2024)."
+    ]
+  },
+  "method": {
+    "steps": [
+      {
+        "step": "Initialize the discovery environment (LMADE) with a knowledge engine and verification engine.",
+        "input": "A manually curated reference library of 297 language model papers, code snippets, and access to external academic sources; tools for querying ArXiv, Semantic Scholar, and the web.",
+        "output": "A searchable knowledge base and tools for automated model pre-training and evaluation.",
+        "tools": [
+          "Knowledge Engine: Provides access to academic literature and code for background research.",
+          "Verification Engine: Automates pre-training and evaluation of model designs."
+        ],
+        "evidence": "Our Language Model Architecture Discovery Environment (LMADE) specifically consists of two core resources, a general-purpose knowledge engine that provides access to the academic literature and a verification engine that provides tools for performing model pre-training and evaluation."
+      },
+      {
+        "step": "Populate the evolutionary tree with seed designs and represent each as a generalized autoregressive unit (GAU) tree.",
+        "input": "Seed designs (e.g., GPT, Mamba2, RetNet, RWKV6, TTT) and their code implementations.",
+        "output": "An evolution tree storing block designs, their GAU tree representations, code, and performance metrics.",
+        "tools": [
+          "GAU Tree: A discrete tree representation of model architecture for genetic programming operations."
+        ],
+        "evidence": "The evolutionary tree is initially populated with several state-of-the-art architecture designs, including the transformer/GPT (Biderman et al., 2023), Mamba2 (Dao & Gu, 2024), RetNet (Sun et al., 2023), RWKV6 (Peng et al., 2024), and TTT (Sun et al., 2024)."
+      },
+      {
+        "step": "Designer agents propose new model designs via mutation, crossover, or scratch, using literature and past designs.",
+        "input": "Parent designs from the evolution tree, selected references from the knowledge engine, and proposal prompts.",
+        "output": "A research proposal document describing a novel architecture modification.",
+        "tools": [
+          "LLM Proposer Agent: Generates research proposals for new model designs.",
+          "LLM Reviewer Agent: Reviews and scores proposals for novelty and quality."
+        ],
+        "evidence": "Genesys then includes two core sets of agents: LLM-driven designers (§ 4.2) that select past designs from the evolution tree, propose unit-wise modifications to those designs based on background research, then implement the proposed designs and add them to the evolution tree."
+      },
+      {
+        "step": "Implement the accepted proposal as executable code using a unit-based, recursive generation strategy.",
+        "input": "Accepted research proposal, GAU tree structure, and code templates.",
+        "output": "Executable PyTorch code for the new model block, validated for correctness.",
+        "tools": [
+          "LLM Planner Agent: Selects units to implement and provides planning.",
+          "LLM Coder Agent: Generates code for each unit.",
+          "Symbolic Checker: Performs static and runtime code analysis for validity.",
+          "LLM Observer Agent: Assesses code quality and adherence to proposal."
+        ],
+        "evidence": "This procedure builds up a block program gradually by incrementally constructing the GAU tree, which implicitly performs the factorization online... Implementation is validated by a symbolic checker (verifying GAU/GAB compliance for the current unit and the entire tree) and a LLM observer that assesses code quality, proposal adherence, and novelty against prior/sibling implementations, then rates it (threshold: 3/5)."
+      },
+      {
+        "step": "Verify new designs through automated pre-training and downstream evaluation at multiple model scales.",
+        "input": "Executable model code, pretraining corpus (SmolLM-1/8-Corpus), and benchmark datasets.",
+        "output": "Empirical performance metrics for each design at various parameter scales.",
+        "tools": [
+          "Verification Engine: Automates pre-training and evaluation.",
+          "Ladder of Scales: Strategy for allocating verification budget across model scales."
+        ],
+        "evidence": "To make verification feasible, we employ a Ladder-of-Scales approach where new designs are verified on increasingly larger model scales with a controlled budget, closely following the methodology used in research on small LMs (Lu et al., 2024b; Hu et al., 2024)."
+      },
+      {
+        "step": "Update the evolutionary tree with new designs, their performance, and use results to guide further exploration.",
+        "input": "Performance metrics and verification results from the previous step.",
+        "output": "An updated evolution tree with fitness and confidence scores for each design.",
+        "tools": [
+          "Quadrant-based Selection: Strategy for balancing exploration and exploitation in design selection."
+        ],
+        "evidence": "Designs in the evolutionary tree are assessed along two dimensions: fitness F (i.e., aggregate downstream task performance) and confidence (i.e., number of model scales where verification was performed). Designs are then categorized into four quadrants (see Figure 10)..."
+      }
+    ],
+    "tools": [
+      "Knowledge Engine: Provides literature and code access for background research.",
+      "Verification Engine: Automates pre-training and evaluation of model designs.",
+      "GAU Tree: Factorized, tree-based representation of model architectures for genetic programming.",
+      "LLM Proposer Agent: Generates research proposals for new model designs.",
+      "LLM Reviewer Agent: Reviews and scores proposals for novelty and quality.",
+      "LLM Planner Agent: Selects units to implement and provides planning.",
+      "LLM Coder Agent: Generates code for each unit.",
+      "Symbolic Checker: Performs static and runtime code analysis for validity.",
+      "LLM Observer Agent: Assesses code quality and adherence to proposal.",
+      "Ladder of Scales: Budget allocation strategy for multi-scale verification.",
+      "Quadrant-based Selection: Balances exploration and exploitation in design selection."
+    ],
+    "evidence": [
+      "Our Language Model Architecture Discovery Environment (LMADE) specifically consists of two core resources, a general-purpose knowledge engine that provides access to the academic literature and a verification engine that provides tools for performing model pre-training and evaluation.",
+      "Genesys then includes two core sets of agents: LLM-driven designers (§ 4.2) that select past designs from the evolution tree, propose unit-wise modifications to those designs based on background research, then implement the proposed designs and add them to the evolution tree.",
+      "This procedure builds up a block program gradually by incrementally constructing the GAU tree, which implicitly performs the factorization online.",
+      "To make verification feasible, we employ a Ladder-of-Scales approach where new designs are verified on increasingly larger model scales with a controlled budget, closely following the methodology used in research on small LMs (Lu et al., 2024b; Hu et al., 2024)."
+    ]
+  },
+  "subject_area": {
+    "areas": [
+      "Applied Sciences & Engineering",
+      "Physical Sciences"
+    ],
+    "evidence": [
+      "In this paper, we focus on discovery in machine learning and ask: Can we model the process of discovering novel language model architectures that improve on the standard transformer architecture?",
+      "We define architecture discovery as a program search problem that involves finding an optimal program ˆBLM (in the space of valid programs BLM) that maximizes some fitness function : BLM → R."
+    ]
+  },
+  "performance_summary": {
+    "performance_summary": [
+      "The Genesys system discovered 1,062 novel language model architectures, with the best designs outperforming or matching state-of-the-art baselines such as GPT2 and Mamba2 on 6 out of 9 common downstream benchmarks at the 350 million parameter scale.",
+      "Discovered models achieved the highest average accuracy and best results in 7 out of 9 benchmarks at the 125 million parameter scale.",
+      "Genesys demonstrated a ∼86% percentage point improvement in successful design generation compared to direct prompting strategies.",
+      "Systematic ablations showed that literature access, experiment verification, and evolutionary search all contributed to improved fitness, stability, and reduced error rates in the discovery process."
+    ],
+    "baselines": [
+      "GPT2: Standard transformer-based language model.",
+      "Mamba2: State-space model and linear attention architecture.",
+      "RWKV7: Modern recurrent neural network architecture.",
+      "RetNet: Retentive network, a transformer alternative.",
+      "TTT: Test-time training transformer variant."
+    ],
+    "benchmark_datasets": [
+      "LM-Eval Benchmarks: A suite of 29 selected language model evaluation benchmarks, including tasks such as Blimp, Wnli, RTE, WG, CoLA, SST2, WSC, IS, and Mrpc, used for downstream evaluation of model performance.",
+      "SmolLM-1/8-Corpus: A high-quality, educational corpus built from subsets such as FineWeb-Edu, Cosmopedia-v2, Python-Edu, OpenWebMath, StackOverflow, and DeepMindMath, used for model pre-training."
+    ],
+    "evaluation_metrics": [
+      "Accuracy: Percentage of correct predictions on downstream tasks.",
+      "Perplexity: Measures the model's ability to predict text sequences, with lower values indicating better performance.",
+      "Sharpe Ratio: Risk-adjusted improvement metric for evolutionary progress.",
+      "Maximum Drawdown: Measures the maximal fitness decrement, indicating stability.",
+      "Error Rate: Percentage of invalid or erroneous designs during verification."
+    ],
+    "evidence": [
+      "We find that our system produces highly competitive designs, e.g., ones that outperform comparable transformer and mamba2 models (Dao & Gu, 2024) in 6 / 9 common downstream tasks.",
+      "Our discovered designs outperformed/matched baselines on 7/9 (125M) and 6/9 (350M) benchmarks, with superior averages.",
+      "Through systematic ablations, we also find that our system leads to more stable discovery (e.g., measurable improvements in the fitness of new designs over time) and effective code generation (e.g., ∼86% percentage point improvement in successful design generation), which give broader insight into how to effectively build large-scale discovery systems.",
+      "We specifically evaluated these designs on the scales of 125M and 350M parameters, trained on 25B and 50B tokens, respectively. Following standard protocols Groeneveld et al. (2024), tasks were selected based on their informativeness on smaller scales (see § E.3.1 and Table 16 for details)."
+    ]
+  },
+  "limitations": {
+    "limitations": [
+      {
+        "label": "Hardware-Specific Evaluation Constraints",
+        "explanation": "Integration of efficiency-focused innovations such as FlashAttention is hindered by complex hardware-specific evaluations.",
+        "evidence": "Current limitations include integrating efficiency-focused innovations, such as FlashAttention (Dao, 2024), hindered by complex hardware-specific evaluations..."
+      },
+      {
+        "label": "Scale Constraints",
+        "explanation": "Discovery is limited to billion-parameter-level models due to computational resource constraints.",
+        "evidence": "...and the constraints of billion-parameter-level discovery due to limited computational resources."
+      }
+    ],
+    "evidence": [
+      "Current limitations include integrating efficiency-focused innovations, such as FlashAttention (Dao, 2024), hindered by complex hardware-specific evaluations, and the constraints of billion-parameter-level discovery due to limited computational resources."
+    ]
+  },
+  "future_directions": {
+    "future_directions": [
+      "Enhance agent learning from feedback, possibly via reinforcement learning.",
+      "Develop a more adaptive design selection strategy.",
+      "Scale up experiments to larger model sizes.",
+      "Conduct qualitative analysis on the intelligibility of the design artifacts."
+    ],
+    "evidence": [
+      "Future work will aim to enhance the agent’s learning from feedback, possibly via reinforcement learning, as well as to develop a more adaptive design selection strategy. Our large-scale experiments yielded 1,062 novel LM architectures (14M-350M parameters), fully verified with pretraining. This is, to our knowledge, the largest automated LM discovery experiment. Genesys produced highly competitive designs; some outperformed human baselines such as the GPT and Mamba2 models in common downstream tasks. These results show the feasibility and lay the groundwork for autonomous evolutionary systems in scientifically complex and costly domains.",
+      "We see further work on scaling our experiments, as well as qualitative analysis on the intelligibility of the design artifacts, as promising directions for future work."
+    ]
+  },
+  "resource_link": {
+    "answer": "https://github.com/allenai/genesys",
+    "evidence": "All code and discovery artifacts (e.g., new designs, agent interactions and dialogues) can be found at https://genesys.allen.ai (live console) and https://github.com/allenai/genesys (system code)."
+  },
+  "paper_title": "Language Modeling by Language Models",
+  "authors": [
+    "Junyan",
+    "Peter",
+    "Kyle"
+  ],
+  "published": "2025-06-25",
+  "link": "http://arxiv.org/abs/2506.20249"
+}

@@ -1,0 +1,210 @@
+{
+  "objective": {
+    "answer": "The primary objective of the paper is to introduce ProtAgents, a platform for de novo protein design that leverages large language model-powered multi-agent collaborations combining physics-based simulations and machine learning. The authors aim to create a flexible, autonomous system where multiple AI agents with distinct expertise collaborate to solve complex protein design and analysis tasks, including generating new proteins, analyzing structures, and obtaining physical data. The goal is to overcome the limitations of current AI-based protein design methods by enabling dynamic, multi-objective, and interdisciplinary problem-solving.",
+    "evidence": "In this study, we introduce ProtAgents, a platform for de novo protein design based on Large Language Models (LLMs), where multiple AI agents with distinct capabilities collaboratively address complex tasks within a dynamic environment. ... The concerted effort of the system allows for powerful automated and synergistic design of de novo proteins with targeted mechanical properties."
+  },
+  "knowledge_gap": {
+    "answer": "Existing AI-based protein design methods are limited in flexibility, often focusing on specific material objectives or structural properties, and struggle to incorporate out-of-domain knowledge or perform comprehensive data analysis in a dynamic, multi-objective context.",
+    "evidence": "Current methodologies for protein design often rely on AI-based models, such as surrogate models that address end-to-end problems by linking protein structure to material properties or vice versa. However, these models frequently focus on specific material objectives or structural properties, limiting their flexibility when incorporating out-of-domain knowledge into the design process or comprehensive data analysis is required."
+  },
+  "novelty": {
+    "answer": [
+      "Development of ProtAgents, a multi-agent framework powered by large language models for autonomous, collaborative protein design and analysis.",
+      "Integration of diverse agent expertise, including knowledge retrieval, protein structure analysis, physics-based simulations, and results analysis, within a dynamic, LLM-driven environment.",
+      "Capability to combine generative AI models, physics simulators, and retrieval agents to solve multi-objective, interdisciplinary protein design problems.",
+      "Demonstration of automated, synergistic workflows that include de novo protein generation, structure prediction, property computation, and error correction without human intervention."
+    ],
+    "evidence": [
+      "In this study, we introduce ProtAgents, a platform for de novo protein design based on Large Language Models (LLMs), where multiple AI agents with distinct capabilities collaboratively address complex tasks within a dynamic environment.",
+      "The versatility in agent development allows for expertise in diverse domains, including knowledge retrieval, protein structure analysis, physics-based simulations, and results analysis.",
+      "The resulting model has the ability to go beyond the conventional DL models by integrating new physical data or information across disciplines, for instance via writing and executing code that solves differential equations or other physics-based numerical methods, or that conducts retrieval augmented generation (RAG).",
+      "The flexibility in designing the agents, on one hand, and their capacity in autonomous collaboration through the dynamic LLM-based multi-agent environment on the other hand, unleashes great potentials of LLMs in addressing multi-objective materials problems and opens up new avenues for autonomous materials discovery and design."
+    ]
+  },
+  "inspirational_papers": {
+    "answer": [
+      "John Jumper et al. (2021) Highly accurate protein structure prediction with AlphaFold. (Methodological precursor for 3D folding protein prediction)",
+      "John B. Ingraham et al. (2023) Illuminating protein space with a programmable generative model. (Methodological precursor for generative protein design, Chroma)",
+      "Yiwen Hu and Markus J. Buehler (2022) End-to-end protein normal mode frequency predictions using language and graph models and application to sonification. (Baseline for frequency prediction using transformer-based models)",
+      "Kai Guo and Markus J. Buehler (2022) Rapid prediction of protein natural frequencies using graph neural networks. (Baseline for property prediction using graph neural networks)"
+    ],
+    "evidence": [
+      "For instance, the development of deep learning (DL)-based AlphaFold 2 marked a significant breakthrough in the field of 3D folding protein prediction with a level of accuracy that in some cases rivaled expensive and time-consuming experimental techniques.[16]",
+      "Chroma offers a unified approach for protein design that can directly sample novel protein structures and sequences with the possibility to direct the generative design towards the desired functions and properties by appropriate conditioning. ... [15]",
+      "Moreover, DL-based models such as graph neural networks[23] and transformer-based language models[24] show enhanced accuracy in predicting the protein natural frequencies compared to physics-based all-atom molecular simulations.",
+      "Prediction of mechanical properties of spider silk protein sequences have been enabled by DL models[17, 18, 19, 20, 21, 22]. Moreover, DL-based models such as graph neural networks[23] and transformer-based language models[24] show enhanced accuracy in predicting the protein natural frequencies compared to physics-based all atomistic simulations."
+    ]
+  },
+  "method": {
+    "steps": [
+      {
+        "step": "Define a team of AI agents, each with a unique role (user_proxy, planner, assistant, critic, group chat manager) and profile.",
+        "input": "User query or task; agent profiles and roles.",
+        "output": "A structured team of agents ready to collaborate.",
+        "tools": [
+          "GPT-4 (large language model for reasoning, planning, and communication)"
+        ],
+        "evidence": "The multi-agent framework consists of a team of agents, each powered by a state-of-the-art general purpose large language model, GPT-4,[43] accessed via the OpenAI API[64] and characterized by a unique profile that details its role, and communication protocols, such as sharing information and engaging with humans via language as shown in Figure 1a."
+      },
+      {
+        "step": "Planner agent develops a plan to solve the user’s task, breaking it into subtasks and suggesting functions to execute.",
+        "input": "User query; available functions and tools.",
+        "output": "A detailed plan with function calls and parameters.",
+        "tools": [
+          "Planner agent (LLM-powered strategic planning)"
+        ],
+        "evidence": "Planner. You develop a plan. Begin by explaining the plan. Revise the plan based on feedback from the critic and user_proxy, until user_proxy approval. The plan may involve calling custom function for retrieving knowledge, designing proteins, and computing and analyzing protein properties."
+      },
+      {
+        "step": "Assistant agent executes the functions suggested by the planner, prepares input parameters, and interacts with external tools.",
+        "input": "Plan from planner; function definitions; protein data or parameters.",
+        "output": "Computed results, retrieved data, or generated protein structures.",
+        "tools": [
+          "Assistant agent (executes functions and prepares inputs)",
+          "Chroma (generative AI model for de novo protein design)",
+          "OmegaFold (protein folding prediction)",
+          "ProteinForceGPT (autoregressive transformer for mechanical property prediction)",
+          "Physics simulators (e.g., ANM via ProDy for vibrational frequency calculation)",
+          "Knowledge retrieval tools (e.g., Llama Index for RAG)"
+        ],
+        "evidence": "The tools are incorporated into the model via the Assistant agent who oversees executing the tools. ... Each function has a distinct profile describing its functionally and takes one or more required entities as the input. The functions provide the ability to, for instance, retrieve knowledge, perform protein folding, analyze the secondary structure, and predict some parameters through a pre-trained autoregressive language model."
+      },
+      {
+        "step": "Critic agent reviews the plan and results, provides feedback, identifies errors, and suggests corrections.",
+        "input": "Plan and results from planner and assistant.",
+        "output": "Feedback, error identification, and corrections.",
+        "tools": [
+          "Critic agent (LLM-powered result analysis and error correction)"
+        ],
+        "evidence": "Critic: Responsible for providing feedback about the plan developed by “planner” as well as analyzing the results and handling the possible mistakes and providing the output to the user."
+      },
+      {
+        "step": "Group chat manager coordinates communication among agents, dynamically selecting speakers and broadcasting messages.",
+        "input": "Agent messages and roles.",
+        "output": "Coordinated group chat and workflow.",
+        "tools": [
+          "Group chat manager (dynamic agent communication)"
+        ],
+        "evidence": "The agents are organized into a team structure, overseen by a manager who coordinates overall communication among the agents."
+      },
+      {
+        "step": "Automated workflow executes multi-step protein design and analysis tasks, including de novo sequence generation, structure prediction, property computation, and result saving.",
+        "input": "User-defined tasks (e.g., design proteins, analyze structure, compute frequencies), protein sequences, and structures.",
+        "output": "Protein sequences, structures, computed properties, and saved results (e.g., CSV files).",
+        "tools": [
+          "Chroma (protein design)",
+          "OmegaFold (structure prediction)",
+          "ProteinForceGPT (mechanical property prediction)",
+          "ProDy (ANM for vibrational frequency)",
+          "BioPython (secondary structure analysis)",
+          "Llama Index (knowledge retrieval)",
+          "Py3DMol (visualization)"
+        ],
+        "evidence": "An overview of the work performed by the “assistant” is depicted in Figure 3. ... At the end of the computations, the results are formatted into a JSON dictionary to fed into the “save_to_csv_file” function."
+      }
+    ],
+    "tools": [
+      "GPT-4: Large language model for reasoning, planning, and communication.",
+      "Chroma: Generative AI model for de novo protein design.",
+      "OmegaFold: Protein folding prediction tool.",
+      "ProteinForceGPT: Autoregressive transformer model for predicting protein mechanical properties.",
+      "ProDy: Physics-based simulator for vibrational frequency calculations using the Anisotropic Network Model.",
+      "BioPython: Toolkit for secondary structure analysis using DSSP.",
+      "Llama Index: Tool for retrieval-augmented generation and knowledge retrieval.",
+      "Py3DMol: Visualization tool for protein structures."
+    ],
+    "evidence": [
+      "The multi-agent framework consists of a team of agents, each powered by a state-of-the-art general purpose large language model, GPT-4,[43] accessed via the OpenAI API[64] and characterized by a unique profile that details its role, and communication protocols, such as sharing information and engaging with humans via language as shown in Figure 1a.",
+      "Chroma offers a unified approach for protein design that can directly sample novel protein structures and sequences with the possibility to direct the generative design towards the desired functions and properties by appropriate conditioning.",
+      "OmegaFold is a state-of-the-art folding method without the need of using multiple sequence alignments (MSA) to predict the three-dimensional folded protein structure given its AA sequence.",
+      "To accomplish the latter, we have equipped the multi-agent team with a custom function that utilizes a trained autoregressive transformer generative AI model, ForceGPT.",
+      "We perform Anisotropic Network Model (ANM)[86, 87] calculations as implemented in ProDy[88] for normal mode analysis.",
+      "We use the dictionary of protein secondary structure (DSSP)[84] module via BioPython[85] to analyze the secondary structure content of the proteins from its geometry.",
+      "We use Llama Index[89] as a tool to implement RAG where the full text of papers cited as references [65, 66] are used as external sources from which information can be retrieved by the system in real-time.",
+      "We use Py3DMol[83] for visualization of the protein structures."
+    ]
+  },
+  "subject_area": {
+    "areas": [
+      "Biological Sciences",
+      "Applied Sciences & Engineering"
+    ],
+    "evidence": [
+      "Proteins, the building blocks of life, serve as the fundamental elements of many biological materials emerging from natural evolution over the span of 300 million years.",
+      "This study, we introduce ProtAgents, a platform for de novo protein design based on Large Language Models (LLMs), where multiple AI agents with distinct capabilities collaboratively address complex tasks within a dynamic environment.",
+      "The concerted effort of the system allows for powerful automated and synergistic design of de novo proteins with targeted mechanical properties."
+    ]
+  },
+  "performance_summary": {
+    "performance_summary": [
+      "The multi-agent ProtAgents framework successfully automated complex protein design and analysis tasks, including de novo sequence generation, structure prediction, property computation, and error correction, with minimal or no human intervention.",
+      "The system demonstrated the ability to integrate and coordinate multiple tools and models, handle errors, and produce structured outputs such as CSV files.",
+      "In comparative experiments, the framework revealed limitations in existing generative models (e.g., Chroma's difficulty in generating β-sheet-rich proteins) and enabled direct comparison of generated structures and properties."
+    ],
+    "baselines": [
+      "Chroma: State-of-the-art generative model for protein design.",
+      "OmegaFold: State-of-the-art protein folding prediction tool.",
+      "Physics-based all-atom molecular simulations: Used for comparison in property prediction.",
+      "Graph neural networks and transformer-based language models: Used as baselines for frequency prediction."
+    ],
+    "benchmark_datasets": [
+      "Not reported in the paper. The study uses generated or simulated protein sequences and structures, and references datasets for model pre-training and fine-tuning, but does not use traditional benchmark datasets."
+    ],
+    "evaluation_metrics": [
+      "Not explicitly reported. The paper describes qualitative and quantitative outputs (e.g., secondary structure content, natural frequencies, unfolding force and energy), but does not specify formal evaluation metrics."
+    ],
+    "evidence": [
+      "The results suggest that the framework effectively retains all outputs, demonstrating its strong memory even in the face of diverse and extended results.",
+      "This experiment showcases a good example of multi-agent collaboration in solving complex tasks in the context of de novo protein design and analysis. It specially shows the great capability of the “critic” agent in providing valuable feedback to other working agents at different stages of the problem solving endeavor, further assisting the team of agents in handling possible errors without the need for human involvement.",
+      "The results indicate that Chroma has done a poor performance in creating β-rich protein named mainly_beta_protein_2 which its structure is dominant in α-helix.",
+      "Moreover, DL-based models such as graph neural networks[23] and transformer-based language models[24] show enhanced accuracy in predicting the protein natural frequencies compared to physics-based all-atom molecular simulations."
+    ]
+  },
+  "limitations": {
+    "limitations": [
+      {
+        "label": "Dependency on External Tool Performance",
+        "explanation": "The accuracy and reliability of the multi-agent system are limited by the performance of the external tools and functions it calls.",
+        "evidence": "Upon careful examination of the results, we observe that, despite all the PDB ids exist in the source database, the PDB ids do not quite match with the protein names except for a few cases. Nevertheless, note that the error is caused by the poor performance of the “retrieve_content” function and the team of agents cannot mitigate that as they have no access to the knowledge database."
+      },
+      {
+        "label": "Generative Model Limitations",
+        "explanation": "The generative models used (e.g., Chroma) may fail to produce proteins with the desired structural properties, such as β-sheet-rich proteins.",
+        "evidence": "The results indicate that Chroma has done a poor performance in creating β-rich protein named mainly_beta_protein_2 which its structure is dominant in α-helix."
+      },
+      {
+        "label": "Lack of Formal Evaluation Metrics",
+        "explanation": "The study does not report formal evaluation metrics or quantitative benchmarks for assessing the performance of the multi-agent framework.",
+        "evidence": "Not explicitly reported. The paper describes qualitative and quantitative outputs (e.g., secondary structure content, natural frequencies, unfolding force and energy), but does not specify formal evaluation metrics."
+      }
+    ],
+    "evidence": [
+      "Upon careful examination of the results, we observe that, despite all the PDB ids exist in the source database, the PDB ids do not quite match with the protein names except for a few cases. Nevertheless, note that the error is caused by the poor performance of the “retrieve_content” function and the team of agents cannot mitigate that as they have no access to the knowledge database.",
+      "The results indicate that Chroma has done a poor performance in creating β-rich protein named mainly_beta_protein_2 which its structure is dominant in α-helix.",
+      "Not explicitly reported. The paper describes qualitative and quantitative outputs (e.g., secondary structure content, natural frequencies, unfolding force and energy), but does not specify formal evaluation metrics."
+    ]
+  },
+  "future_directions": {
+    "future_directions": [
+      "Development of an integrated system of agents to automate the entire lifecycle of training deep neural networks for protein design, including data generation, curation, and model training.",
+      "Incorporation of a critic agent to monitor and critique the training process, including early stopping and hyperparameter tuning.",
+      "Extension of the agent-based strategy to on-the-fly active learning, where agents dynamically adapt the model based on real-time feedback.",
+      "Integration of additional tools and APIs for broader simulation capabilities, such as Density Functional Theory or Molecular Dynamics."
+    ],
+    "evidence": [
+      "To overcome these challenges and propel the field forward, future research endeavors could revolve around the development of an integrated system of agents designed to automate the entire lifecycle of training deep neural networks for protein design. Each agent within this system could be assigned specific responsibilities, such as data generation through simulations, data curation for ensuring quality and relevance, and the execution of the code required for model training. Additionally, a critic agent could monitor and critique the training process, making decisions like early stopping or tuning hyperparameters to enhance the model’s accuracy. This collaborative and automated approach would not only streamline the design process but also contribute to achieving higher or desired levels of accuracy in the generated models. Furthermore, this agent-based strategy can extend to on-the-fly active learning, where agents dynamically adapt the model based on real-time feedback, improving its performance iteratively.",
+      "Furthermore, additional tools can be integrated into the multi-agent system with popular external APIs and up-to-date knowledge about special topics can be retrieved by searching and browsing the web through specialized API interfaces."
+    ]
+  },
+  "resource_link": {
+    "answer": "https://github.com/lamm-mit/ProtAgents",
+    "evidence": "All data and codes are available on GitHub at https://github.com/lamm-mit/ProtAgents. Alternatively, they will be provided by the corresponding author based on reasonable request."
+  },
+  "paper_title": "ProtAgents: Protein discovery via large language model multi-agent collaborations combining physics and machine learning",
+  "authors": [
+    "A.",
+    "M. J."
+  ],
+  "published": "2024-01-27",
+  "link": "http://arxiv.org/abs/2402.04268"
+}

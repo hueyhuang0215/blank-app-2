@@ -1,0 +1,208 @@
+{
+  "objective": {
+    "answer": "The primary objective of the paper is to introduce The AI Scientist-v2, an end-to-end agentic system capable of autonomously generating scientific hypotheses, designing and executing experiments, analyzing data, and authoring scientific manuscripts. The authors aim to demonstrate that this system can produce fully AI-generated papers that are accepted through peer review at a recognized machine learning workshop, thereby marking a milestone in automated scientific discovery.",
+    "evidence": "We introduce The AI Scientist-v2, an end-to-end agentic system capable of producing the first entirely AI-generated peer-review-accepted workshop paper. This system iteratively formulates scientific hypotheses, designs and executes experiments, analyzes and visualizes data, and autonomously authors scientific manuscripts."
+  },
+  "knowledge_gap": {
+    "answer": "Previous automated scientific discovery systems relied heavily on human-authored code templates and lacked the ability for deep, systematic exploration of hypotheses, limiting their autonomy and generalizability across domains.",
+    "evidence": "A notable recent advance in this direction is The AI Scientist-v1 (Lu et al., 2024), which demonstrated the feasibility of a fully automated scientific workflow and downstream manuscript production. However, significant limitations constrained its broad applicability and autonomy. Specifically, it relied heavily on human-authored code templates requiring manual effort to create a new template for each new topic area. Furthermore, its linear and shallow experimentation approach prevented deeper exploration of scientific hypotheses."
+  },
+  "novelty": {
+    "answer": [
+      "Elimination of dependency on human-authored code templates, enabling greater autonomy and out-of-the-box deployment across multiple machine learning domains.",
+      "Introduction of an experiment manager agent coupled with a novel agentic tree-search algorithm for deeper and more systematic exploration of scientific hypotheses.",
+      "Integration of Vision-Language Model-based feedback mechanisms to iteratively refine the quality and clarity of generated figures and manuscript content.",
+      "Demonstration that a fully AI-generated manuscript can successfully pass peer review at a recognized machine learning workshop.",
+      "Open-sourcing of the full codebase and experiment data for community use and further development."
+    ],
+    "evidence": [
+      "First, we eliminate the dependency on human-provided code templates, significantly increasing the system’s autonomy and ability to be deployed out of the box across multiple machine learning domains.",
+      "Second, we introduce an experiment manager agent coupled with a novel agentic tree-search algorithm, enabling deeper and more systematic exploration of complex hypotheses.",
+      "Third, we enhance the reviewing and refinement stages by integrating a Vision-Language Model (VLM)-based feedback mechanism, improving the quality, clarity, and alignment of generated figures, captions, and text interpretation.",
+      "We demonstrate, for the first time, that an AI-generated manuscript can successfully pass peer review at a recognized machine learning workshop, marking a critical milestone for AI science.",
+      "We have open-sourced the code at https://github.com/SakanaAI/AI-Scientist-v2 to foster the future development of this transformative technology."
+    ]
+  },
+  "inspirational_papers": {
+    "answer": [
+      "- Lu et al. (2024) The AI Scientist-v1 demonstrated the feasibility of a fully automated scientific workflow and downstream manuscript production. (Methodological precursors)",
+      "- Jiang et al. (2025) AIDE combines LLM-based code generation with tree search, demonstrating state-of-the-art performance on the MLEBench benchmark. (Methodological precursors)",
+      "- Chan et al. (2025) MLEBench: Evaluating machine learning agents on machine learning engineering. (Experimental baselines)",
+      "- Shinn et al. (2024) Reflexion enables models to iteratively reflect on previous responses, encouraging self-improvement through critical evaluation of past outputs. (Methodological precursors)"
+    ],
+    "evidence": [
+      "A notable recent advance in this direction is The AI Scientist-v1 (Lu et al., 2024), which demonstrated the feasibility of a fully automated scientific workflow and downstream manuscript production.",
+      "AIDE (Jiang et al., 2025) combines LLM-based code generation with tree search, demonstrating state-of-the-art performance on the MLEBench benchmark (Chan et al., 2025), designed for machine learning engineering tasks.",
+      "For example, Reflexion (Shinn et al., 2024) enables models to iteratively reflect on previous responses, encouraging self-improvement through critical evaluation of past outputs; it improves robustness, but can introduce computational overhead and slower inference."
+    ]
+  },
+  "method": {
+    "steps": [
+      {
+        "step": "Generalized Idea Generation",
+        "input": "Broad topical prompts aligned with the research domain; access to literature databases (e.g., Semantic Scholar).",
+        "output": "A set of high-level, novel research ideas with supporting literature context.",
+        "tools": [
+          "Semantic Scholar API: Used for literature search to assess novelty and relevance of proposed ideas."
+        ],
+        "evidence": "The system is prompted to engage in more open-ended thinking about potential research directions, hypotheses, and experimental designs...this generalized idea generation phase integrates literature review tools, such as Semantic Scholar, in the loop."
+      },
+      {
+        "step": "Experimentation via Agentic Tree Search",
+        "input": "Selected research idea; no human-authored code templates; access to datasets (preferably via Hugging Face Hub).",
+        "output": "A tree of experimental nodes, each representing a code implementation, execution result, and evaluation.",
+        "tools": [
+          "LLM (Claude 3.5 Sonnet, GPT-4o): Generates code, plans, and evaluates experiment nodes.",
+          "Python Interpreter: Executes generated code.",
+          "Hugging Face Hub: For automatic dataset loading."
+        ],
+        "evidence": "We incorporate this agentic tree search approach across all four experimentation stages outlined in §3.2.1, enabling deeper and more systematic exploration of scientific hypotheses."
+      },
+      {
+        "step": "Experiment Progress Management",
+        "input": "Tree of experiment nodes; performance metrics; error traces.",
+        "output": "Selection of best-performing nodes, progression through stages (preliminary investigation, hyperparameter tuning, research agenda execution, ablation studies).",
+        "tools": [
+          "Experiment Progress Manager Agent: Coordinates experiment stages and node selection.",
+          "LLM Evaluator: Selects best nodes based on articulated criteria."
+        ],
+        "evidence": "To emulate this structured approach, we introduce an experiment progress manager agent that coordinates four clearly defined stages of scientific experimentation."
+      },
+      {
+        "step": "Visualization and VLM Feedback",
+        "input": "Experimental results, generated figures and captions.",
+        "output": "Refined figures and captions with improved clarity and alignment.",
+        "tools": [
+          "Vision-Language Model (VLM, GPT-4o): Reviews and critiques figures and captions for clarity, alignment, and aesthetics."
+        ],
+        "evidence": "Unlike The AI Scientist-v1, which did not leverage Vision Language Models (VLMs), The AI Scientist-v2 incorporates VLMs at two phases of the research workflow: First, during the tree-based experimentation phase, VLMs provide immediate feedback on generated figures, ensuring that these visualizations effectively and accurately communicate experimental results."
+      },
+      {
+        "step": "Manuscript Writing and Reflection",
+        "input": "Best experiment node, figures, captions, and experiment summaries.",
+        "output": "A complete scientific manuscript (LaTeX), iteratively refined for clarity and compliance.",
+        "tools": [
+          "LLM (GPT-4o): Generates and reflects on manuscript drafts.",
+          "VLM: Checks figure-caption alignment and manuscript aesthetics."
+        ],
+        "evidence": "We streamline the manuscript writing phase by replacing the incremental, Aider-based (Gauthier, 2024) iterative writing approach of The AI Scientist-v1 with a simpler, single-pass generation followed by a separate reflection stage powered by reasoning models such as o1 (OpenAI, 2024)."
+      }
+    ],
+    "tools": [
+      "Claude 3.5 Sonnet: Large language model used for code and plan generation.",
+      "GPT-4o: Used for feedback, manuscript writing, and VLM-based figure review.",
+      "Semantic Scholar API: Literature search for idea novelty.",
+      "Python Interpreter: Executes generated code.",
+      "Hugging Face Hub: Dataset loading.",
+      "Experiment Progress Manager Agent: Manages experiment stages.",
+      "Vision-Language Model (VLM): Provides feedback on figures and captions."
+    ],
+    "evidence": [
+      "We include a full list of sampling hyperparameters and models used in Appendix A and the prompts used for The AI Scientist-v2 in Appendix B.",
+      "The system is prompted to engage in more open-ended thinking about potential research directions, hypotheses, and experimental designs, akin to formulating a research abstract or grant proposal before committing to a specific implementation.",
+      "We incorporate this agentic tree search approach across all four experimentation stages outlined in §3.2.1, enabling deeper and more systematic exploration of scientific hypotheses.",
+      "Unlike The AI Scientist-v1, which did not leverage Vision Language Models (VLMs), The AI Scientist-v2 incorporates VLMs at two phases of the research workflow: First, during the tree-based experimentation phase, VLMs provide immediate feedback on generated figures, ensuring that these visualizations effectively and accurately communicate experimental results.",
+      "We streamline the manuscript writing phase by replacing the incremental, Aider-based (Gauthier, 2024) iterative writing approach of The AI Scientist-v1 with a simpler, single-pass generation followed by a separate reflection stage powered by reasoning models such as o1 (OpenAI, 2024)."
+    ]
+  },
+  "subject_area": {
+    "areas": [
+      "Applied Sciences & Engineering"
+    ],
+    "evidence": [
+      "We introduce The AI Scientist-v2, an end-to-end agentic system capable of producing the first entirely AI-generated peer-review-accepted workshop paper. This system iteratively formulates scientific hypotheses, designs and executes experiments, analyzes and visualizes data, and autonomously authors scientific manuscripts.",
+      "The accepted paper investigates whether incorporating an explicit compositional regularization term into neural network training can improve compositional generalization. Specifically, it penalizes large deviations between embeddings of successive time steps in sequence models, hypothesizing that this encourages compositionality."
+    ]
+  },
+  "performance_summary": {
+    "performance_summary": [
+      "The AI Scientist-v2 autonomously generated three manuscripts, one of which achieved an average reviewer score of 6.33 and would have been accepted at a peer-reviewed ICLR workshop, marking the first instance of a fully AI-generated paper passing peer review.",
+      "The accepted paper found that compositional regularization did not yield significant improvements in compositional generalization and sometimes harmed performance.",
+      "Reviewers noted the paper was technically sound and provided valuable negative results, but highlighted areas for improvement in justification, experimental breadth, and clarity."
+    ],
+    "baselines": [
+      "The AI Scientist-v1: Previous version relying on human-authored code templates and linear experimentation.",
+      "Baseline LSTM model: Used in the accepted paper for comparison with compositional regularization.",
+      "Attention-augmented LSTM: Compared to baseline LSTM in the accepted paper."
+    ],
+    "benchmark_datasets": [
+      "Synthetic arithmetic expression datasets: Used to evaluate compositional generalization in sequence models.",
+      "SCAN and COGS: Mentioned as synthetic benchmarks for compositional generalization tasks.",
+      "IWSLT and GeoQuery: Mentioned as real-world tasks for potential evaluation."
+    ],
+    "evaluation_metrics": [
+      "Test accuracy: Percentage of correct predictions within a tolerance.",
+      "Compositional loss: Mean squared difference between successive hidden states (or embeddings) to measure compositionality.",
+      "Training and validation loss: Used to monitor learning progress.",
+      "Environmental Robustness Score (ERS): Ratio of model accuracy under challenging conditions to that under normal conditions (used in one of the rejected papers)."
+    ],
+    "evidence": [
+      "Remarkably, one manuscript achieved an average reviewer score of 6.33 (placing it roughly in the top 45% of submissions) and would have been accepted after meta-review were it human-generated, thus becoming the first fully AI-generated manuscript to successfully pass a peer-review process.",
+      "The approach is evaluated using synthetic arithmetic expression datasets, but it is found that compositional regularization does not yield significant improvements and occasionally harms performance.",
+      "We compared models trained with and without the compositional regularization term and performed several ablation studies to assess the impact of different hyperparameters, operator complexity, and architectural choices.",
+      "We evaluated model performance using test accuracy (percentage of correct predictions within a tolerance) and compositional loss.",
+      "We first trained the baseline LSTM model without compositional regularization. Figure 1 shows the training and test loss, test accuracy, and compositional loss over epochs.",
+      "We introduced the compositional regularization term with different weights λ and assessed its impact. Figure 2 illustrates the effects of varying λ on training loss, compositional loss, and final test accuracy."
+    ]
+  },
+  "limitations": {
+    "limitations": [
+      {
+        "label": "Workshop-Level Acceptance Only",
+        "explanation": "The system's output was accepted at a workshop, not at a main conference, and only one out of three submissions was accepted.",
+        "evidence": "First, the acceptance occurred at a workshop level rather than at the main conference track, and only one of the three AI-generated submissions was accepted."
+      },
+      {
+        "label": "Inconsistent Quality",
+        "explanation": "The AI Scientist-v2 does not yet consistently reach the rigorous standard required for top-tier conference publications, nor even at the workshop level.",
+        "evidence": "Thus, the current version of The AI Scientist-v2 does not yet consistently reach the rigorous standard required for top-tier conference publications, nor does it even reach workshop-level consistently."
+      },
+      {
+        "label": "Limited Novelty and Depth",
+        "explanation": "Formulating genuinely novel, high-impact hypotheses and designing innovative methodologies remain challenging for automated systems.",
+        "evidence": "certain aspects of scientific inquiry—such as formulating genuinely novel, high-impact hypotheses, designing truly innovative experimental methodologies, or rigorously justifying design choices with deep domain expertise—remain challenging for purely automated systems."
+      },
+      {
+        "label": "Citation and Methodological Inaccuracies",
+        "explanation": "The system occasionally introduced inaccuracies in citations and lacked detailed methodological rigor and in-depth analysis.",
+        "evidence": "First, The AI Scientist-v2 occasionally introduced inaccuracies in citations, similar to the well-known “hallucination” issue encountered in large language models. Second, while the system successfully executed standard experimental pipelines, it sometimes lacked the detailed methodological rigor and in-depth analysis typically required for acceptance at leading main conferences."
+      }
+    ],
+    "evidence": [
+      "First, the acceptance occurred at a workshop level rather than at the main conference track, and only one of the three AI-generated submissions was accepted.",
+      "Thus, the current version of The AI Scientist-v2 does not yet consistently reach the rigorous standard required for top-tier conference publications, nor does it even reach workshop-level consistently.",
+      "certain aspects of scientific inquiry—such as formulating genuinely novel, high-impact hypotheses, designing truly innovative experimental methodologies, or rigorously justifying design choices with deep domain expertise—remain challenging for purely automated systems.",
+      "First, The AI Scientist-v2 occasionally introduced inaccuracies in citations, similar to the well-known “hallucination” issue encountered in large language models. Second, while the system successfully executed standard experimental pipelines, it sometimes lacked the detailed methodological rigor and in-depth analysis typically required for acceptance at leading main conferences."
+    ]
+  },
+  "future_directions": {
+    "future_directions": [
+      "Explore alternative regularization strategies and refine the definition of compositionality in neural networks.",
+      "Test the system on more complex datasets, including real-world tasks, longer sequences, and larger models.",
+      "Investigate models with recursive or hierarchical structures to better handle higher operator complexity.",
+      "Continue to study the quality of AI-generated research by submitting samples to peer-review processes and engaging with the research community on norms for AI-generated science."
+    ],
+    "evidence": [
+      "For future work, we suggest exploring alternative regularization strategies, refining the definition of compositionality in the context of neural networks, and testing on more complex datasets. Investigating models that can inherently handle higher operator complexity, such as those with recursive or hierarchical structures, may also be beneficial.",
+      "As LLMs rapidly advance, future versions of our system will likely overcome many current limitations. Therefore, we believe it is important for the scientific community to study the quality of AI-generated research, and one of the best ways to do so is to submit (with appropriate permissions) a small sample of it to the same peer-review processes used to evaluate human work.",
+      "Going forward, we will continue to exchange opinions with the research community on the state of this technology to ensure it does not evolve solely to game peer review or artificially inflate the CVs of unscrupulous scientists, which would undermine the meaning of the scientific peer review and evaluation processes."
+    ]
+  },
+  "resource_link": {
+    "answer": "https://github.com/SakanaAI/AI-Scientist-v2",
+    "evidence": "We have open-sourced the code at https://github.com/SakanaAI/AI-Scientist-v2 to foster the future development of this transformative technology."
+  },
+  "paper_title": "The AI Scientist-v2: Workshop-Level Automated Scientific Discovery via Agentic Tree Search",
+  "authors": [
+    "Yutaro",
+    "Robert Tjarko",
+    "Cong",
+    "Shengran",
+    "Chris",
+    "Jakob",
+    "Jeff",
+    "David"
+  ],
+  "published": "2025-04-10",
+  "link": "http://arxiv.org/abs/2504.08066"
+}

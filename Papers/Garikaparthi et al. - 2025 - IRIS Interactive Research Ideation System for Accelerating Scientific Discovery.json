@@ -1,0 +1,185 @@
+{
+  "objective": {
+    "answer": "The primary objective of the paper is to introduce IRIS, an open-source Interactive Research Ideation System designed to accelerate scientific discovery by enabling researchers to leverage large language model-assisted scientific ideation. The system aims to enhance the process of generating novel research hypotheses by incorporating human-in-the-loop transparency and steerability, adaptive compute expansion, fine-grained feedback, and targeted literature synthesis.",
+    "evidence": "To address this gap, we introduce IRIS: Interactive Research Ideation System, an open-source platform designed for researchers to leverage LLM-assisted scientific ideation. IRIS incorporates innovative features to enhance ideation, including adaptive test-time compute expansion via Monte Carlo Tree Search (MCTS), fine-grained feedback mechanism, and query-based literature synthesis. Designed to empower researchers with greater control and insight throughout the ideation process."
+  },
+  "knowledge_gap": {
+    "answer": "Existing automated hypothesis generation approaches do not effectively incorporate transparency and steerability through a synergistic human-in-the-loop approach, often neglecting nuanced user expectations and goals, and failing to ensure alignment with researchers' needs.",
+    "evidence": "While recent work on automated hypothesis generation focuses on multi-agent frameworks and extending test-time compute, none of the approaches effectively incorporate transparency and steerability through a synergistic Human-in-the-loop (HITL) approach. ... However, these approaches often fail to integrate human supervision during generation in a truly complementary manner, neglecting the nuanced expectations and goals of the user."
+  },
+  "novelty": {
+    "answer": [
+      "A user-centered human-in-the-loop framework that balances human control with automation during scientific ideation.",
+      "Application of Monte Carlo Tree Search to systematically and iteratively explore the research idea space, alternating between exploration and exploitation.",
+      "A fine-grained, actionable feedback mechanism based on a hierarchical taxonomy for improving hypotheses at the segment level.",
+      "Query-based retrieval that generates targeted literature queries, with re-ranking, clustering, and summarization to produce comprehensive, technical, and cited responses.",
+      "An open-source platform for AI-assisted scientific ideation, supporting researcher intervention at every stage."
+    ],
+    "evidence": [
+      "• HITL Framework: A user-centered design balancing human control with automation instead of entirely delegating the process of ideation to AI",
+      "• Monte Carlo Tree Search: A systematic method to iteratively explore the idea space and extend test time compute via alternating phases of exploration and exploitation (§3.2)",
+      "• Fine-grained Review based Refinement: An exhaustive taxonomy (Table 2) with fine-grained actionable feedback for improving hypotheses (Figure 2) (§3.1)",
+      "• Query-based Retrieval: Generating targeted queries for retrieving relevant literature, with re-ranking, clustering and summarization to produce comprehensive, technical and cited responses (§3.1)",
+      "• Open Source: Publicly available platform for AI-Assisted scientific ideation"
+    ]
+  },
+  "inspirational_papers": {
+    "answer": [
+      "- Spangler et al. (2014) Demonstrate the first proof of principle for automated hypothesis generation through text mining of scientific literature. (Methodological precursors)",
+      "- Pu et al. (2024) Attempt to develop an interactive idea generation system, but with limited flexibility and adaptability. (Papers with limitations addressed by this work)",
+      "- Baek et al. (2025) Focus on coarse-level criteria and provide broad evaluation of the entire generated research brief. (Papers with limitations addressed by this work)",
+      "- Wang et al. (2024) Use simplistic retrieval augmentation and coarse-level evaluation. (Papers with limitations addressed by this work)",
+      "- Nigam et al. (2024) Demonstrate one of the first human-in-the-loop frameworks assisting researchers in validation of motivation behind a research problem. (Methodological precursors)"
+    ],
+    "evidence": [
+      "Spangler et al. (2014) demonstrate the first proof of principle for automated hypothesis generation through text mining of scientific literature, leveraging techniques such as entity detection and graph-based diffusion of information.",
+      "Acceleron demonstrates one of the first human-in-the-loop (HITL) framework assisting researchers in validation of motivation behind a research problem and synthesizing a method for the same (Nigam et al., 2024), followed by Pu et al. (2024) making an attempt to develop an interactive idea generation system. These approaches remain limited, allowing idea exploration only within a predefined framework, restricting flexibility and adaptability.",
+      "As opposed to the parallel works (Wang et al., 2024; Baek et al., 2025) that focus on coarse-level criteria and provide broad evaluation of the entire generated research brief, usually, a feedback with respect to an aspect is applicable to only specific parts of the research brief.",
+      "Simplistic retrieval augmentation such as appending keywords or abstracts of previous papers in context (Wang et al., 2024; Si et al., 2024), whereas effective ideation demands a deeper, more holistic understanding of the domain literature."
+    ]
+  },
+  "method": {
+    "steps": [
+      {
+        "step": "Input research goal",
+        "input": "A research goal G consisting of a research problem and its motivation.",
+        "output": "Initial state for the ideation process.",
+        "tools": [],
+        "evidence": "Broadly, the system expects as input a research goal G consisting of a research problem and it’s motivation, and outputs a research brief B consisting of a Title, Proposed Methodology and Experiment Plan, while improving it’s quality..."
+      },
+      {
+        "step": "Ideation Agent generates and refines research briefs",
+        "input": "Current research brief, researcher guidance (optional), retrievals, reviews, or custom feedback.",
+        "output": "Iteratively improved research brief.",
+        "tools": [
+          "Ideation Agent: Navigates the search space of possible research ideas."
+        ],
+        "evidence": "Ideation Agent generates and iteratively improves the research brief. It can toggle between a semi-automatic mode, to receive guidance from a researcher to refine research briefs through steering reviews, retrievals or employing custom feedback, and a completely autonomous mode to explore and exploit the idea space by leveraging actions which support iterative refinement of the research briefs through MCTS."
+      },
+      {
+        "step": "Review Agent provides feedback and reward",
+        "input": "Generated research brief.",
+        "output": "Hierarchical, fine-grained feedback and reward score for the brief.",
+        "tools": [
+          "Review Agent: Provides reward and feedback based on a hierarchical taxonomy of aspects."
+        ],
+        "evidence": "Review Agent is accountable for two tasks namely providing reward and feedback. For evaluation of an idea, we have defined a hierarchical taxonomy of aspects grounded in real-world scientific critique (For example, (Ghosal et al., 2022), (Kennard et al., 2022), (Dycke et al., 2023)), detailed in Table 2."
+      },
+      {
+        "step": "Retrieval Agent synthesizes targeted literature queries",
+        "input": "Research goal and/or current research brief.",
+        "output": "Relevant literature passages, organized and summarized with citations.",
+        "tools": [
+          "Retrieval Agent: Synthesizes queries and retrieves literature using Ai2 Scholar QA API.",
+          "Semantic Scholar API: Extracts relevant passages from over 200M open access papers.",
+          "Grobid-based doc2json tool: Parses uploaded PDF documents for relevant content."
+        ],
+        "evidence": "Retrieval Agent: For the input research goal, the retrieval agent synthesizes queries targeted to retrieve literature relevant to the research goal. For answering each query, it adopts Ai2 Scholar QA API2. The pipeline consists of two-stage retrieval followed by three-stage generation. The Semantic Scholar API’s (storing over 200M open access papers) snippet search endpoint (Kinney et al., 2023) extracts relevant passages... The retrieval agent parses the PDF through Grobid based doc2json tool3 and appends the most relevant chunks to the context for the ideation agent to refine the research brief."
+      },
+      {
+        "step": "Monte Carlo Tree Search (MCTS) for idea space exploration",
+        "input": "Current state (research brief, reward estimate, review feedback, retrieved knowledge), action space, exploration constant, iteration and depth parameters.",
+        "output": "Systematically explored and refined research briefs, with the best child node selected based on reward.",
+        "tools": [
+          "Monte Carlo Tree Search: Iteratively builds a search tree over research ideas using Upper Confidence Bound for Trees (UCT) algorithm."
+        ],
+        "evidence": "To systematically explore the vast space of potential research ideas, IRIS employs Monte Carlo Tree Search (MCTS) (Kocsis and Szepesvári, 2006). ... Algorithm 1 outlines the MCTS process. Each node n stores its state sn as defined above, Q(n) and N(n)."
+      },
+      {
+        "step": "User interaction and memory management",
+        "input": "Researcher feedback, prior queries, generated briefs, and review feedback.",
+        "output": "Non-redundant, user-aligned research brief refinements.",
+        "tools": [],
+        "evidence": "Memory: Agents maintain trajectory-level memory. For instance, the Ideation Agent recalls generated briefs, the Retrieval Agent remembers past queries, and the Review Agent tracks prior feedback. This helps steer the generation towards non-redundant refinements."
+      }
+    ],
+    "tools": [
+      "Gemini-2.0-Flash: Large language model powering core functionalities.",
+      "LiteLLM: Allows users to substitute other large language models of their choice.",
+      "Ai2 Scholar QA API: Used for literature retrieval and question answering.",
+      "Semantic Scholar API: Used for retrieving relevant passages from scientific literature.",
+      "Grobid-based doc2json tool: Parses PDF documents for relevant content."
+    ],
+    "evidence": [
+      "The core LLM functionalities are powered by Gemini-2.0-Flash (DeepMind, 2024) accessed via LiteLLM4, which allows users to substitute other LLMs of their choice.",
+      "For answering each query, it adopts Ai2 Scholar QA API2. The pipeline consists of two-stage retrieval followed by three-stage generation. The Semantic Scholar API’s (storing over 200M open access papers) snippet search endpoint (Kinney et al., 2023) extracts relevant passages...",
+      "The retrieval agent parses the PDF through Grobid based doc2json tool3 and appends the most relevant chunks to the context for the ideation agent to refine the research brief."
+    ]
+  },
+  "subject_area": {
+    "areas": [
+      "Applied Sciences & Engineering"
+    ],
+    "evidence": [
+      "We conducted a user study with 8 researchers (N=8) from diverse fields (AI/NLP, Chem, Physics, HCI) and experience levels.",
+      "IRIS: Interactive Research Ideation System for Accelerating Scientific Discovery"
+    ]
+  },
+  "performance_summary": {
+    "performance_summary": [
+      "User interaction within IRIS consistently improved hypothesis quality, increasing average absolute scores by 0.5 points and ELO ratings by 12 points for a tree depth of 3.",
+      "Quantitative user ratings showed high usefulness of fine-grained feedback (4.3/5), steerability (4.2/5), usability and control (4.5/5), and overall satisfaction (3.9/5).",
+      "All users reported enhanced understanding of the proposed methodology, and considered it to be promising."
+    ],
+    "baselines": [
+      "Gemini-2.0-Flash: Large language model baseline.",
+      "ChatGPT: Large language model baseline.",
+      "ChatGPT with search: Large language model baseline with retrieval augmentation.",
+      "Claude 3.5 Haiku: Large language model baseline."
+    ],
+    "benchmark_datasets": [
+      "Not reported in the paper"
+    ],
+    "evaluation_metrics": [
+      "LLM-as-a-judge absolute score: Each generated hypothesis is rated on a scale of 1-10.",
+      "ELO rating: Aggregates head-to-head comparisons and preferences to compute relative rankings.",
+      "User study Likert ratings: Users rated features and satisfaction on a 1-5 scale."
+    ],
+    "evidence": [
+      "LLM-as-a-judge evaluations (Figure 3) showed that user interaction within IRIS consistently improved hypothesis quality, increasing average absolute scores by 0.5 points and ELO ratings by 12 points for a tree depth of 3.",
+      "We employ LLM-as-a-judge, popularly adopted in parallel literature (Baek et al., 2025; Gottweis, 2025). We use two methods guided by our pre-defined criteria (Table 2). absolute score: each generated hypothesis (1-10), and relative score: aggregating head-to-head comparisons and preferences to compute ELO ratings.",
+      "Table 1: User ratings (1-5 Likert scale) for key IRIS features and overall satisfaction (N=10)."
+    ]
+  },
+  "limitations": {
+    "limitations": [
+      {
+        "label": "Reliance on Researcher Expertise",
+        "explanation": "The system depends on the researcher to verify the quality of emerging ideas at each iteration, assuming sufficient domain expertise.",
+        "evidence": "Currently the system relies on the researcher as the judge to verify the quality of the emerging idea at each iteration, augmented by LLM-as-the-judge. This reliance is based on the assumption of sufficient domain expertise of the researcher."
+      },
+      {
+        "label": "Limited Model Exploration",
+        "explanation": "Frontier large language models and advanced reasoning models were not explored due to budget constraints, potentially limiting hypothesis quality.",
+        "evidence": "Due to budget constraints, we have not explored frontier LLMs such as Claude 3.7 Sonnet, Grok-3 or reasoning models like Gemini-2.5-Pro, o1 etc. The quality of produced hypothesis in terms of novelty and effectiveness would likely benefit from stronger base models."
+      }
+    ],
+    "evidence": [
+      "Currently the system relies on the researcher as the judge to verify the quality of the emerging idea at each iteration, augmented by LLM-as-the-judge. This reliance is based on the assumption of sufficient domain expertise of the researcher.",
+      "Due to budget constraints, we have not explored frontier LLMs such as Claude 3.7 Sonnet, Grok-3 or reasoning models like Gemini-2.5-Pro, o1 etc. The quality of produced hypothesis in terms of novelty and effectiveness would likely benefit from stronger base models."
+    ]
+  },
+  "future_directions": {
+    "future_directions": [
+      "Develop a true Human-AI Co-creation System where foundational large language models with scientific expertise engage in two-way Socratic review and refinement with researchers.",
+      "Explore the use of stronger, frontier large language models and advanced reasoning models to improve the novelty and effectiveness of generated hypotheses."
+    ],
+    "evidence": [
+      "As opposed to this in future we aim for a true Human AI Co-creation System, where more foundational LLMs with scientific expertise, questions researchers for the choices he or she has made leading to a two way socratic review and refinement communication, simulating a more realistic scenario of brain-storming between colleagues or a mentor and a mentee.",
+      "Due to budget constraints, we have not explored frontier LLMs such as Claude 3.7 Sonnet, Grok-3 or reasoning models like Gemini-2.5-Pro, o1 etc. The quality of produced hypothesis in terms of novelty and effectiveness would likely benefit from stronger base models."
+    ]
+  },
+  "resource_link": {
+    "answer": "",
+    "evidence": "We open-source our code here."
+  },
+  "paper_title": "IRIS: Interactive Research Ideation System for Accelerating Scientific Discovery",
+  "authors": [
+    "Aniketh",
+    "Manasi",
+    "Lovekesh",
+    "Arman"
+  ],
+  "published": "2025-05-24",
+  "link": "http://arxiv.org/abs/2504.16728"
+}

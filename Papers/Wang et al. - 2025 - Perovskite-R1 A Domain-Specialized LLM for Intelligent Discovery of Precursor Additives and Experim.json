@@ -1,0 +1,194 @@
+{
+  "objective": {
+    "answer": "The primary objective of the paper is to develop Perovskite-R1, a domain-specialized large language model with advanced reasoning capabilities, tailored for the intelligent discovery and design of precursor additives for perovskite solar cells. The authors aim to address the challenge of efficiently accessing, organizing, and utilizing the rapidly growing and complex body of knowledge in perovskite solar cell research. They seek to provide a systematic, data-driven framework that accelerates materials discovery and experimental design in this field.",
+    "evidence": "To address this gap, we introduce Perovskite-R1, a specialized large language model (LLM) with advanced reasoning capabilities tailored for the discovery and design of PSC precursor additives. ... Our work demonstrates the potential of domain-adapted LLMs in accelerating materials discovery and provides a closed-loop framework for intelligent, data-driven advancements in perovskite photovoltaic research."
+  },
+  "knowledge_gap": {
+    "answer": "There is a lack of integrated, domain-specialized systems that can systematically organize and provide intelligent assistance for the complex and rapidly expanding knowledge base in perovskite solar cell research, particularly for precursor additive engineering.",
+    "evidence": "However, the explosive growth of scientific literature and the complex interplay of materials, processes, and device architectures make it increasingly difficult for researchers to efficiently access, organize, and utilize domain knowledge in this rapidly evolving field. ... existing artificial intelligence systems [7–9] in materials science typically focus on specific prediction tasks or general scientific knowledge [10, 11], lacking the specialized capability to address the unique characteristics of PSC research [12]. This gap highlights the urgent need for an integrated system that can systematically organize domain knowledge and provide intelligent assistance to researchers."
+  },
+  "novelty": {
+    "answer": [
+      "Development of Perovskite-R1, a large language model specifically fine-tuned for perovskite solar cell precursor additive discovery and experimental design.",
+      "Construction of a high-quality, domain-specific instruction-tuning dataset using automated question–answer generation and chain-of-thought reasoning from 1,232 scientific publications and 33,269 candidate materials.",
+      "Integration of a closed-loop framework that connects literature mining, knowledge consolidation, solution generation, and experimental validation.",
+      "Demonstration of the model's ability to outperform manual, expert-driven additive selection through experimental validation."
+    ],
+    "evidence": [
+      "To address this gap, we introduce Perovskite-R1, a specialized large language model (LLM) with advanced reasoning capabilities tailored for the discovery and design of PSC precursor additives.",
+      "By systematically mining and curating 1,232 high-quality scientific publications and integrating a comprehensive library of 33,269 candidate materials, we constructed a domain-specific instruction-tuning dataset using automated question–answer generation and chain-of-thought reasoning.",
+      "Experimental validation of several model-proposed strategies confirms their effectiveness in improving material stability and performance. Our work demonstrates the potential of domain-adapted LLMs in accelerating materials discovery and provides a closed-loop framework for intelligent, data-driven advancements in perovskite photovoltaic research.",
+      "The results revealed that model-identified additives significantly improved device performance, while manually selected additives led to inferior outcomes. This highlights the advantage of data-driven screening over traditional, experience-based approaches in complex materials discovery, opening new avenues for intelligent material discovery in the PSC field."
+    ]
+  },
+  "inspirational_papers": {
+    "answer": [
+      "- CrystaLLM (Antunes et al., 2024) Trained an autoregressive large language model on crystal structure files for inorganic crystal generation. (Methodological precursors)",
+      "- ALIGNN (Choudhary and DeCost, 2021) Improved material property predictions using graph neural networks with bond angle information. (Methodological precursors)",
+      "- GNoME (Merchant et al., 2023) Combined graph neural networks and density functional theory for large-scale materials prediction. (Methodological precursors)"
+    ],
+    "evidence": [
+      "A conventional approach involves training a materials-specific LLM from the scratch with the assistance of a materials database, as exemplified by CrystaLLM [25]. CrystaLLM is an autoregressive LLM that has been trained on millions of crystal structure (CIF) files to generate plausible inorganic crystal structures from textual prompts.",
+      "A notable example of work on predicting material properties using AI is ALIGNN [38]. By incorporating bond angle information into graph neural networks, ALIGNN significantly improves the accuracy of material property predictions.",
+      "GNoME is a significant work that combines graph neural networks (GNNs) and density functional theory to successfully predict more than 380,000 novel stabilized materials, thereby significantly expanding the number of known stabilized materials [48]."
+    ]
+  },
+  "method": {
+    "steps": [
+      {
+        "step": "Systematic literature mining and data curation",
+        "input": "1,232 peer-reviewed research articles from major scientific publishers and a library of 33,269 drug-like candidate compounds",
+        "output": "A high-quality, domain-specific instruction fine-tuning dataset with detailed descriptions of precursor additive synthesis, material characterization, and performance optimization",
+        "tools": [
+          "pdfminer (for PDF to text conversion)",
+          "OpenAI o1 API (for automated question–answer and chain-of-thought generation)"
+        ],
+        "evidence": "To achieve this, we meticulously curate a selection of 1,232 peer-reviewed research articles from top scientific publishers... Additionally, to enhance the model’s generalization across chemical space, we incorporate a large-scale drug-like molecular library containing 33,269 distinct compounds."
+      },
+      {
+        "step": "Data preprocessing and question–answer pair generation",
+        "input": "Structured plain text from research articles and compound library",
+        "output": "Instruction-tuning dataset with chain-of-thought reasoning and question–answer pairs",
+        "tools": [
+          "pdfminer",
+          "OpenAI o1 API"
+        ],
+        "evidence": "During the data preprocessing stage, we utilize the pdfminer tool to convert the selected PDF documents into structured plain text... Next, we employ the OpenAI o1 API to automatically generate high-quality question–answer pairs from these text segments."
+      },
+      {
+        "step": "Fine-tuning the base language model",
+        "input": "QwQ-32B pre-trained model, CoT-enhanced instruction-tuning dataset",
+        "output": "Perovskite-R1, a domain-specialized large language model",
+        "tools": [
+          "QwQ-32B (base model)",
+          "LoRA (Low-Rank Adaptation for parameter-efficient fine-tuning)"
+        ],
+        "evidence": "For the model training stage, we select the powerful QwQ-32B model [34] as the base language model and perform efficient parameter fine-tuning using the LoRA technique on the aforementioned CoT-enhanced dataset."
+      },
+      {
+        "step": "Prompt engineering for task-specific inference",
+        "input": "Structured prompts with task definition, scientific criteria, and output specification",
+        "output": "Model-generated recommendations for precursor additive selection and experimental design",
+        "tools": [
+          "Custom prompt templates"
+        ],
+        "evidence": "To enable controlled application of the model in real-world scientific research tasks, we develop a structured prompt system tailored to the research workflow."
+      },
+      {
+        "step": "Experimental validation",
+        "input": "Model-recommended and manually selected additives, perovskite device fabrication protocols",
+        "output": "Empirical performance data comparing model-selected and manually selected additives",
+        "tools": [
+          "Laboratory synthesis and photovoltaic device testing"
+        ],
+        "evidence": "Ultimately, under the guidance of materials chemistry experts, we design several experimental protocols based on the recommendations generated by Perovskite-R1 and carried out corresponding synthesis and validation in the laboratory."
+      }
+    ],
+    "tools": [
+      "pdfminer: Used for converting PDF documents into structured plain text.",
+      "OpenAI o1 API: Used for automated generation of question–answer pairs and chain-of-thought reasoning.",
+      "QwQ-32B: A 32.5 billion parameter causal language model serving as the base for fine-tuning.",
+      "LoRA: Low-Rank Adaptation technique for parameter-efficient fine-tuning of large models.",
+      "Custom prompt templates: Structured prompts for guiding model inference.",
+      "Laboratory synthesis and photovoltaic device testing: Used for experimental validation of model recommendations."
+    ],
+    "evidence": [
+      "During the data preprocessing stage, we utilize the pdfminer tool to convert the selected PDF documents into structured plain text.",
+      "Next, we employ the OpenAI o1 API to automatically generate high-quality question–answer pairs from these text segments.",
+      "For the model training stage, we select the powerful QwQ-32B model [34] as the base language model and perform efficient parameter fine-tuning using the LoRA technique on the aforementioned CoT-enhanced dataset.",
+      "To enable controlled application of the model in real-world scientific research tasks, we develop a structured prompt system tailored to the research workflow.",
+      "Ultimately, under the guidance of materials chemistry experts, we design several experimental protocols based on the recommendations generated by Perovskite-R1 and carried out corresponding synthesis and validation in the laboratory."
+    ]
+  },
+  "subject_area": {
+    "areas": [
+      "Chemical Sciences",
+      "Physical Sciences",
+      "Applied Sciences & Engineering"
+    ],
+    "evidence": [
+      "Perovskite solar cells (PSCs) have rapidly emerged as a leading contender in next-generation photovoltaic technologies, owing to their exceptional power conversion efficiencies and advantageous material properties.",
+      "To address these challenges, precursor additive engineering has emerged as an effective strategy to enhance both the stability and efficiency of PSCs.",
+      "Our work demonstrates the potential of domain-adapted LLMs in accelerating materials discovery and provides a closed-loop framework for intelligent, data-driven advancements in perovskite photovoltaic research."
+    ]
+  },
+  "performance_summary": {
+    "performance_summary": [
+      "Perovskite-R1 outperformed several leading large language models on a perovskite research benchmark dataset, achieving higher accuracy across all difficulty levels.",
+      "In experimental validation, additives recommended by Perovskite-R1 (AI-DFCA and AI-HMBA) significantly improved perovskite solar cell device performance (PCEs of 18.58% and 18.63%) compared to manually selected additives (Manual-GA and Manual-CA, PCEs of 11.56% and 13.47%).",
+      "Perovskite-R1 achieved a 10% enhancement in accuracy over the original QwQ-32B model on the benchmark dataset."
+    ],
+    "baselines": [
+      "QwQ-32B: The original pre-trained large language model before domain-specific fine-tuning.",
+      "Doubao-seed-1.6-thinking: Another large language model baseline.",
+      "DeepSeek-R1: A reasoning-incentivized large language model.",
+      "Gemini-2.5-flash-thinking: A high-performance large language model."
+    ],
+    "benchmark_datasets": [
+      "A custom benchmark dataset focused on perovskite research, comprising a wide range of carefully curated question–answer pairs that span various domains of perovskite science, categorized into three levels of difficulty (easy, medium, hard). Used for standardized evaluation and comparison of model performance."
+    ],
+    "evaluation_metrics": [
+      "Accuracy: Measures the percentage of correct answers provided by the model on the benchmark dataset, reported separately for easy, medium, and hard questions.",
+      "Photovoltaic parameters (VOC, JSC, FF, PCE): Used to evaluate the experimental performance of perovskite solar cell devices with different additives."
+    ],
+    "evidence": [
+      "As summarized in Table 1, Perovskite-R1 consistently outperforms the competing models across all difficulty categories, with particularly excelling in challenging, domain-specific tasks. Notably, Perovskite-R1 has achieved a 10% enhancement in accuracy over the original QwQ-32B.",
+      "The experimental results in Table 2 show a clear and highly consistent trend. Both DFCA and HMBA, the additives selected by Perovskite-R1, enhance the device performance, achieving PCEs of 18.58% and 18.67%, respectively. ... In sharp contrast, the manually selected additives Manual-GA and Manual-CA demonstrate detrimental effects on device performance, reducing the PCE to 11.56% and 13.47%, respectively, substantially below the baseline value of 18.30% observed in the control devices.",
+      "This dataset comprises a wide range of carefully curated question–answer pairs that span various domains of perovskite science. Each question was independently assessed by domain experts and categorized into three levels of difficulty—easy, medium, and hard—based on the complexity of the scientific concepts and the reasoning required.",
+      "The open-circuit voltage (VOC), short-circuit current density (JSC), fill factor (FF), and PCE for both forward and reverse scans are labeled in the figure."
+    ]
+  },
+  "limitations": {
+    "limitations": [
+      {
+        "label": "Limited Output Depth in Single-Turn QA",
+        "explanation": "The model's answers to complex mechanisms often remain superficial unless prompted through multi-turn dialogue.",
+        "evidence": "Although Perovskite-R1 can accurately recognize terminology and provide reasonable answers in single-turn question answering, the depth of its output is limited by the phrasing of the question, often remaining superficial. For example, when addressing complex mechanisms such as defect passivation, the model tends to offer concise summaries without delving into detailed explanations."
+      },
+      {
+        "label": "Manual Post-Processing Required for Experimental Protocols",
+        "explanation": "Parameter settings for experimental protocols (e.g., molar concentration, additive ratio) still require manual adjustment as the model does not precisely model process feasibility.",
+        "evidence": "However, parameter settings such as molar concentration, additive ratio, and spin-coating speed still require manual post-processing, as the model does not precisely model process feasibility or preparation-condition windows."
+      },
+      {
+        "label": "Limited Control Over Structured Experimental Design",
+        "explanation": "The model primarily generates experimental protocols through text prompts, lacking precise modeling of process feasibility or preparation-condition windows.",
+        "evidence": "Besides, the control over structured experimental design tasks still has certain limitations. Currently, the model primarily generates experimental protocols through text prompts. However, parameter settings such as molar concentration, additive ratio, and spin-coating speed still require manual post-processing, as the model does not precisely model process feasibility or preparation-condition windows."
+      }
+    ],
+    "evidence": [
+      "Although Perovskite-R1 can accurately recognize terminology and provide reasonable answers in single-turn question answering, the depth of its output is limited by the phrasing of the question, often remaining superficial. For example, when addressing complex mechanisms such as defect passivation, the model tends to offer concise summaries without delving into detailed explanations.",
+      "However, parameter settings such as molar concentration, additive ratio, and spin-coating speed still require manual post-processing, as the model does not precisely model process feasibility or preparation-condition windows.",
+      "Besides, the control over structured experimental design tasks still has certain limitations. Currently, the model primarily generates experimental protocols through text prompts. However, parameter settings such as molar concentration, additive ratio, and spin-coating speed still require manual post-processing, as the model does not precisely model process feasibility or preparation-condition windows."
+    ]
+  },
+  "future_directions": {
+    "future_directions": [
+      "Introduce a multi-turn dialogue mechanism to enable the model to provide more comprehensive and in-depth scientific analysis.",
+      "Incorporate reinforcement learning (such as reinforcement learning from human feedback) to optimize dialogue guidance strategies and build a multi-turn dialogue knowledge tracking module.",
+      "Develop a knowledge graph-based feasibility constraint checking module and integrate physical simulation models for parameter space mapping and automatic verification of boundary conditions.",
+      "Expand the model's application boundaries to encompass tasks such as interface engineering design, solvent system optimization, stability regulation strategies, and co-design of device architectures."
+    ],
+    "evidence": [
+      "To address this issue, a preliminary solution is to introduce a multi-turn dialogue mechanism, enabling the model to gradually reason and elaborate through continuous questioning and contextual review, thus achieving more comprehensive and in-depth scientific analysis.",
+      "In the future, further improvements can be made by incorporating reinforcement learning (such as RLHF) to optimize dialogue guidance strategies and building a multi-turn dialogue knowledge tracking module to enhance the model’s ability to understand consecutive questions.",
+      "For future development, the introduction of a knowledge graph-based feasibility constraint checking module is planned, along with the integration of physical simulation models to provide parameter space mapping and automatic verification of boundary conditions.",
+      "In the future, we aim to broaden the application boundaries of the model to encompass a wider range of tasks, such as interface engineering design, solvent system optimization, stability regulation strategies, and the co-design of device architectures."
+    ]
+  },
+  "resource_link": {
+    "answer": "https://github.com/hiyouga/LLaMA-Factory",
+    "evidence": "The complete repository is publicly available at: https://github.com/hiyouga/LLaMA-Factory, released under Apache License 2.0."
+  },
+  "paper_title": "Perovskite-R1: A Domain-Specialized LLM for Intelligent Discovery of Precursor Additives and Experimental Design",
+  "authors": [
+    "Xin-De",
+    "Zhi-Rui",
+    "Peng-Jie",
+    "Ze-Feng",
+    "Cheng",
+    "Zhong-Yi"
+  ],
+  "published": "2025-07-22",
+  "link": "http://arxiv.org/abs/2507.16307"
+}

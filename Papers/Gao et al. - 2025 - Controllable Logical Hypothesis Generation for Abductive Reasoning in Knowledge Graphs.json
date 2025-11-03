@@ -1,0 +1,197 @@
+{
+  "objective": {
+    "answer": "The primary objective of the paper is to introduce and address the task of controllable abductive reasoning in knowledge graphs, enabling the generation of logical hypotheses that are both plausible explanations for observations and adhere to user-specified semantic and structural constraints. The authors aim to overcome challenges such as hypothesis space collapse and oversensitivity when generating complex logical hypotheses. They propose a new framework, CtrlHGen, to improve the controllability and practical utility of abductive reasoning in large-scale knowledge graphs.",
+    "evidence": "To address this limitation, we introduce the task of controllable hypothesis generation to improve the practical utility of abductive reasoning. ... we propose CtrlHGen, a Controllable logcial Hypothesis Generation framework for abductive reasoning over knowledge graphs, trained in a two-stage paradigm including supervised learning and subsequent reinforcement learning."
+  },
+  "knowledge_gap": {
+    "answer": "Existing abductive reasoning methods for knowledge graphs lack controllability, resulting in the generation of numerous plausible but redundant or irrelevant hypotheses, especially in large-scale graphs, and do not allow for user-specified semantic or structural constraints.",
+    "evidence": "However, due to a lack of controllability, a single observation may yield numerous plausible but redundant or irrelevant hypotheses on large-scale knowledge graphs. ... Unfortunately, prior work [12] has largely overlooked controllable generation, resulting in hypotheses that are redundant or lack meaningful relevance."
+  },
+  "novelty": {
+    "answer": [
+      "Introduction of the task of controllable abductive reasoning in knowledge graphs, enabling control over semantic content and structural complexity of generated hypotheses.",
+      "A dataset augmentation strategy based on sub-logical decomposition to address hypothesis space collapse for complex logical structures.",
+      "A refined reward function for reinforcement learning that incorporates Dice and Overlap coefficients for smoother semantic evaluation and a condition-adherence reward to ensure compliance with control constraints.",
+      "A two-stage training paradigm combining supervised learning and reinforcement learning for controllable logical hypothesis generation."
+    ],
+    "evidence": [
+      "We are the first to introduce the task of controllable abductive reasoning, enabling abductive reasoning in knowledge graphs to better satisfy practical needs by controlling semantic content and structural complexity.",
+      "We propose an observation-hypothesis pair augmentation strategy via sub-logical decomposition to address the challenge of hypothesis space collapse when generating complex logical structures, significantly enhancing the quality of controllable hypotheses.",
+      "To mitigate hypothesis oversensitivity, we refine the semantic reward function by incorporating Dice and Overlap coefficients to accommodate minor discrepancies between hypotheses and targets, while introducing a condition-adherence reward to ensure better compliance with control constraints, leading to more stable and accurate learning.",
+      "The hypothesis generator is then trained using a combination of supervised fine-tuning and reinforcement learning."
+    ]
+  },
+  "inspirational_papers": {
+    "answer": [
+      "Bai et al. (2024) AbductiveKGR: Advancing abductive reasoning in knowledge graphs through complex logical hypothesis generation. (Methodological precursor and baseline)",
+      "Galárraga et al. (2013) AMIE: Association rule mining under incomplete evidence in ontological knowledge bases. (Experimental baseline for rule mining)",
+      "Ho et al. (2018) RuLES: Rule learning from knowledge graphs guided by embedding models. (Experimental baseline for inductive reasoning)",
+      "Cheng et al. (2022) RLogic: Recursive logical rule learning from knowledge graphs. (Experimental baseline for inductive reasoning)"
+    ],
+    "evidence": [
+      "Abductive reasoning was introduced by AbductiveKGR [12] using Transformer-based hypothesis generation, with follow-up work [22] highlighting its future potential.",
+      "Inductive reasoning, often framed as rule mining, ranges from efficient symbolic methods like AMIE [19] to embedding-based approaches such as RuLES [20] and RLogic [21], though traditional search-based techniques face scalability challenges."
+    ]
+  },
+  "method": {
+    "steps": [
+      {
+        "step": "Observation-Hypothesis Pair Construction",
+        "input": "Knowledge graph G, predefined logical patterns",
+        "output": "Observation-hypothesis pairs suitable for generative model input",
+        "tools": [
+          "Sampling algorithm for logical patterns",
+          "Sub-logical decomposition for data augmentation"
+        ],
+        "evidence": "We randomly sample observation-hypothesis pairs from the knowledge graph by constructing hypotheses based on predefined logical patterns. ... To address the challenge of hypothesis space collapse in complex logical patterns, we propose a dataset augmentation method based on sub-logic decomposition."
+      },
+      {
+        "step": "Supervised Training of Controllable Hypothesis Generation",
+        "input": "Observation-hypothesis pairs, control conditions (semantic or structural)",
+        "output": "A conditional generative model trained to generate hypotheses under control constraints",
+        "tools": [
+          "Transformer-based decoder-only architecture (GPT-2)"
+        ],
+        "evidence": "To enable controllable generation of logical hypotheses, we train a conditional generative model to generate hypothesis sequences guided by a given observation and control condition. ... we implement using a standard Transformer-based decoder-only architecture."
+      },
+      {
+        "step": "Reinforcement Learning Fine-tuning",
+        "input": "Trained generative model, reward functions (semantic alignment and condition adherence), observation-hypothesis pairs",
+        "output": "A fine-tuned model with improved generalization and control adherence",
+        "tools": [
+          "Group Relative Policy Optimization (GRPO)",
+          "Custom reward functions: Jaccard, Dice, Overlap, and condition-adherence"
+        ],
+        "evidence": "To improve the generalization ability on unseen knowledge graphs and better adhere to the specified control conditions, we further fine-tune the generative model using reinforcement learning. ... we use Group Relative Policy Optimization (GRPO), which promotes consistent improvement across a set of sampled hypotheses per observation, instead of optimizing individual outputs."
+      }
+    ],
+    "tools": [
+      "GPT-2: A Transformer-based decoder-only architecture used for hypothesis generation.",
+      "Group Relative Policy Optimization (GRPO): A reinforcement learning algorithm that optimizes expected reward over groups of hypotheses.",
+      "Custom reward functions: Jaccard, Dice, Overlap coefficients for semantic similarity, and a binary condition-adherence reward."
+    ],
+    "evidence": [
+      "we implement using a standard Transformer-based decoder-only architecture.",
+      "we use Group Relative Policy Optimization (GRPO), which promotes consistent improvement across a set of sampled hypotheses per observation, instead of optimizing individual outputs.",
+      "The reward function is constructed from two perspectives: semantic alignment and condition adherence."
+    ]
+  },
+  "subject_area": {
+    "areas": [
+      "Applied Sciences & Engineering",
+      "Health Sciences"
+    ],
+    "evidence": [
+      "Abductive reasoning in knowledge graphs aims to generate plausible logical hypotheses from observed entities, with broad applications in areas such as clinical diagnosis and scientific discovery.",
+      "For example, it serves as a critical tool for hypothesizing causal links between symptoms and underlying pathologies in clinical diagnosis [3, 4]."
+    ]
+  },
+  "performance_summary": {
+    "performance_summary": [
+      "The proposed CtrlHGen model achieves higher semantic similarity and better adherence to control conditions compared to baselines across three benchmark datasets (DBpedia50, WN18RR, FB15k-237).",
+      "Under conditional constraints, CtrlHGen consistently achieves high condition-adherence accuracy (mostly above 80%) and improved semantic similarity metrics (Jaccard, Dice, Overlap) compared to the unconditional setting.",
+      "Ablation studies show that sub-logical decomposition and the refined reward function significantly improve performance, especially for complex logical patterns."
+    ],
+    "baselines": [
+      "AbductiveKGR: Transformer-based hypothesis generation for abductive reasoning in knowledge graphs.",
+      "AMIE: Symbolic rule mining method for knowledge graphs.",
+      "RuLES: Embedding-based rule learning from knowledge graphs.",
+      "RLogic: Recursive logical rule learning from knowledge graphs."
+    ],
+    "benchmark_datasets": [
+      {
+        "name": "DBpedia50",
+        "data_description": "A subset of DBpedia containing entities and relations for knowledge graph reasoning.",
+        "usage": "Used for training, validation, and testing of hypothesis generation models.",
+        "evidence": "We conduct experiments on three widely used knowledge graph datasets: DBpedia50 [40], WN18RR [41], and FB15k-237 [42]."
+      },
+      {
+        "name": "WN18RR",
+        "data_description": "A subset of WordNet with entities and relations for knowledge graph reasoning.",
+        "usage": "Used for training, validation, and testing of hypothesis generation models.",
+        "evidence": "We conduct experiments on three widely used knowledge graph datasets: DBpedia50 [40], WN18RR [41], and FB15k-237 [42]."
+      },
+      {
+        "name": "FB15k-237",
+        "data_description": "A subset of Freebase with entities and relations for knowledge graph reasoning.",
+        "usage": "Used for training, validation, and testing of hypothesis generation models.",
+        "evidence": "We conduct experiments on three widely used knowledge graph datasets: DBpedia50 [40], WN18RR [41], and FB15k-237 [42]."
+      }
+    ],
+    "evaluation_metrics": [
+      {
+        "name": "Jaccard Index",
+        "description": "Measures set-level agreement between generated hypothesis conclusions and observations.",
+        "evidence": "For semantic similarity, we use Jaccard, Dice and Overlap index, with Gtest used to compute [H]Gtest during testing."
+      },
+      {
+        "name": "Dice Coefficient",
+        "description": "Measures the overlap between generated and reference sets, providing smoother gradients.",
+        "evidence": "For semantic similarity, we use Jaccard, Dice and Overlap index, with Gtest used to compute [H]Gtest during testing."
+      },
+      {
+        "name": "Overlap Index",
+        "description": "Measures the overlap between generated and reference sets, normalized by the smaller set.",
+        "evidence": "For semantic similarity, we use Jaccard, Dice and Overlap index, with Gtest used to compute [H]Gtest during testing."
+      },
+      {
+        "name": "Condition Adherence Accuracy",
+        "description": "Binary classification accuracy of whether generated hypotheses satisfy the control condition.",
+        "evidence": "For condition adherence, we regard it as a binary classification problem and calculate Accuracy."
+      },
+      {
+        "name": "Smatch Score",
+        "description": "Measures structural similarity between generated and reference hypotheses by comparing their graph representations.",
+        "evidence": "In addition, Smatch score is also used to quantify the structural similarity corresponding to the generated hypothesis H and the reference hypothesis Href."
+      }
+    ],
+    "evidence": [
+      "Extensive experiments on three benchmark datasets demonstrate that our model not only better adheres to control conditions but also achieves superior semantic similarity performance compared to baselines.",
+      "Compared to the unconditional setting, the model shows notable improvements in semantic quality under conditional constraints, likely due to the additional guidance that conditions provide. Across all condition types, the model consistently achieves high condition-adherence accuracy, with most values exceeding 80%.",
+      "We conduct experiments on three widely used knowledge graph datasets: DBpedia50 [40], WN18RR [41], and FB15k-237 [42].",
+      "For semantic similarity, we use Jaccard, Dice and Overlap index, with Gtest used to compute [H]Gtest during testing. For condition adherence, we regard it as a binary classification problem and calculate Accuracy. In addition, Smatch score is also used to quantify the structural similarity corresponding to the generated hypothesis H and the reference hypothesis Href."
+    ]
+  },
+  "limitations": {
+    "limitations": [
+      {
+        "label": "Limited Generalizability",
+        "explanation": "The method requires retraining on each individual knowledge graph, resulting in high transfer costs for new domains.",
+        "evidence": "Our method requires retraining on each individual knowledge graph. As a result, a separate model must be trained for each specific domain, leading to relatively high transfer costs."
+      },
+      {
+        "label": "Single-Condition Control Only",
+        "explanation": "The model's performance was only explored under single-condition control, not with composite conditions.",
+        "evidence": "Additionally, we only explore the model’s performance under single-condition control and do not conduct experiments with composite conditions."
+      }
+    ],
+    "evidence": [
+      "Our method requires retraining on each individual knowledge graph. As a result, a separate model must be trained for each specific domain, leading to relatively high transfer costs. Additionally, we only explore the model’s performance under single-condition control and do not conduct experiments with composite conditions."
+    ]
+  },
+  "future_directions": {
+    "future_directions": [
+      "Explore composite condition control: The authors suggest that their framework is theoretically capable of handling composite conditions, indicating future work may involve experiments with multiple simultaneous control constraints."
+    ],
+    "evidence": [
+      "Additionally, we only explore the model’s performance under single-condition control and do not conduct experiments with composite conditions. However, we believe that our framework is theoretically capable of solving such tasks."
+    ]
+  },
+  "resource_link": {
+    "answer": "https://github.com/HKUST-KnowComp/CtrlHGen",
+    "evidence": "The code is available at https://github.com/HKUST-KnowComp/CtrlHGen ."
+  },
+  "paper_title": "Controllable Logical Hypothesis Generation for Abductive Reasoning in Knowledge Graphs",
+  "authors": [
+    "Yisen",
+    "Jiaxin",
+    "Tianshi",
+    "Qingyun",
+    "Ziwei",
+    "Jianxin",
+    "Yangqiu",
+    "Xingcheng"
+  ],
+  "published": "2025-05-27",
+  "link": "http://arxiv.org/abs/2505.20948"
+}

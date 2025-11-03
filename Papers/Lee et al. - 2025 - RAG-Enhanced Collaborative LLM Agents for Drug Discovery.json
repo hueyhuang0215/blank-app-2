@@ -1,0 +1,195 @@
+{
+  "objective": {
+    "answer": "The primary objective of the paper is to develop CLADD, a retrieval-augmented generation (RAG)-empowered multi-agent system that enables large language models to dynamically retrieve, contextualize, and integrate external biomedical knowledge for drug discovery tasks without requiring domain-specific fine-tuning. The authors aim to address challenges in applying general-purpose language models to specialized biochemical data and to demonstrate the flexibility and effectiveness of their framework across various drug discovery applications.",
+    "evidence": "To investigate these challenges, we propose CLADD, a retrieval-augmented generation (RAG)-empowered agentic system tailored to drug discovery tasks. Through the collaboration of multiple LLM agents, CLADD dynamically retrieves information from biomedical knowledge bases, contextualizes query molecules, and integrates relevant evidence to generate responses — all without the need for domain-specific fine-tuning."
+  },
+  "knowledge_gap": {
+    "answer": "There is a critical challenge in applying general-purpose large language models to drug discovery due to the need for costly domain-specific fine-tuning, which hinders rapid integration of new scientific data and limits the flexibility and scalability of these models in the fast-evolving biomedical domain.",
+    "evidence": "However, the specialized nature of biochemical data often necessitates costly domain-specific fine-tuning, posing critical challenges. First, it hinders the application of more flexible general-purpose LLMs in cutting-edge drug discovery tasks. More importantly, it impedes the rapid integration of the vast amounts of scientific data continuously generated through experiments and research."
+  },
+  "novelty": {
+    "answer": [
+      "Introduction of CLADD, a multi-agent framework for retrieval-augmented generation-based question-answering in drug discovery that leverages generalist large language models and dynamically integrates external biochemical data from multiple sources without requiring fine-tuning.",
+      "Development of a collaborative multi-agent system where each agent specializes in different data sources or roles, including planning, knowledge graph retrieval, and molecular understanding, to improve information processing and interpretability.",
+      "A novel anchoring approach for retrieving related information from knowledge graphs when the query molecule is not present, using structural similarity and graph neural network embeddings.",
+      "Demonstration of the framework's flexibility across diverse drug discovery tasks, including property-specific molecular captioning, drug-target prediction, and molecular toxicity prediction, outperforming both general-purpose and domain-specific language models as well as traditional deep learning approaches."
+    ],
+    "evidence": [
+      "We present CLADD, a multi-agent framework for RAG-based question-answering in drug discovery applications. The framework leverages generalist LLMs and dynamically integrates external biochemical data from multiple sources without requiring fine-tuning.",
+      "The multi-agent collaborative framework enables each agent to specialize in a specific data source and/or role based on their team, offering a modular solution that can improve overall information processing (Chan et al., 2024).",
+      "CLADD includes ... a novel anchoring approach to retrieve related information when the query molecule is not present in the knowledge base...",
+      "We demonstrate the flexibility of the framework by tackling diverse applications, including property-specific molecular captioning, drug-target prediction, and molecular toxicity prediction.",
+      "We provide comprehensive experimental results showcasing the effectiveness of CLADD compared to general-purpose and domain-specific LLMs, as well as standard deep learning approaches."
+    ]
+  },
+  "inspirational_papers": {
+    "answer": [
+      "Fang et al. (2023) Mol-Instructions: A large-scale biomolecular instruction dataset for large language models. (Methodological precursor for instruction tuning and molecular tasks)",
+      "Edwards et al. (2022) MolT5: Translation between molecules and natural language. (Experimental baseline and methodological precursor for molecular captioning and pre-training objectives)",
+      "Liu et al. (2021) GraphMVP: Pre-training molecular graph representation with 3D geometry. (Methodological precursor for graph neural network-based molecular embeddings)",
+      "Baek et al. (2023) Knowledge-augmented language model prompting for zero-shot knowledge graph question answering. (Methodological precursor for knowledge graph retrieval in language models)",
+      "Chandak et al. (2023) PrimeKG: Building a knowledge graph to enable precision medicine. (Experimental baseline for knowledge graph data)",
+      "Yu et al. (2024) LlasMol: Advancing large language models for chemistry with a large-scale, comprehensive, high-quality instruction tuning dataset. (Experimental baseline for domain-specific language models)"
+    ],
+    "evidence": [
+      "Inspired by the masked language modeling approach used in BERT training (Devlin et al., 2018), KV-PLM (Zeng et al., 2022) introduces a method to train LMs by reconstructing masked SMILES and textual data. Similarly, MolT5 (Edwards et al., 2022) adopts the “replace corrupted spans” objective (Raffel et al., 2020) for pre-training on both SMILES strings and textual data, followed by fine-tuning for downstream tasks such as molecule captioning and generation.",
+      "Building on this foundation, Pei et al. (2023) and Christofidellis et al. (2023) extend MolT5 with additional pre-training tasks, including protein FASTA reconstruction and chemical reaction prediction.",
+      "Furthermore, GIMLET (Zhao et al., 2023a), Mol-Instructions (Fang et al., 2023), and MolecularGPT (Liu et al., 2024b) adopt instruction tuning (Zhang et al., 2023) to improve generalization across a wide range of molecular tasks.",
+      "In section 3.2.1, we propose to utilize 3D geometrically pre-trained GNNs to retrieve molecules highly structurally similar to the query molecule. We use GIN architecture (Xu et al., 2018), which is pre-trained with GraphMVP (Liu et al., 2021) approach.",
+      "We use PrimeKG (Chandak et al., 2023) as the KG, PubChem (Kim et al., 2021) as an annotation database, and MolT5 (Edwards et al., 2022) as an external captioning tool.",
+      "We compare recent molecular captioning methods designed to generate general descriptions of molecules, including MolT5 (Edwards et al., 2022), LlasMol (Yu et al., 2024), and BioT5 (Pei et al., 2023)."
+    ]
+  },
+  "method": {
+    "steps": [
+      {
+        "step": "Planning Team: Assessment of Data Sources",
+        "input": "Query molecule (SMILES), task description, molecular annotation database, knowledge graph",
+        "output": "Decision on which data sources (annotations, knowledge graph, tools) are relevant for the query",
+        "tools": [
+          "MolAnn Planner: Determines sufficiency of molecular annotations for the query molecule.",
+          "KG Planner: Assesses relevance of knowledge graph information based on structural similarity (Tanimoto and GNN embeddings) between query and anchor molecules."
+        ],
+        "evidence": "The Planning Team assesses prior knowledge for a given query molecule. The team separately assesses the relevance of the molecular annotations and the knowledge graph using a MolAnn Planner agent and a KG Planner agent."
+      },
+      {
+        "step": "Knowledge Graph Team: Retrieval and Summarization",
+        "input": "Query molecule, anchor drug (most structurally similar in KG), set of related drugs (via 2-hop paths in KG), task instruction",
+        "output": "Reports summarizing contextual and biological relationships relevant to the query molecule",
+        "tools": [
+          "DrugRel Agent: Generates a report contextualizing the query molecule in relation to related drugs in the knowledge graph.",
+          "BioRel Agent: Summarizes biological relationships between anchor and related drugs using 2-hop paths in the knowledge graph."
+        ],
+        "evidence": "This team aims to provide relevant contextual information about the query molecule by leveraging the KG, and it is only called if oKGP = TRUE. It consists of the Drug Relation (DrugRel) Agent and the Biological Relation (BioRel) Agent, both of which generate reports on the query molecule based on different aspects of the KG."
+      },
+      {
+        "step": "Molecular Understanding Team: Molecule Analysis",
+        "input": "Query molecule (SMILES), molecular annotations, generated captions (if needed), reports from Knowledge Graph Team, task instruction",
+        "output": "Comprehensive molecular annotation report for the query molecule",
+        "tools": [
+          "MU Agent: Analyzes the structure and annotations of the query molecule, integrating external captions and reports from other agents."
+        ],
+        "evidence": "The MU Team is composed of a single Molecule Understanding (MU) Agent, which aims to write a report on the query molecule by leveraging its structural information, annotations from tools, and reports from other agents."
+      },
+      {
+        "step": "Prediction Agent: Final Task Execution",
+        "input": "Reports from Molecular Understanding and Knowledge Graph Teams, query molecule, task instruction",
+        "output": "Final answer to the user-defined task (e.g., property prediction, caption, classification)",
+        "tools": [
+          "Prediction Agent: Integrates all agent reports to generate the final answer tailored to the task."
+        ],
+        "evidence": "Finally, the Prediction Agent performs the user-defined task by considering the reports from the various agents, including the MU and KG teams, as follows: Agq = Task Agent(gq, oMUA, oDRA, oBRA, I)."
+      }
+    ],
+    "tools": [
+      "GPT-4o mini: Used as the underlying large language model for each agent.",
+      "PrimeKG: Biomedical knowledge graph for contextual and relational data.",
+      "PubChem: Annotation database for molecular properties and functions.",
+      "MolT5: Pre-trained molecular captioning model used as an external tool.",
+      "GraphMVP (GIN architecture): Graph neural network for generating structure-aware molecular embeddings."
+    ],
+    "evidence": [
+      "In all experiments, we utilize GPT-4o mini through the OpenAI API for each agent. We use PrimeKG (Chandak et al., 2023) as the KG, PubChem (Kim et al., 2021) as an annotation database, and MolT5 (Edwards et al., 2022) as an external captioning tool.",
+      "We use GIN architecture (Xu et al., 2018), which is pre-trained with GraphMVP (Liu et al., 2021) approach."
+    ]
+  },
+  "subject_area": {
+    "areas": [
+      "Chemical Sciences",
+      "Health Sciences",
+      "Biological Sciences"
+    ],
+    "evidence": [
+      "In particular, their application in biomolecular studies has recently gained significant interest, motivated by the potential to profoundly accelerate scientific innovation and drug discovery applications (Zhang et al., 2024; Pei et al., 2024; Chaves et al., 2024).",
+      "We demonstrate the flexibility of the framework by tackling diverse applications, including property-specific molecular captioning, drug-target prediction, and molecular toxicity prediction.",
+      "Datasets. We leverage four widely recognized molecular property prediction datasets from the MoleculeNet benchmark (Wu et al., 2018): BBBP, Sider, ClinTox, and BACE."
+    ]
+  },
+  "performance_summary": {
+    "performance_summary": [
+      "CLADD consistently outperforms all baseline methods, including general-purpose and domain-specific large language models as well as pre-trained graph neural networks, across multiple drug discovery tasks such as property-specific molecular captioning, drug-target prediction, and drug toxicity prediction.",
+      "In molecular captioning tasks, CLADD-generated captions improve classification performance over both domain-specific captioners and using only the SMILES representation.",
+      "For drug-target prediction, CLADD achieves higher precision at top-5 predictions, especially for molecules not present in external databases, demonstrating superior generalization.",
+      "In drug toxicity prediction, CLADD achieves the highest average Macro-F1 score across four datasets, outperforming all compared baselines."
+    ],
+    "baselines": [
+      "MolT5: Domain-specific language model for molecular captioning.",
+      "LlasMol: Instruction-tuned large language model for chemistry.",
+      "BioT5: Multi-modal language model for biology and chemistry.",
+      "GraphMVP: Pre-trained graph neural network using 3D geometry.",
+      "MoleculeSTM: Multi-modal molecule structure–text model.",
+      "Galactica: Large language model for scientific knowledge.",
+      "GIMLET: Unified graph-text model for instruction-based molecule zero-shot learning.",
+      "GPT-4o mini and GPT-4o: General-purpose large language models."
+    ],
+    "benchmark_datasets": [
+      "BBBP: Blood-brain barrier penetration dataset, used for property-specific molecular captioning and property prediction.",
+      "Sider: Side effect resource dataset, categorizing drug side effects, used for property-specific captioning and classification.",
+      "ClinTox: Dataset for clinical toxicity and FDA approval status, used for property-specific captioning and classification.",
+      "BACE: Dataset of inhibitors for human β-secretase 1, used for property-specific captioning and classification.",
+      "hERG: Dataset for predicting whether a drug blocks the hERG gene, used for toxicity prediction.",
+      "DILI: Dataset for drug-induced liver injury, used for toxicity prediction.",
+      "Skin: Dataset for skin sensitization, used for toxicity prediction.",
+      "Carcinogens: Dataset for carcinogenic properties, used for toxicity prediction.",
+      "Drug Repurposing Hub, DrugBank, STITCH v5.0: Used for drug-target prediction tasks."
+    ],
+    "evaluation_metrics": [
+      "AUROC (Area Under the Receiver Operating Characteristic Curve): Measures the ability of the model to distinguish between classes in property prediction tasks.",
+      "Precision @ 5: Measures the number of correct protein targets in the top 5 predictions for drug-target prediction.",
+      "Macro-F1: Measures the harmonic mean of precision and recall across all classes, used for toxicity prediction."
+    ],
+    "evidence": [
+      "Table 1. Performance in molecular captioning tasks, mean AU-ROC with standard deviation (in parentheses).",
+      "Table 2. Performance in drug target tasks (Precision @ 5).",
+      "Table 3. Performance in drug toxicity prediction task (Macro-F1).",
+      "We leverage four widely recognized molecular property prediction datasets from the MoleculeNet benchmark (Wu et al., 2018): BBBP, Sider, ClinTox, and BACE.",
+      "We use four datasets to comprehensively evaluate the performance of CLADD for drug toxicity prediction tasks: hERG (Wang et al., 2016), DILI (Xu et al., 2015), Skin (Alves et al., 2015), Carcinogens (Lagunin et al., 2009) datasets.",
+      "Although property-specific captions are practical, no ground truth property-specific captions exist for individual molecules, rendering traditional text generation evaluation methods inapplicable. Thus, in line with recent works (Xu et al., 2024; Guo et al., 2024; Edwards et al., 2024), we assess whether the generated captions can drive a classification model that categorizes molecules based on their properties. Specifically, for a generated caption and the SMILES representation of the target molecule, we concatenate them using a [CLS] token, forming SMILES[CLS]caption, and fine-tune a SciBERT (Beltagy et al., 2019) model for property prediction.",
+      "We assess the performance of LLMs in a zero-shot setting. Specifically, for a given target molecule, we prompt the LLMs to generate the top 5 proteins that the molecule is most likely to activate or inhibit. The precision is then calculated by determining whether the generated proteins match the correct answers.",
+      "As all the methods compared are foundation models, we evaluate their performance in a zero-shot setting. Specifically, given a SMILES-based structural description of the target molecule and a task description, the model outputs whether the molecule possesses the target property (binary classification). Using the text-formatted output generated by each model, we compute the Macro-F1 score (Opitz & Burst, 2019) as the evaluation metric."
+    ]
+  },
+  "limitations": {
+    "limitations": [
+      {
+        "label": "Dependence on External Knowledge Size",
+        "explanation": "The performance of CLADD is strongly correlated with the size and quality of external knowledge sources, and no performance plateau was observed, indicating that limited external data may constrain results.",
+        "evidence": "Our findings revealed a strong correlation between external knowledge size and system performance, with no observed plateaus, suggesting opportunities in scaling up external data."
+      },
+      {
+        "label": "Limited Benefit from Sparse External Knowledge",
+        "explanation": "When relevant external information is minimal or absent in annotation databases and knowledge graphs, the model derives minimal benefit, limiting its effectiveness.",
+        "evidence": "This is because, as illustrated in Figure 8, the BACE dataset contains minimal relevant information in both the annotation database and the knowledge graph. Consequently, the model derives minimal benefit from external knowledge, highlighting the critical role of having relevant external information."
+      }
+    ],
+    "evidence": [
+      "Our findings revealed a strong correlation between external knowledge size and system performance, with no observed plateaus, suggesting opportunities in scaling up external data.",
+      "This is because, as illustrated in Figure 8, the BACE dataset contains minimal relevant information in both the annotation database and the knowledge graph. Consequently, the model derives minimal benefit from external knowledge, highlighting the critical role of having relevant external information."
+    ]
+  },
+  "future_directions": {
+    "future_directions": [
+      "Scaling up external knowledge sources to further improve system performance, as no performance plateau was observed.",
+      "Leveraging CLADD as a component of more complex agentic workflows, such as integrating computational and experimental systems for automated drug discovery."
+    ],
+    "evidence": [
+      "Our findings revealed a strong correlation between external knowledge size and system performance, with no observed plateaus, suggesting opportunities in scaling up external data.",
+      "Additionally, beyond serving as a standalone tool, CLADD could also be leveraged as a component of more complex agentic workflows, for example, combining computational and experimental systems (Tom et al., 2024), which will be the subject of future work."
+    ]
+  },
+  "resource_link": {
+    "answer": "",
+    "evidence": "No code repository, project website, or data repository link is provided in the paper."
+  },
+  "paper_title": "RAG-Enhanced Collaborative LLM Agents for Drug Discovery",
+  "authors": [
+    "Namkyeong",
+    "Edward De",
+    "Ehsan",
+    "Tommaso",
+    "Chanyoung",
+    "Gabriele"
+  ],
+  "published": "2025-03-10",
+  "link": "http://arxiv.org/abs/2502.17506"
+}

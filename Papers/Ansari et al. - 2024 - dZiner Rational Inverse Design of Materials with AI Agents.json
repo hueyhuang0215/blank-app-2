@@ -1,0 +1,217 @@
+{
+  "objective": {
+    "answer": "The primary objective of the paper is to present dZiner, an AI agent powered by large language models, for the rational inverse design of materials with desired properties. The authors aim to enable efficient discovery of new compounds by integrating domain-specific knowledge from scientific literature, surrogate models, and human feedback into an iterative design process. The framework is demonstrated across various materials design tasks, including surfactants, drug candidates, and metal-organic frameworks.",
+    "evidence": "In this work, we present dZiner, a chemist AI agent, powered by large language models (LLMs), that discovers new compounds with desired properties via inverse design (property-to-structure). In specific, the agent leverages domain-specific insights from foundational scientific literature to propose new materials with enhanced chemical properties, iteratively evaluating them using relevant surrogate models in a rational design process, while accounting for design constraints."
+  },
+  "knowledge_gap": {
+    "answer": "There is a lack of frameworks that can efficiently integrate structured experimental data, chemical domain knowledge, and context from scientific literature into data-driven workflows for materials discovery, especially when large training datasets are unavailable or experimental budgets are limited.",
+    "evidence": "Despite the wealth of existing scientific literature, the availability of both structured experimental data and chemical domain knowledge that can be easily integrated into data-driven workflows is limited. ... However, these models face challenges when such data is unavailable or when there is only a limited budget for conducting experiments or simulations. In contrast, a human expert would be much more effective in such cases, by leveraging their domain knowledge and reasoning from limited examples. This underscores the need for a new materials design paradigm, where models are built to replicate and/or integrate the expertise of human domain experts."
+  },
+  "novelty": {
+    "answer": [
+      "Development of dZiner, an AI agent that performs rational inverse design of materials by integrating large language models with domain-specific knowledge retrieval and surrogate property prediction.",
+      "Support for both closed-loop and human-in-the-loop feedback cycles, enabling real-time human-AI collaboration in molecular design.",
+      "Dynamic retrieval of design guidelines from scientific literature and integration with property prediction and chemical feasibility assessment in an iterative workflow.",
+      "Application of the framework to diverse materials design tasks, including surfactants, drug candidates, and metal-organic frameworks, demonstrating flexibility and adaptability."
+    ],
+    "evidence": [
+      "In this work, we present dZiner, an agent-based framework for rational inverse design of materials, powered by the state-of-the-art LLMs (Figure 1). Leveraging both human expertise and the existing knowledge contained in scientific publications, dZiner acts as an intelligent chemist research assistant [36], providing feedback on every step of the iterative inverse design process.",
+      "The model supports both closed-loop and human-in-the-loop feedback cycles enabling human-AI collaboration in molecular design with real-time property inference, and uncertainty and chemical feasibility assessment.",
+      "The agent then interprets human-provided instructions or any design constraints, along with retrieving chemical knowledge from relevant scientific literature, the Internet or other resources to identify possible chemical modifications that could potentially improve the target molecular property.",
+      "We demonstrate the flexibility of this agent by applying it to various materials target properties including surfactants, ligand and drug candidates, and metal-organic frameworks."
+    ]
+  },
+  "inspirational_papers": {
+    "answer": [
+      "- Qin et al. (2021) Their Graph Convolutional Neural Network for predicting critical micelle concentration is used as the surrogate model for surfactant design. (Methodological precursors)",
+      "- García-Ortegón et al. (2022) Dockstring and AutoDock Vina are used for molecular docking surrogate modeling in drug design. (Methodological precursors)",
+      "- Cao et al. (2023) MOFormer is used as the surrogate model for predicting metal-organic framework properties. (Methodological precursors)"
+    ],
+    "evidence": [
+      "This model is based on the work of Qin et al. [84] without any adaptations. The authors used a Graph Convolutional Neural Network (GCN) to predict the critical micelle concentration (CMC) of surfactants based on their molecular structure as SMILES input.",
+      "This model utilizes on Dockstring [85], to predict the fit and binding affinity of small molecules (ligands) bind to target proteins by using molecular docking. Dockstring is a user-friendly Python wrapper for AutoDock Vina [60].",
+      "This model is based on MOFormer, a self-supervised Transformer model developed for predicting the properties of Metal-Organic Frameworks (MOFs) using a structure-agnostic approach [70]."
+    ]
+  },
+  "method": {
+    "steps": [
+      {
+        "step": "Input initial molecule and property optimization task",
+        "input": "Initial molecule as SMILES or sequence string; natural language description of property optimization task and design constraints",
+        "output": "Parsed initial structure and task definition",
+        "tools": [
+          "Large language model (Claude 3.5 Sonnet or GPT-4o): interprets input and manages workflow"
+        ],
+        "evidence": "Our agent starts by inputting the initial molecule as a textual representation, SMILES (Simplified Molecular Input Line-Entry System) or a sequence string, along with a brief description of the property optimization task (e.g., increase binding affinity, decrease critical micelle concentration (CMC), or increase CO2 adsorption), all in natural language."
+      },
+      {
+        "step": "Retrieve domain-specific design guidelines",
+        "input": "Task description, scientific literature, Internet resources",
+        "output": "Relevant design guidelines for property optimization",
+        "tools": [
+          "Retrieval-augmented generation (RAG) using OpenAI’s text-embedding-3-large and Maximum Marginal Relevance (MMR) for literature search"
+        ],
+        "evidence": "The agent then interprets human-provided instructions or any design constraints, along with retrieving chemical knowledge from relevant scientific literature, the Internet or other resources to identify possible chemical modifications that could potentially improve the target molecular property."
+      },
+      {
+        "step": "Generate new candidate molecule",
+        "input": "Initial molecule, design guidelines, constraints",
+        "output": "Modified candidate molecule (SMILES)",
+        "tools": [
+          "Large language model: proposes chemical modifications"
+        ],
+        "evidence": "Following these modulation guidelines, the agent generates a new candidate molecule."
+      },
+      {
+        "step": "Validate chemical feasibility and synthesizability",
+        "input": "Generated SMILES string",
+        "output": "Validity check, synthetic accessibility score",
+        "tools": [
+          "RDKit: chemical validity and synthetic accessibility assessment"
+        ],
+        "evidence": "we implement a validation step. This step serves as a quick check to assess the chemical feasibility, and score synthesizability of the newly generated molecule."
+      },
+      {
+        "step": "Estimate target property and uncertainty",
+        "input": "Validated candidate molecule",
+        "output": "Predicted property value and epistemic uncertainty",
+        "tools": [
+          "Surrogate models: Graph Convolutional Neural Network for CMC, Dockstring/AutoDock Vina for docking, MOFormer for CO2 adsorption",
+          "Ensemble modeling for uncertainty estimation"
+        ],
+        "evidence": "After this validation process, the effectiveness of the molecule modulation is assessed using a domain-expert model, potentially physics-based. However, to reduce the computational cost of the framework, we limit our study to use more affordable surrogate data-driven models for evaluation rather than expensive DFT or Free Energy Perturbation calculations."
+      },
+      {
+        "step": "Iterative review and optimization",
+        "input": "Modification history, property predictions, constraints",
+        "output": "Updated candidate molecules, convergence check",
+        "tools": [
+          "Large language model: reviews history, applies stopping criteria"
+        ],
+        "evidence": "The agent then iteratively reviews the modified materials and the entire modification history, stopping the generation of new candidates once the convergence criteria are met."
+      },
+      {
+        "step": "Optional human-in-the-loop feedback",
+        "input": "Candidate molecules, agent reasoning, human feedback",
+        "output": "Refined candidates and exploration process",
+        "tools": [
+          "Human chemist: reviews and suggests modifications; large language model: incorporates feedback"
+        ],
+        "evidence": "Optionally, in a human-in-the-loop process, a chemist can review the agent’s proposed candidates and reasoning, offering feedback and suggesting additional modifications or constraints."
+      }
+    ],
+    "tools": [
+      "Large language models (Claude 3.5 Sonnet, GPT-4o): Core reasoning and generation engine.",
+      "Retrieval-augmented generation (RAG) with OpenAI’s text-embedding-3-large: For extracting design guidelines from literature.",
+      "Maximum Marginal Relevance (MMR): For ranking and diversifying retrieved literature passages.",
+      "RDKit: For chemical validity and synthetic accessibility assessment.",
+      "Surrogate models (Graph Convolutional Neural Network, Dockstring/AutoDock Vina, MOFormer): For property prediction.",
+      "Ensemble modeling: For uncertainty estimation in property prediction.",
+      "LangChain: Application framework for agent orchestration."
+    ],
+    "evidence": [
+      "Our agent starts by inputting the initial molecule as a textual representation, SMILES (Simplified Molecular Input Line-Entry System) or a sequence string, along with a brief description of the property optimization task (e.g., increase binding affinity, decrease critical micelle concentration (CMC), or increase CO2 adsorption), all in natural language.",
+      "The agent then interprets human-provided instructions or any design constraints, along with retrieving chemical knowledge from relevant scientific literature, the Internet or other resources to identify possible chemical modifications that could potentially improve the target molecular property.",
+      "Following these modulation guidelines, the agent generates a new candidate molecule.",
+      "we implement a validation step. This step serves as a quick check to assess the chemical feasibility, and score synthesizability of the newly generated molecule.",
+      "After this validation process, the effectiveness of the molecule modulation is assessed using a domain-expert model, potentially physics-based. However, to reduce the computational cost of the framework, we limit our study to use more affordable surrogate data-driven models for evaluation rather than expensive DFT or Free Energy Perturbation calculations.",
+      "The agent then iteratively reviews the modified materials and the entire modification history, stopping the generation of new candidates once the convergence criteria are met.",
+      "Optionally, in a human-in-the-loop process, a chemist can review the agent’s proposed candidates and reasoning, offering feedback and suggesting additional modifications or constraints."
+    ]
+  },
+  "subject_area": {
+    "areas": [
+      "Chemical Sciences",
+      "Applied Sciences & Engineering",
+      "Physical Sciences",
+      "Health Sciences"
+    ],
+    "evidence": [
+      "We demonstrate the flexibility of this agent by applying it to various materials target properties including surfactants, ligand and drug candidates, and metal-organic frameworks.",
+      "The discovery of new molecules and materials with advanced properties is essential for tackling significant challenges, ranging from therapeutic discovery to addressing climate change.",
+      "The discovery of small molecule ligands that bind or inhibit protein targets is ubiquitous to drug development."
+    ]
+  },
+  "performance_summary": {
+    "performance_summary": [
+      "dZiner, powered by Claude 3.5 Sonnet, outperformed GPT-4o in generating valid molecules and optimizing target properties across all three tasks (surfactant CMC, drug docking, MOF CO2 adsorption), especially when leveraging domain-knowledge from literature.",
+      "With domain-knowledge, success rates for valid SMILES generation, property improvement, and meeting design constraints were consistently higher (e.g., 96% valid SMILES for CMC with Claude 3.5 Sonnet vs. 79% for GPT-4o).",
+      "Average improvements in primary objectives (log(CMC), docking score, CO2 adsorption) were significantly higher with domain-knowledge (e.g., 137% improvement in log(CMC) for Claude 3.5 Sonnet).",
+      "Baseline runs without domain-knowledge exhibited high failure rates in generating valid structures and optimizing properties."
+    ],
+    "baselines": [
+      "Baseline: Model runs without retrieving domain-knowledge (design guidelines) from scientific literature, relying only on the stand-alone large language model."
+    ],
+    "benchmark_datasets": [
+      "CMC dataset: Experimentally measured CMC values for 202 surfactants, used for training and evaluating the Graph Convolutional Neural Network surrogate model.",
+      "hMOF dataset: Contains organic linkers and MOF structures, used for training and evaluating the MOFormer surrogate model for CO2 adsorption.",
+      "WDR5 (PDB: 3UVL): Protein structure used for docking surrogate model evaluation."
+    ],
+    "evaluation_metrics": [
+      "Valid SMILES Generation: Percentage of generated molecules with valid chemical structures.",
+      "Primary Objective Improvement: Percentage of molecules with improved target property (log(CMC), docking score, CO2 adsorption) compared to initial candidate.",
+      "Meeting Design Constraints: Percentage of molecules meeting molecular weight and forbidden functional group constraints.",
+      "SA Score: Synthetic accessibility score, measuring ease of synthesis.",
+      "QED Score: Quantitative estimate of drug-likeness.",
+      "Average Improvement: Improvement in primary objective for best candidate compared to initial candidate."
+    ],
+    "evidence": [
+      "Tables 1 and 2 provide a detailed breakdown of dZiner’s performance across three inverse design tasks—CMC, WDR5 docking, and CO2 adsorption—evaluating its success with and without domain-knowledge (each was used to generate 600 molecules across all tasks). Across these tasks, dZiner, powered by Claude 3.5 Sonnet, outperforms GPT-4o significantly in both conditions, with especially high success rates when leveraging domain-knowledge from the literature.",
+      "Table 1: dZiner’s success rates for the three inverse design tasks with different target properties, evaluated over the generation of 100 molecules per task. Primary objectives for each task are in bold. The baselines include model runs without retrieving domain-knowledge (design guidelines) from the scientific literature.",
+      "Table 2: dZiner’s improvement rates for the primary objectives in the three inverse design tasks with different target properties, evaluated over the generation of 100 molecules per task. On average, improvements are determined by comparing the best candidate from each run to the initial candidate (iteration 0). The baselines include model runs without retrieving domain-knowledge (design guidelines) from the scientific literature.",
+      "CMC training data were experimentally measured at room temperature (between 20 and 25 ◦C) in water for 202 surfactants coming from various classes, including nonionic, cationic, anionic, and zwitterionic.",
+      "These MOFs come with pcu topology and three types of inorganic nodes: Cu paddlewheel, Zn paddlewheel, and Zn tetramer (three most frequent node-topology pairs in the hMOF dataset [69]).",
+      "WDR5 (PDB: 3UVL) [86] was accessed on May 30th 2024 and was prepared for molecular docking in MGLTools / Python Molecular Viewer (1.5.7) by removing the Histone-lysine N-methyltransferase MLL3 peptide ligand, cofactors, and water."
+    ]
+  },
+  "limitations": {
+    "limitations": [
+      {
+        "label": "SMILES Representation Limitations",
+        "explanation": "SMILES can oversimplify complex structures, especially for metal-organic frameworks, and unique SMILES codes for each substitution pattern can hinder one-to-one mapping.",
+        "evidence": "For example, SMILES can be a major oversimplification, especially for complex structures like MOFs. Another limitation inherent to SMILES is that unique SMILES codes can be generated for each substitution pattern, leading to a lack of a one-to-one mapping between molecules and their SMILES representations."
+      },
+      {
+        "label": "Limited Interpretation of Chemical Terms",
+        "explanation": "The model had limited success in interpreting terms like ortho, meta, and para for aromatic substitution patterns in human-in-the-loop runs.",
+        "evidence": "For human-in-the-loop runs, the model had limited success in interpreting terms like ortho, meta, and para when a ring has three or more substituents. As an example, it struggled with prompts like “move the -NH2 group so it is para to the -CF3 group”."
+      },
+      {
+        "label": "Potential Loss of Performance with Alternative Representations",
+        "explanation": "Using less common molecular representations (e.g., BigSMILES, SMARTS) may reduce model performance due to limited training data.",
+        "evidence": "It should be noted that given that these other molecular representations are not as popular, the model may lose performance when generating valid candidates."
+      }
+    ],
+    "evidence": [
+      "For example, SMILES can be a major oversimplification, especially for complex structures like MOFs. Another limitation inherent to SMILES is that unique SMILES codes can be generated for each substitution pattern, leading to a lack of a one-to-one mapping between molecules and their SMILES representations.",
+      "For human-in-the-loop runs, the model had limited success in interpreting terms like ortho, meta, and para when a ring has three or more substituents. As an example, it struggled with prompts like “move the -NH2 group so it is para to the -CF3 group”.",
+      "It should be noted that given that these other molecular representations are not as popular, the model may lose performance when generating valid candidates."
+    ]
+  },
+  "future_directions": {
+    "future_directions": [
+      "Incorporation of multi-modal data, such as images and schemes from supporting literature, to improve model performance, especially for small molecule virtual screening tasks.",
+      "Adapting the agent to use alternative molecular representations (e.g., BigSMILES, SMARTS) for more complex systems like polymers.",
+      "Further domain-specific fine-tuning or augmentation with additional validation tools to improve interpretation of chemical terms and rules.",
+      "Adding more instructive human feedbacks or augmenting the agent with additional validation tools to better incorporate chemical rules."
+    ],
+    "evidence": [
+      "The incorporation of multi-modal data (such as the ability to interpret images and schemes) from supporting literature represents a key advancement that could further improve the performance of the model. This improvement would be especially impactful for small molecule virtual screening tasks.",
+      "For example, for stochastic design tasks such as the synthesis of polymers, molecular representations like BigSMILES [71] or SMILES Arbitrary Target Specification (SMARTS) [72], which may better capture the complexity of such systems [73].",
+      "This likely a result of the zero-shot learning approach and could be resolved with further domain-specific fine-tuning. Alternatively, adding more instructive human feedbacks or augmenting the agent with additional validation tools to better incorporate chemical rules is expected to alleviate this limitation."
+    ]
+  },
+  "resource_link": {
+    "answer": "https://github.com/mehradans92/dZiner",
+    "evidence": "The methodology is available as an open-source software on https://github.com/mehradans92/dZiner."
+  },
+  "paper_title": "dZiner: Rational Inverse Design of Materials with AI Agents",
+  "authors": [
+    "Mehrad",
+    "Jeffrey",
+    "Carla E.",
+    "Joseph S."
+  ],
+  "published": "2024-10-04",
+  "link": "http://arxiv.org/abs/2410.03963"
+}

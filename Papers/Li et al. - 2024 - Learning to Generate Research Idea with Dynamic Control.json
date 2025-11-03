@@ -1,0 +1,166 @@
+{
+  "objective": {
+    "answer": "The primary objective of the paper is to develop a novel framework for automated research idea generation using large language models that can dynamically balance and optimize for novelty, feasibility, and effectiveness. The authors aim to address the limitations of existing prompting-based approaches by introducing a two-stage process combining supervised fine-tuning and controllable reinforcement learning. The framework is designed to generate high-quality research ideas by navigating the inherent trade-offs among key evaluation metrics.",
+    "evidence": "To address these limitations, we for the first time propose fine-tuning LLMs to be better idea proposers and introduce a novel framework that employs a two-stage approach combining Supervised Fine-Tuning (SFT) and controllable Reinforcement Learning (RL). ... Our framework provides a balanced approach to research ideation, achieving high-quality outcomes by dynamically navigating the trade-offs among novelty, feasibility, and effectiveness."
+  },
+  "knowledge_gap": {
+    "answer": "Existing automated research idea generation systems predominantly rely on prompting-based pre-trained models, which limits their ability to optimize generated content and handle the complex interdependence and trade-offs among novelty, feasibility, and effectiveness in research ideation.",
+    "evidence": "However, current approaches predominantly rely on prompting-based pre-trained models, limiting their ability to optimize generated content effectively. Moreover, they also lack the capability to deal with the complex interdependence and inherent restrictions among novelty, feasibility, and effectiveness, which remains challenging due to the inherent trade-offs among these dimensions, such as the innovation-feasibility conflict."
+  },
+  "novelty": {
+    "answer": [
+      "First to propose fine-tuning large language models specifically for research idea generation, rather than relying solely on prompting.",
+      "Introduces a two-stage framework combining supervised fine-tuning and controllable reinforcement learning for idea generation.",
+      "Implements multi-dimensional reward modeling with fine-grained feedback to optimize generated ideas across novelty, feasibility, and effectiveness.",
+      "Develops dimensional controllers that enable dynamic adjustment of generation style to prioritize specific evaluation metrics.",
+      "Incorporates a sentence-level decoder for context-aware dynamic emphasis during inference, allowing different parts of the idea to focus on different metrics."
+    ],
+    "evidence": [
+      "To address these limitations, we for the first time propose fine-tuning LLMs to be better idea proposers and introduce a novel framework that employs a two-stage approach combining Supervised Fine-Tuning (SFT) and controllable Reinforcement Learning (RL).",
+      "In the RL stage, multi-dimensional reward modeling, guided by fine-grained feedback, evaluates and optimizes the generated ideas across key metrics.",
+      "Dimensional controllers enable dynamic adjustment of generation, while a sentence-level decoder ensures context-aware emphasis during inference.",
+      "We propose a novel research ideation framework that utilizes fine-tuned LLMs to dynamically control the optimization of the generated ideas towards novelty, feasibility, and effectiveness for better overall quality.",
+      "We first introduce dynamic decoding into the RL framework, achieving satisfying performance with a balanced trade-off among different assessment metrics of research ideation."
+    ]
+  },
+  "inspirational_papers": {
+    "answer": [
+      "Baek et al. (2024) Autonomous LLM-based agents for idea generation and validation. (Methodological precursors)",
+      "Bornstein and Singh (2024) Automated hypothesis generation and refinement using LLMs. (Methodological precursors)",
+      "Si et al. (2024a) Structured framework for evaluating research ideas across novelty, feasibility, and effectiveness. (Experimental baselines and evaluation framework)",
+      "Yang et al. (2024) Innovation-feasibility trade-off in idea generation and multi-module retrieval and revision. (Limitations addressed by this work)",
+      "Wu et al. (2023) Multi-dimensional reward modeling for RLHF. (Methodological precursors)"
+    ],
+    "evidence": [
+      "This capability is demonstrated by a growing body of work employing autonomous LLM-based agents to generate and validate innovative ideas (Baek et al., 2024; Bornstein and Singh, 2024).",
+      "the quality of a research idea depends on three critical subdimensions that collectively define its value (Si et al., 2024a): (1) Novelty ... (2) Feasibility ... (3) Effectiveness ...",
+      "One notable challenge identified is to reveal the inevitable innovation-feasibility trade-off (Yang et al., 2024; Si et al., 2024a): highly novel ideas often lack feasibility, while overly feasible ideas tend to limit the scope for groundbreaking discoveries.",
+      "In the RL stage, we employ multi-dimensional reward modeling as a real-world assessment approximation (Wu et al., 2023)."
+    ]
+  },
+  "method": {
+    "steps": [
+      {
+        "step": "Supervised Fine-Tuning (SFT)",
+        "input": "Pairs of research papers and corresponding follow-up ideas, collected from ICLR 2023 and 2024 papers.",
+        "output": "A language model fine-tuned to generate research ideas from research papers.",
+        "tools": [
+          "LLaMA: Used as the base language model for fine-tuning.",
+          "Cross-entropy loss: Used for supervised training."
+        ],
+        "evidence": "In the SFT stage, the model learns foundational patterns from pairs of research papers and follow-up ideas. ... We utilize the LLaMA with a prompt (detailed in appendix D) to extract the research idea y from the sampled paper p as the golden output."
+      },
+      {
+        "step": "Reward Model Training",
+        "input": "Research papers and their generated ideas, with novelty, feasibility, and effectiveness scores (from OpenReview or LLM-based scoring).",
+        "output": "Three reward models, each trained to score novelty, feasibility, or effectiveness of generated ideas.",
+        "tools": [
+          "LLaMA-3-70B-Instruct: Used as the backbone for reward models.",
+          "Multi-Layer Perceptron: Added to output scores for each dimension.",
+          "Cross-entropy loss: Used for reward model training."
+        ],
+        "evidence": "We train three distinct reward models to score the generated idea in reinforcement learning, each corresponding to one of the quality dimensions. ... We adopted Llama-3-70B-Instruct as our scoring LLM."
+      },
+      {
+        "step": "Controllable Reinforcement Learning (RL) with Multi-dimensional Rewards",
+        "input": "Fine-tuned language model, three reward models, and a set of research papers for idea generation.",
+        "output": "A further optimized language model with dimensional controllers for novelty, feasibility, and effectiveness.",
+        "tools": [
+          "Proximal Policy Optimization (PPO): RL algorithm for optimizing the model.",
+          "Dimensional controllers: Additional control parameters for each metric."
+        ],
+        "evidence": "In the RL stage, we employ multi-dimensional reward modeling as a real-world assessment approximation ... To enable precise and adaptive control, we introduce dimensional controllers, trained alongside the RL process, which adjusts the generation style to prioritize specific metric dimensions when necessary."
+      },
+      {
+        "step": "Dynamic Decoding at Inference",
+        "input": "Optimized language model with dimensional controllers, RNN-based decoder, and new research papers.",
+        "output": "Context-aware, dynamically balanced research ideas with sentence-level adjustment of novelty, feasibility, and effectiveness.",
+        "tools": [
+          "Recurrent Neural Network (RNN): Predicts controller weights for each sentence during generation."
+        ],
+        "evidence": "This is complemented at inference time by a sentence-level decoder that dynamically adjusts the weights of controllers, ensuring context-aware emphasis - such as prioritizing novelty in the method section and feasibility in the experiment planning."
+      }
+    ],
+    "tools": [
+      "LLaMA: Base language model for fine-tuning and idea generation.",
+      "LLaMA-3-70B-Instruct: Backbone for reward models.",
+      "Proximal Policy Optimization (PPO): RL algorithm for optimizing the model with multi-dimensional rewards.",
+      "Multi-Layer Perceptron: Outputs scores for each reward dimension.",
+      "Recurrent Neural Network (RNN): Used for dynamic decoding and sentence-level control."
+    ],
+    "evidence": [
+      "We utilize the LLaMA with a prompt (detailed in appendix D) to extract the research idea y from the sampled paper p as the golden output.",
+      "We train three distinct reward models to score the generated idea in reinforcement learning, each corresponding to one of the quality dimensions.",
+      "We adopted Llama-3-70B-Instruct as our scoring LLM.",
+      "We employ multi-dimensional reward modeling as a real-world assessment approximation (Wu et al., 2023).",
+      "To enable precise and adaptive control, we introduce dimensional controllers, trained alongside the RL process, which adjusts the generation style to prioritize specific metric dimensions when necessary.",
+      "This is complemented at inference time by a sentence-level decoder that dynamically adjusts the weights of controllers, ensuring context-aware emphasis - such as prioritizing novelty in the method section and feasibility in the experiment planning.",
+      "To optimize our idea proposer, we utilize Proximal Policy Optimization (PPO), an actor-critic RL algorithm widely used in previous RLHF works."
+    ]
+  },
+  "subject_area": {
+    "areas": [
+      "Applied Sciences & Engineering",
+      "Social Sciences"
+    ],
+    "evidence": [
+      "We selected papers from ICLR as training data due to its prestigious standing as a top-tier conference in the field of machine learning, offering cutting-edge research and high-quality technical discussions.",
+      "NLP techniques have significantly advanced scientific discovery by enabling researchers to manage extensive literature, identify knowledge gaps, and analyze trends effectively (Raghu and Schmidt, 2020; Hope et al., 2021)."
+    ]
+  },
+  "performance_summary": {
+    "performance_summary": [
+      "The proposed LLaMA2-RLHF model with dynamic controls achieved the highest overall score (6.2) across novelty, feasibility, and effectiveness, outperforming all baselines.",
+      "Dynamic decoding with all controllers enabled led to statistically significant improvements across all metrics compared to static decoding and single-metric controls.",
+      "Human evaluation confirmed strong alignment between expert ratings and automatic scores, with the dynamic control model producing the most balanced and high-quality research ideas."
+    ],
+    "baselines": [
+      "T5-SFT: T5 model trained using supervised fine-tuning on 1,000 examples, no reinforcement learning or control strategies.",
+      "T5-RLHF: T5 model fine-tuned with reinforcement learning from human feedback, no dimensional controllers.",
+      "LLaMA2-SFT: LLaMA2 model fine-tuned on 1,000 research paper-idea pairs, no reinforcement learning or controllers."
+    ],
+    "benchmark_datasets": [
+      "ICLR 2023 and 2024 papers: Used for supervised fine-tuning, reward model training, and evaluation. Each paper contains its abstract, methodology, and experiment sections, along with review data from OpenReview.",
+      "NeurIPS 2023 and 2024 papers: Used for reinforcement learning and evaluation, including both accepted and rejected submissions, with detailed reviews."
+    ],
+    "evaluation_metrics": [
+      "Novelty: Measures how original and creative the generated ideas are compared to existing works.",
+      "Feasibility: Assesses the practicality and likelihood that the idea can be executed within typical resource constraints.",
+      "Effectiveness: Measures the potential improvement or impact of the generated idea compared to baseline models.",
+      "Overall Score: Aggregate of the three core metrics."
+    ],
+    "evidence": [
+      "Table 1 presents the experimental results for Novelty (N), Feasibility (F), Effectiveness (E), and Overall metrics.",
+      "Dynamic Decoding demonstrated statistically significant improvements across all metrics (p-value < 0.01) compared to the static approach, validating its superior adaptability and performance.",
+      "Domain experts validated the effectiveness of our framework of the generated idea as shown in Table 2 and bar plot in Figure 6, with human scores showing a strong correlation with the automatic scores produced by our reward models.",
+      "We collect a dataset of 6,765 usable research papers in total submitted to ICLR and NeurIPS in the years 2023 and 2024, including both accepted and rejected submissions and filtered 5,687 usable data.",
+      "We measure performance across three core metrics (details in Appendix): • Novelty: Evaluates how original and creative the generated ideas are, compared to existing works. • Feasibility: Assesses the practical implementation and the likelihood that the idea can be executed within typical resource constraints. • Effectiveness: Measures the potential improvement or impact of the generated idea when compared to baseline models."
+    ]
+  },
+  "limitations": {
+    "limitations": [],
+    "evidence": [
+      "No explicit limitations section or statements were found in the provided text."
+    ]
+  },
+  "future_directions": {
+    "future_directions": [],
+    "evidence": [
+      "No explicit future directions were stated in the paper."
+    ]
+  },
+  "resource_link": {
+    "answer": "https://github.com/du-nlp-lab/Learn2Gen",
+    "evidence": "Our benchmark is publicly available at https://github.com/du-nlp-lab/Learn2Gen."
+  },
+  "paper_title": "Learning to Generate Research Idea with Dynamic Control",
+  "authors": [
+    "Ruochen",
+    "Liqiang",
+    "Chi",
+    "Jiawei",
+    "Xinya"
+  ],
+  "published": "2024-12-19",
+  "link": "http://arxiv.org/abs/2412.14626"
+}

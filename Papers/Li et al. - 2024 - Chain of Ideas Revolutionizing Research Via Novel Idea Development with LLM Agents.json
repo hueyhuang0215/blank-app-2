@@ -1,0 +1,190 @@
+{
+  "objective": {
+    "answer": "The primary objective of the paper is to develop a Chain-of-Ideas (CoI) agent framework that enhances the capability of large language models in generating novel research ideas by organizing relevant literature in a chain structure that mirrors the progressive development of a research domain. The authors also aim to propose a comprehensive evaluation protocol, Idea Arena, to assess the quality of generated ideas in alignment with human researcher preferences.",
+    "evidence": "Inspired by the research process of human researchers, we propose a Chain-of-Ideas (CoI) agent, an LLM-based agent that organizes relevant literature in a chain structure to effectively mirror the progressive development in a research domain. ... Furthermore, we propose Idea Arena, an evaluation protocol that can comprehensively evaluate idea generation methods from different perspectives, aligning closely with the preferences of human researchers."
+  },
+  "knowledge_gap": {
+    "answer": "Existing methods for research idea generation with large language models either trivially prompt the models or expose them to extensive literature without effective organization, making it difficult for the models to capture logical progression and generate truly novel ideas.",
+    "evidence": "However, existing methods for idea generation either trivially prompt LLMs or directly expose LLMs to extensive literature without indicating useful information. ... However, in existing attempts, LLMs are presented with an extensive volume of research literature when asked to generate ideas. This makes LLMs vulnerable to the influence of less relevant works, potentially resulting in ideas that lack logical coherence and technological innovation."
+  },
+  "novelty": {
+    "answer": [
+      "Introduction of the Chain-of-Ideas (CoI) agent, which organizes relevant literature in a chain structure to mirror the progressive development of a research domain for improved idea generation.",
+      "Development of the Idea Arena, a comprehensive evaluation protocol that uses pairwise comparisons to assess idea generation methods in alignment with human researcher preferences.",
+      "Implementation of a multi-branch CoI construction to capture different perspectives within a research topic and iterative novelty checking to ensure the originality of generated ideas.",
+      "Extension of the framework to include experiment design for the generated ideas, with iterative review and refinement."
+    ],
+    "evidence": [
+      "we propose a Chain-of-Ideas (CoI) agent, an LLM-based agent that organizes relevant literature in a chain structure to effectively mirror the progressive development in a research domain.",
+      "we propose Idea Arena, an evaluation protocol that can comprehensively evaluate idea generation methods from different perspectives, aligning closely with the preferences of human researchers.",
+      "To address these issues, we construct multiple CoI branches for different perspectives of a research topic. Additionally, a novelty-checker agent iteratively evaluates the draft idea against existing literature and refines it if substantial similarity is identified.",
+      "Thus, we extended the CoI agent to include experiment design. ... The review agent provides critical feedback on these aspects, subsequently utilizing this information to conduct further searches for relevant literature ... to help the LLM refine and enhance its previous experiment design."
+    ]
+  },
+  "inspirational_papers": {
+    "answer": [
+      "Baek et al. (2024) ResearchAgent: Iterative research idea generation over scientific literature with large language models. (Methodological precursor and baseline)",
+      "Si et al. (2024) Can LLMs generate novel research ideas? (Experimental baseline and limitation addressed)",
+      "Wei et al. (2022) Chain-of-thought prompting elicits reasoning in large language models. (Methodological precursor)",
+      "Wang et al. (2022) Self-consistency improves chain of thought reasoning in language models. (Methodological precursor)",
+      "Yao et al. (2024) Tree of thoughts: Deliberate problem solving with large language models. (Methodological precursor)",
+      "Tang et al. (2024) GraphGPT: Graph instruction tuning for large language models. (Methodological precursor and inspiration for graph-based reasoning)"
+    ],
+    "evidence": [
+      "As shown in the upper part of Figure 1, the LLM borrows an idea from GraphGPT (Tang et al., 2024) and applies it into GoT framework (Besta et al., 2024) to generate what they interpret as a 'novel idea'.",
+      "Notably, Si et al. (2024); Kumar et al. (2024) have validated this hypothesis, highlighting its substantial potential to expedite the discovery of novel concepts and uncharted research avenues.",
+      "For example, SC (Wang et al., 2022) emerges as a novel idea derived from CoT. This can be viewed as a form of few-shot prompting strategy, which has been proven to enhance the overall LLM’s generation capability (Brown et al., 2020).",
+      "In Figure 2, ToT (Yao et al., 2024) is an illustrative example of an anchor paper.",
+      "ResearchAgent (Baek et al., 2024): This work leverages additional academic knowledge graph for enhancing the literature retrieval and adopts a multi-agent framework to iteratively refine ideas through peer discussions. We follow the original paper to reproduce this baseline."
+    ]
+  },
+  "method": {
+    "steps": [
+      {
+        "step": "CoI Construction",
+        "input": "A research topic provided by the user.",
+        "output": "Multiple chains of ideas (CoIs), each representing a progressive sequence of ideas from relevant literature.",
+        "tools": [
+          "Semantic Scholar API: Used to retrieve anchor papers and citation networks.",
+          "OpenAI text-embedding-3-large: Used to rank papers based on cosine similarity to the topic and anchor paper abstract.",
+          "GPT-4o and GPT-4o-mini: Used to generate queries, summarize papers, and extract ideas, experiments, and entities."
+        ],
+        "evidence": "Specifically, given an initial research topic, we prompt the LLM to generate multiple queries, [q1, . . . , qK], that reflect K different perspectives of this topic. ... For each query qk, we use it to retrieve a top-ranked paper, which we call anchor paper Pk 0. ... we identify subsequent papers that directly cite it by leveraging the Semantic Scholar API2. We use OpenAI’s text-embedding-3-large3 to rank these papers based on their cosine similarities to the concatenation of the initial research topic and the abstract of the anchor paper."
+      },
+      {
+        "step": "Idea Generation",
+        "input": "Constructed CoIs, extracted entities, summarized trends, and key entities from literature.",
+        "output": "Novel research ideas with motivation, novelty, and methodology articulated.",
+        "tools": [
+          "GPT-4o: Used to predict future trends, consolidate ideas, and perform iterative novelty checks."
+        ],
+        "evidence": "For each generated CoI, the first step is to predict possible future trends. As shown in the lower-left section of Figure 2, we prompt the LLM with the CoI, the developing trends of existing works, and the key entities extracted from existing literature, as described in Sec. 2.2 (Tables 12 and 13)."
+      },
+      {
+        "step": "Novelty Checking and Selection",
+        "input": "Draft ideas generated from each CoI branch.",
+        "output": "A final, most novel idea selected after iterative refinement and pairwise comparison.",
+        "tools": [
+          "Novelty-checker agent (LLM): Evaluates similarity between generated ideas and existing literature."
+        ],
+        "evidence": "Following the previous practice (Wang et al., 2023; Lu et al., 2024), we also use a novelty-check agent to evaluate candidate ideas. It retrieves relevant papers and prompts another LLM to assess the similarity between the generated idea and the retrieved papers (Table 16)."
+      },
+      {
+        "step": "Experiment Design",
+        "input": "Final selected idea, extracted experiments from literature, and key entities.",
+        "output": "A detailed experimental plan for implementing the final idea.",
+        "tools": [
+          "GPT-4o: Used to generate and refine experiment designs.",
+          "Review agent (LLM): Evaluates clarity and comprehensiveness of experiment designs and provides feedback."
+        ],
+        "evidence": "As shown in the lower-right of Figure 2, we prompt the LLM with experiments from existing works obtained from Sec. 2.2 as few-shot examples, along with the proposed idea and key entities, to guide the LLM in designing experiments for our ideas (Table 17)."
+      }
+    ],
+    "tools": [
+      "Semantic Scholar API: Academic paper retrieval.",
+      "OpenAI text-embedding-3-large: Embedding and similarity ranking.",
+      "GPT-4o and GPT-4o-mini: Large language models for summarization, idea generation, and experiment design.",
+      "Novelty-checker agent: LLM-based agent for novelty assessment.",
+      "Review agent: LLM-based agent for experiment design review."
+    ],
+    "evidence": [
+      "In our CoI agent, we primarily use GPT-4o (05-13)4 as our LLM implementation. For some modules that require full-paper understanding, we use GPT-4o-mini (07-18) to read the paper and summarize the core contents due to its lower price and good summarization capability. We use Semantic Scholar as our academic search engine.",
+      "We use OpenAI’s text-embedding-3-large3 to rank these papers based on their cosine similarities to the concatenation of the initial research topic and the abstract of the anchor paper.",
+      "Following the previous practice (Wang et al., 2023; Lu et al., 2024), we also use a novelty-check agent to evaluate candidate ideas.",
+      "We also employ a review agent to assess the candidate experiment designs."
+    ]
+  },
+  "subject_area": {
+    "areas": [
+      "Applied Sciences & Engineering"
+    ],
+    "evidence": [
+      "We compare our CoI agent against existing baselines on idea generation in the artificial intelligence (AI) field.",
+      "To evaluate our CoI agent’s ability to generate novel ideas, we collect recent research topics from Hugging Face’s Daily Papers5, known for its timely updates on AI research and the high quality of the featured papers."
+    ]
+  },
+  "performance_summary": {
+    "performance_summary": [
+      "The CoI agent consistently outperforms all other automated methods in both model-based and human-based evaluations, achieving higher ELO scores in idea generation and experiment design.",
+      "CoI agent's performance is on par with that of the Real Paper baseline and even excels in the metrics of Novelty and Significance.",
+      "CoI demonstrates superior performance in Clarity, Feasibility, and Expected Effectiveness compared to other automated methods in human evaluation, though it still lags behind Real Paper in these areas.",
+      "The average agreement between GPT-4o and human judges in the evaluation is 70.8%, indicating strong alignment."
+    ],
+    "baselines": [
+      "RAG: Vanilla retrieval augmented generation approach where the LLM is directly prompted with retrieved literature.",
+      "ResearchAgent: Uses an academic knowledge graph and a multi-agent framework for iterative idea refinement.",
+      "GPT-Researcher: Agent framework with plan-and-solve and RAG capabilities.",
+      "AI-Scientist: Generates entire papers with idea, methods, and experimental results; only idea generation and experiment design components are used as baseline.",
+      "Real Paper: Ideas and experiment designs extracted from actual research papers serve as a human baseline."
+    ],
+    "benchmark_datasets": [
+      "Not reported in the paper"
+    ],
+    "evaluation_metrics": [
+      "Novelty: Measures whether the problems or approaches are new and how they differ from previous contributions.",
+      "Significance: Assesses the importance and potential impact of the idea.",
+      "Clarity: Evaluates how clearly the idea or experiment is written and organized.",
+      "Feasibility: Judges whether the idea or experiment can be realized with existing technology or methods.",
+      "Expected Effectiveness: Estimates the likelihood that the proposed idea will work well.",
+      "Technical Quality (for experiments): Assesses the rationale, baseline selection, and whether the design supports the claims."
+    ],
+    "evidence": [
+      "Overall, our CoI agent demonstrates superior performance compared to all other automated methods in both model-based and human-based evaluations. Notably, It substantially outperforms the second-best baselines, GPT-Researcher and RAG, by margins of 108 and 56 ELO scores, respectively, in the two evaluation settings.",
+      "Our CoI agent’s performance is on par with that of the Real Paper baseline and even excels in the metrics of Novelty and Significance.",
+      "Table 4 presents the arena-style results for experiment designs for both model-based and human-based evaluations. Our CoI Agent demonstrates superior performance across all evaluated criteria in two evaluation settings, achieving the highest scores among all automated methods.",
+      "We also evaluate the experiment design in the same pairwise way, focusing on Feasibility, Technical Quality, and Clarity. Refer to Definitions for all metrics in Tables 5 and 6 of the Appendix.",
+      "Table 5: Evaluation metrics of ideas. ... Table 6: Evaluation metrics of experiment design."
+    ]
+  },
+  "limitations": {
+    "limitations": [
+      {
+        "label": "Feasibility Gap",
+        "explanation": "The experiment designs produced by the CoI Agent, while clear and technically reasonable, tend to be less feasible compared to those in existing literature.",
+        "evidence": "Despite the clarity and reasonable technical details of the experiment designs produced by the CoI Agent in support of the proposed ideas, they tend to be less feasible compared to those designs in the existing literature. This phenomenon is also observed during the idea generation phase. Consequently, feasibility represents a significant bottleneck in automatic idea generation, highlighting the need for future research to address this challenge."
+      },
+      {
+        "label": "Clarity and Feasibility Gap vs. Human Ideas",
+        "explanation": "There is a substantial gap in clarity, feasibility, and expected effectiveness between automatic methods and real human-generated ideas.",
+        "evidence": "Nevertheless, it still lags considerably behind the Real Paper in these areas. This substantial gap between automatic methods and Real Paper is expected, as Real Paper ideas undergo extensive experimental validation."
+      }
+    ],
+    "evidence": [
+      "Despite the clarity and reasonable technical details of the experiment designs produced by the CoI Agent in support of the proposed ideas, they tend to be less feasible compared to those designs in the existing literature. This phenomenon is also observed during the idea generation phase. Consequently, feasibility represents a significant bottleneck in automatic idea generation, highlighting the need for future research to address this challenge.",
+      "Nevertheless, it still lags considerably behind the Real Paper in these areas. This substantial gap between automatic methods and Real Paper is expected, as Real Paper ideas undergo extensive experimental validation."
+    ]
+  },
+  "future_directions": {
+    "future_directions": [
+      "Addressing Feasibility Bottleneck: Future research should focus on improving the feasibility of automatically generated ideas and experiment designs.",
+      "Enhancing Clarity and Effectiveness: Efforts should be made to close the gap in clarity and expected effectiveness between automated and human-generated research ideas."
+    ],
+    "evidence": [
+      "Consequently, feasibility represents a significant bottleneck in automatic idea generation, highlighting the need for future research to address this challenge.",
+      "Nevertheless, it still lags considerably behind the Real Paper in these areas. This substantial gap between automatic methods and Real Paper is expected, as Real Paper ideas undergo extensive experimental validation."
+    ]
+  },
+  "resource_link": {
+    "answer": "https://github.com/DAMO-NLP-SG/CoI-Agent",
+    "evidence": "The code is released at https://github.com/DAMO-NLP-SG/CoI-Agent. Try our online demo at https://huggingface.co/spaces/DAMO-NLP-SG/CoI_Agent."
+  },
+  "paper_title": "Chain of Ideas: Revolutionizing Research Via Novel Idea Development with LLM Agents",
+  "authors": [
+    "Long",
+    "Weiwen",
+    "Jiayan",
+    "Ruochen",
+    "Xingxuan",
+    "Yuqian",
+    "Boqiang",
+    "Yuming",
+    "Yifei",
+    "Ronghao",
+    "Deli",
+    "Yu",
+    "Tian",
+    "Lidong"
+  ],
+  "published": "2024-10-30",
+  "link": "http://arxiv.org/abs/2410.13185"
+}

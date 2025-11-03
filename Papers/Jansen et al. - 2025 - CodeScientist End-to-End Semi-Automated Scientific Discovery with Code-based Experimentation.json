@@ -1,0 +1,222 @@
+{
+  "objective": {
+    "answer": "The primary objective of the paper is to introduce CODESCIENTIST, a novel, open-source, end-to-end system for semi-automated scientific discovery that ideates and executes experiments based on genetic search over both literature and a library of codeblocks. The authors aim to increase the diversity of discoveries made by automated scientific discovery systems, moving beyond benchmark optimization to broader discoveries such as new tasks, agents, metrics, and data. They demonstrate the system in the domain of agents and virtual environments, evaluating its ability to generate scientifically sound and incrementally novel discoveries.",
+    "evidence": "In this work we introduce CODESCIENTIST, a novel ASD system that frames ideation and experiment construction as a form of genetic search jointly over combinations of research articles and codeblocks defining common actions in a domain (like prompting a language model). ... We use this paradigm to conduct hundreds of automated experiments on machine-generated ideas broadly in the domain of agents and virtual environments, with the system returning 19 discoveries, 6 of which were judged as being both at least minimally sound and incrementally novel after a multi-faceted evaluation beyond that typically conducted in prior work, including external (conference-style) review, code review, and replication attempts."
+  },
+  "knowledge_gap": {
+    "answer": "Existing automated scientific discovery systems are limited in their ability to generate diverse and novel research artifacts, as they often restrict exploration to variants of existing codebases or constrained design spaces, and typically rely on limited evaluation of code, focusing mainly on benchmark optimization.",
+    "evidence": "Despite the surge of interest in autonomous scientific discovery (ASD) of software artifacts (e.g., improved ML algorithms), current ASD systems face two key limitations: (1) they largely explore variants of existing codebases or similarly constrained design spaces, and (2) they produce large volumes of research artifacts (such as automatically generated papers and code) that are typically evaluated using conference-style paper review with limited evaluation of code."
+  },
+  "novelty": {
+    "answer": [
+      "Introduction of CODESCIENTIST, an end-to-end semi-automated scientific discovery system that performs genetic search over both literature and codeblocks.",
+      "A novel ideation strategy that combines open-ended literature-based ideation with codeblock conditioning to generate implementable and diverse research ideas.",
+      "A multi-faceted evaluation pipeline that includes external (conference-style) review, code review, and replication attempts for validating discoveries.",
+      "Demonstration of the system's ability to generate discoveries that go beyond benchmark optimization, including new tasks, agents, metrics, and data."
+    ],
+    "evidence": [
+      "CODESCIENTIST, a novel, open-source, end-to-end system for semi-automated scientific discovery, which ideates and executes experiments based on genetic search over both literature and a library of codeblocks.",
+      "In this work, we explore a novel genetic search ideation strategy that combines two facets: the open-endedness of literature-based ideation, with a focus on generating ideas that are implementable by our experiment builder by partially conditioning the ideation on a library of codeblocks available to the executor that implement common research functions (like calling a language model, or creating a plot).",
+      "These results were validated by external reviewers (in a conference-style review), then further vetted by replication and code review.",
+      "Moreover, the discoveries our system produces qualitatively appear diverse, and span creating new tasks, agents, metrics, data, and challenging assumptions, which builds-upon (while broadening) the scope of the impressive accomplishments of existing systems that focus on improving model performance on standardized ML benchmarks."
+    ]
+  },
+  "inspirational_papers": {
+    "answer": [
+      "Lu et al. (2024a) The AI SCIENTIST: Towards fully automated open-ended scientific discovery. (Methodological precursors)",
+      "Liu et al. (2024) AIGS: Generating science from AI-powered automated falsification. (Methodological precursors)",
+      "Schmidgall et al. (2025) AGENTLAB: Using LLM agents as research assistants. (Methodological precursors)",
+      "Ifargan et al. (2024) DATA-TO-PAPER: Autonomous LLM-driven research from data to human-verifiable research papers. (Methodological precursors)",
+      "Li et al. (2024) MLR-COPILOT: Autonomous machine learning research based on large language models agents. (Methodological precursors)"
+    ],
+    "evidence": [
+      "Recently, language models (LMs) are fueling explorations into more problem-general discovery systems capable of the full research pipeline of ideation, planning, (code-based) experimentation, and experiment analysis, with numerous impressive systems appearing recently, including AI SCIENTIST (Lu et al., 2024a), AIGS (Liu et al., 2024), AGENTLAB (Schmidgall et al., 2025), and DATA-TO-PAPER (Ifargan et al., 2024).",
+      "Table 1: A comparison of existing discovery systems with CODESCIENTIST, in terms of their ideation methodology, which research artifact is evaluated (paper, code, or performance on a benchmark), and which automatic or manual evaluations are performed on the research results."
+    ]
+  },
+  "method": {
+    "steps": [
+      {
+        "step": "Ideation",
+        "input": "A human-curated list of relevant research papers and a set of vetted codeblocks for common research tasks.",
+        "output": "A large set of candidate research ideas, each with hypothesis, variables, metrics, baselines, pilot design, and required code/resources.",
+        "tools": [
+          "Language model (e.g., Claude-Sonnet-3.5-1022): Used to generate ideas by combining literature and codeblock summaries."
+        ],
+        "evidence": "The ideator prompt includes both (a) two randomly chosen papers, from a corpus of papers provided by a human scientist, and (b) summaries of codeblocks that form a vetted library of common research-related functions."
+      },
+      {
+        "step": "Human Filtering and Commenting",
+        "input": "The pool of candidate ideas generated by the ideator.",
+        "output": "A manually selected subset of promising ideas, each optionally annotated with brief expert comments.",
+        "tools": [
+          "Human domain expert: Selects and comments on ideas to improve tractability and utility."
+        ],
+        "evidence": "a human then manually selects a subset of these ideas, ideasf ⊂ideas, that appear most interesting to them. For each idea i ∈ideasf, the domain expert can also provide a brief (2-3 sentence) set of human comments h"
+      },
+      {
+        "step": "Planning",
+        "input": "A selected idea, expert comments, and the codeblock library.",
+        "output": "A detailed, operational experiment plan and a list of codeblocks required for implementation.",
+        "tools": [
+          "Language model: Converts high-level idea and comments into a detailed experiment plan."
+        ],
+        "evidence": "The planning step converts the high-level idea generated by the ideator into a more detailed, practical, and operational experiment plan for the experiment builder."
+      },
+      {
+        "step": "Experiment Construction and Execution",
+        "input": "Experiment plan and required codeblocks.",
+        "output": "Generated experiment code, experimental results, and execution logs.",
+        "tools": [
+          "Language model: Generates Python code for the experiment.",
+          "Instrumented execution sandbox: Executes code, captures logs, and enforces resource limits.",
+          "Debugging/reflection loop: Iteratively refines code based on execution results."
+        ],
+        "evidence": "The experiment builder is tasked with generating the code for the artifact and experiment through an iterative series of generate-execute-reflect debugging steps."
+      },
+      {
+        "step": "Reporting",
+        "input": "Experiment plan, code, results, and logs.",
+        "output": "A written scientific report (LaTeX) and a short summary report.",
+        "tools": [
+          "Language model: Generates reports and summaries from experiment outputs."
+        ],
+        "evidence": "Successfully completed experiments enter an automated reporting step that takes the experiment plan (p), code (g), results (r), and logs (l) as input and produces both a written LATEX report w, and a short summary report s as output"
+      },
+      {
+        "step": "Meta-Analysis",
+        "input": "Multiple independent experiment runs and their summary reports.",
+        "output": "A meta-analysis report assessing consistency and reliability of results.",
+        "tools": [
+          "Language model: Aggregates and analyzes results across multiple runs."
+        ],
+        "evidence": "To reduce this variability, we include a meta-analysis step where for each idea and plan, the experiment builder is independently run N times, producing N different experimental results. The meta-analysis then examines the consistency of the results across successive experimental implementations, generating a meta-analysis report m"
+      }
+    ],
+    "tools": [
+      "Language model (Claude-Sonnet-3.5-1022): Used for ideation, planning, code generation, reporting, and meta-analysis.",
+      "Instrumented execution sandbox: Executes generated code, captures logs, and enforces resource/cost limits.",
+      "Human domain expert: Selects ideas, provides comments, and performs internal review.",
+      "TextWorldExpress: High-performance simulator for agent and environment experiments.",
+      "OpenAI GPT-4o-mini: Used for LLM calls in experiments.",
+      "Experiment common library and codeblocks: Vetted code templates for common research tasks."
+    ],
+    "evidence": [
+      "Except where described otherwise, the steps of the workflow are implemented as prompts to a language model, with example prompts and additional implementation details provided in APPENDIX F.",
+      "The ideator prompt includes both (a) two randomly chosen papers, from a corpus of papers provided by a human scientist, and (b) summaries of codeblocks that form a vetted library of common research-related functions.",
+      "The experiment builder is tasked with generating the code for the artifact and experiment through an iterative series of generate-execute-reflect debugging steps.",
+      "The experiment builder includes three tightly-coupled components: Initial code generation... Instrumented execution sandbox... Reflection and debugging...",
+      "Successfully completed experiments enter an automated reporting step that takes the experiment plan (p), code (g), results (r), and logs (l) as input and produces both a written LATEX report w, and a short summary report s as output",
+      "To reduce this variability, we include a meta-analysis step where for each idea and plan, the experiment builder is independently run N times, producing N different experimental results. The meta-analysis then examines the consistency of the results across successive experimental implementations, generating a meta-analysis report m"
+    ]
+  },
+  "subject_area": {
+    "areas": [
+      "Applied Sciences & Engineering",
+      "Physical Sciences",
+      "Biological Sciences"
+    ],
+    "evidence": [
+      "We run our system at scale (hundreds of experiments) in the broad domain of agents and virtual environments...",
+      "Paired with this, we assembled 10 example code snippets5 for performing basic tasks in this domain, including calling language models (OpenAI et al., 2024), building a ReAct agent (Yao et al., 2023), plotting (Hunter, 2007), robust inferential statistics for comparing models (Efron, 1992), using common knowledge graphs (Speer et al., 2017; Miller, 1995), and several benchmark environments including TEXTWORLDEXPRESS (Jansen and Cote, 2023), a high-performance simulator that reimplements common benchmarks.",
+      "The discoveries passing these tests take a variety of forms. While some take the form of improving model performance on benchmarks, most involve creating new tasks, benchmarks, metrics, methods, or questioning assumptions. The discoveries include determining that an LLM’s self-assessed confidence in its prediction accuracy has a low correlation with its actual accuracy in state-prediction tasks (#1) – a result ideated from a paper on assessing only accuracy in state prediction for virtual environments (Wang et al., 2024), and whose benchmark was unavailable in the sandbox, causing the experiment builder to crawl one of the environments that was accessible to it with a random agent to create its own benchmark for the experiment. ... Another discovery found that language models are particularly poor at assessing whether an action will be successful in an environment given the previous environmental observation (#5). While language models’ arithmetic performance is well studied (e.g. Yuan et al., 2023), a discovery suggested they are poor at solving a specific combinatorial optimization problem involving addition (#4)."
+    ]
+  },
+  "performance_summary": {
+    "performance_summary": [
+      "CODESCIENTIST generated 19 candidate discoveries from 250 experiments over 50 ideas, with 6 discoveries passing both external (conference-style) review and internal code review for scientific soundness and incremental novelty.",
+      "The validated discoveries included findings such as: LLM self-assessed confidence has low correlation with actual accuracy in state prediction tasks; LLMs perform better at predicting simpler representations; multi-stage environment generation increases fidelity; LLMs perform poorly at combinatorial optimization; LLMs have low ability to predict action success in virtual environments; and a graph-based agent outperforms a baseline in a complex environment.",
+      "Of the 250 experiment runs, 41% completed successfully, 32% hit the debug iteration limit, 18% hit the time limit, and 9% had unrecoverable code generation issues.",
+      "Compared to baselines (random or simple agents), CODESCIENTIST-generated agents or methods sometimes outperformed, but in several cases, effects failed to replicate or were due to weak baselines."
+    ],
+    "baselines": [
+      "Random baseline: Used for comparison in action prediction and agent performance tasks.",
+      "ReAct agent baseline: Standard agent architecture used as a baseline for agent modifications.",
+      "Simple mathematical solver: Used as a baseline in combinatorial optimization experiments."
+    ],
+    "benchmark_datasets": [
+      "TextWorldExpress: A high-performance simulator that reimplements common benchmarks for agent and environment experiments. Used for generating environments, state prediction, and action prediction tasks.",
+      "DiscoveryWorld: A virtual environment for developing and evaluating automated scientific discovery agents. Used for evaluating agent performance in scientific discovery tasks."
+    ],
+    "evaluation_metrics": [
+      "Correlation coefficient (r): Measures the relationship between LLM confidence and accuracy.",
+      "Accuracy: Proportion of correct predictions or successful actions.",
+      "ROC AUC: Measures the ability of confidence scores to discriminate between correct and incorrect predictions.",
+      "Process score: Normalized score for agent process in DiscoveryWorld.",
+      "Statistical significance (bootstrap resampling): Used to compare performance between methods or agents.",
+      "Mechanics completion rate: Proportion of required mechanics implemented in generated games."
+    ],
+    "evidence": [
+      "CODESCIENTIST flagged 19 of 50 ideas for human inspection where at least one of the five experiment runs produced “interesting” results,6 with those discoveries provided in Table 4. ... When examining the code, experiment logs, and performing replication attempts, the internal reviewer rejected 7 of these 13 discoveries, resulting in a total of 6 discoveries (32%) that passed both external and internal review.",
+      "The discoveries passing these tests take a variety of forms. ... The discoveries include determining that an LLM’s self-assessed confidence in its prediction accuracy has a low correlation with its actual accuracy in state-prediction tasks (#1) ... Another discovery found that language models are particularly poor at assessing whether an action will be successful in an environment given the previous environmental observation (#5). ... a discovery suggested they are poor at solving a specific combinatorial optimization problem involving addition (#4).",
+      "Experiment Builder Outcomes % Experiment completed successfully 41% Debug iteration limit reached 32% Hard experiment time limit reached 18% Unrecoverable code generation issue 9% (i.e. code too long for output) Hard cost limit reached 0% Number of samples (experiments) 250 Table 5: Summary statistics of the experiment builder.",
+      "Action Prediction: An LLM’s ability to predict whether actions will be successful in a virtual environment is generally low, marginally above a random baseline. (Appears true, with the following qualifications: (1) the LLM was given only the current observation, and no history, to judge from, and (2) an LLM-as-a-judge was used to help collect the gold dataset, and has imperfect labels.)",
+      "TextWorldExpress: ... These code examples serve not only as vetted code examples of common artifacts described in the paper corpus, but also as demonstrations of the nuances required to implement code within the sandbox environment.",
+      "Reporting and Meta-Analysis: The reporting stage produced written reports for each experiment (intended for the user, and provided in APPENDIX H), as well as short summaries of results. Short summaries of each of the 5 experiments for a given idea were used for meta-analysis, which described whether the results across experiments generally support or reject the hypothesis.",
+      "Metric: instead of raw string matching, should use llm-as-a-judge as this will be more robust to variations in presentation.",
+      "Bootstrap resampling analysis revealed that the differences between complexity levels were statistically significant (p < 0.001) for all pairwise comparisons except between numerical and relational levels (p = 0.819)."
+    ]
+  },
+  "limitations": {
+    "limitations": [
+      {
+        "label": "Cost vs Accuracy Trade-off",
+        "explanation": "Experiments are designed to be fast and inexpensive, which may lead to false positives and inability to detect small effects.",
+        "evidence": "The automated experiments in this work are designed to be fast, inexpensive estimates of an experiment’s results, that allow rapid iteration. The average experiment in this work costs ≈$4, and takes approximately 2 hours to complete. While these experiments save on resources, due to their low number of samples, they both produce false positives, and are likely unable to detect all but the largest effects (producing false negatives)."
+      },
+      {
+        "label": "Validation of Candidate Discoveries",
+        "explanation": "LLM-generated code may unfaithfully represent the intended process, requiring labor-intensive human code review to validate discoveries.",
+        "evidence": "The opposite appears true of language-model-generated code, and in this work we show that more than half of the potential discoveries were rejected by an internal code review by a domain expert (one of the authors) for having serious issues. We observed – both in pilot experiments, as well as in evaluating the 19 potential discoveries – that the LLM-generated code may unfaithfully represent the desired process or mechanism requested in the experiment plan, and instead actually perform a much simpler procedure (like randomly generating actions to take in a virtual environment)."
+      },
+      {
+        "label": "Incremental vs Transformational Discoveries",
+        "explanation": "The system produces only incremental, not transformational, discoveries, and it is unclear if the approach can yield high-impact results.",
+        "evidence": "The 6 expert-validated discoveries produced by CODESCIENTIST would likely be categorized by most as normal incremental science rather than transformational discoveries – and the ratings by the 3 external reviewers suggest that each candidate CODESCIENTIST discovery is (at best) incrementally novel."
+      },
+      {
+        "label": "Ideator Recall",
+        "explanation": "The recall of the ideator (proportion of ideas leading to valid discoveries) is unknown due to manual filtering and cost-saving measures.",
+        "evidence": "As a pragmatic cost saving measure, we explicitly filter down a large set of ideas to manually select the first 50 ideas that appeared to meet the bar of being potentially implementable, relatively different from one another, and that did not appear to have obvious research methods problems. As such, due to this cost saving measure, we are unable to make claims about what proportion of ideas that the ideator generates ultimately lead to human-verified discoveries."
+      }
+    ],
+    "evidence": [
+      "The automated experiments in this work are designed to be fast, inexpensive estimates of an experiment’s results, that allow rapid iteration. The average experiment in this work costs ≈$4, and takes approximately 2 hours to complete. While these experiments save on resources, due to their low number of samples, they both produce false positives, and are likely unable to detect all but the largest effects (producing false negatives).",
+      "The opposite appears true of language-model-generated code, and in this work we show that more than half of the potential discoveries were rejected by an internal code review by a domain expert (one of the authors) for having serious issues. We observed – both in pilot experiments, as well as in evaluating the 19 potential discoveries – that the LLM-generated code may unfaithfully represent the desired process or mechanism requested in the experiment plan, and instead actually perform a much simpler procedure (like randomly generating actions to take in a virtual environment).",
+      "The 6 expert-validated discoveries produced by CODESCIENTIST would likely be categorized by most as normal incremental science rather than transformational discoveries – and the ratings by the 3 external reviewers suggest that each candidate CODESCIENTIST discovery is (at best) incrementally novel.",
+      "As a pragmatic cost saving measure, we explicitly filter down a large set of ideas to manually select the first 50 ideas that appeared to meet the bar of being potentially implementable, relatively different from one another, and that did not appear to have obvious research methods problems. As such, due to this cost saving measure, we are unable to make claims about what proportion of ideas that the ideator generates ultimately lead to human-verified discoveries."
+    ]
+  },
+  "future_directions": {
+    "future_directions": [
+      "Develop automated mechanisms to speed up code review and validation of LLM-generated discoveries.",
+      "Scale up the computation budget or develop strategies for intelligently investing in experiments most likely to have utility.",
+      "Reduce human involvement in the workflow by automating paper selection, codeblock generation, idea filtering, and expert commenting.",
+      "Explore whether generating more impactful discoveries is a problem of scale or a problem of kind in automated scientific discovery."
+    ],
+    "evidence": [
+      "Developing automated mechanisms to speed this review is likely of paramount importance to scaling automated scientific discovery systems that use code-based experimentation.",
+      "This is not a technical limitation of this work as (in principle) it can be remedied by scaling the computation budget – though developing strategies for intelligencly investing in the experiments most likely to have utility could reduce budget requirements.",
+      "The rapid progress in ideation models (e.g. Wang et al., 2023a) and evaluation (Radensky et al., 2024) is likely to produce systems that continue to increase idea diversity and utility in the near-term, reducing the need for a human to filter these ideas.",
+      "The discoveries produced by CODESCIENTIST are incremental rather than transformational discoveries, and we have no data to support whether generating more impactful discoveries is a problem of scale (i.e. running either more ideas, or higher risk/higher gain ideas), or a problem of kind (i.e. whether ideation and execution in the manner that we have described here is capable or incapable of generating high-impact discoveries)."
+    ]
+  },
+  "resource_link": {
+    "answer": "https://github.com/allenai/codescientist",
+    "evidence": "1https://github.com/allenai/codescientist"
+  },
+  "paper_title": "CodeScientist: End-to-End Semi-Automated Scientific Discovery with Code-based Experimentation",
+  "authors": [
+    "Peter",
+    "Oyvind",
+    "Marissa",
+    "Pao",
+    "Tom",
+    "Bhavana Dalvi",
+    "Bodhisattwa Prasad",
+    "Daniel S.",
+    "Peter"
+  ],
+  "published": "2025-03-20",
+  "link": "http://arxiv.org/abs/2503.22708"
+}

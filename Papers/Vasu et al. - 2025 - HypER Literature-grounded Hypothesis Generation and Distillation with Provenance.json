@@ -1,0 +1,220 @@
+{
+  "objective": {
+    "answer": "The primary objective of the paper is to develop HypER, a small language model trained for literature-guided reasoning and evidence-based hypothesis generation. The authors aim to train a model that can organize and reason over scientific literature, distinguishing valid from invalid reasoning chains, and generate well-grounded scientific hypotheses, particularly in the medical domain. They seek to bridge the gap between traditional literature-based discovery and large language model-based hypothesis generation by explicitly validating reasoning chains using relevance scoring.",
+    "evidence": "We present HypER (Hypothesis Generation with Explanation and Reasoning), a small language model (SLM) trained for literature-guided reasoning and evidence-based hypothesis generation. ... we argue that scientific AI assistants should be trained to organize and reason over the literature, mimicking real-world scientific inquiry. In this paper, we ask: How can we train an LLM to navigate the noisy literature and generate novel and impactful ideas that are grounded in a solid understanding of existing work."
+  },
+  "knowledge_gap": {
+    "answer": "Existing large language model-based approaches to scientific hypothesis generation lack a structured approach to literature organization and do not validate the logical coherence of reasoning chains, often resulting in ungrounded or uninterpretable hypotheses. There is a need for models that can provide clear provenance and logical progression of ideas, especially in evidence-driven domains like medicine.",
+    "evidence": "Existing LLM-based approaches to scientific hypothesis generation, such as ResearchAgent (Baek et al., 2024a), Acceleron (Nigam et al., 2024), SciMuse (Gu and Krenn, 2024), and SciMON (Wang et al., 2023b) treat the task as conditional generation over retrieved literature. Unlike traditional LBD systems, these models lack a structured approach to literature organization. ... this flexibility often comes at the cost of interpretability and grounding in scientific evidence, two attributes essential for real-world use in clinical and biomedical research."
+  },
+  "novelty": {
+    "answer": [
+      "Introduction of HypER, a small language model explicitly trained to validate reasoning chains in scientific literature and generate evidence-based hypotheses.",
+      "Development of a multi-task framework that supervises both one-hop and multi-hop scientific reasoning, including chain validation and relevance scoring.",
+      "Creation of a novel dataset of temporally ordered reasoning chains with fine-grained relevance labels and curated invalid samples, using large language model-based scoring validated by experts.",
+      "Distillation of reasoning chain construction and validation into a small, instruction-tuned language model for efficient and reproducible deployment."
+    ],
+    "evidence": [
+      "We present HypER (Hypothesis Generation with Explanation and Reasoning), a small language model (SLM) trained for literature-guided reasoning and evidence-based hypothesis generation.",
+      "We propose a multitask framework that explicitly supervises the scientific reasoning process via two classification tasks: one-hop paper-paper relevance and validity of multihop chains.",
+      "We construct a dataset of 3,523 reasoning chains derived from 359 core valid chains, with fine-grained relevance labels and curated invalid samples, using LLM-based scoring validated through expert evaluation.",
+      "While building these chains requires costly citation graph traversal and numerous LLM calls, we distill this process into an SLM fine-tuned via multitask learning."
+    ]
+  },
+  "inspirational_papers": {
+    "answer": [
+      "Swanson (1986) Undiscovered public knowledge. (Methodological precursor: foundational work on literature-based discovery and structured causality investigations)",
+      "Wang et al. (2023a, 2023b) SCIMON: Scientific inspiration machines optimized for novelty. (Experimental baseline: LLM-based ideation without reasoning validation)",
+      "Baek et al. (2024a, 2024b) ResearchAgent: Iterative research idea generation over scientific literature with large language models. (Experimental baseline: agent-based refinement over loosely connected papers)",
+      "Li et al. (2024) Chain of ideas: Revolutionizing research via novel idea development with LLM agents. (Methodological precursor: structured representations and chains of ideas for improved research ideation)"
+    ],
+    "evidence": [
+      "Techniques in LBD include structured causality investigations, including association rules, graph theoretics, and explicitly curated semantic relationships between concepts (Swanson, 1986; Xun et al., 2017).",
+      "Existing LLM-based approaches to scientific hypothesis generation, such as ResearchAgent (Baek et al., 2024a), Acceleron (Nigam et al., 2024), SciMuse (Gu and Krenn, 2024), and SciMON (Wang et al., 2023b) treat the task as conditional generation over retrieved literature.",
+      "Recent work demonstrated the effectiveness of this approach in AI assisted idea generation, e.g., inspirations presented as chains of ideas or paths connecting concepts in a Knowledge Graph (KG) was reported to improve the quality of research ideas. (Li et al., 2024; Ghafarollahi and Buehler, 2024)."
+    ]
+  },
+  "method": {
+    "steps": [
+      {
+        "step": "Data Preparation",
+        "input": "A set of papers from a dataset of randomized controlled trial (RCT) summaries (Wallace et al., 2021), each linked to multiple PubMed papers.",
+        "output": "Selection of source papers (latest or most cited) for chain construction.",
+        "evidence": "The process begins with sampling a set of papers from a dataset (Wallace et al., 2021) of randomized controlled trial (RCT) summaries."
+      },
+      {
+        "step": "Citation Graph Retrieval",
+        "input": "Source paper identifier and publication year.",
+        "output": "Papers citing the source paper within a two-year window, grouped into batches.",
+        "tools": [
+          "Semantic Scholar API: Used to retrieve citation data for papers."
+        ],
+        "evidence": "Using the Semantic Scholar API, we retrieve papers citing pk within a two-year window (year →year + 2), grouped into batches of 10 to fit within LLM context limits."
+      },
+      {
+        "step": "Relevancy Scoring for a Paper",
+        "input": "Source paper and each citing paper's abstracts.",
+        "output": "Relevance label (0: irrelevant, 1: inspired, 2: dependent) and explanation for each citing paper.",
+        "tools": [
+          "Llama-3.1-70B model: Used for scoring relevance and generating explanations."
+        ],
+        "evidence": "Each paper is scored using a Llama-3.1-70B model (prompt in Appendix J) with a relevance label: 0 (irrelevant), 1 (inspired), or 2 (dependent), based on its connection to the source paper’s hypothesis or findings."
+      },
+      {
+        "step": "Top Paper Selection",
+        "input": "Relevance scores and citation counts for each paper.",
+        "output": "Top 3 relevant papers per chunk, prioritized by relevance and impact.",
+        "evidence": "For each paper chunk, the top 3 relevant papers are identified based on their relevancy score in the range [1, 2]. Papers with higher citation counts and relevancy scores of 2 (only considered score 1 otherwise) are prioritized."
+      },
+      {
+        "step": "Iterative Reasoning Chain Construction",
+        "input": "Current source paper and its top relevant citing papers.",
+        "output": "A reasoning chain: a sequence of papers where each node is relevant and logically connected.",
+        "evidence": "The pipeline iteratively selects the top paper from the relevant papers. This paper becomes the new source paper pk+1, and the process is repeated to retrieve its citing papers. The loop continues until a terminal condition is met, such as reaching the final target year (e.g., 2024)."
+      },
+      {
+        "step": "Negative Sampling for Invalid Chains",
+        "input": "Valid reasoning chains and a pool of irrelevant papers.",
+        "output": "Invalid reasoning chains generated by swapping or breaking nodes with irrelevant papers.",
+        "evidence": "Invalid reasoning chains are generated through the following strategies (illustrated on the right of Figure 2 (b)): (1) Swapping intermediate nodes (easy negative sampling)... (2) Random breaks in the chain (hard negative sampling)..."
+      },
+      {
+        "step": "Supervised Fine-tuning of Small Language Models",
+        "input": "Dataset of valid and invalid reasoning chains with labels.",
+        "output": "A fine-tuned small language model (HypER) capable of multi-task reasoning and hypothesis generation.",
+        "tools": [
+          "Phi-3-mini-128k-instruct-3.8B: Small instruction-tuned language model backbone.",
+          "LLaMA-3.2-3B: Alternative small instruction-tuned language model backbone.",
+          "LoRA (Low-Rank Adaptation): Parameter-efficient fine-tuning method."
+        ],
+        "evidence": "We fine-tune small instruction-tuned LLMs (e.g., Phi-3-mini-128k-instruct), HypER, achieving strong performance across all tasks. ... We employ Low-Rank Adaptation (LoRA) (Hu et al., 2021), a parameter-efficient fine-tuning method, with a rank of 8, a learning rate of 2e −5, and adapter modules applied to attention layers."
+      },
+      {
+        "step": "Multi-task Training and Inference",
+        "input": "Reasoning chains and task-specific prompts.",
+        "output": "Model trained to perform one-hop relevance classification, multi-hop chain validation, and hypothesis generation.",
+        "evidence": "HypER is fine-tuned on the following tasks: One-hop relevance classification (1-hop)... Multi-hop agnostic chain validation (multi-hop-A)... Multi-hop contextual chain validation (multi-hop-C)... Hypothesis generation is performed at inference time, conditioned on validated reasoning chains."
+      }
+    ],
+    "tools": [
+      "Semantic Scholar API: Used for citation graph retrieval.",
+      "Llama-3.1-70B: Large language model for relevance scoring and explanation generation.",
+      "Phi-3-mini-128k-instruct-3.8B: Small language model backbone for HypER.",
+      "LLaMA-3.2-3B: Alternative small language model backbone.",
+      "LoRA (Low-Rank Adaptation): Parameter-efficient fine-tuning for small language models."
+    ],
+    "evidence": [
+      "Using the Semantic Scholar API, we retrieve papers citing pk within a two-year window (year →year + 2), grouped into batches of 10 to fit within LLM context limits.",
+      "Each paper is scored using a Llama-3.1-70B model (prompt in Appendix J) with a relevance label: 0 (irrelevant), 1 (inspired), or 2 (dependent), based on its connection to the source paper’s hypothesis or findings.",
+      "We fine-tune small instruction-tuned LLMs (e.g., Phi-3-mini-128k-instruct), HypER, achieving strong performance across all tasks.",
+      "We employ Low-Rank Adaptation (LoRA) (Hu et al., 2021), a parameter-efficient fine-tuning method, with a rank of 8, a learning rate of 2e −5, and adapter modules applied to attention layers."
+    ]
+  },
+  "subject_area": {
+    "areas": [
+      "Health Sciences"
+    ],
+    "evidence": [
+      "In the medical domain, where evidence-based reasoning is the norm (Yang et al., 2019; Bichindaritz et al., 1998), researchers require a clear provenance of ideas before committing to costly hypothesis development and validation (Jing et al., 2024; Karunarathna et al., 2024).",
+      "Although we focus on the medical domain for its strong emphasis on evidence-based reasoning, we believe the framework has potential applicability to other scientific fields."
+    ]
+  },
+  "performance_summary": {
+    "performance_summary": [
+      "HypER significantly outperforms base models in distinguishing valid from invalid reasoning chains, with an average absolute F1 improvement of +22% across multi-hop validation tasks.",
+      "In one-hop relevance classification, HypER improves F1-score from 17% to 77%.",
+      "For multi-hop chain validation, HypER achieves F1-scores of 85% and 86% compared to 77% and 50% for the Phi3-3.8B base model.",
+      "HypER generates more evidence-grounded hypotheses (groundedness score 0.327 vs. 0.305 for the base model) and is rated higher by human experts for feasibility and impact (>3.5 on a 5-point Likert scale).",
+      "HypER achieves comparable scores to GPT-4o in originality (3.01 vs. 3.00) and significance (3.37 vs. 3.84) in automated LLM-as-judge evaluation."
+    ],
+    "baselines": [
+      "Phi3-3.8B: Small instruction-tuned language model without HypER fine-tuning.",
+      "LLaMA-3.2: Small instruction-tuned language model without HypER fine-tuning.",
+      "MistralLite-7B-32K: Small language model baseline (excluded from final evaluation due to output issues)."
+    ],
+    "benchmark_datasets": [
+      "RCT Summaries Dataset (Wallace et al., 2021): Contains systematic reviews of randomized controlled trials, each linked to multiple PubMed papers. Used as the primary source for constructing reasoning chains."
+    ],
+    "evaluation_metrics": [
+      "Accuracy: Measures the proportion of correct predictions.",
+      "Precision: Measures the proportion of true positives among predicted positives.",
+      "Recall: Measures the proportion of true positives among actual positives.",
+      "F1-score: Harmonic mean of precision and recall, used for classification tasks.",
+      "Jaccard Similarity: Measures overlap in invalid node identification.",
+      "Groundedness (Alignscore): Measures faithfulness of generated hypotheses to the input chain.",
+      "Human Expert Ratings (Likert scale): Used for clarity, originality, feasibility, and impact."
+    ],
+    "evidence": [
+      "Table 2 shows HypER_Phi3-3.8B (as HypER) significantly improves the Phi3-3.8B base-model (base-line) across all tasks. In one-hop relevance classification, HypER improves F1-score from 17% to 77%...",
+      "For multi-hop chain validation, HypER achieves 85% (↑8) and 86% (↑36) over the Phi3-3.8B base model on both multi-hop chain validation tasks, respectively.",
+      "For valid chains, HypER achieves a groundedness score of 0.327 ± 0.14, compared to 0.305 ± 0.12 for the base model...",
+      "To benchmark HypER’s performance, we conducted an automated output-level evaluation against GPT-4o, showing that HypER achieves comparable scores in originality (3.01 vs. 3.00) and significance (3.37 vs. 3.84).",
+      "We evaluate classification performance using accuracy, precision, recall, and F1. For invalid node identification, we report Jaccard similarity (Thada and Jaglan, 2013)... Hypothesis quality is assessed in terms of novelty, plausibility, and alignment with literature, following the judging protocols of (Baek et al., 2024a) for both LLM-as-a-judge and human judges."
+    ]
+  },
+  "limitations": {
+    "limitations": [
+      {
+        "label": "Abstract-based Chain Construction",
+        "explanation": "The method constructs reasoning chains using only abstracts, which may not fully capture the depth of scientific discovery that would be available from full-text articles.",
+        "evidence": "Our approach construct chains using abstracts to fit within model context limits and to circumvent the scarcity of open-access full-text medical literature. However, this abstract-based method does not fully capture the real-world scientific discovery process, where researchers have to read them in entirety, after shortlisting the relevant articles."
+      },
+      {
+        "label": "Limited Human Evaluation Sample Size",
+        "explanation": "Human evaluation was conducted on a limited sample size, which may not capture the full variability in evaluation behavior.",
+        "evidence": "Due to the complexity of assessing reasoning chains, we conducted evaluations on a limited sample size. In particular, our correlation analysis between expert and LLM-as-judge ratings is based on just 15 examples, which may not capture the full variability in evaluation behavior."
+      },
+      {
+        "label": "Inherited Weaknesses from Base Model",
+        "explanation": "The fine-tuned model may inherit weaknesses such as copying from few-shot examples, potentially limiting performance.",
+        "evidence": "our fine-tuned model inherits certain weaknesses from the base model such as copying from few-shot example, which may have limited the model performance in some generated instances."
+      },
+      {
+        "label": "Not Explicitly Optimized for Novelty",
+        "explanation": "HypER is not explicitly designed to optimize for novelty in hypothesis generation.",
+        "evidence": "While HypER is effective at filtering meaningful reasoning paths from misleading ones, it is not explicitly designed to optimize for novelty. A future extension of this work could focus on fine-tuning HypER to better balance plausibility and novelty in hypothesis generation."
+      },
+      {
+        "label": "No Full-scale Comparison with Proprietary Models",
+        "explanation": "The study does not include full-scale comparisons with proprietary models such as GPT-4o or fine-tuning experiments with larger language models.",
+        "evidence": "We did not include full-scale comparisons using proprietary models such as GPT-4o or fine-tuning experiments with larger LLMs."
+      }
+    ],
+    "evidence": [
+      "Our approach construct chains using abstracts to fit within model context limits and to circumvent the scarcity of open-access full-text medical literature. However, this abstract-based method does not fully capture the real-world scientific discovery process, where researchers have to read them in entirety, after shortlisting the relevant articles.",
+      "Due to the complexity of assessing reasoning chains, we conducted evaluations on a limited sample size. In particular, our correlation analysis between expert and LLM-as-judge ratings is based on just 15 examples, which may not capture the full variability in evaluation behavior.",
+      "our fine-tuned model inherits certain weaknesses from the base model such as copying from few-shot example, which may have limited the model performance in some generated instances.",
+      "While HypER is effective at filtering meaningful reasoning paths from misleading ones, it is not explicitly designed to optimize for novelty. A future extension of this work could focus on fine-tuning HypER to better balance plausibility and novelty in hypothesis generation.",
+      "We did not include full-scale comparisons using proprietary models such as GPT-4o or fine-tuning experiments with larger LLMs."
+    ]
+  },
+  "future_directions": {
+    "future_directions": [
+      "Validate the generalizability of the HypER framework in scientific domains beyond medicine.",
+      "Fine-tune HypER to better balance plausibility and novelty in hypothesis generation.",
+      "Conduct a comprehensive human evaluation for a fair and rigorous comparison with proprietary models such as GPT-4o.",
+      "Explore retrieval-augmented citation discovery and related work generation using reasoning-based approaches."
+    ],
+    "evidence": [
+      "An important avenue for future work is to validate this generalizability through experiments in additional domains.",
+      "A future extension of this work could focus on fine-tuning HypER to better balance plausibility and novelty in hypothesis generation.",
+      "However, since a comprehensive human evaluation would be necessary for a fair and rigorous comparison, we leave that to future work.",
+      "We believe this points to a promising future direction, where reasoning-based approaches can strengthen automatic RWG systems by grounding citation structure in validated scientific dependencies."
+    ]
+  },
+  "resource_link": {
+    "answer": "",
+    "evidence": "No code repository, project website, or data repository link is provided in the paper."
+  },
+  "paper_title": "HypER: Literature-grounded Hypothesis Generation and Distillation with Provenance",
+  "authors": [
+    "Rosni",
+    "Chandrayee",
+    "Bhavana Dalvi",
+    "Cristina",
+    "Peter",
+    "Abraham"
+  ],
+  "published": "2025-08-21",
+  "link": "http://arxiv.org/abs/2506.12937"
+}

@@ -1,0 +1,192 @@
+{
+  "objective": {
+    "answer": "The primary objective of the paper is to propose a structured framework for scientific discovery that systematically identifies and integrates problem-method combinations, rather than relying solely on large language model-generated research ideas. The authors aim to quantitatively assess the disruptive potential of new scientific discoveries using a disruptive index, and to develop a reasoning-guided search algorithm for discovering impactful knowledge recombinations. The framework is empirically validated across multiple scientific domains to demonstrate its effectiveness in modeling innovation dynamics and identifying high-impact discoveries.",
+    "evidence": "Rather than viewing scientific discovery as isolated ideas or content, we propose a structured approach that emphasizes the role of method combinations in shaping disruptive insights. Specifically, we investigate how knowledge units—especially those tied to methodological design—can be modeled and recombined to yield research breakthroughs. ... Our proposed framework addresses two key challenges. First, we introduce a contrastive learning-based mechanism to identify distinguishing features of historically disruptive method combinations within problem-driven contexts. Second, we propose a reasoning-guided Monte Carlo search algorithm that leverages the chain-of-thought capability of LLMs to identify promising knowledge recombinations for new problem statements."
+  },
+  "knowledge_gap": {
+    "answer": "Existing approaches to scientific discovery with large language models lack systematic identification and integration of fine-grained knowledge components, resulting in macro-level idea generation rather than precise problem-method matching, and lack objective metrics to assess the transformative impact of discoveries.",
+    "evidence": "However, despite these advancements, existing approaches still exhibit several limitations: (1) the inability to systematically identify and integrate fine-grained knowledge components, resulting in scientific discovery that remains at a macro-level of idea generation rather than precise matching of research problems and methods; ... and (3) the absence of objective metrics to assess the transformative impact of newly proposed discoveries, as current methods predominantly rely on subjective expert alignment rather than quantitative evaluations of scientific breakthroughs."
+  },
+  "novelty": {
+    "answer": [
+      "A novel framework for scientific discovery that systematically identifies and integrates problem-method combinations instead of relying solely on large language model-generated research ideas.",
+      "A disruptive index evaluation framework that quantitatively assesses the potential disruptiveness of new scientific discoveries, improving upon traditional impact metrics.",
+      "A reasoning-guided Monte Carlo search algorithm leveraging large language model chain-of-thought capabilities to identify promising knowledge recombinations.",
+      "An adaptive bias-aware alignment model and secondary learning mechanism for more accurate disruptive index prediction.",
+      "A dynamic method optimization module using Greedy with Probabilistic Perturbation to iteratively refine method combinations for higher disruptive potential."
+    ],
+    "evidence": [
+      "The primary contributions of this research are as follows: 1. A novel framework for scientific discovery that systematically identifies and integrates problem-method combinations rather than relying solely on LLM-generated research ideas.",
+      "2. A disruptive index evaluation framework that quantitatively assesses the potential disruptiveness of new scientific discoveries, improving upon traditional impact metrics.",
+      "Second, we propose a reasoning-guided Monte Carlo search algorithm that leverages the chain-of-thought capability of LLMs to identify promising knowledge recombinations for new problem statements.",
+      "To evaluate the disruptiveness of these strategies, we identify potential source literature in our database, analyze differences between source strategies and current strategies, and propose an adaptive bias-aware alignment model to predict disruptive indices based on these differences.",
+      "To address this limitation, we incorporate a Greedy with Probabilistic Perturbation (GPP) approach[14], enhancing the global search capability."
+    ]
+  },
+  "inspirational_papers": {
+    "answer": [
+      "Funk and Owen-Smith (2017) Introduced the Disruption Index, which inspired the disruptive index evaluation framework. (Methodological precursors)",
+      "Wu et al. (2019) Extended the Disruption Index to scientific research, providing a basis for its use in this work. (Methodological precursors)",
+      "Luo et al. (2022) Proposed life-index novelty measurement for research question-method combinations, informing the structured integration approach. (Methodological precursors)",
+      "Baek et al. (2024) ResearchAgent: Iterative research idea generation over scientific literature with large language models, highlighting limitations addressed by this work. (Papers with limitations addressed)",
+      "Li et al. (2024) Chain of Ideas: LLM-based system for structured research ideation, whose limitations in fine-grained method integration are addressed here. (Papers with limitations addressed)"
+    ],
+    "evidence": [
+      "To address this gap, we introduce the Disruptive Index (DI) to quantify whether a scientific discovery drives a paradigm shift. ... The Disruptive Index (DI), proposed by Funk and Owen-Smith [11], captures whether a scientific discovery supersedes previous approaches rather than merely reinforcing the status quo.",
+      "Originally developed to measure technological innovation using vast patent databases such as the U.S. Patent Citations Data File, the Disruption Index was later extended to scientific research by Wu et al. (2019), who applied the metric to bibliometrics [37].",
+      "To bridge this gap, recent work has proposed a life-index novelty measurement, incorporating the frequency and age of research questions and methods, alongside semantic novelty assessment using deep learning and representation learning techniques [22].",
+      "Additionally, ResearchAgent has been introduced as an iterative framework that refines research ideas through the integration of an academic graph and knowledge retrieval mechanisms. ... This structured review process enhances the clarity, novelty, and validity of generated ideas, demonstrating effectiveness across multiple disciplines [3].",
+      "One such approach is the Chain-of-Ideas (CoI) Agent, an LLM-based system that organizes relevant literature into a structured chain, simulating the progressive development of a research domain and strengthening ideation capabilities [17]."
+    ]
+  },
+  "method": {
+    "steps": [
+      {
+        "step": "Problem-Driven Method Exploration",
+        "input": "A new research problem statement; large-scale academic literature database indexed by problems and methods.",
+        "output": "A set of candidate methods relevant to the new research problem, forming candidate problem-method pairs.",
+        "tools": [
+          "Natural Language Processing techniques for extracting research problems and methods from papers.",
+          "Semantic embedding models for representing problems in vector space.",
+          "Similarity function for retrieving top-k similar problems."
+        ],
+        "evidence": "To enhance the efficiency of method exploration and reduce resource consumption, this study designs a Problem-Driven Method Exploration Module that constructs a paper database indexed by problems and methods. ... NLP techniques are employed to extract the research problem and research method from each paper. ... the system embeds it into a semantic vector space ... a similarity function is applied to retrieve the top-k similar problems."
+      },
+      {
+        "step": "Disruptive Index Prediction",
+        "input": "Candidate problem-method pairs; structured literature database; real-world literature summaries.",
+        "output": "Predicted disruptive index scores for each problem-method combination.",
+        "tools": [
+          "Summary generation model fine-tuned using Low-Rank Adaptation (LoRA) for concise summaries.",
+          "Frozen pre-trained model for semantic comparison and information extraction.",
+          "Adaptive bias-aware alignment model for disruptive index prediction.",
+          "Entropy-based weighted evaluation metric and KL-divergence-based balancing mechanism."
+        ],
+        "evidence": "This study introduces a disruptive index prediction model consisting of interconnected sub-modules ... employs a summary generation model fine-tuned using Low-Rank Adaptation (LoRA)[15] ... we employ a frozen pre-trained model to perform a fine-grained semantic comparison ... employs a prediction model fine-tuned via LoRA ... we introduce an entropy-based weighted evaluation metric[4] ... we introduce a KL-divergence-based balancing mechanism."
+      },
+      {
+        "step": "Dynamic Method Optimization",
+        "input": "Problem-method combinations with their disruptive index scores.",
+        "output": "Refined method combinations with maximized disruptive index.",
+        "tools": [
+          "Greedy algorithm with Probabilistic Perturbation (GPP) for iterative optimization.",
+          "Adaptive learning component for dynamic weighting."
+        ],
+        "evidence": "The dynamic method optimization module is designed to iteratively refine method combinations based on feedback from the disruptive index ... we incorporate a Greedy with Probabilistic Perturbation (GPP) approach[14], enhancing the global search capability ... The optimization module also includes an adaptive learning component that dynamically adjusts the weight of disruptive index feedback."
+      }
+    ],
+    "tools": [
+      "Natural Language Processing techniques: Used for extracting research problems and methods from academic papers.",
+      "Semantic embedding models: Used to represent research problems in a vector space for similarity retrieval.",
+      "LoRA (Low-Rank Adaptation): Fine-tunes large language models for summary generation and disruptive index prediction.",
+      "Frozen pre-trained models: Used for semantic comparison and information extraction.",
+      "Greedy with Probabilistic Perturbation (GPP): Optimization algorithm to escape local optima in method selection.",
+      "Entropy-based weighted evaluation: Assigns higher weights to rare, highly disruptive samples.",
+      "KL-divergence-based balancing: Stabilizes training outcomes during secondary learning."
+    ],
+    "evidence": [
+      "NLP techniques are employed to extract the research problem and research method from each paper.",
+      "we employ a summary generation model fine-tuned using Low-Rank Adaptation (LoRA)[15]",
+      "we employ a frozen pre-trained model to perform a fine-grained semantic comparison",
+      "we incorporate a Greedy with Probabilistic Perturbation (GPP) approach[14], enhancing the global search capability",
+      "we introduce an entropy-based weighted evaluation metric[4]",
+      "we introduce a KL-divergence-based balancing mechanism"
+    ]
+  },
+  "subject_area": {
+    "areas": [
+      "Health Sciences",
+      "Applied Sciences & Engineering",
+      "Social Sciences"
+    ],
+    "evidence": [
+      "From PubMed, we select 96,612 research articles related to depression, published between 2015 and 2025.",
+      "Lastly, for PatSnap, we use 6,677 patent records on medical robotics, with legal status marked as active, covering the period from 2020 to 2025.",
+      "For DBLP, we extract records from 2011 to 2021 covering 14,533 publications from CCF-A conferences in the field of artificial intelligence."
+    ]
+  },
+  "performance_summary": {
+    "performance_summary": [
+      "The proposed framework consistently outperforms state-of-the-art large language models and pre-trained language models across multiple evaluation metrics, including cosine similarity, ROUGE, mean squared error, mean absolute error, weighted mean squared error, and weighted mean absolute error.",
+      "Fine-tuned models within the framework achieve higher alignment between problem-method pairs and their textual representations, and more accurate disruptive index predictions.",
+      "The dynamic method optimization module using Greedy with Probabilistic Perturbation achieves a higher hit rate of high-disruptiveness method combinations (Disruptive Index > 0.5) compared to standard greedy algorithms and large language models, with improvements of approximately 9% over the best baseline."
+    ],
+    "baselines": [
+      "GPT-4o: General-purpose large language model for natural language understanding and text generation.",
+      "GPT-4 Turbo: General-purpose large language model.",
+      "Claude 3.5 and Claude 3.7: General-purpose large language models.",
+      "SciBERT: Pre-trained language model designed for scientific text processing.",
+      "RoBERTa: Optimized variant of BERT for robust natural language processing.",
+      "LLaMA 3: Large-scale language model with improved reasoning capabilities.",
+      "Qwen-7B: Autoregressive generative language model for diverse text generation."
+    ],
+    "benchmark_datasets": [
+      "DBLP: Contains 14,533 publications from CCF-A conferences in artificial intelligence (2011-2021); used for evaluating summarization and disruptive index prediction.",
+      "PubMed: Contains 96,612 research articles related to depression (2015-2025); used for evaluating summarization and disruptive index prediction.",
+      "PatSnap: Contains 6,677 patent records on medical robotics (2020-2025); used for evaluating summarization and disruptive index prediction."
+    ],
+    "evaluation_metrics": [
+      "Cosine Similarity: Measures the similarity between generated and ground-truth summaries of problem-method pairs.",
+      "ROUGE: Evaluates the overlap between generated and reference summaries.",
+      "Mean Squared Error (MSE): Measures the average squared difference between predicted and true disruptive index values.",
+      "Mean Absolute Error (MAE): Measures the average absolute difference between predicted and true disruptive index values.",
+      "Weighted Mean Squared Error (WMSE): MSE weighted to emphasize rare, highly disruptive samples.",
+      "Weighted Mean Absolute Error (WMAE): MAE weighted similarly to WMSE.",
+      "Hit Rate (Disruptive Index > 0.5): Percentage of method combinations identified as highly disruptive."
+    ],
+    "evidence": [
+      "Our framework, which integrates two models along with the overall system, consistently outperforms existing state-of-the-art LLMs and PLMs across multiple evaluation metrics.",
+      "Table 1 reports the cosine similarity and ROUGE scores between problem-method summaries generated by our framework and their corresponding ground-truth summaries.",
+      "As shown in Table 2, we evaluate the effectiveness of our disruptive index prediction model based on four key metrics: MSE, MAE, weighted MSE (WMSE), and weighted MAE (WMAE).",
+      "Table 5. Hit Rate (%) of High-Disruptiveness Method Combinations (Disruptive Index > 0.5) Identified by Various Methods ... Greedy + GPP (Ours) 26.3% 28.1% 24.6% Improvement over best LLM +9.1% +9.1% +9.0%",
+      "We consider the following baselines: (1) General-purpose LLMs: GPT and Claude, widely used for natural language understanding and text generation tasks. (2) SciBERT [29], a pre-trained language model designed specifically for scientific text processing ... (3) RoBERTa[21], an optimized variant of BERT ... (4) LLaMA 3 [12] ... (5) Qwen-7B[5] ...",
+      "To evaluate the effectiveness of our proposed framework, we conduct experiments on three citation-based datasets: DBLP, PubMed, and PatSnap.",
+      "We present the main results on the DBLP, PubMed, and PatSnap datasets in Table 1.",
+      "We employ the PEFT (Parameter-Efficient Fine-Tuning) library to insert adapters into the last attention or feedforward layers of the LLM [23]."
+    ]
+  },
+  "limitations": {
+    "limitations": [
+      {
+        "label": "Limited Applicability in Emerging Fields",
+        "explanation": "The framework may struggle in scientific domains with minimal prior work due to insufficient historical data, reducing search efficiency and increasing the likelihood of suboptimal results.",
+        "evidence": "First, for entirely emerging scientific fields with minimal prior work, our framework may encounter challenges due to a lack of sufficient historical data. The effectiveness of the problem-method integration and disruptive index prediction relies on existing structured research literature. In domains with scarce prior knowledge, the search space for potential method combinations becomes significantly larger, reducing search efficiency and increasing the likelihood of suboptimal results."
+      },
+      {
+        "label": "Computational Complexity",
+        "explanation": "The multi-step process increases computational complexity and execution time, which may limit scalability for large-scale real-time applications.",
+        "evidence": "Second, our framework involves a multi-step process that includes problem-method summarization, source validation, information extraction, secondary learning, and deviation-aware alignment. While each step enhances accuracy, it also increases computational complexity and execution time. The sequential nature of these processes results in higher processing overhead, which may limit the scalability of our approach when applied to large-scale real-time applications."
+      }
+    ],
+    "evidence": [
+      "First, for entirely emerging scientific fields with minimal prior work, our framework may encounter challenges due to a lack of sufficient historical data. The effectiveness of the problem-method integration and disruptive index prediction relies on existing structured research literature. In domains with scarce prior knowledge, the search space for potential method combinations becomes significantly larger, reducing search efficiency and increasing the likelihood of suboptimal results.",
+      "Second, our framework involves a multi-step process that includes problem-method summarization, source validation, information extraction, secondary learning, and deviation-aware alignment. While each step enhances accuracy, it also increases computational complexity and execution time. The sequential nature of these processes results in higher processing overhead, which may limit the scalability of our approach when applied to large-scale real-time applications."
+    ]
+  },
+  "future_directions": {
+    "future_directions": [
+      "Expanding the framework to broader scientific domains to further validate its generalizability and utility.",
+      "Improving computational efficiency through parallelization and adaptive learning techniques.",
+      "Enhancing interpretability to better assist researchers in generating groundbreaking discoveries."
+    ],
+    "evidence": [
+      "Future research may explore expanding the framework to broader domains and improving interpretability to further assist researchers in generating groundbreaking discoveries.",
+      "Future research should explore ways to mitigate these limitations, including optimizing search strategies for data-scarce fields and improving computational efficiency through parallelization and adaptive learning techniques."
+    ]
+  },
+  "resource_link": {
+    "answer": "",
+    "evidence": "No code repository, project website, or data repository link is provided in the paper."
+  },
+  "paper_title": "Structuring Scientific Innovation: A Framework for Modeling and Discovering Impactful Knowledge Combinations",
+  "authors": [
+    "Junlan",
+    "Kexin",
+    "Daifeng",
+    "Yangyang",
+    "Yuxuan",
+    "Bowen"
+  ],
+  "published": "2025-04-14",
+  "link": "http://arxiv.org/abs/2503.18865"
+}

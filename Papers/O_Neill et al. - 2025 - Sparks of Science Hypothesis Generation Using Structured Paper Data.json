@@ -1,0 +1,205 @@
+{
+  "objective": {
+    "answer": "The primary objective of the paper is to introduce HypoGen, a structured dataset and framework for scientific hypothesis generation using large language models, specifically targeting the generation of novel and feasible scientific ideas. The authors aim to frame scientific hypothesis generation as a conditional language modeling task enriched with explicit reasoning chains, and to demonstrate that fine-tuning language models on this dataset improves the quality of generated hypotheses.",
+    "evidence": "In this paper, we introduce HypoGen, the first dataset of approximately 5500 structured problem-hypothesis pairs extracted from top-tier computer science conferences structured with a Bit-Flip-Spark schema... We demonstrate that framing hypothesis generation as conditional language modelling, with the model fine-tuned on Bit-Flip-Spark and the Chain-of-Reasoning (and where, at inference, we only provide the Bit), leads to improvements in the overall quality of the hypotheses."
+  },
+  "knowledge_gap": {
+    "answer": "There is a lack of dedicated datasets and benchmarks that frame scientific hypothesis generation as a natural language generation task, making it difficult to systematically evaluate and improve large language models' ability to generate novel and feasible scientific ideas.",
+    "evidence": "One reason is the lack of a dedicated dataset that frames Scientific Hypothesis Generation (SHG) as a Natural Language Generation (NLG) task... However, there remains a lack of standardized “frontier” benchmarks designed to evaluate hypothesis generation capabilities, especially in the context of agentic AI systems, which rely on highly interconnected modules that require complex reasoning (Shao et al., 2024)."
+  },
+  "novelty": {
+    "answer": [
+      "Introduction of HypoGen, the first large-scale dataset of structured problem-hypothesis pairs for scientific hypothesis generation.",
+      "Development of a Bit-Flip-Spark+Chain-of-Reasoning schema to capture the intellectual process from conventional assumption to innovative counterproposal.",
+      "Framing scientific hypothesis generation as a conditional language modeling problem enriched with explicit reasoning chains.",
+      "Demonstration that fine-tuning large language models on HypoGen improves the novelty, feasibility, and overall quality of generated hypotheses."
+    ],
+    "evidence": [
+      "In this paper, we introduce HypoGen, the first dataset of approximately 5500 structured problem-hypothesis pairs extracted from top-tier computer science conferences structured with a Bit-Flip-Spark schema...",
+      "HypoGen uniquely integrates an explicit Chain-of-Reasoning component that reflects the intellectual process from Bit to Flip.",
+      "Our key contributions include the development of the HypoGen dataset and the novel framing of scientific hypothesis generation as a conditional language modeling problem enriched with an explicit reasoning chain.",
+      "We show that by fine-tuning on our HypoGen dataset we improve the novelty, feasibility, and overall quality of the generated hypotheses."
+    ]
+  },
+  "inspirational_papers": {
+    "answer": [
+      "Bahdanau et al. (2015) Example used for extracting Bit-Flip-Spark representation. (Methodological precursor)",
+      "Kumar et al. (2024) Used for evaluation metrics such as IAScore and IdeaMatcher. (Experimental baseline and evaluation methodology)",
+      "Xiong et al. (2024a) Their KG-CoI system inspired the knowledge-grounded evaluation approach. (Methodological precursor)",
+      "Zhou et al. (2024a) Their HypoGeniC process inspired iterative reinforcement learning with human feedback for hypothesis generation. (Methodological precursor)"
+    ],
+    "evidence": [
+      "We provide an example extracted from Bahdanau et al. (2015) and the full prompt to obtain this representation in Appendix A.",
+      "IAScore quantifies alignment between LLM-generated hypotheses and expert-proposed research ideas... Kumar et al. (2024) employed GPT as the IdeaMatcher due to its superior performance...",
+      "For example, the “Knowledge Grounded Chain of Ideas” or KG-CoI system (Xiong et al., 2024a) removes specific links from a biomedical knowledge graph and asks LLMs to propose plausible missing relations.",
+      "The work of Zhou et al. (2024a) with HypoGeniC expands this process with iterative reinforcement learning with human feedback."
+    ]
+  },
+  "method": {
+    "steps": [
+      {
+        "step": "Dataset Compilation",
+        "input": "Papers accepted at NeurIPS 2023 and ICLR 2024 (total 5478 papers)",
+        "output": "Raw collection of scientific papers for extraction",
+        "tools": [
+          "OpenAI o1 model: Used for structured extraction of Bit, Flip, and Spark from abstracts"
+        ],
+        "evidence": "We compile our dataset from papers accepted at the two top-tier computer science conferences, NeurIPS 2023 (3218 papers) and ICLR 2024 (2260 papers), resulting in 5478 distinct samples."
+      },
+      {
+        "step": "Structured Extraction",
+        "input": "Abstracts and full texts of papers",
+        "output": "Bit (conventional assumption), Flip (innovative approach), Spark (core insight), and Chain-of-Reasoning (detailed narrative)",
+        "tools": [
+          "OpenAI o1 model: Extracts Bit, Flip, Spark, and Chain-of-Reasoning using custom prompts"
+        ],
+        "evidence": "We then used OpenAI’s o1 model for the structured extraction step. For each paper, we first extract the Bit, Flip, and Spark components from the abstract... For papers with available full text, we extract the Chain-of-Reasoning component using a separate prompt..."
+      },
+      {
+        "step": "Dataset Construction and Storage",
+        "input": "Extracted Bit, Flip, Spark, Chain-of-Reasoning, and paper metadata",
+        "output": "Structured dataset in JSON format with metadata",
+        "tools": [],
+        "evidence": "We store the output in JSON format and include metadata such as the paper ID, title, authors, venue, year, and citation information."
+      },
+      {
+        "step": "Model Fine-tuning",
+        "input": "Structured dataset of problem-hypothesis pairs",
+        "output": "Fine-tuned LLaMA-based models for hypothesis generation",
+        "tools": [
+          "Meta LLaMA 3.1 8B: Base large language model for fine-tuning",
+          "R1-distilled LLaMA 3.1 8B: Distilled version with knowledge transfer from DeepSeek-R1",
+          "LoRA: Low-rank adaptation for efficient fine-tuning",
+          "AdamW optimizer: Used for model optimization"
+        ],
+        "evidence": "Our baseline models include Meta LLaMA 3.1 8B and R1-distilled LLaMA 3.1 8B... We implement 4-bit quantization and deploy LoRA (Hu et al., 2021)... We use the AdamW 8-bit optimizer (Loshchilov & Hutter, 2017)..."
+      },
+      {
+        "step": "Inference",
+        "input": "Only the Bit (problem statement)",
+        "output": "Generated Spark (core idea) and Chain-of-Reasoning (detailed narrative)",
+        "tools": [
+          "ollama LLM framework: Used for LLaMA one-shot inference"
+        ],
+        "evidence": "During inference, only the Bit is provided to the model. The model then generates the corresponding Spark along with a detailed Chain-of-Reasoning. We use the ollama LLM framework for the LLaMA one-shot inference."
+      },
+      {
+        "step": "Evaluation",
+        "input": "Generated hypotheses and human/expert hypotheses",
+        "output": "Performance metrics (novelty, feasibility, overall quality, etc.)",
+        "tools": [
+          "Anthropic Claude 3.7 Sonnet-Thinking: LLM-based judge for pairwise evaluation",
+          "OpenAI o3-mini: Secondary LLM judge for robustness",
+          "Automated metrics: Perplexity, IAScore, Idea Distinctness Index"
+        ],
+        "evidence": "To evaluate the quality of the hypotheses in our evaluation set, we employed Anthropic’s Claude 3.7 Sonnet-Thinking model as the automated evaluator... We rerun our experimental analysis with the OpenAI o3-mini model as a judge... Our evaluation strategy relies on a test set of 50 hypotheses... It combines automated metrics with an LLM Judge module..."
+      }
+    ],
+    "tools": [
+      "OpenAI o1 model: Used for structured extraction of Bit, Flip, Spark, and Chain-of-Reasoning from abstracts and full texts.",
+      "Meta LLaMA 3.1 8B: Base large language model used for fine-tuning on the HypoGen dataset.",
+      "R1-distilled LLaMA 3.1 8B: Distilled version of LLaMA with knowledge transferred from DeepSeek-R1.",
+      "LoRA: Low-rank adaptation technique for efficient fine-tuning of large language models.",
+      "AdamW optimizer: Optimizer used for model training.",
+      "ollama LLM framework: Used for one-shot inference with LLaMA models.",
+      "Anthropic Claude 3.7 Sonnet-Thinking: Large language model used as an automated judge for evaluation.",
+      "OpenAI o3-mini: Secondary large language model judge for robustness checks."
+    ],
+    "evidence": [
+      "We then used OpenAI’s o1 model for the structured extraction step.",
+      "Our baseline models include Meta LLaMA 3.1 8B and R1-distilled LLaMA 3.1 8B.",
+      "We implement 4-bit quantization and deploy LoRA (Hu et al., 2021)... We use the AdamW 8-bit optimizer (Loshchilov & Hutter, 2017)...",
+      "We use the ollama LLM framework for the LLaMA one-shot inference.",
+      "To evaluate the quality of the hypotheses in our evaluation set, we employed Anthropic’s Claude 3.7 Sonnet-Thinking model as the automated evaluator.",
+      "We rerun our experimental analysis with the OpenAI o3-mini model as a judge..."
+    ]
+  },
+  "subject_area": {
+    "areas": [
+      "Applied Sciences & Engineering"
+    ],
+    "evidence": [
+      "We compile our dataset from papers accepted at the two top-tier computer science conferences, NeurIPS 2023 (3218 papers) and ICLR 2024 (2260 papers), resulting in 5478 distinct samples.",
+      "Our evaluation focused on computer science, and it remains an open question how well the fine-tuning on one domain generalizes to another."
+    ]
+  },
+  "performance_summary": {
+    "performance_summary": [
+      "Fine-tuning LLaMA-based models on the HypoGen dataset improves idea alignment with the target domain (IAScore increases from 0.2781 to 0.6746 for standard LLaMA).",
+      "Fine-tuned models achieve higher feasibility scores in pairwise LLM judge evaluations (74-86% win rate for feasibility).",
+      "Human-generated hypotheses are still preferred overall (82-90% win rate), but fine-tuned models achieve comparable feasibility (62-64% vs. human).",
+      "Fine-tuning increases perplexity (semantic unpredictability) of LLaMA models, indicating more creative outputs.",
+      "There is a trade-off: as models align better with expert thinking (higher IAScore), their semantic diversity (Idea Distinctness Index) decreases."
+    ],
+    "baselines": [
+      "LLaMA 3.1 8B: Base large language model without fine-tuning.",
+      "R1-distilled LLaMA 3.1 8B: Distilled version of LLaMA with knowledge transfer.",
+      "Human hypotheses: Structured hypotheses generated from the evaluation set by humans.",
+      "o1 model (one-shot): OpenAI o1 model used for one-shot generation."
+    ],
+    "benchmark_datasets": [
+      "HypoGen dataset: Approximately 5500 structured problem-hypothesis pairs extracted from NeurIPS 2023 and ICLR 2024 papers, used for fine-tuning and evaluation.",
+      "Evaluation set: 50 hypotheses from recent literature (2024-2025) used as a test set."
+    ],
+    "evaluation_metrics": [
+      "Perplexity: Measures fluency and coherence of generated hypotheses; lower values indicate better generalization.",
+      "IAScore: Quantifies alignment between LLM-generated hypotheses and expert-proposed research ideas using an IdeaMatcher model.",
+      "Idea Distinctness Index: Evaluates semantic diversity between generated hypotheses using embedding-based similarity.",
+      "LLM Judge (Claude 3.7 Sonnet, o3-mini): Pairwise evaluation of novelty, feasibility, and overall quality."
+    ],
+    "evidence": [
+      "Table 1 shows that human-generated hypotheses have much higher perplexity values than their LLM counterparts... fine-tuning increases the perplexity score of the LLaMA models, indicating increased “unpredictability” as it stands to ideation.",
+      "fine-tuning improves idea alignment with the target domain, as shown by the significant improvement in IAScore for the standard LLaMA model (0.2781 →0.6746).",
+      "The inverse relationship between IAScore improvements and Idea Distinctness Index reductions... indicates a possible trade-off in hypothesis generation: as models better align with expert scientific thinking patterns, they may produce less semantically diverse outputs.",
+      "fine-tuning consistently improves overall hypothesis quality relative to one-shot variants of the same architecture (86-92% preference for fine-tuned versions), despite the reduction in novelty scores.",
+      "Human-generated hypotheses win overall in quality assessments compared to LLM-generated alternatives, with human ideas preferred in 80-90% of the comparisons. However, fine-tuned models demonstrate comparable feasibility scores relative to the human set (A=62-64% vs. B=36-38%)."
+    ]
+  },
+  "limitations": {
+    "limitations": [
+      {
+        "label": "LLM-based Evaluation Bias",
+        "explanation": "The evaluation of generated hypotheses relies primarily on large language models as judges, which may introduce bias due to their training regime.",
+        "evidence": "The primary limitation of HypoGen is that it uses LLMs to evaluate the hypotheses generated. Although LLM-as-a-judge modules can perform robustly under certain conditions (Lu et al., 2024a), they may be biased by their training regime in highly non-trivial ways."
+      },
+      {
+        "label": "Domain Generalizability Uncertain",
+        "explanation": "The generalizability of the approach to scientific domains beyond computer science has not been established.",
+        "evidence": "Looking to the future, we want to examine how our approach with HypoGen generalizes to other scientific domains. Our evaluation focused on computer science, and it remains an open question how well the fine-tuning on one domain generalizes to another."
+      }
+    ],
+    "evidence": [
+      "The primary limitation of HypoGen is that it uses LLMs to evaluate the hypotheses generated. Although LLM-as-a-judge modules can perform robustly under certain conditions (Lu et al., 2024a), they may be biased by their training regime in highly non-trivial ways.",
+      "Looking to the future, we want to examine how our approach with HypoGen generalizes to other scientific domains. Our evaluation focused on computer science, and it remains an open question how well the fine-tuning on one domain generalizes to another."
+    ]
+  },
+  "future_directions": {
+    "future_directions": [
+      "Extensive human evaluation to determine the degree of alignment between human and large language model judgments.",
+      "Development of more robust reward models that align closely with human expertise.",
+      "Expansion of the HypoGen dataset to other scientific domains such as astrophysics, biology, and materials science.",
+      "Enabling interdisciplinary artificial intelligence teammates that collaborate with human experts on challenging scientific tasks."
+    ],
+    "evidence": [
+      "To mitigate these unexpected effects, we plan to perform an extensive human evaluation to determine the degree to which human and LLM align on a particular judgement. These findings will guide the construction of more robust reward models that align closely with human expertise, further strengthening HypoGens applicability in real-world scientific discovery.",
+      "Looking to the future, we want to examine how our approach with HypoGen generalizes to other scientific domains. Our evaluation focused on computer science, and it remains an open question how well the fine-tuning on one domain generalizes to another. We also plan to expand our dataset to fields such as astrophysics, biology, and materials science, where hypothesis generation could accelerate scientific discoveries in fundamentally different fields.",
+      "This work aims to enable interdisciplinary AI teammates that collaborate with human experts on challenging scientific tasks (Swanson et al., 2024), with the overarching goal of democratising science."
+    ]
+  },
+  "resource_link": {
+    "answer": "https://huggingface.co/datasets/UniverseTBD/hypogen-dr1",
+    "evidence": "The HypoGen dataset is publicly available at huggingface.co/datasets/UniverseTBD/hypogen-dr1."
+  },
+  "paper_title": "Sparks of Science: Hypothesis Generation Using Structured Paper Data",
+  "authors": [
+    "Charles",
+    "Tirthankar",
+    "Roberta",
+    "Mike",
+    "Thang",
+    "Kevin",
+    "Ioana"
+  ],
+  "published": "2025-04-17",
+  "link": "http://arxiv.org/abs/2504.12976"
+}

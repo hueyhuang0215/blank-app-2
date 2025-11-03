@@ -1,0 +1,234 @@
+{
+  "objective": {
+    "answer": "The primary objective of the paper is to develop and demonstrate an automatic end-to-end chemical synthesis development platform powered by large language models. The authors aim to leverage large language models, specifically GPT-4, to facilitate and automate the entire workflow of chemical synthesis reaction development, including literature search, experiment design, execution, analysis, optimization, and scale-up. They seek to eliminate the need for coding skills and make automated experimental platforms accessible to all chemists.",
+    "evidence": "In this work, we leveraged the power of GPT-4 to build an LLM-based reaction development framework (LLM-RDF) to handle fundamental tasks involved throughout the chemical synthesis development. ... We demonstrated the capabilities of LLM-RDF in guiding the end-to-end synthesis development process for the copper/TEMPO catalyzed aerobic alcohol oxidation to aldehyde reaction, including literature search and information extraction, substrate scope and condition screening, reaction kinetics study, reaction condition optimization, reaction scale-up and product purification."
+  },
+  "knowledge_gap": {
+    "answer": "There is a lack of a unified, fully autonomous, end-to-end framework that leverages large language models to cover the entire chemical synthesis reaction development process, as existing machine learning and large language model methods are limited to single-purpose tools or scattered stages of the workflow.",
+    "evidence": "Despite this rapid involvement of machine learning methods in synthesis related tasks, the monolithic input-to-output nature of existing machine learning methods makes them to only function as powerful single-purpose tools for experts, while the goal of fully autonomous end-to-end synthesis reaction design and development still remains to be realized. ... The existing reports of LLM-based agents showed scattered coverage of the stages in chemical synthesis development (Fig. 1a), but have not presented a path to fully exploit the potential of LLM-based agents in the entire development process."
+  },
+  "novelty": {
+    "answer": [
+      "Development of a unified large language model-based reaction development framework (LLM-RDF) that covers the entire chemical synthesis development workflow.",
+      "Implementation of six specialized large language model-based agents (Literature Scouter, Experiment Designer, Hardware Executor, Spectrum Analyzer, Separation Instructor, and Result Interpreter) to automate fundamental tasks in synthesis development.",
+      "Creation of a web application that allows chemists to interact with automated experimental platforms and analyze results via natural language, eliminating the need for coding skills.",
+      "Demonstration of the end-to-end capabilities of LLM-RDF on multiple distinct chemical synthesis tasks, including aerobic alcohol oxidation, nucleophilic aromatic substitution kinetics, photoredox cross-coupling optimization, and heterogeneous photoelectrochemical reactor scale-up."
+    ],
+    "evidence": [
+      "Herein, we proposed a unified LLM-based reaction development framework (LLM-RDF) to demonstrate the versatility and performance of LLM-based agents in the entire of chemical synthesis reaction development process (Fig. 1a).",
+      "These agents include Literature Scouter, Experiment Designer, Hardware Executor, Spectrum Analyzer, Separation Instructor, and Result Interpreter.",
+      "We created a web application to allow users accessing them using natural language in a centralized manner, such that no coding was required during the synthesis reaction development (Fig. 1c and Supplementary Movie 1).",
+      "In addition to this case study, we further demonstrated the applicability of LLM-RDF on three distinct scenarios relevant to chemical synthesis development."
+    ]
+  },
+  "inspirational_papers": {
+    "answer": [
+      "Shields, B. J. et al. (2021) Bayesian reaction optimization as a tool for chemical synthesis. (Methodological precursors for reaction optimization algorithms)",
+      "Coley, C. W. et al. (2019) A robotic platform for flow synthesis of organic compounds informed by AI planning. (Experimental baselines for automated synthesis platforms)",
+      "Boiko, D. A., MacKnight, R., Kline, B. & Gomes, G. (2023) Autonomous chemical research with large language models. (Limitations addressed: LLMs as optimizers vs. statistical optimization algorithms)",
+      "Zheng, Z., Zhang, O., Borgs, C., Chayes, J. T. & Yaghi, O. M. (2023) ChatGPT chemistry assistant for text mining and the prediction of MOF synthesis. (Methodological precursor for LLM-based literature mining)"
+    ],
+    "evidence": [
+      "the recent development of optimization algorithms, such as Bayesian optimization (BO)12,14, and the mixed-integer nonlinear program (MINLP) algorithm59, have enabled the automated experimental platforms to perform closed-loop reaction optimization in an autonomous manner.",
+      "Notable examples include deep learning based quantitative structure–activity relationship (QSAR) model facilitating drug molecule design7,8 and catalyst design9, rapid identification of promising synthetic routes using machine-learning-aided synthesis planning10,11, guiding automated high-throughput experimental platforms to search for optimal reaction conditions12–14, and direct translation of multistep synthesis procedures from literature to experimental execution via natural language processing (NLP) models15.",
+      "Although the LLMs have been used as an optimizer in recent publications and shown superior performance for optimizing reactions when provided kinetic information or reaction knowledge, they still fell behind statistical optimization algorithms (e.g., BO) for complex reaction systems41,60.",
+      "As of now, various advanced LLMs, such as proprietary Anthropic’s Claude16 and Google’s Gemini17 as well as open-source Llama3.118, Mistral19 and Qwen220, have emerged and shown continuing performance improvement. LLM-based agents, characterized by their strong generalization abilities and broad applicability, have demonstrated significant advancements in language proficiency and interaction with humans21. Motivated by the outstanding performance of these agents, scholars have explored and exploited their capability in the various tasks of chemical and material research, such as literature mining22–29..."
+    ]
+  },
+  "method": {
+    "steps": [
+      {
+        "step": "Literature Search and Information Extraction",
+        "input": "Natural language query describing the chemical transformation of interest; access to academic literature databases (e.g., Semantic Scholar).",
+        "output": "Relevant literature references, extracted experimental procedures, and design space for the target reaction.",
+        "tools": [
+          "Literature Scouter (LLM-based agent using GPT-4 and Consensus plugin for Semantic Scholar search)"
+        ],
+        "evidence": "Leveraging vector search technologies, Literature Scouter automatically sifted through the Semantic Scholar database containing over 20 million academic literatures."
+      },
+      {
+        "step": "Substrate Scope and Condition Screening",
+        "input": "Extracted procedures and design space from literature; list of substrates and reagents; natural language description of screening task.",
+        "output": "Automated high-throughput screening (HTS) experiment plans, execution codes, and analyzed yield data for various substrate and condition combinations.",
+        "tools": [
+          "Experiment Designer (LLM-based agent for parsing tasks and generating standardized procedures)",
+          "Hardware Executor (LLM-based agent for generating OT-2 liquid handler Python code)",
+          "Spectrum Analyzer (LLM-based agent for automated GC-FID-MS data analysis)",
+          "Result Interpreter (LLM-based agent for summarizing and explaining HTS results)"
+        ],
+        "evidence": "Experiment Designer agent parsed the HTS experiment task described in natural language into the standardized JavaScript Object Notation (JSON) experimental procedure and design space that could be displayed on the web application (Fig. 3b, and see details in Supplementary Tables 5–6 and Supplementary Fig. 9-11)."
+      },
+      {
+        "step": "Reaction Kinetics Study",
+        "input": "Natural language description of kinetic study; experimental design parameters; NMR data from sampled reaction mixtures.",
+        "output": "Automated sampling schedule, execution code for OT-2, NMR data analysis, kinetic model fitting, and rate constants.",
+        "tools": [
+          "Experiment Designer (for sampling schedule and experiment design)",
+          "Hardware Executor (for OT-2 code generation)",
+          "Spectrum Analyzer (for NMR data analysis using TopSpin Python API)",
+          "Result Interpreter (for kinetic model fitting and interpretation)"
+        ],
+        "evidence": "Spectrum Analyzer wrote a Python program according to the API documentation for the TopSpin NMR processing software to automate the analysis of NMR data, the procedure of which included identifying target peaks, performing peak integration, and calculating the compositions of the samples (Fig. 5d and Supplementary Table 22)."
+      },
+      {
+        "step": "Reaction Condition Optimization",
+        "input": "Natural language optimization objectives and parameter space; experimental procedure; feedback from HPLC analysis.",
+        "output": "Automated closed-loop optimization of reaction conditions using Bayesian optimization, with experiment execution and stopping criteria.",
+        "tools": [
+          "Experiment Designer (for translating procedures and parameter space to JSON)",
+          "Hardware Executor (for code generation for automated synthesis equipment)",
+          "Bayesian optimization algorithm (for proposing next-round experiments)",
+          "Result Interpreter (for stopping criterion and result interpretation)"
+        ],
+        "evidence": "The self-driven optimization system iteratively conducted reactions and proposed candidate experiments based on existing reaction results, thus gradually improving the reaction yield of 12p (Fig. 6b)."
+      },
+      {
+        "step": "Reaction Scale-up and Product Purification",
+        "input": "Selected optimal reaction conditions; scale-up targets; TLC results for eluent optimization.",
+        "output": "Scale-up strategy, stoichiometric calculations, and optimal eluent composition for preparative chromatography.",
+        "tools": [
+          "Experiment Designer (for scale-up strategy and calculations)",
+          "Separation Instructor (for iterative TLC eluent optimization)"
+        ],
+        "evidence": "Experiment Designer proposed a two-stage scale-up strategy: first to 1 g to validate the reaction’s reproducibility and stability, and then to 100 g to assess feasibility for industrial production."
+      },
+      {
+        "step": "Web Application Integration",
+        "input": "User natural language queries and task descriptions.",
+        "output": "Centralized interface for accessing all LLM-based agents and experimental platforms.",
+        "tools": [
+          "Web application frontend (Vue.js, Node.js); backend (Python FastAPI); GPT-4 APIs"
+        ],
+        "evidence": "The frontend graphical interface was developed using the Vue.js and Node.js frameworks, creating a user-friendly and interactive environment. For the backend, the Python FastAPI framework was employed to manage the logics of multi-agent system and experimental platform, including interfacing with the LLM-based agents through the GPT-4 APIs hosted on Microsoft Azure and handling the operations of the experimental platforms."
+      }
+    ],
+    "tools": [
+      "GPT-4 (large language model for all agents)",
+      "Consensus plugin (for Semantic Scholar search)",
+      "Opentrons OT-2 (automated liquid handler for HTS and sampling)",
+      "TopSpin Python API (for NMR data analysis)",
+      "Bayesian optimization algorithm (for closed-loop reaction optimization)",
+      "Unchained Labs Big Kahuna (automated synthesis equipment)",
+      "Thermo Fisher Scientific Vanquish HPLC (for reaction analysis)",
+      "AUBO-i5 robotic arm (for sample transfer)",
+      "Python FastAPI (backend for web application)",
+      "Vue.js and Node.js (frontend for web application)"
+    ],
+    "evidence": [
+      "LLM-based agents developed in this work were based on OpenAI’s GPT-4 model and two open-source LLMs (Qwen2-72B and Llama3.1-70B).",
+      "The experimentation for substrate scope screening, reaction kinetics study, and condition optimization of photocatalytic reaction was conducted using the Opentrons OT-2 liquid handling workstation.",
+      "Spectrum Analyzer wrote a Python program according to the API documentation for the TopSpin NMR processing software to automate the analysis of NMR data...",
+      "The reaction condition optimization of the aerobic alcohol oxidation was conducted using this automated hardware. The self-driven reaction condition optimization platform consists of three modules, including an automated synthesis equipment (Unchained Labs, Big Kahuna), a HPLC (Thermo Fisher Scientific Vanquish), and a six-axis robotic arm (AUBO-i5) with a linear track.",
+      "The frontend graphical interface was developed using the Vue.js and Node.js frameworks, creating a user-friendly and interactive environment. For the backend, the Python FastAPI framework was employed to manage the logics of multi-agent system and experimental platform, including interfacing with the LLM-based agents through the GPT-4 APIs hosted on Microsoft Azure and handling the operations of the experimental platforms."
+    ]
+  },
+  "subject_area": {
+    "areas": [
+      "Chemical Sciences",
+      "Applied Sciences & Engineering"
+    ],
+    "evidence": [
+      "Designing proper synthesis reactions and routes towards target compounds is one of core tasks during drug discovery and process development, requiring significant time and cost.",
+      "We leveraged the power of GPT-4 to build an LLM-based reaction development framework (LLM-RDF) to handle fundamental tasks involved throughout the chemical synthesis development.",
+      "A web application with LLM-RDF as the backend was built to allow chemist users to interact with automated experimental platforms and analyze results via natural language, thus, eliminating the need for coding skills and ensuring accessibility for all chemists."
+    ]
+  },
+  "performance_summary": {
+    "performance_summary": [
+      "LLM-RDF successfully guided the end-to-end synthesis development process for copper/TEMPO catalyzed aerobic alcohol oxidation, including literature search, substrate scope screening, kinetics study, condition optimization, scale-up, and purification.",
+      "The platform demonstrated broader applicability on three distinct synthesis tasks: nucleophilic aromatic substitution kinetics, photoredox C–C cross-coupling optimization, and heterogeneous photoelectrochemical reactor scale-up.",
+      "LLM-based agents' recommendations for optimization stopping were more intuitive and required fewer experiments than the probability of improvement (PI) statistical stopping criterion.",
+      "GPT-4-based agents outperformed open-source models (Qwen2-72B and Llama3.1-70B) in completing all testing subtasks, but open-source models still showed acceptable performance."
+    ],
+    "baselines": [
+      "Probability of improvement (PI) statistical stopping criterion: Used to determine when to stop reaction optimization based on the likelihood of further improvement.",
+      "Open-source large language models (Qwen2-72B and Llama3.1-70B): Compared to GPT-4-based agents for task completion in reaction kinetics study."
+    ],
+    "benchmark_datasets": [
+      "Not reported in the paper"
+    ],
+    "evaluation_metrics": [
+      "Yield: Percentage of product formed in chemical reactions, used to assess reaction efficiency.",
+      "Number of experiments to optimal result: Used to compare efficiency of optimization stopping criteria.",
+      "Coefficient of determination (R2): Used to assess the fit of kinetic models to experimental data."
+    ],
+    "evidence": [
+      "We demonstrated the capabilities of LLM-RDF in guiding the end-to-end synthesis development process for the copper/TEMPO catalyzed aerobic alcohol oxidation to aldehyde reaction, including literature search and information extraction, substrate scope and condition screening, reaction kinetics study, reaction condition optimization, reaction scale-up and product purification.",
+      "This comparison showed that the optimization stopping suggestions given by Result Interpreter agent were more intuitive and also required less experiments to identify high-yield reaction conditions compared to PI stopping criterion.",
+      "In this work, we compared agents constructed using open-source LLMs (Qwen2-72B and Llama3.1-70B) with those based on GPT-4 in the task of reaction kinetics study (Supplementary Information Section 4.6). The GPT-4-based agents outperformed the two tested open-source models in completing all testing subtasks including kinetic experiment design, automated hardware execution, NMR analysis, and kinetic model fitting (Supplementary Fig. 40)."
+    ]
+  },
+  "limitations": {
+    "limitations": [
+      {
+        "label": "Reliability of LLM-based agents’ response",
+        "explanation": "LLM-based agents may provide incorrect responses, requiring manual inspection to avoid experimental failure or equipment damage.",
+        "evidence": "The LLM-based agents may provide incorrect responses, which, if without proper inspection, could lead to experimental failure and data inaccuracies. For example, Hardware Executor was only used for generating running codes for automated experimental equipment, and the codes needed to go through manual verification and simulated execution preview (Supplementary Fig. 14-15, 62-63) before execution to avoid potential equipment damage or even personal injuries70."
+      },
+      {
+        "label": "Lack of domain knowledge",
+        "explanation": "The Result Interpreter agent based on GPT-4 lacks advanced chemistry knowledge for in-depth mechanistic analysis.",
+        "evidence": "Result Interpreter failed in this work to analyze the underlying mechanisms behind the reaction selectivity and kinetics, indicating the lack of advanced chemistry knowledge for GPT-4-based agents."
+      },
+      {
+        "label": "Mathematical operations",
+        "explanation": "LLMs have difficulty performing precise mathematical operations and handling numerical data, requiring external tools.",
+        "evidence": "One of the recognized limitations of LLMs is their inherent difficulty in performing precise mathematical operations and handling numerical data. To address this limitation, we equipped the agents with integrated tools such as Python interpreter and Bayesian optimization algorithms for handle numerical computations, reasoning, and processing."
+      },
+      {
+        "label": "Reproducibility and transparency",
+        "explanation": "Closed-source proprietary LLMs like GPT-4 pose challenges for reproducibility, transparency, and data privacy.",
+        "evidence": "Closed-source proprietary LLMs such as GPT-4 pose several challenges, including poor long-term reproducibility, lack of transparency, and concerns over data privacy. Building agents based on open-source LLMs would mitigate these issues."
+      },
+      {
+        "label": "Communication among LLM-based agents",
+        "explanation": "Currently, all agents are connected via human for message passing, limiting full automation and requiring human inspection.",
+        "evidence": "In this work, all developed agents were connected via human for message passing, since we would like to involve human inspections on the agent-generated experimental plans and results. This approach would avoid any potential errors in agents’ response that might lead to hardware malfunction."
+      }
+    ],
+    "evidence": [
+      "The LLM-based agents may provide incorrect responses, which, if without proper inspection, could lead to experimental failure and data inaccuracies.",
+      "Result Interpreter failed in this work to analyze the underlying mechanisms behind the reaction selectivity and kinetics, indicating the lack of advanced chemistry knowledge for GPT-4-based agents.",
+      "One of the recognized limitations of LLMs is their inherent difficulty in performing precise mathematical operations and handling numerical data.",
+      "Closed-source proprietary LLMs such as GPT-4 pose several challenges, including poor long-term reproducibility, lack of transparency, and concerns over data privacy.",
+      "In this work, all developed agents were connected via human for message passing, since we would like to involve human inspections on the agent-generated experimental plans and results."
+    ]
+  },
+  "future_directions": {
+    "future_directions": [
+      "Incorporate domain-specific chemical knowledge into large language models, such as through fine-tuning or retrieval-augmented generation, to enhance performance on chemistry-related tasks.",
+      "Develop multi-agent systems that allow direct communication between agents, reducing the need for human intervention except for critical decisions.",
+      "Build agents based on open-source large language models to improve reproducibility, transparency, and data privacy.",
+      "Fine-tune large language models with datasets specifically curated for mathematical operations to improve inherent mathematical capabilities."
+    ],
+    "evidence": [
+      "Recent studies have shown that incorporating domain-specific chemical knowledge into LLMs, typically through fine-tuning methods, significantly enhances their performance on chemistry-related tasks38,72–77. RAG can also be employed to help LLM-based agents bridge gaps in specialized knowledge.",
+      "Moving forward with improved reliability of LLM base models, it would be desired to develop a multi-agent system similar to AutoGen framework79 that allows direct communication between agents. In this proposed system, human intervention would be only required for critical decisions, such as automated equipment operations or complex experimental designs.",
+      "Closed-source proprietary LLMs such as GPT-4 pose several challenges, including poor long-term reproducibility, lack of transparency, and concerns over data privacy. Building agents based on open-source LLMs would mitigate these issues.",
+      "In addition, fine-tuning the LLMs with datasets specifically curated for mathematical operations could improve the model’s inherent ability to handle mathematical calculations78."
+    ]
+  },
+  "resource_link": {
+    "answer": "https://github.com/Ruan-Yixiang/LLM-RDF",
+    "evidence": "All the relevant code are publicly available in the GitHub repository81 (https://github.com/Ruan-Yixiang/LLM-RDF)."
+  },
+  "paper_title": "An automatic end-to-end chemical synthesis development platform powered by large language models",
+  "authors": [
+    "Yixiang",
+    "Chenyin",
+    "Ning",
+    "Yuchen",
+    "Yixin",
+    "Jian",
+    "Jun",
+    "Jianzhang",
+    "Qun",
+    "Hanyu",
+    "Xiaodong",
+    "Ning",
+    "Qiang",
+    "Yiming"
+  ],
+  "published": "2024-11-23",
+  "link": "https://www.nature.com/articles/s41467-024-54457-x"
+}

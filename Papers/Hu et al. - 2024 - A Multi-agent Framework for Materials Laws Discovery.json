@@ -1,0 +1,215 @@
+{
+  "objective": {
+    "answer": "The primary objective of the paper is to introduce a multi-agent framework based on large language models for symbolic regression in materials science, specifically aimed at discovering explicit and interpretable materials laws. The authors aim to demonstrate the effectiveness of this framework by applying it to the prediction of glass-forming ability in metallic glasses using characteristic temperature data. The framework is designed to outperform existing symbolic regression methods in accuracy, interpretability, and efficiency.",
+    "evidence": "In this work, we introduce a multi-agent framework based on LLMs specifically designed for symbolic regression in materials science. We demonstrate the effectiveness of the framework using the glass-forming ability (GFA) of metallic glasses as a case study, employing three characteristic temperatures as independent variables. Our framework derived an interpretable formula to describe GFA, achieving a correlation coefficient of up to 0.948 with low formula complexity."
+  },
+  "knowledge_gap": {
+    "answer": "There is a lack of interpretable and explicit mathematical relationships between structure/composition and materials properties in materials science, as most artificial intelligence models function as black boxes and do not reveal underlying materials laws.",
+    "evidence": "Although these models sometimes yield accurate property predictions, they typically function as “black boxes”, where relationships between structure and property remain obscured. This lack of interpretability limits insights into fundamental materials laws. Symbolic regression (SR) [11, 12] offers a solution to this problem by identifying explicit mathematical formulas that describe datasets, thus uncovering structure-property relationships more transparently."
+  },
+  "novelty": {
+    "answer": [
+      "Development of a multi-agent framework leveraging large language models for symbolic regression in materials science.",
+      "Integration of depth-first search and a reflection mechanism within the framework to optimize formula generation.",
+      "Application of the framework to derive interpretable and accurate formulas for glass-forming ability in metallic glasses, outperforming standard symbolic regression packages.",
+      "Incorporation of memory and self-reflection mechanisms to enhance formula accuracy and reduce complexity."
+    ],
+    "evidence": [
+      "In this work, we introduce a multi-agent framework based on LLMs specifically designed for symbolic regression in materials science.",
+      "Our approach incorporates the depth-first search (DFS) algorithm and a reflection mechanism [24, 25], implemented through LLMs, to optimize the formula generation process.",
+      "This approach outperforms standard packages such as GPlearn and demonstrates a ∼30% improvement over random generation methods, owing to integrated memory and reflection mechanisms.",
+      "The DFS trajectory memory enhances formula accuracy by ∼30% over random guessing by LLMs and the reflection mechanism further optimizes formula complexity and accuracy."
+    ]
+  },
+  "inspirational_papers": {
+    "answer": [
+      "Udrescu and Tegmark (2020) AI Feynman: A physics-inspired method for symbolic regression. (Methodological precursor)",
+      "Shojaee et al. (2023) Transformer-based planning for symbolic regression. (Methodological precursor and evaluation metric source)",
+      "Stephens (2024) GPlearn. (Experimental baseline)",
+      "Weng et al. (2020) Simple descriptor derived from symbolic regression accelerating the discovery of new perovskite catalysts. (Methodological precursor for hyperparameter search in GPlearn)"
+    ],
+    "evidence": [
+      "LLM-based SR approaches have shown success in deriving equations from datasets rooted in known scientific principles, such as formulas from Feynman’s lectures [1], achieving near perfect correlation (R2 close to 0.99) with ground truth values.",
+      "In the evaluation phase, we apply the criteria from [16], which assesses both accuracy and complexity of the generated formulas:",
+      "GPlearn is a widely used Python package that extends the scikit-learn machine learning library to solve symbolic regression tasks [50].",
+      "To obtain the best-performing formulas, we performed a grid search over these hyperparameters [18], using normalized mean squared error (NMSE) as the evaluation metric."
+    ]
+  },
+  "method": {
+    "steps": [
+      {
+        "step": "Define the problem and prepare the dataset.",
+        "input": "Materials science problem (e.g., glass-forming ability prediction), dataset of characteristic temperatures and critical cooling rates for metallic glasses.",
+        "output": "Prepared dataset and problem statement.",
+        "tools": [],
+        "evidence": "The framework operates as follows: (i) define the problem and prepare the dataset;"
+      },
+      {
+        "step": "Design effective prompts with clear task descriptions, datasets, operators, and evaluation criteria.",
+        "input": "Problem statement, dataset, set of mathematical operators, evaluation criteria.",
+        "output": "Customized prompt for large language models.",
+        "tools": [],
+        "evidence": "Then “Task Description” outlines the specific problem, including background, dataset and operators details, evaluation criteria, and requirements like unit consistency."
+      },
+      {
+        "step": "Set hyperparameters for depth-first search to initiate the optimization.",
+        "input": "Hyperparameters such as maximum search depth and number of formulas per loop.",
+        "output": "Configured depth-first search parameters.",
+        "tools": [],
+        "evidence": "(iii) set hyperparameters for DFS to initiate the optimization;"
+      },
+      {
+        "step": "Generate candidate formulas using large language models based on the prompt.",
+        "input": "Prompt with task description, formula memory, and output requirements.",
+        "output": "Candidate mathematical formulas.",
+        "tools": [
+          "deepseek-chat: open-source large language model specialized in coding tasks"
+        ],
+        "evidence": "Using this prompt, the LLM generates candidate formulas, which are then translated into executable code for evaluation in Python."
+      },
+      {
+        "step": "Translate generated formulas into executable Python code.",
+        "input": "Mathematical formulas generated by large language models.",
+        "output": "Python code for formula evaluation.",
+        "tools": [
+          "Translation agent: converts mathematical formulas into Python code"
+        ],
+        "evidence": "The translation agent converts the generated formulas, expressed in mathematical notions, into executable Python code for further evaluation and analysis."
+      },
+      {
+        "step": "Inspect and evaluate each formula for calculation errors and performance.",
+        "input": "Python code, dataset.",
+        "output": "Validated formulas with performance scores.",
+        "tools": [],
+        "evidence": "Each formula undergoes a preliminary inspection to identify and prevent potential calculation errors... we evaluate each generated formula with the dataset to check for such issues."
+      },
+      {
+        "step": "Optimize constants in formulas to minimize the evaluation score.",
+        "input": "Formulas with variable constants, dataset.",
+        "output": "Optimized constants and final formula performance metric.",
+        "tools": [],
+        "evidence": "In the evaluation step, these constants are then optimized to minimize the score, with the minimized score being taken as the final performance metric of the formula."
+      },
+      {
+        "step": "Store formulas and scores as search trajectory memory.",
+        "input": "Evaluated formulas and their scores.",
+        "output": "Search trajectory memory for use in subsequent iterations.",
+        "tools": [],
+        "evidence": "each formula and its corresponding score are stored sequentially as a search trajectory, formatted as “(F0 = ...: Score0) −> (F1 = ...: Score1) −> ...”, as shown in Fig. 1(a)."
+      },
+      {
+        "step": "Apply self-reflection agent to review trajectory and provide feedback.",
+        "input": "Search trajectory memory.",
+        "output": "Suggestions for formula refinement.",
+        "tools": [
+          "Reflection agent: reviews search trajectory and provides optimization suggestions"
+        ],
+        "evidence": "Incorporating a self-reflection step further refines this process by having an additional LLM agent review the search trajectory from previous steps [24], offering insights to guide the next generation of formulas."
+      },
+      {
+        "step": "Iterate depth-first search with memory and reflection until optimal formula is found.",
+        "input": "Current best formulas, search trajectory, reflection feedback.",
+        "output": "Final optimized formulas.",
+        "tools": [],
+        "evidence": "This iterative approach yields the final optimized formulas once all search paths are completed."
+      }
+    ],
+    "tools": [
+      "deepseek-chat: open-source large language model specialized in coding tasks",
+      "langchain: Python library for building applications based on large language models, used to construct agents and manage prompts",
+      "Generation agent: generates new formulas based on task description, memory, and reflection",
+      "Translation agent: converts mathematical formulas into executable Python code",
+      "Reflection agent: reviews search trajectory and provides optimization suggestions"
+    ],
+    "evidence": [
+      "In this work, deepseek-chat [54] was used as the base LLM, which is an open-source LLM specialized in coding tasks.",
+      "The Python library langchain [55], a framework for building applications based on LLMs, was utilized to construct the agents, integrate model interfaces, set up prompt templates, and create task chains.",
+      "We developed three LLM-based agents for generation, translation and reflection tasks.",
+      "The generation agent is responsible for generating new formulas based on the task description, previous memory and suggestions from the reflection agent.",
+      "The translation agent converts the generated formulas, expressed in mathematical notions, into executable Python code for further evaluation and analysis.",
+      "The reflection agent offers optimization suggestions by reflecting on the previous trajectorys."
+    ]
+  },
+  "subject_area": {
+    "areas": [
+      "Physical Sciences",
+      "Applied Sciences & Engineering"
+    ],
+    "evidence": [
+      "In material science, vast amounts of data are generated annually from experiments and simulations.",
+      "To further improve our knowledge in materials design, it is crucial to identify governing material laws between structure/composition and materials properties [8], such as mechanical, electrical and thermal properties.",
+      "We demonstrate this framework by tackling the problem of predicting the glass-forming ability (GFA) in metallic glasses (MGs) [26–28], using characteristic temperatures and GFA data from 23 types of MGs to derive predictive formulas."
+    ]
+  },
+  "performance_summary": {
+    "performance_summary": [
+      "The proposed framework achieved a maximum correlation coefficient (R2) of 0.948 with low formula complexity for predicting glass-forming ability in metallic glasses.",
+      "It outperformed the GPlearn symbolic regression package, which achieved a best R2 of 0.943 but with much higher formula complexity (27 operators versus 4).",
+      "The framework demonstrated approximately 30% improvement in accuracy over random formula generation by large language models, due to the integrated memory and reflection mechanisms.",
+      "The derived formulas showed robust interpolation and extrapolation ability, performing well even on out-of-domain test data."
+    ],
+    "baselines": [
+      "GPlearn: A Python package for symbolic regression using genetic programming, used as a direct baseline for formula discovery.",
+      "Previously reported GFA parameters: Various established mathematical expressions from the literature used to characterize glass-forming ability."
+    ],
+    "benchmark_datasets": [
+      "Dataset of 56 metallic glasses: Contains characteristic temperatures (Tg, Tx, Tl) and critical cooling rates (Rc) for 56 metallic glasses, with 23 used for training and 33 for testing the framework and baselines."
+    ],
+    "evaluation_metrics": [
+      "Correlation coefficient (R2): Measures the strength of the relationship between predicted and experimental critical cooling rates.",
+      "Normalized Mean Square Error (NMSE): Used to evaluate the accuracy of regression formulas.",
+      "Formula complexity (number of operators): Quantifies the interpretability and simplicity of the generated formulas."
+    ],
+    "evidence": [
+      "Our framework derived an interpretable formula to describe GFA, achieving a correlation coefficient of up to 0.948 with low formula complexity. This approach outperforms standard packages such as GPlearn and demonstrates a ∼30% improvement over random generation methods, owing to integrated memory and reflection mechanisms.",
+      "The best formula generated by our method, F = 0.76(Tg/Tl) −Tg/Tx, achieves an R2 = 0.948 with relatively low complexity (4 operators). In contrast, the formula with the best R2 = 0.943 from GPlearn has a much higher complexity (27 operators), making it less interpretable for practical use.",
+      "The 56 metallic glasses, along with their corresponding characteristic temperatures and critical cooling rates, are listed in Supplementary Information.",
+      "In the evaluation phase, we apply the criteria from [16], which assesses both accuracy and complexity of the generated formulas: ... NMSE( ˆf(x), y) = ... The first term in Eq. (1) captures the accuracy of the regression, while the second term addresses formula complexity.",
+      "To assess the predictive power of these parameters, we calculated the square of the correlation coefficient (R2) between these parameters and logarithm of the critical cooling rate Rc."
+    ]
+  },
+  "limitations": {
+    "limitations": [
+      {
+        "label": "Computational Efficiency",
+        "explanation": "Frequent interactions with the large language model application programming interface are time-consuming, slowing down the search process and overall computational efficiency.",
+        "evidence": "The frequent interactions with the LLMs API are time-consuming, which slows down both the search process and the overall computational efficiency."
+      },
+      {
+        "label": "Computational Cost of Full Depth-First Search",
+        "explanation": "The current framework executes a full depth-first search, searching through all nodes in the tree, which can be computationally expensive.",
+        "evidence": "Additionally, our current framework executes a full DFS, meaning that it searches through all nodes in the tree (Fig. 1), which can be also computationally expensive."
+      }
+    ],
+    "evidence": [
+      "The frequent interactions with the LLMs API are time-consuming, which slows down both the search process and the overall computational efficiency.",
+      "Additionally, our current framework executes a full DFS, meaning that it searches through all nodes in the tree (Fig. 1), which can be also computationally expensive."
+    ]
+  },
+  "future_directions": {
+    "future_directions": [
+      "Develop a multimodal large language model-based framework to process diverse data types, including textual, numerical, tabular, and visual forms.",
+      "Incorporate physical properties such as dimensional constraints and symmetries to reduce the search space and improve efficiency.",
+      "Simplify and accelerate the equation search process to enhance computational efficiency."
+    ],
+    "evidence": [
+      "Developing a multimodal LLM-based framework could allow us to process these diverse data types more effectively.",
+      "Incorporating physical properties like dimensional constraints and symmetries can help simplify the problem and narrow the search space, leading to more efficient solutions.",
+      "Therefore, future improvements should focus on simplifying and accelerating the equation search process."
+    ]
+  },
+  "resource_link": {
+    "answer": "",
+    "evidence": "All the codes used in the paper will be made publicly available on GitHub upon acceptance of the manuscript, and can be provided upon reasonable requests."
+  },
+  "paper_title": "A Multi-agent Framework for Materials Laws Discovery",
+  "authors": [
+    "Bo",
+    "Siyu",
+    "Beilin",
+    "Yun",
+    "Tongqi"
+  ],
+  "published": "2024-11-25",
+  "link": "http://arxiv.org/abs/2411.16416"
+}

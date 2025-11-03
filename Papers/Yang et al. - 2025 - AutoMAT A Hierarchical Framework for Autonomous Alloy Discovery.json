@@ -1,0 +1,161 @@
+{
+  "objective": {
+    "answer": "The primary objective of the paper is to develop and demonstrate AutoMAT, a hierarchical and autonomous framework that integrates large language models, automated CALPHAD-based simulations, and artificial intelligence-driven search to accelerate alloy design from ideation to experimental validation. The authors aim to address the challenges of vast compositional design space and costly validation in alloy discovery by creating a scalable, efficient, and interpretable platform that does not require manually curated large datasets.",
+    "evidence": "Here, we present AutoMAT, a hierarchical and autonomous framework grounded in and validated by experiments, which integrates large language models, automated CALPHAD-based simulations, and AI-driven search to accelerate alloy design. Spanning the entire pipeline from ideation to validation, AutoMAT achieves high efficiency, accuracy, and interpretability without the need for manually curated large datasets."
+  },
+  "knowledge_gap": {
+    "answer": "A holistic solution that combines automation, data efficiency, physical fidelity, and scalability for alloy discovery remains elusive, as existing computational and machine learning methods require trade-offs between speed, accuracy, generalizability, and cost.",
+    "evidence": "A holistic solution that combines automation, data efficiency, physical fidelity, and scalability remains elusive."
+  },
+  "novelty": {
+    "answer": [
+      "AutoMAT is the first system to autonomously span the entire alloy design pipeline, from ideation and simulation to experimental validation.",
+      "The framework fully and automatically integrates CALPHAD thermodynamic calculations into a closed-loop material discovery process for the first time.",
+      "AutoMAT leverages large language models for literature-guided ideation, enabling rapid and structured extraction of candidate alloy systems from unstructured scientific texts.",
+      "The simulation layer couples CALPHAD-based modeling with artificial intelligence-driven iterative neighborhood search, dramatically reducing the number of required evaluations.",
+      "The platform is modular and generalizable, allowing for easy adaptation to other materials domains by replacing core simulation engines."
+    ],
+    "evidence": [
+      "To our knowledge, AutoMAT is the first system to autonomously span the entire alloy design pipeline, from ideation and simulation to experimental validation, marking a step toward more sustainable, interpretable, and scalable materials innovation.",
+      "A cornerstone of our methodology is the Simulation Layer, which, for the first time, fully and automatically integrates CALPHAD thermodynamic calculations into a closed-loop material discovery process.",
+      "The Ideation Layer leverages LLMs to extract, process, and propose candidate alloy systems from scientific literature and handbooks based on user-defined property targets (e.g., high yield strength, low density, etc.), outputting structured suggestions (e.g., JSON) within minutes.",
+      "The Simulation Layer systematically refines the LLM-generated candidates through an AI-driven iterative neighborhood search. This layer explores locally optimal compositions by adjusting elemental ratios around the initial candidates, first with coarse-grained steps to rapidly approach feasible regions, then narrowing to finer refinements once promising areas are identified...",
+      "The Simulation Layer further enhances platform flexibility through its simulation-engine-agnostic structure... CALPHAD could be replaced with first-principles methods such as Density Functional Theory (DFT)... This 'plug-and-play' flexibility allows AutoMAT to be easily reconfigured to incorporate the most appropriate simulation methods for the task at hand."
+    ]
+  },
+  "inspirational_papers": {
+    "answer": [
+      "- Rao et al. (2022) Machine learning–enabled high-entropy alloy discovery. (Papers with limitations addressed by this work)",
+      "- Pei et al. (2023) Toward the design of ultrahigh-entropy alloys via mining six million texts. (Methodological precursors)",
+      "- Feng et al. (2021) High-throughput design of high-performance lightweight high-entropy alloys. (Experimental baselines)",
+      "- George et al. (2019) High-entropy alloys. (Methodological precursors)"
+    ],
+    "evidence": [
+      "Machine learning (ML)-based approaches can rapidly screen candidates, but often suffer from poor data efficiency, limited interpretability, and restricted generalization to new material systems9–11.",
+      "Pei, Z., Yin, J., Liaw, P. K. & Raabe, D. Toward the design of ultrahigh-entropy alloys via mining six million texts. Nat. Commun. 14, 54 (2023).",
+      "Feng, R. et al. High-throughput design of high-performance lightweight high-entropy alloys. Nat. Commun. 12, 4329 (2021).",
+      "George, E. P., Raabe, D. & Ritchie, R. O. High-entropy alloys. Nat. Rev. Mater. 4, 515–534 (2019)."
+    ]
+  },
+  "method": {
+    "steps": [
+      {
+        "step": "Ideation Layer",
+        "input": "User-defined property targets (e.g., high yield strength, low density, cost constraints), scientific literature, and alloy handbooks.",
+        "output": "Structured candidate alloy systems and compositions aligned with user requirements.",
+        "tools": [
+          "OpenAI GPT-4o: Large language model used for natural language processing, knowledge extraction, and candidate proposal."
+        ],
+        "evidence": "The Ideation Layer initiates the process by leveraging LLMs (e.g., ChatGPT and Claude) to propose candidate alloy systems aligned with user-defined property requirements, such as high yield strength, low density, or cost constraints."
+      },
+      {
+        "step": "Simulation Layer",
+        "input": "Candidate compositions from the Ideation Layer, thermodynamic databases (TCHEA7), and user objectives.",
+        "output": "Refined, optimized alloy compositions predicted to meet property targets.",
+        "tools": [
+          "Thermo-Calc (2024b): Software for CALPHAD-based thermodynamic calculations.",
+          "TCPython: Python package for automating Thermo-Calc computations.",
+          "AI-driven iterative neighborhood search: Algorithm for efficient exploration and optimization of compositional space."
+        ],
+        "evidence": "All thermodynamic calculations and properties predictions were conducted using Thermo-Calc software (version 2024b). Automation of these computations was achieved through the TCPython package interfacing with the server."
+      },
+      {
+        "step": "Validation Layer",
+        "input": "Top-ranked, computationally optimized alloy compositions.",
+        "output": "Experimentally synthesized and characterized alloys, with measured properties (yield strength, density, microstructure).",
+        "tools": [
+          "Arc-melting equipment: For alloy synthesis.",
+          "Universal testing machine: For mechanical property measurement.",
+          "Densimeter, ICP, EBSD, TEM: For density, composition, and microstructural characterization."
+        ],
+        "evidence": "Ingots were prepared by arc-melting the high-purity elements... Uniaxial tensile tests were conducted using a ETM503C universal testing machine... The density of the alloys at each condition was measured 5 times via SD-200L densimeter."
+      }
+    ],
+    "tools": [
+      "OpenAI GPT-4o: Large language model for literature analysis and candidate extraction.",
+      "Thermo-Calc (2024b): CALPHAD-based thermodynamic simulation software.",
+      "TCPython: Python interface for automating Thermo-Calc.",
+      "AI-driven iterative neighborhood search: Algorithm for compositional optimization.",
+      "Arc-melting, universal testing machine, densimeter, ICP, EBSD, TEM: Experimental tools for synthesis and characterization."
+    ],
+    "evidence": [
+      "OpenAI's GPT-4o model (accessed via API) was utilized for all natural language processing and knowledge extraction tasks within the Ideation Layer.",
+      "All thermodynamic calculations and properties predictions were conducted using Thermo-Calc software (version 2024b). Automation of these computations was achieved through the TCPython package interfacing with the server.",
+      "Ingots were prepared by arc-melting the high-purity elements of Ti, Al, V and Fe (larger than 99.99 wt.%). The ingots were re-melted seven times to promote homogeneity under high-purity argon atmosphere. To determine their mechanical properties, flat, dog-bone-shaped tensile samples... Uniaxial tensile tests were conducted using a ETM503C universal testing machine..."
+    ]
+  },
+  "subject_area": {
+    "areas": [
+      "Applied Sciences & Engineering",
+      "Physical Sciences",
+      "Chemical Sciences"
+    ],
+    "evidence": [
+      "Alloy discovery is central to advancing modern industry but remains hindered by the vastness of compositional design space and the costly validation.",
+      "Alloy design underpins the development of advanced structural materials across aerospace, automotive, and biomedical sectors1,2.",
+      "The framework is structured into three tiers, each addressing a distinct stage of the design process."
+    ]
+  },
+  "performance_summary": {
+    "performance_summary": [
+      "AutoMAT identified a titanium alloy with 8.1% lower density and comparable yield strength relative to the state-of-the-art reference, achieving the highest specific strength among all comparisons.",
+      "In a high-entropy alloy case, AutoMAT achieved a 28.2% improvement in yield strength over the base alloy.",
+      "AutoMAT reduced the discovery timeline from years to weeks, vastly outpacing traditional expert-driven workflows.",
+      "The system efficiently reduced candidate pools from tens or hundreds of thousands to a few thousand for detailed evaluation, completing tasks in days or weeks instead of years."
+    ],
+    "baselines": [
+      "Manual literature search and expert-driven alloy design: Traditional approach requiring hours to days for candidate identification.",
+      "Manual CALPHAD evaluation: Estimated to take years for large compositional spaces.",
+      "State-of-the-art lightweight alloy Ti75.25Al20Cr4.75: Used as a reference for density and yield strength comparison.",
+      "Base high-entropy alloy (Al0.5-Co-Cr-Fe-Ni): Used as a starting point for performance improvement."
+    ],
+    "benchmark_datasets": [
+      "Not reported in the paper"
+    ],
+    "evaluation_metrics": [
+      "Yield strength (MPa): Measures the mechanical strength of the alloy.",
+      "Density (g/cm3): Measures the mass per unit volume, important for lightweight applications.",
+      "Specific strength (Pa m3 per kg): Ratio of yield strength to density, used as a score function for multi-objective optimization.",
+      "Discovery timeline (weeks vs. years): Measures time efficiency of the design process."
+    ],
+    "evidence": [
+      "AutoMAT identifies a titanium alloy with 8.1% lower density and comparable yield strength relative to the state-of-the-art reference, achieving the highest specific strength among all comparisons. In a second case targeting high-yield-strength high-entropy alloys, AutoMAT achieves a 28.2% improvement in yield strength over the base alloy. In both cases, AutoMAT reduces the discovery timeline from years to weeks...",
+      "The efficiency of this phase was notable. Leveraging the GPT-4o API, the LLM completed the alloy system identification, analyzed the handbook, and suggested Ti-185 as the viable candidate, all within minutes and at a computational cost of less than US$1. In contrast, a thorough manual literature search would require several hours or even days.",
+      "With multi-threaded execution, AutoMAT’s Simulation Layer was able to evaluate over 1,000 compositions per day. In broader studies involving over 43,000 potential compositions, the system successfully reduced the candidate pool to 3,161 for detailed evaluation. This transformed a task that would require approximately two years of manual CALPHAD evaluation (at a rate of 100 compositions per day) into a process completed in under a week.",
+      "The synthesized alloy exhibited a low density (4.32 g/cm3), satisfying the design requirement of < 4.36 g/cm3, while maintaining a high yield strength of 829 MPa and an impressive high specific strength (202 × 103 Pa m3 per kg) at room temperature."
+    ]
+  },
+  "limitations": {
+    "limitations": [],
+    "evidence": [
+      "No explicit limitations are mentioned in the main text or supplementary information. The discussion section focuses on the strengths and generalizability of AutoMAT, and while it mentions future improvements (such as closing the loop between validation and ideation), these are framed as future directions rather than current limitations."
+    ]
+  },
+  "future_directions": {
+    "future_directions": [
+      "Closing the loop between validation and ideation: Future iterations could leverage experimental outcomes to automatically refine initial hypotheses and simulation parameters, creating a truly autonomous, self-correcting system for materials discovery."
+    ],
+    "evidence": [
+      "Looking ahead, the architecture lays the groundwork for an even more transformative capability: closing the loop between validation and ideation. Although the current workflow is unidirectional, future iterations could leverage experimental outcomes to automatically refine initial hypotheses and simulation parameters, creating a truly autonomous, self-correcting system for materials discovery."
+    ]
+  },
+  "resource_link": {
+    "answer": "",
+    "evidence": "No code repository, project website, or data repository URL is provided in the paper."
+  },
+  "paper_title": "AutoMAT: A Hierarchical Framework for Autonomous Alloy Discovery",
+  "authors": [
+    "Penghui",
+    "Chendong",
+    "Bijun",
+    "Zhonghan",
+    "Xinrun",
+    "Yanchen",
+    "Yuhao",
+    "Cuntai",
+    "Zheng",
+    "Bo"
+  ],
+  "published": "2025-07-21",
+  "link": "http://arxiv.org/abs/2507.16005"
+}

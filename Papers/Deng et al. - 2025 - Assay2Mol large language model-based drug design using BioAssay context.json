@@ -1,0 +1,211 @@
+{
+  "objective": {
+    "answer": "The primary objective of the paper is to develop Assay2Mol, a large language model-based workflow that leverages unstructured BioAssay records to generate candidate drug-like molecules for early-stage drug discovery. The authors aim to enable molecule generation for targets without requiring protein structures or sequences by utilizing text and experimental data from public biochemical screening assays. They seek to outperform existing machine learning approaches in generating relevant, synthesizable molecules for specified biological activities.",
+    "evidence": "We present Assay2Mol, a large language model-based workflow that can capitalize on the vast existing biochemical screening assays for early-stage drug discovery. Assay2Mol retrieves existing assay records involving targets similar to the new target and generates candidate molecules using in-context learning with the retrieved assay screening data. Assay2Mol outperforms recent machine learning approaches that generate candidate ligand molecules for target protein structures, while also promoting more synthesizable molecule generation."
+  },
+  "knowledge_gap": {
+    "answer": "There is a lack of computational workflows that can efficiently leverage the vast, unstructured text and experimental data in public BioAssay repositories to guide drug-like molecule generation for arbitrary targets, especially when protein structures or sequences are unavailable.",
+    "evidence": "Unstructured text that describes the biological mechanisms through which these targets operate, experimental screening protocols, and other attributes of assays offer rich information for drug discovery campaigns but has been untapped because of that unstructured format. Sorting through these repositories for the data pertinent to an arbitrary target is a daunting task. Scientists need workflows that can rapidly identify relevant BioAssay records based on their associated text, extract key textual and tabular chemical testing data comprising molecule structures paired with experimental activity outcomes, and apply this information to models capable of learning structure-activity relationships to recommend new molecules for testing."
+  },
+  "novelty": {
+    "answer": [
+      "Introduction of Assay2Mol, a workflow that retrieves relevant BioAssay data and uses large language models to generate candidate molecules based on both text and experimental screening data.",
+      "Ability to generate active molecules for targets without requiring protein structures or sequences, including cell-based and phenotypic assays.",
+      "Utilization of in-context learning with large language models to incorporate experimental BioAssay context, improving the chemical plausibility and synthetic accessibility of generated molecules.",
+      "Layered contextual analysis and filtering of BioAssay records, including counterscreen identification, to guide molecule generation."
+    ],
+    "evidence": [
+      "We introduce Assay2Mol, an LLM-based drug design workflow that retrieves relevant PubChem BioAssay data for a given query and then learns to generate candidate molecules from this assay context.",
+      "Unlike structure-based drug discovery (SBDD) methods, Assay2Mol does not require protein structures or even sequences. It can even generate candidate active molecules for cell-based and phenotypic assays and endpoints (e.g., tumor shrinkage, cardiotoxicity, QT interval prolongation).",
+      "Because Assay2Mol relies on LLMs that include molecules in their pretraining data, some output molecules are more like 'retrieval' rather than de novo 'generation'. This increases the chemical plausibility and synthetic accessibility of generated molecules.",
+      "The LLM sequentially processes the set of relevant BioAssay records to build an input prompt for molecule generation. ... The workflow processes each BioAssay in three steps: 1. Summarization of BioAssay findings ... 2. Presentation of tabular experimental data ... 3. Molecule selection ... Of particular interest are counterscreens, which are designed to detect false positives such as pan-assay interference compounds (PAINS) ... Therefore, we use the LLM to summarize the retrieved BioAssays and identify whether the BioAssay record represents a counterscreen assay."
+    ]
+  },
+  "inspirational_papers": {
+    "answer": [
+      "Lewis et al. (2020) Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks. (Methodological precursors: inspired the retrieval-augmented generation approach for BioAssay retrieval)",
+      "Ragoza et al. (2022) Generating 3D molecules conditional on receptor binding sites with deep generative models. (Experimental baseline: compared as a structure-based drug design method)",
+      "Guan et al. (2023a) 3d equivariant diffusion for target-aware molecule generation and affinity prediction. (Experimental baseline: compared as a structure-based drug design method)",
+      "Wu et al. (2024) TamGen: drug design with target-aware molecule generation through a chemical language model. (Experimental baseline: compared as a structure-based drug design method)",
+      "Seidl et al. (2023) Enhancing activity prediction models in drug discovery with the ability to understand human language. (Methodological precursor: dual-encoder architecture combining chemical structure and natural-language descriptions of BioAssays)"
+    ],
+    "evidence": [
+      "The BioAssay retrieval stage is similar to Retrieval Augmented Generation (RAG) (Lewis et al., 2020).",
+      "We compare Assay2Mol against the following SBDD methods: CVAE (Ragoza et al., 2022), AR (Luo et al., 2021), Pocket2Mol (Peng et al., 2022), GraphBP (Liu et al., 2022), TamGen (Wu et al., 2024), and TargetDiff (Guan et al., 2023a).",
+      "Seidl et al. (2023) proposed CLAMP, a dual-encoder architecture combining chemical structure and natural-language descriptions of BioAssays, trained with a contrastive objective to enable zero- and few-shot activity prediction."
+    ]
+  },
+  "method": {
+    "steps": [
+      {
+        "step": "Input query and BioAssay retrieval",
+        "input": "Text description of target protein or phenotype",
+        "output": "Top-k relevant BioAssay records from PubChem",
+        "tools": [
+          "OpenAI text embedding tool: Generates embeddings for protein descriptions and BioAssay records",
+          "Cosine similarity: Used to select top-k relevant BioAssays"
+        ],
+        "evidence": "For a query description, we extract keywords with an LLM and obtain a protein description embedding p ∈Rd. We use the OpenAI text embedding tool (Neelakantan et al., 2022) and obtain an embedding for BioAssay record i in json format... We use cosine similarity to calculate the similarity between the query protein description and the set of available PubChem BioAssays and then select the top-k related BioAssays."
+      },
+      {
+        "step": "BioAssay filtering and relevance assessment",
+        "input": "Retrieved BioAssay records",
+        "output": "Filtered set of relevant BioAssays",
+        "tools": [
+          "LLM (e.g., GPT 4o): Used to assess and filter BioAssay relevance",
+          "UniProt ID matching: Excludes BioAssays directly involving the query protein"
+        ],
+        "evidence": "To ensure fair comparisons, BioAssays directly involving the query protein, identified by matching UniProt IDs, are excluded... To further assess relevance of the retrieved BioAssays, we also use an LLM to determine whether the retrieved BioAssays are relevant to the query protein."
+      },
+      {
+        "step": "Counterscreen identification",
+        "input": "Filtered BioAssay records",
+        "output": "Identification of counterscreen BioAssays to avoid false positives",
+        "tools": [
+          "LLM: Summarizes BioAssays and identifies counterscreen assays"
+        ],
+        "evidence": "Therefore, we use the LLM to summarize the retrieved BioAssays and identify whether the BioAssay record represents a counterscreen assay (Appendix A.9.1)."
+      },
+      {
+        "step": "Layered contextual analysis and prompt construction",
+        "input": "Relevant BioAssay records and their experimental data tables",
+        "output": "Molecule generation prompt containing protein description, BioAssay summaries, and selected molecules with activity outcomes",
+        "tools": [
+          "LLM: Summarizes BioAssay findings, presents tabular data, and selects molecules for context"
+        ],
+        "evidence": "The LLM sequentially processes the set of relevant BioAssay records to build an input prompt for molecule generation. The workflow processes each BioAssay in three steps: 1. Summarization of BioAssay findings... 2. Presentation of tabular experimental data... 3. Molecule selection..."
+      },
+      {
+        "step": "Molecule generation",
+        "input": "Constructed prompt with protein description, BioAssay summaries, and selected molecules",
+        "output": "Batch of 10 generated candidate molecules (SMILES strings)",
+        "tools": [
+          "LLM (e.g., GPT 4o, DeepSeekV3, Gemma-3-27B): Generates molecules using in-context learning"
+        ],
+        "evidence": "Given the context of the query protein description and BioAssay summaries and data tables, Assay2Mol uses the LLM to generate molecules in batches of 10."
+      }
+    ],
+    "tools": [
+      "OpenAI text embedding tool: Generates vector embeddings for text descriptions.",
+      "LLM (e.g., GPT 4o, DeepSeekV3, Gemma-3-27B): Used for summarization, relevance assessment, and molecule generation.",
+      "Cosine similarity: Measures similarity between embeddings for retrieval.",
+      "UniProt ID mapping: Used for protein identifier matching.",
+      "AutoDock Vina: Used for docking score evaluation.",
+      "RDKit: Used for computing QED and synthetic accessibility scores."
+    ],
+    "evidence": [
+      "We use the OpenAI text embedding tool (Neelakantan et al., 2022) and obtain an embedding for BioAssay record i in json format...",
+      "To further assess relevance of the retrieved BioAssays, we also use an LLM to determine whether the retrieved BioAssays are relevant to the query protein.",
+      "Therefore, we use the LLM to summarize the retrieved BioAssays and identify whether the BioAssay record represents a counterscreen assay (Appendix A.9.1).",
+      "The LLM sequentially processes the set of relevant BioAssay records to build an input prompt for molecule generation.",
+      "Given the context of the query protein description and BioAssay summaries and data tables, Assay2Mol uses the LLM to generate molecules in batches of 10."
+    ]
+  },
+  "subject_area": {
+    "areas": [
+      "Biological Sciences",
+      "Chemical Sciences",
+      "Health Sciences"
+    ],
+    "evidence": [
+      "Early-stage drug development and target validation typically involve a search through chemical space for drug-like molecules that perturb a target of interest, usually a protein activity connected to a disease condition.",
+      "Public screening data repositories like PubChem (Kim et al., 2024) and ChEMBL (Mendez et al., 2018) possess great value in this regard.",
+      "KCNH2, also known as hERG, is a voltage-gated potassium ion channel that plays a crucial role in cardiac repolarization. Blocking hERG channels with drugs can lead to prolonged QT intervals, potentially causing severe cardiac arrhythmias or sudden death."
+    ]
+  },
+  "performance_summary": {
+    "performance_summary": [
+      "Assay2Mol consistently outperforms the best structure-based drug design method, TargetDiff, in average docking scores on the CrossDocked dataset.",
+      "Assay2Mol generates molecules with relatively high synthetic accessibility and drug-likeness (QED) scores, and its performance remains stable after removing proteins with high sequence identity to avoid data leakage.",
+      "Assay2Mol demonstrates the ability to optimize molecules for specificity, such as reducing predicted hERG channel interaction without compromising target affinity.",
+      "LLM-based ablations (without BioAssay context) generate high-quality molecules but perform worse than Assay2Mol with context, especially for proteins with relevant BioAssays."
+    ],
+    "baselines": [
+      "CVAE: Conditional variational autoencoder for 3D molecule generation.",
+      "AR: Autoregressive model for 3D molecule generation.",
+      "Pocket2Mol: Efficient molecular sampling based on 3D protein pockets.",
+      "TamGen: Target-aware molecule generation through a chemical language model.",
+      "TargetDiff: 3D equivariant diffusion model for target-aware molecule generation.",
+      "Randomly sampled FDA-approved drugs: Used as a baseline for docking score distribution."
+    ],
+    "benchmark_datasets": [
+      "CrossDocked2020: Contains 22.5 million docked protein binding complexes, refined to 100,000 for training and 100 for testing, used to assess molecule generation and docking performance."
+    ],
+    "evaluation_metrics": [
+      "Vina Dock: Measures binding complementarity (docking score) between molecule and protein target; lower is better.",
+      "High Affinity: Percentage of generated molecules outperforming reference molecules in Vina Dock.",
+      "QED (Quantitative Estimate of Drug-likeness): Combines multiple molecular properties into a score between 0 and 1.",
+      "SA (Synthetic Accessibility): Estimates synthetic feasibility, normalized between 0 and 1 (0 is most difficult).",
+      "Diversity: Average pairwise Tanimoto distance between Morgan fingerprints of generated molecules.",
+      "Molecule Size: Number of heavy atoms in the molecule."
+    ],
+    "evidence": [
+      "All versions of Assay2Mol consistently outperform the best SBDD method, TargetDiff, in average docking scores (Table 1).",
+      "Beyond improved docking scores, Assay2Mol generates molecules with relatively high synthetic accessibility and QED scores, benefiting from LLMs’ molecule generation capability.",
+      "We examine the shift in Vina docking scores and predicted hERG scores for the original generated molecules versus those optimized to minimize hERG interaction (Figure 3)... This reduction in hERG score indicates lower predicted cardiotoxicity, making the generated molecules more suitable for further study, while docking scores remain largely unaffected.",
+      "Metric. We use Vina Dock (Eberhardt et al., 2021) to score the binding complementarity of a molecule, or the strength of interaction, with a protein target. High Affinity indicates the percentage of generated molecules that outperform the reference molecules in Vina Dock. Quantitative Estimate of Drug-likeness (QED) is a metric that combines multiple molecular properties (e.g., molecular weight, logP, hydrogen bond donors) into a single value between 0 and 1, with higher values indicating more drug-like compounds (Bickerton et al., 2012). Synthetic Accessibility (SA) score estimates synthetic feasibility based on fragment contributions observed in known molecules and structural complexity penalties (Ertl and Schuffenhauer, 2009). We use the normalized SA score between 0 and 1, where 0 is most difficult to synthesize. QED and SA are computed with RDKit (Landrum, 2016). Diversity is quantified as the average pairwise Tanimoto distance between Morgan fingerprint of the generated molecules. The Vina score is correlated with the number of atoms in the molecule (Weller and Rohs, 2024), so we also track the Molecule Size as the number of heavy atoms."
+    ]
+  },
+  "limitations": {
+    "limitations": [
+      {
+        "label": "Imperfect BioAssay Relevance Assessment",
+        "explanation": "LLMs used to assess BioAssay relevance can misclassify irrelevant assays, leading to suboptimal molecule generation.",
+        "evidence": "Having LLMs directly assess the relevance of the retrieved BioAssay text guards against many irrelevant matches but is imperfect (Table 4)."
+      },
+      {
+        "label": "Limited Handling of Conditional Queries",
+        "explanation": "The current version cannot process complex conditional queries (e.g., molecules that inhibit A, B, and C but not D and E) in a single step.",
+        "evidence": "A related limitation is that the current version of Assay2Mol cannot properly process conditional text queries, such as molecules that inhibit proteins A, B, and C but not D and E."
+      },
+      {
+        "label": "Potential for Retrieval over Generation",
+        "explanation": "LLMs may retrieve or recombine known molecules from training data rather than generating novel compounds, limiting exploration of new chemical space.",
+        "evidence": "LLMs are pre-trained on a large-scale text corpus, which includes a substantial number of molecules. As a result, when generating molecules, LLMs may not always create new molecules. Instead, they tend to 'retrieve' molecules or recombine patterns from molecules they have trained on."
+      },
+      {
+        "label": "Dependence on Proprietary Embedding Models",
+        "explanation": "BioAssay embeddings are generated using the OpenAI text embedding API, limiting full openness and interpretability.",
+        "evidence": "However, currently the BioAssay embeddings are generated solely using the OpenAI text embedding API. An alternative implementation and evaluation with open weights embedding models remains for future work."
+      },
+      {
+        "label": "Reliance on Computational Evaluation",
+        "explanation": "All evaluations are computational; no wet lab validation is performed, and docking scores are not true binding affinities.",
+        "evidence": "The evaluations of the Assay2Mol generated molecules rely entirely on other computational assessments of molecule quality. These are not a substitute for actual wet lab assays. Vina Dock energies are not true binding affinities, and its scoring function has known biases and limitations (Xu et al., 2022)."
+      }
+    ],
+    "evidence": [
+      "Having LLMs directly assess the relevance of the retrieved BioAssay text guards against many irrelevant matches but is imperfect (Table 4).",
+      "A related limitation is that the current version of Assay2Mol cannot properly process conditional text queries, such as molecules that inhibit proteins A, B, and C but not D and E.",
+      "LLMs are pre-trained on a large-scale text corpus, which includes a substantial number of molecules. As a result, when generating molecules, LLMs may not always create new molecules. Instead, they tend to 'retrieve' molecules or recombine patterns from molecules they have trained on.",
+      "However, currently the BioAssay embeddings are generated solely using the OpenAI text embedding API. An alternative implementation and evaluation with open weights embedding models remains for future work.",
+      "The evaluations of the Assay2Mol generated molecules rely entirely on other computational assessments of molecule quality. These are not a substitute for actual wet lab assays. Vina Dock energies are not true binding affinities, and its scoring function has known biases and limitations (Xu et al., 2022)."
+    ]
+  },
+  "future_directions": {
+    "future_directions": [
+      "Improve BioAssay retrieval and relevance processing to better capture biological regulation and pathway complexity.",
+      "Enhance LLM interpretation of desired activity (activation, inhibition, allosteric regulation) for generated molecules.",
+      "Develop methods for more robust handling of conditional molecule generation queries.",
+      "Implement and evaluate open weights embedding models for BioAssay retrieval to achieve a fully open-source workflow."
+    ],
+    "evidence": [
+      "There are many opportunities to expand on the core Assay2Mol framework, making it more robust and building new capabilities to make it more relevant for the difficult multi-property optimization required for actual drug discovery campaigns (van den Broek et al., 2025). For example, we observed that the initial embedding-based query and BioAssay similarity calculations are not sophisticated enough to capture the complexity of biological regulation in pathways (Appendix A.6) along with other limitations in Section 6.",
+      "We continue to explore methods to enhance LLM interpretation of the desired activity of generated molecules with respect to target function (i.e., activation, inhibition, allosteric regulation).",
+      "A related limitation is that the current version of Assay2Mol cannot properly process conditional text queries, such as molecules that inhibit proteins A, B, and C but not D and E. This limitation is again related to the initial embedding-based similarity calculations, which could possibly be addressed with enhancement to the Assay2Mol relevance processing step.",
+      "However, currently the BioAssay embeddings are generated solely using the OpenAI text embedding API. An alternative implementation and evaluation with open weights embedding models remains for future work."
+    ]
+  },
+  "resource_link": {
+    "answer": "https://github.com/gitter-lab/Assay2Mol",
+    "evidence": "The code is available at https://github.com/gitter-lab/Assay2Mol under the MIT License and archived at https://doi.org/10.5281/zenodo.15871304."
+  },
+  "paper_title": "Assay2Mol: large language model-based drug design using BioAssay context",
+  "authors": [
+    "Yifan",
+    "Spencer S.",
+    "Anthony"
+  ],
+  "published": "2025-09-24",
+  "link": "http://arxiv.org/abs/2507.12574"
+}

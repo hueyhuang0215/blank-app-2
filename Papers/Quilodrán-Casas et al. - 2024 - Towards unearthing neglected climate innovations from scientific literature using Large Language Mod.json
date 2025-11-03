@@ -1,0 +1,200 @@
+{
+  "objective": {
+    "answer": "The primary objective of the paper is to systematically identify neglected but potentially impactful climate innovations within scientific literature using large language models. The authors aim to evaluate the effectiveness of large language models in augmenting human expertise to uncover climate solutions that are underutilized, focusing on UK-based research outputs. They benchmark large language model outputs against human evaluations to assess their ability to find overlooked innovations.",
+    "evidence": "We hypothesise that many of these solutions already exist within scientific literature but remain underutilised. To address this gap, this study employs a curated dataset sourced from OpenAlex, a comprehensive repository of scientific papers. Utilising Large Language Models (LLMs), such as GPT4-o from OpenAI, we evaluate title-abstract pairs from scientific papers on seven dimensions, covering climate change mitigation potential, stage of technological development, and readiness for deployment. The outputs of the language models are then compared with human evaluations to assess their effectiveness in identifying promising yet overlooked climate innovations."
+  },
+  "knowledge_gap": {
+    "answer": "There is a lack of systematic methods to identify neglected climate innovations within the vast and diverse scientific literature, particularly at a regional level such as the United Kingdom, which may result in missed opportunities for climate action.",
+    "evidence": "Therefore, one likely reason for the neglect of certain climate solutions is the sheer volume and diversity of scientific literature. Traditional methods of knowledge discovery and synthesis may fail to capture innovative approaches buried in vast datasets, leading to missed opportunities for policy and technological advancement [2]. ... However, there is a gap in using LLMs to systematically identify climate innovations within a specific region. This study addresses this gap by using LLM evaluators to identify potential climate innovations in the UK, creating a workflow that can be applied to other regions and serve as the foundation for future work."
+  },
+  "novelty": {
+    "answer": [
+      "Application of large language models to systematically evaluate scientific abstracts for neglected climate innovations using a multi-dimensional framework.",
+      "Direct comparison of large language model outputs with human evaluations across seven specific dimensions relevant to climate innovation.",
+      "Development and validation of a scalable workflow that combines context, prompt engineering, and scoring algorithms for high-throughput identification of climate solutions.",
+      "Introduction of a scalar scoring system to improve the resolution of large language model-based identification and ranking of promising research abstracts."
+    ],
+    "evidence": [
+      "To address this challenge, we propose the use of machine learning (ML) and Large Language Models (LLMs) to systematically identify climate innovations in scientific literature.",
+      "Benchmarking the outputs of the LLMs against parallel human evaluations, we aim to assess the effectiveness of these models in finding overlooked innovations and identify any potential advantages over human reasoning.",
+      "We show that with appropriate context, prompt engineering and scoring algorithm for interpreting outputs, LLMs represent promising vehicles for the high-throughput identification of high-potential research from the large corpus available.",
+      "In an attempt to improving the LLM scoring resolution, we reapplied the context approach but with a scalar 1-10 scoring scale rather than a binary system. ... the LLM was able to replicate a qualitatively similar scoring outcome but with significantly increased granularity."
+    ]
+  },
+  "inspirational_papers": {
+    "answer": [
+      "- Bornmann and Mutz (2015) Their bibliometric analysis highlighted the challenge of knowledge discovery in large scientific corpora. (Methodological precursors)",
+      "- Priem, Piwowar, and Orr (2022) OpenAlex: Provided the comprehensive open dataset and topic taxonomy used for paper selection and analysis. (Methodological precursors)",
+      "- Liu et al. (2023) Their work on calibrating large language model-based evaluators informed the evaluation framework. (Methodological precursors)",
+      "- Yang et al. (2024) Their study on combining human and large language model assessments inspired the hybrid evaluation approach. (Methodological precursors)"
+    ],
+    "evidence": [
+      "\"Traditional methods of knowledge discovery and synthesis may fail to capture innovative approaches buried in vast datasets, leading to missed opportunities for policy and technological advancement [2].\"",
+      "\"We leverage OpenAlex [8], a comprehensive open dataset of scholarly papers and comprehensive meta-data, to provide test data for analysis by state-of-the-art language models...\"",
+      "\"Furthermore, studies have leveraged LLM-based evaluators for assessing scientific claims and conducting evaluations traditionally requiring human judgement [10, 5, 4], as well as combining human and LLM assessments has shown promise in enhancing decision-making processes [14].\""
+    ]
+  },
+  "method": {
+    "steps": [
+      {
+        "step": "Data Collection from OpenAlex",
+        "input": "OpenAlex database, filtered for UK-based institutions, technical/scientific domains, primary research types, and papers from 2000 onwards.",
+        "output": "A curated dataset of approximately 101,374 works with abstracts and topic classifications relevant to climate innovation.",
+        "tools": [
+          "OpenAlex API",
+          "pyalex Python Library"
+        ],
+        "evidence": "To collect relevant research papers, we utilised the OpenAlex database... The data was downloaded using the pyalex Python Library and https://github.com/J535D165/pyalex, using the query in 1."
+      },
+      {
+        "step": "Random and Positive Control Abstract Selection",
+        "input": "Curated dataset of 101,374 works.",
+        "output": "Random sample of 95 abstracts plus 5 manually curated positive control abstracts (linked to climate-tech spin-outs), totaling 100 abstracts.",
+        "tools": [],
+        "evidence": "From this final input dataset of 101,374 works, we randomly selected 95 abstracts for our analysis... with 5 manually curated abstracts corresponding to research papers from the 6 selected UK-based institutions that led to spin-out climate-tech companies."
+      },
+      {
+        "step": "Human Evaluation via Survey",
+        "input": "100 selected abstracts, seven binary survey questions, context explanations.",
+        "output": "Binary (Yes/No) responses from six human participants for each abstract and question.",
+        "tools": [
+          "Qualtrics survey platform"
+        ],
+        "evidence": "We implemented a survey using Qualtrics to collect human evaluations for the 100 selected abstracts."
+      },
+      {
+        "step": "Large Language Model Evaluation",
+        "input": "100 abstracts, three prompt scenarios (no-shot, context, few-shot), same seven questions.",
+        "output": "Binary (Yes/No) responses from large language model for each abstract and question, repeated six times per scenario.",
+        "tools": [
+          "GPT4-o from OpenAI"
+        ],
+        "evidence": "In parallel with the human evaluation, we used a large language model (LLM) to analyse the same 100 abstracts and answer the same seven questions mentioned in section 3.3."
+      },
+      {
+        "step": "Data Processing and Analysis",
+        "input": "Human and large language model binary responses for all abstracts and questions.",
+        "output": "Pairwise correlation, Cohen’s Kappa, logistic regression for weighting, and ranking of abstracts.",
+        "tools": [
+          "Pearson correlation",
+          "Cohen’s Kappa",
+          "Logistic regression"
+        ],
+        "evidence": "To quantify general alignment between the human and LLM responses across all respondants and abstracts, we performed pairwise correlation (using the Pearson standard correlation coefficient) between the seven questions and between the datasets. ... logistic regression was used to determine weightings for the responses to the other six questions when trained on the 5 positive control abstracts."
+      },
+      {
+        "step": "Scalar Scoring System and Validation",
+        "input": "Contextualized large language model evaluation with a 1-10 scale, larger dataset of 1000 abstracts with 10 positive controls.",
+        "output": "Improved ranking resolution and validation of the workflow on a larger sample.",
+        "tools": [],
+        "evidence": "In an attempt to improving the LLM scoring resolution, we reapplied the context approach but with a scalar 1-10 scoring scale rather than a binary system. ... The optimised LLM scoring approach (contextualised, weighted and scalar) was validated with a larger dataset of 1000 abstracts, containing a further 10 positive control abstracts associated with spin-outs."
+      }
+    ],
+    "tools": [
+      "OpenAlex API: An open, community-curated database providing metadata on scholarly publications.",
+      "pyalex Python Library: Python interface for querying and downloading data from OpenAlex.",
+      "Qualtrics: Online survey platform used for collecting human evaluations.",
+      "GPT4-o from OpenAI: Large language model used for automated abstract evaluation.",
+      "Pearson correlation: Statistical measure for evaluating pairwise correlation.",
+      "Cohen’s Kappa: Statistical measure for inter-rater agreement.",
+      "Logistic regression: Statistical method for determining weightings for ranking abstracts."
+    ],
+    "evidence": [
+      "To collect relevant research papers, we utilised the OpenAlex database... The data was downloaded using the pyalex Python Library and https://github.com/J535D165/pyalex, using the query in 1.",
+      "We implemented a survey using Qualtrics to collect human evaluations for the 100 selected abstracts.",
+      "In parallel with the human evaluation, we used a large language model (LLM) to analyse the same 100 abstracts and answer the same seven questions mentioned in section 3.3.",
+      "To quantify general alignment between the human and LLM responses across all respondants and abstracts, we performed pairwise correlation (using the Pearson standard correlation coefficient) between the seven questions and between the datasets.",
+      "logistic regression was used to determine weightings for the responses to the other six questions when trained on the 5 positive control abstracts.",
+      "In an attempt to improving the LLM scoring resolution, we reapplied the context approach but with a scalar 1-10 scoring scale rather than a binary system."
+    ]
+  },
+  "subject_area": {
+    "areas": [
+      "Earth & Environmental Sciences",
+      "Applied Sciences & Engineering"
+    ],
+    "evidence": [
+      "Climate change poses an urgent global threat, needing the rapid identification and deployment of innovative solutions.",
+      "We excluded papers with primary topic domain specified as Health Sciences or Social Sciences to maintain a focus on technical and scientific research that is most directly relevant to climate innovation."
+    ]
+  },
+  "performance_summary": {
+    "performance_summary": [
+      "The large language model scenarios (no-shot, context, few-shot) successfully identified all five positive control abstracts linked to climate-tech spin-outs, sometimes more convincingly than human evaluators.",
+      "The context-provided large language model scenario showed the highest overall agreement with human responses, especially for technology readiness and neglectedness.",
+      "The scalar scoring system improved the resolution of large language model-based ranking, allowing better differentiation among high-potential abstracts.",
+      "Validation on a larger dataset (1000 abstracts, 10 positive controls) showed that the optimized large language model workflow could identify most positive controls among top-ranked abstracts, though further training on more positive cases could improve performance."
+    ],
+    "baselines": [
+      "Human evaluation: Six human participants evaluated the same abstracts using the same seven binary questions, serving as the primary baseline for comparison."
+    ],
+    "benchmark_datasets": [
+      "Custom OpenAlex-derived dataset: Consists of 101,374 UK-based scientific works filtered for climate relevance, with random and positive control samples used for evaluation and validation."
+    ],
+    "evaluation_metrics": [
+      "Cohen’s Kappa: Measures agreement between human and large language model responses beyond chance.",
+      "Pearson correlation coefficient: Assesses pairwise correlation between responses to survey questions.",
+      "Logistic regression weights: Used to determine the predictive quality of each evaluation question for identifying commercialisable research."
+    ],
+    "evidence": [
+      "The 5 positive control abstracts with known linkages to climate tech spin-outs were successfully identified by all three LLM scenarios (no shot, context, few-shot), arguably more convincingly than the 6 human survey participants.",
+      "Cohen’s Kappa (κ), a statistical measure that evaluates the level of agreement between two raters beyond what would be expected by chance, was computed for each of the seven questions to compare human responses with those generated by the three LLM scenarios (see Table 1).",
+      "The optimised LLM scoring approach (contextualised, weighted and scalar) was validated with a larger dataset of 1000 abstracts, containing a further 10 positive control abstracts associated with spin-outs.",
+      "We implemented a survey using Qualtrics to collect human evaluations for the 100 selected abstracts."
+    ]
+  },
+  "limitations": {
+    "limitations": [
+      {
+        "label": "Limited Training Data for Positive Controls",
+        "explanation": "The logistic regression weighting for ranking abstracts was based on only five positive control cases, which may restrict the model's ability to generalize and differentiate among high-potential abstracts.",
+        "evidence": "Given the low probability that more than half of the filtered papers have as high a potential for commercialisation as the pre-curated controls, this suggests that training the score weightings on more than 5 positive test cases could be worthwhile."
+      },
+      {
+        "label": "Ranking Resolution Constraint with Binary Scoring",
+        "explanation": "The binary scoring system limited the ability to distinguish between top-ranked abstracts, necessitating the development of a scalar scoring approach.",
+        "evidence": "12 of the 25 abstracts passed by the LLM according to Q1 threshold shared the maximum weighted score, rendering them indistinguishable by means of ranking. This presents a potential problem for the scaling of LLM search to larger abstract datasets, restricting the resolution of the algorithm to approximately only 10% and needing subsequent manual assessment."
+      },
+      {
+        "label": "Subjectivity and Variability in Human Evaluation",
+        "explanation": "Human responses varied significantly both between respondents and between abstracts, introducing subjectivity and inconsistency in the baseline evaluation.",
+        "evidence": "Human scoring was highly variable, compared to predominantly deterministic scoring in the LLM scenarios. ... Human responses vary not only between respondents but between abstracts. Whilst human reasoning draws on nuance and experience, it is evident that both questions and abstracts were judged subjectively with varying outcomes."
+      }
+    ],
+    "evidence": [
+      "Given the low probability that more than half of the filtered papers have as high a potential for commercialisation as the pre-curated controls, this suggests that training the score weightings on more than 5 positive test cases could be worthwhile.",
+      "12 of the 25 abstracts passed by the LLM according to Q1 threshold shared the maximum weighted score, rendering them indistinguishable by means of ranking. This presents a potential problem for the scaling of LLM search to larger abstract datasets, restricting the resolution of the algorithm to approximately only 10% and needing subsequent manual assessment.",
+      "Human scoring was highly variable, compared to predominantly deterministic scoring in the LLM scenarios. ... Human responses vary not only between respondents but between abstracts. Whilst human reasoning draws on nuance and experience, it is evident that both questions and abstracts were judged subjectively with varying outcomes."
+    ]
+  },
+  "future_directions": {
+    "future_directions": [
+      "Experiment with different large language models beyond GPT-4o, such as LLaMA or other domain-specific models, to enhance accuracy and diversity of responses.",
+      "Incorporate Retrieval-Augmented Generation to provide large language models with more extensive context, potentially increasing answer quality.",
+      "Apply binary quantisation techniques to accelerate Retrieval-Augmented Generation processes and improve model efficiency.",
+      "Develop a multi-agent approach and a relational layer to link papers with authors, grants, and social media presence, enabling identification of entrepreneurial potential and impactful climate-related start-up ventures."
+    ],
+    "evidence": [
+      "Future work will involve experimenting with different LLMs beyond GPT-4o, such as LLaMA or other domain-specific models, to enhance the accuracy and diversity of responses.",
+      "We will also incorporate Retrieval-Augmented Generation (RAG) to provide the LLMs with a more extensive context, potentially increasing the quality of answers. To accelerate RAG processes, binary quantisation techniques will be applied to reduce computational complexity and improve model efficiency.",
+      "Additionally, a multi-agent approach will be employed to critically evaluate the LLM’s responses. By using multiple agents, we aim to establish a more robust consensus in the assessment of each abstract.",
+      "Furthermore, we are developing a relational layer to link papers with their authors, grants, and social media presence. This relational analysis will enable the identification of not only commercially viable papers but also the entrepreneurial potential of the researchers themselves."
+    ]
+  },
+  "resource_link": {
+    "answer": "https://github.com/J535D165/pyalex",
+    "evidence": "The data was downloaded using the pyalex Python Library and https://github.com/J535D165/pyalex, using the query in 1."
+  },
+  "paper_title": "Towards unearthing neglected climate innovations from scientific literature using Large Language Models",
+  "authors": [
+    "César",
+    "Christopher",
+    "Nicole",
+    "Diyona",
+    "Cathal",
+    "Larissa",
+    "Alyssa"
+  ],
+  "published": "2024-11-15",
+  "link": "http://arxiv.org/abs/2411.10055"
+}

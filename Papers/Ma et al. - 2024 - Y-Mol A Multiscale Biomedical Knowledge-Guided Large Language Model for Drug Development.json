@@ -1,0 +1,217 @@
+{
+  "objective": {
+    "answer": "The primary objective of the paper is to introduce Y-Mol, a multiscale biomedical knowledge-guided large language model designed to enhance and automate tasks across the drug development pipeline, including lead compound discovery, pre-clinic, and clinic prediction. The authors aim to address the challenges of applying large language models to drug development by integrating diverse biomedical knowledge sources and constructing a unified instruction dataset for model training and evaluation.",
+    "evidence": "To solve these challenges, we introduce Y-Mol, forming a well-established LLM paradigm for the flow of drug development. Y-Mol is a multiscale biomedical knowledge-guided LLM designed to accomplish tasks across lead compound discovery, pre-clinic, and clinic prediction."
+  },
+  "knowledge_gap": {
+    "answer": "There is a lack of dedicated, large-scale, and unified datasets and paradigms for effectively applying large language models to the domain of drug development, which spans complex and diverse biomedical knowledge and lacks standardization across tasks.",
+    "evidence": "However, a major barrier to harnessing LLMs in the drug development domain is the lack of a dedicated dataset (Fang et al. 2023). The gap is primarily raised from three challenges: (i) acquiring drug-related data is significantly costly and the general knowledge of drug development spans a broad spectrum including computational chemistry, structural biology, and bioinformatics. (ii) The intrinsic interaction data between biomedical entities such as the drug-perturbed gene expression and protein binding activity need fine-grained domain knowledge, given the inherent complexity of annotating. (iii) Different from the well-established frameworks in natural language processing, there is no standard paradigm for drug development."
+  },
+  "novelty": {
+    "answer": [
+      "Development of Y-Mol, the first large language model paradigm specifically constructed for the entire drug development pipeline.",
+      "Integration of multiscale biomedical knowledge from publications, knowledge graphs, and expert synthetic data to create a comprehensive instruction dataset.",
+      "Design of three types of drug-oriented instructions: description-based prompts, semantic-based prompts from knowledge graphs, and template-based prompts from expert models.",
+      "Implementation of a unified framework that enables autonomous execution of downstream drug development tasks, including virtual screening, drug design, property prediction, and drug interaction prediction."
+    ],
+    "evidence": [
+      "To the best of our knowledge, Y-Mol is the first to construct an LLM paradigm for drug development.",
+      "Y-Mol leverages multiscale biomedical knowledge to construct an informative instruction dataset and unifies the overflow of drug development, by collecting the corpus of publications, domain knowledge graph, and synthesized data from small models across lead compound discovery, pre-clinic, and clinic predictions.",
+      "The capability is further enriched with three types of drug-oriented instructions: description-based prompts from processed publications, semantic-based prompts for extracting associations from knowledge graphs, and template-based prompts for understanding expert knowledge from biomedical tools.",
+      "Y-Mol offers a set of LLM paradigms that can autonomously execute the downstream tasks across the entire process of drug development, including virtual screening, drug design, pharmacological properties prediction, and drug-related interaction prediction."
+    ]
+  },
+  "inspirational_papers": {
+    "answer": [
+      "Fang et al. (2023) Mol-instructions: Provided a comprehensive instruction dataset for biomolecular tasks, highlighting the need for domain-specific instruction datasets.",
+      "Edwards et al. (2022) MolT5: Linked molecules to natural language using molecule-description pairs, inspiring structure-text pretraining.",
+      "Liu et al. (2023b) MolXPT: Developed mixed corpus for pre-training, influencing the use of structure-text data.",
+      "Sanh et al. (2021) Multitask prompted training: Inspired the use of instruction datasets for fine-tuning large language models.",
+      "Ouyang et al. (2022) Training language models to follow instructions with human feedback: Motivated instruction-based fine-tuning."
+    ],
+    "evidence": [
+      "Various instruction datasets have been developed in general domains (Taori et al. 2023; Tinn et al. 2023; Wang et al. 2022). However, a major barrier to harnessing LLMs in the drug development domain is the lack of a dedicated dataset (Fang et al. 2023).",
+      "For example, MolT5 (Edwards et al. 2022) is the first to link molecules to natural language by using 33K molecule-description pairs as finetuning and evaluation data.",
+      "MolXPT (Liu et al. 2023b) further localizes molecule names to obtain a mixed corpus of 30M text, 30M SMILES and 8M wrapped sequences between SMILES and text for pre-training.",
+      "This process entails training models using specialized instruction datasets. By doing so, the models acquire task-specific knowledge and patterns, that improve their performance in targeted domains (Fang et al. 2023).",
+      "Sanh, V.; Webson, A.; Raffel, C.; Bach, S. H.; Sutawika, L.; Alyafeai, Z.; Chaffin, A.; Stiegler, A.; Scao, T. L.; Raja, A.; et al. 2021. Multitask prompted training enables zero-shot task generalization. arXiv preprint arXiv:2110.08207.",
+      "Ouyang, L.; Wu, J.; Jiang, X.; Almeida, D.; Wainwright, C.; Mishkin, P.; Zhang, C.; Agarwal, S.; Slama, K.; Ray, A.; et al. 2022. Training language models to follow instructions with human feedback. Advances in neural information processing systems, 35: 27730–27744."
+    ]
+  },
+  "method": {
+    "steps": [
+      {
+        "step": "Pretraining on Biomedical Corpus",
+        "input": "Over 33 million biomedical publications (abstracts and brief introductions) from sources like PubMed, processed with named entity recognition and entity normalization.",
+        "output": "A pretrained large language model (LLaMA2) with generalized biomedical knowledge.",
+        "tools": [
+          "LLaMA2: Base large language model architecture.",
+          "NER tool (Sung et al. 2022): For entity recognition.",
+          "PubTator: For entity normalization."
+        ],
+        "evidence": "As illustrated in Figure 2, we consider LLaMA2-7b as our base LLM to construct a training and reasoning paradigm Y-Mol for drug development. ... we extract and preprocess over 33 million publications across multiple topics1 from online publishers (e.g., PubMed2). ... we introduce a named entity recognition (NER) tool (Sung et al. 2022) to match entities and use a standard biomedical PubTator (Wei et al. 2024) to modify them."
+      },
+      {
+        "step": "Instruction Construction from Molecule-Text Pairs",
+        "input": "Molecule-text pairs from drug databases such as DrugBank, where each pair consists of a SMILES sequence and a natural language description.",
+        "output": "Description-based instruction dataset for supervised fine-tuning.",
+        "tools": [
+          "DrugBank: Source of molecule-text pairs."
+        ],
+        "evidence": "Specifically, we primarily extract molecule-text pairs from DrugBank. ... Given a pair of molecule-text (d, s), we construct instructions by giving a question “Please describe the molecule: dsmiles.” and the corresponding text s is considered the answer."
+      },
+      {
+        "step": "Instruction Construction from Knowledge Graphs",
+        "input": "Biomedical knowledge graphs (e.g., Hetionet, DRKG) containing structured facts about drugs, genes, diseases, and their relationships.",
+        "output": "Semantic-based instruction dataset with natural language prompts derived from knowledge graph reasoning chains.",
+        "tools": [
+          "Hetionet, DRKG: Biomedical knowledge graphs."
+        ],
+        "evidence": "To effectively feed the domain knowledge from biomedical KGs, we prompt the facts included in the KGs as natural language. ... we iterate over each fact within KGs and extract the enclosing subgraph ... After obtaining the enclosing subgraphs (i.e., coherent reasoning chains) of all facts, we prompt them using the pre-designed templates."
+      },
+      {
+        "step": "Instruction Construction from Expert Synthetic Data",
+        "input": "Predicted input-output pairs from expert models and tools (e.g., ADMETlab, RDKit, TDC, DrugBAN) for molecular properties and drug design.",
+        "output": "Template-based instruction dataset for property prediction and drug design.",
+        "tools": [
+          "ADMETlab: For ADMET property prediction.",
+          "RDKit: For cheminformatics and molecular parsing.",
+          "TDC: Therapeutics Data Commons for drug discovery tasks.",
+          "DrugBAN: For drug-target prediction."
+        ],
+        "evidence": "To address this limitation, we introduce Y-Mol to distill existing computational models into LLMs. Specifically, given a drug d, to extract more types of molecular properties, we collected a series of molecular tools and advanced models (such as ADMETlab (Fu et al. 2024), RDKit (Bento et al. 2020), TDC (Huang et al. 2021), DrugBAN (Bai et al. 2023)) to extract molecules with diverse properties ..."
+      },
+      {
+        "step": "Supervised Fine-tuning",
+        "input": "Constructed instruction datasets from previous steps.",
+        "output": "A fine-tuned Y-Mol model specialized for drug development tasks.",
+        "tools": [
+          "LLaMA2: Base model for fine-tuning."
+        ],
+        "evidence": "Supervised finetuning (SFT) is a technique used to adapt a pretrained LLM to a specific downstream task using labeled data. As shown in Figure 4, we adopt the generated instructions as the supervised inputs and feed them into Y-Mol to finetune a well-performance LLM."
+      },
+      {
+        "step": "Evaluation on Downstream Tasks",
+        "input": "Fine-tuned Y-Mol model and benchmark datasets for tasks such as virtual screening, drug design, property prediction, and drug interaction prediction.",
+        "output": "Performance metrics and qualitative results for each downstream task.",
+        "tools": [
+          "DrugBank, DrugCentral, Ryu’s dataset, Deng’s dataset: For evaluation of DTI and DDI prediction.",
+          "RDKit: For evaluating validity of generated molecules."
+        ],
+        "evidence": "To validate the effectiveness of our proposed Y-Mol for drug development, we design various tasks across lead compound discovery, pre-clinic, and clinic predictions. ... we adopt the widely-used benchmarks DrugBank (Knox et al. 2024) and DrugCentral (Avram et al. 2023) for DTI prediction. Meanwhile, we utilize Ryu’s (Ryu, Kim, and Lee 2018) and Deng’s (Deng et al. 2020) datasets to assess DDI prediction."
+      }
+    ],
+    "tools": [
+      "LLaMA2: Base large language model architecture used for pretraining and fine-tuning.",
+      "NER tool (Sung et al. 2022): Used for biomedical named entity recognition.",
+      "PubTator: Used for biomedical entity normalization.",
+      "DrugBank: Drug database providing molecule-text pairs.",
+      "Hetionet, DRKG: Biomedical knowledge graphs for extracting structured facts.",
+      "ADMETlab: Tool for predicting ADMET properties.",
+      "RDKit: Cheminformatics toolkit for molecular parsing and property calculation.",
+      "TDC: Therapeutics Data Commons for drug discovery datasets.",
+      "DrugBAN: Model for drug-target prediction."
+    ],
+    "evidence": [
+      "As illustrated in Figure 2, we consider LLaMA2-7b as our base LLM to construct a training and reasoning paradigm Y-Mol for drug development.",
+      "we extract and preprocess over 33 million publications across multiple topics1 from online publishers (e.g., PubMed2).",
+      "we introduce a named entity recognition (NER) tool (Sung et al. 2022) to match entities and use a standard biomedical PubTator (Wei et al. 2024) to modify them.",
+      "Specifically, we primarily extract molecule-text pairs from DrugBank.",
+      "To effectively feed the domain knowledge from biomedical KGs, we prompt the facts included in the KGs as natural language.",
+      "we collected a series of molecular tools and advanced models (such as ADMETlab (Fu et al. 2024), RDKit (Bento et al. 2020), TDC (Huang et al. 2021), DrugBAN (Bai et al. 2023)) to extract molecules with diverse properties",
+      "Supervised finetuning (SFT) is a technique used to adapt a pretrained LLM to a specific downstream task using labeled data.",
+      "we adopt the widely-used benchmarks DrugBank (Knox et al. 2024) and DrugCentral (Avram et al. 2023) for DTI prediction. Meanwhile, we utilize Ryu’s (Ryu, Kim, and Lee 2018) and Deng’s (Deng et al. 2020) datasets to assess DDI prediction."
+    ]
+  },
+  "subject_area": {
+    "areas": [
+      "Biological Sciences",
+      "Chemical Sciences",
+      "Health Sciences"
+    ],
+    "evidence": [
+      "The gap is primarily raised from three challenges: (i) acquiring drug-related data is significantly costly and the general knowledge of drug development spans a broad spectrum including computational chemistry, structural biology, and bioinformatics.",
+      "To fully explore the potential biomedical knowledge from publications, such as the interaction pathway of drugs and the gene expression levels under various compounds, we extract and preprocess over 33 million publications across multiple topics1 from online publishers (e.g., PubMed2).",
+      "Y-Mol is a multiscale biomedical knowledge-guided LLM designed to accomplish tasks across lead compound discovery, pre-clinic, and clinic prediction."
+    ]
+  },
+  "performance_summary": {
+    "performance_summary": [
+      "Y-Mol significantly outperforms the baseline LLaMA2-7b model in drug-target interaction prediction, drug-drug interaction prediction, drug design, and molecular property prediction tasks.",
+      "For drug-target interaction prediction, Y-Mol achieves improvements of 5.02% and 4.13% in AUC score over LLaMA2-7b on DrugBank and DrugCentral datasets, respectively.",
+      "In drug-drug interaction prediction, Y-Mol achieves AUC scores of 0.6523 and 0.6219 on Ryu’s and Deng’s datasets, outperforming LLaMA2-7b by significant margins.",
+      "Y-Mol demonstrates superior performance in drug design, achieving high validity, uniqueness, novelty, and diversity in generated molecules, especially under multiple objectives.",
+      "For molecular property prediction, Y-Mol achieves better R2 scores than LLaMA2-7b across all 12 evaluated properties."
+    ],
+    "baselines": [
+      "LLaMA2-7b: The base large language model without domain-specific fine-tuning, used as the primary baseline for all tasks."
+    ],
+    "benchmark_datasets": [
+      "DrugBank: Contains drug-target interaction data; used for training and evaluating drug-target interaction prediction.",
+      "DrugCentral: Contains drug-target interaction data; used for training and evaluating drug-target interaction prediction.",
+      "Ryu’s dataset: Contains drug-drug interaction events; used for evaluating drug-drug interaction prediction.",
+      "Deng’s dataset: Contains drug-drug interaction events; used for evaluating drug-drug interaction prediction."
+    ],
+    "evaluation_metrics": [
+      "ROC-AUC: Receiver operating characteristic area under the curve, used to evaluate binary classification tasks such as drug-target and drug-drug interaction prediction.",
+      "R-square (R2): Used to assess the regression performance for molecular property prediction.",
+      "Valid: Proportion of syntactically valid molecules generated.",
+      "Unique: Proportion of non-repetitive molecules generated.",
+      "Novelty: Proportion of generated molecules not seen in the training set.",
+      "Diversity: Structural diversity among generated molecules, measured by Tanimoto distance."
+    ],
+    "evidence": [
+      "As shown in Table 1, our proposed Y-Mol outperforms LLaMA2 with an improvement of 5.02% and 4.13% on the AUC score over DrugBank and DrugCentral datasets, respectively.",
+      "The predictive performance is depicted in Table 1, we can observe that Y-Mol achieves superior performance on identifying potential drug interaction events.",
+      "As depicted in Table 2, the overall performance of Y-Mol achieves a superior level. In contrast, the LLaMA2-7b can not generate valid molecules with a bad capacity for domain adaptation.",
+      "The performance is shown in Figure 7, we can observe that Y-Mol has a better R2 score (the smaller, the better) than LLaMA2 on all tasks, indicating Y-Mol has a superior generability on predicting chemical and physical properties.",
+      "we adopt the receiver operating characteristic curve (ROC-AUC) to evaluate Y-Mol. In addition, we model the property predictions as regression tasks, which predict the value of specific properties. We utilize R-square (R2) to assess the prediction capability of Y-Mol. In contrast, the drug design is considered a generation task and we adopt the standard metrics Valid, Unique, Novelty, and Diversity to evaluate the Y-Mol."
+    ]
+  },
+  "limitations": {
+    "limitations": [
+      {
+        "label": "No Standard Paradigm for Drug Development",
+        "explanation": "There is no standard paradigm for formatting and fully utilizing the overflow of drug development data and existing computational methods, which may limit performance.",
+        "evidence": "However, there is no standard paradigm to format the overflow of drug development and fully use these existing methods, which limits the performance of computer-assisted drug development."
+      },
+      {
+        "label": "Cellular Expression Level Not Addressed",
+        "explanation": "The current model does not operate at the cellular expression level, which is identified as a direction for future improvement.",
+        "evidence": "In future work, we will promote Y-Mol to the cellular expression level."
+      }
+    ],
+    "evidence": [
+      "However, there is no standard paradigm to format the overflow of drug development and fully use these existing methods, which limits the performance of computer-assisted drug development.",
+      "In future work, we will promote Y-Mol to the cellular expression level."
+    ]
+  },
+  "future_directions": {
+    "future_directions": [
+      "Extend Y-Mol to operate at the cellular expression level, enhancing its granularity and applicability in drug development."
+    ],
+    "evidence": [
+      "In future work, we will promote Y-Mol to the cellular expression level."
+    ]
+  },
+  "resource_link": {
+    "answer": "https://anonymous.4open.science/r/Y-Mol",
+    "evidence": "The source code is available at https://anonymous.4open.science/r/Y-Mol."
+  },
+  "paper_title": "Y-Mol: A Multiscale Biomedical Knowledge-Guided Large Language Model for Drug Development",
+  "authors": [
+    "Tengfei",
+    "Xuan",
+    "Tianle",
+    "Chaoyi",
+    "Long",
+    "Peng",
+    "Xibao",
+    "Xinyu",
+    "Daojian",
+    "Dongsheng",
+    "Xiangxiang"
+  ],
+  "published": "2024-10-15",
+  "link": "http://arxiv.org/abs/2410.11550"
+}

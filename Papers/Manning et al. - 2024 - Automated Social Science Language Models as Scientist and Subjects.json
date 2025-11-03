@@ -1,0 +1,205 @@
+{
+  "objective": {
+    "answer": "The primary objective of the paper is to present and demonstrate an automated approach for generating and testing social scientific hypotheses in silico using large language models and structural causal models. The authors aim to automate the entire social scientific process, from hypothesis generation to experimental design, execution, and analysis, using language model-powered agents. They seek to show that such automation is possible and to evaluate whether insights from these simulations can be obtained beyond direct elicitation from language models.",
+    "evidence": "We present an approach for automatically generating and testing, in silico, social scientific hypotheses. This automation is made possible by recent advances in large language models (LLM), but the key feature of the approach is the use of structural causal models... We demonstrate the approach with several scenarios: a negotiation, a bail hearing, a job interview, and an auction. In each case, causal relationships are both proposed and tested by the system, finding evidence for some and not others."
+  },
+  "knowledge_gap": {
+    "answer": "There has been little work on efficiently generating and testing econometric models of human behavior in an automated fashion, particularly the automation of hypothesis generation and experimental testing, which has traditionally been a human task.",
+    "evidence": "There is much work on efficiently estimating econometric models of human behavior but comparatively little work on efficiently generating and testing those models to estimate. Previously, developing such models and hypotheses to test was exclusively a human task."
+  },
+  "novelty": {
+    "answer": [
+      "The use of structural causal models as a blueprint for fully automating the social scientific process, including hypothesis generation, experimental design, execution, and analysis.",
+      "Development of an open-source computational system that autonomously generates hypotheses, designs experiments, runs simulations with language model-powered agents, and analyzes results.",
+      "Demonstration that simulations with language model agents can elicit insights not available through direct elicitation from the language model.",
+      "Empirical validation that the system's in silico experiments can closely match theoretical predictions from economic theory, such as auction theory."
+    ],
+    "evidence": [
+      "The key innovation in our approach is the use of structural causal models to organize the research process. Structural causal models are mathematical representations of cause and effect (Pearl, 2009b; Wright, 1934) and have long offered a language for expressing hypotheses. What is novel in our paper is the use of these models as a blueprint for the design of agents and experiments.",
+      "We built an open-source computational system implementing this structural causal model-based approach. The system can automatically generate hypotheses, design experiments, run those experiments on independent LLM-powered agents, and analyze the results.",
+      "We provide evidence that the insights from these simulations of social interactions are not available to the LLM purely through direct elicitation.",
+      "In the auction experiment, the in silico simulation results closely match the predictions of auction theory, but elicited predictions of the clearing prices from the LLM are inaccurate."
+    ]
+  },
+  "inspirational_papers": {
+    "answer": [
+      "Pearl, J. (2009b) and Wright, S. (1934) Provided the foundational framework for structural causal models, which this work extends to automated agent and experiment design. (Methodological precursors)",
+      "Aher et al. (2023); Argyle et al. (2023); Bakker et al. (2022); Binz and Schulz (2023b); Brand et al. (2023); Bubeck et al. (2023); Fish et al. (2023); Mei et al. (2024); Park et al. (2023) Prior work showing that large language models can simulate humans as experimental subjects. (Experimental baselines)",
+      "Maskin and Riley (1985); Athey et al. (2011) Auction theory and empirical auction studies used as theoretical baselines for validating the system's auction scenario. (Experimental baselines)",
+      "Horton, J.J. (2023) Prior work on using large language models as simulated economic agents, motivating the use of language models as subjects. (Methodological precursors)"
+    ],
+    "evidence": [
+      "Structural causal models are mathematical representations of cause and effect (Pearl, 2009b; Wright, 1934) and have long offered a language for expressing hypotheses.",
+      "Researchers have shown that Large Language Models (LLM) can simulate humans as experimental subjects with surprising degrees of realism.2",
+      "The auction scenario is particularly illuminating... These simulation results closely match the theory (Maskin and Riley, 1985) and what has been observed empirically (Athey et al., 2011).",
+      "To the extent that these simulation results carry over to human subjects in out-of-sample tasks, they provide another option for testing (Horton, 2023)."
+    ]
+  },
+  "method": {
+    "steps": [
+      {
+        "step": "Select a social scenario of interest.",
+        "input": "A textual description of a social scenario (e.g., negotiation, bail hearing, job interview, auction).",
+        "output": "Scenario context for further processing.",
+        "tools": [
+          "GPT-4 (Large Language Model): Used to interpret and process the scenario description."
+        ],
+        "evidence": "The system takes as input some scenario of social scientific interest: a negotiation, a bail decision, a job interview, an auction, and so on."
+      },
+      {
+        "step": "Generate hypotheses as structural causal models (SCMs).",
+        "input": "Scenario context.",
+        "output": "A structural causal model specifying outcomes, potential causes, and operationalizations.",
+        "tools": [
+          "GPT-4: Queried to generate relevant agents, outcomes, causes, and operationalizations."
+        ],
+        "evidence": "The first step is to generate hypotheses as SCMs based on the social scenario, the scenario being the only necessary input to the system. This is done by querying an LLM for the relevant agents and then interesting outcomes, their potential causes, and methods to operationalize and measure both."
+      },
+      {
+        "step": "Construct agents with specified attributes.",
+        "input": "SCM variables and operationalizations.",
+        "output": "LLM-powered agents with assigned roles and attributes (e.g., buyer, seller, budgets).",
+        "tools": [
+          "GPT-4: Used to generate agent roles, names, goals, constraints, and assign attribute values."
+        ],
+        "evidence": "By 'construct,' we mean that the system prompts independent LLMs to be people with sets of attributes. These attributes are the exogenous dimensions of the SCM, dimensions that are varied in each simulation."
+      },
+      {
+        "step": "Design and execute the experiment (simulate agent interactions).",
+        "input": "Agents with attributes, SCM, experimental design parameters (e.g., turn-taking protocol, stopping rules).",
+        "output": "Simulated conversation transcripts and agent responses for each experimental condition.",
+        "tools": [
+          "GPT-4: Powers each agent's conversational turns.",
+          "Python: Orchestrates simulation runs and manages agent interactions."
+        ],
+        "evidence": "Now, the system runs the experiment. The conditions are simulated in parallel (step 5 in Figure 1), each with a different value for the exogenous dimensions of the SCM—the possible budgets for the buyer."
+      },
+      {
+        "step": "Survey agents to collect outcome data.",
+        "input": "Simulation transcripts, predefined survey questions.",
+        "output": "Structured data on outcomes and variables for each simulation.",
+        "tools": [
+          "GPT-4: Used to answer survey questions based on agent memory of the simulation."
+        ],
+        "evidence": "Finally, the system gathers the data for analysis. Outcomes are measured by asking the agents the survey questions (Figure 1, step 6) as determined before the experiment."
+      },
+      {
+        "step": "Analyze results and fit the structural causal model.",
+        "input": "Collected data (outcomes and exogenous variables), SCM structure.",
+        "output": "Estimated path coefficients and fitted SCM.",
+        "tools": [
+          "R package lavaan: Used to estimate all paths in the model.",
+          "Python: Prepares data and interfaces with lavaan."
+        ],
+        "evidence": "The data is then used to estimate the linear SCM. For our negotiation, that would be a simple linear model with a single path estimate (i.e., linear coefficient) for the effect of the buyer’s budget on the probability of a deal—the final step in Figure 1."
+      },
+      {
+        "step": "Optionally, use fitted SCM to inform follow-on experiments or predictions.",
+        "input": "Fitted SCM, experimental results.",
+        "output": "New hypotheses, experimental designs, or predictions for new scenarios.",
+        "tools": [
+          "GPT-4: Can be prompted to generate new variables or predict outcomes using the fitted SCM."
+        ],
+        "evidence": "Once there is a fitted SCM, this process can be repeated. Although we have not automated the transition from one experiment to the next, the system can generate new causal variables, induce variations, and run another experiment based on the results of the first."
+      }
+    ],
+    "tools": [
+      "GPT-4: Large language model used for generating hypotheses, constructing agents, simulating conversations, and answering survey questions.",
+      "Python: Orchestrates the system, manages data, and interfaces with other tools.",
+      "R package lavaan: Used for estimating path coefficients in structural causal models."
+    ],
+    "evidence": [
+      "The system is implemented in Python and uses GPT-4 for all LLM queries.",
+      "The system uses the R package lavaan to estimate all paths in the model (Rosseel, 2012)."
+    ]
+  },
+  "subject_area": {
+    "areas": [
+      "Social Sciences"
+    ],
+    "evidence": [
+      "We present an approach for automatically generating and testing, in silico, social scientific hypotheses.",
+      "We use this system to explore several social scenarios: (1) two people bargaining over a mug, (2) a bail hearing for tax fraud, (3) a lawyer interviewing for a job, and (4) an open ascending price auction with private values for a piece of art."
+    ]
+  },
+  "performance_summary": {
+    "performance_summary": [
+      "The system successfully automated the generation and testing of social scientific hypotheses across multiple scenarios, producing results consistent with economic theory (e.g., auction theory) and empirical findings.",
+      "In the auction scenario, the simulated clearing prices closely matched theoretical predictions, while direct elicitation from the language model was inaccurate.",
+      "When the language model was provided with the fitted structural causal model, its predictions improved significantly (mean squared error six times lower), but still did not match the accuracy of theoretical predictions.",
+      "The system's experimental results were generally not counterintuitive but were empirically validated rather than introspected."
+    ],
+    "baselines": [
+      "Auction theory (Maskin and Riley, 1985): Used as a theoretical baseline for the auction scenario, predicting that the clearing price is the second-highest reservation price.",
+      "Direct elicitation from the language model: The language model is prompted to predict outcomes or path estimates without running simulations."
+    ],
+    "benchmark_datasets": [
+      "Not reported in the paper"
+    ],
+    "evaluation_metrics": [
+      "Mean Squared Error (MSE): Used to compare the accuracy of predicted outcomes (e.g., clearing prices) from the language model and theoretical predictions.",
+      "Statistical significance (p-values): Used to assess the significance of estimated path coefficients in the fitted structural causal models."
+    ],
+    "evidence": [
+      "In the auction experiment, the in silico simulation results closely match the predictions of auction theory, but elicited predictions of the clearing prices from the LLM are inaccurate.",
+      "The mean squared error (MSE) of the LLM’s predictions in the predict-yi task (MSEyi = 8628) is an order of magnitude higher than that of the theoretical predictions (MSETheory = 128), and the predictions are even further from the theory than they are from the empirical results (MSEyi−Theory = 8915).",
+      "In this “predict-yi|ˆβ−i” task, the predictions are far better than in the predict-yi task without the fitted model. The mean squared error is six times lower, and the predictions are much closer to those made by the theory, but they are still further from the theory than they are to the simulations."
+    ]
+  },
+  "limitations": {
+    "limitations": [
+      {
+        "label": "Simulation-to-Human Generalizability",
+        "explanation": "There is a fundamental gap between results from simulated language model agents and real human subjects, which may limit the generalizability of findings.",
+        "evidence": "There is still, of course, the fundamental jump from simulations to human subjects."
+      },
+      {
+        "label": "Stopping Rule Heuristics",
+        "explanation": "The system uses heuristic stopping rules for simulated conversations, which may not always reflect natural human conversational dynamics.",
+        "evidence": "We set two stopping conditions for the simulations... One could imagine doing something more sophisticated both with the social interactions and the stopping conditions in the future."
+      },
+      {
+        "label": "Attribute Selection for Agents",
+        "explanation": "The process for selecting which attributes to endow agents with is not optimized, potentially affecting simulation fidelity.",
+        "evidence": "First is the problem of “which attributes” to endow an LLM-powered agent beyond those immediately relevant to the proposed exogenous variables... it is unclear how to optimize this process."
+      },
+      {
+        "label": "Manual Intervention for Follow-on Experiments",
+        "explanation": "The transition from one experiment to the next is not fully automated, requiring manual intervention for follow-on experimental design.",
+        "evidence": "Although we have not automated the transition from one experiment to the next, the system can generate new causal variables, induce variations, and run another experiment based on the results of the first."
+      }
+    ],
+    "evidence": [
+      "There is still, of course, the fundamental jump from simulations to human subjects.",
+      "We set two stopping conditions for the simulations... One could imagine doing something more sophisticated both with the social interactions and the stopping conditions in the future.",
+      "First is the problem of “which attributes” to endow an LLM-powered agent beyond those immediately relevant to the proposed exogenous variables... it is unclear how to optimize this process.",
+      "Although we have not automated the transition from one experiment to the next, the system can generate new causal variables, induce variations, and run another experiment based on the results of the first."
+    ]
+  },
+  "future_directions": {
+    "future_directions": [
+      "Optimize the process of selecting agent attributes to improve simulation fidelity.",
+      "Develop more sophisticated protocols for agent turn-taking and conversation stopping rules, potentially using models trained on real conversation data.",
+      "Automate the process of follow-on experimentation, enabling continuous cycles of hypothesis generation and testing.",
+      "Explore the integration of diverse language models for different system components and allow for more customizable experimental designs."
+    ],
+    "evidence": [
+      "First is the problem of “which attributes” to endow an LLM-powered agent beyond those immediately relevant to the proposed exogenous variables. For example, demographic information, personalities, and other traits are not included in the agent’s attributes unless they are a part of the SCM. To improve the fidelity of the simulations, it might make sense to add some or all of these attributes to the agents. However, it is unclear how to optimize this process.",
+      "A related problem is the question of when to stop the simulations. Like Turing’s halting problem, there is likely no universal rule for when conversations should end, but there are probably better rules than those we have implemented. A Markov model approximating the distribution of agents speaking, estimated from real conversation data, might provide more naturalistic results for simulating and ending interactions, but that is an idea for future work.",
+      "Lastly, if we can build a system that can automate one iteration of the scientific process and determine a follow-on experiment, a clear next step is to set up an intelligently automated research program. This would involve using outcomes from the simulations to inform continuous cycles of experimentation.",
+      "A researcher can even ignore much of the automation process and fill in the details themselves. They can choose the variables of interest, their operationalizations, the attributes of the agents, how the agents interact, or customize the statistical analysis, among other decision points. Different parts of the system can also accommodate different types of LLMs simultaneously."
+    ]
+  },
+  "resource_link": {
+    "answer": "http://www.benjaminmanning.io/",
+    "evidence": "Author’s contact information, code, and data are currently or will be available at http://www.benjaminmanning.io/."
+  },
+  "paper_title": "Automated Social Science: Language Models as Scientist and Subjects",
+  "authors": [
+    "Benjamin S.",
+    "Kehang",
+    "John J."
+  ],
+  "published": "2024-04-25",
+  "link": "http://arxiv.org/abs/2404.11794"
+}

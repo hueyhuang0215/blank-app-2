@@ -1,0 +1,190 @@
+{
+  "objective": {
+    "answer": "The primary objective of the paper is to develop and evaluate a Multimodal Large Language Model-based framework, called URBANX, for interpretable, automated hypothesis discovery in urban and transportation science, specifically focusing on uncovering visual factors from street view imagery that influence road safety. The authors aim to automate the generation, assessment, and refinement of hypotheses linking urban form to transportation safety outcomes, overcoming limitations of manual, expert-driven, and black-box approaches.",
+    "evidence": "To address these limitations, we propose a Multimodal Large Language Model (MLLM)-based approach for interpretable hypothesis inference, enabling the automated generation, assessment, and refinement of hypotheses concerning urban form and transportation safety. ... We evaluate our framework on Manhattan street segments and demonstrate that it outperforms pretrained deep learning baselines while offering full interpretability."
+  },
+  "knowledge_gap": {
+    "answer": "Existing urban and transportation research workflows are limited by manual, expert-driven hypothesis generation, lack of interpretability in deep learning models, and underutilization of unstructured data such as street view imagery, making it difficult to discover new, interpretable factors influencing road safety.",
+    "evidence": "However, traditional workflows face several key challenges: (1) reliance on human experts to propose hypotheses, which can be time-consuming and prone to confirmation bias; (2) limited interpretability, particularly in deep learning approaches; and (3) underutilization of unstructured data that encodes critical urban context. ... These limitations make it difficult to explore the urban hypothesis space at scale, especially in transportation safety and mobility applications where transparency, generalizability, and human interpretability are essential for real-world adoption."
+  },
+  "novelty": {
+    "answer": [
+      "Formalizing scientific discovery in urban domains as an inference problem over a natural language hypothesis space, enabling machines to generate, evaluate, and refine hypotheses directly from structured and unstructured data.",
+      "Introducing the use of Multimodal Large Language Models as semantic engines to translate unstructured visual inputs (such as street view images) into structured, interpretable variables guided by natural language hypotheses.",
+      "Developing an interpretable, nonparametric, iterative framework for hypothesis inference that integrates hypothesis generation, embedding construction, and statistical assessment, supporting scalable and statistically grounded discovery of novel urban factors.",
+      "Demonstrating the framework's ability to uncover novel, interpretable visual variables significantly correlated with crash rates, outperforming strong vision baselines while maintaining interpretability."
+    ],
+    "evidence": [
+      "We formalize scientific discovery in urban domains as an inference problem over a hypothesis space, where each hypothesis is a natural language statement linking urban form to societal outcomes. This formulation enables machines to generate, evaluate, and refine hypotheses directly from structured and unstructured data, establishing a scalable foundation for data-driven urban and transportation research.",
+      "We introduce a novel use of MLLMs as semantic engines that translate unstructured inputs, such as SVIs, into structured and interpretable variables guided by natural language hypotheses. This approach integrates visual perception with statistical reasoning in a unified and human-interpretable framework, expanding the methodological toolkit for urban and transportation systems analysis.",
+      "We develop an interpretable, nonparametric framework for hypothesis inference, implemented as an iterative procedure over the hypothesis space. At each iteration, the framework generates new hypotheses, constructs semantically aligned representations, and evaluates variable significance using transparent statistical models. This process enables scalable, statistically grounded discovery of novel urban factors while reducing manual effort in scientific discovery and exploratory analysis.",
+      "We apply our framework to study road safety in the Manhattan area and demonstrate its ability to uncover novel, interpretable visual variables that significantly correlate with crash rates. Our approach outperforms strong vision baselines in predictive performance while maintaining interpretability through hypothesis-level attribution."
+    ]
+  },
+  "inspirational_papers": {
+    "answer": [
+      "- Yu et al. (2024); Xue et al. (2024) Studies examining links between built environment and traffic safety. (Experimental baselines)",
+      "- Xia et al. (2025); Hu et al. (2024) Approaches relying on expert-curated variables or black-box predictive models, whose limitations are addressed by this work. (Papers with limitations addressed)",
+      "- Biljecki and Ito (2021) Work highlighting the challenge of quantifying unstructured urban data such as street-level imagery. (Methodological precursors)",
+      "- Xia et al. (2025); Lopez et al. (2025) Recent frameworks using large language models for causal inference or hypothesis generation in urban contexts. (Methodological precursors)"
+    ],
+    "evidence": [
+      "Researchers across domains such as transportation, planning, and public policy have long sought to uncover statistically meaningful links between the built environment and key outcomes such as traffic safety Yu et al. (2024); Xue et al. (2024), walkability Ewing and Handy (2009); Ignatius et al. (2024), equity Guzman and Bocarejo (2017); Bang et al. (2025), and environmental health Majchrowska et al. (2022).",
+      "Despite recent progress in data-driven urban research, existing methodological pipelines face critical challenges in discovering new, interpretable factors from complex urban environments. Traditional approaches often rely on expert-curated variables, black-box predictive models, or handcrafted metrics to study specific urban dimensions Xia et al. (2025); Hu et al. (2024).",
+      "Much of the relevant contextual information is embedded in unstructured formats such as street-level imagery, architectural layouts, and visual cues tied to human perception Biljecki and Ito (2021), which remain difficult to quantify through conventional feature engineering or structured data pipelines Nie et al. (2025).",
+      "Recent explorations into AI-driven scientific discovery have begun to address some of these issues. For example, frameworks are emerging that use large language models for causal inference in urban contexts Xia et al. (2025) or to assist in generating hypotheses in other scientific fields by leveraging knowledge graphs alongside LLMs Lopez et al. (2025)."
+    ]
+  },
+  "method": {
+    "steps": [
+      {
+        "step": "Hypothesis Generation",
+        "input": "Existing hypothesis set, their statistical significance (p-values), and design guidelines; optionally, prior hypotheses and their outcomes.",
+        "output": "A new set of semantically rich, visually grounded natural language hypotheses (questions with categorical answers) relevant to road safety.",
+        "tools": [
+          "GPT-4o (Large Language Model): Used to generate new hypotheses based on prompts including prior hypotheses and their statistical outcomes."
+        ],
+        "evidence": "At each iteration 𝑡, the framework refines the hypothesis set 𝑡−1 using statistical evidence derived from the previous assessment. ... we leverage LLMs as generative engines for proposing semantically rich, visually grounded hypotheses expressed in natural language."
+      },
+      {
+        "step": "Embedding Construction",
+        "input": "Street view images, current set of generated hypotheses.",
+        "output": "Structured, interpretable embedding vectors for each image, where each dimension corresponds to the MLLM-inferred answer to a hypothesis.",
+        "tools": [
+          "InternVL2.5-78B (Multimodal Large Language Model): Used to answer the generated hypotheses for each image, producing categorical responses."
+        ],
+        "evidence": "For each SVI 𝑥𝑖, we employ an MLLM to infer categorical responses to each hypothesis ℎ𝑡𝑗∈𝑡, based solely on the visual content of the SVI. ... To construct visual embeddings based on structured prompts, we use InternVL2.5-78B Chen et al. (2024)."
+      },
+      {
+        "step": "Hypothesis Assessment",
+        "input": "Embedding matrix (responses to hypotheses for all images), crash rate labels for each image.",
+        "output": "Statistical significance (p-values) and regression coefficients for each hypothesis-derived variable; identification of significant and insignificant hypotheses.",
+        "tools": [
+          "Linear Regression: Used to model the relationship between hypothesis-derived variables and crash rates, providing coefficient estimates and p-values."
+        ],
+        "evidence": "We fit a linear model of the form: 𝑦𝑖= 𝛽0 + ∑𝑘𝑗=1 𝛽𝑗𝑒𝑡𝑖𝑗+ 𝜀𝑖, ... We then apply a two-sided 𝑡-test to each coefficient 𝛽𝑗 to assess the null hypothesis that 𝛽𝑗= 0, using standard errors estimated from the fitted model."
+      },
+      {
+        "step": "Iterative Posterior Approximation",
+        "input": "Current hypothesis set, their statistical significance, and empirical performance on validation data.",
+        "output": "Refined hypothesis set with improved relevance and predictive utility; convergence to a compact, interpretable set of variables.",
+        "tools": [
+          "Iterative loop combining LLM-based generation, MLLM-based embedding, and regression-based assessment."
+        ],
+        "evidence": "The proposed framework operates through an iterative loop that alternates between hypothesis generation, embedding construction, and hypothesis assessment. ... The full procedure is summarized in Algorithm 1."
+      }
+    ],
+    "tools": [
+      "GPT-4o: Large Language Model used for generating new hypotheses in natural language.",
+      "InternVL2.5-78B: Multimodal Large Language Model used for answering visual questions about street view images.",
+      "Linear Regression: Used for interpretable statistical modeling and hypothesis assessment.",
+      "LightGBM: Used as an alternative downstream predictor for performance comparison."
+    ],
+    "evidence": [
+      "For hypothesis generation, we use GPT-4o Hurst et al. (2024)4. To construct visual embeddings based on structured prompts, we use InternVL2.5-78B Chen et al. (2024)5.",
+      "We fit a linear model of the form: 𝑦𝑖= 𝛽0 + ∑𝑘𝑗=1 𝛽𝑗𝑒𝑡𝑖𝑗+ 𝜀𝑖, ... We then apply a two-sided 𝑡-test to each coefficient 𝛽𝑗 to assess the null hypothesis that 𝛽𝑗= 0, using standard errors estimated from the fitted model.",
+      "Our proposed framework replaces latent visual features with structured, interpretable embeddings derived from MLLM responses to hypothesis-driven prompts. We evaluate two variants: one using linear regression (LR) Montgomery et al. (2021) and another using LightGBM (LGBM) Ke et al. (2017) as the downstream predictor."
+    ]
+  },
+  "subject_area": {
+    "areas": [
+      "Applied Sciences & Engineering",
+      "Social Sciences"
+    ],
+    "evidence": [
+      "Understanding how the physical structure of cities shapes societal outcomes is a core objective of urban and transportation science.",
+      "Our work makes the following contributions: ... expanding the methodological toolkit for urban and transportation systems analysis."
+    ]
+  },
+  "performance_summary": {
+    "performance_summary": [
+      "The URBANX framework outperforms standard deep learning baselines (ResNet-50 and Vision Transformer) in predicting segment-level crash rates using only interpretable, hypothesis-driven embeddings derived from street view images.",
+      "URBANX achieves lower root mean squared error and mean absolute error, and higher coefficient of determination compared to baselines.",
+      "The model generalizes well spatially, reproducing neighborhood-level trends and spatial clusters of crash risk in Manhattan.",
+      "Hypothesis-derived variables are among the most influential features in regression models, often surpassing traditional built environment features."
+    ],
+    "baselines": [
+      "ResNet-50: A convolutional neural network fine-tuned to regress crash rates from raw images.",
+      "Vision Transformer (ViT-B/16): A transformer-based architecture that segments images into patches for self-attention processing, fine-tuned for crash rate prediction."
+    ],
+    "benchmark_datasets": [
+      "Manhattan street segments dataset: Includes 16,000 images for training, 2,000 for validation, and 2,000 for testing, with crash records from NYC Open Data, traffic volume data from the New York State Department of Transportation, and street-view imagery from Google Street View API. Used for training, validation, and testing of all models."
+    ],
+    "evaluation_metrics": [
+      "Root Mean Squared Error (RMSE): Measures the square root of the average squared differences between predicted and actual crash rates.",
+      "Mean Absolute Error (MAE): Measures the average absolute differences between predicted and actual crash rates.",
+      "Coefficient of Determination (R2): Measures the proportion of variance in crash rates explained by the model."
+    ],
+    "evidence": [
+      "Figure 3: Performance comparison between ResNet, ViT, and our interpretable embedding-based models using linear regression (LR) and LightGBM (LGBM). Lower MAE (↓) and RMSE (↓), and higher 𝑅2 (↑), indicate better performance. Our method achieves the best results across all three metrics.",
+      "After preprocessing and filtering, the dataset includes 16,000 images for training, 2,000 for validation, and 2,000 for testing.",
+      "For the baselines, we fine-tune two representative image encoders to directly regress crash rates from raw images: ResNet-50, a widely adopted convolutional neural network, and ViT-B/16, a transformer-based architecture that segments each image into 16 × 16 patches for self-attention processing.",
+      "These metrics are formally defined as follows: RMSE = ... MAE = ... 𝑅2 = ..."
+    ]
+  },
+  "limitations": {
+    "limitations": [
+      {
+        "label": "Reliance on Foundation Model Alignment",
+        "explanation": "The correctness of results depends on the alignment and reliability of the underlying Multimodal Large Language Models and Large Language Models, which may introduce errors in visual understanding or commonsense reasoning.",
+        "evidence": "Notably, our reliance on foundation models introduces limitations. The correctness of our results depends on the alignment and reliability of the underlying MLLMs and LLMs. Errors in visual understanding or gaps in commonsense reasoning may lead to spurious or irrelevant hypotheses."
+      },
+      {
+        "label": "Computational Overhead",
+        "explanation": "The iterative nature of the approach incurs significant computational overhead due to repeated prompting and inference.",
+        "evidence": "Moreover, the iterative nature of our approach, while principled, incurs significant computational overhead due to repeated prompting and inference."
+      },
+      {
+        "label": "Resolution Constraints in Visual Data",
+        "explanation": "Errors in hypothesis answering often stem from insufficient resolution in panoramic images, limiting detection of small or rare features.",
+        "evidence": "Many of the observed errors, especially those involving subtle signage, infrastructure details, or rare objects, can be traced directly to insufficient resolution in the source image."
+      },
+      {
+        "label": "Redundancy and Granularity in Hypotheses",
+        "explanation": "Some generated hypotheses overlap in meaning or are ambiguous, suggesting a need for post-generation clustering and refinement.",
+        "evidence": "A few hypotheses partly overlap in meaning. ... While some redundancy is expected in an open-ended search, it suggests an opportunity to introduce a post-generation clustering step that merges semantically similar queries and thereby yields a more parsimonious variable set."
+      },
+      {
+        "label": "Categorical Framing Limitations",
+        "explanation": "All queries are currently coded as categorical questions, which may obscure gradations of exposure for inherently continuous variables.",
+        "evidence": "Categorical framing limitations. All queries are currently coded as questions with categorical answers. While this choice simplifies MLLM inference and statistical testing, it can obscure gradations of exposure. Road width, traffic density, and billboard prominence are inherently continuous or ordinal."
+      }
+    ],
+    "evidence": [
+      "Notably, our reliance on foundation models introduces limitations. The correctness of our results depends on the alignment and reliability of the underlying MLLMs and LLMs. Errors in visual understanding or gaps in commonsense reasoning may lead to spurious or irrelevant hypotheses.",
+      "Moreover, the iterative nature of our approach, while principled, incurs significant computational overhead due to repeated prompting and inference.",
+      "Many of the observed errors, especially those involving subtle signage, infrastructure details, or rare objects, can be traced directly to insufficient resolution in the source image.",
+      "A few hypotheses partly overlap in meaning. ... While some redundancy is expected in an open-ended search, it suggests an opportunity to introduce a post-generation clustering step that merges semantically similar queries and thereby yields a more parsimonious variable set.",
+      "Categorical framing limitations. All queries are currently coded as questions with categorical answers. While this choice simplifies MLLM inference and statistical testing, it can obscure gradations of exposure. Road width, traffic density, and billboard prominence are inherently continuous or ordinal."
+    ]
+  },
+  "future_directions": {
+    "future_directions": [
+      "Extend the approach to dynamic data and integrate causal inference methods.",
+      "Benefit from ongoing advances in the alignment and efficiency of foundation models.",
+      "Expand applicability to other domains such as walkability, equity, and environmental quality.",
+      "Permit richer descriptions by extending to multi-class or scalar responses for hypotheses."
+    ],
+    "evidence": [
+      "Future work may extend this approach to dynamic data, integrate causal inference, and benefit from ongoing advances in the alignment and efficiency of foundation models.",
+      "The generality of URBANX enables broad applicability to other domains such as walkability, equity, and environmental quality, where unstructured data possesses rich information and model interpretability are central.",
+      "Extending URBANX to multi-class or scalar responses would permit richer descriptions while retaining interpretability."
+    ]
+  },
+  "resource_link": {
+    "answer": "https://github.com/YihongT/UrbanX.git",
+    "evidence": "§ Project: https://github.com/YihongT/UrbanX.git"
+  },
+  "paper_title": "From Street Views to Urban Science: Discovering Road Safety Factors with Multimodal Large Language Models",
+  "authors": [
+    "Yihong",
+    "Ao",
+    "Xujing",
+    "Weipeng",
+    "Jun",
+    "Jinhua",
+    "Lijun"
+  ],
+  "published": "2025-06-17",
+  "link": "http://arxiv.org/abs/2506.02242"
+}

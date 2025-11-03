@@ -1,0 +1,203 @@
+{
+  "objective": {
+    "answer": "The primary objective of the paper is to propose a model-agnostic latent-space ideation framework that enables controlled and scalable creativity by navigating the continuous embedding space of ideas. The authors aim to overcome the limitations of large language models in generating novel and relevant ideas without relying on handcrafted rules or extensive prompt engineering. The framework is designed to be adaptable across different domains, input formats, and creative tasks.",
+    "evidence": "In this paper, we propose a model-agnostic latent-space ideation framework that enables controlled, scalable creativity by navigating the continuous embedding space of ideas. Unlike prior methods, our framework requires no handcrafted rules and adapts easily to different domains, input formats, and creative tasks."
+  },
+  "knowledge_gap": {
+    "answer": "Existing large language models struggle to generate truly original or imaginative outputs, often replicating familiar patterns from their training data, and current creativity enhancement methods rely on brittle, domain-specific heuristics that are difficult to generalize.",
+    "evidence": "LLMs often struggle to generate truly original or imaginative outputs. Because they are trained on vast repositories of existing data, LLMs tend to follow familiar patterns, leading to repetitive or “safe” ideas that lack genuine novelty (Mizrahi et al., 2025). ... Such heuristic-seeding approaches—though effective—illustrate the cost of hand-tailoring rules and representations for each domain to unlock higher-level creativity."
+  },
+  "novelty": {
+    "answer": [
+      "Introduction of a model-agnostic latent-space ideation framework that explores the continuous embedding space of ideas to generate novel concepts.",
+      "The framework does not require handcrafted rules or domain-specific representations, making it adaptable to various domains and input formats.",
+      "Implementation of a modular pipeline that includes semantic encoding, latent space exploration (via interpolation, extrapolation, or noise), cross-modal projection, and LLM-based evaluation.",
+      "Demonstration of iterative, feedback-driven idea generation that mirrors human brainstorming and enables infinite exploration of creative ideas."
+    ],
+    "evidence": [
+      "In this work, we propose a novel solution: a model-agnostic latent-space ideation framework that automatically explores variations of seed ideas in a continuous latent “idea space.”",
+      "Unlike prior methods, our framework requires no handcrafted rules and adapts easily to different domains, input formats, and creative tasks.",
+      "The architecture is model-agnostic and task-agnostic, meaning each module can leverage different underlying models without altering the overall pipeline.",
+      "This iterative, self-improving loop allows the system to continually uncover novel and relevant ideas, enhancing its creative capacity over time."
+    ]
+  },
+  "inspirational_papers": {
+    "answer": [
+      "- Mizrahi et al. (2025) Their structured representation and recombination pipeline for creativity inspired the need for a more general, automated framework. (Methodological precursors)",
+      "- Holysz et al. (2025) Their multi-stage LLM pipeline for synthetic medical data generation highlighted the limitations of domain-specific heuristics. (Methodological precursors)",
+      "- Lu et al. (2024) Their LLM Discussion framework serves as a baseline and inspiration for multi-agent creativity enhancement. (Experimental baseline and methodological precursor)"
+    ],
+    "evidence": [
+      "For example, Mizrahi et al. (2024) introduce a pipeline that parses textual inputs into structured representations and recombines them to generate creative outcomes (Mizrahi et al., 2025).",
+      "Complementing this line of work, Holysz et al. (2025) propose a multi-stage LLM pipeline for synthesizing realistic medical datasets: the system first seeds generation with domain-specific “chief complaints,” then incrementally expands them into full patient profiles and simulated clinical dialogues, using tightly crafted schemas to preserve medical plausibility (Holysz et al., 2025).",
+      "LLM Discussion (Lu et al., 2024) proposes a multi-agent discussion framework in which several LLM instances assume diverse roles and collectively tackle open-ended prompts (Lu et al., 2024)."
+    ]
+  },
+  "method": {
+    "steps": [
+      {
+        "step": "Problem Comprehension & Seed Generation (Optional)",
+        "input": "Creative brief or user-provided seed ideas.",
+        "output": "Set of diverse, high-level idea snippets.",
+        "tools": [
+          "Large language model (e.g., Mistral 7B) for initial idea generation."
+        ],
+        "evidence": "If initial ideas or prompts are not provided, the framework begins by interpreting the task context and producing seed concepts. A large language model (LLM) receives the creative brief and returns a set of diverse, high-level idea snippets that serve as anchors for subsequent latent-space exploration."
+      },
+      {
+        "step": "Latent Encoding",
+        "input": "Seed idea texts.",
+        "output": "Dense semantic latent vectors (embeddings) for each idea.",
+        "tools": [
+          "Sentence embedding model (e.g., SRF-Embeddings-Mistral) to encode text into latent vectors."
+        ],
+        "evidence": "Each seed idea is encoded into a fixed-dimensional latent vector using a text encoder."
+      },
+      {
+        "step": "Embedding-Space Exploration",
+        "input": "Set of latent embeddings.",
+        "output": "New candidate idea embeddings via interpolation, extrapolation, or noise-based perturbations.",
+        "tools": [
+          "Latent explorer module implementing interpolation, extrapolation, or noise-based sampling."
+        ],
+        "evidence": "To generate novel candidate embeddings, we consider several strategies for exploring the latent space around the known set {ei}. These may include: Interpolation... Extrapolation... Noise-based perturbation..."
+      },
+      {
+        "step": "Cross-Modal Projection",
+        "input": "New candidate latent embeddings.",
+        "output": "Projected embeddings in the token embedding space of the decoder LLM.",
+        "tools": [
+          "Learned projector (e.g., MLP Projector) to map latent vectors to LLM token embedding space."
+        ],
+        "evidence": "To decode the new vectors, we map each enew ∈Rd into the token embedding space of a decoder LLM. This is done using a learned projector."
+      },
+      {
+        "step": "Latent-to-Text Decoding",
+        "input": "Projected embeddings as special tokens.",
+        "output": "Natural-language idea descriptions.",
+        "tools": [
+          "Decoder large language model (e.g., Mistral 7B) for text generation."
+        ],
+        "evidence": "With the embedding hX now in context, the decoder LLM generates a textual description: ynew = Dec(hX), where Dec is a decoder LLM prompted to paraphrase hX."
+      },
+      {
+        "step": "Evaluation",
+        "input": "Generated idea descriptions.",
+        "output": "Scored and filtered ideas based on creativity criteria.",
+        "tools": [
+          "Evaluator large language model (e.g., GPT-4o) to score originality and relevancy."
+        ],
+        "evidence": "Each ynew is scored against a creativity. Then, best and valid candidates are selected. ... in this work we use LLM as a Judge as evaluator against main part of creativity rubric introduced in (Lu et al., 2024), particulary: Originality... Relevancy..."
+      },
+      {
+        "step": "Feedback Loop",
+        "input": "High-scoring ideas.",
+        "output": "Extended set of known valid ideas for further exploration.",
+        "tools": [
+          "Iterative pipeline logic for recursive exploration."
+        ],
+        "evidence": "To enable iterative refinement, high-scoring ideas extend known valid ideas manifold, allowing more accurate space exploration. ... This diverge-evaluate-converge cycle mirrors human brainstorming (Lu et al., 2024), and continues until a stopping condition is reached."
+      }
+    ],
+    "tools": [
+      "Large language model (e.g., Mistral 7B): Used for both initial idea generation and decoding latent embeddings into text.",
+      "Sentence embedding model (e.g., SRF-Embeddings-Mistral): Encodes text into dense semantic vectors.",
+      "MLP Projector: Maps latent vectors into the token embedding space of the decoder large language model.",
+      "Evaluator large language model (e.g., GPT-4o): Scores generated ideas for originality and relevancy."
+    ],
+    "evidence": [
+      "As in setup from (Cheng et al., 2024), we use Mistral 7B (Jiang et al., 2023) model as ideas generating LLM (in whole framework), SRF-Embeddings-Mistral (Meng et al., 2024) as encoder, and MLP Projector from (Cheng et al., 2024). For all judgments, we employ GPT-4o.",
+      "Figure 1: Overview of the latent-space ideation framework. Seed ideas from user, or gathered using LLM, are then encoded into embeddings via an encoder. The latent space formed by these embeddings is explored to produce new candidate vectors. These are projected into the token embedding space of a decoder LLM using an xRAG-style projector, enabling generation of novel ideas. The generated outputs are evaluated by an LLM-based judge and can optionally feed back into the prompt or embedding space, supporting iterative refinement."
+    ]
+  },
+  "subject_area": {
+    "areas": [
+      "Applied Sciences & Engineering",
+      "Social Sciences"
+    ],
+    "evidence": [
+      "Creative idea generation is a cornerstone of innovation across domains, from product design and writing to scientific research.",
+      "Our framework is designed to act as a versatile “co-ideator” for humans, adapting to different domains and input formats with minimal effort."
+    ]
+  },
+  "performance_summary": {
+    "performance_summary": [
+      "The proposed latent-space ideation framework consistently improves both originality and fluency of generated ideas compared to the LLM Discussion baseline across multiple creativity benchmarks.",
+      "Performance gains are modest but consistent, with iterative application further enhancing originality and fluency.",
+      "The method's aggressive rejection strategy ensures high-quality outputs but may exclude many relevant ideas, suggesting room for more sophisticated exploration."
+    ],
+    "baselines": [
+      "LLM Discussion (Lu et al., 2024): A multi-agent discussion framework where several large language model instances assume diverse roles and collectively tackle open-ended prompts, serving as the main baseline for creativity enhancement."
+    ],
+    "benchmark_datasets": [
+      "Alternative Uses Test (AUT): Standard creativity benchmark where participants generate unusual uses for common objects; used to evaluate originality, elaboration, fluency, and flexibility of generated ideas.",
+      "Instances: Creativity benchmark involving generation of multiple instances within a category; used for evaluating the same creativity metrics.",
+      "Similarities: Benchmark for generating creative similarities between concepts.",
+      "Scientific ideation tasks: Tasks requiring creative scientific ideas, evaluated on the same metrics."
+    ],
+    "evaluation_metrics": [
+      "Originality: Measures the novelty or unexpectedness of ideas.",
+      "Elaboration: Assesses the level of detail in the generated ideas.",
+      "Fluency: Counts the number of unique relevant responses.",
+      "Flexibility: Measures the diversity of semantic categories or shifts across responses."
+    ],
+    "evidence": [
+      "As shown in Table 1, our method consistently improves both Originality and Fluency each iteration, which shows that latent space exploration can facilitate the generation of highly creative ideas that are otherwise inaccessible through standard prompting strategies.",
+      "As in setup from (Cheng et al., 2024), we use Mistral 7B (Jiang et al., 2023) model as ideas generating LLM (in whole framework), SRF-Embeddings-Mistral (Meng et al., 2024) as encoder, and MLP Projector from (Cheng et al., 2024). For all judgments, we employ GPT-4o.",
+      "We evaluate our method on the benchmark introduced in Lu et al. (2024), in the variant of 10 ideation tasks of each category.",
+      "Table 1: Evaluation of methods across four creativity metrics (Originality, Elaboration, Fluency, Flexibility) on multiple benchmarks."
+    ]
+  },
+  "limitations": {
+    "limitations": [
+      {
+        "label": "Modest Performance Gains",
+        "explanation": "The observed improvements in originality and fluency are modest, especially given the large number of generated candidates.",
+        "evidence": "We acknowledge, however, that the observed performance gains are modest, particularly given the large number of generated candidates."
+      },
+      {
+        "label": "Aggressive Rejection Strategy",
+        "explanation": "The filtering process excludes the majority of generated ideas, potentially discarding valuable outputs.",
+        "evidence": "Although manual inspection suggests that the generated ideas are generally relevant, our aggressive rejection strategy leads to the exclusion of the majority of them."
+      },
+      {
+        "label": "Limited Exploration Strategy",
+        "explanation": "Reliance on interpolation for latent space exploration may limit flexibility and diversity of generated ideas.",
+        "evidence": "The decrease in Flexibility may be attributed to our reliance on interpolation, which blends two samples to generate a new one."
+      }
+    ],
+    "evidence": [
+      "We acknowledge, however, that the observed performance gains are modest, particularly given the large number of generated candidates.",
+      "our aggressive rejection strategy leads to the exclusion of the majority of them.",
+      "The decrease in Flexibility may be attributed to our reliance on interpolation, which blends two samples to generate a new one."
+    ]
+  },
+  "future_directions": {
+    "future_directions": [
+      "Develop more sophisticated latent space exploration strategies, such as swarm-based optimization algorithms, to increase efficiency and flexibility.",
+      "Integrate advanced human-in-the-loop feedback mechanisms and dynamic adjustment of exploration parameters to refine the iterative ideation process.",
+      "Develop more efficient and nuanced scoring functions for evaluating generated ideas, moving beyond reliance on GPT-4o.",
+      "Explore specialized, lightweight evaluators or incorporate more objective, domain-specific metrics to streamline the feedback loop."
+    ],
+    "evidence": [
+      "Developing more sophisticated latent space exploration strategies, such as swarm-based optimization algorithms, will be crucial to increase the efficiency of idea generation and improve flexibility.",
+      "Furthermore, integrating more advanced human-in-the-loop feedback mechanisms and dynamic adjustment of exploration parameters could further refine the iterative ideation process.",
+      "We also recognize the need for more efficient and nuanced scoring functions to evaluate generated ideas, moving beyond reliance on GPT-4o as a judge.",
+      "Exploring specialized, potentially lightweight, evaluators or incorporating more objective, domain-specific metrics could significantly streamline the feedback loop."
+    ]
+  },
+  "resource_link": {
+    "answer": "",
+    "evidence": "No code repository, project website, or data repository link is provided in the paper."
+  },
+  "paper_title": "Large Language Models as Innovators: A Framework to Leverage Latent Space Exploration for Novelty Discovery",
+  "authors": [
+    "Mateusz",
+    "Mikołaj",
+    "Grzegorz",
+    "Nitesh V.",
+    "Tomasz"
+  ],
+  "published": "2025-07-18",
+  "link": "http://arxiv.org/abs/2507.13874"
+}

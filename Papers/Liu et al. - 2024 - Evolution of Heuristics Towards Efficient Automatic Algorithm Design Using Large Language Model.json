@@ -1,0 +1,198 @@
+{
+  "objective": {
+    "answer": "The primary objective of the paper is to propose Evolution of Heuristic (EoH), a novel evolutionary paradigm that leverages both large language models and evolutionary computation methods for automatic heuristic design. The authors aim to efficiently and automatically generate high-performance heuristics for combinatorial optimization problems, reducing the need for manual, expert-driven heuristic development.",
+    "evidence": "This paper proposes Evolution of Heuristic (EoH), a novel evolutionary paradigm that leverages both Large Language Models (LLMs) and Evolutionary Computation (EC) methods for Automatic Heuristic Design (AHD). EoH represents the ideas of heuristics in natural language, termed thoughts. They are then translated into executable codes by LLMs. The evolution of both thoughts and codes in an evolutionary search framework makes it very effective and efficient for generating high-performance heuristics."
+  },
+  "knowledge_gap": {
+    "answer": "Manual design of heuristics for complex optimization problems is labor-intensive, requires significant expert knowledge, and existing automatic heuristic design methods either require hand-crafted components or are computationally inefficient.",
+    "evidence": "However, manual design of heuristics can be often very labour extensive and requires rich working experience and knowledge... GP requires a set of permissible primitives or mutation operations for defining and generating heuristics. It could be very difficult to construct a suitable set in practice (O’Neill et al., 2010). ... FunSearch is computationally expensive and usually needs to generate millions of programs (i.e., queries to LLMs) to identify an effective heuristic function, which is not very practical for many users."
+  },
+  "novelty": {
+    "answer": [
+      "Simultaneous evolution of both natural language 'thoughts' and executable code representations of heuristics using large language models within an evolutionary computation framework.",
+      "Development of five prompt strategies (exploration and modification) to guide large language models in generating diverse and effective heuristics.",
+      "A framework that requires no hand-crafted heuristic components or domain model training, enabling fully automatic heuristic design.",
+      "Demonstration that the proposed method outperforms both human-designed heuristics and recent automatic heuristic design methods, including FunSearch, with significantly fewer large language model queries."
+    ],
+    "evidence": [
+      "Specifically, we leverage a linguistic description, referred to as a thought, to represent a high-level idea (i.e., key logic) of a heuristic. Then, a corresponding code representation, i.e., an executable implementation of a heuristic, is generated via an LLM. We propose an evolutionary framework to simultaneously evolve the thoughts and codes of heuristics in a cooperative manner.",
+      "We develop several simple yet effective prompt strategies to guide LLMs toward generating more diverse and effective heuristics. These prompt strategies are generally applicable to other LLM-assisted search methods.",
+      "We propose EoH, a novel paradigm that uses LLMs to evolution both thoughts and codes for the automatic design of heuristics with minimum hand-craft design and no domain model training.",
+      "Experiments on three widely studied combinatorial optimization benchmark problems demonstrate that EoH outperforms commonly used handcrafted heuristics and other recent AHD methods including FunSearch. Particularly, the heuristic produced by EoH with a low computational budget (in terms of the number of queries to LLMs) significantly outperforms widely-used human hand-crafted baseline algorithms for the online bin packing problem."
+    ]
+  },
+  "inspirational_papers": {
+    "answer": [
+      "- Romera-Paredes et al. (2024) FunSearch: Their evolutionary framework for automatic heuristic design is a direct methodological precursor and baseline for comparison.",
+      "- Burke et al. (2013; 2019) Hyper-heuristics: Provided foundational concepts in automatic heuristic algorithm design.",
+      "- Langdon & Poli (2013); Zhang et al. (2023) Genetic Programming: Inspired the use of evolutionary computation for heuristic design."
+    ],
+    "evidence": [
+      "One representative work is FunSearch (Romera-Paredes et al., 2024). It models AHD as a search problem in the space of functions, where each function is a heuristic represented by a program and it uses LLMs in an evolutionary framework to iteratively improve the quality of generated functions.",
+      "Automatic heuristic algorithm design is commonly known as hyper-heuristics (Burke et al., 2013; 2019; Stützle & López-Ibáñez, 2019).",
+      "Genetic Programming (GP) has been used in AHD (Langdon & Poli, 2013; Zhang et al., 2023)."
+    ]
+  },
+  "method": {
+    "steps": [
+      {
+        "step": "Initialization",
+        "input": "Task description, problem-specific requirements, and large language model prompts.",
+        "output": "Initial population of N heuristics, each with a natural language description and corresponding code.",
+        "tools": [
+          "Large Language Model (e.g., GPT-3.5-turbo): Generates initial heuristics and code from prompts."
+        ],
+        "evidence": "Step 0 Initialization: Initialize the population P of N heuristics h1, . . . , hN by prompting LLMs using Initialization prompt, its detail can be found in Section 3.4."
+      },
+      {
+        "step": "Generation of New Heuristics via Evolutionary Prompts",
+        "input": "Current population of heuristics, five prompt strategies (E1, E2, M1, M2, M3), selected parent heuristics.",
+        "output": "Up to 5N new heuristics (each with thought and code), evaluated for feasibility.",
+        "tools": [
+          "Large Language Model: Used to generate new heuristics and code based on evolutionary prompts."
+        ],
+        "evidence": "Step 1 Generation of Heuristics: If the stopping condition is not met, five Evolution prompt strategies (detailed in Section 3.4) are used simultaneously to generate 5N new heuristics."
+      },
+      {
+        "step": "Evaluation of Heuristics",
+        "input": "Newly generated heuristics (code), set of problem instances for evaluation.",
+        "output": "Fitness value for each heuristic based on performance on problem instances.",
+        "tools": [
+          "Python execution environment: Runs the heuristic code on benchmark instances to compute fitness."
+        ],
+        "evidence": "The evaluation of heuristics in EoH involves running the resulting algorithms on an instance set of the problem in question."
+      },
+      {
+        "step": "Population Management and Selection",
+        "input": "Current population (including new heuristics), fitness values.",
+        "output": "Next generation population of N best heuristics.",
+        "tools": [
+          "Ranking and selection algorithm: Selects top N heuristics based on fitness."
+        ],
+        "evidence": "Then, N best individual solutions from the current population will be selected to form the population for the next generation."
+      },
+      {
+        "step": "Iteration",
+        "input": "Updated population, evolutionary prompt strategies, stopping condition.",
+        "output": "Final set of evolved heuristics after reaching stopping condition (e.g., number of generations).",
+        "tools": [
+          "Large Language Model, evolutionary computation framework."
+        ],
+        "evidence": "Go to Step 1."
+      }
+    ],
+    "tools": [
+      "Large Language Model (e.g., GPT-3.5-turbo): Generates natural language thoughts and code implementations for heuristics.",
+      "Python execution environment: Executes generated code for heuristic evaluation.",
+      "Evolutionary computation framework: Manages population, selection, and application of prompt strategies."
+    ],
+    "evidence": [
+      "The GPT-3.5-turbo pre-trained LLM is used.",
+      "Each heuristic consists of three parts: 1) its description in natural language, 2) a code block in a pre-defined format, and 3) a fitness value.",
+      "EoH maintains a population of N heuristics, denoted as P = {h1, . . . , hN}, at each generation. Each heuristic hi is evaluated on a set of problem instances and assigned a fitness value f(hi).",
+      "Five prompt strategies are designed to generate new heuristics.",
+      "The evaluation of heuristics in EoH involves running the resulting algorithms on an instance set of the problem in question."
+    ]
+  },
+  "subject_area": {
+    "areas": [
+      "Applied Sciences & Engineering"
+    ],
+    "evidence": [
+      "We comprehensively evaluate EoH on three widely-studied combinatorial optimization benchmark problems.",
+      "Heuristics are widely used for dealing with complex search and optimization problems."
+    ]
+  },
+  "performance_summary": {
+    "performance_summary": [
+      "EoH outperforms commonly used handcrafted heuristics and recent automatic heuristic design methods, including FunSearch, on three combinatorial optimization benchmarks (online bin packing, traveling salesman problem, flow shop scheduling).",
+      "EoH achieves better or comparable results with significantly fewer large language model queries (thousands vs. up to a million for FunSearch).",
+      "On online bin packing, EoH achieves the lowest average gap to the lower bound across various instance sizes and capacities.",
+      "On traveling salesman problem, EoH finds the best-known solutions (gap=0%) on several TSPLib instances and outperforms neural and hand-crafted baselines.",
+      "On flow shop scheduling, EoH achieves the best average gap to the upper bound across all tested Taillard instances."
+    ],
+    "baselines": [
+      "First Fit: Human hand-crafted heuristic for bin packing.",
+      "Best Fit: Human hand-crafted heuristic for bin packing.",
+      "FunSearch: Recent automatic heuristic design method using large language models.",
+      "Nearest Insertion and Farthest Insertion: Hand-crafted heuristics for traveling salesman problem.",
+      "Google Or-Tools: Popular solver for traveling salesman problem.",
+      "Attention Model, POMO, LEHD: Neural network-based solvers for traveling salesman problem.",
+      "GUPTA, CDS, NEH, NEHFF: Hand-crafted heuristics for flow shop scheduling.",
+      "PFSPNet, PFSPNet NEH: Deep learning solvers for flow shop scheduling."
+    ],
+    "benchmark_datasets": [
+      "Weibull instances for online bin packing: Randomly generated instances with varying sizes and capacities, used for evaluation during heuristic evolution and testing.",
+      "TSPLib: Standard benchmark for traveling salesman problem, used for evaluating solution quality.",
+      "Taillard instances: Widely-used benchmark for flow shop scheduling, used for evaluating makespan performance."
+    ],
+    "evaluation_metrics": [
+      "Average gap to lower bound (bin packing): Measures how close the heuristic's solution is to the theoretical minimum number of bins.",
+      "Relative distance (%) to best-known solutions (traveling salesman problem): Measures the percentage gap between the heuristic's solution and the best-known solution.",
+      "Average makespan (flow shop scheduling): Measures the total schedule length, with lower values indicating better performance."
+    ],
+    "evidence": [
+      "Table 1 presents the average gaps to the lower bounds, where the best results are highlighted in bold. Our method is the best except for the results on the 10k C100 set...",
+      "Table 2. Traveling salesman problem results. Comparison of the relative distance (%) to the best-known solutions (lower is better) for various routing heuristics on a subset of TSPLib instances.",
+      "Table 3. Flow shop scheduling problem results. Comparison of the average relative makespan (%) to the baseline (lower is better) on Taillard instances.",
+      "The instances that are used for evaluation during heuristic evolution are five Weibull instances of size 5k with a capacity of 100 (Romera-Paredes et al., 2024).",
+      "The heuristic evolution process is conducted on a set of 64 TSP100 instances. The locations in these instances are randomly sampled from [0, 1]2 (Kool et al., 2018).",
+      "During heuristic evolution, we conduct evolution on 64 randomly generated instances. Each instance consists of 50 jobs and 2 to 20 machines. The processing times of the jobs are randomly generated from a uniform distribution ranging from 0 to 1 (Pan et al., 2021)."
+    ]
+  },
+  "limitations": {
+    "limitations": [
+      {
+        "label": "Early Stage of Development",
+        "explanation": "The evolution of heuristics using large language models is still in its infancy, and further research is needed to advance the area.",
+        "evidence": "It should be pointed out that the development of the evolution of heuristics using LLMs is still in its very early infancy. This paper and other research (Romera-Paredes et al., 2024) show that it is very promising for automatic algorithm design. Much effort should be made to advance this area."
+      },
+      {
+        "label": "Lack of Domain-Specific Large Language Models",
+        "explanation": "The current approach uses general pre-trained large language models, and the potential of domain-specific models remains unexplored.",
+        "evidence": "Instead of using a general pre-trained LLM with linguistic and code generation capability, it is worthwhile studying how to train an LLM specifically for automatic algorithm design. Domain knowledge can be used for this purpose."
+      },
+      {
+        "label": "Limited Understanding of Heuristic Search Space",
+        "explanation": "The search space of heuristics is not well understood, making it challenging to establish theory and principles for automatic algorithm design.",
+        "evidence": "It should be very important to study and understand search spaces of heuristics for further establishing theory and basic principles for the automatic design of algorithms."
+      }
+    ],
+    "evidence": [
+      "It should be pointed out that the development of the evolution of heuristics using LLMs is still in its very early infancy. This paper and other research (Romera-Paredes et al., 2024) show that it is very promising for automatic algorithm design. Much effort should be made to advance this area.",
+      "Instead of using a general pre-trained LLM with linguistic and code generation capability, it is worthwhile studying how to train an LLM specifically for automatic algorithm design. Domain knowledge can be used for this purpose.",
+      "It should be very important to study and understand search spaces of heuristics for further establishing theory and basic principles for the automatic design of algorithms."
+    ]
+  },
+  "future_directions": {
+    "future_directions": [
+      "Develop domain-specific large language models for automatic algorithm design by incorporating domain knowledge.",
+      "Study and understand the search space of heuristics to establish theory and principles for automatic algorithm design.",
+      "Investigate efficient and effective interaction between human experts and large language models within the evolutionary framework.",
+      "Advance the field of evolution of heuristics using large language models through further research and development."
+    ],
+    "evidence": [
+      "Pre-trained domain LLM Instead of using a general pre-trained LLM with linguistic and code generation capability, it is worthwhile studying how to train an LLM specifically for automatic algorithm design. Domain knowledge can be used for this purpose.",
+      "Understanding of search space of heuristics EoH directly does its search on the space of heuristics. It is different from classic optimization algorithms which conduct their search in a well-defined math space such as Rn. It should be very important to study and understand search spaces of heuristics for further establishing theory and basic principles for the automatic design of algorithms.",
+      "Interaction with human experts A LLM in EoH can be regarded as an intelligent agent. During the process of EoH, It is straightforward to let human experts to replace LLM for generating, modifying, and evaluating heuristics at some stage. It should be interesting to study how to implement efficient and effective interaction with human experts in EoH. Ideas and techniques in collective intelligence (Malone & Bernstein, 2022) should be used for this purpose.",
+      "It should be pointed out that the development of the evolution of heuristics using LLMs is still in its very early infancy. This paper and other research (Romera-Paredes et al., 2024) show that it is very promising for automatic algorithm design. Much effort should be made to advance this area."
+    ]
+  },
+  "resource_link": {
+    "answer": "https://github.com/FeiLiu36/EoH",
+    "evidence": "The source code can be found in https://github.com/FeiLiu36/EoH."
+  },
+  "paper_title": "Evolution of Heuristics: Towards Efficient Automatic Algorithm Design Using Large Language Model",
+  "authors": [
+    "Fei",
+    "Xialiang",
+    "Mingxuan",
+    "Xi",
+    "Fu",
+    "Zhenkun",
+    "Zhichao",
+    "Qingfu"
+  ],
+  "published": "2024-06-01",
+  "link": "http://arxiv.org/abs/2401.02051"
+}

@@ -1,0 +1,213 @@
+{
+  "objective": {
+    "answer": "The primary objective of the paper is to develop ResearchAgent, a system that leverages large language models to assist researchers in generating novel research ideas, including problem identification, method development, and experiment design, based on scientific literature. The authors aim to automate and iteratively refine the process of research ideation by integrating knowledge from academic graphs and entity-centric knowledge stores, and by incorporating feedback from LLM-powered reviewing agents aligned with human preferences.",
+    "evidence": "To enhance the productivity of researchers, we propose ResearchAgent, which leverages the encyclopedic knowledge and linguistic reasoning capabilities of Large Language Models (LLMs) to assist them in their work. This system automatically defines novel problems, proposes methods and designs experiments, while iteratively refining them based on the feedback from collaborative LLM-powered reviewing agents."
+  },
+  "knowledge_gap": {
+    "answer": "There is a lack of automated systems that can assist researchers in the ideation phase of scientific research by generating novel, valid, and clear research ideas based on the vast and rapidly growing scientific literature, especially in an open-ended manner that goes beyond simple hypothesis or link prediction.",
+    "evidence": "However, this is a slow, effort-intensive process, which requires reading and synthesizing overwhelming amounts of knowledge over the vast corpus of rapidly growing scientific literature to formulate research ideas, as well as design and perform experimental validations of those ideas... However, LLMs have mainly been used for accelerating the experimental validation of already identified research ideas, but not for identifying new problems."
+  },
+  "novelty": {
+    "answer": [
+      "Development of ResearchAgent, a system that generates and iteratively refines research ideas (problem, method, experiment) using large language models, academic citation graphs, and entity-centric knowledge stores.",
+      "Integration of an entity-centric knowledge store mined from scientific literature to enable cross-domain idea generation and knowledge augmentation.",
+      "Use of multiple LLM-powered ReviewingAgents that provide iterative, human-aligned feedback to refine research ideas.",
+      "Automatic induction of evaluation criteria for ReviewingAgents from actual human researcher judgments to align LLM feedback with human preferences.",
+      "Comprehensive evaluation of the system across multiple scientific disciplines, demonstrating superior novelty, clarity, and validity of generated ideas compared to strong LLM baselines."
+    ],
+    "evidence": [
+      "To enhance the productivity of researchers, we propose ResearchAgent, which leverages the encyclopedic knowledge and linguistic reasoning capabilities of Large Language Models (LLMs) to assist them in their work. This system automatically defines novel problems, proposes methods and designs experiments, while iteratively refining them based on the feedback from collaborative LLM-powered reviewing agents.",
+      "Further, to develop an encyclopedic view of related concepts, we build and then augment ResearchAgent with an entity-centric knowledge store derived from co-occurrences of key concepts in the scientific literature.",
+      "Finally, to simulate robust feedback mechanisms, we instantiate a number of LLM-powered ReviewingAgents that help the ResearchAgent to iterate on research idea generation with constructive critiques.",
+      "Crucially, these ReviewingAgents are prompted with evaluation criteria that are induced from real researchers’ judgements, thus aligning them with actual scientific preferential standards.",
+      "We validate the effectiveness of ResearchAgent for research idea generation based on scientific literature across multiple disciplines. Then, on a battery of tests conducted with both human- and model-based evaluations, we demonstrate that ResearchAgent outperforms strong LLM-powered baselines by large margins, generating more clear, relevant, and significant ideas that are especially novel."
+    ]
+  },
+  "inspirational_papers": {
+    "answer": [
+      "Swanson (1986) Literature-based discovery: Models, methods, and trends. (Methodological precursors)",
+      "Tshitoyan et al. (2019) Unsupervised word embeddings capture latent knowledge from materials science literature. (Methodological precursors)",
+      "Sybrandt et al. (2020) Agatha: Automatic graph mining and transformer based hypothesis generation approach. (Methodological precursors)",
+      "Wang et al. (2023b) Learning to generate novel scientific directions with contextualized literature-based discovery. (Experimental baselines and limitations addressed)",
+      "Yang et al. (2023) Large language models for automated open-domain scientific hypotheses discovery. (Experimental baselines and limitations addressed)",
+      "Li et al. (2024) Chain of ideas: Revolutionizing research via novel idea development with llm agents. (Recent related work, acknowledged as building upon prior version of this paper)"
+    ],
+    "evidence": [
+      "The principle of hypothesis generation is based on literature-based discovery (Swanson, 1986), which aims to discover relationships between concepts (Henry and McInnes, 2017).",
+      "Early works on automatic hypothesis generation first build a corpus of discrete concepts, and then identify their relationships with machine learning approaches, e.g., using similarities between word (concept) vectors (Tshitoyan et al., 2019) or applying link prediction methods over a graph (where concepts are nodes) (Sybrandt et al., 2020; Nadkarni et al., 2021).",
+      "Recent approaches are further powered by LLMs (Wang et al., 2023b; Qi et al., 2023; Yang et al., 2023), leveraging their prior knowledge about scientific disciplines.",
+      "We note that there has been a recent surge of interest in exploring scientific idea generation: from Li et al. (2024) that focus on evaluating whether LLMs can generate research ideas that are better than human ideas, to Lu et al. (2024) that aim to automatically generate full research papers (including idea development, code writing, and experiment execution), to Li et al. (2024) that enhance the idea generation process by organizing a sequential chain of literature, all of which acknowledge and build upon insights from a prior version of our paper."
+    ]
+  },
+  "method": {
+    "steps": [
+      {
+        "step": "Selection of Core Paper and Relevant Literature",
+        "input": "A core scientific paper selected based on citation count and its directly connected references from the academic citation graph.",
+        "output": "A focused set of related papers to serve as the knowledge base for idea generation.",
+        "tools": [
+          "Semantic Scholar Academic Graph API: Used to retrieve papers and citation relationships."
+        ],
+        "evidence": "Concretely, for the LLM, we initiate its literature review process by providing a core paper l0 from L and then selectively incorporating subsequent papers {l1, ..., ln} that are directly connected based on a citation graph."
+      },
+      {
+        "step": "Entity Extraction and Knowledge Store Construction",
+        "input": "Titles and abstracts of scientific papers (core and references).",
+        "output": "A sparse two-dimensional matrix knowledge store of entities and their co-occurrences.",
+        "tools": [
+          "BLINK entity linker: Off-the-shelf system for extracting and canonicalizing entities from scientific text."
+        ],
+        "evidence": "This knowledge store is constructed by extracting entities over all the available scientific articles in literature L... we use one developed by Wu et al. (2020)."
+      },
+      {
+        "step": "Entity Retrieval for Knowledge Augmentation",
+        "input": "Entities from the core and related papers, entity-centric knowledge store.",
+        "output": "A set of top-k relevant external entities to augment the LLM input.",
+        "tools": [
+          "Custom probabilistic or embedding-based retrieval algorithm: Selects entities based on co-occurrence or embedding similarity."
+        ],
+        "evidence": "Given this knowledge store K, our next goal is to enhance the previous vanilla research idea generation process implemented based on a group of interconnected papers... We do this by augmenting the LLM with the relevant entities from K, which expand the context that LLMs consume with additional knowledge."
+      },
+      {
+        "step": "Research Idea Generation (Problem, Method, Experiment)",
+        "input": "Core paper, related papers, and retrieved entities.",
+        "output": "Drafts of research problem, method, and experiment design.",
+        "tools": [
+          "Large Language Models (e.g., GPT-4): Used to generate research ideas using structured prompts."
+        ],
+        "evidence": "We operationalize this with LLMs by instantiating the aforementioned research idea generation function f with LLM coupled with the task-specific template."
+      },
+      {
+        "step": "Iterative Refinement with ReviewingAgents",
+        "input": "Draft research ideas, evaluation criteria induced from human judgments.",
+        "output": "Refined research ideas after multiple rounds of review and feedback.",
+        "tools": [
+          "LLM-powered ReviewingAgents: Provide reviews and feedback using human-aligned criteria."
+        ],
+        "evidence": "Finally, to simulate robust feedback mechanisms, we instantiate a number of LLM-powered ReviewingAgents that help the ResearchAgent to iterate on research idea generation with constructive critiques."
+      }
+    ],
+    "tools": [
+      "Semantic Scholar Academic Graph API: Retrieves papers and citation relationships.",
+      "BLINK entity linker: Extracts and canonicalizes entities from scientific text.",
+      "Large Language Models (e.g., GPT-4): Generates research ideas and reviews.",
+      "Custom entity retrieval algorithms: Select relevant entities for knowledge augmentation.",
+      "LLM-powered ReviewingAgents: Provide iterative, criteria-based feedback."
+    ],
+    "evidence": [
+      "Concretely, for the LLM, we initiate its literature review process by providing a core paper l0 from L and then selectively incorporating subsequent papers {l1, ..., ln} that are directly connected based on a citation graph.",
+      "This knowledge store is constructed by extracting entities over all the available scientific articles in literature L... we use one developed by Wu et al. (2020).",
+      "Given this knowledge store K, our next goal is to enhance the previous vanilla research idea generation process implemented based on a group of interconnected papers... We do this by augmenting the LLM with the relevant entities from K, which expand the context that LLMs consume with additional knowledge.",
+      "We operationalize this with LLMs by instantiating the aforementioned research idea generation function f with LLM coupled with the task-specific template.",
+      "Finally, to simulate robust feedback mechanisms, we instantiate a number of LLM-powered ReviewingAgents that help the ResearchAgent to iterate on research idea generation with constructive critiques."
+    ]
+  },
+  "subject_area": {
+    "areas": [
+      "Biological Sciences",
+      "Chemical Sciences",
+      "Earth & Environmental Sciences",
+      "Health Sciences",
+      "Physical Sciences",
+      "Applied Sciences & Engineering"
+    ],
+    "evidence": [
+      "We validate the effectiveness of ResearchAgent for research idea generation based on scientific literature across multiple disciplines.",
+      "Figure 7: Visualization of the distribution of disciplines for all core papers, selected for research idea generation.",
+      "From this, we find that the top 3 categories are computer science, medicine, and engineering."
+    ]
+  },
+  "performance_summary": {
+    "performance_summary": [
+      "ResearchAgent outperforms all baselines by large margins on every metric across problems, methods, and experiment designs, especially excelling in creativity-related metrics such as originality and innovativeness.",
+      "Pairwise comparison results show that ResearchAgent has the highest win ratio over its baselines.",
+      "Ablation studies confirm that both entity-centric knowledge and citation-based references contribute to performance gains.",
+      "ResearchAgent also outperforms existing hypothesis generation methods in clarity, relevance, originality, feasibility, and significance."
+    ],
+    "baselines": [
+      "Naive ResearchAgent: Uses only a core paper to generate research ideas.",
+      "ResearchAgent w/o Entity Retrieval: Uses the core paper and its relevant references without considering entities.",
+      "SciMON: Existing hypothesis generation method.",
+      "Hypothesis Proposer: Existing hypothesis generation method."
+    ],
+    "benchmark_datasets": [
+      "A benchmark dataset of 300 core papers (with references) from the Semantic Scholar Academic Graph, spanning multiple scientific disciplines and published after May 01, 2023. Used as the basis for generating and evaluating research ideas."
+    ],
+    "evaluation_metrics": [
+      "Human and model-based scoring on 5-point Likert scales for criteria such as clarity, relevance, originality, feasibility, significance (for problems); clarity, validity, rigorousness, innovativeness, generalizability (for methods); and clarity, validity, robustness, feasibility, reproducibility (for experiments).",
+      "Pairwise comparison win ratios between models.",
+      "Inter-annotator agreement (Spearman’s correlation, Cohen’s kappa) and human-model agreement."
+    ],
+    "evidence": [
+      "These demonstrate that our full ResearchAgent outperforms all baselines by large margins on every metric across problems, methods, and experiment designs (constituting the complete research ideas). Particularly, the full ResearchAgent augmented with relevant entities exhibits strong gains on metrics related to creativity (such as Originality for problems and Innovativeness for methods)...",
+      "The results of pairwise comparisons between models with both human and model-based evaluations – shown in Figure 3 – demonstrate that the full ResearchAgent shows the highest win ratio over its baselines.",
+      "As shown in Table 2, each knowledge source contributes to performance improvement, and the relevant references are especially helpful.",
+      "As shown in Table 3, we observe that ResearchAgent is capable of generating superior research hypotheses, due to the utilization of broad and deep knowledge across domains as well as the iterative review and refinement procedures.",
+      "The main source to generate research ideas is the scientific literature L, which we obtain from the Semantic Scholar Academic Graph API8. From this, we select papers appearing after May 01, 2023... we further sample a subset of 300 papers as core papers to obtain a reasonably sized benchmark dataset.",
+      "We ask the LLM-based evaluation model to either rate the generated idea on a 5-point Likert scale for each criterion or perform pairwise comparisons between two ideas from different models."
+    ]
+  },
+  "limitations": {
+    "limitations": [
+      {
+        "label": "Limited Entity Coverage",
+        "explanation": "The entity-centric knowledge store is built from titles and abstracts of a limited number of publications, resulting in incomplete coverage of entities and their relationships.",
+        "evidence": "First, recall that we built the entity-centric knowledge store to propose beneficial entities during idea generation; however this store is constructed by extracting entities from the titles and abstracts of a limited number of publications (due to the costs of processing them) thereby precluding a large number of other entities and their interconnectedness."
+      },
+      {
+        "label": "Entity Linker Limitations",
+        "explanation": "The BLINK entity linker used is open-domain and yields only about 3 entities per paper on average, limiting the richness of extracted scientific concepts.",
+        "evidence": "In addition, the number of entities that we obtain from the BLINK entity linker (Wu et al., 2020) amounts to 3 per paper on average, indicating limited coverage (it is an open-domain linker after all)..."
+      },
+      {
+        "label": "Potential for Hallucination",
+        "explanation": "As with any LLM-based approach, ResearchAgent may hallucinate research ideas, and experimental validation is necessary to ensure their accuracy.",
+        "evidence": "Furthermore, since our ResearchAgent is powered by LLMs, similar to any other approaches based on LLMs, it may hallucinate the generated research ideas."
+      },
+      {
+        "label": "Limited Scope of ReviewingAgents",
+        "explanation": "The iterative refinement process with ReviewingAgents may not capture the full diversity of perspectives and criteria needed for comprehensive evaluation across all research domains.",
+        "evidence": "Moreover, while our iterative refinement process with ReviewingAgents demonstrates promising results, it has inherent limitations in scope. Although we employed diverse perspectives by utilizing 15 ReviewingAgents... this approach may not fully capture the broad range of potential perspectives and criteria necessary for comprehensive evaluation across all different research domains."
+      },
+      {
+        "label": "Domain Suitability",
+        "explanation": "ResearchAgent may be less suited for domains like theoretical sciences where mathematical reasoning and proof generation are central.",
+        "evidence": "Lastly, our ResearchAgent may be less suited for generating ideas in certain domains, such as theoretical sciences, where mathematical reasoning and proof generation play a central role."
+      }
+    ],
+    "evidence": [
+      "First, recall that we built the entity-centric knowledge store to propose beneficial entities during idea generation; however this store is constructed by extracting entities from the titles and abstracts of a limited number of publications (due to the costs of processing them) thereby precluding a large number of other entities and their interconnectedness.",
+      "In addition, the number of entities that we obtain from the BLINK entity linker (Wu et al., 2020) amounts to 3 per paper on average, indicating limited coverage (it is an open-domain linker after all)...",
+      "Furthermore, since our ResearchAgent is powered by LLMs, similar to any other approaches based on LLMs, it may hallucinate the generated research ideas.",
+      "Moreover, while our iterative refinement process with ReviewingAgents demonstrates promising results, it has inherent limitations in scope. Although we employed diverse perspectives by utilizing 15 ReviewingAgents... this approach may not fully capture the broad range of potential perspectives and criteria necessary for comprehensive evaluation across all different research domains.",
+      "Lastly, our ResearchAgent may be less suited for generating ideas in certain domains, such as theoretical sciences, where mathematical reasoning and proof generation play a central role."
+    ]
+  },
+  "future_directions": {
+    "future_directions": [
+      "Expand the entity-centric knowledge store to cover a broader range of publications and entities, improving coverage and interconnectedness.",
+      "Explore additional knowledge sources beyond existing literature and entities for research idea generation.",
+      "Customize and align ReviewingAgent evaluation criteria to specific target domains and novel applications.",
+      "Integrate reasoning-based models and techniques for domains like theoretical mathematics, focusing on proof generation and omitting less relevant steps."
+    ],
+    "evidence": [
+      "First, recall that we built the entity-centric knowledge store to propose beneficial entities during idea generation; however this store is constructed by extracting entities from the titles and abstracts of a limited number of publications (due to the costs of processing them) thereby precluding a large number of other entities and their interconnectedness.",
+      "There may be additional knowledge sources (beyond the existing literature and entities) for research idea generation, and we leave exploring them as future work.",
+      "However, we believe the potential of our modular approach allows for customizing and aligning updated or even new criteria to any specific target domain with novel applications, and we leave further expanding them as future work.",
+      "For instance, in theoretical mathematics, we can instruct (reasoning-based) LLMs to focus on generating proofs or methods and omit experimental design steps that are less relevant. This as an exciting area for future work, where specialized techniques tailored to each domain could be included to broaden its applicability."
+    ]
+  },
+  "resource_link": {
+    "answer": "https://github.com/JinheonBaek/ResearchAgent",
+    "evidence": "1Code: https://github.com/JinheonBaek/ResearchAgent."
+  },
+  "paper_title": "ResearchAgent: Iterative Research Idea Generation over Scientific Literature with Large Language Models",
+  "authors": [
+    "Jinheon",
+    "Sujay Kumar",
+    "Silviu",
+    "Sung Ju"
+  ],
+  "published": "2025-02-09",
+  "link": "http://arxiv.org/abs/2404.07738"
+}

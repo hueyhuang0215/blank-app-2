@@ -1,0 +1,179 @@
+{
+  "objective": {
+    "answer": "The primary objective of the paper is to introduce and evaluate a method for automated statistical model discovery using large language models, which iteratively propose, fit, and critique probabilistic models expressed as code, thereby reducing the need for human expertise in model selection and adaptation to domain-specific constraints.",
+    "evidence": "Motivated by the domain knowledge and programming capabilities of large language models (LMs), we introduce a method for language model driven automated statistical model discovery. We cast our automated procedure within the principled framework of Box’s Loop: the LM iterates between proposing statistical models represented as probabilistic programs, acting as a modeler, and critiquing those models, acting as a domain expert."
+  },
+  "knowledge_gap": {
+    "answer": "Existing automated model discovery systems require human experts to define a domain-specific language of models and handcraft search procedures, which limits flexibility and automation in statistical modeling.",
+    "evidence": "However, in these systems, a human expert had to carefully design a domain specific language (DSL) of models and specify a hand-crafted search procedure for composing models in that DSL. ... These systems also compromised flexibility for automation: rather than choosing a model class best-suited for a problem, experts chose models that compose conveniently."
+  },
+  "novelty": {
+    "answer": [
+      "The use of large language models to both propose and critique statistical models in an automated, iterative framework (Box's Loop), reducing the need for human intervention.",
+      "Elimination of the requirement for a domain-specific language by allowing language models to generate open-ended probabilistic programs directly in Python.",
+      "Integration of natural language feedback and domain knowledge into the model discovery process, enabling constraints and interpretability requirements to be expressed in plain language.",
+      "Demonstration of the method across diverse settings: constrained model spaces (e.g., Gaussian process kernels), open-ended probabilistic modeling, and improvement of expert models under natural language constraints."
+    ],
+    "evidence": [
+      "By leveraging LMs, we do not have to define a domain-specific language of models or design a handcrafted search procedure, which are key restrictions of previous systems.",
+      "We cast our automated procedure within the principled framework of Box’s Loop: the LM iterates between proposing statistical models represented as probabilistic programs, acting as a modeler, and critiquing those models, acting as a domain expert.",
+      "given that certain modeling constraints can be difficult to express formally but easy to express in natural language (e.g., this model should be more physical), we use natural language to guide LMs towards models that balance interpretability and flexibility.",
+      "We evaluate our method in three settings in probabilistic modeling: searching within a restricted space of models, searching over an open-ended space, and improving expert models under natural language constraints (e.g., this model should be interpretable to an ecologist)."
+    ]
+  },
+  "inspirational_papers": {
+    "answer": [
+      "Duvenaud et al. (2013) Structure discovery in nonparametric regression through compositional kernel search. (Methodological precursors, baseline for GP kernel search)",
+      "Lloyd et al. (2014) Automatic construction and natural-language description of nonparametric regression models. (Methodological precursor, baseline for Automatic Statistician)",
+      "Bongard & Lipson (2007) Automated reverse engineering of nonlinear dynamical systems. (Methodological precursor for automated model discovery)",
+      "Schmidt & Lipson (2009) Distilling free-form natural laws from experimental data. (Methodological precursor for symbolic model discovery)",
+      "Grosse (2014) Model selection in compositional spaces. (Methodological precursor for compositional model search)"
+    ],
+    "evidence": [
+      "For example, in the Automatic Statistician (Duvenaud et al., 2013; Lloyd et al., 2014), a system for nonparametric regression and time series modeling, human experts defined a DSL of Gaussian process kernels and a search procedure that composes kernels via addition and multiplication.",
+      "Previous systems have been successfully deployed for discovering physical laws (Bongard & Lipson, 2007; McKinney et al., 2006; Linka et al., 2023), reverse-engineering non-linear dynamical systems (Schmidt & Lipson, 2009), nonparametric regression (Duvenaud et al., 2013) and unsupervised learning (Grosse, 2014)."
+    ]
+  },
+  "method": {
+    "steps": [
+      {
+        "step": "Model Building Step",
+        "input": "Dataset (visual and/or textual form), dataset metadata (e.g., description), code for previous probabilistic programs, natural language feedback, optional warm-start expert program",
+        "output": "A set of new probabilistic programs (candidate models) proposed by the language model",
+        "tools": [
+          "GPT-4 V: Large language model used to propose new probabilistic programs based on prompt context"
+        ],
+        "evidence": "In the model building step, we automatically generate probabilistic programs for modeling a dataset given information about the dataset and previously proposed programs. ... In our experiments, we use GPT-4 V (Achiam et al., 2023) (gpt4-11-06-preview), which has multimodal capabilities."
+      },
+      {
+        "step": "Model Fitting Step",
+        "input": "Probabilistic programs proposed by the language model, observed dataset",
+        "output": "Fitted models with posterior distributions and model fit statistics",
+        "tools": [
+          "pymc: Python probabilistic programming library used to perform inference (e.g., Markov Chain Monte Carlo) on arbitrary probabilistic programs"
+        ],
+        "evidence": "In the model fitting step, we fit a probabilistic program to data. ... To accomplish this, we leverage pymc (Abril-Pla et al., 2023), a Python probabilistic programming library."
+      },
+      {
+        "step": "Model Criticism Step",
+        "input": "Fitted probabilistic programs, model fit scores (e.g., ELPD LOO), posterior predictive means and variances, dataset",
+        "output": "Natural language feedback and criticism to guide the next round of model proposals",
+        "tools": [
+          "GPT-4 V: Used as a critic language model to generate natural language feedback based on model fit statistics and program code"
+        ],
+        "evidence": "In the criticism step, we ask the critic LM, pLM, to produce natural language criticism of fitted models; we use this criticism to drive model revision."
+      },
+      {
+        "step": "Iteration and Exemplar Selection",
+        "input": "Set of proposed programs and their scores from the current round",
+        "output": "Selection of top-k exemplar programs to include in the next prompt, updated prompt with feedback and exemplars",
+        "tools": [
+          "In-context learning: Using high-scoring programs and feedback as exemplars in the next prompt to guide the language model"
+        ],
+        "evidence": "To create exemplars z1, . . . , zk for round t for qLM, we choose the best k programs among the m proposed programs in round t −1."
+      }
+    ],
+    "tools": [
+      "GPT-4 V: Large language model for proposing and critiquing probabilistic programs.",
+      "pymc: Python library for probabilistic programming and Bayesian inference.",
+      "In-context learning: Prompting technique to guide language model proposals using previous high-scoring examples."
+    ],
+    "evidence": [
+      "In our experiments, we use GPT-4 V (Achiam et al., 2023) (gpt4-11-06-preview), which has multimodal capabilities.",
+      "To accomplish this, we leverage pymc (Abril-Pla et al., 2023), a Python probabilistic programming library.",
+      "To create exemplars z1, . . . , zk for round t for qLM, we choose the best k programs among the m proposed programs in round t −1."
+    ]
+  },
+  "subject_area": {
+    "areas": [
+      "Health Sciences",
+      "Biological Sciences",
+      "Physical Sciences"
+    ],
+    "evidence": [
+      "As a concrete example, consider modeling blood-glucose dynamics in Type 1 diabetes (T1D) patients; accurately modeling these dynamics can enable better insulin regulation and reduce complications from the disease.",
+      "The ages and lengths of 27 captured dugongs (sea cows).",
+      "We consider time-series modeling with Gaussian processes (GPs) as in the Automatic Statistician (Duvenaud et al., 2013)."
+    ]
+  },
+  "performance_summary": {
+    "performance_summary": [
+      "The proposed BoxLM method matches or outperforms strong baselines such as the Automatic Statistician and human expert-written models across a variety of datasets and modeling tasks.",
+      "BoxLM reliably identifies programs on par with expert programs; LM programs match the performance of human expert programs on 9/12 datasets.",
+      "BoxLM can significantly improve upon the standard Lotka-Volterra model by introducing corrections to the dynamics, outperforming neural ODE and hybrid ODE baselines."
+    ],
+    "baselines": [
+      "Automatic Statistician: A greedy algorithm for compositional Gaussian process kernel search.",
+      "Spectral Mixture Kernel: Gaussian process with a spectral mixture kernel.",
+      "Periodic Kernel: Gaussian process with a periodic kernel.",
+      "N-BEATS: A neural network-based time series forecasting model.",
+      "Human Expert Programs: Probabilistic programs written by domain experts for each dataset.",
+      "Neural ODE: Ordinary differential equation parameterized by a neural network.",
+      "Hybrid Neural ODE: ODE with both physical and neural network components."
+    ],
+    "benchmark_datasets": [
+      "Six common univariate time series datasets: Used for evaluating time series modeling performance with Gaussian process kernels.",
+      "Stan PosteriorDB datasets: Includes eight schools (SAT improvement), dugongs (age and length), surgical (mortality rates), and peregrine (population counts); used for probabilistic modeling and comparison with expert programs."
+    ],
+    "evaluation_metrics": [
+      "Mean Absolute Error (MAE): Measures the average absolute difference between predicted and true values on held-out test data.",
+      "Expected Log Predictive Density (ELPD) via Leave-One-Out Cross Validation (LOO): Measures the predictive accuracy of probabilistic models.",
+      "Test MAE: Used for ODE and time series experiments to compare model predictions to ground truth."
+    ],
+    "evidence": [
+      "Our method, denoted LM in the table, matches the performance of the Automatic Statistician, showing that BoxLM can efficiently search over a constrained space of models.",
+      "BoxLM reliably identifies programs on par with expert programs; ... LM programs match the performance of human expert programs on 9/12 datasets.",
+      "BoxLM can significantly improve upon the standard Lotka-Volterra model by introducing corrections to the dynamics (Figure 4).",
+      "We compare the mean absolute error (MAE) on held-out test data for all datasets.",
+      "We report the expected predictive log density estimated via leave-one-out cross validation."
+    ]
+  },
+  "limitations": {
+    "limitations": [
+      {
+        "label": "Static Datasets Only",
+        "explanation": "The method is only evaluated on static datasets and does not address active data collection or sequential modeling.",
+        "evidence": "First, we focused on modeling static datasets. An interesting direction could be leveraging LMs for active data collection."
+      },
+      {
+        "label": "Simple Model Criticism",
+        "explanation": "Model criticism statistics are simple and predefined due to the restriction to one-dimensional datasets.",
+        "evidence": "Second, since our tasks were restricted to one-dimensional datasets, simple model criticism statistics were sufficient and therefore decided in advance (residuals, posterior predictive mean)."
+      },
+      {
+        "label": "No Fine-tuning of Language Models",
+        "explanation": "The approach relies on in-context learning and does not explore fine-tuning language models for better probabilistic program generation.",
+        "evidence": "Finally, while in-context learning was effective in our tasks, we could explore finetuning techniques for training a language model to produce better probabilistic programs."
+      }
+    ],
+    "evidence": [
+      "First, we focused on modeling static datasets. An interesting direction could be leveraging LMs for active data collection.",
+      "Second, since our tasks were restricted to one-dimensional datasets, simple model criticism statistics were sufficient and therefore decided in advance (residuals, posterior predictive mean).",
+      "Finally, while in-context learning was effective in our tasks, we could explore finetuning techniques for training a language model to produce better probabilistic programs."
+    ]
+  },
+  "future_directions": {
+    "future_directions": [
+      "Leveraging language models for active data collection, extending beyond static datasets.",
+      "Fully automating the model criticism step, especially for higher-dimensional or more complex datasets.",
+      "Exploring fine-tuning techniques for training language models to produce better probabilistic programs."
+    ],
+    "evidence": [
+      "First, we focused on modeling static datasets. An interesting direction could be leveraging LMs for active data collection.",
+      "Another interesting future direction could be fully automating the criticism step.",
+      "Finally, while in-context learning was effective in our tasks, we could explore finetuning techniques for training a language model to produce better probabilistic programs."
+    ]
+  },
+  "resource_link": {
+    "answer": "",
+    "evidence": "No code repository, project website, or data repository link is provided in the paper."
+  },
+  "paper_title": "Automated Statistical Model Discovery with Language Models",
+  "authors": [
+    "Michael Y.",
+    "Emily B.",
+    "Noah D."
+  ],
+  "published": "2024-06-22",
+  "link": "http://arxiv.org/abs/2402.17879"
+}

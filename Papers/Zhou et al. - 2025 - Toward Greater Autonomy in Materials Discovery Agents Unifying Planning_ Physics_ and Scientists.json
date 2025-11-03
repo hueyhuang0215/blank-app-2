@@ -1,0 +1,213 @@
+{
+  "objective": {
+    "answer": "The primary objective of the paper is to design language agents with greater autonomy for crystal materials discovery by automating workflow planning based on high-level goals and scientist intuition. The authors aim to move beyond agents restricted to specific tasks within predefined workflows, enabling agents to independently plan, reason, and adapt workflows for scientific discovery. They propose a multi-agent framework, MAPPS, that unifies planning, physics, and scientist input to achieve this goal.",
+    "evidence": "We aim at designing language agents with greater autonomy for crystal materials discovery. While most of existing studies restrict the agents to perform specific tasks within predefined workflows, we aim to automate workflow planning given high-level goals and scientist intuition. To this end, we propose Materials Agent unifying Planning, Physics, and Scientists, known as MAPPS."
+  },
+  "knowledge_gap": {
+    "answer": "Existing studies in autonomous materials discovery constrain language model agents to perform predefined actions within fixed, human-designed workflows, limiting their autonomy and adaptability to new scientific challenges.",
+    "evidence": "Currently, most existing studies constrain LLM agents to perform predefined actions specified by human experts, with fixed tasks at each step. In these setups, a fixed discovery pipeline is defined in advance, and LLM agents primarily serve to coordinate AI tools."
+  },
+  "novelty": {
+    "answer": [
+      "Introduction of MAPPS, a multi-agent framework that enables Level 2 autonomy by allowing agents to actively design and follow their own workflows for materials discovery.",
+      "Integration of a Workflow Planner, Tool Code Generator, and Scientific Mediator to collaboratively plan tasks, generate code, and incorporate human expert guidance.",
+      "Use of large language models not just as tool executors but as central reasoning engines capable of decomposing high-level scientific goals into actionable steps and adapting workflows dynamically.",
+      "Incorporation of a self-reflection mechanism in the Tool Code Generator for error detection and automatic code revision.",
+      "Demonstration that MAPPS achieves a five-fold improvement in stability, uniqueness, and novelty rates compared with prior generative models on benchmark datasets."
+    ],
+    "evidence": [
+      "To improve the autonomy of LLM agents for science, we aim to move beyond systems where agents act solely as tool executors within fixed, human-designed workflows. Instead, we propose a multi-agent framework MAPPS that achieves Level 2 autonomy by enabling agents to actively design and follow their own workflows.",
+      "Specifically, our multi-agent framework integrates three core components, including Workflow Planner, Tool Code Generator, and Scientific Mediator. These three agents, coupled with human scientists, collaboratively drive materials discovery by planning tasks, generating code, and integrating expert guidance.",
+      "This demonstrates that LLMs possess strong capabilities for understanding scientific concepts and facilitating materials discovery. Moreover, the results in Table 2 demonstrate that our MAPPS surpasses MatLLMSearch, a recent baseline that combines LLMs with evolutionary algorithms, on the Matbench dataset. This result highlights that LLMs are not merely useful for replacing individual components in an algorithmic pipeline but can serve as central reasoning engines for end-to-end scientific design.",
+      "To enhance robustness, the Tool Code Generator includes a self-reflection mechanism. If execution of the generated code results in runtime errors, a diagnostic error signal et is generated, triggering the Tool Code Generator itself to revise and regenerate the code.",
+      "By unifying planning, physics, and scientists, MAPPS enables flexible and reliable materials discovery with greater autonomy, achieving a five-fold improvement in stability, uniqueness, and novelty rates compared with prior generative models when evaluated on the MP-20 data."
+    ]
+  },
+  "inspirational_papers": {
+    "answer": [
+      "- Yan et al. (2024) Invariant tokenization of crystalline materials for language model enabled generation. (Methodological precursor and data representation)",
+      "- Gan et al. (2025) Large language models are innate crystal structure generators. (Experimental baseline and comparison)",
+      "- Antunes et al. (2024) Crystal structure generation with autoregressive large language modeling. (Experimental baseline and challenge set)",
+      "- Xie et al. (2022) Crystal Diffusion Variational Autoencoder for Periodic Material Generation. (Experimental baseline)",
+      "- Jiao et al. (2023) Crystal structure prediction by joint equivariant diffusion. (Experimental baseline)",
+      "- Sriram et al. (2024) Flowllm: Flow matching for material generation with large language models as base distributions. (Experimental baseline)",
+      "- Gruver et al. (2024) Fine-tuned language models generate stable inorganic materials as text. (Experimental baseline)"
+    ],
+    "evidence": [
+      "Following Yan et al. [8], we represent each crystal structure as a tuple M = (X, P, L)...",
+      "For metastability, we adopt the approach of Gan et al. [15], using CHGNet [26] and M3GNet [27] as surrogate models to estimate the fraction of structures with decomposition energies below thresholds...",
+      "In addition, we consider the challenge set introduced by Antunes et al. [7], which focuses on crystals that have only recently been discovered in the literature, to assess MAPPS’s ability to uncover novel structures.",
+      "We compare MAPPS with the following baseline methods, including (1) CDVAE [12]... (2) DiffCSP [6]... (3) FlowMM [25]... (4) CrystalTextLLM [28]... (5) FlowLLM [29]... and (6) MatLLMSearch [15]...",
+      "CrystalLLM [7] trains a language model for crystal generation using text-like representations of crystal structures, i.e., CIF files."
+    ]
+  },
+  "method": {
+    "steps": [
+      {
+        "step": "Human scientist provides a high-level task description and domain intuition.",
+        "input": "Task description (scientific goal), human intuition (domain-specific heuristics or constraints).",
+        "output": "Structured prompt for workflow planning.",
+        "tools": [],
+        "evidence": "The process begins with the human scientist providing a task description, domain intuition, and optional feedback."
+      },
+      {
+        "step": "Workflow Planner generates a structured, multi-step workflow.",
+        "input": "Task description and human intuition.",
+        "output": "A workflow consisting of up to 5 actionable steps.",
+        "tools": [
+          "Workflow Planner (Large Reasoning Model): Uses a large language model to decompose high-level goals into adaptive, multi-step plans."
+        ],
+        "evidence": "The Workflow Planner uses an LLM to decompose high-level scientific goals into adaptive, multi-step plans."
+      },
+      {
+        "step": "Scientific Mediator coordinates communication and reviews workflow.",
+        "input": "Proposed workflow from Workflow Planner.",
+        "output": "Reviewed and possibly refined workflow, with human approval or feedback.",
+        "tools": [
+          "Scientific Mediator: Central coordination module enabling human-in-the-loop review and feedback."
+        ],
+        "evidence": "The Scientific Mediator interprets these inputs and passes them to the Workflow Planner, which proposes a multi-step workflow tailored to the scientific objective. Once the workflow is approved by the human, the Scientific Mediator forwards it to the Tool Code Generator."
+      },
+      {
+        "step": "Tool Code Generator translates each workflow step into executable Python code.",
+        "input": "Current workflow step, previous step result, human intuition, and available physics tools.",
+        "output": "Executable Python function for each workflow step.",
+        "tools": [
+          "Tool Code Generator (Large Reasoning Model): Synthesizes Python code for each workflow step.",
+          "Physics Toolbox: Includes domain-specific tools such as ML Force Fields (e.g., CHGNetCalculator), ML Property Calculators, Space Group Analyzers."
+        ],
+        "evidence": "The Tool Code Generator synthesizes executable code for each step and incorporates physics-based tools, ensuring that outputs are grounded in fundamental physical laws."
+      },
+      {
+        "step": "Execution and self-reflection.",
+        "input": "Generated code and intermediate results.",
+        "output": "Results of each workflow step; revised code if errors are detected.",
+        "tools": [
+          "Self-reflection mechanism: Detects runtime errors and triggers code revision by the Tool Code Generator."
+        ],
+        "evidence": "To enhance robustness, the Tool Code Generator includes a self-reflection mechanism. If execution of the generated code results in runtime errors, a diagnostic error signal et is generated, triggering the Tool Code Generator itself to revise and regenerate the code."
+      },
+      {
+        "step": "Iterative feedback and refinement.",
+        "input": "Results from each workflow step, human feedback.",
+        "output": "Final scientific result (e.g., generated or predicted crystal structure).",
+        "tools": [],
+        "evidence": "Before proceeding to step t + 1, the Scientific Mediator queries the human for approval or feedback on rt, enabling intervention when necessary."
+      }
+    ],
+    "tools": [
+      "Workflow Planner (Large Reasoning Model): Generates structured, multi-step workflows from high-level goals and human intuition.",
+      "Tool Code Generator (Large Reasoning Model): Synthesizes executable Python code for each workflow step, integrating domain-specific physics tools.",
+      "Scientific Mediator: Coordinates communication between agents and humans, tracks progress, and incorporates feedback.",
+      "Physics Toolbox: Includes ML Force Fields (e.g., CHGNetCalculator), ML Property Calculators, Space Group Analyzers, ASE, pymatgen."
+    ],
+    "evidence": [
+      "The MAPPS framework consists of three key modules: the Workflow Planner, Tool Code Generator, and Scientific Mediator, which collaboratively drive structure discovery by planning tasks, generating code, and integrating expert guidance.",
+      "The Tool Code Generator uses a pretrained LRM to generate executable code, integrating these domain-specific physics tools to ensure physically grounded outcomes.",
+      "To enhance robustness, the Tool Code Generator includes a self-reflection mechanism. If execution of the generated code results in runtime errors, a diagnostic error signal et is generated, triggering the Tool Code Generator itself to revise and regenerate the code."
+    ]
+  },
+  "subject_area": {
+    "areas": [
+      "Physical Sciences",
+      "Applied Sciences & Engineering",
+      "Chemical Sciences"
+    ],
+    "evidence": [
+      "Materials discovery has significant societal impacts across energy, environment, health, and beyond.",
+      "The goal of materials discovery is to discover novel materials structures with desirable physical or chemical properties.",
+      "We focus on three types of tasks, including crystal generation, crystal structure prediction, and property-guided generation."
+    ]
+  },
+  "performance_summary": {
+    "performance_summary": [
+      "MAPPS outperforms several generative model-based baselines on the MP-20 and Matbench datasets, achieving higher validity, metastability, stability, and S.U.N. rates.",
+      "On the MP-20 dataset, MAPPS achieves 100% structural validity, 94.0% compositional validity, 95.0% metastability, 34.3% stability, and 24.9% S.U.N. rate, surpassing all baselines.",
+      "On the Matbench dataset, MAPPS achieves 100% structural validity, 76.9% compositional validity, 93.8% and 95.9% metastability (M3GNet and CHGNet), and 84.3% for the strictest stability threshold.",
+      "For crystal structure prediction, MAPPS achieves the highest match rate and lowest RMSE on MP-20 (63.9% match rate, 0.022 RMSE), MPTS-52 (27.6% match rate, 0.097 RMSE), and the challenge set (31.0% match rate, 0.055 RMSE).",
+      "MAPPS can generate crystal structures with targeted bandgap properties, with 74.6% of generated crystals exceeding 3 eV and 92.2% below 0.5 eV, both with high validity, uniqueness, and novelty."
+    ],
+    "baselines": [
+      "CDVAE: Crystal diffusion variational autoencoder for denoising atomic coordinates and atom types.",
+      "DiffCSP: Diffusion-based generative model using periodic E(3)-equivariant networks for symmetry-aware crystal generation.",
+      "FlowMM: Riemannian flow matching model for efficient and accurate generation of periodic structures.",
+      "CrystalTextLLM: Fine-tuned large language model for generating crystal structures from string-based representations.",
+      "FlowLLM: Fine-tuned large language model for learning base distribution of meta-stable crystals.",
+      "MatLLMSearch: Integrates pre-trained large language models with evolutionary search for crystal candidate generation.",
+      "CrystalLLM: Language model for crystal generation using text-like representations.",
+      "Mat2Seq: Autoregressive transformer for generating 1D token sequences representing crystal structures."
+    ],
+    "benchmark_datasets": [
+      "MP-20: Contains 45,231 stable materials from the Materials Project, with up to 20 atoms per unit cell and within 0.08 eV/atom of the convex hull; used as retrieval database and for evaluation.",
+      "Matbench: Benchmark dataset processed as in Gan et al. (2025), used for evaluation of generative performance.",
+      "MPTS-52: Contains 40,476 structures with up to 52 atoms per unit cell; used for crystal structure prediction benchmarking.",
+      "JARVIS-DFT: Contains 61,541 crystal structures with corresponding bandgap values; used for property-guided generation and evaluation."
+    ],
+    "evaluation_metrics": [
+      "Validity Rate: Measures structural and compositional validity based on interatomic distances and charge balance.",
+      "Metastability Rate: Fraction of structures with decomposition energies below specified thresholds, estimated using surrogate models.",
+      "Stability Rate: Fraction of structures with DFT-calculated energy above the convex hull less than 0 eV/atom.",
+      "S.U.N. Rate: Proportion of structures that are stable, unique, and novel.",
+      "Match Rate: Ratio of generated structures matching the ground truth structure for a given composition.",
+      "RMSE: Root mean square error between fractional coordinates of predicted and true structures.",
+      "Condition Satisfaction (DFT): Percentage of generated crystals meeting specified bandgap criteria.",
+      "Uniqueness: Fraction of stable crystals that are mutually unique.",
+      "Novelty: Fraction of generated crystals not matching any existing structure in the dataset."
+    ],
+    "evidence": [
+      "The results in Table 1 show that MAPPS outperforms several generative model-based baselines, including CDVAE, DiffCSP, FlowMM, and CrystalTextLLM, on the MP-20 dataset.",
+      "Moreover, the results in Table 2 demonstrate that our MAPPS surpasses MatLLMSearch, a recent baseline that combines LLMs with evolutionary algorithms, on the Matbench dataset.",
+      "The results in Table 3 show that our approach achieves the highest match rate and the lowest RMSE on both datasets, indicating superior performance of MAPPS on the crystal structure prediction task.",
+      "Table 4 demonstrates that MAPPS can effectively discover crystal structures with target band gap properties.",
+      "We evaluate the quality of generated crystal structures using four metrics: validity rate, metastability, stability, and S.U.N rate.",
+      "MP-20 includes 45,231 stable materials from the Materials Project, covering materials with a maximum of 20 atoms per unit cell and within 0.08 eV/atom of the convex hull.",
+      "For metastability, we adopt the approach of Gan et al. [15], using CHGNet [26] and M3GNet [27] as surrogate models to estimate the fraction of structures with decomposition energies below thresholds of 0.1 eV/atom and 0.03 eV/atom.",
+      "A structure is considered structurally valid if all pairwise interatomic distances are greater than or equal to 0.5 Å and the unit cell volume is no less than 0.1 Å3.",
+      "Match rate measures the ratio of the generated structures that match the ground truth structure determined by the Pymatgen structure matcher [30]. RMSE [30]measures the structural differences between the ground truth and matched generated structures."
+    ]
+  },
+  "limitations": {
+    "limitations": [
+      {
+        "label": "Human-in-the-loop Requirement",
+        "explanation": "MAPPS currently requires human expert input and does not achieve full Level 3 autonomy.",
+        "evidence": "Current limitations of MAPPS include: (1) MAPPS currently has human expert in the loop, and does not reach full autonomous agent system which is Level 3;"
+      },
+      {
+        "label": "Domain Specificity",
+        "explanation": "The framework is currently focused on materials discovery tasks and has not been extended to other scientific domains.",
+        "evidence": "(2) we currently focus on materials discovery tasks, while extensions to other domains such as molecules, polymers, or other systems remain underexplored."
+      }
+    ],
+    "evidence": [
+      "Current limitations of MAPPS include: (1) MAPPS currently has human expert in the loop, and does not reach full autonomous agent system which is Level 3; and (2) we currently focus on materials discovery tasks, while extensions to other domains such as molecules, polymers, or other systems remain underexplored."
+    ]
+  },
+  "future_directions": {
+    "future_directions": [
+      "Achieving Level 3 autonomy where agents independently design and adapt workflows without human input.",
+      "Extending the MAPPS framework to other domains such as molecules, polymers, or other systems."
+    ],
+    "evidence": [
+      "Looking forward, level 3 autonomy where agents independently design and adapt workflows without human input, offers exciting potential for scientific discovery. Realizing this vision will require advances in fundamental large language model ability, scientific reasoning, tool code generation, and self-verification.",
+      "we currently focus on materials discovery tasks, while extensions to other domains such as molecules, polymers, or other systems remain underexplored."
+    ]
+  },
+  "resource_link": {
+    "answer": "",
+    "evidence": "No code repository, project website, or data repository link is provided in the paper."
+  },
+  "paper_title": "Toward Greater Autonomy in Materials Discovery Agents: Unifying Planning, Physics, and Scientists",
+  "authors": [
+    "Lianhao",
+    "Hongyi",
+    "Keqiang",
+    "Kaiji",
+    "Xiaoning",
+    "Raymundo",
+    "Xiaofeng",
+    "Shuiwang"
+  ],
+  "published": "2025-06-09",
+  "link": "http://arxiv.org/abs/2506.05616"
+}

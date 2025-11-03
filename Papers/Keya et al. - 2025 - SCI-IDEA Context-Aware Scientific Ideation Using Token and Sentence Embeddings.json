@@ -1,0 +1,203 @@
+{
+  "objective": {
+    "answer": "The primary objective of the paper is to introduce SCI-IDEA, a framework that generates, evaluates, and refines context-aware, high-quality, and innovative scientific ideas using large language models and embedding-based evaluation. The authors aim to address the challenge of producing context-aware, novel, feasible, and effective scientific ideas by leveraging structured extraction from research publications and iterative refinement. The framework is validated through comprehensive experiments across multiple prompting strategies and language models.",
+    "evidence": "We introduce SCI-IDEA, a framework that uses LLM prompting strategies and “Aha Moment” detection for iterative idea refinement. SCI-IDEA extracts essential facets from research publications, assessing generated ideas on novelty, excitement, feasibility, and effectiveness. Comprehensive experiments validate SCI-IDEA’s effectiveness, achieving average scores of 6.84, 6.86, 6.89, and 6.84 (on a 1–10 scale) across novelty, excitement, feasibility, and effectiveness, respectively."
+  },
+  "knowledge_gap": {
+    "answer": "Existing methods for scientific ideation often fail to balance novelty, relevance, and computational efficiency, and lack systematic mechanisms to evaluate the novelty and impact of generated ideas, frequently producing outputs that are either too conventional or irrelevant.",
+    "evidence": "Recently, there has been growing attention on leveraging LLMs for scientific ideation [27], yet existing methods often fail to balance novelty, relevance, and computational efficiency [12,2,10]. ... Additionally, traditional methods lack systematic mechanisms to evaluate the novelty and impact of generated ideas, often producing outputs that are either too conventional or irrelevant [8,10,15]."
+  },
+  "novelty": {
+    "answer": [
+      "SCI-IDEA integrates iterative idea refinement with 'Aha Moment' detection using semantic embeddings for novelty and surprise.",
+      "The framework dynamically evaluates and ranks generated ideas based on four dimensions: novelty, excitement, feasibility, and effectiveness, using both human and language model assessments.",
+      "SCI-IDEA employs multiple prompting strategies (zero-shot, chain-of-thought, few-shot) tailored to researcher requirements for context-aware idea generation.",
+      "The system extracts structured facets (objectives, methodologies, evaluation, future work) from both researcher and related publications to identify research gaps and guide idea generation.",
+      "SCI-IDEA supports a human-in-the-loop process for iterative refinement, allowing dynamic context updates and researcher feedback."
+    ],
+    "evidence": [
+      "SCI-IDEA, a framework that uses LLM prompting strategies and “Aha Moment” detection for iterative idea refinement. SCI-IDEA extracts essential facets from research publications, assessing generated ideas on novelty, excitement, feasibility, and effectiveness.",
+      "SCI-IDEA addresses these limitations by dynamically evaluating novelty and surprise, enabling the identification of transformative ideas. It leverages insights from researchers’ prior work and related literature to generate impactful ideas aligned with their expertise.",
+      "The framework employs different prompting strategies based on researcher requirements: (1) Zero-shot prompting for straightforward context-aware idea generation, (2) Zero-shot chain-of-thought prompting for reasoning through multi-step research gaps, and (3) Few-shot prompting for tasks requiring domain-specific context.",
+      "Key facets—objectives (e.g., improving energy efficiency), methodologies (e.g., DRL, SNNs), and future work (e.g., hybrid DRL-SNN approaches)—are extracted using LLMs. SCI-IDEA identifies research gaps ... forming the basis for idea generation.",
+      "The module enables iterative refinement, dynamically updating the context to balance exploration and exploitation, ensuring high-quality, context-aware results (subsection 2.3). ... The last step of the framework includes human feedback where the researcher interacting with the system provides feedback, such as adding focus points."
+    ]
+  },
+  "inspirational_papers": {
+    "answer": [
+      "- Si et al. (2024) Can LLMs generate novel research ideas? a large-scale human study with 100+ NLP researchers. (Experimental baseline and limitations addressed)",
+      "- Gu et al. (2024) Interesting scientific idea generation using knowledge graphs and LLMs: Evaluations with 100 research group leaders. (Methodological precursor and limitations addressed)",
+      "- Baek et al. (2024) ResearchAgent: Iterative research idea generation over scientific literature with large language models. (Methodological precursor and limitations addressed)",
+      "- Radensky et al. (2024) SciDeator: Human-LLM scientific idea generation grounded in research-paper facet recombination. (Methodological precursor and limitations addressed)",
+      "- Guo et al. (2024) IdeaBench: Benchmarking large language models for research idea generation. (Experimental baseline and limitations addressed)"
+    ],
+    "evidence": [
+      "Recently, there has been growing attention on leveraging LLMs for scientific ideation [27], yet existing methods often fail to balance novelty, relevance, and computational efficiency [12,2,10].",
+      "Related Work. Based on the literature review that we conducted, existing methods for scientific ideation often rely on a single prompting strategy and fail to adapt to the iterative refinement of ideas [12,15,24] and only focus on domain-driven tasks [9,18].",
+      "Additionally, traditional methods lack systematic mechanisms to evaluate the novelty and impact of generated ideas, often producing outputs that are either too conventional or irrelevant [8,10,15].",
+      "This multi-dimensional evaluation aligns with recent AI-assisted ideation studies [27], ensuring the assessment of strengths and limitations."
+    ]
+  },
+  "method": {
+    "steps": [
+      {
+        "step": "Context and Research Gap Identification",
+        "input": "Researcher's scientific identifier (e.g., ORCID ID), research query",
+        "output": "Retrieved publications (researcher and related), extracted key facets (objectives, methodologies, evaluation, future work), identified research gaps",
+        "tools": [
+          "CORE API: Retrieves publications and metadata.",
+          "arXiv API: Retrieves related publications.",
+          "Semantic Scholar API: Retrieves related publications.",
+          "Large Language Model (e.g., GPT-4o, DeepSeek): Extracts keyphrases and facets from publications."
+        ],
+        "evidence": "The first module retrieves the publications of a given profile as well as related ones using a scientific identifier and research query. Key facets of these publications are extracted to identify research gaps, which serve as the foundation for generating context-aware scientific ideas using diverse prompting strategies (subsection 2.2)."
+      },
+      {
+        "step": "Idea Generation and Iterative Refinement",
+        "input": "Identified research gaps, extracted facets, researcher feedback",
+        "output": "Generated candidate scientific ideas, ranked and refined ideas",
+        "tools": [
+          "Large Language Model (e.g., GPT-4o, GPT-4.5, DeepSeek-32B, DeepSeek-70B): Generates ideas using zero-shot, chain-of-thought, and few-shot prompting.",
+          "Pre-trained Language Model (BERT, SciBERT): Computes semantic embeddings for novelty and surprise evaluation."
+        ],
+        "evidence": "The second module evaluates ideas for novelty and surprise using a pre-trained language model. Novelty is quantified by semantic dissimilarity, while the likelihood of the SCI-IDEA framework-generated ideas measures surprise. Ideas exceeding predefined thresholds for novelty and surprise are flagged as Aha moments. The module enables iterative refinement, dynamically updating the context to balance exploration and exploitation, ensuring high-quality, context-aware results (subsection 2.3)."
+      },
+      {
+        "step": "Aha Moment Detection and Deep Dive",
+        "input": "Generated ideas, novelty and surprise scores, predefined thresholds",
+        "output": "Flagged Aha moments, further refined and explored ideas",
+        "tools": [
+          "Pre-trained Language Model (BERT, SciBERT): Computes semantic similarity and surprise.",
+          "Aha Prompt Template: Guides LLM to refine and explore flagged ideas."
+        ],
+        "evidence": "An idea is flagged as an Aha moment if it satisfies the researcher’s predefined thresholds for novelty and surprise (e.g., θn = 0.7 and θs = 2.0). ... When an idea is flagged as an Aha moment ... the Aha Prompt template (Table 1) is activated to guide deeper exploration."
+      },
+      {
+        "step": "Idea Ranking and Human-in-the-Loop Refinement",
+        "input": "Generated and refined ideas, human feedback",
+        "output": "Final ranked list of actionable, context-aware scientific ideas",
+        "tools": [
+          "Large Language Model: Ranks ideas based on novelty, excitement, feasibility, and effectiveness.",
+          "Human Expert Review: Provides feedback and further refinement."
+        ],
+        "evidence": "The generated candidate ideas are ranked using an LLM based on four criteria: Novelty, Excitement, Feasibility, and Effectiveness, ensuring a balanced evaluation of their impact and practicality. ... The last step of the framework includes human feedback where the researcher interacting with the system provides feedback, such as adding focus points."
+      }
+    ],
+    "tools": [
+      "CORE API: Retrieves publications and metadata.",
+      "arXiv API: Retrieves related publications.",
+      "Semantic Scholar API: Retrieves related publications.",
+      "Large Language Model (GPT-4o, GPT-4.5, DeepSeek-32B, DeepSeek-70B): Used for keyphrase extraction, facet extraction, idea generation, and ranking.",
+      "Pre-trained Language Model (BERT, SciBERT): Used for semantic embedding and novelty/surprise evaluation.",
+      "Aha Prompt Template: Guides deep exploration of flagged ideas.",
+      "Human Expert Review: Provides qualitative evaluation and feedback."
+    ],
+    "evidence": [
+      "The first module retrieves the publications of a given profile as well as related ones using a scientific identifier and research query. Key facets of these publications are extracted to identify research gaps, which serve as the foundation for generating context-aware scientific ideas using diverse prompting strategies (subsection 2.2).",
+      "The second module evaluates ideas for novelty and surprise using a pre-trained language model. Novelty is quantified by semantic dissimilarity, while the likelihood of the SCI-IDEA framework-generated ideas measures surprise. Ideas exceeding predefined thresholds for novelty and surprise are flagged as Aha moments. The module enables iterative refinement, dynamically updating the context to balance exploration and exploitation, ensuring high-quality, context-aware results (subsection 2.3).",
+      "An idea is flagged as an Aha moment if it satisfies the researcher’s predefined thresholds for novelty and surprise (e.g., θn = 0.7 and θs = 2.0). ... When an idea is flagged as an Aha moment ... the Aha Prompt template (Table 1) is activated to guide deeper exploration.",
+      "The generated candidate ideas are ranked using an LLM based on four criteria: Novelty, Excitement, Feasibility, and Effectiveness, ensuring a balanced evaluation of their impact and practicality. ... The last step of the framework includes human feedback where the researcher interacting with the system provides feedback, such as adding focus points."
+    ]
+  },
+  "subject_area": {
+    "areas": [
+      "Applied Sciences & Engineering",
+      "Social Sciences"
+    ],
+    "evidence": [
+      "All researchers have published in top-tier computer science conferences (e.g., NeurIPS, ICML, ACL, SIGIR), ensuring high-impact relevance.",
+      "The dataset covers diverse topics in computer science (Table 2), ensuring broad evaluation and generalizability.",
+      "Additionally, LLMs and different agent-based frameworks serve as interactive brainstorming partners, refining hypotheses and fostering interdisciplinary collaboration, bridging gaps between research communities [10,22]."
+    ]
+  },
+  "performance_summary": {
+    "performance_summary": [
+      "SCI-IDEA achieves average scores of 6.84, 6.86, 6.89, and 6.84 (on a 1–10 scale) across novelty, excitement, feasibility, and effectiveness, respectively, in comprehensive experiments.",
+      "With sentence-level embeddings, GPT-4o achieves the highest average score of 6.87 under 5-shot prompting, and DeepSeek-70B also performs well with an average score of 6.87 under 5-shot prompting.",
+      "Token-level embeddings improve feasibility and effectiveness, with DeepSeek-32B achieving the highest average score of 6.89 under 2-shot prompting.",
+      "Few-shot prompting consistently outperforms zero-shot and zero-shot chain-of-thought prompting, particularly in feasibility and effectiveness.",
+      "Human evaluation shows GPT-4o with 5-shot prompting achieves the highest human score of 8.25, highlighting its ability to generate highly novel and effective ideas."
+    ],
+    "baselines": [
+      "GPT-4o: General-purpose large language model baseline.",
+      "GPT-4.5: General-purpose large language model baseline.",
+      "DeepSeek-32B: Knowledge-distilled large language model for efficiency.",
+      "DeepSeek-70B: Larger knowledge-distilled large language model."
+    ],
+    "benchmark_datasets": [
+      "SCI-IDEA curated dataset: 100 researchers’ profiles, including names, ORCID IDs, and publicly available publications from top-tier computer science conferences. Used for evaluating the framework’s ability to generate and assess scientific ideas across diverse topics."
+    ],
+    "evaluation_metrics": [
+      "Novelty: Measures originality of the idea, computed as 1 minus the maximum cosine similarity between semantic embeddings of generated and prior ideas.",
+      "Excitement: Measures how inspiring or engaging the idea is, rated on a 1–10 scale by both human experts and language models.",
+      "Feasibility: Assesses the realistic implementation potential of the idea, rated on a 1–10 scale.",
+      "Effectiveness: Evaluates how well the idea addresses the intended problem, rated on a 1–10 scale.",
+      "Surprise: Quantifies how unexpected an idea is given the context, measured by the negative log-likelihood of the idea given its context using a pre-trained language model."
+    ],
+    "evidence": [
+      "Comprehensive experiments validate SCI-IDEA’s effectiveness, achieving average scores of 6.84, 6.86, 6.89, and 6.84 (on a 1–10 scale) across novelty, excitement, feasibility, and effectiveness, respectively.",
+      "Similarly, it achieves scores of 6.87, 6.86, 6.83, and 6.87 using GPT-4o under 5-shot prompting, GPT-4.5 under 3-shot prompting, DeepSeek-32B under zero-shot chain-of-thought prompting, and DeepSeek-70B under 5-shot prompting with sentence-level embeddings.",
+      "DeepSeek-32B achieves the highest average score of 6.89 under 2-shot prompting, with feasibility and effectiveness scores of 6.28 and 6.96, respectively.",
+      "Few-shot prompting consistently outperforms zero-shot and zero-shot chain-of-thought prompting, particularly in feasibility and effectiveness.",
+      "For semantic embeddings, we use two pre-trained transformer models: BERT (bert-base-uncased) [7] for general-purpose embeddings and SciBERT [3] for domain-specific scientific text. ... Novelty is calculated as 1−max(similarities) by comparing cosine similarities between new and previous responses, ensuring distinct and innovative ideas."
+    ]
+  },
+  "limitations": {
+    "limitations": [
+      {
+        "label": "Input Data Quality Dependence",
+        "explanation": "The framework relies heavily on the quality of input data, such as the researcher’s and related publications, which may introduce biases or incomplete representations of the research landscape.",
+        "evidence": "First, the framework relies heavily on the quality of input data, such as the researcher’s and related publications, which may introduce biases or incomplete representations of the research landscape."
+      },
+      {
+        "label": "Evaluation Metric Limitations",
+        "explanation": "The evaluation metrics for novelty and surprise, while robust, are based on semantic embeddings and likelihood estimates, which may not fully capture the transformative potential of ideas.",
+        "evidence": "Second, the evaluation metrics for novelty and surprise, while robust, are based on semantic embeddings and likelihood estimates, which may not fully capture the transformative potential of ideas."
+      },
+      {
+        "label": "Computational Cost",
+        "explanation": "The computational cost of iterative refinement and embedding-based evaluations can be prohibitive for large-scale applications.",
+        "evidence": "Third, the computational cost of iterative refinement and embedding-based evaluations can be prohibitive for large-scale applications."
+      },
+      {
+        "label": "Domain Focus",
+        "explanation": "The examples in this paper focus on computer science due to the authors’ expertise, but the approach is broadly applicable to other domains.",
+        "evidence": "Additionally, the examples in this paper focus on computer science due to the authors’ expertise, but the approach is broadly applicable to other domains."
+      }
+    ],
+    "evidence": [
+      "First, the framework relies heavily on the quality of input data, such as the researcher’s and related publications, which may introduce biases or incomplete representations of the research landscape.",
+      "Second, the evaluation metrics for novelty and surprise, while robust, are based on semantic embeddings and likelihood estimates, which may not fully capture the transformative potential of ideas.",
+      "Third, the computational cost of iterative refinement and embedding-based evaluations can be prohibitive for large-scale applications.",
+      "Additionally, the examples in this paper focus on computer science due to the authors’ expertise, but the approach is broadly applicable to other domains."
+    ]
+  },
+  "future_directions": {
+    "future_directions": [
+      "Incorporate more diverse datasets to address current limitations.",
+      "Develop broader evaluation metrics to better capture idea quality and impact.",
+      "Optimize computational efficiency of the framework.",
+      "Explore the integration of domain-specific knowledge graphs and multi-modal inputs to enhance the quality and diversity of generated ideas."
+    ],
+    "evidence": [
+      "Future work will focus on addressing limitations by incorporating more diverse datasets, developing broader evaluation metrics, and optimizing computational efficiency.",
+      "We also plan to explore the integration of domain-specific knowledge graphs and multi-modal inputs to enhance the quality and diversity of generated ideas.",
+      "Additionally, an extensive human evaluation will be conducted to further validate the framework’s effectiveness."
+    ]
+  },
+  "resource_link": {
+    "answer": "",
+    "evidence": "No explicit code repository, project website, or data repository link is provided in the main text. The paper mentions 'Dataset', ' Project Page', and ' Codebase' in the header, but no actual URLs are given."
+  },
+  "paper_title": "SCI-IDEA: Context-Aware Scientific Ideation Using Token and Sentence Embeddings",
+  "authors": [
+    "Farhana",
+    "Gollam",
+    "Prasenjit",
+    "Sahar",
+    "Sören",
+    "Yaser"
+  ],
+  "published": "2025-03-25",
+  "link": "http://arxiv.org/abs/2503.19257"
+}

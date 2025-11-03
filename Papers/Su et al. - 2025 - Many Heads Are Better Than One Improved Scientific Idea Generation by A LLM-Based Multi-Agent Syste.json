@@ -1,0 +1,221 @@
+{
+  "objective": {
+    "answer": "The primary objective of the paper is to develop and evaluate a large language model-based multi-agent system, called Virtual Scientists (VIRSCI), that simulates collaborative scientific idea generation. The authors aim to address the limitations of single-agent and oversimplified multi-agent approaches by creating a system that mimics real-world scientific teamwork using real scientist data and collaboration networks. They seek to demonstrate that this multi-agent approach produces more novel scientific ideas compared to state-of-the-art methods.",
+    "evidence": "To address the limitations, we propose an LLM-based multi-agent system, i.e., Virtual Scientists (VIRSCI), designed to mimic the teamwork inherent in scientific research. VIRSCI organizes a team of agents to collaboratively generate, evaluate, and refine research ideas. Through comprehensive experiments, we demonstrate that this multi-agent approach outperforms the state-of-the-art method in producing novel scientific ideas."
+  },
+  "knowledge_gap": {
+    "answer": "Existing artificial intelligence methods for scientific discovery either rely on single-agent systems, which overlook the collaborative nature of real-world research, or use oversimplified collaboration frameworks and unrealistic data, failing to capture the dynamic relationships and mechanisms of actual scientific teams.",
+    "evidence": "However, these efforts either rely on a single-agent system, overlooking the collaborative nature of real-world research (Kayacik et al., 2019; Gauch, 2003; Linsey et al., 2005), or employ an oversimplified collaboration framework and unrealistic data (e.g. manually crafted personal profiles, synthetic collaboration networks) to model a multi-agent system, failing to capture the dynamic relationships that characterize real scientific teams. Consequently, they provide limited insights into multi-agent collaboration, which is essential for advancing autonomous scientific discovery."
+  },
+  "novelty": {
+    "answer": [
+      "Introduction of the first multi-agent system (VIRSCI) with a scientific research ecosystem that uses real scientist data and collaboration networks for benchmarking scientific collaborations.",
+      "Development of an end-to-end pipeline that simulates the full scientific collaboration process, from team formation to idea generation, including a novel inter- and intra-team discussion mechanism.",
+      "Implementation of an 'Invitation Mechanism' that allows agents to seek advice from external agents, enhancing communication topology and simulation realism.",
+      "Objective evaluation of generated ideas using new metrics that assess historical dissimilarity, alignment with research trends, and potential influence on contemporary research."
+    ],
+    "evidence": [
+      "1) To the best of our knowledge, we propose the first multi-agent system with a scientific research ecosystem for conducting and benchmarking scientific collaborations, named VIRSCI, where real data is used for role-playing and objective evaluation.",
+      "2) To simulate a reliable scientific collaboration process, we propose an end-to-end pipeline that spans team organization to idea generation. A novel inter- and intra-team discussion mechanism is introduced to promote communication topology and enhance the simulation realism.",
+      "This inter- and intra-team discussion distinguishes our approach from previous group discussion patterns (Zhang et al., 2024; Qi et al., 2024; Qian et al., 2024), enabling agents within the team to proactively seek advice from external agents (inter-team) through an 'Invitation Mechanism', while effectively balancing diverse perspectives within the team (intra-team).",
+      "To evaluate the novelty of the generated ideas, we introduce three metrics from different perspectives: dissimilarity to past papers, alignment with research trends, and the potential influence on contemporary research (Shao et al., 2020; Yang et al., 2022)."
+    ]
+  },
+  "inspirational_papers": {
+    "answer": [
+      "Lu et al. (2024) AI Scientist: Towards fully automated open-ended scientific discovery. (Experimental baseline and methodological precursor)",
+      "Qi et al. (2024) Large language models as biomedical hypothesis generators: A comprehensive evaluation. (Experimental baseline and prior multi-agent framework)",
+      "Yu et al. (2024) ResearchTown: Simulator of human research community. (Prior multi-agent framework)",
+      "Zhang et al. (2024) Exploring collaboration mechanisms for LLM agents: A social psychology view. (Prior group discussion patterns and collaboration mechanism)",
+      "Shi and Evans (2023) Surprising combinations of research contents and contexts are related to impact and emerge with scientific outsiders from distant disciplines. (Science of Science findings on collaboration and innovation)"
+    ],
+    "evidence": [
+      "Recent works like AI Scientist (Lu et al., 2024), ResearchTown (Yu et al., 2024), and HypoGen (Qi et al., 2024) leverage LLMs ... to simulate the scientific idea generation process and advance automatic scientific discovery at various stages...",
+      "This inter- and intra-team discussion distinguishes our approach from previous group discussion patterns (Zhang et al., 2024; Qi et al., 2024; Qian et al., 2024)...",
+      "The patterns observed in the experimental results align with findings from prior Science of Science studies (Fortunato et al., 2018; Wu et al., 2019; Zeng et al., 2021; Shi and Evans, 2023)..."
+    ]
+  },
+  "method": {
+    "steps": [
+      {
+        "step": "Collaborator Selection",
+        "input": "A randomly selected scientist agent as team leader, author knowledge bank (profiles, collaboration history, research interests), adjacency matrix representing collaboration counts.",
+        "output": "A research team of agents with diverse and relevant expertise.",
+        "tools": [
+          "AgentScope KnowledgeBank: Embeds scientist profiles for agent retrieval and initialization.",
+          "Faiss: Used for efficient similarity search and clustering of dense vectors in paper databases."
+        ],
+        "evidence": "In Collaborator Selection stage, given a randomly selected agent as the team leader, it will exploit historical co-authors based on its collaboration history and academic social networks, while also exploring potential collaborators whose expertise and research interests align with the team’s goals..."
+      },
+      {
+        "step": "Topic Discussion",
+        "input": "Team member profiles, task description prompt, dialogue history, author knowledge bank.",
+        "output": "A consensus research topic for the team.",
+        "tools": [
+          "Retrieval-Augmented Generation (RAG): Used to access relevant information from the author knowledge bank during discussions."
+        ],
+        "evidence": "In Topic Selection stage, the scientists will discuss topics of common interest... The scientists who are not interested can choose to leave the discussion at will. Otherwise, the discussion continues until a final topic is determined."
+      },
+      {
+        "step": "Idea Generation",
+        "input": "Selected research topic, relevant papers from past paper database, team member backgrounds, dialogue history.",
+        "output": "A list of candidate research ideas, each with description, experimental plan, and self-assessment (novelty, feasibility, clarity).",
+        "tools": [
+          "Faiss: For retrieving relevant papers from the past paper database.",
+          "Retrieval-Augmented Generation (RAG): For integrating references and background knowledge."
+        ],
+        "evidence": "In the Idea Generation stage, the virtual scientists retrieve relevant papers from the past paper database and engage in both inter- and intra-team discussions, where collaborators participate in iterative dialogues based on their backgrounds."
+      },
+      {
+        "step": "Novelty Assessment",
+        "input": "List of candidate ideas, related papers from past paper database.",
+        "output": "Selection of the most novel idea via agent voting.",
+        "tools": [
+          "Faiss: For retrieving related papers for novelty checking."
+        ],
+        "evidence": "To enhance the quality of ideas and mitigate agent overconfidence, we introduce an idea novelty assessment, enabling agents to compare each idea with related papers from Bpast and vote for the idea they consider most novel."
+      },
+      {
+        "step": "Abstract Generation",
+        "input": "Selected idea, team member expertise, format requirements.",
+        "output": "A comprehensive scientific abstract covering introduction, objective, methods, results, and conclusion.",
+        "tools": [
+          "Retrieval-Augmented Generation (RAG): For integrating knowledge during abstract drafting and revision."
+        ],
+        "evidence": "Lastly, the team is required to produce a comprehensive abstract that includes the following sections: (1) Introduction, (2) Objective, (3) Methods, (4) Expected Results, and (5) Conclusion..."
+      },
+      {
+        "step": "Self-Review (optional/ablation)",
+        "input": "Finalized abstract, similar papers from past paper database.",
+        "output": "Assessment of novelty and possible revision or discarding of the abstract.",
+        "tools": [
+          "Faiss: For similarity search in self-review."
+        ],
+        "evidence": "A self-review mechanism is also considered after Rabstract is finalized to pre-check its novelty. The optimized abstract Rabstract is provided to the team leader to assess novelty by comparing it to similar papers in Bpast..."
+      }
+    ],
+    "tools": [
+      "AgentScope KnowledgeBank: Embeds and retrieves scientist profiles for agent initialization and collaboration.",
+      "Faiss: Python library for efficient similarity search and clustering of dense vectors, used for paper retrieval.",
+      "Retrieval-Augmented Generation (RAG): Integrates external knowledge into agent responses during all steps.",
+      "LLMs (GPT-4o, LLaMA3.1-8b, LLaMA3.1-70b): Serve as the underlying models for agent reasoning and dialogue."
+    ],
+    "evidence": [
+      "We implement our system on top of the Agentscope framework (Gao et al., 2024), which serves for LLM-empowered multi-agent applications.",
+      "Past Paper Database. To construct the past paper database Bpast using the Faiss2 (Johnson et al., 2019)...",
+      "To help each agent become familiar with the backgrounds of other team members without overloading the initialization prompt, we employ retrieval-augmented generation (RAG) (Lewis et al., 2020), used throughout all five steps.",
+      "All necessary prompts and example scenarios are shown in Appx. H and I."
+    ]
+  },
+  "subject_area": {
+    "areas": [
+      "Applied Sciences & Engineering",
+      "Social Sciences"
+    ],
+    "evidence": [
+      "We conduct extensive experiments to verify the effectiveness of VIRSCI in producing novel scientific ideas on both single-discipline and multi-discipline datasets.",
+      "Our model focuses on the idea generation phase, demonstrating how specialized agents collaborate to generate diverse insights, reflecting real-world scientific teamwork."
+    ]
+  },
+  "performance_summary": {
+    "performance_summary": [
+      "The proposed multi-agent system (VIRSCI) outperforms baseline models (HypoGen and AI Scientist) across all novelty and impact metrics, including both LLM-based and human evaluations.",
+      "VIRSCI improves over single-agent execution by +13.8% in alignment with and +44.1% in potential impacts on contemporary research.",
+      "Peak novelty is achieved with a team size of 8 and 5 discussion turns; moderate team expansion and diversity boost novelty, but excessively large teams or too many turns hinder creativity.",
+      "Correlation analysis shows that the proposed overall novelty metric aligns positively with human and LLM-based reviewer assessments."
+    ],
+    "baselines": [
+      "HypoGen: A recent multi-agent system for scientific idea generation.",
+      "AI Scientist: A state-of-the-art single-agent system for automated scientific discovery."
+    ],
+    "benchmark_datasets": [
+      "AMiner Computer Science dataset: Contains 1,712,433 authors and 2,092,356 papers from 1948 to 2014, filtered for quality and used to construct the scientific research ecosystem for simulation and evaluation.",
+      "Open Academic Graph 3.1: Comprises 35,774,510 authors and 130,710,733 papers as of 2023, spanning multiple domains, used to test generalizability and robustness of the system."
+    ],
+    "evaluation_metrics": [
+      "Historical Dissimilarity (HD): Measures the average Euclidean distance between the generated abstract and the 5 most similar abstracts in the past paper database; higher values indicate greater novelty.",
+      "Contemporary Dissimilarity (CD): Measures the average Euclidean distance between the generated abstract and the 5 most similar abstracts in the contemporary paper database; lower values indicate alignment with future trends.",
+      "Contemporary Impact (CI): The average citation count of the top 5 most similar abstracts in the contemporary database; higher values suggest greater potential impact.",
+      "Overall Novelty (ON): A composite metric calculated as (HD × CI)/CD, representing the expected novelty of the generated idea.",
+      "LLM Review Score: Abstracts are reviewed by GPT-4o using NeurIPS conference guidelines.",
+      "Human Evaluation: Ten PhD students rate abstracts on novelty, feasibility, and effectiveness using a 10-point scale."
+    ],
+    "evidence": [
+      "As shown in Tab. 1, our multi-agent system outperforms baseline models across metrics: our proposed metrics (CD, CI), LLM review, and human evaluation (Novelty, Feasibility, and Effectiveness), demonstrating its effectiveness in enhancing abstract novelty through collaboration.",
+      "Datasets. We evaluate the performance of VIRSCI and baseline methods on two datasets: the AMiner Computer Science dataset3, containing 1,712,433 authors and 2,092,356 papers from 1948 to 2014, and the Open Academic Graph 3.14, comprising 35,774,510 authors and 130,710,733 papers as of 2023.",
+      "Evaluation Metrics. In this paper, we adopt a more objective approach by using three common metrics that align with our intuition, as no single metric fully captures the novelty of scientific outputs: (1) Historical Dissimilarity (HD)... (2) Contemporary Dissimilarity (CD)... (3) Contemporary Impact (CI)... (4) Overall Novelty (ON)...",
+      "To comprehensively compare our method with baseline models, we additionally conduct a human evaluation to assess novelty, feasibility, and effectiveness besides our proposed metrics and LLM review score. Ten PhD students in computer science (the relevant field for the selected research topic), unaware of the method identities, rated the abstracts on a 10-point scale (1: Poor, 10: best) based on three metrics (Si et al., 2024): 1. Novelty: Whether the idea is creative and different from existing works on the topic, and brings fresh insights; 2. Feasibility: How feasible it is to implement and execute this idea as a research project; 3. Effectiveness: How likely the proposed idea is going to work well (e.g., better than existing baselines)."
+    ]
+  },
+  "limitations": {
+    "limitations": [
+      {
+        "label": "Simplified Team Dynamics",
+        "explanation": "The system does not fully capture the complex dynamics of real-world scientific collaboration, such as multiple concurrent teams and overlapping memberships.",
+        "evidence": "In large research communities, multiple teams often work on related projects either collaboratively or independently, and researchers frequently participate in multiple teams simultaneously. Our current approach does not fully capture these intricate dynamics, potentially limiting its ability to model real-world scientific collaboration with high fidelity."
+      },
+      {
+        "label": "Inherited Model and Data Bias",
+        "explanation": "The system may reinforce existing disparities in scientific knowledge production due to biases in the underlying language model and training data.",
+        "evidence": "Beyond structural limitations, our system also inherits biases from the underlying language model and training data. If not properly mitigated, these biases could disproportionately favor well-established research domains while marginalizing emerging or underrepresented areas."
+      },
+      {
+        "label": "Risk of Generating Incorrect or Misleading Claims",
+        "explanation": "There is a risk that the system could generate plausible but incorrect or misleading scientific claims, especially in high-stakes fields.",
+        "evidence": "Another critical limitation is the potential for generating plausible but incorrect or misleading scientific claims. This risk is particularly concerning in high-stakes fields such as medicine and policy-related research, where inaccuracies could lead to misinformation, flawed decision-making, or ethical concerns."
+      },
+      {
+        "label": "Potential for Unethical Use",
+        "explanation": "The system could be misused for unethical purposes, such as automating the creation of fraudulent research papers or facilitating plagiarism.",
+        "evidence": "Additionally, our system could be misused for unethical purposes, such as automating the creation of fraudulent research papers or facilitating plagiarism. The ability to generate text that mimics academic writing raises concerns about the proliferation of low-quality or deceptive publications."
+      },
+      {
+        "label": "Underrepresentation of Certain Research Communities",
+        "explanation": "Biases in large-scale language model training data may disproportionately impact specific research communities, reinforcing systemic inequities.",
+        "evidence": "Finally, the biases embedded in large-scale language model training data may disproportionately impact specific research communities. Researchers from underrepresented regions, institutions, or disciplines may find their work underemphasized or misrepresented, reinforcing systemic inequities in academia."
+      }
+    ],
+    "evidence": [
+      "In large research communities, multiple teams often work on related projects either collaboratively or independently, and researchers frequently participate in multiple teams simultaneously. Our current approach does not fully capture these intricate dynamics, potentially limiting its ability to model real-world scientific collaboration with high fidelity.",
+      "Beyond structural limitations, our system also inherits biases from the underlying language model and training data. If not properly mitigated, these biases could disproportionately favor well-established research domains while marginalizing emerging or underrepresented areas.",
+      "Another critical limitation is the potential for generating plausible but incorrect or misleading scientific claims. This risk is particularly concerning in high-stakes fields such as medicine and policy-related research, where inaccuracies could lead to misinformation, flawed decision-making, or ethical concerns.",
+      "Additionally, our system could be misused for unethical purposes, such as automating the creation of fraudulent research papers or facilitating plagiarism. The ability to generate text that mimics academic writing raises concerns about the proliferation of low-quality or deceptive publications.",
+      "Finally, the biases embedded in large-scale language model training data may disproportionately impact specific research communities. Researchers from underrepresented regions, institutions, or disciplines may find their work underemphasized or misrepresented, reinforcing systemic inequities in academia."
+    ]
+  },
+  "future_directions": {
+    "future_directions": [
+      "Scale up VIRSCI to a societal level by incorporating more dynamic and concurrent team interactions.",
+      "Allow agents to engage in multiple projects and collaborate across different teams to improve simulation realism.",
+      "Explore methods to detect and counteract biases, such as dataset diversification and bias-aware fine-tuning.",
+      "Implement stricter validation mechanisms, such as integrating fact-checking modules or leveraging expert human reviewers, to ensure generated content aligns with established scientific knowledge."
+    ],
+    "evidence": [
+      "Our future research will also aim to scale up VIRSCI to a societal level, incorporating more dynamic and concurrent team interactions. Allowing agents to engage in multiple projects and collaborate across different teams would improve the realism of our simulations and better reflect the complexity of modern scientific collaboration.",
+      "Future work should explore methods to detect and counteract these biases, such as dataset diversification and bias-aware fine-tuning (Ansar and Talavera, 2025).",
+      "Implementing stricter validation mechanisms, such as integrating fact-checking modules or leveraging expert human reviewers, will be necessary to ensure that generated content aligns with established scientific knowledge."
+    ]
+  },
+  "resource_link": {
+    "answer": "https://github.com/open-sciencelab/Virtual-Scientists",
+    "evidence": "The code is available at https://github.com/open-sci encelab/Virtual-Scientists."
+  },
+  "paper_title": "Many Heads Are Better Than One: Improved Scientific Idea Generation by A LLM-Based Multi-Agent System",
+  "authors": [
+    "Haoyang",
+    "Renqi",
+    "Shixiang",
+    "Zhenfei",
+    "Xinzhe",
+    "Jinzhe",
+    "Biqing",
+    "Qi",
+    "Hui",
+    "Wanli",
+    "Philip",
+    "Bowen",
+    "Nanqing"
+  ],
+  "published": "2025-05-27",
+  "link": "http://arxiv.org/abs/2410.09403"
+}

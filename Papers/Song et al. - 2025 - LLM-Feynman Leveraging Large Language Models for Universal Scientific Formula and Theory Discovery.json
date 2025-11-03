@@ -1,0 +1,173 @@
+{
+  "objective": {
+    "answer": "The primary objective of the paper is to develop LLM-Feynman, a framework that leverages large language models and systematic optimization to automatically derive concise, interpretable scientific formulas from data and domain knowledge. The authors aim to address the limitations of conventional machine learning and symbolic regression by integrating domain expertise for improved accuracy and interpretability in formula discovery. They seek to demonstrate the framework's effectiveness across various scientific domains, particularly in materials science.",
+    "evidence": "Here, we present LLM-Feynman, a novel framework that leverages large language models (LLMs) alongside systematic optimization to derive concise, interpretable formulas from data and domain knowledge. ... By transcending mere data fitting through the integration of deep domain knowledge, this LLM‐Feynman offers a transformative paradigm for the automated discovery of generalizable scientific formulas and theories across disciplines."
+  },
+  "knowledge_gap": {
+    "answer": "Most machine learning models for scientific discovery lack interpretability and generalizability due to insufficient integration of domain knowledge, often resulting in complex, black-box models that do not yield robust or transferable scientific formulas.",
+    "evidence": "While predictive accuracy is a cornerstone of ML, it alone is insufficient for scientific discovery. Interpretability and generalizability are equally critical; models must not only fit the data but also reveal robust, transferable scientific formulas and knowledge. Unfortunately, most ML models operate as black boxes, prioritizing accuracy at the expense of interpretability[14]. ... even interpretable ML methods, such as SR, often yield overly complex formula that are challenging to explain and may struggle to generalize beyond their training data[22]."
+  },
+  "novelty": {
+    "answer": [
+      "Introduction of LLM-Feynman, a framework that combines large language models with systematic optimization to derive interpretable scientific formulas from data and domain knowledge.",
+      "Integration of automated feature engineering, LLM-guided symbolic regression with self-evaluation, and Monte Carlo tree search for enhanced formula discovery and interpretation.",
+      "Embedding of domain knowledge and self-evaluation into the symbolic regression process to improve formula accuracy, simplicity, and interpretability.",
+      "Demonstration of the framework's ability to rediscover over 90% of fundamental physical formulas and its application to key materials science problems, including classification and regression tasks."
+    ],
+    "evidence": [
+      "Here, we present LLM-Feynman, a novel framework that leverages large language models (LLMs) alongside systematic optimization to derive concise, interpretable formulas from data and domain knowledge.",
+      "Our method integrates automated feature engineering, LLM-guided symbolic regression with self-evaluation, and Monte Carlo tree search to enhance formula discovery and clarity.",
+      "The embedding of domain knowledge simplifies the formula, while self-evaluation based on this knowledge further minimizes prediction errors, surpassing conventional symbolic regression in accuracy and interpretability.",
+      "Notably, LLM‐Feynman successfully rediscovered over 90% of the physics formulas from Feynman’s lectures. We further applied LLM‐Feynman to four critical problems in materials science, including synthesizability of 2D materials and perovskites (classification tasks), and ionic conductivity of lithium solid-state electrolytes and GW bandgap of 2D materials (regression tasks)."
+    ]
+  },
+  "inspirational_papers": {
+    "answer": [
+      "- Schmidt & Lipson (2009) Their work on symbolic regression inspired the use of interpretable machine learning techniques. (Methodological precursors)",
+      "- Udrescu & Tegmark (2020) AI-Feynman is used as a baseline and comparison for formula discovery. (Experimental baselines, Papers with limitations addressed by this work)",
+      "- Ouyang et al. (2018, 2019) SISSO and related symbolic regression methods are used as baselines. (Experimental baselines, Papers with limitations addressed by this work)"
+    ],
+    "evidence": [
+      "\"interpretable ML techniques, such as symbolic regression (SR), systematically explore the landscape of mathematical expressions to identify explicit formulas that minimize prediction errors[14–18].\" (References [15] M. Schmidt, H. Lipson, Science 2009, 324, 81–85.)",
+      "\"We compared conventional SR method with physical constrains, AI-Feynman[46], with LLM-Feynman utilizing ChemLLM.\" (Reference [46] S.-M. Udrescu, M. Tegmark, Sci. Adv. 2020, 6, eaay2631.)",
+      "\"performance compared to existing data-driven SR methods, SISSO[39] and PySR[40].\" (References [38,39] R. Ouyang et al., 2018, 2019.)"
+    ]
+  },
+  "method": {
+    "steps": [
+      {
+        "step": "Automatic Data Preprocessing and Feature Engineering",
+        "input": "Material features X, target values y, physical meanings and dimensions of features and targets",
+        "output": "Preprocessed data with selected and engineered features, including physical meanings and dimensions",
+        "tools": [
+          "Automatminer: Framework for generating and selecting material features.",
+          "Matminer: Library for retrieving physically meaningful descriptors.",
+          "LLM: Used for feature matching, refinement, and generating physical meanings/dimensions."
+        ],
+        "evidence": "The input data includes material features X, target values y along with the physical meanings and dimensions of both the features and the target. This module automatically preprocesses the data ... It employs materials-specific feature engineering through three composition- and structure-driven computational schemes (Figure S1): i) feature selection via mutual information, which retains informative features and removed redundancies using the Automatminer framework[41,42]; ii) LLM-guided feature matching, where the model suggests physically meaningful descriptors retrieved from the Matminer[41] library (template in Figure S2-3); iii) iterative feature refinement, where the feature set is expanded if formula generation stagnates (template in Figure S4)."
+      },
+      {
+        "step": "Symbolic Regression with Self-Evaluation and Multi-Objective Optimization",
+        "input": "Preprocessed features, target values, physical meanings and dimensions, structured prompts",
+        "output": "Set of candidate formulas with associated accuracy, complexity, and interpretability scores",
+        "tools": [
+          "LLM: Generates initial and iterative formulas based on prompts.",
+          "Self-evaluation module: Assigns interpretability scores to formulas.",
+          "Loss function: Combines normalized error, complexity, and interpretability for formula selection."
+        ],
+        "evidence": "It integrates domain knowledge (i.e., physical meanings and dimensions) into the formula generation process through structured prompts (template in Figure S5). Using these prompts, the LLM generates N initial formulas in the form of Python functions. ... To address this, we leverage the extensive scientific knowledge of LLM for self-evaluation, assigning an interpretability score S ranging from 0 to 1(template in Figure S6). Subsequently, these formulas are used to calculate their error metrics ... Combined with complexity C and interpretability score S, a loss function is constructed, L = α N(E) + β N(C) + γ S"
+      },
+      {
+        "step": "Formula Interpretation via LLM-based Monte Carlo Tree Search (MCTS)",
+        "input": "Selected formulas, associated data (features, targets, meanings, dimensions)",
+        "output": "Refined, scientifically meaningful explanations for formulas",
+        "tools": [
+          "LLM: Generates and evaluates interpretive hypotheses.",
+          "Monte Carlo Tree Search: Optimizes the search for high-quality explanations using Upper Confidence Bound scoring."
+        ],
+        "evidence": "To achieve this, we integrate Monte Carlo Tree Search (MCTS) with an LLM to interpret and refine formula explanations (Figure S7). In this framework, each node in the search tree represents an interpretive hypothesis generated by the LLM, scored by the Upper Confidence Bound (UCB) (see Methods for details)."
+      }
+    ],
+    "tools": [
+      "Automatminer: Automated feature engineering for materials science.",
+      "Matminer: Descriptor library for materials data.",
+      "Large Language Models (LLMs): Used for feature suggestion, formula generation, self-evaluation, and interpretation.",
+      "Monte Carlo Tree Search (MCTS): Used for optimizing formula interpretation.",
+      "PySR and SISSO: Baseline symbolic regression tools for comparison."
+    ],
+    "evidence": [
+      "LLM-Feynman consists of three sequential modules (Figure 1): (I) automatic data preprocessing and feature engineering, (II) symbolic regression with self-evaluation and multi-objective optimization, and (III) formula interpretation guided by LLM-based Monte Carlo tree search.",
+      "Feature selection via mutual information, which retains informative features and removed redundancies using the Automatminer framework[41,42]; ii) LLM-guided feature matching, where the model suggests physically meaningful descriptors retrieved from the Matminer[41] library (template in Figure S2-3); iii) iterative feature refinement...",
+      "It integrates domain knowledge (i.e., physical meanings and dimensions) into the formula generation process through structured prompts (template in Figure S5). Using these prompts, the LLM generates N initial formulas in the form of Python functions.",
+      "To achieve this, we integrate Monte Carlo Tree Search (MCTS) with an LLM to interpret and refine formula explanations (Figure S7)."
+    ]
+  },
+  "subject_area": {
+    "areas": [
+      "Physical Sciences",
+      "Chemical Sciences",
+      "Applied Sciences & Engineering"
+    ],
+    "evidence": [
+      "Our LLM‐Feynman successfully rediscovered over 90% of fundamental physical formulas and demonstrated its efficacy in key materials science applications, including classification of two-dimensional material and perovskite synthesizability and determination of the Green's function and screened Coulomb interaction bandgaps, and prediction of ionic conductivity in lithium solid‐state electrolytes.",
+      "In materials science, for example, LLMs have facilitated predicting material properties[28], optimizing experimental workflows[29], and proposing synthesis strategies[30–33]."
+    ]
+  },
+  "performance_summary": {
+    "performance_summary": [
+      "LLM-Feynman outperforms conventional symbolic regression methods (SISSO, PySR) in both accuracy and formula simplicity, especially when domain knowledge and self-evaluation are incorporated.",
+      "It successfully rediscovered over 90% of 120 physical formulas from Feynman’s lectures, even under noisy data conditions, outperforming AI-Feynman in both simple and complex formula discovery tasks.",
+      "In materials science applications, LLM-Feynman achieved 0.93 accuracy, 0.88 precision, 1.00 recall, and 0.94 F1 score for 2D material synthesizability classification, and perfect classification for perovskite synthesizability.",
+      "For regression tasks, it achieved R² of 0.855 and MAE of 0.673 for ionic conductivity prediction, and R² of 0.80 and MAE of 0.429 eV for GW bandgap prediction."
+    ],
+    "baselines": [
+      "SISSO: A symbolic regression method using sure independence screening and sparsifying operator.",
+      "PySR: A symbolic regression tool for discovering mathematical expressions.",
+      "AI-Feynman: A symbolic regression method with physical constraints."
+    ],
+    "benchmark_datasets": [
+      "DFT calculation data for single-atom catalysts: Used for ablation experiments on adsorption energy prediction.",
+      "Feynman Lectures on Physics formulas: Used for formula rediscovery tasks (100 simple, 20 complex formulas).",
+      "Experimental dataset of 659 solid-state electrolyte conductivities: Used for regression task on ionic conductivity.",
+      "High-throughput GW bandgap data for 2D materials (551 samples): Used for regression task on bandgap prediction."
+    ],
+    "evaluation_metrics": [
+      "R² (Coefficient of Determination): Measures the proportion of variance explained by the model.",
+      "MAE (Mean Absolute Error): Measures the average magnitude of errors in predictions.",
+      "Accuracy: Proportion of correct predictions in classification tasks.",
+      "Precision: Proportion of true positives among predicted positives.",
+      "Recall: Proportion of true positives among actual positives.",
+      "F1 Score: Harmonic mean of precision and recall.",
+      "Complexity: A measure of formula simplicity (not numerically defined in the excerpt)."
+    ],
+    "evidence": [
+      "Initially, the data-driven LLM-Feynman framework (devoid of domain knowledge) slightly surpassed baseline methods SISSO and PySR in average R² and MAE, underscoring the potential of LLMs in SR. ... By embedding domain knowledge, LLM-Feynman significantly reduces formula complexity while maintaining competitive accuracy, demonstrating that domain knowledge can steer the model towards simpler, more interpretable formulations aligned to scientific principles. The further addition of self-evaluation, along with domain knowledge, results in notable accuracy improvements over both baseline methods, without increasing formula complexity.",
+      "Figure 2d illustrates both LLM-Feynman and AI-Feynman successfully identified all formulas in the simple task without noise. However, at 10-3 and 10-2 noise levels, LLM-Feynman achieved 100% and 86% success rates, respectively, significantly outperforming AI-Feynman’s 85% and 67%. In the more challenging task, the performance gap widened: under 10-2 noise, LLM-Feynman maintained a 90% success rate, while AI-Feynman dropped to 55%.",
+      "The accuracy, precision, recall, and F1 score reach 0.93, 0.88, 1.00, and 0.94, respectively, significantly surpassing the traditional approach that distinguish synthesizable (Ehull) and non-synthesizable 2D materials based solely on Ehull (≤ 0.2 eV/atom and > 0.2 eV/atom, respectively; Table 1).",
+      "This formula shows good predictive performance with an R2 of 0.855 and an MAE of 0.673 on the testing set (Figure 4b). ... This formula achieves an R2 of 0.80 and an MAE of 0.429 eV on the testing set (Figure 4d and Supplementary Note S8)."
+    ]
+  },
+  "limitations": {
+    "limitations": [
+      {
+        "label": "Token-Length Restriction",
+        "explanation": "The framework is currently limited by the token-length restrictions of contemporary large language models, which impedes its application to large datasets.",
+        "evidence": "Despite these advances, our framework is currently limited by the token-length restrictions of contemporary LLMs, which impede its application to tasks involving large datasets (e.g., on the order of 10⁴ samples)."
+      },
+      {
+        "label": "LLM Feature Engineering Limitation",
+        "explanation": "Current large language models are not yet competitive with existing automated tools in creating features from scratch for materials science tasks.",
+        "evidence": "Therefore, while the current LLMs can effectively integrate high-quality features, they are not yet competitive with existing automated tools in the task of creating features from scratch. This indicates that improvements are needed either in LLM-guided feature engineering or in the LLMs themselves."
+      }
+    ],
+    "evidence": [
+      "Despite these advances, our framework is currently limited by the token-length restrictions of contemporary LLMs, which impede its application to tasks involving large datasets (e.g., on the order of 10⁴ samples).",
+      "Therefore, while the current LLMs can effectively integrate high-quality features, they are not yet competitive with existing automated tools in the task of creating features from scratch. This indicates that improvements are needed either in LLM-guided feature engineering or in the LLMs themselves."
+    ]
+  },
+  "future_directions": {
+    "future_directions": [
+      "Hierarchical Data Processing: The authors plan to explore hierarchical data processing to overcome token-length limitations for large datasets.",
+      "Architectural Enhancements: They intend to pursue architectural improvements to better handle large-scale problems.",
+      "Incorporation of Reinforcement Learning with Human Feedback: The framework may be extended by incorporating reinforcement learning with human feedback to manage and optimize large inputs."
+    ],
+    "evidence": [
+      "Future efforts will focus on solutions such as hierarchical data processing, architectural enhancements, and the incorporation of reinforcement learning with human feedback[56] to effectively manage and optimize large inputs."
+    ]
+  },
+  "resource_link": {
+    "answer": "https://github.com/szl666/LLM-formula",
+    "evidence": "The code of LLM-Feynman is shown in https://github.com/szl666/LLM-formula."
+  },
+  "paper_title": "LLM-Feynman: Leveraging Large Language Models for Universal Scientific Formula and Theory Discovery",
+  "authors": [
+    "Zhilong",
+    "Qionghua",
+    "Chunjin",
+    "Chongyi",
+    "Minggang",
+    "Jinlan"
+  ],
+  "published": "2025-07-25",
+  "link": "http://arxiv.org/abs/2503.06512"
+}

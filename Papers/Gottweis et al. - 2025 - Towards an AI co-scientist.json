@@ -1,0 +1,304 @@
+{
+  "objective": {
+    "answer": "The primary objective of the paper is to introduce and validate an AI co-scientist system, a multi-agent architecture built on Gemini 2.0, designed to assist scientists in generating novel, testable research hypotheses and proposals. The system aims to augment the scientific discovery process by enabling iterative, self-improving hypothesis generation, particularly in biomedicine. The authors focus on demonstrating the system's utility in drug repurposing, novel target discovery, and explaining mechanisms of bacterial evolution and antimicrobial resistance.",
+    "evidence": "To augment this process, we introduce an AI co-scientist, a multi-agent system built on Gemini 2.0. The AI co-scientist is intended to help uncover new, original knowledge and to formulate demonstrably novel research hypotheses and proposals, building upon prior evidence and aligned to scientist-provided research objectives and guidance."
+  },
+  "knowledge_gap": {
+    "answer": "There is a lack of AI systems that can go beyond literature summarization and information synthesis to actively generate novel, testable scientific hypotheses and research proposals in collaboration with human scientists. Existing tools do not fully support the iterative, creative, and cross-disciplinary reasoning required for modern scientific discovery.",
+    "evidence": "We develop and introduce an AI co-scientist that goes beyond literature summarization and “deep research” tools to assist scientists in uncovering new knowledge, novel hypothesis generation and experimental planning."
+  },
+  "novelty": {
+    "answer": [
+      "Development of a multi-agent AI co-scientist system that mirrors the scientific method for hypothesis generation and refinement.",
+      "Implementation of a tournament evolution process and self-play based scientific debate for self-improving hypothesis generation.",
+      "Significant scaling of test-time compute for scientific reasoning, enabling iterative improvement of research hypotheses.",
+      "Integration of expert-in-the-loop workflows, allowing scientists to interact, guide, and review AI-generated hypotheses.",
+      "End-to-end validation of AI-generated hypotheses in biomedicine, including wet-lab experiments for drug repurposing, target discovery, and antimicrobial resistance mechanisms."
+    ],
+    "evidence": [
+      "The system’s design incorporates a generate, debate, and evolve approach to hypothesis generation, inspired by the scientific method and accelerated by scaling test-time compute.",
+      "Key contributions include: (1) a multi-agent architecture with an asynchronous task execution framework for flexible compute scaling; (2) a tournament evolution process for self-improving hypotheses generation.",
+      "The co-scientist works through a significant scaling of the test-time compute paradigm [13–15] to iteratively reason, evolve, and improve the outputs as it gathers more knowledge and understanding.",
+      "Our system is designed for collaboration with scientists. The system can flexibly incorporate conversational feedback in natural language from scientists and co-develop, evolve and refine outputs.",
+      "We present end-to-end validation of novel AI-generated hypotheses through new empirical findings in three distinct and increasingly complex areas of biomedicine: drug repurposing, novel target discovery, and antimicrobial resistance."
+    ]
+  },
+  "inspirational_papers": {
+    "answer": [
+      "- Silver et al. (2016) AlphaGo: Their use of Monte Carlo Tree Search for strategic reasoning inspired the test-time compute paradigm.",
+      "- Brown & Sandholm (2019) Libratus: Their techniques for superhuman performance in poker influenced the system's reasoning strategies.",
+      "- Jumper et al. (2021) AlphaFold 2: Their success in protein structure prediction exemplifies the impact of specialized AI in scientific discovery.",
+      "- Zhou et al. (2022) HypoGeniC: Their iterative hypothesis generation with LLMs informed the approach to hypothesis refinement.",
+      "- Boiko et al. (2023) Coscientist: Their multi-agent system for autonomous chemical experiments provided a related baseline for comparison."
+    ],
+    "evidence": [
+      "This concept emerged with early successes such as AlphaGo [15], which used Monte Carlo Tree Search (MCTS) to explore game states and strategically select moves, and Libratus [14], which employed similar techniques to achieve superhuman performance in poker.",
+      "This is best exemplified by AlphaFold 2’s remarkable progress in the grand challenge of protein structure prediction, which has revolutionized structural biology and opened new avenues for drug discovery and materials science [36].",
+      "HypoGeniC, a system proposed by Zhou et al. [45], tackles hypothesis generation by iteratively refining hypotheses using LLMs and a multi-armed bandit-inspired approach.",
+      "Boiko et al. [48] introduced “Coscientist”, a multi-agent system powered by GPT-4, designed for autonomous execution of complex chemical experiments."
+    ]
+  },
+  "method": {
+    "steps": [
+      {
+        "step": "Scientist specifies a research goal in natural language, including preferences, constraints, and experiment attributes.",
+        "input": "Natural language research goal, optional preferences and constraints.",
+        "output": "Parsed research plan configuration.",
+        "tools": [
+          "Gemini 2.0 LLM: Used for parsing and understanding the research goal."
+        ],
+        "evidence": "The scientist interacts with the system by specifying a research goal in natural language. They can also suggest their own ideas and proposals, provide feedback and reviews, and interact via a chat interface to guide the co-scientist system."
+      },
+      {
+        "step": "Supervisor agent orchestrates specialized agents within an asynchronous task execution framework.",
+        "input": "Research plan configuration.",
+        "output": "Task queue for specialized agents.",
+        "tools": [
+          "Supervisor agent: Manages task queue and resource allocation among agents."
+        ],
+        "evidence": "A dedicated Supervisor agent manages the worker task queue, assigns specialized agents to these processes, and allocates resources."
+      },
+      {
+        "step": "Generation agent explores literature, simulates scientific debates, and generates initial hypotheses and proposals.",
+        "input": "Research plan configuration, literature via web search, prior hypotheses.",
+        "output": "Initial set of research hypotheses and proposals.",
+        "tools": [
+          "Generation agent: Generates hypotheses using literature search and simulated debate.",
+          "Web search API: Retrieves relevant literature."
+        ],
+        "evidence": "The agent initiates the research process by generating the initial focus areas, iteratively extending them and generating a set of initial hypotheses and proposals that address the research goal. This involves exploring relevant literature using web search, synthesizing existing findings into novel directions, and engaging in simulated scientific debates for iterative improvement."
+      },
+      {
+        "step": "Reflection agent reviews hypotheses for correctness, novelty, quality, and testability, using literature search and deep verification.",
+        "input": "Generated hypotheses, relevant literature.",
+        "output": "Reviews and critiques of hypotheses.",
+        "tools": [
+          "Reflection agent: Performs initial, full, deep verification, and observation reviews."
+        ],
+        "evidence": "The Reflection agent simulates the role of a scientific peer reviewer, critically examining the correctness, quality, and novelty of the generated hypotheses and research proposals. Furthermore, it evaluates the potential of each hypothesis to provide an improved explanation for existing research observations (identified via literature search and review), particularly those that may be under explained."
+      },
+      {
+        "step": "Ranking agent conducts Elo-based tournaments, comparing hypotheses via pairwise and multi-turn scientific debates.",
+        "input": "Reviewed hypotheses.",
+        "output": "Ranked list of hypotheses with Elo scores.",
+        "tools": [
+          "Ranking agent: Orchestrates Elo-based tournaments for hypothesis ranking."
+        ],
+        "evidence": "The Ranking agent employs and orchestrates an Elo-based tournament [64] to assess and prioritize the generated hypotheses at any given time. This involves pairwise comparisons, facilitated by simulated scientific debates, which allow for a nuanced evaluation of the relative merits of each proposal."
+      },
+      {
+        "step": "Proximity agent computes similarity graphs for hypotheses, aiding in clustering and tournament match selection.",
+        "input": "Generated hypotheses.",
+        "output": "Proximity graph of hypotheses.",
+        "tools": [
+          "Proximity agent: Calculates similarity and clusters hypotheses."
+        ],
+        "evidence": "The Proximity agent calculates the similarity between research hypotheses and proposals, and builds a proximity graph, taking into account the specific research goal."
+      },
+      {
+        "step": "Evolution agent refines and improves top-ranked hypotheses using grounding, combination, simplification, and out-of-box thinking.",
+        "input": "Top-ranked hypotheses, literature, meta-review feedback.",
+        "output": "New or improved hypotheses.",
+        "tools": [
+          "Evolution agent: Refines hypotheses using multiple strategies."
+        ],
+        "evidence": "The Evolution agent continuously refines and improves existing hypotheses and proposals using several approaches including: Enhancement through grounding... Combination... Simplification... Out-of-box thinking."
+      },
+      {
+        "step": "Meta-review agent synthesizes reviews and tournament results, generating feedback for agents and a research overview for the scientist.",
+        "input": "All reviews, tournament state.",
+        "output": "Meta-review critique, research overview, suggested research contacts.",
+        "tools": [
+          "Meta-review agent: Synthesizes feedback and generates research overviews."
+        ],
+        "evidence": "The Meta-review agent plays a crucial role in the co-scientist’s feedback loop, enabling self-improvement in scientific reasoning. This agent operates on the tournament state and summarizes common patterns identified in reviews and scientific debates in the tournament matches into a meta-review critique."
+      },
+      {
+        "step": "Scientist-in-the-loop: Scientists can review, refine, or add hypotheses, provide feedback, and guide exploration via chat interface.",
+        "input": "AI-generated hypotheses, research overview.",
+        "output": "Refined hypotheses, prioritized experiments.",
+        "tools": [
+          "Chat interface: Enables scientist feedback and guidance."
+        ],
+        "evidence": "Scientists can specify their research goals in simple natural language, including informing the system of desirable attributes for the hypotheses or research proposals it should create and the constraints that the synthesized outputs should satisfy. They can also collaborate and provide feedback in a variety of ways, including directly supplying their own ideas and hypotheses, refining those generated by the system, or using natural language chat to guide the system and ensure alignment with their expertise."
+      },
+      {
+        "step": "Tool use: The system can access web search, domain-specific databases, and specialized AI models (e.g., AlphaFold) for grounding and validation.",
+        "input": "Research goal, hypotheses, literature, databases.",
+        "output": "Grounded, validated hypotheses and proposals.",
+        "tools": [
+          "Web search API: Retrieves up-to-date literature.",
+          "Domain-specific databases: Constrains search space (e.g., FDA-approved drugs).",
+          "AlphaFold: Predicts protein structure for hypothesis validation."
+        ],
+        "evidence": "The co-scientist leverages various tools during the generation, review, and improvement of hypotheses and research proposals. Web search and retrieval are primary tools, important for grounded, up-to-date hypotheses... The system can utilize and incorporate feedback from specialized AI models like AlphaFold."
+      }
+    ],
+    "tools": [
+      "Gemini 2.0 LLM: Foundation model for all agents, enabling language understanding, reasoning, and long-context processing.",
+      "Supervisor agent: Manages task queue, assigns agents, and allocates compute resources.",
+      "Generation agent: Generates hypotheses using literature search, simulated debate, and iterative expansion.",
+      "Reflection agent: Reviews hypotheses for correctness, novelty, and testability, using literature search and deep verification.",
+      "Ranking agent: Conducts Elo-based tournaments and scientific debates to rank hypotheses.",
+      "Proximity agent: Computes similarity graphs for clustering and tournament match selection.",
+      "Evolution agent: Refines and improves hypotheses using grounding, combination, and out-of-box thinking.",
+      "Meta-review agent: Synthesizes reviews and tournament results, generates feedback and research overviews.",
+      "Web search API: Retrieves relevant and up-to-date literature.",
+      "Domain-specific databases: Used for constrained searches (e.g., FDA-approved drugs).",
+      "AlphaFold: Specialized AI model for protein structure prediction and hypothesis validation.",
+      "Chat interface: Enables scientist feedback and guidance."
+    ],
+    "evidence": [
+      "The Gemini 2.0 model is the foundational LLM underpinning all agents in the co-scientist system.",
+      "The co-scientist employs a multi-agent system where specialized agents operate as worker processes within an asynchronous, continuous, and configurable task execution framework.",
+      "The agent initiates the research process by generating the initial focus areas, iteratively extending them and generating a set of initial hypotheses and proposals that address the research goal.",
+      "The Reflection agent simulates the role of a scientific peer reviewer, critically examining the correctness, quality, and novelty of the generated hypotheses and research proposals.",
+      "The Ranking agent employs and orchestrates an Elo-based tournament [64] to assess and prioritize the generated hypotheses at any given time.",
+      "The Proximity agent calculates the similarity between research hypotheses and proposals, and builds a proximity graph, taking into account the specific research goal.",
+      "The Evolution agent continuously refines and improves existing hypotheses and proposals using several approaches including: Enhancement through grounding... Combination... Simplification... Out-of-box thinking.",
+      "The Meta-review agent plays a crucial role in the co-scientist’s feedback loop, enabling self-improvement in scientific reasoning.",
+      "The co-scientist leverages various tools during the generation, review, and improvement of hypotheses and research proposals. Web search and retrieval are primary tools, important for grounded, up-to-date hypotheses.",
+      "The system can utilize and incorporate feedback from specialized AI models like AlphaFold."
+    ]
+  },
+  "subject_area": {
+    "areas": [
+      "Health Sciences",
+      "Biological Sciences"
+    ],
+    "evidence": [
+      "While the co-scientist system is general-purpose and applicable across multiple scientific disciplines, in this study we focus our development and validation of the system to biomedicine.",
+      "We validate the co-scientist’s capability in three impactful areas of biomedicine with varied complexity: (1) drug repurposing, (2) novel treatment targets discovery, and (3) new mechanistic explanations for antimicrobial resistance (Figure 1b)."
+    ]
+  },
+  "performance_summary": {
+    "performance_summary": [
+      "The AI co-scientist system demonstrated improved hypothesis quality with increased test-time compute, as measured by the Elo auto-evaluation metric.",
+      "On a subset of 15 challenging expert-curated research goals, the co-scientist outperformed state-of-the-art large language models and reasoning models, as well as human expert 'best guess' solutions, in Elo rating.",
+      "Expert evaluations rated the co-scientist's outputs as more novel and impactful compared to baselines.",
+      "End-to-end wet-lab validations showed that AI-generated hypotheses led to successful experimental findings in drug repurposing for acute myeloid leukemia, novel target discovery for liver fibrosis, and recapitulation of unpublished results in antimicrobial resistance."
+    ],
+    "baselines": [
+      "Gemini 2.0 Pro Experimental: A state-of-the-art large language model baseline.",
+      "Gemini 2.0 Flash Thinking Experimental 12-19: A fast inference variant of Gemini 2.0.",
+      "OpenAI o1 and o3-mini-high: Recent OpenAI large language models with reasoning capabilities.",
+      "DeepSeek R1: A reasoning-optimized large language model.",
+      "Human Expert: Best guess hypotheses provided by domain experts."
+    ],
+    "benchmark_datasets": [
+      "GPQA diamond set: A challenging, multiple-choice question answering benchmark developed by experts in biology, physics, and chemistry. Used to assess the concordance between the Elo rating and the system’s accuracy."
+    ],
+    "evaluation_metrics": [
+      "Elo rating: An auto-evaluation metric based on tournament matches and scientific debates, used to rank hypotheses by quality.",
+      "Accuracy on GPQA: Measures the percentage of correct answers compared to ground truth.",
+      "Expert preference ranking: Human experts ranked outputs for novelty and impact.",
+      "Wet-lab validation: Empirical laboratory experiments to validate the biological efficacy of AI-generated hypotheses."
+    ],
+    "evidence": [
+      "Our analysis using questions from the GPQA diamond set reveals a concordance between the Elo rating and averaged accuracy of generated co-scientist results, as depicted in Figure 3.",
+      "On this expert-curated subset of research goals, we consistently observed upward performance trends with increased test-time compute. Furthermore, the co-scientist significantly outperformed both the human experts and the other state-of-the-art LLM baselines, as measured by the Elo metric.",
+      "Across 11 expert-evaluated research goals, outputs generated by the AI co-scientist were most preferred and rated higher in novelty and impact axes compared to the other baseline models.",
+      "In vitro experiments show that the proposed co-scientist drug repurposing candidates inhibit tumor activity in AML cell lines.",
+      "The GPQA dataset is a challenging, multiple-choice question answering benchmark developed by experts in biology, physics, and chemistry [71]."
+    ]
+  },
+  "limitations": {
+    "limitations": [
+      {
+        "label": "Limited Literature Coverage",
+        "explanation": "The system may miss critical prior works due to reliance on open-access literature and lack of access to negative results.",
+        "evidence": "The reviews undertaken by the AI co-scientist system may miss critical prior works due to reliance on open-access literature. In the presented work, the AI co-scientist does not access the entire published literature due to compliance with license or access restrictions where applicable."
+      },
+      {
+        "label": "Lack of Negative Results Data",
+        "explanation": "The system likely has limited access to negative experimental results or records of failed experiments, which are rarely published.",
+        "evidence": "The AI co-scientist system’s use of only open published literature means it likely has limited access to negative experimental results or records of failed experiments. It is known that such data may be more rarely published than positive results, yet experienced scientists working in the field may nonetheless possess and utilize this knowledge to prioritize research [88]."
+      },
+      {
+        "label": "Multimodal Reasoning Limitations",
+        "explanation": "The system may not comprehensively utilize non-textual scientific data such as figures and charts.",
+        "evidence": "Some of the most interesting data in scientific publications is not written in text but may be encoded visually in figures and charts. However, even state-of-the-art frontier models may not comprehensively utilize such data with optimal reasoning [89] and the AI co-scientist system is unlikely to be an exception."
+      },
+      {
+        "label": "Inherited LLM Limitations",
+        "explanation": "The system inherits limitations of large language models, including imperfect factuality and hallucinations.",
+        "evidence": "LLM limitations include imperfect factuality and hallucinations, which may be propagated in the co-scientist system. The system’s reliance on existing LLMs and web-search, while providing immediate access to broad knowledge, may propagate errors of factuality, biases or limitations present in those resources."
+      },
+      {
+        "label": "Evaluation Metric Limitations",
+        "explanation": "The Elo rating is an auto-evaluation metric and may not fully align with expert scientist preferences or objective ground truth.",
+        "evidence": "Furthermore, the Elo rating implemented to help the system self-improve for hypothesis generation is a limited auto-evaluation metric. Continued investigation into alternative, more objective, less intrinsically-favored, evaluation metrics that better represent perspectives and preferences from expert scientists could strengthen future work."
+      },
+      {
+        "label": "Clinical Translation Limitations",
+        "explanation": "The system does not address complexities of drug delivery, bioavailability, pharmacokinetics, or comprehensive clinical trial design.",
+        "evidence": "At present, the AI co-scientist focuses on identifying potential therapeutic targets and mechanisms, but many not be addressing the complexities of drug delivery systems. Pharmaceutical factors such as tissue-specific targeting, formulation requirements, and delivery efficiency—while critical for clinical translation—remain beyond the scope of the present system."
+      }
+    ],
+    "evidence": [
+      "The reviews undertaken by the AI co-scientist system may miss critical prior works due to reliance on open-access literature.",
+      "The AI co-scientist system’s use of only open published literature means it likely has limited access to negative experimental results or records of failed experiments.",
+      "Some of the most interesting data in scientific publications is not written in text but may be encoded visually in figures and charts.",
+      "LLM limitations include imperfect factuality and hallucinations, which may be propagated in the co-scientist system.",
+      "Furthermore, the Elo rating implemented to help the system self-improve for hypothesis generation is a limited auto-evaluation metric.",
+      "At present, the AI co-scientist focuses on identifying potential therapeutic targets and mechanisms, but many not be addressing the complexities of drug delivery systems."
+    ]
+  },
+  "future_directions": {
+    "future_directions": [
+      "Enhance literature reviews, cross-checks with external tools, factuality checking, and citation recall to minimize missed relevant research.",
+      "Develop more objective evaluation metrics, potentially incorporating automated literature-based validation and simulated experiments.",
+      "Expand the system's capabilities to handle more complex experimental designs, such as multi-step experiments and integration with laboratory automation systems.",
+      "Integrate the AI co-scientist with more structured user interfaces and specialized scientific tools, AI models, and databases."
+    ],
+    "evidence": [
+      "Immediate improvement opportunities include enhanced literature reviews, cross-checks with external tools, improved factuality checking, and increased citation recall to minimize missed relevant research.",
+      "Developing more objective evaluation metrics, potentially incorporating automated literature-based validation and simulated experiments, is a key area.",
+      "Future work will focus on handling more complex experimental designs, such as multi-step experiments and those involving conditional logic. Integrating co-scientist with laboratory automation systems could potentially create a closed-loop for validation and a grounded basis for iterative improvement.",
+      "Exploring more structured user interfaces for providing feedback and insights from targeted user research studies, beyond free text, could improve the efficiency of human-AI collaboration in this paradigm."
+    ]
+  },
+  "resource_link": {
+    "answer": "https://storage.googleapis.com/coscientist_paper/penades2025ai.pdf",
+    "evidence": "Penadés, J. R., Gottweis, J., He, L., Patkowski, J. B., Shurick, A., Weng, W.-H., Tu, T., Palepu, A., Myaskovsky, A., Pawlosky, A., Natarajan, V., Karthikesalingam, A. & Costa, T. R. D. AI mirrors experimental science to uncover a novel mechanism of gene transfer crucial to bacterial evolution https://storage.googleapis.com/coscientist_paper/penades2025ai.pdf."
+  },
+  "paper_title": "Towards an AI co-scientist",
+  "authors": [
+    "Juraj",
+    "Wei-Hung",
+    "Alexander",
+    "Tao",
+    "Anil",
+    "Petar",
+    "Artiom",
+    "Felix",
+    "Keran",
+    "Ryutaro",
+    "Khaled",
+    "Dan",
+    "Jacob",
+    "Fan",
+    "Katherine",
+    "Avinatan",
+    "Burak",
+    "Amin",
+    "Pushmeet",
+    "Yossi",
+    "Andrew",
+    "Kavita",
+    "Nenad",
+    "Yuan",
+    "Vikram",
+    "Eeshit Dhaval",
+    "Byron",
+    "Tiago R. D.",
+    "José R.",
+    "Gary",
+    "Yunhan",
+    "Annalisa",
+    "Alan",
+    "Vivek"
+  ],
+  "published": "2025-02-26",
+  "link": "http://arxiv.org/abs/2502.18864"
+}

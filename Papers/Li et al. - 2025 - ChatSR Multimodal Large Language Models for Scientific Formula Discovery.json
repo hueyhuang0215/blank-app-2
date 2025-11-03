@@ -1,0 +1,167 @@
+{
+  "objective": {
+    "answer": "The primary objective of the paper is to develop ChatSR, a multimodal large language model that can generate scientific formulas from observational data, guided by natural language instructions containing prior knowledge. The authors aim to address the symbolic regression problem by enabling flexible and interpretable formula discovery using both data and human-provided constraints. They seek to demonstrate that ChatSR can outperform existing methods, especially in incorporating prior knowledge and zero-shot generalization.",
+    "evidence": "In this article, based on the powerful knowledge reserve and language understanding ability of multi-modal large language models, we present ChatSR, which acts like a knowledgeable human scientist, and we can tell it any prior knowledge through natural language to guide it in formula generation. By testing on 13 datasets, ChatSR not only shows state-of-the-art performance on traditional symbolic regression tasks. More notably, ChatSR can well understand the prior knowledge contained in natural language prompts and improve the quality of generated expressions."
+  },
+  "knowledge_gap": {
+    "answer": "Existing symbolic regression methods are limited in their ability to flexibly incorporate arbitrary prior knowledge or natural language instructions into the formula discovery process, restricting their adaptability and usability in scientific research.",
+    "evidence": "Although in some methods, we can inject some prior knowledge into the model by adding constraints or introducing some special character hints. However, these methods can only introduce a limited amount of prior knowledge specified in advance. Not to mention understanding natural language instructions."
+  },
+  "novelty": {
+    "answer": [
+      "Introduction of ChatSR, a multimodal large language model for symbolic regression that can accept observational data and natural language instructions to generate scientific formulas.",
+      "Ability to flexibly incorporate arbitrary prior knowledge through natural language, enabling guided formula generation beyond pre-specified constraints.",
+      "Demonstration of strong zero-shot capability, allowing the model to understand and apply prior knowledge not present in the training data.",
+      "Creation of a new benchmark dataset, Knowledge, containing 50 expressions with various common properties to evaluate symbolic regression algorithms' ability to use prior knowledge."
+    ],
+    "evidence": [
+      "In this paper, we propose ChatSR, a multimodal large language model for symbolic regression, which inherits the powerful knowledge and language understanding capabilities of large language models. We input observations [X,y] and describe any prior knowledge or requirements in natural language. ChatSR can then automatically generate expressions that match our requirements to fit the observed data.",
+      "We present ChatSR, a multimodal large language model for the domain of symbolic regression. After inputting the observations, we can describe any prior knowledge and assumptions to ChatSR in natural language. ChatSR can then generate expressions that match the requirements.",
+      "In addition, it is exciting that ChatSR has a good zero-shot capability to understand prior knowledge that is not present in the training data.",
+      "We contributed a new benchmark, Knowledge , which contains 50 expressions containing various common properties. It can be used to evaluate the ability of symbolic regression algorithms to generate expressions according to prior knowledge."
+    ]
+  },
+  "inspirational_papers": {
+    "answer": [
+      "- NSRwH (Bendinelli et al., 2023) introduces some pre-set special symbols to represent some prior knowledge, and then allows the model to generate expressions that conform to certain assumptions. (Papers with limitations addressed by this work)",
+      "- SymbolicGPT (Valipour et al., 2021) was the first large-scale pre-trained model to treat each letter in a sequence of symbols as a token. (Methodological precursors)",
+      "- NeSymReS (Biggio et al., 2021) builds on symbolicGPT by not thinking of each individual letter in the sequence of expressions as a token. (Methodological precursors)",
+      "- EndtoEnd (Kamienny et al., 2022) algorithm are not much different from NeSymReS, but EndtoEnd abandons the constant placeholder 'C', encodes the constant, and directly generates the constant from the decoder. (Methodological precursors)"
+    ],
+    "evidence": [
+      "Recently, NSRwH (Bendinelli et al., 2023) introduces some pre-set special symbols to represent some prior knowledge, and then allows the model to generate expressions that conform to certain assumptions. This method initially solves the problem that the previous pre-trained model cannot introduce prior knowledge in the process of generating expressions. However, NSRwH can only specify a limited amount of prior knowledge in advance, and can not add or delete once trained. This greatly limits the flexibility and versatility of NSRwH.",
+      "SymbolicGPT(Valipour et al., 2021) was the first large-scale pre-trained model to treat each letter in a sequence of symbols as a token (e.g.[’s’,’ i’,’n’, ’(’, ’x’, ’)’]).",
+      "NeSymReS(Biggio et al., 2021) builds on symbolicGPT by not thinking of each individual letter in the sequence of expressions as a token. Instead, Nesymres represents the expression in the form of a binary tree, which is then expanded by preorder traversal, and considers each operator as a token (e.g., [’sin’,’x’]).",
+      "The overall framework and idea of the EndtoEnd(Kamienny et al., 2022) algorithm are not much different from NeSymReS, but EndtoEnd abandons the constant placeholder ’C’, encodes the constant, and directly generates the constant from the decoder."
+    ]
+  },
+  "method": {
+    "steps": [
+      {
+        "step": "Expression and Data Generation",
+        "input": "Randomly generated mathematical expressions using a predefined symbol library; each expression is converted to a binary tree and then to a preorder traversal sequence; corresponding observational data [X, y] is generated.",
+        "output": "Pairs of expressions (as symbol sequences) and corresponding observational data.",
+        "evidence": "We generated a total of 5M expressions, based on which we generated 30M Q&A training data about expressions. Each piece of data contains observation data, [X, Y], and a text question-answer pair."
+      },
+      {
+        "step": "Pre-training Data Feature Extractor",
+        "input": "5M pairs of [X, Y] and corresponding expression preorder traversals.",
+        "output": "A SetTransformer model trained as a data feature extractor.",
+        "evidence": "We first train a SetTransformer as the data feature extractor E of ChatSR using contrastive learning with 5M pairs of [X, Y] and the corresponding expression preorder traversal (e.g. [sin, ∗, x, x])(Meidani et al., 2023)."
+      },
+      {
+        "step": "Feature Alignment Pre-training",
+        "input": "600K samples of [XD, Xq, Xa] (data, question, answer) pairs.",
+        "output": "Trained projection layer mapping data features to LLM word embedding space.",
+        "evidence": "In the first training step, we take 600K samples from all the datasets (including [XD, Xq, Xa]) for feature alignment training. During training, we keep both the SetTransformer and LLM weights frozen and maximize the likelihood of Eq. 2 using only the trainable parameters θ = W (the projection matrix)."
+      },
+      {
+        "step": "End-to-End Fine-tuning",
+        "input": "All training data with multi-turn question-answer pairs, SetTransformer (frozen), projection layer, and LLM.",
+        "output": "Fine-tuned projection layer and LLM parameters for instruction-following symbolic regression.",
+        "evidence": "We always keep the SetTransformer weights frozen, and continue to update both the pre-trained weights of the projection layer and LLM in LLaVA; (the trainable parameters are θ = {W, φ} in Fig.1)."
+      },
+      {
+        "step": "Constant Optimization",
+        "input": "Generated expression preorder traversal with constant placeholders, observational data [X, y].",
+        "output": "Optimized expressions with concrete constant values.",
+        "evidence": "LLM will first generate the preorder traversal of the expression, and then for the expression with constant C, we will use function-calling technology to call BFGS and other numerical optimization algorithms to optimize the constant."
+      }
+    ],
+    "tools": [
+      "SetTransformer: A neural network architecture for permutation-invariant data encoding, used as the data feature extractor.",
+      "Vicuna: A large language model based on LLaMa, used for natural language understanding and expression generation.",
+      "Projection Layer: A trainable matrix mapping data features to the LLM word embedding space.",
+      "BFGS Algorithm: A numerical optimization algorithm used to optimize constants in generated expressions."
+    ],
+    "evidence": [
+      "We first train a SetTransformer as the data feature extractor E of ChatSR using contrastive learning with 5M pairs of [X, Y] and the corresponding expression preorder traversal (e.g. [sin, ∗, x, x])(Meidani et al., 2023).",
+      "We choose Vicuna(Chiang et al., 2023) as our LLM fφ parameterized by φ.",
+      "Finally, only the parameters of SetTransformer are frozen, and the parameters of the projection layer and LLM are trained.",
+      "LLM will first generate the preorder traversal of the expression, and then for the expression with constant C, we will use function-calling technology to call BFGS and other numerical optimization algorithms to optimize the constant."
+    ]
+  },
+  "subject_area": {
+    "areas": [
+      "Physical Sciences",
+      "Applied Sciences & Engineering"
+    ],
+    "evidence": [
+      "Formulas are the language of communication between humans and nature. The discovery of formulas to describe natural laws from observational data is the purpose of scientific research.",
+      "ChatSR will have great potential applications in finance, healthcare, and other fields that have very high requirements for interpretability because ChatSR can get an interpretable mathematical expression from the data. In addition, we believe ChatSR has great potential for applications in scientific discovery and AI for Science.",
+      "In our study, we conducted an evaluation of our novel symbol regression algorithm, termed ChatSR, leveraging the AI Feynman dataset, which comprises a diverse array of problems spanning various subfields of physics and mathematics, including mechanics, thermodynamics, and electromagnetism."
+    ]
+  },
+  "performance_summary": {
+    "performance_summary": [
+      "ChatSR achieves state-of-the-art performance on 13 symbolic regression datasets, outperforming or matching baselines in terms of coefficient of determination (R2), expression recovery rate, and expression complexity.",
+      "ChatSR produces more concise expressions than other methods, with lower average node counts.",
+      "When prior knowledge is provided in prompts, ChatSR's recovery rate significantly improves compared to when no prior knowledge is given.",
+      "ChatSR demonstrates strong zero-shot capability, successfully generating expressions with properties not present in the training data.",
+      "On the AI Feynman dataset, ChatSR achieves R2 values above 0.99 for most equations, indicating high accuracy."
+    ],
+    "baselines": [
+      "MMSR: A pre-training method that treats symbolic regression as a multimodal problem and uses contrastive learning for modal alignment.",
+      "TPSR: A symbolic regression algorithm combining large-scale pre-trained models and Monte Carlo Tree Search.",
+      "NeSymReS: A large-scale pre-training model that represents expressions as binary trees and uses preorder traversal.",
+      "SNIP: A large-scale pre-trained model with a feature extractor trained with contrastive learning before training."
+    ],
+    "benchmark_datasets": [
+      "Nguyen: Contains various mathematical expressions for symbolic regression, used for evaluation.",
+      "Keijzer: A dataset of mathematical expressions for symbolic regression benchmarking.",
+      "Korns: A dataset with complex symbolic regression tasks.",
+      "Constant, Livermore, Vladislavleva, R, Jin, Neat, Others, Feynman, Strogatz, Black-box: Each contains specific mathematical expressions or physics equations, used for evaluating symbolic regression algorithms.",
+      "AI Feynman: A dataset comprising a diverse array of problems spanning various subfields of physics and mathematics, including mechanics, thermodynamics, and electromagnetism; used for evaluating ChatSR's ability to recover known equations."
+    ],
+    "evaluation_metrics": [
+      "Coefficient of Determination (R2): Measures the goodness of fit between predicted and true values; higher values indicate better fit.",
+      "Recovery Rate: The proportion of times the algorithm fully recovers the target expression.",
+      "Expression Complexity (Nodes): The number of nodes in the generated expression, measuring conciseness."
+    ],
+    "evidence": [
+      "By testing on 13 datasets, ChatSR not only shows state-of-the-art performance on traditional symbolic regression tasks.",
+      "At a 0.95 confidence level, a comparison of the coefficient of determination (R2) and the expression complexity(Nodes) was conducted between ChatSR and four baselines.",
+      "From the above results, we can see that although ChatSR is only slightly ahead of MMSR in average R2. However, ChatSR is significantly better than the others in terms of expression complexity, which we think may be due to the fact that large language models already know that 'the more concise the expression, the better'.",
+      "From the figure, we can clearly see that giving prior knowledge of the prompt can significantly improve the recovery rate.",
+      "As we can see, ChatSR shows good zero-shot ability. When prompted, ChatSR was able to generate expressions that matched the requirements, even if those properties were not present in the training dataset.",
+      "The empirical results from our investigation unequivocally affirm that ChatSR possesses an exceptional ability to discern the underlying mathematical expressions from a constrained sample size. Notably, the R2 values achieved were above 0.99 for a predominant portion of the equations, underscoring the algorithm’s remarkable accuracy in fitting these expressions."
+    ]
+  },
+  "limitations": {
+    "limitations": [
+      {
+        "label": "Poor Noise Robustness",
+        "explanation": "ChatSR currently has limited robustness to noisy data, which may affect its performance in real-world scenarios.",
+        "evidence": "Last but not least, ChatSR also has some problems, such as poor noise robustness. Next, we will try to improve its noise robustness by contrastive learning or other methods."
+      }
+    ],
+    "evidence": [
+      "Last but not least, ChatSR also has some problems, such as poor noise robustness. Next, we will try to improve its noise robustness by contrastive learning or other methods."
+    ]
+  },
+  "future_directions": {
+    "future_directions": [
+      "Improve noise robustness: The authors plan to enhance ChatSR's robustness to noisy data, potentially using contrastive learning or other methods."
+    ],
+    "evidence": [
+      "Last but not least, ChatSR also has some problems, such as poor noise robustness. Next, we will try to improve its noise robustness by contrastive learning or other methods."
+    ]
+  },
+  "resource_link": {
+    "answer": "",
+    "evidence": "No code repository, project website, or data repository link is provided in the paper."
+  },
+  "paper_title": "ChatSR: Multimodal Large Language Models for Scientific Formula Discovery",
+  "authors": [
+    "Yanjie",
+    "Lina",
+    "Weijun",
+    "Min",
+    "Jingyi",
+    "Wenqiang",
+    "Shu",
+    "Yusong"
+  ],
+  "published": "2025-06-24",
+  "link": "http://arxiv.org/abs/2406.05410"
+}

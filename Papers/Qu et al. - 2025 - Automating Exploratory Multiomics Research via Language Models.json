@@ -1,0 +1,236 @@
+{
+  "objective": {
+    "answer": "The primary objective of the paper is to introduce PROTEUS, a fully automated system that generates data-driven hypotheses from raw clinical multiomics data files. The authors aim to automate the entire process of exploratory scientific discovery in clinical proteogenomics, from data exploration to hypothesis proposal and validation, without requiring human intervention.",
+    "evidence": "This paper introduces PROTEUS , a fully automated system that produces data-driven hypotheses from raw data files. We apply PROTEUS to clinical proteogenomics, a field where effective downstream data analysis and hypothesis proposal is crucial for producing novel discoveries. PROTEUS uses separate modules to simulate different stages of the scientific process, from open-ended data exploration to specific statistical analysis and hypothesis proposal."
+  },
+  "knowledge_gap": {
+    "answer": "Existing methods for multiomics data analysis either require predefined goals, rely heavily on human intervention, or lack the ability to perform open-ended, fully automated exploratory research and hypothesis generation from raw data.",
+    "evidence": "On the other hand, most existing methods that attempt to encompass the full bioinformatics research pipeline still rely heavily on human intervention, either requiring a pre-determined procedure to link single steps [22], or relying on frequent user inputs to guide the analysis [23] [24]. ... Therefore, automating end-to-end exploratory research processes remains challenging."
+  },
+  "novelty": {
+    "answer": [
+      "Development of PROTEUS, a fully automated system that autonomously generates and validates scientific hypotheses from raw clinical multiomics data without human intervention.",
+      "Simulation of the entire scientific research process using five distinct LLM-driven modules (Explorer, Hypothesizer, Decomposer, Validator, Integrator) that iteratively explore, hypothesize, decompose, validate, and integrate results.",
+      "Use of unified, biologically motivated relationship and conclusion graphs to structure and manage complex multiomics research processes.",
+      "Integration of 41 bioinformatics tools for direct statistical analysis across diverse omics data types, coordinated by a large language model.",
+      "Dual evaluation framework combining external cohort validation and LLM-based open-ended scoring to assess both statistical rigor and scientific novelty of generated hypotheses."
+    ],
+    "evidence": [
+      "This paper introduces PROTEUS , a fully automated system that produces data-driven hypotheses from raw data files.",
+      "PROTEUS achieves this through simulating different stages of scientific research - data exploration, hypothesis proposal, hypothesis decomposition, statistical validation, and finally result integration.",
+      "It formulates research directions, tools, and results in terms of relationships between biological entities, using unified graph structures to manage complex research processes.",
+      "Accordingly, PROTEUS incorporates 41 bioinformatics tools to support direct statistical analysis across diverse data types, including both single and multiomic methods.",
+      "We additionally design scalable and quantitative methods to evaluate the quality of individual hypotheses. We introduce a dual evaluation procedure that combines rigorous evidence-seeking with the ability to assess open-ended, entirely novel hypotheses."
+    ]
+  },
+  "inspirational_papers": {
+    "answer": [
+      "Huang et al. (2025) POPPER: Automated hypothesis validation with agentic sequential falsifications. (Methodological precursors)",
+      "Deng et al. (2024) DREAM: a biomedical data-driven self-evolving autonomous research system. (Methodological precursors, limitations addressed)",
+      "Xiao et al. (2024) CellAgent: An LLM-driven multi-agent framework for automated single-cell data analysis. (Experimental baselines, limitations addressed)",
+      "Zhou et al. (2023) An AI Agent for Fully Automated Multi-omic Analyses. (Experimental baselines, limitations addressed)"
+    ],
+    "evidence": [
+      "Current methods using LLMs for automatic data analysis via tool-calling typically guide the model with a predefined goal or hypothesis to validate. POPPER [19], for instance, analyzes data to attempt to validate a specific hypothesis, and was applied to the bioinformatics domain.",
+      "DREAM [25], while eliminating human inputs, evaluates the system’s outputs solely by judging whether the initial research question was resolved, lacking verification of the reliability and depth of the results.",
+      "For omics specifically, common tasks include batch effect correction [20], cell type annotation [20], and differential gene selection [21].",
+      "On the other hand, most existing methods that attempt to encompass the full bioinformatics research pipeline still rely heavily on human intervention, either requiring a pre-determined procedure to link single steps [22], or relying on frequent user inputs to guide the analysis [23] [24]."
+    ]
+  },
+  "method": {
+    "steps": [
+      {
+        "step": "Input and Data Preparation",
+        "input": "Clinical multiomics dataset (including proteomics, transcriptomics, phosphoproteomics, genomic variants, and clinical features); minimal textual data description.",
+        "output": "Structured data matrices and metadata for downstream analysis.",
+        "tools": [
+          "Consensus Clustering: Clusters samples based on omics expression profiles.",
+          "Cell Type Deconvolution: Infers cell type composition from omics data.",
+          "Single-Sample Enrichment Analysis: Computes pathway signatures for each sample."
+        ],
+        "evidence": "The input data of PROTEUS consists of sample-level clinical feature metadata and omics data. ... PROTEUS incorporates 41 bioinformatics tools to support direct statistical analysis across diverse data types, including both single and multiomic methods."
+      },
+      {
+        "step": "Exploration of Research Directions",
+        "input": "Data description, relationship graph, previous analysis summaries, list of available entities.",
+        "output": "Selection of a general research direction (pair of biological entity types to investigate).",
+        "tools": [
+          "Explorer Module: LLM-driven module that selects promising research directions based on biological significance and novelty."
+        ],
+        "evidence": "The Explorer takes the description of the raw dataset to designate two biological entity types (e.g. protein and clinic) whose relationship will be investigated."
+      },
+      {
+        "step": "Hypothesis Generation",
+        "input": "Selected research direction, relationship graph, past hypotheses, context from conclusion graph.",
+        "output": "Specific hypothesis (pair of specific entities within the chosen types).",
+        "tools": [
+          "Hypothesizer Module: LLM-driven module that narrows down the research direction to specific entities."
+        ],
+        "evidence": "In each subsequent iteration, the Hypothesizer narrows down the research direction by selecting specific entities within the entity types (e.g. protein_STAT3 and clinic_survival)."
+      },
+      {
+        "step": "Hypothesis Decomposition",
+        "input": "Specific hypothesis, relationship graph, context from conclusion graph.",
+        "output": "List of single-entity relationships (edges) to validate.",
+        "tools": [
+          "Decomposer Module: LLM-driven module that decomposes the hypothesis into analyzable relationships."
+        ],
+        "evidence": "Given a research direction, the Decomposer references the full relationship graph to select several edges (representing individual relationships) whose analysis may contribute to the general research direction."
+      },
+      {
+        "step": "Validation of Relationships",
+        "input": "List of relationships to validate, available bioinformatics tools, tool documentation.",
+        "output": "Statistical validation results for each relationship.",
+        "tools": [
+          "Validator Module: LLM-driven module that selects and executes appropriate bioinformatics tools for each relationship.",
+          "Bioinformatics Tools: 41 tools for statistical analysis (e.g., differential expression, correlation, survival analysis, enrichment analysis, etc.)."
+        ],
+        "evidence": "For each edge, from the full set of bioinformatics tools, PROTEUS filters out those that support the edge’s relationship type. ... the Validator then selects an appropriate tool and automatically assigns parameters."
+      },
+      {
+        "step": "Integration and Hypothesis Synthesis",
+        "input": "Validation results, research objective, user query, previous summaries.",
+        "output": "Final summary of generated hypotheses (up to 3 per iteration).",
+        "tools": [
+          "Integrator Module: LLM-driven module that synthesizes validation results into concise, evidence-based hypotheses."
+        ],
+        "evidence": "Finally, the Integrator takes all relevant results along with the initial research direction to provide a final summary of generated hypotheses."
+      },
+      {
+        "step": "Iterative Loop",
+        "input": "Conclusion graph (long-term memory of results), integrator output (short-term context).",
+        "output": "Context for next iteration, enabling deeper or diversified analysis.",
+        "tools": [
+          "Relationship and Conclusion Graphs: Data structures to track research progress and manage context."
+        ],
+        "evidence": "All of the above stages are context dependent, allowing PROTEUS to deepen or diversify its analysis based on previous results instead of performing repetitive analysis. Context provided to the LLM modules includes both the previous iteration’s Integrator output, representing detailed short-term information, and edges on the conclusion graph, representing long-term analysis history."
+      }
+    ],
+    "tools": [
+      "Consensus Clustering: Clusters samples based on omics expression profiles.",
+      "Cell Type Deconvolution: Infers cell type composition from omics data.",
+      "Single-Sample Enrichment Analysis: Computes pathway signatures for each sample.",
+      "Differential Expression Analysis: Identifies molecules with significant expression differences between groups.",
+      "Enrichment Analysis: Identifies enriched pathways or gene sets.",
+      "Kinase-Substrate Enrichment Analysis: Infers kinase activity from phosphosite data.",
+      "Correlation Analysis: Computes correlations between pairs of molecules or features.",
+      "Survival Analysis: Links molecular profiles to clinical survival outcomes.",
+      "Protein-Protein Interaction Prediction: Queries STRING database for protein interactions.",
+      "Transcription Factor Activity Inference: Infers transcription factor activity from gene expression data.",
+      "Relationship and Conclusion Graphs: Data structures for managing research directions and results.",
+      "LLM-driven Modules (Explorer, Hypothesizer, Decomposer, Validator, Integrator): Orchestrate the research process and tool selection."
+    ],
+    "evidence": [
+      "PROTEUS achieves this through simulating different stages of scientific research - data exploration, hypothesis proposal, hypothesis decomposition, statistical validation, and finally result integration.",
+      "PROTEUS incorporates 41 bioinformatics tools to support direct statistical analysis across diverse data types, including both single and multiomic methods.",
+      "The Explorer takes the description of the raw dataset to designate two biological entity types (e.g. protein and clinic) whose relationship will be investigated.",
+      "In each subsequent iteration, the Hypothesizer narrows down the research direction by selecting specific entities within the entity types (e.g. protein_STAT3 and clinic_survival).",
+      "Given a research direction, the Decomposer references the full relationship graph to select several edges (representing individual relationships) whose analysis may contribute to the general research direction.",
+      "For each edge, from the full set of bioinformatics tools, PROTEUS filters out those that support the edge’s relationship type. ... the Validator then selects an appropriate tool and automatically assigns parameters.",
+      "Finally, the Integrator takes all relevant results along with the initial research direction to provide a final summary of generated hypotheses.",
+      "All of the above stages are context dependent, allowing PROTEUS to deepen or diversify its analysis based on previous results instead of performing repetitive analysis."
+    ]
+  },
+  "subject_area": {
+    "areas": [
+      "Biological Sciences",
+      "Health Sciences"
+    ],
+    "evidence": [
+      "Clinical multiomics [1–3] links genotype to phenotype and helps uncover fundamental biological insights.",
+      "We applied PROTEUS to 10 clinical multiomics datasets from published research, arriving at 360 total hypotheses.",
+      "The input data of PROTEUS consists of sample-level clinical feature metadata and omics data."
+    ]
+  },
+  "performance_summary": {
+    "performance_summary": [
+      "PROTEUS generated 360 scientific hypotheses across 10 clinical multiomics datasets, demonstrating the ability to autonomously produce complex, data-driven hypotheses.",
+      "On external cohort validation (CPTAC), PROTEUS hypotheses achieved over 70% support or weak support in most datasets, indicating strong statistical validity.",
+      "Compared to two LLM-centered baselines, PROTEUS produced more complex hypotheses with a higher number of supporting results, while maintaining statistical rigor.",
+      "In LLM-based open-ended scoring (5 metrics), PROTEUS outperformed both baselines on all metrics, especially in General Quality and Logical Coherence, while maintaining high scores in Scientific Novelty and Biological Significance."
+    ],
+    "baselines": [
+      "LLM-centered baseline: Used GPT-4o to generate hypotheses by producing and refining Python code for data analysis, based on the same research directions and toolset as PROTEUS.",
+      "General and Specific Baselines: Used research directions generated by PROTEUS Explorer and Hypothesizer, respectively, to ensure diversity and comparability."
+    ],
+    "benchmark_datasets": [
+      {
+        "name": "CPTAC",
+        "data_description": "Clinical Proteomic Tumor Analysis Consortium (CPTAC) cohorts containing proteomics, transcriptomics, phosphoproteomics, somatic mutation, and clinical data for various cancer types.",
+        "usage": "Used as external validation cohorts to corroborate the statistical validity of hypotheses generated by PROTEUS and baselines.",
+        "evidence": "First, hypotheses were validated using external cohorts corresponding to the same cancer types from the Clinical Protein Tumor Analysis Consortium (CPTAC) [28]."
+      }
+    ],
+    "evaluation_metrics": [
+      "CPTAC Support Status: Each hypothesis was evaluated for support, weak support, none, weak contradict, or contradict, based on statistical significance and directionality of results in external cohorts.",
+      "LLM Scoring Metrics: Literature Alignment, Logical Coherence, Scientific Novelty, Biological Significance, and General Quality, each scored 0–5 by GPT-4o with reference to PubMed literature."
+    ],
+    "evidence": [
+      "On all datasets excluding BRCA, support and weak support comprise an evident majority (over 70%) of effective assessments.",
+      "Comparing result distributions from PROTEUS and the two baselines, the three settings produced similar distributions, which was expected since they use the same set of packages to analyze identical datasets. Directly comparing the absolute number of total results and strong supports found, PROTEUS surpassed both baselines, indicating more complex hypotheses that hinge on larger numbers of biological relationships.",
+      "We introduce a dual evaluation procedure that combines rigorous evidence-seeking with the ability to assess open-ended, entirely novel hypotheses.",
+      "We used GPT-4o to conduct automatic hypothesis scoring according to 5 distinct metrics."
+    ]
+  },
+  "limitations": {
+    "limitations": [
+      {
+        "label": "Limited Research Scope",
+        "explanation": "The system currently does not support certain biological entity types, relationship types, or analysis methods, such as other post-translational modifications or metabolites.",
+        "evidence": "First, the system’s research scope can be expanded through incorporating additional biological entity types, relationship types, and analysis methods. Examples include other post-translational modifications such as acetylation, copy number alterations, and metabolites."
+      },
+      {
+        "label": "Tool Dependency",
+        "explanation": "PROTEUS can only interact with omics data through predefined tools, limiting its flexibility for novel data operations.",
+        "evidence": "Furthermore, predefined tools are currently the only avenue for the LLM to interact with omics data. This limits the flexibility of PROTEUS , as it cannot perform data operations that exceed these existing tools."
+      },
+      {
+        "label": "No Use of External Data in Hypothesis Generation",
+        "explanation": "External information is only used for result evaluation, not for guiding hypothesis proposal or analysis within PROTEUS.",
+        "evidence": "Finally, we currently use external information solely for result evaluation, not for the main hypothesis proposal process within PROTEUS . However, analysis insights from external data may be informative for improving hypothesis proposal and selecting directions for further analysis."
+      }
+    ],
+    "evidence": [
+      "First, the system’s research scope can be expanded through incorporating additional biological entity types, relationship types, and analysis methods. Examples include other post-translational modifications such as acetylation, copy number alterations, and metabolites.",
+      "Furthermore, predefined tools are currently the only avenue for the LLM to interact with omics data. This limits the flexibility of PROTEUS , as it cannot perform data operations that exceed these existing tools.",
+      "Finally, we currently use external information solely for result evaluation, not for the main hypothesis proposal process within PROTEUS . However, analysis insights from external data may be informative for improving hypothesis proposal and selecting directions for further analysis."
+    ]
+  },
+  "future_directions": {
+    "future_directions": [
+      "Expand the system’s research scope by incorporating additional biological entity types, relationship types, and analysis methods, such as acetylation, copy number alterations, and metabolites.",
+      "Combine predefined tools with automatic code generation to increase flexibility and enable novel data operations beyond existing tools.",
+      "Integrate external data (e.g., external cohorts, knowledge graphs, literature) into the main hypothesis proposal process to improve hypothesis generation and analysis direction selection."
+    ],
+    "evidence": [
+      "First, the system’s research scope can be expanded through incorporating additional biological entity types, relationship types, and analysis methods. Examples include other post-translational modifications such as acetylation, copy number alterations, and metabolites.",
+      "Combining predefined tools and automatic code generation is a clear approach for mitigating this problem.",
+      "Integrating external data is thus a feasible direction for improvement, whether the data is in the form of external cohorts, knowledge graphs, or existing literature."
+    ]
+  },
+  "resource_link": {
+    "answer": "",
+    "evidence": "No code repository, project website, or data repository URL is provided in the paper."
+  },
+  "paper_title": "Automating Exploratory Multiomics Research via Language Models",
+  "authors": [
+    "Shang",
+    "Ning",
+    "Linhai",
+    "Yifei",
+    "Zaoqu",
+    "Kaiyan",
+    "Yibai",
+    "Yuxin",
+    "Zhangren",
+    "Ermo",
+    "Xingtai",
+    "Youbang",
+    "Yang",
+    "Dong",
+    "Fuchu",
+    "Bowen"
+  ],
+  "published": "2025-06-09",
+  "link": "http://arxiv.org/abs/2506.07591"
+}

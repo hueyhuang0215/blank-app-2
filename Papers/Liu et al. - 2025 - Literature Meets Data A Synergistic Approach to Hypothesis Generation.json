@@ -1,0 +1,214 @@
+{
+  "objective": {
+    "answer": "The primary objective of the paper is to develop and evaluate the first method that combines literature-based insights with data to perform large language model-powered hypothesis generation. The authors aim to demonstrate that integrating literature and data improves the quality, generalizability, and utility of generated hypotheses compared to theory-driven or data-driven approaches alone. They also assess the impact of these hypotheses on human decision-making in challenging tasks such as deception detection and artificial intelligence generated content detection.",
+    "evidence": "To address this, we develop the first method that combines literature-based insights with data to perform LLM-powered hypothesis generation. We apply our method on five different datasets and demonstrate that integrating literature and data outperforms other baselines (8.97% over few-shot, 15.75% over literature-based alone, and 3.37% over data-driven alone). Additionally, we conduct the first human evaluation to assess the utility of LLM-generated hypotheses in assisting human decision-making on two challenging tasks: deception detection and AI generated content detection."
+  },
+  "knowledge_gap": {
+    "answer": "It remains an open question whether theory-driven and data-driven approaches to hypothesis generation can complement each other, as prior work has largely treated them separately, each with distinct limitations.",
+    "evidence": "While both have proven effective in generating novel and plausible hypotheses, it remains an open question whether they can complement each other. ... However, they come with notable limitations: they require high-quality literature, struggle to adapt to new data, and lack empirical support. Data-driven approaches, on the other hand, propose hypotheses by discovering patterns in data ... However, they could be too overly tailored to the specific datasets used, which can hinder their generalizability."
+  },
+  "novelty": {
+    "answer": [
+      "Proposes the first approach to integrate literature-based and data-driven hypothesis generation using large language models.",
+      "Introduces a collaborative framework where literature-based and data-driven agents iteratively refine and maintain a shared pool of hypotheses.",
+      "Demonstrates, for the first time, that integrating literature and data improves both model and human performance on challenging real-world tasks.",
+      "Conducts the first human evaluation to assess the utility of large language model-generated hypotheses in supporting human decision-making."
+    ],
+    "evidence": [
+      "We propose the first approach to using both literature information and data for LLM-powered hypothesis generation.",
+      "This agent interacts with the data-driven hypothesis agent (HYPOGENIC), refining and maintaining a shared pool of hypotheses through continuous collaboration, ensuring that the hypotheses benefit from both data-driven adaptability and the grounding of existing scientific knowledge.",
+      "Our results show that human accuracy improves significantly by 7.44% and 14.19% on these tasks, respectively. These findings suggest that integrating literature-based and data-driven approaches provides a comprehensive and nuanced framework for hypothesis generation and could open new avenues for scientific inquiry.",
+      "We conduct the first human evaluation to test the utility of LLM-generated hypotheses and demonstrate consistent improvements on two challenging tasks."
+    ]
+  },
+  "inspirational_papers": {
+    "answer": [
+      "Yang et al. (2024b) Uses LLMs to generate hypotheses from literature, serving as a methodological precursor for theory-driven approaches.",
+      "Baek et al. (2024) Leverages LLMs for literature review and hypothesis generation, inspiring the literature-based component.",
+      "Zhou et al. (2024) Proposes HYPOGENIC, which is used as the backbone for the data-driven component in this work.",
+      "Qi et al. (2023) Inspired the zero-shot hypothesis generation baseline.",
+      "Li et al. (2014) Provided existing findings in deception detection, used for comparison and validation."
+    ],
+    "evidence": [
+      "On one hand, theory-driven approaches leverage LLMs to review existing literature and generate novel hypotheses/ideas (Yang et al., 2024b; Baek et al., 2024).",
+      "For the data-driven component, we use HYPOGENIC as the backbone (Zhou et al., 2024).",
+      "Zero-shot hypothesis generation. Inspired by Qi et al. (2023), we provide specific task descriptions and instructions, and then we prompt the LLMs to generate hypotheses directly without incorporating literature or data.",
+      "We also show an existing finding from Li et al. (2014) on deception detection, demonstrating that our generated hypothesis is highly relevant to the field of interest."
+    ]
+  },
+  "method": {
+    "steps": [
+      {
+        "step": "Literature-Based Hypothesis Generation",
+        "input": "A set of relevant research papers for the research question, converted to JSON summaries.",
+        "output": "A set of hypotheses generated from paper summaries, focusing on key findings.",
+        "tools": [
+          "S2ORC-doc2json: Converts raw PDF papers to JSON format.",
+          "Paper summarizer (MS): Summarizes papers to extract key findings.",
+          "Language model (MG): Generates hypotheses from summaries."
+        ],
+        "evidence": "We develop a paper summarizer MS to generate paper summaries S = {MS(pc) : pc ∈C} ... Lastly, we instruct language models to generate hypotheses HL = MG(S) based on the generated paper summaries."
+      },
+      {
+        "step": "Data-Driven Hypothesis Generation",
+        "input": "Observational data in the form of input-label pairs relevant to the research question.",
+        "output": "A set of hypotheses generated and iteratively refined based on data patterns and performance.",
+        "tools": [
+          "HYPOGENIC: An LLM-based framework for initializing and updating hypotheses from data.",
+          "Generation agent (MG): Generates initial hypotheses.",
+          "Inference agent (MI): Makes predictions using hypotheses.",
+          "Reward function: Evaluates and ranks hypotheses."
+        ],
+        "evidence": "Our data-driven hypothesis generation adopts HYPOGENIC in Zhou et al. (2024). ... a generation agent MG is prompted with a set of initial data instances Dinit ⊂D and asked to generate initial hypotheses H0_D = MG(Dinit)."
+      },
+      {
+        "step": "Integration of Literature-based and Data-driven Hypotheses (Refinement and Union)",
+        "input": "Paper summaries, initial data examples, and hypotheses from both literature and data-driven methods.",
+        "output": "A refined and/or combined hypothesis bank that leverages both literature and data insights.",
+        "tools": [
+          "HYPOREFINE: Integrates paper summaries with HYPOGENIC for joint hypothesis generation and iterative refinement.",
+          "Redundancy checker: Removes overlapping hypotheses.",
+          "Random selection and ranking: Balances literature and data-driven hypotheses in the final bank."
+        ],
+        "evidence": "HYPOREFINE integrates paper summaries S from § 2.1 with HYPOGENIC. ... we use a union approach to combine literature-based and data-based hypotheses. ... we build a redundancy checker to remove hypotheses that express overly similar or repeating information in each bank."
+      },
+      {
+        "step": "Evaluation (Automatic and Human)",
+        "input": "Generated hypotheses, held-out in-distribution and out-of-distribution datasets, human participants.",
+        "output": "Performance metrics (accuracy, F1), human ratings (clarity, novelty, plausibility), and decision-making improvement.",
+        "tools": [
+          "LLMs (GPT-4O-MINI, LLAMA-3.1-70B-INSTRUCT): Used for inference and hypothesis generation.",
+          "Prolific: Platform for recruiting human participants.",
+          "Likert scale surveys: For human evaluation."
+        ],
+        "evidence": "We conduct automatic and human evaluation to assess their generalizability, utility, and novelty. ... We recruit 60 Prolific participants and randomly assign them into experimental and control groups."
+      }
+    ],
+    "tools": [
+      "S2ORC-doc2json: Converts research papers from PDF to JSON for easier processing.",
+      "Paper summarizer (MS): Summarizes key findings from research papers.",
+      "Language model (MG): Generates hypotheses from summaries or data.",
+      "HYPOGENIC: LLM-based framework for data-driven hypothesis generation and refinement.",
+      "HYPOREFINE: Integrates literature and data-driven approaches for hypothesis refinement.",
+      "Redundancy checker: Removes overlapping or redundant hypotheses.",
+      "LLMs (GPT-4O-MINI, LLAMA-3.1-70B-INSTRUCT): Used for hypothesis generation and inference.",
+      "Prolific: Platform for human subject recruitment.",
+      "Likert scale surveys: Used for human evaluation of hypotheses."
+    ],
+    "evidence": [
+      "We develop a paper summarizer MS to generate paper summaries S = {MS(pc) : pc ∈C} ... Lastly, we instruct language models to generate hypotheses HL = MG(S) based on the generated paper summaries.",
+      "Our data-driven hypothesis generation adopts HYPOGENIC in Zhou et al. (2024).",
+      "HYPOREFINE integrates paper summaries S from § 2.1 with HYPOGENIC.",
+      "we build a redundancy checker to remove hypotheses that express overly similar or repeating information in each bank.",
+      "We conduct automatic and human evaluation to assess their generalizability, utility, and novelty."
+    ]
+  },
+  "subject_area": {
+    "areas": [
+      "Social Sciences",
+      "Health Sciences"
+    ],
+    "evidence": [
+      "We apply our method to address research questions in social sciences: deception detection, AI generated content (AIGC) detection, mental stress detection, and persuasive argument prediction.",
+      "Mental Stress Detection from social media content is an important task in mental health (Lupien et al., 2009)."
+    ]
+  },
+  "performance_summary": {
+    "performance_summary": [
+      "Integrating literature and data outperforms all other baselines across all tasks and model configurations, with improvements of 8.97% over few-shot, 15.75% over literature-based alone, and 3.37% over data-driven alone in accuracy on out-of-distribution datasets.",
+      "Human accuracy improves significantly by 7.44% and 14.19% on deception detection and artificial intelligence generated content detection tasks, respectively, when provided with generated hypotheses.",
+      "The method is robust to prompt variations, hyperparameters, and works effectively with smaller models."
+    ],
+    "baselines": [
+      "Zero-shot and few-shot prompting: LLMs are given task instructions and optionally a few examples, without hypotheses.",
+      "Zero-shot hypothesis generation: LLMs generate hypotheses directly from task descriptions, without literature or data.",
+      "Literature-driven hypothesis generation: Hypotheses are generated solely from literature using LLMs and commercial tools (NOTEBOOKLM, HYPERWRITE).",
+      "Data-driven hypothesis generation: HYPOGENIC framework generates and refines hypotheses based on data patterns."
+    ],
+    "benchmark_datasets": [
+      "DECEPTIVE REVIEWS: Contains 800 genuine hotel reviews and 800 fake hotel reviews, used for deception detection (IND dataset).",
+      "FOUR-CITIES: 640 hotel reviews from four cities and different web sources, used as OOD dataset for deception detection.",
+      "WRITINGPROMPTS: 800 distinct prompts and human-written stories, used to generate artificial intelligence generated content detection datasets (LLAMAGC, GPTGC).",
+      "DREADDIT: Reddit posts with stress status labels, used for mental stress detection.",
+      "PERSUASIVE PAIRS: Pairs of short texts with persuasiveness labels, used for persuasive argument prediction."
+    ],
+    "evaluation_metrics": [
+      "Accuracy: Measures the proportion of correct predictions on held-out datasets.",
+      "F1 Score: Macro-averaged F1 score to assess the balance between precision and recall across classes.",
+      "Human accuracy: Improvement in human decision-making accuracy when using generated hypotheses.",
+      "Likert scale ratings: Human evaluation of clarity, novelty, and plausibility of hypotheses."
+    ],
+    "evidence": [
+      "Automatic evaluation results show that integrating literature and data outperforms other baselines: 8.97% over few-shot, 15.75% over literature-based alone, and 3.37% over data-driven alone in accuracy on out-of-distribution datasets, a measure of generalizability.",
+      "Our results show that human accuracy improves significantly by 7.44% and 14.19% on these tasks, respectively.",
+      "We compare our method with the following baselines. 1. Zero-shot and few-shot prompting. ... 2. Zero-shot hypothesis generation. ... 3. Literature-driven hypothesis generation. ... 4. Data-driven hypothesis generation.",
+      "We use the dataset introduced by Ott et al. (2013) (DECEPTIVE REVIEWS), which consists of 800 genuine hotel reviews and 800 fake hotel reviews, as our IND dataset. For the OOD dataset, we use hotel reviews from different source websites and different cities (Li et al., 2013).",
+      "Then we compute Acc(H, Dtest), defined in eq. 1, for a held-out set Dtest. For each task, we report average accuracy and F1 scores on held-out OOD and IND sets for 5 different random seeds.",
+      "We design human studies to assess the practical utility of the generated hypotheses on Deception Detection and AIGC Detection. In addition, we evaluate the perceived clarity, novelty, and plausibility through surveys."
+    ]
+  },
+  "limitations": {
+    "limitations": [
+      {
+        "label": "Limited Evaluation on Non-Natural Language Tasks",
+        "explanation": "The method was not evaluated on tasks requiring representations beyond natural language, such as math problem solving and code generation.",
+        "evidence": "However, we did not further evaluate our hypotheses on some tasks that require representations beyond natural language, such as math problem solving and code generation."
+      },
+      {
+        "label": "Limited Literature Corpus",
+        "explanation": "The literature corpus used for hypothesis generation was small and manually collected, potentially limiting coverage.",
+        "evidence": "The literature corpus used for literature-based hypothesis generation is limited in terms of size and collection method. The collection is carried out by manually searching and collecting up to 10 papers on Semantic Scholar or Google Scholar."
+      },
+      {
+        "label": "No Exhaustive Hyperparameter Search",
+        "explanation": "The study did not perform an exhaustive hyperparameter search, which may have led to further performance improvements.",
+        "evidence": "However, we did not perform an exhaustive hyperparameter search, which may have yielded further enhancements to the performance of our methods. This represents a limitation of our study that could be addressed in future work."
+      },
+      {
+        "label": "Small Human Study Sample Size",
+        "explanation": "The number of participants in the human evaluation was relatively small, limiting statistical power.",
+        "evidence": "The number of participants in our human evaluation is relatively small. As a result, we do not believe that we have the statistical power to distinguish, for example, the difference between HYPOGENIC and HYPOREFINE."
+      },
+      {
+        "label": "Manual Hypothesis Selection for Human Studies",
+        "explanation": "The process of selecting hypotheses for human studies involved manual ablation and subjective judgment.",
+        "evidence": "Last but not least, we manually chose three hypotheses through ablation-style study and subjective judgment for experiments with human subjects."
+      }
+    ],
+    "evidence": [
+      "However, we did not further evaluate our hypotheses on some tasks that require representations beyond natural language, such as math problem solving and code generation.",
+      "The literature corpus used for literature-based hypothesis generation is limited in terms of size and collection method. The collection is carried out by manually searching and collecting up to 10 papers on Semantic Scholar or Google Scholar.",
+      "However, we did not perform an exhaustive hyperparameter search, which may have yielded further enhancements to the performance of our methods. This represents a limitation of our study that could be addressed in future work.",
+      "The number of participants in our human evaluation is relatively small. As a result, we do not believe that we have the statistical power to distinguish, for example, the difference between HYPOGENIC and HYPOREFINE.",
+      "Last but not least, we manually chose three hypotheses through ablation-style study and subjective judgment for experiments with human subjects."
+    ]
+  },
+  "future_directions": {
+    "future_directions": [
+      "Enhance the literature component with automatic and scalable retrieval to improve coverage and quality of literature-based hypothesis generation.",
+      "Conduct large-scale human experiments in focused domains to validate the hypotheses generated through human-AI collaboration.",
+      "Explore optimal regimes for human-AI collaboration in hypothesis selection and scientific processes.",
+      "Perform exhaustive hyperparameter search to potentially further improve the performance of the proposed methods."
+    ],
+    "evidence": [
+      "a natural future direction is to enhance the literature component with automatic and scalable retrieval.",
+      "we encourage future work to conduct large-scale experiments in focused domains to validate the hypotheses generated through human-AI collaboration.",
+      "It requires future exploration to identify the optimal collaboration regime.",
+      "However, we did not perform an exhaustive hyperparameter search, which may have yielded further enhancements to the performance of our methods. This represents a limitation of our study that could be addressed in future work."
+    ]
+  },
+  "resource_link": {
+    "answer": "https://github.com/ChicagoHAI/hypothesis-generation",
+    "evidence": "The code and data are available at https://github.com/ChicagoHAI/hypothesis-generation."
+  },
+  "paper_title": "Literature Meets Data: A Synergistic Approach to Hypothesis Generation",
+  "authors": [
+    "Haokun",
+    "Yangqiaoyu",
+    "Mingxuan",
+    "Chenfei",
+    "Chenhao"
+  ],
+  "published": "2025-01-08",
+  "link": "http://arxiv.org/abs/2410.17309"
+}

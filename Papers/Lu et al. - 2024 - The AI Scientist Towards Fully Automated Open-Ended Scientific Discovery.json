@@ -1,0 +1,234 @@
+{
+  "objective": {
+    "answer": "The primary objective of the paper is to introduce and demonstrate a fully automated framework, called The AI Scientist, that enables large language models to independently conduct the entire scientific research process in machine learning. The authors aim to automate all stages of research, including idea generation, experiment design and execution, manuscript writing, and peer review, without human involvement. They seek to show that this approach can produce novel, high-quality scientific papers at low cost and with scalable efficiency.",
+    "evidence": "This paper presents the first comprehensive framework for fully automatic scientific discovery, enabling frontier large language models (LLMs) to perform research independently and communicate their findings. We introduce The AI Scientist, which generates novel research ideas, writes code, executes experiments, visualizes results, describes its findings by writing a full scientific paper, and then runs a simulated review process for evaluation."
+  },
+  "knowledge_gap": {
+    "answer": "Previous attempts at automating scientific research have only addressed narrow, well-defined tasks or required significant human intervention, and no prior work has demonstrated a fully automated, end-to-end scientific discovery process in machine learning. The field lacks a scalable, generalizable framework that can autonomously generate, execute, and communicate novel research ideas across the entire research pipeline.",
+    "evidence": "To date, the community has yet to show the possibility of executing entire research endeavors without human involvement. Traditional approaches to automating research projects have so far relied on carefully constraining the search space of potential discoveries, which severely limits the scope of exploration and requires substantial human expertise and design."
+  },
+  "novelty": {
+    "answer": [
+      "Introduction of the first end-to-end framework for fully automated scientific discovery in machine learning, covering idea generation, experiment design, execution, and manuscript writing.",
+      "Development of an automated, foundation model-based peer review process that achieves near-human-level performance.",
+      "Demonstration that the system can autonomously generate hundreds of medium-quality research papers at a low cost, with some exceeding the acceptance threshold at top conferences.",
+      "Open-sourcing of the entire framework, including code and reviewer benchmarks, for community use and further research."
+    ],
+    "evidence": [
+      "We introduce the first end-to-end framework for fully automated scientific discovery in Machine Learning research, enabled by frontier LLMs (Section 3). This fully automated process includes idea generation, experiment design, execution, and visualizing and writing up the results into a full manuscript.",
+      "To assess the quality of the generated papers, we introduce a foundation model-based reviewing process in Section 4. This process achieves near-human-level performance across multiple evaluation metrics (e.g. 65% vs. 66% balanced accuracy) when evaluated on ICLR 2022 OpenReview data.",
+      "The AI Scientist can generate hundreds of interesting, medium-quality papers over the course of a week. In this report, we focus on a subset of these papers, highlighting novel insights in diffusion modeling, language modeling, and grokking.",
+      "We open-source our code, providing a new and interesting LLM benchmark for the community."
+    ]
+  },
+  "inspirational_papers": {
+    "answer": [
+      "Power et al. (2022) Grokking: Generalization beyond overfitting on small algorithmic datasets. (Experimental baselines and phenomenon studied)",
+      "Ho et al. (2020) Denoising diffusion probabilistic models. (Experimental baselines and code templates for diffusion modeling)",
+      "Karras et al. (2022) Elucidating the design space of diffusion-based generative models. (Methodological precursor for diffusion model improvements)",
+      "Karpathy (2022) NanoGPT. (Experimental baseline and code template for language modeling)",
+      "Baek et al. (2024); Wang et al. (2024b) LLMs for research idea generation. (Methodological precursors for idea generation)",
+      "Liang et al. (2024) LLMs for automated paper review. (Methodological precursor for automated reviewing)",
+      "Lu et al. (2024a) LLMs for proposing, implementing, and evaluating new algorithms. (Methodological precursor for code-level automation)"
+    ],
+    "evidence": [
+      "We follow the classic experimental paradigm reported in Power et al. (2022) for analyzing “grokking”, a poorly understood phenomenon in which validation accuracy dramatically improves long after the train loss saturates.",
+      "Code Template: We base this template on a modified version of the popular ‘tanelp/tiny-diffusion’ repository (Pärnamaa, 2023) with additional minor hyperparameter tuning added and exponential moving average on the weights. The diffusion models are DDPM (Ho et al., 2020) models trained to generate samples from four distributions...",
+      "Multi-scale approaches have been explored in diffusion models to improve sample quality and generation efficiency. Karras et al. (2022a) proposed a multi-scale architecture for diffusion models, demonstrating improvements in both sample quality and inference speed.",
+      "Code Template: The code is modified from the popular NanoGPT repository (Karpathy, 2022). The provided script template trains a small transformer language model on the character-level Shakespeare dataset (Karpathy, 2015), the enwik8 dataset (Hutter, 2006), and the text8 dataset (Mahoney, 2011).",
+      "Baek et al. (2024); Wang et al. (2024b) use LLMs to propose research ideas based on scientific literature search but do not execute them.",
+      "Liang et al. (2024) use LLMs to provide feedback on research papers and find that they provide similar feedback to human reviewers...",
+      "Lu et al. (2024a) use LLMs to propose, implement, and evaluate new state-of-the-art algorithms for preference optimization."
+    ]
+  },
+  "method": {
+    "steps": [
+      {
+        "step": "Idea Generation",
+        "input": "A starting code template for a lightweight baseline experiment in a chosen research direction (e.g., code for training a small transformer or diffusion model).",
+        "output": "A diverse set of novel research ideas, each with a description, experiment plan, and self-assessed scores for interestingness, novelty, and feasibility.",
+        "tools": [
+          "Large Language Models (LLMs): Used for brainstorming, chain-of-thought reasoning, and self-reflection to generate and refine ideas.",
+          "Semantic Scholar API: Used to search literature and filter out non-novel ideas."
+        ],
+        "evidence": "Given a starting template, The AI Scientist first “brainstorms” a diverse set of novel research directions... After idea generation, we filter ideas by connecting the language model with the Semantic Scholar API (Fricke, 2018) and web access as a tool (Schick et al., 2024)."
+      },
+      {
+        "step": "Experiment Iteration",
+        "input": "A selected research idea and the initial code template.",
+        "output": "Modified code implementing the idea, a sequence of executed experiments, experimental results (numerical and visual), and experimental notes.",
+        "tools": [
+          "Aider: An LLM-based coding assistant that edits code, implements features, fixes bugs, and refactors code as directed by the LLM.",
+          "Python: Used for running experiments and generating plots."
+        ],
+        "evidence": "The AI Scientist uses Aider to first plan a list of experiments to run and then executes them in order... After the completion of each experiment, Aider is then given the results and told to take notes in the style of an experimental journal."
+      },
+      {
+        "step": "Paper Write-up",
+        "input": "Experimental notes, generated plots, and the completed code/results from the previous step.",
+        "output": "A full scientific manuscript in LaTeX format, including all standard sections and references.",
+        "tools": [
+          "Aider: Used to generate and refine each section of the paper, guided by prompts and self-reflection.",
+          "Semantic Scholar API: Used to search for and insert relevant references and citations.",
+          "LaTeX compiler and linter: Used to compile the manuscript and correct errors."
+        ],
+        "evidence": "The third phase of The AI Scientist produces a concise and informative write-up of its progress in the style of a standard machine learning conference proceeding in LaTeX... We perform one final round of self-reflection section-by-section, aiming to remove any duplicated information and streamline the arguments of the paper."
+      },
+      {
+        "step": "Automated Paper Reviewing",
+        "input": "The generated scientific manuscript (PDF or LaTeX).",
+        "output": "A structured review with numerical scores, strengths, weaknesses, and a binary accept/reject decision.",
+        "tools": [
+          "GPT-4o-based reviewer agent: Processes the manuscript and generates reviews according to conference guidelines.",
+          "PyMuPDF: Used to parse the PDF manuscript."
+        ],
+        "evidence": "To mimic such a process using large language models, we design a GPT-4o-based agent (OpenAI, 2023) to conduct paper reviews based on the Neural Information Processing Systems (NeurIPS) conference review guidelines. The review agent processes the raw text of the PDF manuscript using the PyMuPDF parsing library."
+      },
+      {
+        "step": "Open-ended Iteration and Archiving",
+        "input": "Archive of previous ideas, papers, and reviews.",
+        "output": "A growing archive of scientific discoveries, with the process repeated to build on prior work.",
+        "tools": [
+          "LLMs and the full AI Scientist pipeline: Used to condition new idea generation on the archive and reviewer feedback."
+        ],
+        "evidence": "The reviews further enable The AI Scientist to select the best ideas for “publication” to an ever-growing archive of scientific discoveries, and the process can be repeated to build on these discoveries, just as in the human scientific community."
+      }
+    ],
+    "tools": [
+      "Large Language Models (LLMs): Foundation models for text, code, and reasoning.",
+      "Aider: Open-source LLM-based coding assistant for code editing and experiment management.",
+      "Semantic Scholar API: Literature search and citation tool.",
+      "GPT-4o-based reviewer agent: Automated review generation.",
+      "PyMuPDF: PDF parsing for review.",
+      "LaTeX compiler/linter: Manuscript compilation and error correction."
+    ],
+    "evidence": [
+      "We introduce The AI Scientist, which generates novel research ideas, writes code, executes experiments, visualizes results, describes its findings by writing a full scientific paper, and then runs a simulated review process for evaluation.",
+      "The AI Scientist uses Aider to first plan a list of experiments to run and then executes them in order.",
+      "The AI Scientist then performs an automated paper-reviewing process using guidelines from a standard machine learning conference.",
+      "The review agent processes the raw text of the PDF manuscript using the PyMuPDF parsing library."
+    ]
+  },
+  "subject_area": {
+    "areas": [
+      "Applied Sciences & Engineering"
+    ],
+    "evidence": [
+      "Here, we focus on Machine Learning (ML) applications, but this approach can more generally be applied to almost any other discipline, e.g. biology or physics, given an adequate way of automatically executing experiments (Arnold, 2022; Kehoe et al., 2015; Zucchelli et al., 2021)."
+    ]
+  },
+  "performance_summary": {
+    "performance_summary": [
+      "The AI Scientist can autonomously generate hundreds of medium-quality research papers in a week, with some papers exceeding the acceptance threshold at top machine learning conferences as judged by the automated reviewer.",
+      "The automated reviewer achieves near-human-level performance, with 65% balanced accuracy and 0.57 F1 score, closely matching human reviewers on ICLR 2022 data.",
+      "The cost per generated paper is approximately $10-15, demonstrating high cost-efficiency.",
+      "In experiments, the best-performing model (Claude Sonnet 3.5) produced the highest quality papers, with some achieving reviewer scores comparable to accepted conference papers.",
+      "The AI Scientist's reviewer rejects fewer high-quality papers than human reviewers (lower false negative rate), but has a higher false positive rate."
+    ],
+    "baselines": [
+      "Human reviewers at NeurIPS/ICLR: Used as the gold standard for review accuracy and consistency.",
+      "Random Decision: Always accept or always reject as naive baselines for reviewer performance.",
+      "Standard single-scale diffusion models, baseline transformer language models, and standard training setups for grokking: Used as baselines in the experimental templates."
+    ],
+    "benchmark_datasets": [
+      "ICLR 2022 OpenReview dataset: 500 real machine learning papers and their reviews, used to benchmark the automated reviewer.",
+      "Shakespeare (character-level), enwik8, and text8 datasets: Used for language modeling experiments.",
+      "Synthetic modular arithmetic datasets: Used for grokking experiments.",
+      "2D geometric datasets (circle, dino, line, moons): Used for diffusion modeling experiments."
+    ],
+    "evaluation_metrics": [
+      "Balanced Accuracy: Measures the average of recall obtained on each class (accept/reject) for reviewer performance.",
+      "F1 Score: Harmonic mean of precision and recall for reviewer decisions.",
+      "AUC (Area Under Curve): Measures the ability of the reviewer to distinguish between accepted and rejected papers.",
+      "False Positive Rate (FPR) and False Negative Rate (FNR): Used to assess reviewer error types.",
+      "Validation loss, KL divergence, and sample quality: Used for evaluating generated models and experiments.",
+      "Reviewer score (1-10): Used for paper acceptance threshold.",
+      "Number of steps to reach 99% validation accuracy: Used in grokking experiments."
+    ],
+    "evidence": [
+      "The AI Scientist can produce papers that exceed the acceptance threshold at a top machine learning conference as judged by our automated reviewer.",
+      "To evaluate the LLM-based reviewer’s performance, we compared the artificially generated decisions with ground truth data for 500 ICLR 2022 papers extracted from the publicly available OpenReview dataset (Berto, 2024).",
+      "With GPT-4o, The AI Scientist’s reviewing procedure achieves 70% accuracy when combining 5 rounds of self-reflection, 5 ensembled reviews, and a 1-shot review example taken from the ICLR 2022 review guidelines.",
+      "When considering a balanced dataset of papers, The AI Scientist’s reviewing process achieves human-level accuracy (0.65% vs. 0.66%). Furthermore, the False Negative Rate (FNR) is much lower than the human baseline (0.39 vs. 0.52).",
+      "Each run of around fifty ideas in total takes approximately 12 hours on 8× NVIDIA H100s2. We report the number of ideas that pass the automated novelty check, successfully complete experiments, and result in valid compilable manuscripts.",
+      "Table 1 | Performance of The AI Scientist’s automated LLM reviewing system on 500 ICLR 2022 papers. We show mean and 95% bootstrap confidence intervals, and highlight the comparison between the human baseline and our best AI reviewer."
+    ]
+  },
+  "limitations": {
+    "limitations": [
+      {
+        "label": "Automated Reviewer Limitations",
+        "explanation": "The automated reviewer may have been exposed to some of the evaluation data during pre-training, and cannot participate in rebuttal phases or use vision capabilities.",
+        "evidence": "While the automated reviewer shows promising initial results, there are several potential areas for improvement. The dataset used, from ICLR 2022, is old enough to potentially appear in the base model pre-training data... Unlike standard reviewers, the automated reviewer is unable to ask questions to the authors in a rebuttal phase, although this could readily be incorporated into our framework. Finally, since it does not currently use any vision capabilities, The AI Scientist (including the reviewer) is unable to view figures and must rely on textual descriptions of them."
+      },
+      {
+        "label": "Implementation and Execution Failures",
+        "explanation": "A significant fraction of proposed ideas fail to be implemented or executed correctly, especially with certain models or complex ideas.",
+        "evidence": "As shown in Tables 3 to 5, Aider fails to implement a significant fraction of the proposed ideas. Furthermore, GPT-4o in particular frequently fails to write LaTeX that compiles. While The AI Scientist can come up with creative and promising ideas, they are often too challenging for it to implement."
+      },
+      {
+        "label": "Limited Experimental Rigor",
+        "explanation": "Due to computational constraints, the number of experiments per idea is limited, often resulting in less rigorous or less fair comparisons than standard ML conference papers.",
+        "evidence": "Because of The AI Scientist’s limited number of experiments per idea, the results often do not meet the expected rigor and depth of a standard ML conference paper. Furthermore, due to the limited number of experiments we could afford to give it, it is difficult for The AI Scientist to conduct fair experiments that control for the number of parameters, FLOPs, or runtime."
+      },
+      {
+        "label": "Hallucination and Trustworthiness",
+        "explanation": "The system may hallucinate results, implementation details, or experimental facts, and should not be fully trusted without human verification.",
+        "evidence": "Rarely, The AI Scientist can hallucinate entire results. For example, an early version of our writing prompt told it to always include confidence intervals and ablation studies. Due to computational constraints, The AI Scientist did not always collect additional results; however, in these cases, it would sometimes hallucinate an entire ablations table."
+      },
+      {
+        "label": "Safe Code Execution",
+        "explanation": "The current implementation lacks strict sandboxing, which can lead to unsafe or undesirable code execution behaviors.",
+        "evidence": "The current implementation of The AI Scientist has minimal direct sandboxing in the code, leading to several unexpected and sometimes undesirable outcomes if not appropriately guarded against. For example, in one run, The AI Scientist wrote code in the experiment file that initiated a system call to relaunch itself, causing an uncontrolled increase in Python processes and eventually necessitating manual intervention."
+      },
+      {
+        "label": "Limited Vision and Multimodal Capabilities",
+        "explanation": "The system cannot interpret or generate visual content beyond basic plotting, limiting its ability to review or correct figures and tables.",
+        "evidence": "Since we do not currently use the vision capabilities of foundation models, it is unable to fix visual issues with the paper or read plots. For example, the generated plots are sometimes unreadable, tables sometimes exceed the width of the page, and the page layout (including the overall visual appearance of the paper (Huang, 2018)) is often suboptimal."
+      },
+      {
+        "label": "Potential for Misuse and Ethical Risks",
+        "explanation": "The ability to automatically generate and submit papers or conduct experiments could be misused, overwhelming peer review or causing harm if not properly aligned.",
+        "evidence": "The ability to automatically generate and submit papers to academic venues could greatly increase the workload for reviewers, potentially overwhelming the peer review process and compromising scientific quality control... it could (without its overseer’s intent) create new, dangerous viruses or poisons that harm people before we can intervene."
+      }
+    ],
+    "evidence": [
+      "While the automated reviewer shows promising initial results, there are several potential areas for improvement. The dataset used, from ICLR 2022, is old enough to potentially appear in the base model pre-training data...",
+      "As shown in Tables 3 to 5, Aider fails to implement a significant fraction of the proposed ideas. Furthermore, GPT-4o in particular frequently fails to write LaTeX that compiles.",
+      "Because of The AI Scientist’s limited number of experiments per idea, the results often do not meet the expected rigor and depth of a standard ML conference paper.",
+      "Rarely, The AI Scientist can hallucinate entire results. For example, an early version of our writing prompt told it to always include confidence intervals and ablation studies.",
+      "The current implementation of The AI Scientist has minimal direct sandboxing in the code, leading to several unexpected and sometimes undesirable outcomes if not appropriately guarded against.",
+      "Since we do not currently use the vision capabilities of foundation models, it is unable to fix visual issues with the paper or read plots.",
+      "The ability to automatically generate and submit papers to academic venues could greatly increase the workload for reviewers, potentially overwhelming the peer review process and compromising scientific quality control."
+    ]
+  },
+  "future_directions": {
+    "future_directions": [
+      "Integrate vision capabilities for better plot and figure handling, and enable multimodal reasoning.",
+      "Incorporate human feedback and interaction to refine the AI’s outputs and improve reliability.",
+      "Enable The AI Scientist to automatically expand the scope of its experiments by pulling in new data and models from the internet, provided this can be done safely.",
+      "Apply the framework to other scientific domains, such as biology, chemistry, and material sciences, potentially using cloud robotics and automation."
+    ],
+    "evidence": [
+      "Direct enhancements to The AI Scientist could include integrating vision capabilities for better plot and figure handling, incorporating human feedback and interaction to refine the AI’s outputs, and enabling The AI Scientist to automatically expand the scope of its experiments by pulling in new data and models from the internet, provided this can be done safely.",
+      "Additionally, The AI Scientist could follow up on its best ideas or even perform research directly on its own code in a self-referential manner.",
+      "Expanding the framework to other scientific domains could further amplify its impact, paving the way for a new era of automated scientific discovery. For example, by integrating these technologies with cloud robotics and automation in physical lab spaces (Arnold, 2022; Kehoe et al., 2015; Sparkes et al., 2010; Zucchelli et al., 2021) provided it can be done safely, The AI Scientist could perform experiments for biology, chemistry, and material sciences.",
+      "Crucially, future work should address the reliability and hallucination concerns, potentially through a more in-depth automatic verification of the reported results. This could be done by directly linking code and experiments, or by seeing if an automated verifier can independently reproduce the results."
+    ]
+  },
+  "resource_link": {
+    "answer": "https://github.com/SakanaAI/AI-Scientist",
+    "evidence": "Our code is open-sourced at https://github.com/SakanaAI/AI-Scientist."
+  },
+  "paper_title": "The AI Scientist: Towards Fully Automated Open-Ended Scientific Discovery",
+  "authors": [
+    "Chris",
+    "Cong",
+    "Robert Tjarko",
+    "Jakob",
+    "Jeff",
+    "David"
+  ],
+  "published": "2024-09-01",
+  "link": "http://arxiv.org/abs/2408.06292"
+}

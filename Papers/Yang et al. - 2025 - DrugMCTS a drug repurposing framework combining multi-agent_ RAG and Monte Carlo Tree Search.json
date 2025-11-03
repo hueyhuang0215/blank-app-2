@@ -1,0 +1,205 @@
+{
+  "objective": {
+    "answer": "The primary objective of the paper is to develop DrugMCTS, a novel framework that integrates retrieval-augmented generation, multi-agent collaboration, and Monte Carlo Tree Search to improve drug repositioning by enabling structured and iterative reasoning over molecular and protein data. The authors aim to overcome the limitations of large language models in scientific reasoning, particularly for drug-target interaction prediction, without requiring domain-specific fine-tuning.",
+    "evidence": "To overcome these challenges, we propose DrugMCTS, a novel framework that synergistically integrates RAG, multi-agent collaboration, and Monte Carlo Tree Search for drug repositioning. The framework employs five specialized agents tasked with retrieving and analyzing molecular and protein information, thereby enabling structured and iterative reasoning."
+  },
+  "knowledge_gap": {
+    "answer": "Existing large language models and retrieval-augmented generation systems are limited in their ability to reason over structured scientific data, such as molecular structures and protein sequences, and often lack iterative feedback mechanisms, leading to reduced reliability and adaptability in drug repositioning tasks.",
+    "evidence": "Existing RAG systems often prioritize the latter due to better compatibility with LLMs [23], overlooking the richness of structured data such as molecular structures and protein sequences. For example, drug-target interaction tasks frequently exclude structural information, relying solely on knowledge graphs or text [14], which compromises both prediction reliability and interpretability. ... Moreover, current approaches typically lack feedback loops, treating drug discovery as a one-shot task rather than an iterative process [33,4,6], which limits robustness and adaptability."
+  },
+  "novelty": {
+    "answer": [
+      "Introduction of an end-to-end drug repositioning framework (DrugMCTS) that enables a lightweight large language model to outperform much larger models without domain-specific fine-tuning.",
+      "Synergistic integration of retrieval-augmented generation, multi-agent collaboration, and Monte Carlo Tree Search for structured, iterative, and feedback-driven reasoning.",
+      "A systematic data processing pipeline that transitions from structured scientific data to hybrid and then to general-purpose language input, enhancing interpretability and reusability.",
+      "Incorporation of a feedback mechanism via Monte Carlo Tree Search for iterative refinement, autonomous filtering of noisy inputs, and robust evidence identification."
+    ],
+    "evidence": [
+      "We introduce an end-to-end drug repositioning framework that enables Qwen2.5-7B-Instruct to outperform much larger models such as Deepseek-R1, without requiring any fine-tuned domain-specific model.",
+      "By incorporating MCTS, our framework introduces a feedback mechanism that enables iterative refinement of decisions, autonomous filtering of noisy inputs, and robust identification of high-value evidence—addressing the lack of adaptability in current one-shot inference systems.",
+      "We propose a systematic data processing pipeline (Figure 2) that transitions from structured scientific data to hybrid scientific-general data, and finally to general-purpose language input. This hybrid representation exploits the strengths of each modality, enhances model interpretability, and offers a reusable workflow applicable beyond drug-target interaction tasks.",
+      "Moreover, the incorporation of MCTS enables the framework to operate with a feedback-driven mechanism, iteratively refining its decision path. This allows the system to explore multiple reasoning trajectories and prioritize more promising nodes based on reward signals, thereby improving both robustness and decision quality over time."
+    ]
+  },
+  "inspirational_papers": {
+    "answer": [
+      "- DrugRealign (Wei et al., 2024) Provided the methodology for extracting and formatting protein binding pocket information and served as a comparative RAG baseline. (Methodological precursor, Experimental baseline)",
+      "- Deep learning models: AttentionDTA (Zhao et al., 2019), GraphDTA (Nguyen et al., 2021), DeepConv DTI (Lee et al., 2019), Perceiver CPI (Nguyen et al., 2023) Used as experimental baselines for drug-target interaction prediction. (Experimental baselines)",
+      "- Liu et al. (2023) Highlighted the 'lost in the middle' phenomenon in long-context models, motivating the need for improved information filtering. (Papers with limitations addressed)"
+    ],
+    "evidence": [
+      "In this group, we provided the models with minimal information: the SMILES representation of the query molecule, reference molecules, and candidate proteins along with their pocket types. ... Our approach adopts the framework of the DrugReAlign [29] method, with modifications and enhancements tailored to our specific formulation.",
+      "We trained four deep learning models: AttentionDTA [37], GraphDTA [21], DeepConv DTI [13], and Perceiver CPI [20], on both DrugBank and KIBA datasets.",
+      "For instance, long-context models are known to suffer from the “lost in the middle” [16] phenomenon (Figure 1), where information located in the middle of a long input sequence is more likely to be forgotten or overlooked [16], leading to incomplete or inaccurate reasoning."
+    ]
+  },
+  "method": {
+    "steps": [
+      {
+        "step": "Retrieval Action",
+        "input": "Query molecule (Mqm)",
+        "output": "Structurally similar molecules (Mcm) and candidate proteins (Pcp)",
+        "tools": [
+          "Tanimoto coefficient: Computes molecular similarity based on fingerprints.",
+          "ChemBERTa: Computes cosine similarity using last hidden state embeddings."
+        ],
+        "evidence": "Upon receiving the query molecule, the Retrieval agent queries databases to identify molecules structurally similar to the query molecule. We employ two similarity metrics: the Tanimoto coefficient [1] and the cosine similarity based on the last hidden state computed by ChemBERTa."
+      },
+      {
+        "step": "Molecule Analysis Action",
+        "input": "Query molecule (Mqm)",
+        "output": "Comprehensive molecular analysis report (Rqm) with structural and physicochemical properties",
+        "tools": [
+          "RDKit: Extracts structural features and physicochemical properties.",
+          "PubChemPy: Retrieves additional molecular properties."
+        ],
+        "evidence": "The Molecule Analysis (MA) agent first utilizes RDKit and PubChemPy APIs [24] to extract a set of structural and physicochemical properties (Cq,s & Cq,phy) for the query molecule Mqm by calling RDKit and PubChemPy APIs."
+      },
+      {
+        "step": "Molecule Selection Action",
+        "input": "Candidate molecules (Mcm), query molecule (Mqm), molecular analysis report (Rqm)",
+        "output": "Filtered reference molecules (Mrm) and reference proteins (Prp)",
+        "tools": [
+          "Molecule Selection Agent: Filters based on structural similarity, pharmacophore integrity, and drug-likeness."
+        ],
+        "evidence": "Thus, the Molecule Selection (MS) agent filters the molecule pool, based on structural similarity to the query molecule, pharmacophore integrity, and drug-like essentials, to generate reference molecules Mrm."
+      },
+      {
+        "step": "Interaction Analysis Action",
+        "input": "Reference molecules (Mrm), candidate proteins (Pcp)",
+        "output": "Binding pocket information (Dbp) and literature context (Lrp)",
+        "tools": [
+          "PLIP: Extracts binding pocket features from PDB files.",
+          "PubMed: Retrieves relevant scientific literature."
+        ],
+        "evidence": "we adopt the methodology from DrugRealign [29], utilizing Python’s PLIP library to extract binding pocket information Dbp from PDB files and present it in textual format. ... Additionally, we retrieve relevant scientific literature Lrp from PubMed [30] to provide contextual support for interaction analysis by Interaction Analysis (IA) agent."
+      },
+      {
+        "step": "Protein Selection Action",
+        "input": "All upstream outputs (Mqm, Rqm, Mrm, Prp, Dbp, Ria)",
+        "output": "Selected protein target (Ps)",
+        "tools": [
+          "Decision Agent: Integrates all information to make final protein target prediction."
+        ],
+        "evidence": "At this stage, the Decision agent synthesizes all available information, including the Mqm, Rqm, Mrm, Pcp, Dbp, and Ria. Based on this integrated knowledge, the agent selects the most promising target protein Ps from the full list of candidates."
+      },
+      {
+        "step": "Monte Carlo Tree Search (MCTS) Rollout and Reward Calculation",
+        "input": "All candidate solutions and their associated information",
+        "output": "Final protein prediction (Ps) and reward score (Rfinal)",
+        "tools": [
+          "Monte Carlo Tree Search: Guides iterative exploration and selection of reasoning paths.",
+          "Self-consistency score: Measures frequency of most common answer.",
+          "Decision model: Evaluates absolute reward by checking for significant interaction."
+        ],
+        "evidence": "Crucially, we incorporate MCTS as an inference-time decision mechanism. ... The final reward for each rollout is calculated as the average of the relative reward and the absolute reward."
+      }
+    ],
+    "tools": [
+      "Tanimoto coefficient: Computes molecular similarity based on fingerprints.",
+      "ChemBERTa: Computes cosine similarity using last hidden state embeddings.",
+      "RDKit: Extracts structural features and physicochemical properties.",
+      "PubChemPy: Retrieves additional molecular properties.",
+      "PLIP: Extracts binding pocket features from PDB files.",
+      "PubMed: Retrieves relevant scientific literature.",
+      "Monte Carlo Tree Search: Guides iterative exploration and selection of reasoning paths.",
+      "Self-consistency score: Measures frequency of most common answer.",
+      "Decision model: Evaluates absolute reward by checking for significant interaction."
+    ],
+    "evidence": [
+      "Our system comprises five specialized agents: ...",
+      "The Molecule Analysis (MA) agent first utilizes RDKit and PubChemPy APIs [24] to extract a set of structural and physicochemical properties (Cq,s & Cq,phy) for the query molecule Mqm by calling RDKit and PubChemPy APIs.",
+      "we adopt the methodology from DrugRealign [29], utilizing Python’s PLIP library to extract binding pocket information Dbp from PDB files and present it in textual format.",
+      "Crucially, we incorporate MCTS as an inference-time decision mechanism.",
+      "The final reward for each rollout is calculated as the average of the relative reward and the absolute reward."
+    ]
+  },
+  "subject_area": {
+    "areas": [
+      "Chemical Sciences",
+      "Biological Sciences",
+      "Health Sciences"
+    ],
+    "evidence": [
+      "These models are increasingly being explored for applications in scientific fields, particularly in drug discovery [33].",
+      "To overcome these challenges, we propose DrugMCTS, a novel framework that synergistically integrates RAG, multi-agent collaboration, and Monte Carlo Tree Search for drug repositioning.",
+      "We utilized two datasets, DrugBank [12] and KIBA [25], which were processed to include a total of 788 entries from DrugBank and 626 entries from KIBA. Each entry consists of a molecule as input and its corresponding interacting proteins as output."
+    ]
+  },
+  "performance_summary": {
+    "performance_summary": [
+      "DrugMCTS achieved a recall of 44.66% on DrugBank and 42.24% on KIBA using a base TopK strategy, outperforming all baseline approaches.",
+      "With dynamic adjustment (TopK+3), DrugMCTS reached 55.34% recall on DrugBank and 49.24% on KIBA, representing improvements of up to 330% and 91.4% over the best general-purpose models.",
+      "DrugMCTS outperformed deep learning baselines by approximately 88.9% (DrugBank) and 31.7% (KIBA) in recall.",
+      "Ablation studies showed that removing any component of the pipeline led to a performance drop of 1–10%, confirming the necessity of each module."
+    ],
+    "baselines": [
+      "General Models (GM): GPT-4o-mini and Deepseek-R1, provided with minimal information for zero-shot prediction.",
+      "General Models with RAG (GM + RAG): GPT-4o-mini and Deepseek-R1, enhanced with molecular structural features and chemical properties via retrieval-augmented generation.",
+      "Deep Learning Models: Ensemble of AttentionDTA, GraphDTA, DeepConv DTI, and Perceiver CPI, trained and tested on DrugBank and KIBA datasets."
+    ],
+    "benchmark_datasets": [
+      "DrugBank: Contains molecules and their interacting proteins, used for evaluation of drug-target interaction prediction.",
+      "KIBA: Contains kinase inhibitor bioactivity data, used for evaluation of drug-target interaction prediction."
+    ],
+    "evaluation_metrics": [
+      "Recall: Defined as the ratio of correctly predicted proteins to the total number of ground truth proteins, measuring the ability to recover true interactions."
+    ],
+    "evidence": [
+      "The experimental results (Table 1) indicate that general-purpose LLMs (GPT-4o-mini and Deepseek-R1) achieved relatively low recall scores of only 12.59%–16.19% on the DrugBank dataset when operating in a zero-shot setting. ... Our proposed method, DrugMCTS, significantly outperformed all baseline approaches. Using a base TopK strategy, DrugMCTS achieved a recall of 44.66% on DrugBank and 42.24% on KIBA. ... our dynamic adjustment strategy (TopK+3) boosted performance to 55.34% on DrugBank and 49.24% on KIBA, marking maximum improvements of 330% and 91.4% over the general-purpose models.",
+      "We established three sets of baselines to compare our model’s performance: General Models. (GM) ... General Models with RAG. (GM + RAG) ... Deep Learning Models. (DL Models) ...",
+      "We utilized two datasets, DrugBank [12] and KIBA [25], which were processed to include a total of 788 entries from DrugBank and 626 entries from KIBA. Each entry consists of a molecule as input and its corresponding interacting proteins as output.",
+      "To evaluate model performance, we used recall, defined as the ratio of correctly predicted proteins to the total number of ground truth proteins."
+    ]
+  },
+  "limitations": {
+    "limitations": [
+      {
+        "label": "Limited Absolute Performance",
+        "explanation": "Despite significant improvements over baselines, the absolute recall (55.34%) indicates further optimization is possible.",
+        "evidence": "Despite achieving more than 20% recall gains over Deepseek-R1 (Table 1), the absolute performance (55.34% recall) suggests untapped optimization potential. The plateau in gains beyond 12 rollouts indicates diminishing returns from current MCTS configurations."
+      },
+      {
+        "label": "Limited Biological Context",
+        "explanation": "Predictions primarily use PDB-derived binding pocket data and omit higher-order biological context such as pathway activation.",
+        "evidence": "Current predictions primarily leverage PDB-derived binding pocket data (Section 2.4), omitting higher-order biological context. Future work may augment the framework with knowledge graph or Pathway activation score."
+      },
+      {
+        "label": "Marginal Reward System Improvement",
+        "explanation": "The combined relative/absolute reward system yields only minor improvements over relative-only rewards.",
+        "evidence": "The combined relative/absolute reward system (Eq. 6) yields only around 1% improvement over relative-only rewards, suggesting the necessities of a more effective reward system."
+      }
+    ],
+    "evidence": [
+      "Despite achieving more than 20% recall gains over Deepseek-R1 (Table 1), the absolute performance (55.34% recall) suggests untapped optimization potential. The plateau in gains beyond 12 rollouts indicates diminishing returns from current MCTS configurations.",
+      "Current predictions primarily leverage PDB-derived binding pocket data (Section 2.4), omitting higher-order biological context. Future work may augment the framework with knowledge graph or Pathway activation score.",
+      "The combined relative/absolute reward system (Eq. 6) yields only around 1% improvement over relative-only rewards, suggesting the necessities of a more effective reward system."
+    ]
+  },
+  "future_directions": {
+    "future_directions": [
+      "Augment the framework with knowledge graph or pathway activation score to provide higher-order biological context.",
+      "Develop a more effective reward system to further improve model performance."
+    ],
+    "evidence": [
+      "Current predictions primarily leverage PDB-derived binding pocket data (Section 2.4), omitting higher-order biological context. Future work may augment the framework with knowledge graph or Pathway activation score.",
+      "The combined relative/absolute reward system (Eq. 6) yields only around 1% improvement over relative-only rewards, suggesting the necessities of a more effective reward system."
+    ]
+  },
+  "resource_link": {
+    "answer": "https://github.com/yaoge777/DrugMCTS",
+    "evidence": "To facilitate future research and ensure reproducibility, the code and data processing pipeline for DrugMCTS will be released upon publication at: https://github.com/yaoge777/DrugMCTS"
+  },
+  "paper_title": "DrugMCTS: a drug repurposing framework combining multi-agent, RAG and Monte Carlo Tree Search",
+  "authors": [
+    "Zerui",
+    "Yuwei",
+    "Siyu",
+    "Yudai",
+    "Tong",
+    "Bram",
+    "Linqi"
+  ],
+  "published": "2025-07-31",
+  "link": "http://arxiv.org/abs/2507.07426"
+}

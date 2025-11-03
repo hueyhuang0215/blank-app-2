@@ -1,0 +1,191 @@
+{
+  "objective": {
+    "answer": "The primary objective of the paper is to develop and train a language agent system, LA-CDM, that models hypothesis-driven, uncertainty-aware clinical decision-making for diagnosis by iteratively requesting and interpreting relevant clinical tests. The authors aim to address the limitations of existing large language model applications in clinical decision support by explicitly training models for the interactive and iterative nature of real-world diagnostic processes. They seek to improve both diagnostic accuracy and efficiency in clinical workflows.",
+    "evidence": "In contrast to this, we propose to model clinical decision-making for diagnosis with a hypothesis-driven uncertainty-aware language agent, LA-CDM, that converges towards a diagnosis via repeatedly requesting and interpreting relevant tests. Using a hybrid training paradigm combining supervised and reinforcement learning, we train LA-CDM with three objectives targeting critical aspects of clinical decision-making: accurate hypothesis generation, hypothesis uncertainty estimation, and efficient decision-making."
+  },
+  "knowledge_gap": {
+    "answer": "Existing large language model applications in clinical decision support either unrealistically assume immediate availability of all patient information or rely solely on the limited out-of-the-box capabilities of pre-trained models, failing to model the interactive, iterative, and uncertainty-driven nature of real-world clinical decision-making.",
+    "evidence": "most applications of LLMs in clinical decision support suffer from one of two limitations: Either they assume the unrealistic scenario of immediate availability of all patient information and do not model the interactive and iterative investigation process, or they restrict themselves to the limited \"out-of-the-box\" capabilities of large pre-trained models without performing task-specific training. ... This mismatch between research and real-world clinical decision-making limits the applicability of LLMs to the clinical setting."
+  },
+  "novelty": {
+    "answer": [
+      "Introduction of LA-CDM, a two-agent language model system explicitly trained for hypothesis-driven, uncertainty-aware, and efficient clinical decision-making.",
+      "Development of a hybrid training paradigm combining supervised fine-tuning for hypothesis generation and reinforcement learning for both uncertainty calibration and decision-making.",
+      "First explicit method for training large language models for clinical decision-making that iteratively reduces hypothesis uncertainty through repeated diagnostic testing.",
+      "Demonstration of patient-adaptive, efficient diagnostic test selection using real-world, multi-modal clinical data."
+    ],
+    "evidence": [
+      "In this paper, we address the above limitations by modeling and training Language Agents for Clinical Decision Making (LA-CDM), tasked with iteratively reducing hypothesis uncertainty through repeated diagnostic testing. Inspired by cognitive research on human clinical decision-making [22], we design a two-agent system replicating the two main cognitive tasks of clinicians involved in clinical decision-making.",
+      "To train this system, we propose a novel training strategy with three distinct objectives that target the core principles of successful clinical decision-making [22]: 1. Accurate hypothesis generation: Using supervised fine-tuning... 2. Hypothesis uncertainty estimation: Using reinforcement learning... 3. Efficient decision-making: Using reinforcement learning...",
+      "To the best of our knowledge, we propose the first method for explicitly training LLMs for clinical decision-making.",
+      "We show the benefit of our hypothesis-driven approach to clinical decision-making and demonstrate that the model adapts its testing procedure to the patient at hand, placing this work as a step towards patient-specific personalized differential diagnosis."
+    ]
+  },
+  "inspirational_papers": {
+    "answer": [
+      "Hager et al. (2024) Evaluation and mitigation of the limitations of large language models in clinical decision-making. (Experimental baselines, limitations addressed)",
+      "Yu et al. (2023) Deep reinforcement learning for cost-effective medical diagnosis. (Methodological precursor for reinforcement learning in clinical decision-making)",
+      "Stangel et al. (2025) Rewarding doubt: A reinforcement learning approach to confidence calibration of large language models. (Methodological precursor for confidence calibration)",
+      "Yao et al. (2022) React: Synergizing reasoning and acting in language models. (Methodological precursor for decision-making prompting)"
+    ],
+    "evidence": [
+      "Hager et al. [8] place large \"out-of-the-box\" language models in an evaluation framework where they are tasked with interactively requesting diagnostic tests and diagnose patients. They show severe limitations of LLMs for clinical decision-making and report worse diagnostic performance than clinicians.",
+      "Yu et al. [28] train SM-DDPO, a model that iteratively requests laboratory tests optimizing diagnostic performance and cost-efficiency. Their method features an imputation model, estimating missing (and not yet requested) laboratory tests and a classification model predicting the diagnosis. A policy network trained with Q-learning predicts the next action...",
+      "In this work, we train confidence calibration with reinforcement learning as proposed by Stangel et al. [23]. They model confidence calibration as a betting game, where the model bets on the correctness of its answer.",
+      "Specifically, we employ the ReAct prompting technique [27], to prime the model to first produce a reasoning trace, following chain-of-thought principles [26], and then provide action and action input (in our case, the specific test or diagnosis) in a structured format."
+    ]
+  },
+  "method": {
+    "steps": [
+      {
+        "step": "Initialize the clinical decision-making environment with patient data.",
+        "input": "Patient history (symptoms, comorbidities, family history), physical exam notes, imaging reports, and laboratory results from the MIMIC-CDM dataset.",
+        "output": "Initial observed patient state (p0) containing only patient history.",
+        "tools": [
+          "MIMIC-CDM dataset: Real-world dataset with multi-modal clinical data."
+        ],
+        "evidence": "Let each patient be described by a number of n test results [ti]n i=1 as textual records of clinical notes, imaging reports and laboratory panels. ... p0, the initial observed patient state, consists of the first clinical notes detailing symptoms, medical and family history."
+      },
+      {
+        "step": "Hypothesis Agent generates a diagnosis hypothesis and confidence score.",
+        "input": "Current observed patient state (pj).",
+        "output": "Diagnosis hypothesis (hj) and confidence score (cj) on a scale of 0 to 10.",
+        "tools": [
+          "Hypothesis Agent (LLM): Generates hypothesis and confidence."
+        ],
+        "evidence": "At each time-step j of the environment, the hypothesis agent H is given the currently observed patient state pj to predict the most likely diagnosis hj based on the limited available information, as well as the confidence in that prediction cj."
+      },
+      {
+        "step": "Decision Agent selects the next clinical action.",
+        "input": "Current patient state (pj), hypothesis (hj), and confidence (cj).",
+        "output": "Decision to request a specific diagnostic test (rj) or to provide a final diagnosis (ypred).",
+        "tools": [
+          "Decision Agent (LLM): Decides on test request or diagnosis using ReAct prompting."
+        ],
+        "evidence": "The decision agent D is the actor advancing the environment. ... Provided with the currently observed patient state pj and the hypothesis agent’s hypothesis hj and confidence cj, it produces a decision on whether to request another diagnostic test rj and move on to the next time-step j + 1 or whether to commit on a specific diagnosis ypred for the patient and end the episode."
+      },
+      {
+        "step": "Update patient state with new test results or end episode if diagnosis is given.",
+        "input": "Requested test (rj) and its result, or final diagnosis (ypred).",
+        "output": "Updated patient state (pj+1) or episode termination.",
+        "tools": [
+          "Clinical Decision-Making Environment: Simulates test requests and updates patient state."
+        ],
+        "evidence": "If a further test was requested, the test results are appended to the conversation context as a user response to the LLMs generation. ... The simulation ends when the model provides a diagnosis for the patient or if one of the two failure cases is reached."
+      },
+      {
+        "step": "Train the system using three objectives in a cyclic manner.",
+        "input": "Collected patient-agent interactions, ground truth diagnoses.",
+        "output": "Updated model parameters for both agents.",
+        "tools": [
+          "Supervised Fine-Tuning: For hypothesis generation.",
+          "Reinforcement Learning (PPO): For confidence calibration and clinical action selection.",
+          "Stangel et al. (2025) confidence calibration reward function: For uncertainty estimation."
+        ],
+        "evidence": "We follow a cyclic training approach, where each objective is trained individually for a specified number of episodes after which the objective changes to the next one until the cycle repeats, resulting in much more stable training compared to optimizing all objectives simultaneously."
+      }
+    ],
+    "tools": [
+      "MIMIC-CDM dataset: Real-world, multi-modal clinical dataset for sequential decision-making.",
+      "Hypothesis Agent (LLM): Generates diagnosis hypotheses and confidence scores.",
+      "Decision Agent (LLM): Selects clinical actions using ReAct prompting.",
+      "Supervised Fine-Tuning: Trains hypothesis generation.",
+      "Reinforcement Learning (PPO): Trains confidence calibration and decision-making.",
+      "Stangel et al. (2025) confidence calibration reward function: For well-calibrated uncertainty estimation."
+    ],
+    "evidence": [
+      "We propose LA-CDM consisting of two language agents, hypothesis agent and decision agent, trained with three different objectives.",
+      "We evaluate our method on the MIMIC-CDM dataset [8], a curated subset of MIMIC-IV [12] designed for modeling sequential clinical decision making.",
+      "The hypothesis agent is trained in accurate hypothesis generation through supervised fine-tuning and uncertainty-awareness through reinforcement learning. The decision agent is trained in decision-making using reinforcement learning.",
+      "We follow a cyclic training approach, where each objective is trained individually for a specified number of episodes after which the objective changes to the next one until the cycle repeats, resulting in much more stable training compared to optimizing all objectives simultaneously."
+    ]
+  },
+  "subject_area": {
+    "areas": [
+      "Health Sciences",
+      "Applied Sciences & Engineering"
+    ],
+    "evidence": [
+      "Clinical decision-making is a dynamic, interactive, and cyclic process where doctors have to repeatedly decide on which clinical action to perform and consider newly uncovered information for diagnosis and treatment.",
+      "We evaluate our methodology on MIMIC-CDM, a real-world dataset covering four abdominal diseases containing various clinical tests and show the benefit of explicitly training clinical decision-making for increasing diagnostic performance and efficiency."
+    ]
+  },
+  "performance_summary": {
+    "performance_summary": [
+      "LA-CDM outperforms all baseline methods in diagnostic accuracy and efficiency, achieving a mean class accuracy of 73.3% and macro F1-score of 77.4%, while requiring significantly fewer diagnostic tests (0.65 per patient on average).",
+      "Compared to the best zero-shot baseline (OASST), LA-CDM improves mean class accuracy by almost 20 percentage points.",
+      "Compared to a supervised model with access to all patient data (SFT-all), LA-CDM achieves similar accuracy (within 5 percentage points in macro F1-score) but with 15 times fewer tests.",
+      "LA-CDM also demonstrates improved confidence calibration, reducing Expected Calibration Error from 0.226 to 0.150."
+    ],
+    "baselines": [
+      "OASST: Zero-shot large language model evaluated on clinical decision-making tasks.",
+      "SFT-all: Supervised fine-tuned Llama-3-7B-Instruct model with access to all patient data.",
+      "SM-DDPO: Reinforcement learning-based model for cost-effective diagnosis using only tabular data.",
+      "ReAct: Zero-shot decision-making method using reasoning and acting prompting.",
+      "LA-CDM (ZS): Zero-shot version of the proposed method."
+    ],
+    "benchmark_datasets": [
+      "MIMIC-CDM: A curated subset of MIMIC-IV containing 2,400 patients with four abdominal conditions, including patient histories, physical exam notes, imaging reports, and laboratory results. Used for training, validation, and testing of all methods."
+    ],
+    "evaluation_metrics": [
+      "Class-wise accuracy: Measures the proportion of correct diagnoses for each disease class.",
+      "Micro and macro F1-scores: Assess overall and balanced classification performance.",
+      "Expected Calibration Error (ECE): Quantifies the alignment between predicted confidence and actual accuracy.",
+      "Average number of tests: Measures diagnostic efficiency by counting tests requested per patient."
+    ],
+    "evidence": [
+      "When comparing with OASST [8], LA-CDM shows improvement in accuracy for each class resulting in almost 20 percentage points difference when comparing the mean of all class accuracies.",
+      "The SFT-all model serves as a rough upper bound, as it leverages all available retrospective patient data, an unrealistic setup for real-time clinical decision-making. ... LA-CDM performs comparably, trailing by only two and five percentage points in micro and macro F1-score, respectively, while requiring 15x fewer diagnostic tests.",
+      "Through our hypothesis generation training, we improve the ability of the model to form correct hypotheses from 54.6% to 74.2%. We equally show an improvement of uncertainty-awareness through training the confidence calibration objective. The ECE decreases significantly from 0.226 to 0.150.",
+      "To evaluate model performance, we report class-wise accuracies along with their mean, as well as micro and macro F1-scores. ... Additionally, we compute the Expected Calibration Error (ECE) to assess confidence calibration of our hypothesis agent. ... we report the avg. # tests is the mean number of tests that were requested by the model for all patients in the test set."
+    ]
+  },
+  "limitations": {
+    "limitations": [
+      {
+        "label": "Limited Disease and Test Coverage",
+        "explanation": "The model is trained only on four abdominal pathologies and a limited number of diagnostic tests, restricting its generalizability.",
+        "evidence": "First, the data we are training on is limited. It only contains four abdominal pathologies and a limited number of available diagnostic tests, the model is therefore only trained in clinical decision-making for these diseases."
+      },
+      {
+        "label": "Retrospective Data Constraints",
+        "explanation": "The use of retrospective data with missing tests for different patients limits the exploration of diverse diagnostic pathways.",
+        "evidence": "Secondly, the data we are training on is retrospective with different tests missing for different patients. Furthermore, the available tests are those tests that the clinicians involved in treating that patient performed. The model can only explore a limited spread of testing pathways."
+      },
+      {
+        "label": "Limited Exploration of Testing Protocols",
+        "explanation": "The model can only learn to become more efficient within the testing protocols performed by doctors in the dataset.",
+        "evidence": "It can therefore only learn to become more efficient within the testing protocols performed by doctors. Simulation of unavailable test data could open up a pathway for modeling a more holistic clinical decision-making environment."
+      }
+    ],
+    "evidence": [
+      "First, the data we are training on is limited. It only contains four abdominal pathologies and a limited number of available diagnostic tests, the model is therefore only trained in clinical decision-making for these diseases.",
+      "Secondly, the data we are training on is retrospective with different tests missing for different patients. Furthermore, the available tests are those tests that the clinicians involved in treating that patient performed. The model can only explore a limited spread of testing pathways.",
+      "It can therefore only learn to become more efficient within the testing protocols performed by doctors. Simulation of unavailable test data could open up a pathway for modeling a more holistic clinical decision-making environment."
+    ]
+  },
+  "future_directions": {
+    "future_directions": [
+      "Extension to more diseases and diagnostic tests: The authors plan to expand the model to cover a broader range of diseases and tests.",
+      "Simulation of unavailable test data: Future work may involve simulating missing test results to enable more comprehensive modeling of clinical decision-making environments."
+    ],
+    "evidence": [
+      "An extension to more diseases and more tests remains as future work.",
+      "Simulation of unavailable test data could open up a pathway for modeling a more holistic clinical decision-making environment."
+    ]
+  },
+  "resource_link": {
+    "answer": "https://physionet.org/content/mimiciv/1.0/",
+    "evidence": "The dataset MIMIC-CDM [8] is published under the PhysioNet Credentialed Health Data License 1.5.0."
+  },
+  "paper_title": "Language Agents for Hypothesis-driven Clinical Decision Making with Reinforcement Learning",
+  "authors": [
+    "David",
+    "Chantal",
+    "Ege",
+    "Matthias",
+    "Nassir"
+  ],
+  "published": "2025-06-16",
+  "link": "http://arxiv.org/abs/2506.13474"
+}

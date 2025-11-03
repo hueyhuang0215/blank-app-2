@@ -1,0 +1,185 @@
+{
+  "objective": {
+    "answer": "The primary objective of the paper is to propose and systematically investigate ChatDrug, a framework that leverages conversational large language models such as ChatGPT for drug editing tasks, including small molecules, peptides, and proteins. The authors aim to bridge the gap in applying conversational language models to drug editing, a critical but underexplored task in the drug discovery pipeline.",
+    "evidence": "To bridge this gap, we propose ChatDrug, a framework to facilitate the systematic investigation of drug editing using LLMs. ChatDrug jointly leverages a prompt module, a retrieval and domain feedback (ReDF) module, and a conversation module to streamline effective drug editing."
+  },
+  "knowledge_gap": {
+    "answer": "While conversational large language models have shown promise in chemical reaction and retrosynthesis tasks, their application to drug editing—a crucial step in drug discovery—remains largely unexplored.",
+    "evidence": "However, existing works mainly focus on investigating the capabilities of conversational LLMs on chemical reaction and retrosynthesis. While drug editing, a critical task in the drug discovery pipeline, remains largely unexplored."
+  },
+  "novelty": {
+    "answer": [
+      "Introduction of ChatDrug, a framework that integrates prompt engineering, retrieval and domain feedback, and conversational refinement for drug editing using large language models.",
+      "Systematic evaluation of ChatDrug across 39 diverse drug editing tasks, including small molecules, peptides, and proteins.",
+      "Demonstration that ChatDrug can identify key substructures for manipulation and provide domain-specific explanations, enhancing interpretability.",
+      "Empirical evidence that ChatDrug achieves superior performance compared to seven baselines on the majority of tasks."
+    ],
+    "evidence": [
+      "To bridge this gap, we propose ChatDrug, a framework to facilitate the systematic investigation of drug editing using LLMs. ChatDrug jointly leverages a prompt module, a retrieval and domain feedback (ReDF) module, and a conversation module to streamline effective drug editing.",
+      "We empirically show that ChatDrug reaches the best performance on 33 out of 39 drug editing tasks, encompassing small molecules, peptides, and proteins.",
+      "We further demonstrate, through 10 case studies, that ChatDrug can successfully identify the key substructures (e.g., the molecule functional groups, peptide motifs, and protein structures) for manipulation, generating diverse and valid suggestions for drug editing.",
+      "Promisingly, we also show that ChatDrug can offer insightful explanations from a domain-specific perspective, enhancing interpretability and enabling informed decision-making."
+    ]
+  },
+  "inspirational_papers": {
+    "answer": [
+      "- Liu et al. (2022) Multi-modal molecule structure-text model for text-based retrieval and editing. (Experimental baselines, prior work on text-guided molecule editing)",
+      "- Liu et al. (2023) A text-guided protein design framework. (Methodological precursor for text-guided protein design)",
+      "- O’Donnell et al. (2020) MHCflurry 2.0: improved pan-allele prediction of MHC class I-presented peptides by incorporating antigen processing. (Used as a pseudo-oracle for peptide-MHC binding affinity evaluation)",
+      "- Rao et al. (2019) Evaluating protein transfer learning with TAPE. (Benchmark dataset for protein sequence property prediction)"
+    ],
+    "evidence": [
+      "Recent works [26, 27] have started to explore text-guided drug editing in a multi-modal manner.",
+      "ProteinDT [26] is a recent work that addresses this issue with free-text protein design.",
+      "Following existing works [56, 55], we leverage the MHCflurry2.0 [54] as a pseudo-oracle to predict the peptide-MHC binding affinity.",
+      "TAPE [58] is a benchmark for protein sequence property prediction, including the secondary structure prediction task."
+    ]
+  },
+  "method": {
+    "steps": [
+      {
+        "step": "Prompt Design for Domain-Specific (PDDS) Module",
+        "input": "Input drug (SMILES string or amino acid sequence) and a text prompt describing the desired property.",
+        "output": "A domain-specific prompt concatenated with the input drug for ChatGPT.",
+        "tools": [
+          "ChatGPT (gpt-3.5-turbo): Large language model used for generating responses to prompts."
+        ],
+        "evidence": "Given a task prompt and input drug, PDDS aims to generate the domain-specific prompt and concatenate it with the input drug to request ChatGPT for answers."
+      },
+      {
+        "step": "Retrieval and Domain Feedback (ReDF) Module",
+        "input": "Input drug, candidate output drug, task prompt, and a retrieval database of drugs.",
+        "output": "A retrieved drug from the database that is similar to the candidate and satisfies the domain feedback function; updated prompt with this information.",
+        "tools": [
+          "Tanimoto similarity: Used for small molecule similarity calculation.",
+          "Levenshtein distance: Used for peptide and protein sequence similarity.",
+          "Domain feedback function: Task-specific function to verify correctness."
+        ],
+        "evidence": "ReDF will retrieve the useful information and inject it into the text prompt... We use Tanimoto similarity [47] for small molecules and Levenshtein distance for peptides and proteins."
+      },
+      {
+        "step": "Conversation Module",
+        "input": "Current edited drug, feedback on correctness, retrieval database.",
+        "output": "Iteratively refined drug output through conversational rounds until the desired property is achieved.",
+        "tools": [
+          "ChatGPT: Used interactively for iterative refinement based on feedback."
+        ],
+        "evidence": "If the output drug is incorrect after ReDF, we then adopt the conversation module to ask LLMs to generate a new drug iteratively."
+      }
+    ],
+    "tools": [
+      "ChatGPT (gpt-3.5-turbo): Conversational large language model for generating and refining drug edits.",
+      "Tanimoto similarity: Metric for molecular similarity in small molecules.",
+      "Levenshtein distance: Metric for sequence similarity in peptides and proteins.",
+      "RDKit: Used for deterministic calculation of small molecule properties.",
+      "MHCflurry2.0: Used as a pseudo-oracle for peptide-MHC binding affinity prediction.",
+      "ProteinCLAP-EBM-NCE: Used for protein secondary structure prediction.",
+      "ESMFold: Used for protein folding and structure visualization.",
+      "PyMOL: Used for protein structure visualization."
+    ],
+    "evidence": [
+      "We implement our experiments with ChatGPT through OpenAI API. Specifically, we utilize the model gpt-3.5-turbo under ChatCompletion function...",
+      "We use Tanimoto similarity [47] for small molecules and Levenshtein distance for peptides and proteins.",
+      "All the properties for small molecules considered here can be calculated deterministically using RDKit [51].",
+      "Following existing works [56, 55], we leverage the MHCflurry2.0 [54] as a pseudo-oracle to predict the peptide-MHC binding affinity.",
+      "For evaluation, we adopt the state-of-the-art pretrained secondary structure prediction model, i.e., ProteinCLAP-EBM-NCE model from ProteinDT [26].",
+      "We adopt pretrained ESMFold [28] for protein folding (protein sequence to protein structure prediction) and then plot the protein structures using PyMOL [59]."
+    ]
+  },
+  "subject_area": {
+    "areas": [
+      "Chemical Sciences",
+      "Biological Sciences",
+      "Health Sciences"
+    ],
+    "evidence": [
+      "We would like to explore the three most common drugs: small molecules [31], proteins [32], and peptides [33].",
+      "Immunogenic peptides are promising therapeutic targets for the personalized vaccine, which triggers a person’s immune system, e.g., CD8+ T cells, to fight diseases [52, 53].",
+      "This research sheds light on the potential of ChatGPT and conversational LLMs for drug editing. It paves the way for a more efficient and collaborative drug discovery pipeline, contributing to the advancement of pharmaceutical research and development."
+    ]
+  },
+  "performance_summary": {
+    "performance_summary": [
+      "ChatDrug achieved the best performance on 33 out of 39 drug editing tasks, outperforming seven baselines.",
+      "For small molecule editing, ChatDrug reached the highest hit ratios in 22 out of 28 tasks, often exceeding the second-best method by over 20%.",
+      "In peptide editing, ChatDrug outperformed random mutation baselines in all 9 tasks, with hit ratios such as 58.60% versus 1.80% for single-objective tasks.",
+      "For protein secondary structure editing, ChatDrug showed significant gains over random mutation, with hit ratios of 34.79% (helix) and 51.38% (strand) compared to 18.32% and 17.35%."
+    ],
+    "baselines": [
+      "Random: Random mutation or selection of molecules/peptides/proteins.",
+      "PCA: Principal component analysis-based editing.",
+      "High Variance: Editing based on high variance features.",
+      "GS-Mutate: Guided structure mutation.",
+      "MoleculeSTM (SMILES/Graph): Pretrained auto-regressive model for molecule editing using SMILES or graph representations."
+    ],
+    "benchmark_datasets": [
+      "ZINC: Contains small molecule SMILES strings; used for sampling input molecules and retrieval database in small molecule editing tasks.",
+      "Peptide-MHC binding affinity dataset: Contains 149 human MHC Class I proteins and 309K peptides; used for peptide editing tasks.",
+      "TAPE: Benchmark for protein sequence property prediction, including secondary structure; used for protein editing tasks."
+    ],
+    "evaluation_metrics": [
+      "Hit Ratio: Percentage of edited molecules/peptides/proteins that achieve the desired property change compared to the input.",
+      "For small molecules: Properties calculated deterministically using RDKit.",
+      "For peptides: Binding affinity predicted by MHCflurry2.0; success requires higher affinity and surpassing a threshold.",
+      "For proteins: Increase in secondary structure elements predicted by ProteinCLAP-EBM-NCE."
+    ],
+    "evidence": [
+      "Quantitatively, ChatDrug can reach the best performance on 33 out of 39 drug editing tasks compared to seven baselines.",
+      "We can observe that ChatDrug can reach the best performance on 22 out of 28 tasks, 20 of which possess over 20% hit ratio than the second-best method.",
+      "We illustrate the single- and multi-objective editing results in Table 4. We can observe that ChatDrug reaches the best performance over all 9 tasks compared to the random mutation baselines.",
+      "As shown in Table 5, we can tell the large performance gain by ChatDrug.",
+      "The baselines are from [27], based on MegaMolBART [5], a pretrained auto-regressive model. Baselines include Random, PCA, High-Variance, GS-Mutate, and MoleculeSTM with SMILES or Graph as the molecule representation.",
+      "Data: Both the input molecules and retrieval DB are sampled from ZINC [50]: we sample 200 and 10K molecules (with SMILES strings) from ZINC as input molecules and retrieval DB, respectively.",
+      "In this experiment, we use the experimental dataset of peptide-MHC binding affinities [54]. This dataset contains 149 human MHC Class I proteins (alleles) and 309K peptides.",
+      "TAPE [58] is a benchmark for protein sequence property prediction, including the secondary structure prediction task.",
+      "We take the hit ratio to measure the success ratio of edited molecules, i.e., the percentage of edited molecules that can reach the desired properties compared to the input molecules.",
+      "All the properties for small molecules considered here can be calculated deterministically using RDKit [51].",
+      "Following existing works [56, 55], we leverage the MHCflurry2.0 [54] as a pseudo-oracle to predict the peptide-MHC binding affinity.",
+      "For evaluation, we adopt the state-of-the-art pretrained secondary structure prediction model, i.e., ProteinCLAP-EBM-NCE model from ProteinDT [26]."
+    ]
+  },
+  "limitations": {
+    "limitations": [
+      {
+        "label": "Limited Understanding of 3D Drug Structures",
+        "explanation": "ChatDrug is not effective at understanding or modeling the complex three-dimensional geometries of drugs, which may limit its applicability to certain drug discovery tasks.",
+        "evidence": "One limitation is that ChatDrug is not good at understanding the complex structures of drugs, i.e., the 3D geometries. This may require a more profound utilization of geometric modeling."
+      },
+      {
+        "label": "Computational Cost Due to Multiple Conversation Rounds",
+        "explanation": "ChatDrug requires several conversational rounds to achieve strong performance, which increases computational cost.",
+        "evidence": "Another limitation is that ChatDrug requires certain conversational rounds to reach strong performance. An ideal solution is to reduce such computational costs using the knowledge summarization ability of ChatGPT, and we leave this for future work."
+      }
+    ],
+    "evidence": [
+      "One limitation is that ChatDrug is not good at understanding the complex structures of drugs, i.e., the 3D geometries. This may require a more profound utilization of geometric modeling.",
+      "Another limitation is that ChatDrug requires certain conversational rounds to reach strong performance. An ideal solution is to reduce such computational costs using the knowledge summarization ability of ChatGPT, and we leave this for future work."
+    ]
+  },
+  "future_directions": {
+    "future_directions": [
+      "Incorporate geometric modeling to better understand and utilize the three-dimensional structures of drugs.",
+      "Reduce computational costs by leveraging the knowledge summarization capabilities of large language models such as ChatGPT."
+    ],
+    "evidence": [
+      "One limitation is that ChatDrug is not good at understanding the complex structures of drugs, i.e., the 3D geometries. This may require a more profound utilization of geometric modeling.",
+      "Another limitation is that ChatDrug requires certain conversational rounds to reach strong performance. An ideal solution is to reduce such computational costs using the knowledge summarization ability of ChatGPT, and we leave this for future work."
+    ]
+  },
+  "resource_link": {
+    "answer": "https://github.com/ChatDrug/ChatDrug",
+    "evidence": "The source codes can be found in this GitHub repository."
+  },
+  "paper_title": "ChatGPT-powered Conversational Drug Editing Using Retrieval and Domain Feedback",
+  "authors": [
+    "Shengchao",
+    "Jiongxiao",
+    "Yijin",
+    "Chengpeng",
+    "Ling",
+    "Hongyu",
+    "Chaowei"
+  ],
+  "published": "2023-05-29",
+  "link": "http://arxiv.org/abs/2305.18090"
+}

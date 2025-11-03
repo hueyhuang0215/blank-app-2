@@ -1,0 +1,194 @@
+{
+  "objective": {
+    "answer": "The primary objective of the paper is to develop a novel framework that enables large language models to continually evolve and discover symbolic solutions in scientific and engineering domains. The authors aim to address the dual challenges of efficiently searching complex symbolic representation spaces and leveraging both existing and newly generated knowledge to foster open-ended innovation. They propose an evolutionary search methodology augmented by a dynamic knowledge library to facilitate the continuous generation of novel solutions.",
+    "evidence": "This paper explores the potential of LLMs to drive the discovery of symbolic solutions within scientific and engineering disciplines, where such solutions are crucial for advancing theoretical and practical applications. We propose a novel framework that utilizes LLMs in an evolutionary search methodology, augmented by a dynamic knowledge library that integrates and refines insights in an open-ended manner. This approach aims to tackle the dual challenges of efficiently navigating complex symbolic representation spaces and leveraging both existing and newly generated knowledge to foster open-ended innovation."
+  },
+  "knowledge_gap": {
+    "answer": "There is a lack of methodologies that enable the open-ended evolution and refinement of symbolic solutions, particularly approaches that can leverage both existing and newly generated knowledge to guide the search in complex symbolic representation spaces.",
+    "evidence": "Despite these insights, no existing studies explicitly tackle the challenge of open-ended evolution and refinement of symbolic solutions. The primary obstacles hindering progress in this area are two-fold: 1) the difficulties of conducting efficient searches on the symbolic representation spaces, which are often NP-hard across multiple domains [26], and more crucially, 2) the absence of methodologies for leveraging existing knowledge and newly generated knowledge to guide the search."
+  },
+  "novelty": {
+    "answer": [
+      "Introduction of a continual, open-ended evolutionary framework for discovering symbolic solutions using large language models.",
+      "Development of a dynamic knowledge library that summarizes, manages, and reuses knowledge to guide the search process.",
+      "Implementation of a tree-based idea search process that mimics human iterative reasoning and solution refinement.",
+      "Integration of multiple solution representations (natural language, code, mathematical formulas, logic expressions) to enable search in diverse spaces."
+    ],
+    "evidence": [
+      "We propose a novel framework that utilizes LLMs in an evolutionary search methodology, augmented by a dynamic knowledge library that integrates and refines insights in an open-ended manner.",
+      "The knowledge library, as illustrated in Figure 3, is central to our continual evolution process. It interacts dynamically with the LLM during each phase of the evolution process, including initialization, crossover, mutation, tree-based idea search phase, enhancing the generation and refinement of ideas.",
+      "Expanding on these insights, we propose a tree-based idea search process for task solution generation, as illustrated in Figure 2(b).",
+      "For any given task, employing various solution formats can facilitate the concurrent exploration of multiple representation spaces."
+    ]
+  },
+  "inspirational_papers": {
+    "answer": [
+      "- Shojaee et al. (2024) LLM-SR: scientific equation discovery via programming with large language models. (Experimental baselines and methodological precursor)",
+      "- Udrescu and Tegmark (2019) AI Feynman: a physics-inspired method for symbolic regression. (Benchmark and methodological precursor)",
+      "- Wang et al. (2024) Planning in natural language improves LLM search for code generation. (Methodological precursor for multi-representation search)",
+      "- Yao et al. (2023) React: Synergizing reasoning and acting in language models. (Methodological precursor for Reason-and-Act approach)",
+      "- Yao et al. (2024) Tree of thoughts: Deliberate problem solving with large language models. (Methodological precursor for tree-based search)"
+    ],
+    "evidence": [
+      "Within the domain of LLM-based approaches, we feature LLM-SR, the most current advancement in LLM-driven symbolic regression.",
+      "The AI Feynman benchmark [44], consists of 120 physics problems and represents the current standard for evaluating symbolic regression methods in the discovery of scientific equations.",
+      "Prior research has demonstrated the effectiveness of conducting parallel searches across natural language and Python code spaces, particularly in code generation tasks [32, 8, 33].",
+      "This human-centric methodology aligns with two key insights from the LLM research domain: 1) the Reason-and-Act approach [7], which mirrors the iterative reasoning and action cycle, and 2) the multi-phased tree-based search process [40, 41], facilitating the exploration of diverse ideas."
+    ]
+  },
+  "method": {
+    "steps": [
+      {
+        "step": "Define solution representations for the task in multiple formats (natural language, code, mathematical formulas, logic expressions).",
+        "input": "Task definition and requirements.",
+        "output": "Generalized solution formats for exploration.",
+        "tools": [
+          "Large language models (e.g., GPT-3.5, GPT-4o-mini): Used to generate and process solutions in various formats."
+        ],
+        "evidence": "Specifically, the framework first defines the solution to the task in a general style, allowing for different formats to enable search in different spaces."
+      },
+      {
+        "step": "Generate initial ideas using a tree-based idea search process inspired by human problem-solving.",
+        "input": "Task information, initial solution representations.",
+        "output": "A diverse set of initial ideas (root nodes of the search tree).",
+        "tools": [
+          "Large language models: Generate ideas and reason through steps.",
+          "Task evaluator: Assesses the viability and effectiveness of ideas."
+        ],
+        "evidence": "The process initiates with the generation of a diverse set of N0 initial ideas, serving as the root nodes of our tree structure."
+      },
+      {
+        "step": "Iteratively refine ideas through multi-level tree-based reasoning, using feedback from a task evaluator.",
+        "input": "Existing ideas, evaluator feedback.",
+        "output": "Refined and improved ideas at each tree level.",
+        "tools": [
+          "Large language models: For reasoning and generating new ideas.",
+          "Task evaluator: Provides feedback for refinement."
+        ],
+        "evidence": "At each subsequent k-th level, Nk ideas are developed through direct inference based on the evaluator’s feedback and existing ideas."
+      },
+      {
+        "step": "Apply an evolutionary search process (initialization, crossover, mutation, population management) to evolve solutions.",
+        "input": "Population of solutions from tree-based search.",
+        "output": "Evolved population of solutions with improved scores.",
+        "tools": [
+          "Large language models: For generating offspring via crossover and mutation.",
+          "Population management algorithm: Maintains top N solutions."
+        ],
+        "evidence": "Our implementation of the evolution process adheres to the standard evolutionary steps: initialization, crossover, mutation, and population management."
+      },
+      {
+        "step": "Summarize, manage, and reuse knowledge using a dynamic knowledge library throughout the search and evolution process.",
+        "input": "Improved solutions and ideas, sentence embeddings.",
+        "output": "Knowledge library with clustered, summarized ideas for reuse.",
+        "tools": [
+          "Large language models: For summarizing and retrieving knowledge.",
+          "Sentence embedding and clustering algorithms: For organizing the knowledge library."
+        ],
+        "evidence": "The knowledge library, as illustrated in Figure 3, is central to our continual evolution process. It interacts dynamically with the LLM during each phase of the evolution process, including initialization, crossover, mutation, tree-based idea search phase, enhancing the generation and refinement of ideas."
+      },
+      {
+        "step": "Retrieve and apply knowledge from the library using random or similarity-based reuse to inspire or refine new solutions.",
+        "input": "Current solution context, knowledge library.",
+        "output": "New solutions inspired by relevant or diverse knowledge.",
+        "tools": [
+          "Large language models: For integrating retrieved knowledge into solution generation.",
+          "Similarity calculation (cosine similarity): For similarity-based retrieval."
+        ],
+        "evidence": "The knowledge library is used to retrieve the knowledge when needed in two modes Random Reuse and Similarity-based Reuse."
+      }
+    ],
+    "tools": [
+      "Large language models (GPT-3.5, GPT-4o-mini): Used for generating, reasoning, summarizing, and evolving solutions.",
+      "Task evaluator: Assesses the validity and performance of generated solutions.",
+      "Sentence embedding and clustering algorithms: Organize and manage the knowledge library for efficient retrieval.",
+      "Population management algorithm: Maintains and updates the evolving population of solutions."
+    ],
+    "evidence": [
+      "In our experiments, we employ gpt-3.5-turbo and gpt-4o-mini as the backbone LLMs.",
+      "The knowledge library is managed by another LLM, who is responsible to organize the knowledge library and retrieve the knowledge when needed. Specifically, it computes the sentence embeddings for the ideas and cluster them into different clusters.",
+      "We maintain the top N solutions with the highest scores as the population for the next generation, ensuring a quality-driven evolution."
+    ]
+  },
+  "subject_area": {
+    "areas": [
+      "Physical Sciences",
+      "Applied Sciences & Engineering",
+      "Biological Sciences"
+    ],
+    "evidence": [
+      "The AI Feynman benchmark [44], consists of 120 physics problems and represents the current standard for evaluating symbolic regression methods in the discovery of scientific equations.",
+      "Similarly, in engineering, symbolic solutions and their foundational knowledge are instrumental in the design of complex systems.",
+      "Oscillation 1, Oscillation 2, E. coli growth, Stress-Strain"
+    ]
+  },
+  "performance_summary": {
+    "performance_summary": [
+      "The proposed CoEvo framework consistently outperforms contemporary large language model-based regression methods and other baselines across all tested benchmarks, achieving lower normalized mean squared error values with an equivalent or reduced number of queries.",
+      "CoEvo demonstrates superior long-term efficiency and generates a higher ratio of valid solutions compared to LLM-SR.",
+      "The method shows significant improvements in solution quality when leveraging relevant knowledge, and is robust across different large language model backbones."
+    ],
+    "baselines": [
+      "GPlearn: Evolutionary symbolic regression method.",
+      "PySR: Interpretable machine learning for science with symbolic regression.",
+      "DSR: Deep symbolic regression using risk-seeking policy gradients.",
+      "uDSR: Unified framework for deep symbolic regression.",
+      "NeSymReS: Neural symbolic regression that scales.",
+      "E2E: End-to-end symbolic regression with transformers.",
+      "LLM-SR: Large language model-based symbolic regression."
+    ],
+    "benchmark_datasets": [
+      "AI Feynman benchmark: Contains 120 physics problems and is the standard for evaluating symbolic regression methods in scientific equation discovery. In this study, four problems introduced in [30] (Oscillation 1, Oscillation 2, E. coli growth, Stress-Strain) are used to evaluate performance."
+    ],
+    "evaluation_metrics": [
+      "Normalized Mean Squared Error (NMSE): Measures the accuracy of the symbolic regression solutions, with lower values indicating better performance.",
+      "Valid Solution Rate: The ratio of generated solutions that are valid during the search process."
+    ],
+    "evidence": [
+      "The overall performance of various methods on problems is summarized in Table 1. Performance metrics are evaluated using the Normalized Mean Squared Error (NMSE), with lower values indicating superior performance.",
+      "Our approach consistently outperforms contemporary LLM-based regression methods across all tested benchmarks with two different LLM backbones.",
+      "The AI Feynman benchmark [44], consists of 120 physics problems and represents the current standard for evaluating symbolic regression methods in the discovery of scientific equations.",
+      "The ratio of the generated solutions that are valid during the search process."
+    ]
+  },
+  "limitations": {
+    "limitations": [
+      {
+        "label": "Knowledge Pollution",
+        "explanation": "The knowledge library can accumulate irrelevant or incorrect knowledge, which may negatively impact solution quality.",
+        "evidence": "Figure 8 illustrates the pollution within the knowledge pool for Oscillation 2, where irrelevant or incorrect knowledge entries, such as those related to numpy.gradient, have accumulated. so that many useless knowledge for performance improvement are summarized in the pool false. This contamination significantly hampers the model’s performance by steering the solution generation process towards less effective outcomes."
+      },
+      {
+        "label": "Benchmark Design Issues",
+        "explanation": "Some benchmarks, such as Oscillation 2, may not adequately test the robustness of symbolic regression methods due to their design.",
+        "evidence": "This finding, while validating our method’s efficacy, also suggests potential issues with the benchmark’s design. Future work may involve modifications to this benchmark to better test and validate symbolic regression methods."
+      }
+    ],
+    "evidence": [
+      "Figure 8 illustrates the pollution within the knowledge pool for Oscillation 2, where irrelevant or incorrect knowledge entries, such as those related to numpy.gradient, have accumulated.",
+      "This finding, while validating our method’s efficacy, also suggests potential issues with the benchmark’s design. Future work may involve modifications to this benchmark to better test and validate symbolic regression methods."
+    ]
+  },
+  "future_directions": {
+    "future_directions": [
+      "Modify and improve benchmark problems, such as Oscillation 2, to better test and validate symbolic regression methods.",
+      "Explore further strategies to mitigate knowledge pollution in the knowledge library and enhance the quality of extracted knowledge."
+    ],
+    "evidence": [
+      "Future work may involve modifications to this benchmark to better test and validate symbolic regression methods.",
+      "Figure 8 illustrates the pollution within the knowledge pool for Oscillation 2, where irrelevant or incorrect knowledge entries, such as those related to numpy.gradient, have accumulated. so that many useless knowledge for performance improvement are summarized in the pool false. This contamination significantly hampers the model’s performance by steering the solution generation process towards less effective outcomes."
+    ]
+  },
+  "resource_link": {
+    "answer": "https://github.com/pgg3/CoEvo",
+    "evidence": "We have open-sourced our code and data, please visit https://github.com/pgg3/CoEvo for more information."
+  },
+  "paper_title": "CoEvo: Continual Evolution of Symbolic Solutions Using Large Language Models",
+  "authors": [
+    "Ping",
+    "Qingfu",
+    "Xi"
+  ],
+  "published": "2024-12-25",
+  "link": "http://arxiv.org/abs/2412.18890"
+}

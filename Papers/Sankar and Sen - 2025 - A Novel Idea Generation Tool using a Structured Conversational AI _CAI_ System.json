@@ -1,0 +1,197 @@
+{
+  "objective": {
+    "answer": "The primary objective of the paper is to develop and evaluate a novel conversational artificial intelligence-enabled active ideation tool to assist novice designers in overcoming initial latency and bottlenecks in idea generation during product design. The authors aim to compare the effectiveness of this tool against traditional ideation methods using key parameters such as fluency, novelty, and variety. They also seek to enhance the interface with structured dialogue styles for each ideation stage to improve usability and alignment with subsequent design phases.",
+    "evidence": "This paper presents a novel conversational AI-enabled active ideation interface as a creative idea-generation tool to assist novice designers in mitigating the initial latency and ideation bottlenecks that are commonly observed... A pilot study was conducted with thirty novice designers to generate ideas for given problems using traditional methods and the new CAI-based interface. The key parameters of fluency, novelty, and variety were used to compare the outcomes qualitatively by a panel of experts."
+  },
+  "knowledge_gap": {
+    "answer": "Traditional ideation techniques in product design are largely passive, placing the burden of idea generation on the designer and lacking active, dynamic support, especially for novices who face cognitive bottlenecks such as fixation, mental block, and fatigue.",
+    "evidence": "While these techniques have been widely used, they often lack to provide active support for novice designers. The responsibility for originality and diversity in generating novel ideas essentially rests with the designer. Therefore, these techniques often fail to actively aid and engage novice designers who encounter hurdles during the early stages of idea generation. These methods lack the dynamism to support designers during their initial ideation."
+  },
+  "novelty": {
+    "answer": [
+      "Development of a conversational artificial intelligence-enabled active ideation interface that dynamically interacts with designers to generate prolific, diverse, and novel ideas.",
+      "Integration of a large language model, specifically a fine-tuned generative pretrained transformer, as an expert ideation partner in the early, ill-structured phase of product design.",
+      "Implementation of a structured prompt and response system for each ideation stage, enhancing the uniformity, relevance, and succinctness of generated ideas.",
+      "Empirical validation of the tool's effectiveness through a pilot study comparing it to traditional ideation methods using expert evaluation on fluency, novelty, and variety."
+    ],
+    "evidence": [
+      "This paper presents a novel conversational AI-enabled active ideation interface as a creative idea-generation tool to assist novice designers...",
+      "The proposed tool employs a state-of-the-art large language model called as the Generative Pretrained Transformer (GPT), which was customized and used as an Active Ideation Chatbot to engage designers.",
+      "The interface was enhanced by incorporating a prompt-engineered structured dialogue style for each ideation stage to make it uniform and more convenient for the designers.",
+      "A pilot study was conducted with thirty novice designers to generate ideas for given problems using traditional methods and the new CAI-based interface. The key parameters of fluency, novelty, and variety were used to compare the outcomes qualitatively by a panel of experts."
+    ]
+  },
+  "inspirational_papers": {
+    "answer": [
+      "Shah, S. Smith, and N. Vargas-Hernandez (2003) Metrics for measuring ideation effectiveness. (Experimental baselines, evaluation metrics)",
+      "A. Chakrabarti et al. (2017) Idea inspire 3.0—a tool for analogical design. (Methodological precursor, traditional ideation tool)",
+      "J. Benyus (1997) Biomimicry: Innovation Inspired by Nature. (Methodological precursor, inspiration stage)",
+      "E. Bono (1985) Six Thinking Hats. (Traditional ideation technique, baseline)",
+      "F. Zwicky (1969) Discovery, Invention, Research - Through the Morphological Approach. (Traditional ideation technique, baseline)"
+    ],
+    "evidence": [
+      "The assessment of idea generation effectiveness encompasses various commonly employed metrics, including novelty, variety, quality, and quantity ([53]).",
+      "Some of these tools, such as iDea of [39], Digital Brainstorming of [40]–[42], Idea-Inspire of [22], Bio-Inspire of [17], FuncSION of [43], Co-storm of [44], PANDA of [45], Web-enabled ideation of [46] etc., have provided significant assistance in the ideation process...",
+      "Bio-Inspiration: Draws inspiration from nature and biological systems for novel and sustainable design solutions",
+      "Six Thinking Hats: Encouragesthinkingfromdif-ferent perspectives",
+      "Morphological Chart: Assists in systematic exploration of new combinations and innovations"
+    ]
+  },
+  "method": {
+    "steps": [
+      {
+        "step": "Design and development of a conversational artificial intelligence-based ideation interface using a generative pretrained transformer embedded over an interactive moodboard.",
+        "input": "User-provided design problem statements and user needs.",
+        "output": "Multiple idea statements generated in response to the problem.",
+        "tools": [
+          "Generative Pretrained Transformer (GPT): A large language model fine-tuned on product design-related documents to act as an expert ideation partner.",
+          "Unity and C# programming: Used to build the chatbot and moodboard interface."
+        ],
+        "evidence": "An active ideation interface was designed and developed using a conversational AI system known as a Generative Pretrained Transformer (GPT)1 embedded over an interactive mood-board, as shown in Figure 3. GPT provides the backbone for natural language interaction, allowing it to respond and generate creative idea statements based on user input. The mood board provides a means for rapidly putting down those ideas."
+      },
+      {
+        "step": "Fine-tuning the generative pretrained transformer model to serve as an expert designer for active ideation.",
+        "input": "A vast and diverse corpus of text data from product design-related documents, books, and articles.",
+        "output": "A GPT model capable of generating insightful, context-specific, and creative ideas.",
+        "tools": [
+          "Generative Pretrained Transformer (GPT): Fine-tuned for domain-specific language and creative ideation."
+        ],
+        "evidence": "The GPT model was fine-tuned to serve as an expert designer for active ideation, which involves initializing the model with a vast and diverse corpus of text data from various relevant online sources, viz., product design-related documents, books, and articles."
+      },
+      {
+        "step": "Implementation of contextual buffer memory for multi-session ideation.",
+        "input": "Previous conversation history stored in a JSON file.",
+        "output": "Context-aware conversation continuity across multiple sessions.",
+        "tools": [
+          "Contextual buffer memory: Stores earlier conversations in a standard JSON file for context continuation."
+        ],
+        "evidence": "A contextual buffer memory was created and used in context continuation tasks, such as design ideation sessions. This enables sustained engagement in a context-aware conversation for a longer duration."
+      },
+      {
+        "step": "Adjustment of the GPT temperature parameter to control the novelty and diversity of generated ideas.",
+        "input": "User-set temperature parameter value.",
+        "output": "Responses with varying degrees of creativity and randomness.",
+        "tools": [
+          "GPT temperature parameter: Adjusts the randomness and creativity of generated responses."
+        ],
+        "evidence": "The GPT allows setting a parameter called 'temperature' to adjust the randomness of its responses. This randomness, interpreted as an index of novelty, can be used to adjust the creativity of the generated ideas."
+      },
+      {
+        "step": "Pilot study comparing traditional ideation methods and the CAI-based interface.",
+        "input": "Thirty postgraduate product design students, six design problem statements, traditional ideation techniques, and the CAI-based tool.",
+        "output": "Sets of ideas generated by both methods, assessed for fluency, novelty, and variety by expert evaluators.",
+        "tools": [
+          "Google Forms: Used to collect expert evaluations.",
+          "Likert Scale: Used for rating novelty and variety."
+        ],
+        "evidence": "The ideas generated during the convention and CAI-based ideations from each group were collected, and a Google form was created... The novelty ratings of individual ideas were evaluated on a 1 to 5 Likert Scale by 80 experts using an online questionnaire."
+      },
+      {
+        "step": "Incorporation of structured prompt and response formats for each ideation stage.",
+        "input": "Structured input prompts based on the AI3C and AOC models for problem statements and ideas.",
+        "output": "Succinct, relevant, and stage-aligned idea statements and concepts.",
+        "tools": [
+          "Prompt engineering: Structured prompt and response templates for each ideation stage."
+        ],
+        "evidence": "The interface was enhanced by incorporating a prompt-engineered structured dialogue style for each ideation stage to make it uniform and more convenient for the designers."
+      }
+    ],
+    "tools": [
+      "Generative Pretrained Transformer (GPT): A large language model fine-tuned for product design ideation.",
+      "Unity and C# programming: Used to build the chatbot and moodboard interface.",
+      "Contextual buffer memory: Stores conversation history for context-aware multi-session ideation.",
+      "Google Forms: Used for collecting expert evaluations.",
+      "Likert Scale: Used for expert rating of novelty and variety.",
+      "Prompt engineering: Structured prompt and response templates for ideation stages."
+    ],
+    "evidence": [
+      "An active ideation interface was designed and developed using a conversational AI system known as a Generative Pretrained Transformer (GPT)1 embedded over an interactive mood-board, as shown in Figure 3.",
+      "The GPT model was fine-tuned to serve as an expert designer for active ideation...",
+      "A contextual buffer memory was created and used in context continuation tasks...",
+      "The GPT allows setting a parameter called 'temperature' to adjust the randomness of its responses.",
+      "The ideas generated during the convention and CAI-based ideations from each group were collected, and a Google form was created...",
+      "The interface was enhanced by incorporating a prompt-engineered structured dialogue style for each ideation stage..."
+    ]
+  },
+  "subject_area": {
+    "areas": [
+      "Applied Sciences & Engineering"
+    ],
+    "evidence": [
+      "Creativity and innovation are quintessential during the conceptual design phase for solving problems effectively in an increasingly complex and technology-driven world. Generating many novel ideas quickly is not only valued but also expected from the designers ([1], [2]). However, this creative ideation process can often be challenging for product designers."
+    ]
+  },
+  "performance_summary": {
+    "performance_summary": [
+      "The CAI-based ideation tool produced a significantly higher number of ideas (average of 15) compared to traditional methods (average of 4.8) within the same time frame.",
+      "Expert evaluations showed that 68% of experts found CAI-generated ideas more meaningful than those from traditional methods.",
+      "CAI-generated ideas received higher average novelty ratings (3.86 vs. 2.5) and variety ratings (4.2 vs. 2.9) on a 1 to 5 Likert scale.",
+      "The CAI tool was validated to produce more prolific, novel, and diverse ideas, supporting all three tested hypotheses."
+    ],
+    "baselines": [
+      "Traditional ideation techniques: Brainstorming, Random Words, SCAMPER, Synectics, and Analogous Thinking, used as the baseline for comparison."
+    ],
+    "benchmark_datasets": [
+      "Not reported in the paper"
+    ],
+    "evaluation_metrics": [
+      "Fluency: Number of ideas generated within a specified period.",
+      "Novelty: Degree of uniqueness of an idea, rated on a 1 to 5 Likert scale.",
+      "Variety: Diversity among ideas, rated on a 1 to 5 Likert scale.",
+      "Expert voting: Used to assess the meaningfulness of ideas."
+    ],
+    "evidence": [
+      "As indicated in Figure 6, the conventional vs CAI-aided ideation produced an average of 4.8 and 15 ideas in 20 minutes, respectively.",
+      "68% of the experts found the ideas produced by the GPT more meaningful.",
+      "The novelty ratings of individual ideas were evaluated on a 1 to 5 Likert Scale by 80 experts using an online questionnaire. The findings are depicted in Figure 7. It can be noted that the average rating for Part A is 2.5, while Part B is 3.86.",
+      "The variety ratings of a set of twelve ideas randomly picked from a larger set were evaluated on a 1 to 5 Likert Scale by 80 experts using an online questionnaire. The results show that the average variety rating for Part A is 2.9, while Part B is 4.2."
+    ]
+  },
+  "limitations": {
+    "limitations": [
+      {
+        "label": "Cognitive Overload",
+        "explanation": "The large number and detail of ideas generated by the CAI system can overwhelm designers during the selection phase.",
+        "evidence": "This depth of detail can be seen as an advantage in providing a rich context for each solution, but there is also a potential risk of cognitive overload. Designers could potentially become overwhelmed by the surplus of information. This would detract the idea, distract the designers from their objective, and diverge them from the original problem."
+      },
+      {
+        "label": "Manual Curation Burden",
+        "explanation": "The abundance of ideas generated makes the shortlisting process more challenging and resource-intensive, potentially leading to decision fatigue.",
+        "evidence": "This abundance makes the shortlisting process more challenging and resource-intensive, potentially leading to decision fatigue with possible inconsistencies. The authors felt the need for an automated system to assist designers in efficiently selecting the most promising ideas from the generated pool."
+      },
+      {
+        "label": "Pending Assessment of Structured Approach",
+        "explanation": "The effectiveness of the proposed structured prompt and response approach is yet to be fully assessed by expert evaluations.",
+        "evidence": "The assessment of the effectiveness of this approach to be measured based on expert evaluations is still pending."
+      }
+    ],
+    "evidence": [
+      "This depth of detail can be seen as an advantage in providing a rich context for each solution, but there is also a potential risk of cognitive overload. Designers could potentially become overwhelmed by the surplus of information.",
+      "This abundance makes the shortlisting process more challenging and resource-intensive, potentially leading to decision fatigue with possible inconsistencies.",
+      "The assessment of the effectiveness of this approach to be measured based on expert evaluations is still pending."
+    ]
+  },
+  "future_directions": {
+    "future_directions": [
+      "Development of automated evaluation strategies to analyze and shortlist ideas generated by the CAI system.",
+      "Assessment of the effectiveness of the structured prompt and response approach through expert evaluations.",
+      "Exploration of diverse methods of prompt structuring for further improvement."
+    ],
+    "evidence": [
+      "The authors are currently developing automated evaluation strategies to analyze the idea landscape effectively.",
+      "The assessment of the effectiveness of this approach to be measured based on expert evaluations is still pending.",
+      "The diverse methods of prompt structuring are also being explored."
+    ]
+  },
+  "resource_link": {
+    "answer": "",
+    "evidence": "No code repository, project website, or data repository link is provided in the paper."
+  },
+  "paper_title": "A Novel Idea Generation Tool using a Structured Conversational AI (CAI) System",
+  "authors": [
+    "B.",
+    "Dibakar"
+  ],
+  "published": "2025",
+  "link": "http://arxiv.org/abs/2409.05747"
+}

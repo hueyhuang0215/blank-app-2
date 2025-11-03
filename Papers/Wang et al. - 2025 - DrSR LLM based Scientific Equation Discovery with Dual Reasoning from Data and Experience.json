@@ -1,0 +1,203 @@
+{
+  "objective": {
+    "answer": "The primary objective of the paper is to develop DrSR, a framework that enhances large language model-based symbolic regression by integrating data-driven insight and reflective learning. The authors aim to address the limitations of existing large language model-based approaches, such as over-reliance on internal priors and lack of explicit data understanding, to improve the robustness and discovery capability of scientific equation discovery.",
+    "evidence": "To address these limitations, we propose DrSR (Dual Reasoning Symbolic Regression), a framework that combines data-driven insight with reflective learning to enhance both robustness and discovery capability. Specifically, DrSR guides LLMs to analyze structural relationships—e.g., monotonicity, nonlinearity, and correlation—within the data to generate structured descriptions. Simultaneously, it monitors equation performance and establishes a feedback loop to refine subsequent generations."
+  },
+  "knowledge_gap": {
+    "answer": "Existing large language model-based symbolic regression methods over-rely on internal scientific priors and lack explicit mechanisms for data understanding and systematic reflection during equation generation, which limits their accuracy, generalizability, and efficiency.",
+    "evidence": "However, existing LLM-based approaches, such as LLM-SR, often over-rely on internal priors, lacking explicit data understanding and systematic reflection during equation generation. ... such methods overly rely on the scientific priors embedded within LLMs while neglecting structural insights into variable relationships—effectively ignoring direct observation and analysis of the raw data. This limits the accuracy and generalizability of the generated equations. Moreover, the lack of systematic reflection on generation history often leads to the repeated production of invalid expressions (e.g., syntax errors, numerical overflows), reducing both the efficiency and stability of SR."
+  },
+  "novelty": {
+    "answer": [
+      "Introduction of a dual reasoning framework (DrSR) that combines data-aware insight and inductive idea extraction for symbolic regression.",
+      "Implementation of a data-aware module that prompts large language models to extract structural patterns from raw data, providing evolving priors for equation generation.",
+      "Development of an experience-based module that reflects on generation outcomes, categorizes results, and builds an idea library to guide future generations.",
+      "Closed-loop integration of data-driven interpretation and behavior-level feedback to enable continual refinement of symbolic priors and generative heuristics."
+    ],
+    "evidence": [
+      "To this end, we propose DrSR (Dual Reasoning Symbolic Regression) (Fig 1), a framework that augments LLM-based generation with two synergistic reasoning mechanisms: data-aware insight, which derives structural patterns from raw data, and inductive idea extraction, which reflects on generation outcomes to distill reusable strategies.",
+      "Specifically, building upon the generation-evaluation loop of LLM-SR, a data-aware module prompts the LLM to extract structural patterns from a sampled subset of raw data, providing task-specific priors on variable relationships.",
+      "Secondly, DrSR introduces an experience-based module that categorizes newly generated equations based on evaluation outcomes and prompts the model to reflect on success or failure. The resulting strategies—summarized as structured “ideas”—are stored in a dynamic idea library and reused to improve future equation generation.",
+      "By combining data-driven interpretation with behavior-level feedback, DrSR enables continual refinement of both symbolic priors and generative heuristics, resulting in more efficient and reliable symbolic equation discovery."
+    ]
+  },
+  "inspirational_papers": {
+    "answer": [
+      "- Shojaee et al. (2024) LLM-SR: Scientific equation discovery via programming with large language models. (Methodological precursor and baseline)",
+      "- Cranmer (2023) Interpretable machine learning for science with pysr and symbolicregression. (Experimental baseline)",
+      "- Petersen et al. (2019) Deep symbolic regression: Recovering mathematical expressions from data via risk-seeking policy gradients. (Experimental baseline)",
+      "- Landajuela et al. (2022) A unified framework for deep symbolic regression. (Experimental baseline)",
+      "- Grayeli et al. (2024) Symbolic regression with a learned concept library. (Experimental baseline)",
+      "- Merler et al. (2024) In-context symbolic regression: Leveraging large language models for function discovery. (Related LLM-based approach)"
+    ],
+    "evidence": [
+      "Our work builds upon LLM-SR [13], a recent framework that utilizes LLM to generate interpretable equations from data.",
+      "We compare DrSR with six representative SR methods, spanning classical, deep learning, and LLM-based paradigms: gplearn, PySR [9], DSR [10], uDSR [21], LaSR [22], and LLM-SR [13].",
+      "LLM-SR [13] employs LLMs to produce equation skeletons guided by prior scientific knowledge, followed by parameter optimization. LaSR [22] extends this by incorporating abstract symbolic patterns; CoEvo [50] leverages open-ended knowledge co-evolution during search. ICSR [16] encodes training data as in-context demonstrations to generate candidate expressions."
+    ]
+  },
+  "method": {
+    "steps": [
+      {
+        "step": "Initial Data-aware Insight Extraction",
+        "input": "Uniformly sampled 100 input-output pairs from the dataset",
+        "output": "Initial structured insight capturing basic patterns such as monotonicity, nonlinearity, and variable correlation",
+        "tools": [
+          "Data-Analysis-LLM (πdata): An LLM module dedicated to analyzing input-output pairs and generating structured insights about variable relationships."
+        ],
+        "evidence": "To control input length and preserve key behavioral patterns, we uniformly sample 100 input-output pairs from the original dataset D = {(xi, yi)}n i=1 to form Dresample 0. Feeding this into πdata yields the initial insight D0, capturing basic patterns such as monotonicity, nonlinearity, and variable correlation."
+      },
+      {
+        "step": "Iterative Residual-based Refinement",
+        "input": "Residuals computed as the difference between observed and predicted values, augmented dataset with residuals",
+        "output": "Refined structural insights focusing on poorly captured data regions",
+        "tools": [
+          "Data-Analysis-LLM (πdata): Used again to generate updated insights based on residuals."
+        ],
+        "evidence": "At each iteration t, if a candidate f* improves upon the current best score s*, πdata produces an updated insight Dnew to refine the future generations of πmain."
+      },
+      {
+        "step": "Equation Generation",
+        "input": "Current prompt including task description, variable constraints, evaluation criteria, reference equations, data-aware insights, and sampled ideas from the idea library",
+        "output": "Candidate equation skeletons with learnable parameters",
+        "tools": [
+          "Equation Generation LLM (πmain): The main LLM module responsible for generating equation skeletons."
+        ],
+        "evidence": "All modules share the same LLM backbone... guided by (a) and (b), the LLM generates new equation skeletons, optimizes parameters, and caches the best-performing results to inform future generations."
+      },
+      {
+        "step": "Parameter Optimization",
+        "input": "Generated equation skeletons and dataset",
+        "output": "Optimized parameters for each equation skeleton",
+        "tools": [
+          "BFGS: A numerical optimization algorithm used to fit parameters of candidate equations."
+        ],
+        "evidence": "In each iteration, 4 candidate equation skeletons are sampled, and their parameters are optimized via BFGS."
+      },
+      {
+        "step": "Evaluation and Categorization",
+        "input": "Evaluated candidate equations and their scores",
+        "output": "Categorization of each equation as positive, negative, or invalid",
+        "tools": [
+          "Idea-Extraction-LLM (πidea): An LLM module that analyzes generated equations and summarizes successes and failures into structured heuristics."
+        ],
+        "evidence": "After πmain generates and optimizes equations, each evaluated candidate f is categorized as: 1) Positive. Outperforms the reference... 2) Negative... 3) Invalid."
+      },
+      {
+        "step": "Inductive Idea Extraction and Library Update",
+        "input": "Categorized equations and their evaluation outcomes",
+        "output": "Updated idea library containing positive, negative, and error-avoidance ideas",
+        "tools": [
+          "Idea-Extraction-LLM (πidea): Used to extract and summarize ideas for future prompt guidance."
+        ],
+        "evidence": "For each type, πidea is prompted with tailored templates... The extracted ideas are categorized and stored for downstream use."
+      },
+      {
+        "step": "Prompt Update for Next Iteration",
+        "input": "Recently extracted ideas and refined data-aware insights",
+        "output": "Updated prompt for the next round of equation generation",
+        "tools": [
+          "Prompt construction logic: Samples recent ideas and injects them into the prompt for πmain."
+        ],
+        "evidence": "In each iteration, recently extracted ideas are sampled and injected into prompts of πmain, supporting continual adaptation and improved generation quality."
+      }
+    ],
+    "tools": [
+      "Data-Analysis-LLM (πdata): An LLM module for extracting structured insights from data.",
+      "Equation Generation LLM (πmain): The main LLM module for generating equation skeletons.",
+      "Idea-Extraction-LLM (πidea): An LLM module for summarizing generation outcomes into reusable ideas.",
+      "BFGS: A numerical optimization algorithm for parameter fitting."
+    ],
+    "evidence": [
+      "To implement this, DrSR instantiates three role-specific, LLM-based modules: πdata for data-aware insight extraction, πidea for modeling experience summarization, and πmain for equation generation.",
+      "In each iteration, 4 candidate equation skeletons are sampled, and their parameters are optimized via BFGS.",
+      "For each type, πidea is prompted with tailored templates (see Appendix C) to elicit structural heuristics: e.g., strengths of winning patterns, causes of performance drops, or failure modes and remedies. The extracted ideas are categorized and stored for downstream use."
+    ]
+  },
+  "subject_area": {
+    "areas": [
+      "Physical Sciences",
+      "Biological Sciences",
+      "Chemical Sciences",
+      "Applied Sciences & Engineering"
+    ],
+    "evidence": [
+      "Experiments across interdisciplinary datasets in physics, chemistry, biology, and materials science demonstrate that DrSR substantially improves the valid equation rate and consistently outperforms both classical and recent LLM-based methods in terms of accuracy, generalization, and search efficiency—underscoring its potential for scientific equation discovery.",
+      "We evaluate DrSR on six benchmarks spanning physics, chemistry, biology, and materials science, using Mixtral-8x7B-Instruct-v0.1 [14] and LLaMA3.1-8B-Instruct [15] as backbones."
+    ]
+  },
+  "performance_summary": {
+    "performance_summary": [
+      "DrSR consistently achieves significantly lower normalized mean squared error and higher accuracy under error tolerance across most datasets, outperforming both classical and LLM-based baselines.",
+      "On Oscillator 2, DrSR (Mixtral) achieves an NMSE of 1.80×10−12, far surpassing LLM-SR (Mixtral)’s 4.59×10−5.",
+      "DrSR exceeds 90% accuracy on several benchmarks with both Mixtral and LLaMA backbones.",
+      "DrSR demonstrates faster convergence and lower final error across all tasks, consistently outperforming baselines even in early-stage iterations.",
+      "DrSR yields a higher valid solution rate (proportion of syntactically valid, compilable, and executable equations) compared to LLM-SR, especially on structurally complex datasets.",
+      "DrSR exhibits minimal performance drop between in-distribution and out-of-distribution settings, indicating strong generalization."
+    ],
+    "baselines": [
+      "gplearn: Symbolic regressor using genetic programming with a population of expression trees.",
+      "PySR: Genetic programming-based symbolic regression with parallelization and heuristics.",
+      "DSR: Deep symbolic regression using reinforcement learning to generate symbolic formulas.",
+      "uDSR: Unified deep symbolic regression combining neural-guided genetic programming and pretraining.",
+      "LaSR: LLM-guided symbolic regression using zero-shot prompts and genetic programming.",
+      "LLM-SR: Large language model-based symbolic regression generating equation skeletons and refining via evolutionary search."
+    ],
+    "benchmark_datasets": [
+      "Nonlinear Oscillators: Simulated datasets of two nonlinear damped oscillator systems with complex variable dependencies, used to test model robustness in learning nontrivial physical relationships.",
+      "Bacterial Growth: Dataset modeling E. coli growth rate under varying conditions, incorporating population density, substrate concentration, temperature, and pH, used to recover expressions capturing dynamic bacterial proliferation.",
+      "Stress–Strain Behavior: Real-world experimental dataset of 6061-T651 aluminum alloy under varying strain and temperature, used to model stress as a function of strain and thermal conditions.",
+      "LSR-Transform: Dataset from LLM-SRBench with structurally altered expressions originating from Feynman equations, used to test recovery of transformed scientific equations.",
+      "LSR-Synth: Synthetic benchmark from LLM-SRBench with 129 tasks mixing canonical scientific terms and synthetic expressions, used to test generalization across hybrid symbolic forms."
+    ],
+    "evaluation_metrics": [
+      "Accuracy under error tolerance (ACCτ): Proportion of test points with error below a threshold τ, measuring tolerance-aware generalization.",
+      "Normalized Mean Squared Error (NMSE): Prediction error normalized by target variance, emphasizing numeric precision and penalizing large deviations."
+    ],
+    "evidence": [
+      "As shown in Table 1, DrSR consistently achieves significantly lower NMSE and higher Accτ across most datasets, outperforming both classical and LLM-based baselines.",
+      "We evaluate SR models using two complementary metrics: Accuracy under error tolerance (ACCτ) and Normalized Mean Squared Error (NMSE), which respectively measure tolerance-aware generalization and numeric precision.",
+      "We evaluate DrSR on six representative SR datasets spanning physics, biology, chemistry, and materials science. Four datasets are taken from LLM-SR [13], and two from the LLM-SRBench suite [17], including LSR-Transform and LSR-Synth."
+    ]
+  },
+  "limitations": {
+    "limitations": [
+      {
+        "label": "Stochasticity of LLM Outputs",
+        "explanation": "The inherent randomness of large language models can lead to verbose, repetitive, or overly complex outputs, requiring expert intervention.",
+        "evidence": "First, due to the inherent stochasticity of large language models, the generated outputs can occasionally be verbose, repetitive, or overly complex, requiring expert intervention to interpret or refine."
+      },
+      {
+        "label": "Parameter Optimization Constraints",
+        "explanation": "The current reliance on the BFGS algorithm for parameter optimization may not always achieve globally optimal values for complex equation skeletons.",
+        "evidence": "Second, the parameter optimization phase in DRSR currently relies on the BFGS algorithm, which, while efficient, may not always achieve globally optimal parameter values for complex equation skeletons."
+      }
+    ],
+    "evidence": [
+      "First, due to the inherent stochasticity of large language models, the generated outputs can occasionally be verbose, repetitive, or overly complex, requiring expert intervention to interpret or refine. Second, the parameter optimization phase in DRSR currently relies on the BFGS algorithm, which, while efficient, may not always achieve globally optimal parameter values for complex equation skeletons. Exploring more robust or adaptive optimization strategies remains an important direction for future work."
+    ]
+  },
+  "future_directions": {
+    "future_directions": [
+      "Multimodal extensions to accommodate richer data types such as scientific imagery.",
+      "Continual learning to accumulate transferable modeling strategies across tasks."
+    ],
+    "evidence": [
+      "Despite its strong empirical results, DrSR also opens promising avenues for future research, including multimodal extensions to accommodate richer data types such as scientific imagery, and continual learning to accumulate transferable modeling strategies across tasks. These directions represent exciting opportunities for future exploration, and we plan to pursue them to further advance DrSR toward next-generation scientific equation discovery."
+    ]
+  },
+  "resource_link": {
+    "answer": "",
+    "evidence": "No code repository, project website, or data repository link is provided in the paper."
+  },
+  "paper_title": "DrSR: LLM based Scientific Equation Discovery with Dual Reasoning from Data and Experience",
+  "authors": [
+    "Runxiang",
+    "Boxiao",
+    "Kai",
+    "Yifan",
+    "Jian"
+  ],
+  "published": "2025-06-04",
+  "link": "http://arxiv.org/abs/2506.04282"
+}

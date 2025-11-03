@@ -1,0 +1,207 @@
+{
+  "objective": {
+    "answer": "The primary objective of the paper is to develop and demonstrate a generative language model, CatGPT, for the discovery of novel inorganic catalyst structures. The authors aim to train this model on a large chemical space and fine-tune it for specific catalytic tasks, such as generating binary alloy catalysts for the two-electron oxygen reduction reaction. They also seek to establish systematic evaluation metrics for the validity and quality of generated catalyst structures.",
+    "evidence": "In this work, we introduce the Catalyst Generative Pretrained Transformer (CatGPT), trained to generate string representations of inorganic catalyst structures from a vast chemical space. CatGPT not only demonstrates high performance in generating valid and accurate catalyst structures but also serves as a foundation model for generating desired types of catalysts by fine-tuning with sparse and specified datasets. As an example, we fine-tuned the pretrained CatGPT using a binary alloy catalyst dataset designed for screening two-electron oxygen reduction reaction (2e-ORR) catalyst and generate catalyst structures specialized for 2e-ORR."
+  },
+  "knowledge_gap": {
+    "answer": "There is a lack of generative language models specifically designed and validated for catalyst surface systems, particularly due to the absence of systematic evaluation methods for complex catalyst structures and the substantial data requirements for training such models.",
+    "evidence": "While several works have progressed in developing generative language models for materials discovery, none have applied these models to catalyst surface systems. This may be due to a lack of validation methods for complex systems, which have more atoms and greater structural diversity than simple crystals, and substantial data requirements (at least 10,000 samples) for training and validating generative models on their systems."
+  },
+  "novelty": {
+    "answer": [
+      "Development of CatGPT, a generative language model based on the GPT-2 architecture, specifically trained to generate string representations of inorganic catalyst structures.",
+      "Introduction of a BERT-based anomaly detection model to systematically evaluate the validity of generated catalyst structures, including detection of structural anomalies unique to catalyst surfaces.",
+      "Implementation of a bypass method to address atomic overlapping in generated structures, leveraging the autoregressive nature of language models.",
+      "Demonstration of fine-tuning CatGPT with a small, biased dataset to generate catalysts for a specific reaction (two-electron oxygen reduction reaction), showing the model's adaptability as a foundation model for catalyst discovery."
+    ],
+    "evidence": [
+      "We implemented the Generative Pretrained Transformer 2 (GPT-2) architecture28 to generate catalyst structures, hereafter referred to as ‘CatGPT’.",
+      "Since there are no systematically defined metrics for assessing the validity and quality of generated catalyst structures, we developed a model to detect invalidly generated structures based on Bidirectional Encoder Representations from Transformers (BERT)30 and a validity metric for generated catalyst structures, hereafter referred to as the 'anomaly detection model' and ‘catalyst validity’, respectively.",
+      "To address the generation of overlapping atoms without modifying the model architecture, we introduced a new feature to bypass overlapping atoms when converting string representations of catalysts into 3D structures (Fig. 1c).",
+      "By fine-tuning the pre-trained CatGPT model using 2e-ORR dataset, we modified it to conditionally generate catalysts specifically for 2e-ORR, and evaluated the catalytic performance of the generated catalysts using MLP predictions and DFT calculations."
+    ]
+  },
+  "inspirational_papers": {
+    "answer": [
+      "- Flam-Shepherd and Aspuru-Guzik (2023) Language models can generate molecules, materials, and protein binding sites directly in three dimensions as xyz, cif, and pdb files. (Methodological precursors)",
+      "- Antunes et al. (2023) Crystal structure generation with autoregressive large language modeling. (Methodological precursors)",
+      "- Xie et al. (2021) Crystal diffusion variational autoencoder for periodic material generation. (Evaluation metrics and methodology for generative models)",
+      "- Back et al. (2021) Efficient discovery of active, selective, and stable catalysts for electrochemical H2O2 synthesis through active motif screening. (Dataset and application inspiration)"
+    ],
+    "evidence": [
+      "Flam-Shepherd and Aspuru-Guzik trained a GPT-based language model from scratch on sequences of tokenized atomistic data, including molecules, protein binding pockets and crystals22. They reported that their models performed comparably to or even surpassed other generative models.",
+      "Antunes et al. demonstrated that CIF-format representation of crystals is also valid for training language models for generative purposes25.",
+      "Coverage and property distribution are key metrics for evaluating how well the generated data replicates the validation data, which serves as the ground-truth, meaning real catalyst structures. We used the method described by Xie et al.31 to evaluate these metrics.",
+      "In our previous works, it was proposed that two-electron oxygen reduction reaction (2e-ORR), which electrochemically produces H2O2 from O2, is facilitated on single-site binary alloys consisting of oxophilic and oxophobic elements26, 27."
+    ]
+  },
+  "method": {
+    "steps": [
+      {
+        "step": "Data Preparation and Representation",
+        "input": "Two million catalyst structures from the Open Catalyst 2020 Structure to Energy and Forces task dataset (OC20-S2EF 2M dataset), represented as tokenized strings of lattice parameters, atomic symbols, and 3D coordinates.",
+        "output": "Tokenized textual sequence data representing catalyst structures.",
+        "tools": [
+          "OC20-S2EF 2M dataset: Large dataset of catalyst structures."
+        ],
+        "evidence": "The CatGPT was trained autoregressively on two million catalyst structures containing both surface and adsorbate atoms, collected from the Open Catalyst 2020 Structure to Energy and Forces task dataset (OC20-S2EF 2M dataset)29. These structures were represented as a corpus consisting of tokenized strings of lattice parameters, atomic symbols and 3D coordinates (see Methods section)."
+      },
+      {
+        "step": "Training the Generative Model (CatGPT)",
+        "input": "Tokenized catalyst structure sequences.",
+        "output": "A trained GPT-2-based model capable of generating new catalyst structure sequences.",
+        "tools": [
+          "GPT-2 architecture: Autoregressive language model for sequence generation."
+        ],
+        "evidence": "We implemented the Generative Pretrained Transformer 2 (GPT-2) architecture28 to generate catalyst structures, hereafter referred to as ‘CatGPT’."
+      },
+      {
+        "step": "Development and Training of Anomaly Detection Model",
+        "input": "Half-corrupted OC20-S2EF 2M dataset (with intentional incompletion and scale mismatch anomalies) and valid data.",
+        "output": "A BERT-based binary classifier to detect invalid catalyst structures from string representations.",
+        "tools": [
+          "BERT architecture: Transformer-based model for classification tasks."
+        ],
+        "evidence": "Thus, we developed an anomaly detection model using BERT architecture to evaluate the catalyst validity of the generated structures (Fig. 1b)."
+      },
+      {
+        "step": "Generation and Post-processing of Catalyst Structures",
+        "input": "Trained CatGPT model and generation parameters (e.g., temperature, input queries).",
+        "output": "Generated string representations of catalyst structures, converted to 3D structures with a bypass method to ignore overlapping atoms.",
+        "tools": [
+          "Bypass method: Ignores generation of new atoms located close to already existing atoms during conversion to 3D structures."
+        ],
+        "evidence": "To address the generation of overlapping atoms without modifying the model architecture, we introduced a new feature to bypass overlapping atoms when converting string representations of catalysts into 3D structures (Fig. 1c)."
+      },
+      {
+        "step": "Fine-tuning for Specific Catalyst Discovery",
+        "input": "Pre-trained CatGPT model and a small, biased dataset of binary alloy catalysts for two-electron oxygen reduction reaction.",
+        "output": "Fine-tuned CatGPT model specialized for generating 2e-ORR catalyst structures.",
+        "tools": [
+          "2e-ORR dataset: Binary alloy catalyst structures for fine-tuning."
+        ],
+        "evidence": "By fine-tuning the pre-trained CatGPT model using 2e-ORR dataset, we modified it to conditionally generate catalysts specifically for 2e-ORR."
+      },
+      {
+        "step": "Evaluation of Generated Catalysts",
+        "input": "Generated catalyst structures, anomaly detection model, machine learning potentials (EquiformerV2), and density functional theory calculations.",
+        "output": "Validated and screened novel catalyst structures with predicted and calculated catalytic properties.",
+        "tools": [
+          "EquiformerV2: Machine learning potential for structure optimization and energy prediction.",
+          "Density functional theory (DFT): Quantum mechanical method for calculating binding energies and optimizing structures."
+        ],
+        "evidence": "We validated the generated catalyst structures by performing geometry optimizations and calculating ΔGOOH* and ΔGO*. Instead of directly performing computationally expensive density functional theory (DFT) calculations, we initially employed machine learning potential (MLP), specifically the pre-trained EquiformerV2 model37."
+      }
+    ],
+    "tools": [
+      "GPT-2 architecture: Autoregressive language model for generating catalyst structure sequences.",
+      "BERT architecture: Transformer-based model for anomaly detection in generated structures.",
+      "OC20-S2EF 2M dataset: Large dataset of catalyst structures for training and validation.",
+      "2e-ORR dataset: Dataset of binary alloy catalysts for fine-tuning.",
+      "Bypass method: Post-processing technique to avoid atomic overlaps in generated structures.",
+      "EquiformerV2: Machine learning potential for structure optimization and energy prediction.",
+      "Density functional theory (DFT): Used for final validation of catalytic properties."
+    ],
+    "evidence": [
+      "We implemented the Generative Pretrained Transformer 2 (GPT-2) architecture28 to generate catalyst structures, hereafter referred to as ‘CatGPT’.",
+      "Thus, we developed an anomaly detection model using BERT architecture to evaluate the catalyst validity of the generated structures (Fig. 1b).",
+      "The CatGPT was trained autoregressively on two million catalyst structures containing both surface and adsorbate atoms, collected from the Open Catalyst 2020 Structure to Energy and Forces task dataset (OC20-S2EF 2M dataset)29.",
+      "To address the generation of overlapping atoms without modifying the model architecture, we introduced a new feature to bypass overlapping atoms when converting string representations of catalysts into 3D structures (Fig. 1c).",
+      "By fine-tuning the pre-trained CatGPT model using 2e-ORR dataset, we modified it to conditionally generate catalysts specifically for 2e-ORR.",
+      "We validated the generated catalyst structures by performing geometry optimizations and calculating ΔGOOH* and ΔGO*. Instead of directly performing computationally expensive density functional theory (DFT) calculations, we initially employed machine learning potential (MLP), specifically the pre-trained EquiformerV2 model37."
+    ]
+  },
+  "subject_area": {
+    "areas": [
+      "Chemical Sciences",
+      "Applied Sciences & Engineering",
+      "Physical Sciences"
+    ],
+    "evidence": [
+      "Discovery of novel and promising materials is a critical challenge in the field of chemistry and material science...",
+      "We introduce the Catalyst Generative Pretrained Transformer (CatGPT), trained to generate string representations of inorganic catalyst structures from a vast chemical space.",
+      "We validated the generated catalyst structures by performing geometry optimizations and calculating ΔGOOH* and ΔGO*."
+    ]
+  },
+  "performance_summary": {
+    "performance_summary": [
+      "CatGPT demonstrated high performance in generating valid and accurate catalyst structures, with nearly perfect precision and recall scores for coverage and property distribution metrics.",
+      "The bypass method (CatGPT-BP) eliminated atomic overlaps, achieving perfect structural validity with only a minimal decrease in catalyst validity.",
+      "Fine-tuned CatGPT-BP generated 2e-ORR catalysts with over 95% composition and adsorption validity, and successfully suggested novel, unique catalysts not present in the training data.",
+      "Out of 1,000 generated 2e-ORR catalyst structures, 133 were unique and novel, and 10 were validated by density functional theory calculations to meet activity and selectivity criteria."
+    ],
+    "baselines": [
+      "Validation set from OC20-S2EF Val-ID dataset: Used as ground truth for coverage and property distribution metrics.",
+      "CatGPT without bypass: Used to compare the effect of the bypass method on structural validity."
+    ],
+    "benchmark_datasets": [
+      "OC20-S2EF 2M dataset: Contains two million catalyst structures with surface and adsorbate atoms, used for training CatGPT and anomaly detection models.",
+      "OC20-S2EF Val-ID dataset: Used as the validation set for evaluating generative performance and as ground truth for coverage and property distribution."
+    ],
+    "evaluation_metrics": [
+      "Generation validity: Ratio of valid atomic structures to generated structures.",
+      "Structural validity: Checks for overlapping atoms based on atomic distance and cell volume.",
+      "Catalyst validity: Determined by the anomaly detection model, classifying structures as valid or anomalous.",
+      "Coverage (Recall and Precision): Measures structural and compositional similarity between generated and ground-truth structures using vectorized fingerprints.",
+      "Property distribution (Earth Mover’s Distance): Compares distributions of properties (density and number of unique elements) between generated and ground-truth sets.",
+      "2e-ORR validity (composition and adsorption validity): Checks if generated structures satisfy specific rules for 2e-ORR catalysts.",
+      "Uniqueness and novelty: Proportion of unique and novel validly generated structures."
+    ],
+    "evidence": [
+      "The results demonstrated that CatGPT performs exceptionally well in generating high-quality catalyst structures and accurately retrieving a distribution similar to the validation set as evidenced by nearly perfect precision and recall scores, respectively.",
+      "The generative model with this feature, named CatGPT-BP, shows perfect structural validity with only a minimal decrease in the catalyst validity score.",
+      "Particularly, a composition and adsorption validity score of over 0.95 indicates that the model successfully learns the rules of the fine-tuning dataset and generates appropriate catalyst structures for 2e-ORR with only about 1,700 fine-tuning data points.",
+      "From the 1,000 generated catalyst structures with a temperature parameter of 1.5, 968 structures were successfully converted into atomic structures in 3D space, and 858 structures satisfied all validity metrics. Among these valid structures, we identified 133 unique and novel structures. ... Among them, 10 catalyst structures were successfully optimized within a time constraint (24 hours or 999 relaxation steps) (Fig. 3a and b). DFT results confirmed that all these structures met the activity and selectivity criteria, with five exhibiting significant 2e-ORR activity in the range of 4.22 ± 0.2 eV (Fig. 3c).",
+      "To calculate coverage and property distributions of the generated structures, 10,000 randomly sampled structures from the validation set (OC20 S2EF Val-ID dataset) were used as the ground truth.",
+      "Coverage assesses the structural and compositional similarity between the ensemble of generated and the ground truth structures, while property distribution evaluates the similarity in property distributions between generated and ground-truth structures.",
+      "Uniqueness is the proportion of validly generated structures that are unique (Nunique/Nvalid), while novelty is the proportion of validly generated structures that are not contained in the training set (Nnovel/Nvalid)."
+    ]
+  },
+  "limitations": {
+    "limitations": [
+      {
+        "label": "Bulk Crystal Recovery Challenge",
+        "explanation": "It is very challenging to recover bulk crystals from generated catalyst structures, making it infeasible to obtain bulk information and evaluate bulk properties such as space group and formation energy.",
+        "evidence": "While catalysts can be easily modeled using generated crystal structures from crystal generative models, it is very challenging to recover bulk crystals from generated catalyst structures. This makes it infeasible to obtain bulk information and evaluate bulk properties such as space group and formation energy, which are important for proposing novel catalysts, requiring a development of new models to achieve these goals."
+      },
+      {
+        "label": "Limited Elemental Diversity Expansion",
+        "explanation": "CatGPT struggles to suggest new combinations outside of the training data, restricting the model's role in expanding elemental diversity.",
+        "evidence": "Furthermore, although the CatGPT generates new structures, it struggles to suggest new combinations outside of the training data, restricting the model's role in expanding elemental diversity."
+      },
+      {
+        "label": "Extrapolation Weakness",
+        "explanation": "The fine-tuned model is weak in extrapolating validly generated out-of-domain catalyst structures whose lattice parameters are not covered in the fine-tuning dataset distribution.",
+        "evidence": "However, the proportion of invalid structures also increased, with around 60 % of structures being classified as anomalous based on catalytic validity metric (Table 3). This result indicates that the fine-tuned model is weak in extrapolating validly generated out-of-domain catalyst structures whose lattice parameters are not covered in the fine-tuning dataset distribution."
+      }
+    ],
+    "evidence": [
+      "While catalysts can be easily modeled using generated crystal structures from crystal generative models, it is very challenging to recover bulk crystals from generated catalyst structures. This makes it infeasible to obtain bulk information and evaluate bulk properties such as space group and formation energy, which are important for proposing novel catalysts, requiring a development of new models to achieve these goals.",
+      "Furthermore, although the CatGPT generates new structures, it struggles to suggest new combinations outside of the training data, restricting the model's role in expanding elemental diversity.",
+      "However, the proportion of invalid structures also increased, with around 60 % of structures being classified as anomalous based on catalytic validity metric (Table 3). This result indicates that the fine-tuned model is weak in extrapolating validly generated out-of-domain catalyst structures whose lattice parameters are not covered in the fine-tuning dataset distribution."
+    ]
+  },
+  "future_directions": {
+    "future_directions": [
+      "Development of new models to recover bulk crystals from generated catalyst structures, enabling evaluation of bulk properties such as space group and formation energy.",
+      "Application of prompt engineering approaches to enhance the functional flexibility of large language models for catalyst discovery.",
+      "Exploration of conditional generation strategies, such as elemental substitution via infilling tasks, to expand structural and compositional chemical space.",
+      "Leveraging other large language model strategies for inorganic materials to further improve catalyst system generation."
+    ],
+    "evidence": [
+      "This makes it infeasible to obtain bulk information and evaluate bulk properties such as space group and formation energy, which are important for proposing novel catalysts, requiring a development of new models to achieve these goals.",
+      "We noticed that a prompt engineering approach can enhance the functional flexibility of LLMs.39 For example, Gruver et al. showed that elemental substitution via the infilling task of fine-tuned LLMs resulted in a higher percentage of materials with desired properties compared to random substitution, indicating the potential for conditional generation with structural and compositional chemical space expansion.24 Other strategies to leverage LLMs for inorganic materials can also be applied to catalyst systems.40, 41"
+    ]
+  },
+  "resource_link": {
+    "answer": "https://github.com/SeoinBack/CatGPT",
+    "evidence": "The code developed in this work and relevant information can be found in Github (https://github.com/SeoinBack/CatGPT)."
+  },
+  "paper_title": "Generative Language Model for Catalyst Discovery",
+  "authors": [
+    "Dong Hyeon",
+    "Seoin"
+  ],
+  "published": "2024-12-11",
+  "link": "http://arxiv.org/abs/2407.14040"
+}
