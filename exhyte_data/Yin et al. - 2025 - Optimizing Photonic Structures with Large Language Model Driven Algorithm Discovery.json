@@ -1,0 +1,358 @@
+{
+  "Inputs to the workflow": {
+    "performed": "Yes",
+    "User provide high-level research direction or goal": {
+      "performed": "Yes",
+      "Format": "Natural language problem statements and research objectives.",
+      "Example": "Optimization of photonic structures such as Bragg mirrors, ellipsometry inverse analysis, and solar cell antireflection coatings.",
+      "Role in workflow": "Defines the scope and target problems for the automated algorithm discovery process."
+    },
+    "User provide structured, domain-specific specifications": {
+      "performed": "Yes",
+      "Format": "Parameter ranges, material properties, layer counts, and physical constraints.",
+      "Example": "Layer thickness ranges, permittivity values, number of layers for each photonic structure problem.",
+      "Role in workflow": "Constrains the search space and guides algorithm generation for each optimization task."
+    },
+    "User provide research papers": {
+      "performed": "Yes",
+      "Format": "References to domain literature and tutorials.",
+      "Example": "Summaries and insights are generated after reading 'Illustrated tutorial on global optimization in nanophotonics' [3].",
+      "Role in workflow": "Provides grounding for problem descriptions and algorithmic insights used in LLM prompts."
+    },
+    "User provide datasets other than research papers": {
+      "performed": "No"
+    },
+    "User provide representations or formal inputs": {
+      "performed": "Yes",
+      "Format": "Python code templates, problem instance definitions, and formalized prompts.",
+      "Example": "Task prompts specifying Python class/function signatures for optimization algorithms.",
+      "Role in workflow": "Ensures generated algorithms are executable and compatible with the benchmarking framework."
+    }
+  },
+  "Query Structuring": {
+    "performed": "Yes",
+    "Query Decomposition": {
+      "performed": "Yes",
+      "Method details": "LLM prompts are structured into subfields: problem description and algorithmic insight, each targeting specific aspects of the optimization task.",
+      "Inputs": "High-level task prompt, meta-prompts for problem and algorithmic insight.",
+      "Outputs": "Structured prompts with separated problem and algorithmic guidance.",
+      "Example": "Task prompt includes <problem description> and <algorithmic insight> fields.",
+      "Role in workflow": "Focuses LLM output on relevant domain knowledge and optimization strategies."
+    },
+    "Structural or Entity Decomposition": {
+      "performed": "No"
+    },
+    "Workflow Decomposition": {
+      "performed": "No"
+    },
+    "Textual or Knowledge Embedding": {
+      "performed": "No"
+    },
+    "Molecular or Chemical Embedding": {
+      "performed": "No"
+    },
+    "Biological or Phenotypic Embedding": {
+      "performed": "No"
+    },
+    "Pattern and Feature Extraction": {
+      "performed": "No"
+    },
+    "Biological Relationship Extraction": {
+      "performed": "No"
+    },
+    "Property and Annotation Extraction": {
+      "performed": "No"
+    },
+    "Sequence and Structure Feature Extraction": {
+      "performed": "No"
+    }
+  },
+  "Data Retrieval": {
+    "performed": "Yes",
+    "Data Retrieval via Multi-Query Generation and Exploration": {
+      "performed": "Yes",
+      "Method details": "Meta-prompts are sent to GPT-4o to generate summaries and algorithmic insights for each photonic problem.",
+      "Inputs": "Reference to tutorial paper and problem names.",
+      "Outputs": "Problem-specific summaries and insights.",
+      "Example": "Meta-prompt: 'Please read Illustrated tutorial on global optimization in nanophotonics first [3]. Then, give me summaries...'",
+      "Role in workflow": "Expands the context for LLM-based algorithm generation by generating multiple focused queries."
+    },
+    "Literature and Data Retrieval via APIs": {
+      "performed": "No"
+    },
+    "Data Retrieval with Prioritization and Filtering Agents": {
+      "performed": "No"
+    },
+    "Domain-Specific Data Retrieval and Reasoning": {
+      "performed": "No"
+    },
+    "Code-Driven or Tool-Augmented Data Retrieval": {
+      "performed": "No"
+    },
+    "Literature data Retrieval Citation-Network–Based Expansion": {
+      "performed": "No"
+    },
+    "Literature data Retrieval via Semantic and Similarity-Based analysis": {
+      "performed": "No"
+    },
+    "Literature data Retrieval via Multi-Step Reference and Evidence Selection": {
+      "performed": "No"
+    },
+    "Domain-Specific Literature data Retrieval": {
+      "performed": "No"
+    },
+    "Manual and Semi-Automatic Curation of Literature data": {
+      "performed": "No"
+    },
+    "Structural or Similarity-Based Dataset Retrieval": {
+      "performed": "No"
+    },
+    "Data Retrieval via Domain-Specific Repository Querying": {
+      "performed": "No"
+    },
+    "Library Assembly and Data Augmentation": {
+      "performed": "No"
+    }
+  },
+  "Knowledge Assembly": {
+    "performed": "Yes",
+    "Standardized Section Extraction from Literature data": {
+      "performed": "No"
+    },
+    "Concise Synopsis and Summarization of Literature data": {
+      "performed": "Yes",
+      "Method details": "LLM generates concise summaries of each photonic optimization problem from the referenced tutorial.",
+      "Inputs": "Meta-prompts referencing the tutorial paper.",
+      "Outputs": "Short, structured problem descriptions.",
+      "Example": "Summaries of Bragg mirror, ellipsometry, and photovoltaics problems generated for prompt inclusion.",
+      "Role in workflow": "Provides distilled, relevant context for LLM-driven algorithm generation."
+    },
+    "Facet-Based or Field-Specific Extraction from Literature data": {
+      "performed": "Yes",
+      "Method details": "Algorithmic insights are extracted as a separate field, focusing on optimization strategies and domain knowledge.",
+      "Inputs": "Meta-prompts to GPT-4o for algorithmic insights.",
+      "Outputs": "Field-specific guidance for algorithm design.",
+      "Example": "Algorithmic insight for Bragg mirror: suggestions for leveraging periodicity, modularity, and hybrid optimization.",
+      "Role in workflow": "Guides LLM to generate algorithms tailored to domain-specific challenges."
+    },
+    "Domain-Tailored Extraction from Literature data": {
+      "performed": "Yes",
+      "Method details": "Extraction of domain-specific optimization strategies and physical principles for each problem.",
+      "Inputs": "Tutorial paper and expert prompts.",
+      "Outputs": "Problem-specific algorithmic insights.",
+      "Example": "Ellipsometry insight: recommend local optimization due to smooth cost function.",
+      "Role in workflow": "Ensures generated algorithms are physically meaningful and problem-appropriate."
+    },
+    "Task/Entity-Centric Knowledge Graphs": {
+      "performed": "No"
+    },
+    "Causal or Relation-Specific Knowledge Graphs": {
+      "performed": "No"
+    },
+    "Biomedical or Domain-Specific Interaction Graphs": {
+      "performed": "No"
+    },
+    "Literature Database Construction": {
+      "performed": "No"
+    },
+    "Entity- or Co-Occurrence–Based Databases": {
+      "performed": "No"
+    },
+    "Reasoning-Chain or Temporal Databases for Literature": {
+      "performed": "No"
+    }
+  },
+  "Hypothesis/Idea Generation": {
+    "performed": "Yes",
+    "Idea/hypothesis generation without additional literature or dataset as context": {
+      "performed": "Yes",
+      "Method details": "LLM (GPT-4o) generates candidate optimization algorithms using only structured prompts and internal knowledge.",
+      "Inputs": "Task prompt, problem description, algorithmic insight.",
+      "Outputs": "Python code for optimization algorithms.",
+      "Example": "LLM generates a novel heuristic algorithm for Bragg mirror optimization.",
+      "Role in workflow": "Produces candidate algorithms for photonic structure optimization."
+    },
+    "LLM Agent Generate ideas/hypotheses via Task Decomposition": {
+      "performed": "No"
+    },
+    "Generate ideas/hypotheses using Domain-Specialized LLM Agent": {
+      "performed": "Yes",
+      "Method details": "LLM is guided by domain-specific prompts containing physical and algorithmic insights.",
+      "Inputs": "Structured prompts with domain knowledge.",
+      "Outputs": "Algorithms tailored to photonic optimization tasks.",
+      "Example": "Prompt includes guidance to use global-local hybrid optimization for Bragg mirror.",
+      "Role in workflow": "Aligns algorithm generation with domain best practices."
+    },
+    "Literature data used during idea/hypothesis generation as context": {
+      "performed": "Yes",
+      "Method details": "Summaries and insights derived from literature are included in prompts to guide LLM output.",
+      "Inputs": "Extracted problem descriptions and algorithmic insights from tutorial.",
+      "Outputs": "Context-aware algorithm proposals.",
+      "Example": "Prompt for photovoltaic problem includes literature-derived optimization challenges.",
+      "Role in workflow": "Ensures LLM-generated algorithms are informed by prior research."
+    },
+    "Summarization Literature data used during idea/hypothesis generation": {
+      "performed": "Yes",
+      "Method details": "Concise summaries from literature are embedded in prompts to inform LLM.",
+      "Inputs": "Summarized problem descriptions.",
+      "Outputs": "Literature-informed algorithm generation.",
+      "Example": "Bragg mirror summary included in LLM prompt.",
+      "Role in workflow": "Provides relevant context for hypothesis (algorithm) generation."
+    },
+    "Idea/hypothesis generation via Facet Recombination": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation via contructed Reasoning-Chain from literature": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation via Knowledge Graph developed from literature": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation via Pattern Detection from dataset": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation via Few-Shot Data Seeding": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation using Observational data": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation via Feature-Driven Property Prediction": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation after Fine-Tuning the LLM model": {
+      "performed": "No"
+    }
+  },
+  "Hypothesis/Idea Prioritization": {
+    "performed": "Yes",
+    "LLM-based Hypothesis/Idea evaluation via Scientific Quality": {
+      "performed": "No"
+    },
+    "LLM-based Hypothesis/Idea evaluation via Domain-Specific Evaluation": {
+      "performed": "No"
+    },
+    "LLM-based Hypothesis/Idea evaluation via Contextual Evidence Scoring": {
+      "performed": "No"
+    },
+    "LLM-based Hypothesis/Idea evaluation via Interpretability or Success Metrics": {
+      "performed": "No"
+    },
+    "Hypothesis/Idea evaluation via Novelty Checking with Literature Comparison": {
+      "performed": "No"
+    },
+    "Hypothesis/Idea evaluation via Alignment with Literature Chains": {
+      "performed": "No"
+    },
+    "Hypothesis/Idea evaluation via Knowledge-Graph Grounded Similarity Metrics": {
+      "performed": "No"
+    },
+    "Hypothesis/Idea evaluation via Quantitative Assessment Using Domain Metrics": {
+      "performed": "Yes",
+      "Method details": "Algorithms are evaluated using AOCC (Area Over the Convergence Curve) and final fitness values on benchmark problems.",
+      "Inputs": "Generated algorithms, benchmark problem instances, AOCC metric.",
+      "Outputs": "Quantitative performance scores for each algorithm.",
+      "Example": "Algorithms ranked by AOCC and best fitness on mini-Bragg, ellipsometry, and photovoltaic tasks.",
+      "Role in workflow": "Selects top-performing algorithms for further benchmarking and analysis."
+    },
+    "Hypothesis/Idea evaluation via Human/Expert": {
+      "performed": "No"
+    }
+  },
+  "Test": {
+    "performed": "Yes",
+    "Experimental Design Generation via literature-Grounded Model/Protocol Selection": {
+      "performed": "No"
+    },
+    "Experimental Design Generation via Literature Synthesis for New Protocol Generation": {
+      "performed": "No"
+    },
+    "Experimental Design Generation via Few-Shot or Example-Based Prompting": {
+      "performed": "No"
+    },
+    "Experimental Design Generation via Executable Code Generation from Literature": {
+      "performed": "Yes",
+      "Method details": "LLM generates Python code for optimization algorithms based on literature-derived prompts.",
+      "Inputs": "Structured prompts with problem and algorithmic context.",
+      "Outputs": "Executable Python optimization algorithms.",
+      "Example": "LLM outputs Python class with __init__ and __call__ methods for black-box optimization.",
+      "Role in workflow": "Enables direct computational testing of generated algorithms."
+    },
+    "LLM-Based Experimental Design Generation via Agentic Exploration and Planning": {
+      "performed": "No"
+    },
+    "LLM-Based Experimental Design Generation via Code and Workflow Translation": {
+      "performed": "Yes",
+      "Method details": "LLM translates structured prompts into executable optimization code compatible with benchmarking frameworks.",
+      "Inputs": "Task prompt specifying code structure.",
+      "Outputs": "Python code implementing optimization logic.",
+      "Example": "LLM-generated code for a DE-based optimizer for Bragg mirror.",
+      "Role in workflow": "Automates the implementation of candidate algorithms for evaluation."
+    },
+    "LLM-Based Experimental Design Generation via Multi-Agent Planning with Specialized Roles": {
+      "performed": "No"
+    },
+    "LLM-Based Experimental Design Generation via Domain-Specific Experimental Mapping": {
+      "performed": "No"
+    },
+    "Test Execution via Human-in-the-Loop": {
+      "performed": "No"
+    },
+    "Test Execution via Automated Wet-Lab Execution": {
+      "performed": "No"
+    },
+    "Test Execution via Computational or In-Silico": {
+      "performed": "Yes",
+      "Method details": "Generated algorithms are tested on simulated photonic optimization problems using PyMoosh and IOHexperimenter.",
+      "Inputs": "Python code for algorithms, problem instances, simulation toolkit.",
+      "Outputs": "Performance metrics (AOCC, best fitness) for each algorithm.",
+      "Example": "Algorithm tested on mini-Bragg instance with 10,000 evaluations.",
+      "Role in workflow": "Validates algorithm performance in a controlled, reproducible computational environment."
+    },
+    "Refinement via LLM Agent Feedback Loops": {
+      "performed": "Yes",
+      "Method details": "LLM receives feedback (AOCC, best fitness) after each test and uses it to iteratively improve algorithms.",
+      "Inputs": "Performance metrics from test runs.",
+      "Outputs": "Refined algorithm code proposals.",
+      "Example": "Feedback prompt: 'The algorithm <name> got an average AOCC score of <aocc_score>...'",
+      "Role in workflow": "Enables iterative improvement and convergence of algorithm quality."
+    },
+    "Refinement via Automated Quality Evaluation using Model-Based Critics": {
+      "performed": "No"
+    },
+    "Refinement via Dynamic Agent Updating Based on Evolving Context or Data": {
+      "performed": "No"
+    },
+    "Refinement via guided by computational-data": {
+      "performed": "Yes",
+      "Method details": "Algorithm refinement is guided by quantitative performance metrics from computational tests.",
+      "Inputs": "AOCC, best fitness values from test runs.",
+      "Outputs": "Improved algorithm proposals.",
+      "Example": "LLM uses AOCC and fitness to guide mutation and selection in evolutionary search.",
+      "Role in workflow": "Ensures only high-performing algorithms are retained and further improved."
+    },
+    "Refinement via experimental validation": {
+      "performed": "No"
+    },
+    "Refinement via Performance-metric": {
+      "performed": "Yes",
+      "Method details": "Performance metrics (AOCC, best fitness) directly inform algorithm selection and further refinement.",
+      "Inputs": "Quantitative test results.",
+      "Outputs": "Selection of top algorithms for benchmarking.",
+      "Example": "Top 3 algorithms by AOCC are benchmarked against state-of-the-art methods.",
+      "Role in workflow": "Drives the evolutionary improvement and final selection of algorithms."
+    },
+    "Refinement via Human–data integration": {
+      "performed": "No"
+    }
+  },
+  "paper_title": "Optimizing Photonic Structures with Large Language Model Driven Algorithm Discovery",
+  "authors": [
+    "Haoran",
+    "Anna V.",
+    "Thomas",
+    "Niki van"
+  ],
+  "published": "2025-03-25",
+  "link": "http://arxiv.org/abs/2503.19742"
+}

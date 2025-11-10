@@ -1,0 +1,303 @@
+{
+  "Inputs to the workflow": {
+    "performed": "Yes",
+    "User provide high-level research direction or goal": {
+      "performed": "Yes",
+      "Format": "Seed term and background context provided as input.",
+      "Example": "Seed Term: Hierarchical table dataset; Context: Tables are often created with hierarchies...",
+      "Role in workflow": "Defines the focus for hypothesis generation and constrains the model's output."
+    },
+    "User provide structured, domain-specific specifications": {
+      "performed": "No"
+    },
+    "User provide research papers": {
+      "performed": "Yes",
+      "Format": "ACL Anthology papers from S2ORC, segmented into background and target sentences.",
+      "Example": "67,408 ACL Anthology papers published between 1952 and 2022.",
+      "Role in workflow": "Provides literature grounding for extracting background, seed, and target information."
+    },
+    "User provide datasets other than research papers": {
+      "performed": "No"
+    },
+    "User provide representations or formal inputs": {
+      "performed": "No"
+    }
+  },
+  "Query Structuring": {
+    "performed": "Yes",
+    "Query Decomposition": {
+      "performed": "Yes",
+      "Method details": "Abstracts are split into background and target sentences using a sentence classification model.",
+      "Inputs": "Paper abstracts from ACL Anthology.",
+      "Outputs": "Pairs of background and target sentences.",
+      "Example": "Background sentences (B) and Target sentences (T) formed for training.",
+      "Role in workflow": "Enables focused hypothesis generation by separating context from the desired output."
+    },
+    "Structural or Entity Decomposition": {
+      "performed": "Yes",
+      "Method details": "PL-Marker extracts entities (Task, Method, etc.) and their relationships; SciCo performs coreference resolution.",
+      "Inputs": "Paper abstracts.",
+      "Outputs": "Normalized entities and their relationships.",
+      "Example": "Entities like Task, Method, Evaluation Metric extracted from abstracts.",
+      "Role in workflow": "Identifies and normalizes scientific entities for structured input to the model."
+    },
+    "Workflow Decomposition": {
+      "performed": "No"
+    },
+    "Textual or Knowledge Embedding": {
+      "performed": "Yes",
+      "Method details": "Semantic neighbors are found using sentence embeddings for inspiration retrieval.",
+      "Inputs": "Background context and seed term.",
+      "Outputs": "Semantically similar problems and ideas.",
+      "Example": "Semantic Neighbors: Finds similar problems and ideas in the training set based on sentence embeddings.",
+      "Role in workflow": "Supports retrieval of relevant inspirations for hypothesis generation."
+    },
+    "Molecular or Chemical Embedding": {
+      "performed": "No"
+    },
+    "Biological or Phenotypic Embedding": {
+      "performed": "No"
+    },
+    "Pattern and Feature Extraction": {
+      "performed": "No"
+    },
+    "Biological Relationship Extraction": {
+      "performed": "No"
+    },
+    "Property and Annotation Extraction": {
+      "performed": "No"
+    },
+    "Sequence and Structure Feature Extraction": {
+      "performed": "No"
+    }
+  },
+  "Data Retrieval": {
+    "performed": "Yes",
+    "Data Retrieval via Multi-Query Generation and Exploration": {
+      "performed": "No"
+    },
+    "Literature and Data Retrieval via APIs": {
+      "performed": "No"
+    },
+    "Data Retrieval with Prioritization and Filtering Agents": {
+      "performed": "No"
+    },
+    "Domain-Specific Data Retrieval and Reasoning": {
+      "performed": "No"
+    },
+    "Code-Driven or Tool-Augmented Data Retrieval": {
+      "performed": "No"
+    },
+    "Literature data Retrieval Citation-Network–Based Expansion": {
+      "performed": "Yes",
+      "Method details": "Citation neighbors are retrieved from the citation network of the input paper.",
+      "Inputs": "Input paper's citation network.",
+      "Outputs": "Relevant paper titles from citation network.",
+      "Example": "Citation networks contain 87k paper titles.",
+      "Role in workflow": "Provides additional literature context for inspiration retrieval."
+    },
+    "Literature data Retrieval via Semantic and Similarity-Based analysis": {
+      "performed": "Yes",
+      "Method details": "Semantic neighbors are identified using sentence embeddings.",
+      "Inputs": "Background context and seed term.",
+      "Outputs": "Semantically similar problems and ideas.",
+      "Example": "Semantic Neighbors: Finds similar problems and ideas in the training set.",
+      "Role in workflow": "Enables retrieval of related literature for grounding hypothesis generation."
+    },
+    "Literature data Retrieval via Multi-Step Reference and Evidence Selection": {
+      "performed": "No"
+    },
+    "Domain-Specific Literature data Retrieval": {
+      "performed": "Yes",
+      "Method details": "Knowledge graph neighbors are retrieved from a background KG built from the text dataset.",
+      "Inputs": "Background knowledge graph with 197k nodes and 261k relations.",
+      "Outputs": "Related concepts from the KG.",
+      "Example": "KG neighbors: Retrieves related concepts from a background knowledge graph.",
+      "Role in workflow": "Augments context with structured domain knowledge."
+    },
+    "Manual and Semi-Automatic Curation of Literature data": {
+      "performed": "Yes",
+      "Method details": "Manual annotation of test set to ensure strong relevance between seed and target terms.",
+      "Inputs": "Test set instances.",
+      "Outputs": "High-quality gold test set with 194 instances.",
+      "Example": "Instances manually annotated for relevance.",
+      "Role in workflow": "Ensures evaluation quality and dataset reliability."
+    },
+    "Structural or Similarity-Based Dataset Retrieval": {
+      "performed": "No"
+    },
+    "Data Retrieval via Domain-Specific Repository Querying": {
+      "performed": "No"
+    },
+    "Library Assembly and Data Augmentation": {
+      "performed": "No"
+    }
+  },
+  "Knowledge Assembly": {
+    "performed": "Yes",
+    "Standardized Section Extraction from Literature data": {
+      "performed": "Yes",
+      "Method details": "Sentence classification model segments abstracts into Background, Method, Objective, Other, and Result.",
+      "Inputs": "Paper abstracts.",
+      "Outputs": "Categorized sentences.",
+      "Example": "Abstracts categorized into Background and Target sentences.",
+      "Role in workflow": "Normalizes literature for structured downstream processing."
+    },
+    "Concise Synopsis and Summarization of Literature data": {
+      "performed": "No"
+    },
+    "Facet-Based or Field-Specific Extraction from Literature data": {
+      "performed": "Yes",
+      "Method details": "PL-Marker extracts entities and their relationships; Target sentences selected from Methods and Objectives.",
+      "Inputs": "Paper abstracts.",
+      "Outputs": "Extracted entities and field-specific sentences.",
+      "Example": "Entities like Task, Method, Evaluation Metric extracted.",
+      "Role in workflow": "Provides structured elements for hypothesis generation."
+    },
+    "Domain-Tailored Extraction from Literature data": {
+      "performed": "No"
+    },
+    "Task/Entity-Centric Knowledge Graphs": {
+      "performed": "Yes",
+      "Method details": "Background knowledge graph constructed from text dataset with nodes and relations.",
+      "Inputs": "Extracted entities and relationships.",
+      "Outputs": "Knowledge graph with 197k nodes, 261k relations.",
+      "Example": "KG neighbors retrieved for inspiration.",
+      "Role in workflow": "Enables structured retrieval and context augmentation."
+    },
+    "Causal or Relation-Specific Knowledge Graphs": {
+      "performed": "No"
+    },
+    "Biomedical or Domain-Specific Interaction Graphs": {
+      "performed": "No"
+    },
+    "Literature Database Construction": {
+      "performed": "Yes",
+      "Method details": "Papers curated from ACL Anthology, filtered for English and available abstracts, segmented and stored.",
+      "Inputs": "ACL Anthology papers from S2ORC.",
+      "Outputs": "Structured literature database.",
+      "Example": "67,408 papers processed and stored for retrieval.",
+      "Role in workflow": "Provides the foundational dataset for all downstream tasks."
+    },
+    "Entity- or Co-Occurrence–Based Databases": {
+      "performed": "No"
+    },
+    "Reasoning-Chain or Temporal Databases for Literature": {
+      "performed": "No"
+    }
+  },
+  "Hypothesis/Idea Generation": {
+    "performed": "Yes",
+    "Idea/hypothesis generation without additional literature or dataset as context": {
+      "performed": "No"
+    },
+    "LLM Agent Generate ideas/hypotheses via Task Decomposition": {
+      "performed": "No"
+    },
+    "Generate ideas/hypotheses using Domain-Specialized LLM Agent": {
+      "performed": "No"
+    },
+    "Literature data used during idea/hypothesis generation as context": {
+      "performed": "Yes",
+      "Method details": "Generation module uses background context, seed term, and inspirations from literature, KG, and citation network.",
+      "Inputs": "Background, seed term, retrieved inspirations.",
+      "Outputs": "Generated hypothesis/idea sentences.",
+      "Example": "Mamba or T5 generates ideas using context and inspirations.",
+      "Role in workflow": "Grounds hypothesis generation in literature-derived context."
+    },
+    "Summarization Literature data used during idea/hypothesis generation": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation via Facet Recombination": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation via contructed Reasoning-Chain from literature": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation via Knowledge Graph developed from literature": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation via Pattern Detection from dataset": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation via Few-Shot Data Seeding": {
+      "performed": "Yes",
+      "Method details": "Few-shot prompting with GPT-4; small sets of input-output pairs provided.",
+      "Inputs": "Few-shot examples (seed, background, target).",
+      "Outputs": "Generated hypotheses.",
+      "Example": "GPT-4 used in few-shot settings for hypothesis generation.",
+      "Role in workflow": "Induces hypothesis generation by example."
+    },
+    "Idea/hypothesis generation using Observational data": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation via Feature-Driven Property Prediction": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation after Fine-Tuning the LLM model": {
+      "performed": "Yes",
+      "Method details": "T5 and Mamba models fine-tuned on (background, target) pairs from literature.",
+      "Inputs": "Curated training pairs from ACL Anthology.",
+      "Outputs": "Fine-tuned models generating hypotheses.",
+      "Example": "Mamba-790M and T5-large fine-tuned for hypothesis generation.",
+      "Role in workflow": "Improves model's ability to generate relevant, novel hypotheses."
+    }
+  },
+  "Hypothesis/Idea Prioritization": {
+    "performed": "Yes",
+    "LLM-based Hypothesis/Idea evaluation via Scientific Quality": {
+      "performed": "Yes",
+      "Method details": "Claude-3.5 LLM evaluates generated hypotheses for relevance, novelty, scientific soundness, and clarity.",
+      "Inputs": "Generated hypotheses, background, seed term.",
+      "Outputs": "Ratings (effective/ineffective) with justification.",
+      "Example": "Claude-3.5 assigns ratings and justifications in JSON format.",
+      "Role in workflow": "Automates quality assessment of generated hypotheses."
+    },
+    "LLM-based Hypothesis/Idea evaluation via Domain-Specific Evaluation": {
+      "performed": "No"
+    },
+    "LLM-based Hypothesis/Idea evaluation via Contextual Evidence Scoring": {
+      "performed": "No"
+    },
+    "LLM-based Hypothesis/Idea evaluation via Interpretability or Success Metrics": {
+      "performed": "No"
+    },
+    "Hypothesis/Idea evaluation via Novelty Checking with Literature Comparison": {
+      "performed": "Yes",
+      "Method details": "Iterative novelty boosting compares generated ideas to similar ideas in the reference corpus; updates if too similar.",
+      "Inputs": "Generated idea, reference corpus.",
+      "Outputs": "Updated, more novel ideas.",
+      "Example": "Model instructed to update idea until sufficient novelty is achieved.",
+      "Role in workflow": "Ensures generated hypotheses are distinct from prior work."
+    },
+    "Hypothesis/Idea evaluation via Alignment with Literature Chains": {
+      "performed": "No"
+    },
+    "Hypothesis/Idea evaluation via Knowledge-Graph Grounded Similarity Metrics": {
+      "performed": "No"
+    },
+    "Hypothesis/Idea evaluation via Quantitative Assessment Using Domain Metrics": {
+      "performed": "No"
+    },
+    "Hypothesis/Idea evaluation via Human/Expert": {
+      "performed": "Yes",
+      "Method details": "Five NLP experts independently rate hypotheses for relevance, novelty, validity, and clarity.",
+      "Inputs": "Generated hypotheses, background, seed term.",
+      "Outputs": "Expert ratings (effective/ineffective).",
+      "Example": "Experts rate 100 randomly selected challenge set questions.",
+      "Role in workflow": "Provides human judgment for model evaluation."
+    }
+  },
+  "Test": {
+    "performed": "No"
+  },
+  "paper_title": "Exploring Scientific Hypothesis Generation with Mamba",
+  "authors": [
+    "Miaosen",
+    "Emily",
+    "Erick",
+    "Tirthankar"
+  ],
+  "published": "2024-11",
+  "link": "https://aclanthology.org/2024.nlp4science-1.17/"
+}

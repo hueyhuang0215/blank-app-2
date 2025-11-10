@@ -1,0 +1,195 @@
+{
+  "Inputs to the workflow": {
+    "performed": "Yes",
+    "User provide high-level research direction or goal": {
+      "performed": "Yes",
+      "Format": "Natural language prompts specifying desired drug property changes or editing objectives.",
+      "Example": "Can you make molecule [SMILES] more soluble in water?",
+      "Role in workflow": "Defines the editing goal for the LLM-driven drug optimization process."
+    },
+    "User provide structured, domain-specific specifications": {
+      "performed": "Yes",
+      "Format": "Text prompts with explicit property requirements (e.g., solubility, permeability, binding affinity).",
+      "Example": "We want a peptide that binds to [target allele].",
+      "Role in workflow": "Constrains the optimization or editing task to domain-relevant objectives."
+    },
+    "User provide datasets other than research papers": {
+      "performed": "Yes",
+      "Format": "Domain datasets: ZINC molecules (SMILES), peptide-MHC binding data, protein sequences.",
+      "Example": "200 and 10K molecules from ZINC as input and retrieval DB; peptide-MHC binding affinity dataset.",
+      "Role in workflow": "Provides input compounds and retrieval databases for editing and similarity search."
+    },
+    "User provide representations or formal inputs": {
+      "performed": "Yes",
+      "Format": "SMILES strings for molecules, amino acid sequences for peptides/proteins.",
+      "Example": "Input molecule: O=C(NC[C@H]1CCCO1)c1ccccc1N1CCCC1=O",
+      "Role in workflow": "Serves as the formal input for LLM-driven editing and retrieval."
+    }
+  },
+  "Query Structuring": {
+    "performed": "Yes",
+    "Query Decomposition": {
+      "performed": "Yes",
+      "Method details": "Prompts are decomposed into property-specific sub-tasks (e.g., solubility, permeability, binding affinity).",
+      "Inputs": "User-provided high-level editing goals.",
+      "Outputs": "Task-specific prompts for LLM (e.g., 'more soluble in water and more hydrogen bond donors').",
+      "Example": "Multi-objective editing: 'Can you make molecule [SMILES] more soluble in water and more hydrogen bond donors?'",
+      "Role in workflow": "Enables targeted editing by focusing on specific molecular or biological properties."
+    },
+    "Structural or Entity Decomposition": {
+      "performed": "Yes",
+      "Method details": "LLM identifies and manipulates key substructures (e.g., functional groups, peptide motifs, protein secondary structures).",
+      "Inputs": "Input molecule/peptide/protein representations.",
+      "Outputs": "Edited entities with modified substructures.",
+      "Example": "Changing a methyl group to an aminoethyl group to increase solubility.",
+      "Role in workflow": "Facilitates property-driven modifications at the substructure level."
+    },
+    "Textual or Knowledge Embedding": {
+      "performed": "Yes",
+      "Method details": "LLM leverages its pretrained knowledge base and in-context examples; ReDF module injects retrieved examples into prompts.",
+      "Inputs": "Task prompts, retrieved similar examples.",
+      "Outputs": "Context-enriched prompts for LLM reasoning.",
+      "Example": "Prompt updated with: 'We find a sequence [xR] which is correct and similar to the molecule you provided.'",
+      "Role in workflow": "Improves LLM performance by providing relevant context and demonstrations."
+    },
+    "Molecular or Chemical Embedding": {
+      "performed": "Yes",
+      "Method details": "Tanimoto similarity for small molecules; Levenshtein distance for peptides/proteins to retrieve similar entities.",
+      "Inputs": "Input and candidate molecules/peptides/proteins.",
+      "Outputs": "Similarity scores guiding retrieval and prompt updates.",
+      "Example": "ReDF retrieves molecules from ZINC DB based on Tanimoto similarity.",
+      "Role in workflow": "Enables similarity-based retrieval for in-context learning and editing."
+    },
+    "Pattern and Feature Extraction": {
+      "performed": "Yes",
+      "Method details": "LLM extracts and summarizes editing rules and motifs from successful examples.",
+      "Inputs": "Examples of successful edits.",
+      "Outputs": "Generalized rules (e.g., 'introduce polar functional groups').",
+      "Example": "ChatDrug extracts five rules for increasing solubility in water.",
+      "Role in workflow": "Provides interpretable knowledge and guides further edits."
+    },
+    "Sequence and Structure Feature Extraction": {
+      "performed": "Yes",
+      "Method details": "For proteins, secondary structure features (helix, strand) are predicted and used as editing targets.",
+      "Inputs": "Protein sequences.",
+      "Outputs": "Predicted secondary structure content (via ProteinCLAP-EBM-NCE, ESMFold).",
+      "Example": "Edit protein to increase helix content; evaluate with structure prediction models.",
+      "Role in workflow": "Informs and evaluates structural edits in protein design tasks."
+    }
+  },
+  "Data Retrieval": {
+    "performed": "Yes",
+    "Structural or Similarity-Based Dataset Retrieval": {
+      "performed": "Yes",
+      "Method details": "ReDF module retrieves structurally similar molecules/peptides/proteins from domain-specific databases using similarity metrics.",
+      "Inputs": "Input entity (SMILES, peptide, or protein sequence), retrieval database (ZINC, peptide-MHC, TAPE).",
+      "Outputs": "Most similar entity satisfying domain feedback.",
+      "Example": "Retrieve similar molecule from ZINC DB using Tanimoto similarity.",
+      "Role in workflow": "Provides relevant examples for in-context learning and prompt refinement."
+    },
+    "Data Retrieval via Domain-Specific Repository Querying": {
+      "performed": "Yes",
+      "Method details": "Sampling from ZINC for molecules, peptide-MHC binding datasets, and TAPE for proteins.",
+      "Inputs": "Domain-specific repositories.",
+      "Outputs": "Input and retrieval datasets for editing tasks.",
+      "Example": "200 and 10K molecules from ZINC; peptide-MHC binding data; TAPE protein sequences.",
+      "Role in workflow": "Supplies the workflow with real-world, domain-relevant data for editing and evaluation."
+    }
+  },
+  "Knowledge Assembly": {
+    "performed": "No"
+  },
+  "Hypothesis/Idea Generation": {
+    "performed": "Yes",
+    "Idea/hypothesis generation without additional literature or dataset as context": {
+      "performed": "Yes",
+      "Method details": "ChatGPT (GPT-3.5-turbo) generates edited molecules/peptides/proteins based on prompts and its pretrained knowledge.",
+      "Inputs": "Input entity and property-driven prompt.",
+      "Outputs": "Edited entity predicted to satisfy desired properties.",
+      "Example": "LLM proposes a new SMILES string with higher solubility.",
+      "Role in workflow": "Core generative step for proposing candidate edits."
+    },
+    "Idea/hypothesis generation via Few-Shot Data Seeding": {
+      "performed": "Yes",
+      "Method details": "ReDF module injects retrieved, correct examples into the prompt as demonstrations for in-context learning.",
+      "Inputs": "Retrieved similar, correct entity and failed candidate.",
+      "Outputs": "Prompt with in-context examples for LLM.",
+      "Example": "Prompt: 'Your provided sequence [x] is not correct. We find a sequence [xR] which is correct and similar...'",
+      "Role in workflow": "Improves generative accuracy by leveraging few-shot learning."
+    },
+    "Idea/hypothesis generation via Feature-Driven Property Prediction": {
+      "performed": "Yes",
+      "Method details": "LLM identifies and modifies key substructures or motifs to achieve property changes.",
+      "Inputs": "Input entity, property prompt.",
+      "Outputs": "Edited entity with predicted improved property.",
+      "Example": "LLM adds polar groups to increase solubility.",
+      "Role in workflow": "Guides edits based on structure-property relationships."
+    }
+  },
+  "Hypothesis/Idea Prioritization": {
+    "performed": "Yes",
+    "LLM-based Hypothesis/Idea evaluation via Domain-Specific Evaluation": {
+      "performed": "Yes",
+      "Method details": "Domain feedback function (D) checks if edited entity satisfies property change using computational tools (e.g., RDKit, MHCflurry2.0, ProteinCLAP-EBM-NCE).",
+      "Inputs": "Input and edited entities, property evaluation tools.",
+      "Outputs": "Boolean indicating success/failure of property change.",
+      "Example": "Evaluate solubility change with RDKit; peptide binding with MHCflurry2.0.",
+      "Role in workflow": "Filters and validates generated edits against domain criteria."
+    },
+    "LLM-based Hypothesis/Idea evaluation via Interpretability or Success Metrics": {
+      "performed": "Yes",
+      "Method details": "LLM provides domain-specific explanations and extracts editing rules from successful cases.",
+      "Inputs": "Successful edits and their context.",
+      "Outputs": "Interpretable rules or rationales.",
+      "Example": "ChatDrug summarizes rules for increasing solubility.",
+      "Role in workflow": "Enhances interpretability and supports informed decision-making."
+    },
+    "Hypothesis/Idea evaluation via Quantitative Assessment Using Domain Metrics": {
+      "performed": "Yes",
+      "Method details": "Quantitative metrics (hit ratio, property thresholds) computed using domain-specific software.",
+      "Inputs": "Input and output entities, property calculators.",
+      "Outputs": "Hit ratios, property scores.",
+      "Example": "Hit ratio for solubility improvement using RDKit.",
+      "Role in workflow": "Provides objective performance assessment for edits."
+    }
+  },
+  "Test": {
+    "performed": "Yes",
+    "Test Execution via Computational or In-Silico": {
+      "performed": "Yes",
+      "Method details": "Edited entities are evaluated using computational tools: RDKit for molecules, MHCflurry2.0 for peptides, ProteinCLAP-EBM-NCE for proteins.",
+      "Inputs": "Edited molecules/peptides/proteins.",
+      "Outputs": "Predicted property values (e.g., solubility, binding affinity, secondary structure content).",
+      "Example": "RDKit computes solubility; MHCflurry2.0 predicts peptide-MHC binding.",
+      "Role in workflow": "Validates whether edits achieve the desired property changes."
+    },
+    "Refinement via LLM Agent Feedback Loops": {
+      "performed": "Yes",
+      "Method details": "Conversational rounds: if an edit fails, user/model feedback triggers retrieval of a new example and prompt update for iterative improvement.",
+      "Inputs": "Failed edit, retrieved correct example, updated prompt.",
+      "Outputs": "Refined candidate after each round.",
+      "Example": "User/model: 'This is wrong. We find that [xR] is similar and correct. Can you give me a new one?'",
+      "Role in workflow": "Iteratively improves edits until property criteria are met."
+    },
+    "Refinement via guided by computational-data": {
+      "performed": "Yes",
+      "Method details": "Refinement is driven by computational evaluation of property changes after each conversational round.",
+      "Inputs": "Test results from computational tools.",
+      "Outputs": "Updated candidates based on feedback.",
+      "Example": "If property threshold not met, new round initiated with updated prompt.",
+      "Role in workflow": "Ensures convergence to successful edits based on quantitative feedback."
+    }
+  },
+  "paper_title": "ChatGPT-powered Conversational Drug Editing Using Retrieval and Domain Feedback",
+  "authors": [
+    "Shengchao",
+    "Jiongxiao",
+    "Yijin",
+    "Chengpeng",
+    "Ling",
+    "Hongyu",
+    "Chaowei"
+  ],
+  "published": "2023-05-29",
+  "link": "http://arxiv.org/abs/2305.18090"
+}

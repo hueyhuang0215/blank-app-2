@@ -1,0 +1,411 @@
+{
+  "Inputs to the workflow": {
+    "performed": "Yes",
+    "User provide high-level research direction or goal": {
+      "performed": "Yes",
+      "Format": "Natural language queries or problem statements posed by the user.",
+      "Example": "Compute the lattice constant, elastic constants (C11, C12, C44), and surface energies of [110] and [111] planes of Al and Ni using specific EAM potentials.",
+      "Role in workflow": "Defines the overall task and research objectives for the multi-agent system to solve."
+    },
+    "User provide structured, domain-specific specifications": {
+      "performed": "Yes",
+      "Format": "Detailed task specifications including material systems, potentials, simulation parameters, and target properties.",
+      "Example": "Use NbMo.mtp potential, consider Nb concentration from 0 to 100 in intervals of 20, specify crack systems and simulation cell sizes.",
+      "Role in workflow": "Constrains and guides the simulation and analysis steps performed by the agents."
+    },
+    "User provide research papers": {
+      "performed": "Yes",
+      "Format": "Reference to specific papers for property comparison or knowledge retrieval.",
+      "Example": "Compare results with the reported values in the Mishin paper.",
+      "Role in workflow": "Provides ground truth or validation data for simulation outputs."
+    },
+    "User provide datasets other than research papers": {
+      "performed": "No"
+    },
+    "User provide representations or formal inputs": {
+      "performed": "Yes",
+      "Format": "Formal simulation parameters, potential file names, crystallographic directions, and code snippets.",
+      "Example": "Provide EAM potential filenames, crystallographic directions for dislocation or crack systems.",
+      "Role in workflow": "Enables precise execution of atomistic simulations and tool invocation."
+    }
+  },
+  "Query Structuring": {
+    "performed": "Yes",
+    "Query Decomposition": {
+      "performed": "Yes",
+      "Method details": "A planning tool (Planner and Critic agents) decomposes user queries into stepwise sub-tasks.",
+      "Inputs": "User's high-level task statement.",
+      "Outputs": "A detailed, multi-step plan specifying required functions and input parameters.",
+      "Example": "Plan includes: compute material properties, retrieve literature values, save results.",
+      "Role in workflow": "Enables systematic execution and coordination among agents and tools."
+    },
+    "Structural or Entity Decomposition": {
+      "performed": "No"
+    },
+    "Workflow Decomposition": {
+      "performed": "Yes",
+      "Method details": "Multi-agent system (Planner, Critic, core agents) generates and executes sequential/parallel workflows for complex tasks.",
+      "Inputs": "User task and planning tool output.",
+      "Outputs": "Ordered execution of simulation, retrieval, coding, and analysis steps.",
+      "Example": "Plan for fracture toughness calculation: compute elastic constants, surface energies, then toughness, then plot and analyze.",
+      "Role in workflow": "Orchestrates multi-step, multi-tool workflows for automated discovery."
+    },
+    "Textual or Knowledge Embedding": {
+      "performed": "No"
+    },
+    "Molecular or Chemical Embedding": {
+      "performed": "No"
+    },
+    "Biological or Phenotypic Embedding": {
+      "performed": "No"
+    },
+    "Pattern and Feature Extraction": {
+      "performed": "Yes",
+      "Method details": "Image analysis agents extract features from simulation outputs (e.g., differential displacement maps, plots).",
+      "Inputs": "Simulation-generated images or plots.",
+      "Outputs": "Identified structural features (e.g., polarized vs. unpolarized dislocation cores), quantitative plot analysis.",
+      "Example": "Multi-modal agent analyzes DD maps to classify dislocation core structure.",
+      "Role in workflow": "Automates interpretation of simulation results and supports downstream reasoning."
+    },
+    "Biological Relationship Extraction": {
+      "performed": "No"
+    },
+    "Property and Annotation Extraction": {
+      "performed": "Yes",
+      "Method details": "Extraction of computed and literature-reported material properties for tabulation and comparison.",
+      "Inputs": "Simulation outputs, literature retrieval results.",
+      "Outputs": "Structured property tables (e.g., lattice constants, elastic constants, surface energies).",
+      "Example": "Table comparing computed and reported values for Al and Ni.",
+      "Role in workflow": "Enables validation and structured reporting of results."
+    },
+    "Sequence and Structure Feature Extraction": {
+      "performed": "No"
+    }
+  },
+  "Data Retrieval": {
+    "performed": "Yes",
+    "Data Retrieval via Multi-Query Generation and Exploration": {
+      "performed": "No"
+    },
+    "Literature and Data Retrieval via APIs": {
+      "performed": "No"
+    },
+    "Data Retrieval with Prioritization and Filtering Agents": {
+      "performed": "No"
+    },
+    "Domain-Specific Data Retrieval and Reasoning": {
+      "performed": "Yes",
+      "Method details": "Knowledge retrieval tool queries specific literature (e.g., Mishin paper) for material properties using LLM agents.",
+      "Inputs": "User-specified reference to literature and property of interest.",
+      "Outputs": "Extracted property values from literature.",
+      "Example": "Retrieve elastic constants and surface energies from Mishin paper for Al and Ni.",
+      "Role in workflow": "Provides reference data for validation and comparison."
+    },
+    "Code-Driven or Tool-Augmented Data Retrieval": {
+      "performed": "Yes",
+      "Method details": "Coding tool writes and executes Python code to save or process simulation and retrieval results.",
+      "Inputs": "Structured data from simulation and retrieval agents.",
+      "Outputs": "CSV files, plots, or other data artifacts.",
+      "Example": "Save computed and literature values in a CSV file.",
+      "Role in workflow": "Automates data handling and reporting."
+    },
+    "Literature data Retrieval Citation-Network–Based Expansion": {
+      "performed": "No"
+    },
+    "Literature data Retrieval via Semantic and Similarity-Based analysis": {
+      "performed": "No"
+    },
+    "Literature data Retrieval via Multi-Step Reference and Evidence Selection": {
+      "performed": "No"
+    },
+    "Domain-Specific Literature data Retrieval": {
+      "performed": "No"
+    },
+    "Manual and Semi-Automatic Curation of Literature data": {
+      "performed": "No"
+    },
+    "Structural or Similarity-Based Dataset Retrieval": {
+      "performed": "No"
+    },
+    "Data Retrieval via Domain-Specific Repository Querying": {
+      "performed": "No"
+    },
+    "Library Assembly and Data Augmentation": {
+      "performed": "No"
+    }
+  },
+  "Knowledge Assembly": {
+    "performed": "Yes",
+    "Standardized Section Extraction from Literature data": {
+      "performed": "No"
+    },
+    "Concise Synopsis and Summarization of Literature data": {
+      "performed": "No"
+    },
+    "Facet-Based or Field-Specific Extraction from Literature data": {
+      "performed": "Yes",
+      "Method details": "Knowledge retrieval tool extracts specific fields (e.g., elastic constants, surface energies) from referenced papers.",
+      "Inputs": "User query specifying properties and literature source.",
+      "Outputs": "Structured property values for comparison.",
+      "Example": "Extract C11, C12, C44 from Mishin paper.",
+      "Role in workflow": "Enables direct comparison between simulation and literature."
+    },
+    "Domain-Tailored Extraction from Literature data": {
+      "performed": "Yes",
+      "Method details": "Extraction focuses on material-specific properties relevant to the simulation tasks.",
+      "Inputs": "Literature source and property queries.",
+      "Outputs": "Domain-specific property tables.",
+      "Example": "Surface energies for specific crystallographic planes.",
+      "Role in workflow": "Supports domain-relevant validation."
+    },
+    "Task/Entity-Centric Knowledge Graphs": {
+      "performed": "No"
+    },
+    "Causal or Relation-Specific Knowledge Graphs": {
+      "performed": "No"
+    },
+    "Biomedical or Domain-Specific Interaction Graphs": {
+      "performed": "No"
+    },
+    "Literature Database Construction": {
+      "performed": "No"
+    },
+    "Entity- or Co-Occurrence–Based Databases": {
+      "performed": "No"
+    },
+    "Reasoning-Chain or Temporal Databases for Literature": {
+      "performed": "No"
+    }
+  },
+  "Hypothesis/Idea Generation": {
+    "performed": "Yes",
+    "Idea/hypothesis generation without additional literature or dataset as context": {
+      "performed": "Yes",
+      "Method details": "A 'Scientist' agent (LLM) generates hypotheses based on internal knowledge and user prompts.",
+      "Inputs": "User's conceptual question or prompt.",
+      "Outputs": "Hypotheses about material behavior or property correlations.",
+      "Example": "Hypothesis on correlation between Peierls barrier and energy change standard deviation.",
+      "Role in workflow": "Initiates new research directions for computational validation."
+    },
+    "LLM Agent Generate ideas/hypotheses via Task Decomposition": {
+      "performed": "No"
+    },
+    "Generate ideas/hypotheses using Domain-Specialized LLM Agent": {
+      "performed": "Yes",
+      "Method details": "Scientist agent is profiled as a leading materials scientist, generating domain-specific hypotheses.",
+      "Inputs": "User's domain-specific question.",
+      "Outputs": "Material science hypotheses tailored to the problem context.",
+      "Example": "Hypothesis about dislocation energy landscape in random alloys.",
+      "Role in workflow": "Provides expert-level hypothesis generation for downstream testing."
+    },
+    "Literature data used during idea/hypothesis generation as context": {
+      "performed": "No"
+    },
+    "Summarization Literature data used during idea/hypothesis generation": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation via Facet Recombination": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation via contructed Reasoning-Chain from literature": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation via Knowledge Graph developed from literature": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation via Pattern Detection from dataset": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation via Few-Shot Data Seeding": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation using Observational data": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation via Feature-Driven Property Prediction": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation after Fine-Tuning the LLM model": {
+      "performed": "No"
+    }
+  },
+  "Hypothesis/Idea Prioritization": {
+    "performed": "Yes",
+    "LLM-based Hypothesis/Idea evaluation via Scientific Quality": {
+      "performed": "Yes",
+      "Method details": "Critic agent reviews and approves plans for completeness and correctness before execution.",
+      "Inputs": "Proposed plan or hypothesis from Planner agent.",
+      "Outputs": "Approved or revised plan for workflow execution.",
+      "Example": "Critic checks if all necessary functions and parameters are included in the plan.",
+      "Role in workflow": "Ensures scientific rigor and completeness before testing."
+    },
+    "LLM-based Hypothesis/Idea evaluation via Domain-Specific Evaluation": {
+      "performed": "Yes",
+      "Method details": "Multi-modal agents analyze plots and simulation results, providing domain-specific interpretation.",
+      "Inputs": "Plots, simulation outputs.",
+      "Outputs": "Qualitative and quantitative analysis of results.",
+      "Example": "Plot analyzer agent discusses trends in fracture toughness vs. Nb concentration.",
+      "Role in workflow": "Provides expert-level evaluation of computational results."
+    },
+    "LLM-based Hypothesis/Idea evaluation via Contextual Evidence Scoring": {
+      "performed": "No"
+    },
+    "LLM-based Hypothesis/Idea evaluation via Interpretability or Success Metrics": {
+      "performed": "Yes",
+      "Method details": "Agents interpret simulation and plot outputs, identifying trends and drawing conclusions.",
+      "Inputs": "Simulation data, plots.",
+      "Outputs": "Interpretive summaries and conclusions.",
+      "Example": "Agent identifies positive correlation between Peierls barrier and energy change standard deviation.",
+      "Role in workflow": "Assesses the success and interpretability of computational tests."
+    },
+    "Hypothesis/Idea evaluation via Novelty Checking with Literature Comparison": {
+      "performed": "No"
+    },
+    "Hypothesis/Idea evaluation via Alignment with Literature Chains": {
+      "performed": "No"
+    },
+    "Hypothesis/Idea evaluation via Knowledge-Graph Grounded Similarity Metrics": {
+      "performed": "No"
+    },
+    "Hypothesis/Idea evaluation via Quantitative Assessment Using Domain Metrics": {
+      "performed": "Yes",
+      "Method details": "Comparison of computed properties with literature values; quantitative analysis of simulation results.",
+      "Inputs": "Simulation outputs, literature property values.",
+      "Outputs": "Numerical comparison tables, quantitative plot analysis.",
+      "Example": "Table comparing computed and reported elastic constants.",
+      "Role in workflow": "Objectively validates simulation accuracy and hypothesis outcomes."
+    },
+    "Hypothesis/Idea evaluation via Human/Expert": {
+      "performed": "No"
+    }
+  },
+  "Test": {
+    "performed": "Yes",
+    "Experimental Design Generation via literature-Grounded Model/Protocol Selection": {
+      "performed": "Yes",
+      "Method details": "Simulation protocols (e.g., NEB, surface energy, elastic constants) are selected based on established literature and implemented as Python functions.",
+      "Inputs": "User task, literature references.",
+      "Outputs": "Simulation-ready protocols and scripts.",
+      "Example": "Use NEB method for Peierls barrier calculation as described in referenced works.",
+      "Role in workflow": "Ensures scientifically grounded simulation procedures."
+    },
+    "Experimental Design Generation via Literature Synthesis for New Protocol Generation": {
+      "performed": "No"
+    },
+    "Experimental Design Generation via Few-Shot or Example-Based Prompting": {
+      "performed": "No"
+    },
+    "Experimental Design Generation via Executable Code Generation from Literature": {
+      "performed": "Yes",
+      "Method details": "Coding tool writes and executes Python code to run simulations and process results, based on literature-derived protocols.",
+      "Inputs": "Simulation parameters, literature protocols.",
+      "Outputs": "Executable scripts, simulation outputs.",
+      "Example": "Python code to compute and save material properties.",
+      "Role in workflow": "Automates simulation and data processing."
+    },
+    "LLM-Based Experimental Design Generation via Agentic Exploration and Planning": {
+      "performed": "Yes",
+      "Method details": "Planner and Critic agents autonomously generate and refine experimental/simulation plans.",
+      "Inputs": "User task statement.",
+      "Outputs": "Stepwise experimental/simulation plan.",
+      "Example": "Plan includes: compute properties, run NEB, analyze plots.",
+      "Role in workflow": "Enables autonomous, adaptive experimental design."
+    },
+    "LLM-Based Experimental Design Generation via Code and Workflow Translation": {
+      "performed": "Yes",
+      "Method details": "Assistant agent translates plans into tool calls and code execution for simulations and analysis.",
+      "Inputs": "Approved plan from Planner/Critic.",
+      "Outputs": "Executed simulations, data analysis, and reporting.",
+      "Example": "Assistant calls computation tool, coding tool, and analysis tool in sequence.",
+      "Role in workflow": "Bridges planning and execution phases."
+    },
+    "LLM-Based Experimental Design Generation via Multi-Agent Planning with Specialized Roles": {
+      "performed": "Yes",
+      "Method details": "Multiple agents (Planner, Critic, Assistant, Scientist, Analyzer) collaborate, each with specialized roles.",
+      "Inputs": "User task, intermediate outputs.",
+      "Outputs": "Coordinated execution of complex workflows.",
+      "Example": "Planner creates plan, Critic reviews, Assistant executes, Analyzer interprets.",
+      "Role in workflow": "Enables division of labor and expertise in workflow."
+    },
+    "LLM-Based Experimental Design Generation via Domain-Specific Experimental Mapping": {
+      "performed": "Yes",
+      "Method details": "Agents map user queries to specific simulation types (e.g., NEB, surface energy, elastic constants) and select appropriate computational tools.",
+      "Inputs": "User task, material system, simulation requirements.",
+      "Outputs": "Mapped simulation protocols and tool invocations.",
+      "Example": "Map 'compute fracture toughness' to sequence of elastic constant and surface energy calculations.",
+      "Role in workflow": "Ensures correct simulation methodology for each task."
+    },
+    "Test Execution via Human-in-the-Loop": {
+      "performed": "Yes",
+      "Method details": "Human-generated LAMMPS scripts are integrated as Python functions for simulation execution.",
+      "Inputs": "Human-written simulation scripts.",
+      "Outputs": "Simulation results.",
+      "Example": "LAMMPS scripts for atomistic simulations are written by humans and called by the computation tool.",
+      "Role in workflow": "Bridges current LLM limitations in code generation."
+    },
+    "Test Execution via Automated Wet-Lab Execution": {
+      "performed": "No"
+    },
+    "Test Execution via Computational or In-Silico": {
+      "performed": "Yes",
+      "Method details": "All experiments are performed via atomistic simulations (LAMMPS) and automated analysis tools.",
+      "Inputs": "Simulation-ready scripts, material parameters.",
+      "Outputs": "Computed material properties, images, plots.",
+      "Example": "Compute Peierls barrier, fracture toughness, dislocation core structure.",
+      "Role in workflow": "Validates hypotheses and design ideas computationally."
+    },
+    "Refinement via LLM Agent Feedback Loops": {
+      "performed": "Yes",
+      "Method details": "Agents iteratively analyze, interpret, and refine outputs (e.g., plot analysis, follow-up tasks) based on results.",
+      "Inputs": "Simulation and analysis outputs.",
+      "Outputs": "Refined conclusions, new tasks, or additional analyses.",
+      "Example": "After plot analysis, user poses follow-up task using existing data.",
+      "Role in workflow": "Enables iterative improvement and deeper insight."
+    },
+    "Refinement via Automated Quality Evaluation using Model-Based Critics": {
+      "performed": "Yes",
+      "Method details": "Critic agent reviews plans for completeness and correctness before execution.",
+      "Inputs": "Proposed plan.",
+      "Outputs": "Approved or revised plan.",
+      "Example": "Critic ensures all necessary steps are included.",
+      "Role in workflow": "Improves workflow reliability and scientific rigor."
+    },
+    "Refinement via Dynamic Agent Updating Based on Evolving Context or Data": {
+      "performed": "Yes",
+      "Method details": "Agents update or extend analyses based on intermediate results or user follow-up queries.",
+      "Inputs": "New data or user requests after initial analysis.",
+      "Outputs": "Additional plots, analyses, or conclusions.",
+      "Example": "User requests new plot based on previously computed data.",
+      "Role in workflow": "Supports adaptive, context-aware refinement."
+    },
+    "Refinement via guided by computational-data": {
+      "performed": "Yes",
+      "Method details": "Analysis and refinement steps are guided by computational results (e.g., plot trends, statistical analysis).",
+      "Inputs": "Simulation and analysis outputs.",
+      "Outputs": "Refined hypotheses or conclusions.",
+      "Example": "Plot analyzer draws conclusions based on computed trends.",
+      "Role in workflow": "Ensures data-driven refinement."
+    },
+    "Refinement via experimental validation": {
+      "performed": "No"
+    },
+    "Refinement via Performance-metric": {
+      "performed": "Yes",
+      "Method details": "Performance metrics (e.g., fracture toughness, Peierls barrier) are used to assess and refine material design.",
+      "Inputs": "Computed property values.",
+      "Outputs": "Performance-based conclusions and design recommendations.",
+      "Example": "Identify alloy compositions with optimal fracture toughness.",
+      "Role in workflow": "Guides material selection and design refinement."
+    },
+    "Refinement via Human–data integration": {
+      "performed": "No"
+    }
+  },
+  "paper_title": "AtomAgents: Alloy design and discovery through physics-aware multi-modal multi-agent artificial intelligence",
+  "authors": [
+    "Alireza",
+    "Markus J."
+  ],
+  "published": "2024-07-13",
+  "link": "http://arxiv.org/abs/2407.10022"
+}

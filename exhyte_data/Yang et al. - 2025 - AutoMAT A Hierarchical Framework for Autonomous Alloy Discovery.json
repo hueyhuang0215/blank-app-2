@@ -1,0 +1,399 @@
+{
+  "Inputs to the workflow": {
+    "performed": "Yes",
+    "User provide high-level research direction or goal": {
+      "performed": "Yes",
+      "Format": "Natural language property targets (e.g., high yield strength, low density, cost constraints)",
+      "Example": "User specifies yield strength approaching 850 MPa and density below 4.36 g/cm3.",
+      "Role in workflow": "Defines the design objectives for alloy discovery, guiding all downstream steps."
+    },
+    "User provide structured, domain-specific specifications": {
+      "performed": "Yes",
+      "Format": "Structured prompts with property requirements and constraints",
+      "Example": "User inputs requirements into prompt templates for GPT-4o (e.g., number of elements, cost exclusions).",
+      "Role in workflow": "Constrains candidate selection and simulation to feasible, relevant alloy systems."
+    },
+    "User provide research papers": {
+      "performed": "Yes",
+      "Format": "Scientific literature and alloy handbooks, accessed via LLM prompts",
+      "Example": "LLM extracts candidate alloys from titanium alloy handbooks and literature.",
+      "Role in workflow": "Provides evidence and data for candidate generation and validation."
+    },
+    "User provide datasets other than research papers": {
+      "performed": "No"
+    },
+    "User provide representations or formal inputs": {
+      "performed": "Yes",
+      "Format": "Structured JSON outputs, composition tables, and prompt templates",
+      "Example": "LLM outputs candidate alloys in JSON format with properties; user fills prompt templates.",
+      "Role in workflow": "Enables machine-readable candidate selection and downstream automation."
+    }
+  },
+  "Query Structuring": {
+    "performed": "Yes",
+    "Query Decomposition": {
+      "performed": "Yes",
+      "Method details": "LLM parses user prompts into sub-criteria (e.g., element count, cost, property thresholds) for candidate filtering.",
+      "Inputs": "User-defined requirements in natural language or structured prompts.",
+      "Outputs": "Discrete criteria for alloy system selection and candidate filtering.",
+      "Example": "LLM checks if candidate alloys meet element count, cost, and property requirements.",
+      "Role in workflow": "Enables systematic filtering and ranking of candidate alloys."
+    },
+    "Structural or Entity Decomposition": {
+      "performed": "Yes",
+      "Method details": "LLM extracts and parses alloy compositions and their properties from handbooks/literature.",
+      "Inputs": "Textual descriptions of alloys from handbooks.",
+      "Outputs": "Structured representations of alloy compositions and properties.",
+      "Example": "LLM extracts 'Ti-6Al-4V' as Ti, Al, V with associated properties.",
+      "Role in workflow": "Facilitates downstream simulation and candidate ranking."
+    },
+    "Workflow Decomposition": {
+      "performed": "Yes",
+      "Method details": "The system is structured into Ideation, Simulation, and Validation layers, each with distinct tasks.",
+      "Inputs": "User goals and requirements.",
+      "Outputs": "Sequential workflow: candidate generation → simulation refinement → experimental validation.",
+      "Example": "LLM proposes candidates, simulation layer refines, validation layer tests.",
+      "Role in workflow": "Enables end-to-end automation and modularity."
+    },
+    "Textual or Knowledge Embedding": {
+      "performed": "No"
+    },
+    "Molecular or Chemical Embedding": {
+      "performed": "No"
+    },
+    "Biological or Phenotypic Embedding": {
+      "performed": "No"
+    },
+    "Pattern and Feature Extraction": {
+      "performed": "Yes",
+      "Method details": "LLM and simulation extract features such as yield strength, density, and compositional ratios from literature and simulation outputs.",
+      "Inputs": "Handbook/literature data and CALPHAD simulation results.",
+      "Outputs": "Key alloy features for scoring and optimization.",
+      "Example": "Extracted yield strength and density used in score function.",
+      "Role in workflow": "Supports candidate ranking and optimization."
+    },
+    "Biological Relationship Extraction": {
+      "performed": "No"
+    },
+    "Property and Annotation Extraction": {
+      "performed": "Yes",
+      "Method details": "LLM extracts and annotates properties (e.g., density, yield strength) from literature and handbooks.",
+      "Inputs": "Textual alloy descriptions.",
+      "Outputs": "Annotated property tables or JSON objects.",
+      "Example": "LLM outputs JSON with 'Density (g/cm3)' and 'Yield Strength (MPa)'.",
+      "Role in workflow": "Enables structured comparison and filtering."
+    },
+    "Sequence and Structure Feature Extraction": {
+      "performed": "No"
+    }
+  },
+  "Data Retrieval": {
+    "performed": "Yes",
+    "Data Retrieval via Multi-Query Generation and Exploration": {
+      "performed": "Yes",
+      "Method details": "LLM generates and explores multiple candidate alloy systems based on user requirements.",
+      "Inputs": "User prompts specifying property targets.",
+      "Outputs": "List of candidate alloy systems and compositions.",
+      "Example": "LLM suggests titanium, aluminum-lithium, and magnesium alloys.",
+      "Role in workflow": "Broadens initial search space for candidate selection."
+    },
+    "Literature and Data Retrieval via APIs": {
+      "performed": "No"
+    },
+    "Data Retrieval with Prioritization and Filtering Agents": {
+      "performed": "Yes",
+      "Method details": "LLM filters and ranks candidate alloys based on degree of requirements satisfaction.",
+      "Inputs": "Extracted alloy candidates from literature/handbooks.",
+      "Outputs": "Ranked list of candidates, most promising selected.",
+      "Example": "LLM ranks alloys by yield strength and density, selects top candidate.",
+      "Role in workflow": "Focuses downstream simulation on best candidates."
+    },
+    "Domain-Specific Data Retrieval and Reasoning": {
+      "performed": "Yes",
+      "Method details": "LLM accesses and parses domain-specific handbooks for alloy data.",
+      "Inputs": "Alloy handbooks and literature.",
+      "Outputs": "Extracted alloy compositions and properties.",
+      "Example": "LLM retrieves and processes titanium alloy handbook data.",
+      "Role in workflow": "Grounds candidate generation in domain knowledge."
+    },
+    "Code-Driven or Tool-Augmented Data Retrieval": {
+      "performed": "No"
+    },
+    "Literature data Retrieval Citation-Network–Based Expansion": {
+      "performed": "No"
+    },
+    "Literature data Retrieval via Semantic and Similarity-Based analysis": {
+      "performed": "No"
+    },
+    "Literature data Retrieval via Multi-Step Reference and Evidence Selection": {
+      "performed": "Yes",
+      "Method details": "LLM sequentially evaluates and filters handbook/literature entries for property and composition fit.",
+      "Inputs": "Handbook/literature entries.",
+      "Outputs": "Filtered candidates meeting as many requirements as possible.",
+      "Example": "LLM lists all alloys with yield strength and density data, then filters by element count and cost.",
+      "Role in workflow": "Ensures only relevant candidates proceed to simulation."
+    },
+    "Domain-Specific Literature data Retrieval": {
+      "performed": "Yes",
+      "Method details": "LLM uses domain-specific keywords and constraints to retrieve relevant alloy systems.",
+      "Inputs": "User requirements and domain knowledge.",
+      "Outputs": "Relevant alloy system candidates.",
+      "Example": "LLM prioritizes titanium alloys for high strength/low density.",
+      "Role in workflow": "Aligns candidate pool with domain-specific goals."
+    },
+    "Manual and Semi-Automatic Curation of Literature data": {
+      "performed": "No"
+    },
+    "Structural or Similarity-Based Dataset Retrieval": {
+      "performed": "No"
+    },
+    "Data Retrieval via Domain-Specific Repository Querying": {
+      "performed": "No"
+    },
+    "Library Assembly and Data Augmentation": {
+      "performed": "No"
+    }
+  },
+  "Knowledge Assembly": {
+    "performed": "Yes",
+    "Standardized Section Extraction from Literature data": {
+      "performed": "No"
+    },
+    "Concise Synopsis and Summarization of Literature data": {
+      "performed": "No"
+    },
+    "Facet-Based or Field-Specific Extraction from Literature data": {
+      "performed": "Yes",
+      "Method details": "LLM extracts specific fields (composition, density, yield strength) from handbooks/literature.",
+      "Inputs": "Handbook/literature text.",
+      "Outputs": "Structured tables or JSON with alloy properties.",
+      "Example": "LLM outputs table with columns for alloy, density, yield strength, number of elements.",
+      "Role in workflow": "Enables structured candidate comparison."
+    },
+    "Domain-Tailored Extraction from Literature data": {
+      "performed": "Yes",
+      "Method details": "LLM focuses extraction on alloy-specific properties and cost-related details.",
+      "Inputs": "Alloy handbook/literature.",
+      "Outputs": "Domain-relevant property annotations.",
+      "Example": "LLM flags alloys with expensive elements for exclusion.",
+      "Role in workflow": "Ensures candidates meet domain-specific constraints."
+    },
+    "Task/Entity-Centric Knowledge Graphs": {
+      "performed": "No"
+    },
+    "Causal or Relation-Specific Knowledge Graphs": {
+      "performed": "No"
+    },
+    "Biomedical or Domain-Specific Interaction Graphs": {
+      "performed": "No"
+    },
+    "Literature Database Construction": {
+      "performed": "No"
+    },
+    "Entity- or Co-Occurrence–Based Databases": {
+      "performed": "No"
+    },
+    "Reasoning-Chain or Temporal Databases for Literature": {
+      "performed": "No"
+    }
+  },
+  "Hypothesis/Idea Generation": {
+    "performed": "Yes",
+    "Idea/hypothesis generation without additional literature or dataset as context": {
+      "performed": "No"
+    },
+    "LLM Agent Generate ideas/hypotheses via Task Decomposition": {
+      "performed": "No"
+    },
+    "Generate ideas/hypotheses using Domain-Specialized LLM Agent": {
+      "performed": "Yes",
+      "Method details": "GPT-4o acts as a domain-specialized agent, proposing alloy systems and compositions based on user constraints and literature.",
+      "Inputs": "User requirements, handbook/literature data.",
+      "Outputs": "Candidate alloy systems and compositions.",
+      "Example": "LLM recommends titanium alloys and extracts candidate compositions.",
+      "Role in workflow": "Initiates the candidate pool for simulation."
+    },
+    "Literature data used during idea/hypothesis generation as context": {
+      "performed": "Yes",
+      "Method details": "LLM uses extracted literature/handbook data to inform candidate generation.",
+      "Inputs": "Alloy handbooks, literature.",
+      "Outputs": "Scientifically grounded candidate suggestions.",
+      "Example": "LLM selects Ti-185 based on handbook data.",
+      "Role in workflow": "Ensures candidates are evidence-based."
+    },
+    "Summarization Literature data used during idea/hypothesis generation": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation via Facet Recombination": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation via contructed Reasoning-Chain from literature": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation via Knowledge Graph developed from literature": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation via Pattern Detection from dataset": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation via Few-Shot Data Seeding": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation using Observational data": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation via Feature-Driven Property Prediction": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation after Fine-Tuning the LLM model": {
+      "performed": "No"
+    }
+  },
+  "Hypothesis/Idea Prioritization": {
+    "performed": "Yes",
+    "LLM-based Hypothesis/Idea evaluation via Scientific Quality": {
+      "performed": "Yes",
+      "Method details": "LLM evaluates if candidates meet property and cost constraints, and ranks them accordingly.",
+      "Inputs": "Candidate alloy properties and constraints.",
+      "Outputs": "Ranked and filtered candidate list.",
+      "Example": "LLM outputs JSON indicating if alloy meets requirements.",
+      "Role in workflow": "Ensures only high-quality candidates proceed."
+    },
+    "LLM-based Hypothesis/Idea evaluation via Domain-Specific Evaluation": {
+      "performed": "Yes",
+      "Method details": "LLM checks for domain-specific criteria (e.g., element cost, number of elements).",
+      "Inputs": "Candidate alloy data.",
+      "Outputs": "Pass/fail or ranked candidates.",
+      "Example": "LLM excludes alloys with expensive elements.",
+      "Role in workflow": "Aligns candidates with domain constraints."
+    },
+    "LLM-based Hypothesis/Idea evaluation via Contextual Evidence Scoring": {
+      "performed": "No"
+    },
+    "LLM-based Hypothesis/Idea evaluation via Interpretability or Success Metrics": {
+      "performed": "No"
+    },
+    "Hypothesis/Idea evaluation via Novelty Checking with Literature Comparison": {
+      "performed": "No"
+    },
+    "Hypothesis/Idea evaluation via Alignment with Literature Chains": {
+      "performed": "No"
+    },
+    "Hypothesis/Idea evaluation via Knowledge-Graph Grounded Similarity Metrics": {
+      "performed": "No"
+    },
+    "Hypothesis/Idea evaluation via Quantitative Assessment Using Domain Metrics": {
+      "performed": "Yes",
+      "Method details": "Simulation layer uses CALPHAD to quantitatively score candidates by predicted yield strength and density.",
+      "Inputs": "Candidate compositions.",
+      "Outputs": "Score function values, e.g., specific strength.",
+      "Example": "Score = yield strength / exp(density).",
+      "Role in workflow": "Guides optimization and selection of best candidates."
+    },
+    "Hypothesis/Idea evaluation via Human/Expert": {
+      "performed": "No"
+    }
+  },
+  "Test": {
+    "performed": "Yes",
+    "Experimental Design Generation via literature-Grounded Model/Protocol Selection": {
+      "performed": "Yes",
+      "Method details": "Experimental validation uses established alloy synthesis and characterization protocols from literature.",
+      "Inputs": "Optimized alloy compositions.",
+      "Outputs": "Experimental synthesis and mechanical testing results.",
+      "Example": "Arc-melting, tensile testing, and microstructural analysis.",
+      "Role in workflow": "Validates computational predictions."
+    },
+    "Experimental Design Generation via Literature Synthesis for New Protocol Generation": {
+      "performed": "No"
+    },
+    "Experimental Design Generation via Few-Shot or Example-Based Prompting": {
+      "performed": "No"
+    },
+    "Experimental Design Generation via Executable Code Generation from Literature": {
+      "performed": "No"
+    },
+    "LLM-Based Experimental Design Generation via Agentic Exploration and Planning": {
+      "performed": "No"
+    },
+    "LLM-Based Experimental Design Generation via Code and Workflow Translation": {
+      "performed": "No"
+    },
+    "LLM-Based Experimental Design Generation via Multi-Agent Planning with Specialized Roles": {
+      "performed": "No"
+    },
+    "LLM-Based Experimental Design Generation via Domain-Specific Experimental Mapping": {
+      "performed": "No"
+    },
+    "Test Execution via Human-in-the-Loop": {
+      "performed": "Yes",
+      "Method details": "Human researchers synthesize and test alloys as per LLM/simulation recommendations.",
+      "Inputs": "Optimized alloy compositions.",
+      "Outputs": "Experimental data (yield strength, density, microstructure).",
+      "Example": "Researchers perform arc-melting and tensile tests.",
+      "Role in workflow": "Provides empirical validation for computational results."
+    },
+    "Test Execution via Automated Wet-Lab Execution": {
+      "performed": "No"
+    },
+    "Test Execution via Computational or In-Silico": {
+      "performed": "Yes",
+      "Method details": "Simulation layer uses CALPHAD (Thermo-Calc, TCPython, TCHEA7) for thermodynamic and property prediction.",
+      "Inputs": "Candidate alloy compositions.",
+      "Outputs": "Predicted phase fractions, yield strength, density.",
+      "Example": "CALPHAD predicts yield strength for 1,000+ compositions/day.",
+      "Role in workflow": "Rapidly screens and optimizes candidates before experimental validation."
+    },
+    "Refinement via LLM Agent Feedback Loops": {
+      "performed": "No"
+    },
+    "Refinement via Automated Quality Evaluation using Model-Based Critics": {
+      "performed": "No"
+    },
+    "Refinement via Dynamic Agent Updating Based on Evolving Context or Data": {
+      "performed": "No"
+    },
+    "Refinement via guided by computational-data": {
+      "performed": "Yes",
+      "Method details": "Simulation iteratively refines candidates based on CALPHAD-predicted scores until optimal solution is found.",
+      "Inputs": "Simulation results (score, property predictions).",
+      "Outputs": "Refined candidate compositions.",
+      "Example": "Five iterations of AI-guided search around best candidates.",
+      "Role in workflow": "Improves candidate quality before experimental testing."
+    },
+    "Refinement via experimental validation": {
+      "performed": "Yes",
+      "Method details": "Experimental results are compared to predictions; outcomes can inform future search heuristics.",
+      "Inputs": "Experimental measurements (yield strength, density).",
+      "Outputs": "Validated or refined alloy candidates.",
+      "Example": "Measured properties confirm or adjust computational predictions.",
+      "Role in workflow": "Closes the loop between computation and experiment."
+    },
+    "Refinement via Performance-metric": {
+      "performed": "Yes",
+      "Method details": "Refinement continues until performance metrics (e.g., specific strength) are maximized.",
+      "Inputs": "Score function values from simulation.",
+      "Outputs": "Optimized alloy composition.",
+      "Example": "Search continues for five iterations even after requirements are met.",
+      "Role in workflow": "Ensures best possible candidate is selected."
+    },
+    "Refinement via Human–data integration": {
+      "performed": "No"
+    }
+  },
+  "paper_title": "AutoMAT: A Hierarchical Framework for Autonomous Alloy Discovery",
+  "authors": [
+    "Penghui",
+    "Chendong",
+    "Bijun",
+    "Zhonghan",
+    "Xinrun",
+    "Yanchen",
+    "Yuhao",
+    "Cuntai",
+    "Zheng",
+    "Bo"
+  ],
+  "published": "2025-07-21",
+  "link": "http://arxiv.org/abs/2507.16005"
+}

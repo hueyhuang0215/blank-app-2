@@ -1,0 +1,429 @@
+{
+  "Inputs to the workflow": {
+    "performed": "Yes",
+    "User provide high-level research direction or goal": {
+      "performed": "Yes",
+      "Format": "Natural language description of desired material properties and goals.",
+      "Example": "I am looking to design a new material with the following property: The formation energy per atom is -1.4561. The band gap is 0.0. The energy above the convex hull is 0.0. The elements are Na, S, Ti, V. The spacegroup number is 8.",
+      "Role in workflow": "Defines the target for material discovery and guides the retrieval and generation process."
+    },
+    "User provide structured, domain-specific specifications": {
+      "performed": "Yes",
+      "Format": "Structured property lists (e.g., formation energy, band gap, elements, space group).",
+      "Example": "The formation energy per atom is -1.828. The band gap is 1.1081. The energy above the convex hull is 0.0491. The elements are Co, Li, Mn, Ni, O. The spacegroup number is 5.",
+      "Role in workflow": "Specifies constraints and requirements for candidate materials."
+    },
+    "User provide research papers": {
+      "performed": "No"
+    },
+    "User provide datasets other than research papers": {
+      "performed": "No"
+    },
+    "User provide representations or formal inputs": {
+      "performed": "Yes",
+      "Format": "ALX representation (lattice vectors, angles, atomic coordinates), CIF files.",
+      "Example": "5.1 5.1 5.1\\n80 80 120\\nLi\\n0.26 0.20 0.21\\nMn\\n0.43 0.04 0.71...",
+      "Role in workflow": "Guides structure generation and enables conversion to standard formats for downstream use."
+    }
+  },
+  "Query Structuring": {
+    "performed": "Yes",
+    "Query Decomposition": {
+      "performed": "Yes",
+      "Method details": "LLM prompts decompose user queries into retrieval, transition, and generation sub-tasks.",
+      "Inputs": "User-specified material property constraints.",
+      "Outputs": "Sub-queries for retrieval (find similar material), transition (modification pathway), and generation (structure details).",
+      "Example": "How should I modify Na3MnCoNiO6 to develop a new material with the desired properties?",
+      "Role in workflow": "Enables stepwise reasoning and targeted retrieval/modification."
+    },
+    "Structural or Entity Decomposition": {
+      "performed": "Yes",
+      "Method details": "RoboCrystallographer generates linguistic descriptions of crystal structures, decomposing them into sites, bonds, and coordination environments.",
+      "Inputs": "CIF files or structural data from database.",
+      "Outputs": "Textual descriptions of atomic sites, bonds, and geometries.",
+      "Example": "Na3MnCoNiO6 is Caswellsilverite-derived structured and crystallizes in the monoclinic Cm space group. There are three inequivalent Na sites...",
+      "Role in workflow": "Provides interpretable structure information for LLM-based reasoning and modification."
+    },
+    "Workflow Decomposition": {
+      "performed": "Yes",
+      "Method details": "The process is explicitly split into retrieval, transition, and generation stages, each handled by LLMs or encoders.",
+      "Inputs": "User query and property constraints.",
+      "Outputs": "Sequential workflow: retrieve similar material, generate modification pathway, generate structure.",
+      "Example": "Stage 1: Retrieval; Stage 2: Transition; Stage 3: Generation.",
+      "Role in workflow": "Implements a multi-step, expert-inspired workflow for material discovery."
+    },
+    "Textual or Knowledge Embedding": {
+      "performed": "Yes",
+      "Method details": "T5-based encoders embed property and structure descriptions into a shared vector space using contrastive learning.",
+      "Inputs": "Property descriptions (composition, space group, energy, etc.) and structure descriptions (from RoboCrystallographer).",
+      "Outputs": "Vector embeddings for similarity-based retrieval.",
+      "Example": "Contrastive learning framework to train two encoders for reference material retrieval.",
+      "Role in workflow": "Enables semantic matching between user queries and database materials."
+    },
+    "Molecular or Chemical Embedding": {
+      "performed": "Yes",
+      "Method details": "Material structures and properties are embedded for similarity search using T5-based encoders.",
+      "Inputs": "Material property and structure descriptions.",
+      "Outputs": "Embeddings used for nearest-neighbor retrieval.",
+      "Example": "Minimize distance between property and structure embeddings for retrieval.",
+      "Role in workflow": "Facilitates retrieval of structurally or chemically similar materials."
+    },
+    "Biological or Phenotypic Embedding": {
+      "performed": "No"
+    },
+    "Pattern and Feature Extraction": {
+      "performed": "Yes",
+      "Method details": "Key material properties (formation energy, band gap, etc.) are extracted using PyMatgen and M3GNet.",
+      "Inputs": "Raw material database entries.",
+      "Outputs": "Structured property lists for each material.",
+      "Example": "Extracted key material properties—such as formation energy, total energy, and elemental composition.",
+      "Role in workflow": "Provides features for conditioning and evaluation."
+    },
+    "Biological Relationship Extraction": {
+      "performed": "No"
+    },
+    "Property and Annotation Extraction": {
+      "performed": "Yes",
+      "Method details": "Properties are parsed from NOMAD/Materials Project databases and used for conditioning and evaluation.",
+      "Inputs": "Database records.",
+      "Outputs": "Property annotations (e.g., formation energy, band gap).",
+      "Example": "Extracted key material properties using M3GNet and PyMatgen.",
+      "Role in workflow": "Enables property-constrained generation and evaluation."
+    },
+    "Sequence and Structure Feature Extraction": {
+      "performed": "Yes",
+      "Method details": "RoboCrystallographer and PyMatgen extract structural features (lattice, atomic positions) from CIF files.",
+      "Inputs": "CIF files or structural JSON.",
+      "Outputs": "Lattice parameters, atomic coordinates, site information.",
+      "Example": "Converted structure in JSON to CIF files; extracted lattice vectors and atomic coordinates.",
+      "Role in workflow": "Provides input for structure generation and evaluation."
+    }
+  },
+  "Data Retrieval": {
+    "performed": "Yes",
+    "Data Retrieval via Multi-Query Generation and Exploration": {
+      "performed": "No"
+    },
+    "Literature and Data Retrieval via APIs": {
+      "performed": "Yes",
+      "Method details": "NOMAD API is used to collect a large-scale dataset of materials with property and structure data.",
+      "Inputs": "API queries specifying filters (e.g., exclude inert elements, VASP calculations).",
+      "Outputs": "Dataset of 2,886,120 materials with structural and property data.",
+      "Example": "We collect the datasets via NOMAD API as the following script: url = 'http://nomad-lab.eu/prod/v1/api/v1/entries/archive/query'",
+      "Role in workflow": "Provides the foundational dataset for retrieval, training, and evaluation."
+    },
+    "Data Retrieval with Prioritization and Filtering Agents": {
+      "performed": "Yes",
+      "Method details": "Materials are filtered to exclude inert elements and large structures (>30 atoms), and only VASP-calculated entries are retained.",
+      "Inputs": "Raw NOMAD database entries.",
+      "Outputs": "Filtered dataset suitable for training and evaluation.",
+      "Example": "We excluded materials containing inert elements... restricted the dataset to materials whose structures were simulated using VASP.",
+      "Role in workflow": "Ensures data quality and relevance for model training and testing."
+    },
+    "Domain-Specific Data Retrieval and Reasoning": {
+      "performed": "Yes",
+      "Method details": "Retrieval of materials from NOMAD and Materials Project databases using domain-specific filters and property constraints.",
+      "Inputs": "Domain-specific queries (composition, property constraints).",
+      "Outputs": "Relevant material entries for retrieval and conditioning.",
+      "Example": "We assembled a large-scale dataset from the NOMAD database... applied specific filters to refine the dataset.",
+      "Role in workflow": "Enables targeted retrieval for material discovery."
+    },
+    "Code-Driven or Tool-Augmented Data Retrieval": {
+      "performed": "Yes",
+      "Method details": "Python scripts using PyMatgen and NOMAD API to convert and process structural data.",
+      "Inputs": "JSON structure data from NOMAD.",
+      "Outputs": "CIF files and structured property data.",
+      "Example": "Then we further convert the structure in JSON to CIF files via the following script: def convert_to_cif(structure_json, lattice='vectors'): ...",
+      "Role in workflow": "Automates data conversion and preparation for downstream tasks."
+    },
+    "Literature data Retrieval Citation-Network–Based Expansion": {
+      "performed": "No"
+    },
+    "Literature data Retrieval via Semantic and Similarity-Based analysis": {
+      "performed": "Yes",
+      "Method details": "Contrastive learning aligns property and structure embeddings for similarity-based retrieval of materials.",
+      "Inputs": "Property and structure embeddings.",
+      "Outputs": "Most similar material in the database to the user query.",
+      "Example": "The retrieval stage... aimed at identifying the material in the database that best matches the desired property description provided by the user.",
+      "Role in workflow": "Finds optimal starting points for material modification."
+    },
+    "Literature data Retrieval via Multi-Step Reference and Evidence Selection": {
+      "performed": "No"
+    },
+    "Domain-Specific Literature data Retrieval": {
+      "performed": "No"
+    },
+    "Manual and Semi-Automatic Curation of Literature data": {
+      "performed": "No"
+    },
+    "Structural or Similarity-Based Dataset Retrieval": {
+      "performed": "Yes",
+      "Method details": "Contrastive learning retrieves structurally or property-similar materials from the database.",
+      "Inputs": "User property constraints and database embeddings.",
+      "Outputs": "Top-matching material(s) for further modification.",
+      "Example": "The most similar material related to the description in the database is Na3MnCoNiO6.",
+      "Role in workflow": "Provides a reference for transition and generation."
+    },
+    "Data Retrieval via Domain-Specific Repository Querying": {
+      "performed": "Yes",
+      "Method details": "Direct queries to NOMAD and Materials Project repositories for materials data.",
+      "Inputs": "Repository-specific queries.",
+      "Outputs": "Material datasets for training and evaluation.",
+      "Example": "We assembled a comprehensive dataset from the NOMAD database... utilizing its API.",
+      "Role in workflow": "Supplies large-scale, high-quality data for model development."
+    },
+    "Library Assembly and Data Augmentation": {
+      "performed": "Yes",
+      "Method details": "Large-scale assembly of materials datasets from NOMAD and Materials Project, with filtering and conversion.",
+      "Inputs": "Raw database entries.",
+      "Outputs": "Curated, augmented datasets for model training and benchmarking.",
+      "Example": "By applying these filtering criteria, we obtained a dataset of 2,886,120 materials.",
+      "Role in workflow": "Enables robust training and evaluation across diverse compositions."
+    }
+  },
+  "Knowledge Assembly": {
+    "performed": "Yes",
+    "Standardized Section Extraction from Literature data": {
+      "performed": "No"
+    },
+    "Concise Synopsis and Summarization of Literature data": {
+      "performed": "No"
+    },
+    "Facet-Based or Field-Specific Extraction from Literature data": {
+      "performed": "No"
+    },
+    "Domain-Tailored Extraction from Literature data": {
+      "performed": "Yes",
+      "Method details": "RoboCrystallographer generates domain-specific textual descriptions of crystal structures from CIF files.",
+      "Inputs": "CIF files or structural data.",
+      "Outputs": "Human-readable summaries of crystallographic information.",
+      "Example": "Generated using RoboCrystallographer... a tool that automatically produces human-readable summaries of crystallographic information.",
+      "Role in workflow": "Provides interpretable structure information for LLM-based reasoning."
+    },
+    "Task/Entity-Centric Knowledge Graphs": {
+      "performed": "No"
+    },
+    "Causal or Relation-Specific Knowledge Graphs": {
+      "performed": "No"
+    },
+    "Biomedical or Domain-Specific Interaction Graphs": {
+      "performed": "No"
+    },
+    "Literature Database Construction": {
+      "performed": "No"
+    },
+    "Entity- or Co-Occurrence–Based Databases": {
+      "performed": "No"
+    },
+    "Reasoning-Chain or Temporal Databases for Literature": {
+      "performed": "No"
+    }
+  },
+  "Hypothesis/Idea Generation": {
+    "performed": "Yes",
+    "Idea/hypothesis generation without additional literature or dataset as context": {
+      "performed": "No"
+    },
+    "LLM Agent Generate ideas/hypotheses via Task Decomposition": {
+      "performed": "Yes",
+      "Method details": "LLMs are prompted to generate transition pathways (modification steps) from a reference material to a target material.",
+      "Inputs": "Reference material structure and target property constraints.",
+      "Outputs": "Stepwise modification instructions (transition pathway).",
+      "Example": "How should I modify Na3MnCoNiO6 to develop a new material with the desired properties?",
+      "Role in workflow": "Enables interpretable, stepwise material design."
+    },
+    "Generate ideas/hypotheses using Domain-Specialized LLM Agent": {
+      "performed": "Yes",
+      "Method details": "Fine-tuned LLMs (Llama-2/3) generate transition pathways and new material structures based on domain-specific prompts.",
+      "Inputs": "Reference material, property constraints, transition pathway.",
+      "Outputs": "ALX representation and CIF files for new materials.",
+      "Example": "Fine-tuned LLM is deployed to generate the potential transition pathways.",
+      "Role in workflow": "Synthesizes domain knowledge for material generation."
+    },
+    "Literature data used during idea/hypothesis generation as context": {
+      "performed": "No"
+    },
+    "Summarization Literature data used during idea/hypothesis generation": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation via Facet Recombination": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation via contructed Reasoning-Chain from literature": {
+      "performed": "Yes",
+      "Method details": "Chain-of-thought reasoning is used in the transition stage to generate stepwise modification pathways.",
+      "Inputs": "Reference and target material descriptions.",
+      "Outputs": "Detailed, stepwise transition instructions.",
+      "Example": "The transition stage... involves generating modification pathways using Chain of Thought (CoT) reasoning.",
+      "Role in workflow": "Improves interpretability and accuracy of material design."
+    },
+    "Idea/hypothesis generation via Knowledge Graph developed from literature": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation via Pattern Detection from dataset": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation via Few-Shot Data Seeding": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation using Observational data": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation via Feature-Driven Property Prediction": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation after Fine-Tuning the LLM model": {
+      "performed": "Yes",
+      "Method details": "LLMs are fine-tuned on ground-truth transition pathways and material generation tasks.",
+      "Inputs": "Ground-truth transition pathways and material data.",
+      "Outputs": "Fine-tuned LLMs capable of generating new materials.",
+      "Example": "We fine-tune a second, smaller LLM using these ground-truth pathways.",
+      "Role in workflow": "Improves LLM performance for domain-specific material generation."
+    }
+  },
+  "Hypothesis/Idea Prioritization": {
+    "performed": "Yes",
+    "LLM-based Hypothesis/Idea evaluation via Scientific Quality": {
+      "performed": "Yes",
+      "Method details": "Generated materials are evaluated for validity, diversity, novelty, and stability using domain metrics and models.",
+      "Inputs": "Generated material structures and properties.",
+      "Outputs": "Validity, coverage, distribution, diversity, novelty, and stability scores.",
+      "Example": "Validity is evaluated based on the structural and compositional integrity of the generated materials.",
+      "Role in workflow": "Ensures generated materials are scientifically plausible and high-quality."
+    },
+    "LLM-based Hypothesis/Idea evaluation via Domain-Specific Evaluation": {
+      "performed": "Yes",
+      "Method details": "Domain-specific metrics (e.g., energy above hull, space group, property satisfaction) are used to assess generated materials.",
+      "Inputs": "Generated material properties and structures.",
+      "Outputs": "Domain-specific satisfaction rates and performance metrics.",
+      "Example": "We use M3GNet to estimate the energy above hull... PyMatgen’s SpacegroupAnalyzer.",
+      "Role in workflow": "Assesses alignment with domain requirements and constraints."
+    },
+    "LLM-based Hypothesis/Idea evaluation via Contextual Evidence Scoring": {
+      "performed": "No"
+    },
+    "LLM-based Hypothesis/Idea evaluation via Interpretability or Success Metrics": {
+      "performed": "Yes",
+      "Method details": "Metrics such as coverage, diversity, and novelty are used to evaluate interpretability and success.",
+      "Inputs": "Generated and test set materials.",
+      "Outputs": "Normalized scores for diversity and novelty.",
+      "Example": "Diversity is calculated as the pairwise distance between samples... Novelty is determined by comparing the distance to the nearest element of the training set.",
+      "Role in workflow": "Quantifies the interpretability and uniqueness of generated materials."
+    },
+    "Hypothesis/Idea evaluation via Novelty Checking with Literature Comparison": {
+      "performed": "Yes",
+      "Method details": "Novelty is assessed by comparing generated materials to the training set using distance thresholds.",
+      "Inputs": "Generated materials and training set.",
+      "Outputs": "Novelty scores (structure, composition, overall).",
+      "Example": "A sample is considered novel if its nearest neighbor exceeds a predefined threshold distance.",
+      "Role in workflow": "Ensures generated materials are not duplicates of known entries."
+    },
+    "Hypothesis/Idea evaluation via Alignment with Literature Chains": {
+      "performed": "No"
+    },
+    "Hypothesis/Idea evaluation via Knowledge-Graph Grounded Similarity Metrics": {
+      "performed": "No"
+    },
+    "Hypothesis/Idea evaluation via Quantitative Assessment Using Domain Metrics": {
+      "performed": "Yes",
+      "Method details": "Metrics such as validity, coverage, property distribution, and stability are quantitatively assessed.",
+      "Inputs": "Generated material properties and structures.",
+      "Outputs": "Quantitative performance metrics (e.g., validity rate, Wasserstein distance).",
+      "Example": "We measure coverage using two metrics: COV-R (Recall) and COV-P (Precision)... Wasserstein distance for property distribution.",
+      "Role in workflow": "Provides objective scoring for hypothesis/material quality."
+    },
+    "Hypothesis/Idea evaluation via Human/Expert": {
+      "performed": "No"
+    }
+  },
+  "Test": {
+    "performed": "Yes",
+    "Experimental Design Generation via literature-Grounded Model/Protocol Selection": {
+      "performed": "No"
+    },
+    "Experimental Design Generation via Literature Synthesis for New Protocol Generation": {
+      "performed": "No"
+    },
+    "Experimental Design Generation via Few-Shot or Example-Based Prompting": {
+      "performed": "No"
+    },
+    "Experimental Design Generation via Executable Code Generation from Literature": {
+      "performed": "No"
+    },
+    "LLM-Based Experimental Design Generation via Agentic Exploration and Planning": {
+      "performed": "No"
+    },
+    "LLM-Based Experimental Design Generation via Code and Workflow Translation": {
+      "performed": "Yes",
+      "Method details": "LLMs generate ALX representations, which are converted to CIF files using PyMatgen for computational testing.",
+      "Inputs": "Transition pathway and property constraints.",
+      "Outputs": "CIF files representing predicted material structures.",
+      "Example": "The ALX representation is then automatically converted into CIF format using the pymatgen library.",
+      "Role in workflow": "Enables computational evaluation and further simulation."
+    },
+    "LLM-Based Experimental Design Generation via Multi-Agent Planning with Specialized Roles": {
+      "performed": "No"
+    },
+    "LLM-Based Experimental Design Generation via Domain-Specific Experimental Mapping": {
+      "performed": "No"
+    },
+    "Test Execution via Human-in-the-Loop": {
+      "performed": "No"
+    },
+    "Test Execution via Automated Wet-Lab Execution": {
+      "performed": "No"
+    },
+    "Test Execution via Computational or In-Silico": {
+      "performed": "Yes",
+      "Method details": "Generated structures are evaluated for stability and properties using M3GNet and DFT-based calculations.",
+      "Inputs": "CIF files of generated materials.",
+      "Outputs": "Predicted properties, stability metrics, and relaxation energies.",
+      "Example": "We employ the M3GNet model... perform a single relaxation for each candidate structure.",
+      "Role in workflow": "Validates generated materials computationally before experimental consideration."
+    },
+    "Refinement via LLM Agent Feedback Loops": {
+      "performed": "No"
+    },
+    "Refinement via Automated Quality Evaluation using Model-Based Critics": {
+      "performed": "Yes",
+      "Method details": "M3GNet and DFT models are used to evaluate and filter generated materials based on stability and validity.",
+      "Inputs": "Generated material structures.",
+      "Outputs": "Filtered set of valid, stable materials.",
+      "Example": "The stability calculation includes the validity rate from initial filtering and the rate of compounds with relaxed hull energy.",
+      "Role in workflow": "Ensures only high-quality candidates are retained."
+    },
+    "Refinement via Dynamic Agent Updating Based on Evolving Context or Data": {
+      "performed": "No"
+    },
+    "Refinement via guided by computational-data": {
+      "performed": "Yes",
+      "Method details": "Refinement is based on computational evaluation of generated materials (e.g., stability, property satisfaction).",
+      "Inputs": "Test results from M3GNet/DFT.",
+      "Outputs": "Refined set of materials meeting property constraints.",
+      "Example": "We then calculated the percentage of materials that met the specified property criteria.",
+      "Role in workflow": "Improves candidate quality based on computational feedback."
+    },
+    "Refinement via experimental validation": {
+      "performed": "No"
+    },
+    "Refinement via Performance-metric": {
+      "performed": "Yes",
+      "Method details": "Performance metrics (validity, coverage, novelty, stability) guide refinement and model comparison.",
+      "Inputs": "Evaluation metrics from computational tests.",
+      "Outputs": "Performance-guided selection of best candidates.",
+      "Example": "MatExpert achieves remarkable results in distribution metrics, benefiting from the transition from an existing material in the database.",
+      "Role in workflow": "Selects top-performing materials for further consideration."
+    },
+    "Refinement via Human–data integration": {
+      "performed": "No"
+    }
+  },
+  "paper_title": "MatExpert: Decomposing Materials Discovery by Mimicking Human Experts",
+  "authors": [
+    "Qianggang",
+    "Santiago",
+    "Bang"
+  ],
+  "published": "2024-10-26",
+  "link": "http://arxiv.org/abs/2410.21317"
+}

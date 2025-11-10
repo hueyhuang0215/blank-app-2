@@ -1,0 +1,298 @@
+{
+  "Inputs to the workflow": {
+    "performed": "Yes",
+    "User provide high-level research direction or goal": {
+      "performed": "Yes",
+      "Format": "Selection of Galactic Astronomy as the focal area; definition of hypothesis generation as the target task.",
+      "Example": "The study investigates LLM-driven hypothesis generation in Galactic Astronomy using in-context prompting.",
+      "Role in workflow": "Sets the scientific scope and motivates the workflow's focus on hypothesis generation in astronomy."
+    },
+    "User provide structured, domain-specific specifications": {
+      "performed": "No"
+    },
+    "User provide research papers": {
+      "performed": "Yes",
+      "Format": "Curated set of 1,000 Galactic Astronomy papers from NASA ADS, selected by keywords, date, and relevance.",
+      "Example": "Papers with 'Gaia' in the abstract, published in the last ten years, refereed, and matching specific keywords.",
+      "Role in workflow": "Provides the domain-specific literature context for LLM-based hypothesis generation."
+    },
+    "User provide datasets other than research papers": {
+      "performed": "No"
+    },
+    "User provide representations or formal inputs": {
+      "performed": "No"
+    }
+  },
+  "Query Structuring": {
+    "performed": "Yes",
+    "Query Decomposition": {
+      "performed": "No"
+    },
+    "Structural or Entity Decomposition": {
+      "performed": "No"
+    },
+    "Workflow Decomposition": {
+      "performed": "Yes",
+      "Method details": "Multi-agent GPT-4 workflow: one instance generates hypotheses, a second critiques, a third moderates feedback.",
+      "Inputs": "Standalone input query and chat history, plus retrieved literature context.",
+      "Outputs": "Sequential hypothesis, critique, and moderated feedback cycles.",
+      "Example": "Adversarial prompting loop: generator → judge → moderator → generator.",
+      "Role in workflow": "Enables iterative refinement and adversarial improvement of hypotheses."
+    },
+    "Textual or Knowledge Embedding": {
+      "performed": "Yes",
+      "Method details": "Papers and queries are embedded using OpenAI's text-ada-002 model for semantic similarity search.",
+      "Inputs": "Text chunks from 1,000 papers and user queries.",
+      "Outputs": "Vector representations for similarity-based retrieval.",
+      "Example": "Each paper split into 1,000-token chunks and embedded for retrieval.",
+      "Role in workflow": "Supports semantic retrieval of relevant literature for context-aware hypothesis generation."
+    },
+    "Molecular or Chemical Embedding": {
+      "performed": "No"
+    },
+    "Biological or Phenotypic Embedding": {
+      "performed": "No"
+    },
+    "Pattern and Feature Extraction": {
+      "performed": "No"
+    },
+    "Biological Relationship Extraction": {
+      "performed": "No"
+    },
+    "Property and Annotation Extraction": {
+      "performed": "No"
+    },
+    "Sequence and Structure Feature Extraction": {
+      "performed": "No"
+    }
+  },
+  "Data Retrieval": {
+    "performed": "Yes",
+    "Data Retrieval via Multi-Query Generation and Exploration": {
+      "performed": "No"
+    },
+    "Literature and Data Retrieval via APIs": {
+      "performed": "Yes",
+      "Method details": "Papers retrieved from NASA ADS using database queries with specific keywords and filters.",
+      "Inputs": "Query parameters: keywords, publication date, refereed status.",
+      "Outputs": "Curated set of 1,000 relevant papers.",
+      "Example": "Querying NASA ADS for papers with 'Gaia' and other keywords.",
+      "Role in workflow": "Assembles the literature corpus for downstream embedding and retrieval."
+    },
+    "Data Retrieval with Prioritization and Filtering Agents": {
+      "performed": "Yes",
+      "Method details": "Most recent and relevant papers prioritized after initial query yields >1,000 results.",
+      "Inputs": "Initial set of papers from ADS query.",
+      "Outputs": "Filtered, prioritized set of 1,000 papers.",
+      "Example": "Prioritizing most recent publications for inclusion.",
+      "Role in workflow": "Ensures the context is current and relevant for hypothesis generation."
+    },
+    "Domain-Specific Data Retrieval and Reasoning": {
+      "performed": "No"
+    },
+    "Code-Driven or Tool-Augmented Data Retrieval": {
+      "performed": "Yes",
+      "Method details": "Use of langchain library to process and retrieve relevant text chunks from embedded papers.",
+      "Inputs": "Embedded paper chunks and user queries.",
+      "Outputs": "Relevant document chunks for context.",
+      "Example": "langchain's similarity search and contextual compression.",
+      "Role in workflow": "Automates retrieval and filtering of literature for LLM input."
+    },
+    "Literature data Retrieval Citation-Network–Based Expansion": {
+      "performed": "No"
+    },
+    "Literature data Retrieval via Semantic and Similarity-Based analysis": {
+      "performed": "Yes",
+      "Method details": "Similarity search between embedded queries and paper chunks using vector database.",
+      "Inputs": "Query embeddings and paper chunk embeddings.",
+      "Outputs": "Semantically relevant literature chunks.",
+      "Example": "Retrieving chunks most similar to the input query.",
+      "Role in workflow": "Provides targeted, contextually relevant literature for hypothesis generation."
+    },
+    "Literature data Retrieval via Multi-Step Reference and Evidence Selection": {
+      "performed": "No"
+    },
+    "Domain-Specific Literature data Retrieval": {
+      "performed": "Yes",
+      "Method details": "Selection based on domain-specific keywords and metadata (e.g., 'galaxy kinematics', 'Gaia').",
+      "Inputs": "ADS database, domain-specific query parameters.",
+      "Outputs": "Galactic Astronomy literature corpus.",
+      "Example": "Filtering for 'galaxy evolution', 'disk', 'halo', etc.",
+      "Role in workflow": "Ensures literature is tailored to the scientific domain of interest."
+    },
+    "Manual and Semi-Automatic Curation of Literature data": {
+      "performed": "Yes",
+      "Method details": "Manual prioritization of most recent papers after automated query.",
+      "Inputs": "Initial query results.",
+      "Outputs": "Final curated set of 1,000 papers.",
+      "Example": "Manual selection to ensure recency and relevance.",
+      "Role in workflow": "Improves quality and relevance of the literature context."
+    },
+    "Structural or Similarity-Based Dataset Retrieval": {
+      "performed": "No"
+    },
+    "Data Retrieval via Domain-Specific Repository Querying": {
+      "performed": "Yes",
+      "Method details": "Direct querying of NASA ADS, a domain-specific repository.",
+      "Inputs": "ADS database, query parameters.",
+      "Outputs": "Relevant astronomy papers.",
+      "Example": "Querying NASA ADS for Galactic Astronomy papers.",
+      "Role in workflow": "Sources authoritative literature for the workflow."
+    },
+    "Library Assembly and Data Augmentation": {
+      "performed": "No"
+    }
+  },
+  "Knowledge Assembly": {
+    "performed": "Yes",
+    "Standardized Section Extraction from Literature data": {
+      "performed": "Yes",
+      "Method details": "Extraction of metadata fields (ArxivID, Publication Date, Authors, Title, Abstract, Citation, Key) from each paper.",
+      "Inputs": "ADS paper records.",
+      "Outputs": "Structured metadata for each paper.",
+      "Example": "Dataset includes title, abstract, authors, etc.",
+      "Role in workflow": "Normalizes literature for downstream processing and retrieval."
+    },
+    "Concise Synopsis and Summarization of Literature data": {
+      "performed": "No"
+    },
+    "Facet-Based or Field-Specific Extraction from Literature data": {
+      "performed": "No"
+    },
+    "Domain-Tailored Extraction from Literature data": {
+      "performed": "No"
+    },
+    "Task/Entity-Centric Knowledge Graphs": {
+      "performed": "No"
+    },
+    "Causal or Relation-Specific Knowledge Graphs": {
+      "performed": "No"
+    },
+    "Biomedical or Domain-Specific Interaction Graphs": {
+      "performed": "No"
+    },
+    "Literature Database Construction": {
+      "performed": "Yes",
+      "Method details": "Curated and structured a dataset of 1,000 papers with key metadata fields for reproducibility.",
+      "Inputs": "ADS query results.",
+      "Outputs": "Structured literature database (publicly available).",
+      "Example": "Dataset and codebase shared on GitHub.",
+      "Role in workflow": "Enables reproducible, structured access to the literature corpus."
+    },
+    "Entity- or Co-Occurrence–Based Databases": {
+      "performed": "No"
+    },
+    "Reasoning-Chain or Temporal Databases for Literature": {
+      "performed": "No"
+    }
+  },
+  "Hypothesis/Idea Generation": {
+    "performed": "Yes",
+    "Idea/hypothesis generation without additional literature or dataset as context": {
+      "performed": "No"
+    },
+    "LLM Agent Generate ideas/hypotheses via Task Decomposition": {
+      "performed": "No"
+    },
+    "Generate ideas/hypotheses using Domain-Specialized LLM Agent": {
+      "performed": "Yes",
+      "Method details": "GPT-4 model, prompted with domain-specific literature, generates hypotheses in Galactic Astronomy.",
+      "Inputs": "Relevant literature chunks, standalone input.",
+      "Outputs": "Novel scientific hypotheses.",
+      "Example": "Hypothesis on dark matter mini-halos in globular clusters.",
+      "Role in workflow": "Synthesizes new research ideas grounded in domain context."
+    },
+    "Literature data used during idea/hypothesis generation as context": {
+      "performed": "Yes",
+      "Method details": "Relevant literature chunks retrieved and provided as context to GPT-4 during hypothesis generation.",
+      "Inputs": "Retrieved literature chunks.",
+      "Outputs": "Contextually grounded hypotheses.",
+      "Example": "Hypotheses referencing specific studies and methodologies.",
+      "Role in workflow": "Ensures hypotheses are informed by current literature."
+    },
+    "Summarization Literature data used during idea/hypothesis generation": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation via Facet Recombination": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation via contructed Reasoning-Chain from literature": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation via Knowledge Graph developed from literature": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation via Pattern Detection from dataset": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation via Few-Shot Data Seeding": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation using Observational data": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation via Feature-Driven Property Prediction": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation after Fine-Tuning the LLM model": {
+      "performed": "No"
+    }
+  },
+  "Hypothesis/Idea Prioritization": {
+    "performed": "Yes",
+    "LLM-based Hypothesis/Idea evaluation via Scientific Quality": {
+      "performed": "Yes",
+      "Method details": "A secondary GPT-4 model critiques generated hypotheses, highlighting weaknesses and suggesting improvements.",
+      "Inputs": "Generated hypothesis and literature context.",
+      "Outputs": "Critique and feedback for hypothesis refinement.",
+      "Example": "AI judge critiques hypothesis on Milky Way's gravitational potential.",
+      "Role in workflow": "Improves hypothesis quality through adversarial feedback."
+    },
+    "LLM-based Hypothesis/Idea evaluation via Domain-Specific Evaluation": {
+      "performed": "Yes",
+      "Method details": "AI judge evaluates hypotheses for scientific accuracy, creativity, and feasibility, using domain-specific context.",
+      "Inputs": "Hypothesis, literature context.",
+      "Outputs": "Domain-informed critique.",
+      "Example": "Critique referencing dust obscuration and simulation limitations.",
+      "Role in workflow": "Ensures hypotheses are evaluated with domain-relevant criteria."
+    },
+    "LLM-based Hypothesis/Idea evaluation via Contextual Evidence Scoring": {
+      "performed": "No"
+    },
+    "LLM-based Hypothesis/Idea evaluation via Interpretability or Success Metrics": {
+      "performed": "No"
+    },
+    "Hypothesis/Idea evaluation via Novelty Checking with Literature Comparison": {
+      "performed": "No"
+    },
+    "Hypothesis/Idea evaluation via Alignment with Literature Chains": {
+      "performed": "No"
+    },
+    "Hypothesis/Idea evaluation via Knowledge-Graph Grounded Similarity Metrics": {
+      "performed": "No"
+    },
+    "Hypothesis/Idea evaluation via Quantitative Assessment Using Domain Metrics": {
+      "performed": "No"
+    },
+    "Hypothesis/Idea evaluation via Human/Expert": {
+      "performed": "Yes",
+      "Method details": "Two domain experts evaluate hypotheses for scientific accuracy, creativity, and feasibility using a rubric.",
+      "Inputs": "Generated hypotheses.",
+      "Outputs": "Expert-assigned quality scores.",
+      "Example": "Experts rate hypotheses on a 1–5 scale.",
+      "Role in workflow": "Provides human-grounded assessment of hypothesis quality."
+    }
+  },
+  "Test": {
+    "performed": "No"
+  },
+  "paper_title": "Harnessing the Power of Adversarial Prompting and Large Language Models for Robust Hypothesis Generation in Astronomy",
+  "authors": [
+    "Ioana",
+    "Yuan-Sen",
+    "Sandor",
+    "Kartheik"
+  ],
+  "published": "2023-06-20",
+  "link": "http://arxiv.org/abs/2306.11648"
+}

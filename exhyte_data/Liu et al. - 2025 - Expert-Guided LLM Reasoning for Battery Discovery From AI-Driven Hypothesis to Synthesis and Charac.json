@@ -1,0 +1,390 @@
+{
+  "Inputs to the workflow": {
+    "performed": "Yes",
+    "User provide high-level research direction or goal": {
+      "performed": "Yes",
+      "Format": "Natural language prompts specifying the optimization of NMC811 cathode materials for higher capacity and stability.",
+      "Example": "Human experts design prompts for the LLM to optimize NMC811 properties.",
+      "Role in workflow": "Defines the scientific challenge and sets the objective for the LLM-driven optimization process."
+    },
+    "User provide structured, domain-specific specifications": {
+      "performed": "Yes",
+      "Format": "Constraints in prompts (e.g., allowed elements, target capacity, stability, cost, safety).",
+      "Example": "LLM instructed to prioritize elements from specific groups and avoid radioactive elements.",
+      "Role in workflow": "Constrains the search space and guides LLM hypothesis generation."
+    },
+    "User provide research papers": {
+      "performed": "No"
+    },
+    "User provide datasets other than research papers": {
+      "performed": "Yes",
+      "Format": "Domain databases (ICSD, Materials Project) provided as reference for novelty and feasibility checks.",
+      "Example": "ICSD and Materials Project used to check if generated materials already exist.",
+      "Role in workflow": "Supports novelty filtering and feasibility validation of candidate materials."
+    },
+    "User provide representations or formal inputs": {
+      "performed": "Yes",
+      "Format": "Chemical formulas and stoichiometric ratios as input to LLM and agents.",
+      "Example": "Input: LiNi0.8Mn0.1Co0.1O2; Output: modified formulas with new element ratios.",
+      "Role in workflow": "Serves as the formal basis for LLM-driven optimization and downstream evaluation."
+    }
+  },
+  "Query Structuring": {
+    "performed": "Yes",
+    "Query Decomposition": {
+      "performed": "Yes",
+      "Method details": "Prompts are iteratively refined to address invalid or redundant outputs, decomposing the optimization into rounds and cycles.",
+      "Inputs": "High-level prompts and feedback from previous rounds.",
+      "Outputs": "Refined prompts targeting specific optimization sub-tasks.",
+      "Example": "Subsequent rounds replace invalid or existing compositions with new candidates.",
+      "Role in workflow": "Enables iterative, focused exploration and correction of candidate generation."
+    },
+    "Structural or Entity Decomposition": {
+      "performed": "Yes",
+      "Method details": "Chemical formulas are decomposed into elemental counts and types for similarity, distance, and property calculations.",
+      "Inputs": "Candidate chemical formulas.",
+      "Outputs": "Elemental composition vectors, used for distance and property calculations.",
+      "Example": "Distance function based on counts of Li, transition metals, anions, etc.",
+      "Role in workflow": "Supports similarity search, deduplication, and property evaluation."
+    },
+    "Workflow Decomposition": {
+      "performed": "Yes",
+      "Method details": "Multi-agent system splits the workflow into sequential stages (conceptualization, generation, validation, ranking, etc.).",
+      "Inputs": "User goals and initial prompts.",
+      "Outputs": "Actionable sub-tasks for each agent (LLM, search, decision, retrieval, etc.).",
+      "Example": "Eight-stage pipeline with specialized agents for each function.",
+      "Role in workflow": "Structures the discovery process into manageable, coordinated steps."
+    },
+    "Textual or Knowledge Embedding": {
+      "performed": "No"
+    },
+    "Molecular or Chemical Embedding": {
+      "performed": "No"
+    },
+    "Biological or Phenotypic Embedding": {
+      "performed": "No"
+    },
+    "Pattern and Feature Extraction": {
+      "performed": "Yes",
+      "Method details": "Domain agent extracts features such as total charge, preparation complexity, and voltage from candidate formulas.",
+      "Inputs": "Candidate chemical formulas.",
+      "Outputs": "Feature values for ranking and filtering.",
+      "Example": "Calculation of total charge and preparation complexity for each candidate.",
+      "Role in workflow": "Enables multi-criteria ranking and selection of promising candidates."
+    },
+    "Biological Relationship Extraction": {
+      "performed": "No"
+    },
+    "Property and Annotation Extraction": {
+      "performed": "Yes",
+      "Method details": "Domain agent computes theoretical capacity and other properties using formula-based calculations.",
+      "Inputs": "Chemical formulas.",
+      "Outputs": "Theoretical capacity, total charge, etc.",
+      "Example": "Capacity calculated as n·F/(3.6·M) where n is Li count.",
+      "Role in workflow": "Provides quantitative metrics for candidate evaluation and filtering."
+    },
+    "Sequence and Structure Feature Extraction": {
+      "performed": "No"
+    }
+  },
+  "Data Retrieval": {
+    "performed": "Yes",
+    "Data Retrieval via Multi-Query Generation and Exploration": {
+      "performed": "No"
+    },
+    "Literature and Data Retrieval via APIs": {
+      "performed": "Yes",
+      "Method details": "Search agent queries Materials Project API to check if generated compounds exist.",
+      "Inputs": "Candidate chemical formulas.",
+      "Outputs": "Existence/novelty status for each candidate.",
+      "Example": "Materials Project API used to filter out known compounds.",
+      "Role in workflow": "Ensures novelty of generated candidates."
+    },
+    "Data Retrieval with Prioritization and Filtering Agents": {
+      "performed": "Yes",
+      "Method details": "Search and domain agents filter candidates by novelty and similarity using database queries and range matching.",
+      "Inputs": "Candidate formulas, ICSD and Materials Project databases.",
+      "Outputs": "Filtered list of unique, novel candidates.",
+      "Example": "Range match removes duplicates after exploration phase.",
+      "Role in workflow": "Reduces redundancy and focuses on unique, promising candidates."
+    },
+    "Domain-Specific Data Retrieval and Reasoning": {
+      "performed": "Yes",
+      "Method details": "Retrieval agent searches ICSD for similar compounds with higher capacity to guide LLM in generating valid candidates.",
+      "Inputs": "Invalid candidate formulas, ICSD database.",
+      "Outputs": "Similar, valid compounds for prompt refinement.",
+      "Example": "Retrieval agent provides similar compounds for LLM to use in next round.",
+      "Role in workflow": "Guides LLM toward feasible, high-capacity candidates."
+    },
+    "Code-Driven or Tool-Augmented Data Retrieval": {
+      "performed": "No"
+    },
+    "Literature data Retrieval Citation-Network–Based Expansion": {
+      "performed": "No"
+    },
+    "Literature data Retrieval via Semantic and Similarity-Based analysis": {
+      "performed": "No"
+    },
+    "Literature data Retrieval via Multi-Step Reference and Evidence Selection": {
+      "performed": "No"
+    },
+    "Domain-Specific Literature data Retrieval": {
+      "performed": "No"
+    },
+    "Manual and Semi-Automatic Curation of Literature data": {
+      "performed": "No"
+    },
+    "Structural or Similarity-Based Dataset Retrieval": {
+      "performed": "Yes",
+      "Method details": "Domain agent uses a distance function based on elemental composition to retrieve similar compounds from ICSD.",
+      "Inputs": "Candidate and database formulas.",
+      "Outputs": "Most similar compounds for retrieval and deduplication.",
+      "Example": "Similarity-based retrieval for invalid candidate correction.",
+      "Role in workflow": "Supports retrieval and deduplication based on chemical similarity."
+    },
+    "Data Retrieval via Domain-Specific Repository Querying": {
+      "performed": "Yes",
+      "Method details": "ICSD and Materials Project databases are directly queried for candidate validation.",
+      "Inputs": "Candidate formulas.",
+      "Outputs": "Existence/novelty status.",
+      "Example": "ICSD range match for deduplication.",
+      "Role in workflow": "Validates novelty and uniqueness of candidates."
+    },
+    "Library Assembly and Data Augmentation": {
+      "performed": "No"
+    }
+  },
+  "Knowledge Assembly": {
+    "performed": "No"
+  },
+  "Hypothesis/Idea Generation": {
+    "performed": "Yes",
+    "Idea/hypothesis generation without additional literature or dataset as context": {
+      "performed": "Yes",
+      "Method details": "LLM (GPT-3.5) generates new cathode material formulas based on prompts and constraints, without direct literature context.",
+      "Inputs": "Prompts specifying optimization goals and constraints.",
+      "Outputs": "Lists of candidate cathode material formulas.",
+      "Example": "LLM generates five new formulas per prompt.",
+      "Role in workflow": "Creates initial pool of candidate materials for further evaluation."
+    },
+    "LLM Agent Generate ideas/hypotheses via Task Decomposition": {
+      "performed": "Yes",
+      "Method details": "LLM agent operates within a multi-agent, multi-stage workflow, handling hypothesis generation as a distinct sub-task.",
+      "Inputs": "Decomposed prompts and feedback from other agents.",
+      "Outputs": "Optimized candidate formulas per round.",
+      "Example": "LLM agent generates candidates after each prompt refinement.",
+      "Role in workflow": "Enables modular, iterative hypothesis generation."
+    },
+    "Generate ideas/hypotheses using Domain-Specialized LLM Agent": {
+      "performed": "Yes",
+      "Method details": "LLM agent is guided by domain-specific constraints and feedback from domain agents and human experts.",
+      "Inputs": "Domain-informed prompts, feedback from search and retrieval agents.",
+      "Outputs": "Chemically plausible, domain-relevant candidate formulas.",
+      "Example": "LLM instructed to avoid radioactive elements and prioritize certain groups.",
+      "Role in workflow": "Ensures generated hypotheses are scientifically relevant and feasible."
+    },
+    "Literature data used during idea/hypothesis generation as context": {
+      "performed": "No"
+    },
+    "Summarization Literature data used during idea/hypothesis generation": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation via Facet Recombination": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation via contructed Reasoning-Chain from literature": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation via Knowledge Graph developed from literature": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation via Pattern Detection from dataset": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation via Few-Shot Data Seeding": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation using Observational data": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation via Feature-Driven Property Prediction": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation after Fine-Tuning the LLM model": {
+      "performed": "No"
+    }
+  },
+  "Hypothesis/Idea Prioritization": {
+    "performed": "Yes",
+    "LLM-based Hypothesis/Idea evaluation via Scientific Quality": {
+      "performed": "No"
+    },
+    "LLM-based Hypothesis/Idea evaluation via Domain-Specific Evaluation": {
+      "performed": "Yes",
+      "Method details": "LLM agent qualitatively ranks candidates based on thermodynamic stability and voltage.",
+      "Inputs": "Filtered candidate formulas.",
+      "Outputs": "Ranked list of candidates for further validation.",
+      "Example": "LLM compares voltage of candidate pairs to determine ranking.",
+      "Role in workflow": "Prioritizes candidates for computational and experimental testing."
+    },
+    "LLM-based Hypothesis/Idea evaluation via Contextual Evidence Scoring": {
+      "performed": "No"
+    },
+    "LLM-based Hypothesis/Idea evaluation via Interpretability or Success Metrics": {
+      "performed": "No"
+    },
+    "Hypothesis/Idea evaluation via Novelty Checking with Literature Comparison": {
+      "performed": "Yes",
+      "Method details": "Search agent checks candidate existence in ICSD and Materials Project databases.",
+      "Inputs": "Candidate formulas, domain databases.",
+      "Outputs": "Novelty status for each candidate.",
+      "Example": "Candidates found in databases are flagged and excluded.",
+      "Role in workflow": "Ensures only novel materials proceed to further stages."
+    },
+    "Hypothesis/Idea evaluation via Alignment with Literature Chains": {
+      "performed": "No"
+    },
+    "Hypothesis/Idea evaluation via Knowledge-Graph Grounded Similarity Metrics": {
+      "performed": "No"
+    },
+    "Hypothesis/Idea evaluation via Quantitative Assessment Using Domain Metrics": {
+      "performed": "Yes",
+      "Method details": "Domain agent calculates total charge, preparation complexity, and theoretical capacity for ranking.",
+      "Inputs": "Candidate formulas.",
+      "Outputs": "Quantitative scores for filtering and ranking.",
+      "Example": "Top 29 candidates selected by total charge, then by complexity and voltage.",
+      "Role in workflow": "Objectively filters and prioritizes candidates for validation."
+    },
+    "Hypothesis/Idea evaluation via Human/Expert": {
+      "performed": "Yes",
+      "Method details": "Human agent provides oversight in prompt design and final wet-lab verification.",
+      "Inputs": "Candidate lists, experimental results.",
+      "Outputs": "Expert judgment and validation.",
+      "Example": "Experts review and refine prompts, oversee synthesis and testing.",
+      "Role in workflow": "Ensures scientific rigor and practical feasibility."
+    }
+  },
+  "Test": {
+    "performed": "Yes",
+    "Experimental Design Generation via literature-Grounded Model/Protocol Selection": {
+      "performed": "No"
+    },
+    "Experimental Design Generation via Literature Synthesis for New Protocol Generation": {
+      "performed": "No"
+    },
+    "Experimental Design Generation via Few-Shot or Example-Based Prompting": {
+      "performed": "No"
+    },
+    "Experimental Design Generation via Executable Code Generation from Literature": {
+      "performed": "No"
+    },
+    "LLM-Based Experimental Design Generation via Agentic Exploration and Planning": {
+      "performed": "Yes",
+      "Method details": "LLM and agents generate sequential plans for candidate synthesis and validation, including computational and wet-lab stages.",
+      "Inputs": "Ranked candidate formulas.",
+      "Outputs": "Experimental plans for synthesis and testing.",
+      "Example": "Pipeline includes computational DFT validation followed by wet-lab synthesis.",
+      "Role in workflow": "Structures the experimental validation process for selected candidates."
+    },
+    "LLM-Based Experimental Design Generation via Code and Workflow Translation": {
+      "performed": "No"
+    },
+    "LLM-Based Experimental Design Generation via Multi-Agent Planning with Specialized Roles": {
+      "performed": "Yes",
+      "Method details": "Specialized agents (LLM, search, decision, retrieval, domain, human) coordinate to plan and execute experimental validation.",
+      "Inputs": "Candidate lists, agent outputs.",
+      "Outputs": "Coordinated experimental workflow.",
+      "Example": "Agents handle prompt design, candidate filtering, computational and wet-lab validation.",
+      "Role in workflow": "Enables division of labor and efficient workflow execution."
+    },
+    "LLM-Based Experimental Design Generation via Domain-Specific Experimental Mapping": {
+      "performed": "Yes",
+      "Method details": "Domain agent maps candidate formulas to DFT calculations and synthesis protocols.",
+      "Inputs": "Top candidate formulas.",
+      "Outputs": "DFT-ready structures, synthesis instructions.",
+      "Example": "Supercell expansion and DFT calculations for stability assessment.",
+      "Role in workflow": "Bridges computational predictions and experimental synthesis."
+    },
+    "Test Execution via Human-in-the-Loop": {
+      "performed": "Yes",
+      "Method details": "Human researchers synthesize and characterize selected candidates in the lab.",
+      "Inputs": "Experimental plans and candidate materials.",
+      "Outputs": "Empirical performance data (capacity, voltage, stability).",
+      "Example": "Wet-lab synthesis and electrochemical testing of NMC-SiMg, NMC-SiCa, NMC-MgB.",
+      "Role in workflow": "Provides real-world validation of AI-generated candidates."
+    },
+    "Test Execution via Automated Wet-Lab Execution": {
+      "performed": "No"
+    },
+    "Test Execution via Computational or In-Silico": {
+      "performed": "Yes",
+      "Method details": "DFT calculations (using MACE-MP) assess stability and energy of candidate structures.",
+      "Inputs": "Supercell-expanded candidate structures.",
+      "Outputs": "Total energy and stability metrics.",
+      "Example": "MACE-MP used for large supercell energy prediction.",
+      "Role in workflow": "Computationally validates feasibility before experimental synthesis."
+    },
+    "Refinement via LLM Agent Feedback Loops": {
+      "performed": "Yes",
+      "Method details": "Invalid or suboptimal candidates trigger prompt refinement and new candidate generation in subsequent rounds.",
+      "Inputs": "Feedback from decision and retrieval agents.",
+      "Outputs": "Improved prompts and candidate lists.",
+      "Example": "LLM receives feedback on invalid candidates and generates replacements.",
+      "Role in workflow": "Iteratively improves candidate quality and feasibility."
+    },
+    "Refinement via Automated Quality Evaluation using Model-Based Critics": {
+      "performed": "No"
+    },
+    "Refinement via Dynamic Agent Updating Based on Evolving Context or Data": {
+      "performed": "Yes",
+      "Method details": "Agents update prompts and candidate selection based on intermediate computational and experimental results.",
+      "Inputs": "Test outcomes, agent feedback.",
+      "Outputs": "Updated candidate lists and prompts.",
+      "Example": "Domain feedback incorporated into next round of LLM prompts.",
+      "Role in workflow": "Adapts workflow based on new data and outcomes."
+    },
+    "Refinement via guided by computational-data": {
+      "performed": "Yes",
+      "Method details": "Computational results (DFT energies, capacity) guide selection and refinement of candidates.",
+      "Inputs": "DFT and property calculation results.",
+      "Outputs": "Filtered and prioritized candidate list.",
+      "Example": "Only candidates with negative total energy proceed to synthesis.",
+      "Role in workflow": "Ensures only computationally validated candidates are experimentally tested."
+    },
+    "Refinement via experimental validation": {
+      "performed": "Yes",
+      "Method details": "Experimental results (capacity, voltage) inform further material optimization and prompt refinement.",
+      "Inputs": "Wet-lab test results.",
+      "Outputs": "Refined material compositions and synthesis protocols.",
+      "Example": "Li-rich-NMC-SiMg developed after initial candidate validation.",
+      "Role in workflow": "Enables iterative improvement based on empirical evidence."
+    },
+    "Refinement via Performance-metric": {
+      "performed": "Yes",
+      "Method details": "Performance metrics (e.g., specific capacity, voltage) from experiments guide further optimization.",
+      "Inputs": "Experimental performance data.",
+      "Outputs": "Selection and refinement of best-performing candidates.",
+      "Example": "NMC-SiMg selected for further optimization due to highest capacity improvement.",
+      "Role in workflow": "Focuses optimization on candidates with superior real-world performance."
+    },
+    "Refinement via Human–data integration": {
+      "performed": "Yes",
+      "Method details": "Human experts integrate experimental data to guide further optimization and prompt design.",
+      "Inputs": "Experimental results, human judgment.",
+      "Outputs": "Updated prompts and candidate selection.",
+      "Example": "Experts refine prompts and select Li-rich-NMC-SiMg for further study.",
+      "Role in workflow": "Combines human insight with automated analysis for optimal outcomes."
+    }
+  },
+  "paper_title": "Expert-Guided LLM Reasoning for Battery Discovery: From AI-Driven Hypothesis to Synthesis and Characterization",
+  "authors": [
+    "Shengchao",
+    "Hannan",
+    "Yan",
+    "Huanxin",
+    "Yoshua",
+    "Harry"
+  ],
+  "published": "2025-07-21",
+  "link": "http://arxiv.org/abs/2507.16110"
+}

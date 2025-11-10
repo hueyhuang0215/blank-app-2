@@ -1,0 +1,222 @@
+{
+  "Inputs to the workflow": {
+    "performed": "Yes",
+    "User provide high-level research direction or goal": {
+      "performed": "Yes",
+      "Format": "Natural language description of property optimization task (e.g., 'increase binding affinity', 'decrease CMC', 'increase CO2 adsorption')",
+      "Example": "The agent is tasked with making additions, substitutions or deletions to reduce CMC.",
+      "Role in workflow": "Defines the optimization objective for the AI agent."
+    },
+    "User provide structured, domain-specific specifications": {
+      "performed": "Yes",
+      "Format": "Natural language constraints (e.g., molecular weight limits, forbidden functional groups)",
+      "Example": "The model is asked to keep the molecular weight of the generated candidates lower than 600 (g/mol).",
+      "Role in workflow": "Constrains the design space and ensures generated candidates meet domain requirements."
+    },
+    "User provide research papers": {
+      "performed": "Yes",
+      "Format": "Selection of scientific literature (PDFs or text) relevant to the target property",
+      "Example": "The design guidelines were determined by the agent via providing exemplary journal articles on surfactant design.",
+      "Role in workflow": "Provides domain knowledge and design guidelines for the agent."
+    },
+    "User provide datasets other than research papers": {
+      "performed": "Yes",
+      "Format": "Domain datasets for surrogate model training (e.g., CMC dataset, MOFid dataset)",
+      "Example": "CMC training data were experimentally measured at room temperature for 202 surfactants.",
+      "Role in workflow": "Used to train or fine-tune surrogate models for property prediction."
+    },
+    "User provide representations or formal inputs": {
+      "performed": "Yes",
+      "Format": "SMILES strings or sequence strings representing initial molecules",
+      "Example": "The agent was provided with an initial candidate surfactant-like molecule as a SMILES string.",
+      "Role in workflow": "Serves as the starting point for molecular modification and design."
+    }
+  },
+  "Query Structuring": {
+    "performed": "Yes",
+    "Query Decomposition": {
+      "performed": "Yes",
+      "Method details": "LLM interprets user-provided goals and constraints, decomposing them into actionable design guidelines and modification steps.",
+      "Inputs": "Natural language task description, constraints, literature-derived guidelines",
+      "Outputs": "Actionable sub-tasks for molecular modification",
+      "Example": "Agent interprets 'reduce CMC' and decomposes into steps like 'extend hydrophobic tail', 'add fluorine'.",
+      "Role in workflow": "Enables targeted and iterative exploration of chemical modifications."
+    },
+    "Structural or Entity Decomposition": {
+      "performed": "Yes",
+      "Method details": "Agent analyzes molecular structure (e.g., SMILES) to identify modifiable regions (tail, head group, functional groups).",
+      "Inputs": "SMILES string of initial molecule",
+      "Outputs": "Identified molecular substructures for targeted modification",
+      "Example": "Agent identifies hydrophobic tail and head group for surfactant design.",
+      "Role in workflow": "Focuses modifications on relevant molecular features."
+    },
+    "Workflow Decomposition": {
+      "performed": "Yes",
+      "Method details": "Agent iteratively plans and executes a sequence of molecular modifications, validation, and evaluation steps.",
+      "Inputs": "Initial molecule, design guidelines, property targets",
+      "Outputs": "Ordered sequence of modification and evaluation steps",
+      "Example": "Algorithm 1 describes iterative loop: propose modification → validate → evaluate property → update history.",
+      "Role in workflow": "Structures the overall discovery process into manageable steps."
+    },
+    "Textual or Knowledge Embedding": {
+      "performed": "Yes",
+      "Method details": "Embeds both research papers and queries as numerical vectors using OpenAI’s text-embedding-3-large for semantic retrieval.",
+      "Inputs": "Text of research papers, user query",
+      "Outputs": "Vector embeddings enabling semantic similarity search",
+      "Example": "Embedding model used to retrieve top-k relevant passages from literature.",
+      "Role in workflow": "Supports retrieval of relevant design guidelines from literature."
+    },
+    "Molecular or Chemical Embedding": {
+      "performed": "Yes",
+      "Method details": "Surrogate models (e.g., GCN for CMC, MOFormer for MOFs) encode molecular structures for property prediction.",
+      "Inputs": "SMILES strings of molecules",
+      "Outputs": "Graph or transformer-based molecular embeddings",
+      "Example": "GCN processes molecular graphs for CMC prediction.",
+      "Role in workflow": "Enables property prediction and similarity assessment."
+    },
+    "Pattern and Feature Extraction": {
+      "performed": "Yes",
+      "Method details": "Surrogate models extract molecular features (e.g., atom types, connectivity) for property prediction.",
+      "Inputs": "Molecular structure (SMILES)",
+      "Outputs": "Feature vectors for property prediction",
+      "Example": "GCN extracts atom-level features for CMC regression.",
+      "Role in workflow": "Informs surrogate model predictions."
+    }
+  },
+  "Data Retrieval": {
+    "performed": "Yes",
+    "Data Retrieval with Prioritization and Filtering Agents": {
+      "performed": "Yes",
+      "Method details": "Agent uses Maximum Marginal Relevance (MMR) to rank and select the most relevant and diverse literature passages.",
+      "Inputs": "Embedded research papers, user query",
+      "Outputs": "Top-k relevant guideline passages",
+      "Example": "MMR retrieves passages that are both relevant and diverse for design guideline extraction.",
+      "Role in workflow": "Ensures high-quality, non-redundant knowledge is used for design."
+    },
+    "Literature data Retrieval via Semantic and Similarity-Based analysis": {
+      "performed": "Yes",
+      "Method details": "Semantic similarity search using cosine similarity between embeddings of query and literature passages.",
+      "Inputs": "Query embedding, literature embeddings",
+      "Outputs": "Ranked list of semantically similar literature passages",
+      "Example": "Agent retrieves passages that mention or hint at property optimization strategies.",
+      "Role in workflow": "Finds literature most relevant to the design task."
+    },
+    "Domain-Specific Data Retrieval and Reasoning": {
+      "performed": "Yes",
+      "Method details": "Agent retrieves and reasons over domain-specific literature and datasets for property-specific guideline extraction.",
+      "Inputs": "Scientific literature, domain datasets",
+      "Outputs": "Extracted domain-specific design guidelines",
+      "Example": "Agent extracts surfactant design rules from surfactant literature.",
+      "Role in workflow": "Grounds design process in domain expertise."
+    }
+  },
+  "Knowledge Assembly": {
+    "performed": "Yes",
+    "Domain-Tailored Extraction from Literature data": {
+      "performed": "Yes",
+      "Method details": "Agent extracts actionable design guidelines (e.g., how to modify molecules to optimize a property) from literature.",
+      "Inputs": "Relevant literature passages",
+      "Outputs": "Domain-specific design guidelines",
+      "Example": "Extracted rules: 'increasing tail length reduces CMC', 'adding fluorine improves CO2 adsorption'.",
+      "Role in workflow": "Provides actionable knowledge for molecular design."
+    }
+  },
+  "Hypothesis/Idea Generation": {
+    "performed": "Yes",
+    "Generate ideas/hypotheses using Domain-Specialized LLM Agent": {
+      "performed": "Yes",
+      "Method details": "LLM agent (Claude 3.5 Sonnet or GPT-4o) proposes new molecular structures based on domain knowledge and design guidelines.",
+      "Inputs": "Initial molecule, design guidelines, property targets",
+      "Outputs": "New candidate molecules (SMILES)",
+      "Example": "Agent suggests adding fluorine to a surfactant tail to reduce CMC.",
+      "Role in workflow": "Generates novel molecular candidates for testing."
+    },
+    "Literature data used during idea/hypothesis generation as context": {
+      "performed": "Yes",
+      "Method details": "Agent uses retrieved literature guidelines as context for proposing modifications.",
+      "Inputs": "Extracted design guidelines from literature",
+      "Outputs": "Context-aware molecular modifications",
+      "Example": "Agent references literature-derived rules when proposing new linkers for MOFs.",
+      "Role in workflow": "Ensures generated ideas are grounded in scientific evidence."
+    },
+    "Idea/hypothesis generation via Feature-Driven Property Prediction": {
+      "performed": "Yes",
+      "Method details": "Agent proposes modifications expected to improve target properties, informed by surrogate model predictions.",
+      "Inputs": "Molecular features, surrogate model outputs",
+      "Outputs": "Property-optimized molecular candidates",
+      "Example": "Agent iteratively modifies molecules to minimize predicted CMC.",
+      "Role in workflow": "Drives optimization of molecular properties."
+    }
+  },
+  "Hypothesis/Idea Prioritization": {
+    "performed": "Yes",
+    "LLM-based Hypothesis/Idea evaluation via Domain-Specific Evaluation": {
+      "performed": "Yes",
+      "Method details": "Agent evaluates candidate molecules for chemical validity, synthesizability (SA score), and domain-specific constraints.",
+      "Inputs": "Generated molecules, domain constraints",
+      "Outputs": "Filtered and prioritized candidate molecules",
+      "Example": "Agent rejects modifications that increase SA score excessively or violate MW constraint.",
+      "Role in workflow": "Ensures only feasible and relevant candidates are advanced."
+    },
+    "Hypothesis/Idea evaluation via Quantitative Assessment Using Domain Metrics": {
+      "performed": "Yes",
+      "Method details": "Surrogate models predict target properties (e.g., CMC, docking score, CO2 adsorption) for each candidate.",
+      "Inputs": "Candidate molecules (SMILES)",
+      "Outputs": "Predicted property values with uncertainty",
+      "Example": "GCN predicts log(CMC); AutoDock Vina predicts docking score.",
+      "Role in workflow": "Objectively scores candidates for optimization."
+    },
+    "Hypothesis/Idea evaluation via Human/Expert": {
+      "performed": "Yes",
+      "Method details": "Human chemists review agent suggestions, provide feedback, and request modifications in human-in-the-loop mode.",
+      "Inputs": "Agent-generated candidates and reasoning",
+      "Outputs": "Refined candidate list and modification instructions",
+      "Example": "Human requests replacement of a toxicophore group in drug design.",
+      "Role in workflow": "Adds expert judgment and domain insight to candidate selection."
+    }
+  },
+  "Test": {
+    "performed": "Yes",
+    "Test Execution via Human-in-the-Loop": {
+      "performed": "Yes",
+      "Method details": "Human experts interact with the agent, reviewing and refining molecular designs iteratively.",
+      "Inputs": "Agent-generated candidates, human feedback",
+      "Outputs": "Improved molecular candidates",
+      "Example": "Human instructs agent to move a functional group to improve binding affinity.",
+      "Role in workflow": "Enables collaborative optimization and expert-guided refinement."
+    },
+    "Test Execution via Computational or In-Silico": {
+      "performed": "Yes",
+      "Method details": "Surrogate models (GCN, AutoDock Vina, MOFormer) computationally evaluate properties of generated molecules.",
+      "Inputs": "Candidate molecules (SMILES)",
+      "Outputs": "Predicted property values (e.g., CMC, docking score, CO2 adsorption)",
+      "Example": "AutoDock Vina computes docking score for WDR5 ligand.",
+      "Role in workflow": "Validates candidate performance in silico."
+    },
+    "Refinement via LLM Agent Feedback Loops": {
+      "performed": "Yes",
+      "Method details": "Agent iteratively proposes, evaluates, and revises molecular candidates based on property predictions and constraints.",
+      "Inputs": "Previous candidates, property scores, design history",
+      "Outputs": "Converged set of optimized molecules",
+      "Example": "Agent reverts unsuccessful modifications and explores alternatives.",
+      "Role in workflow": "Drives iterative improvement toward optimal solutions."
+    },
+    "Refinement via Performance-metric": {
+      "performed": "Yes",
+      "Method details": "Refinement is guided by improvements in quantitative metrics (e.g., lower CMC, better docking score, higher CO2 adsorption).",
+      "Inputs": "Predicted property values",
+      "Outputs": "Selection of best-performing candidates",
+      "Example": "Agent continues modifications until property improvement converges.",
+      "Role in workflow": "Ensures optimization is performance-driven."
+    }
+  },
+  "paper_title": "dZiner: Rational Inverse Design of Materials with AI Agents",
+  "authors": [
+    "Mehrad",
+    "Jeffrey",
+    "Carla E.",
+    "Joseph S."
+  ],
+  "published": "2024-10-04",
+  "link": "http://arxiv.org/abs/2410.03963"
+}

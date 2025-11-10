@@ -1,0 +1,391 @@
+{
+  "Inputs to the workflow": {
+    "performed": "Yes",
+    "User provide high-level research direction or goal": {
+      "performed": "Yes",
+      "Format": "Natural language research questions or task descriptions",
+      "Example": "What makes an argument persuasive? What signs are indicative of AI-generated texts?",
+      "Role in workflow": "Defines the scope and focus for hypothesis generation and evaluation."
+    },
+    "User provide structured, domain-specific specifications": {
+      "performed": "No"
+    },
+    "User provide research papers": {
+      "performed": "Yes",
+      "Format": "PDFs of relevant papers, converted to JSON via S2ORC-doc2json",
+      "Example": "Papers from Semantic Scholar or Google Scholar, including those citing original datasets.",
+      "Role in workflow": "Provides literature grounding for literature-based hypothesis generation."
+    },
+    "User provide datasets other than research papers": {
+      "performed": "Yes",
+      "Format": "Labeled datasets for classification tasks (input-label pairs)",
+      "Example": "DECEPTIVE REVIEWS, WRITINGPROMPTS, DREADDIT, PERSUASIVE PAIRS",
+      "Role in workflow": "Empirical data for data-driven hypothesis generation and evaluation."
+    },
+    "User provide representations or formal inputs": {
+      "performed": "No"
+    }
+  },
+  "Query Structuring": {
+    "performed": "Yes",
+    "Query Decomposition": {
+      "performed": "No"
+    },
+    "Structural or Entity Decomposition": {
+      "performed": "No"
+    },
+    "Workflow Decomposition": {
+      "performed": "Yes",
+      "Method details": "The system uses a multi-agent approach, with separate literature-based and data-driven hypothesis agents that iteratively refine and update a shared hypothesis pool.",
+      "Inputs": "Initial hypotheses from literature summaries and data examples",
+      "Outputs": "Refined, collaboratively generated hypothesis bank",
+      "Example": "Literature agent and HYPOGENIC agent alternate in refining hypotheses based on literature and data.",
+      "Role in workflow": "Enables integration and iterative improvement of hypotheses from multiple sources."
+    },
+    "Textual or Knowledge Embedding": {
+      "performed": "No"
+    },
+    "Molecular or Chemical Embedding": {
+      "performed": "No"
+    },
+    "Biological or Phenotypic Embedding": {
+      "performed": "No"
+    },
+    "Pattern and Feature Extraction": {
+      "performed": "Yes",
+      "Method details": "LLMs analyze labeled data to extract patterns and features that distinguish classes, used for hypothesis generation.",
+      "Inputs": "Input-label pairs from datasets",
+      "Outputs": "Patterns or features (e.g., linguistic cues, content traits) used in hypotheses",
+      "Example": "Identifying that reviews mentioning specific experiences are more likely truthful.",
+      "Role in workflow": "Provides empirical basis for data-driven hypothesis generation."
+    },
+    "Biological Relationship Extraction": {
+      "performed": "No"
+    },
+    "Property and Annotation Extraction": {
+      "performed": "No"
+    },
+    "Sequence and Structure Feature Extraction": {
+      "performed": "No"
+    }
+  },
+  "Data Retrieval": {
+    "performed": "Yes",
+    "Data Retrieval via Multi-Query Generation and Exploration": {
+      "performed": "No"
+    },
+    "Literature and Data Retrieval via APIs": {
+      "performed": "No"
+    },
+    "Data Retrieval with Prioritization and Filtering Agents": {
+      "performed": "No"
+    },
+    "Domain-Specific Data Retrieval and Reasoning": {
+      "performed": "No"
+    },
+    "Code-Driven or Tool-Augmented Data Retrieval": {
+      "performed": "No"
+    },
+    "Literature data Retrieval Citation-Network–Based Expansion": {
+      "performed": "Yes",
+      "Method details": "Papers are selected both from direct search and by including those that cite the original datasets.",
+      "Inputs": "Seed papers or dataset references",
+      "Outputs": "Expanded set of relevant papers",
+      "Example": "Selecting papers that cited the original datasets for each task.",
+      "Role in workflow": "Ensures comprehensive literature coverage for hypothesis grounding."
+    },
+    "Literature data Retrieval via Semantic and Similarity-Based analysis": {
+      "performed": "No"
+    },
+    "Literature data Retrieval via Multi-Step Reference and Evidence Selection": {
+      "performed": "No"
+    },
+    "Domain-Specific Literature data Retrieval": {
+      "performed": "No"
+    },
+    "Manual and Semi-Automatic Curation of Literature data": {
+      "performed": "Yes",
+      "Method details": "Manual search and selection of up to 10 relevant papers per task from Semantic Scholar or Google Scholar.",
+      "Inputs": "User queries, dataset references",
+      "Outputs": "Curated literature corpus",
+      "Example": "Manually collecting papers for each research question.",
+      "Role in workflow": "Provides high-quality, focused literature for downstream processing."
+    },
+    "Structural or Similarity-Based Dataset Retrieval": {
+      "performed": "No"
+    },
+    "Data Retrieval via Domain-Specific Repository Querying": {
+      "performed": "No"
+    },
+    "Library Assembly and Data Augmentation": {
+      "performed": "No"
+    }
+  },
+  "Knowledge Assembly": {
+    "performed": "Yes",
+    "Standardized Section Extraction from Literature data": {
+      "performed": "No"
+    },
+    "Concise Synopsis and Summarization of Literature data": {
+      "performed": "Yes",
+      "Method details": "A paper summarizer LLM generates concise summaries of key findings from each paper, focusing on task-relevant insights.",
+      "Inputs": "Full-text papers (converted to JSON)",
+      "Outputs": "Summaries of key findings per paper",
+      "Example": "Summarizing what is useful for deciding if a review is truthful or deceptive.",
+      "Role in workflow": "Condenses literature into actionable knowledge for hypothesis generation."
+    },
+    "Facet-Based or Field-Specific Extraction from Literature data": {
+      "performed": "No"
+    },
+    "Domain-Tailored Extraction from Literature data": {
+      "performed": "No"
+    },
+    "Task/Entity-Centric Knowledge Graphs": {
+      "performed": "No"
+    },
+    "Causal or Relation-Specific Knowledge Graphs": {
+      "performed": "No"
+    },
+    "Biomedical or Domain-Specific Interaction Graphs": {
+      "performed": "No"
+    },
+    "Literature Database Construction": {
+      "performed": "No"
+    },
+    "Entity- or Co-Occurrence–Based Databases": {
+      "performed": "No"
+    },
+    "Reasoning-Chain or Temporal Databases for Literature": {
+      "performed": "No"
+    }
+  },
+  "Hypothesis/Idea Generation": {
+    "performed": "Yes",
+    "Idea/hypothesis generation without additional literature or dataset as context": {
+      "performed": "Yes",
+      "Method details": "LLMs are prompted to generate hypotheses using only internal knowledge and task descriptions.",
+      "Inputs": "Task descriptions",
+      "Outputs": "Hypotheses",
+      "Example": "Zero-shot hypothesis generation baseline.",
+      "Role in workflow": "Provides a baseline for hypothesis generation without external context."
+    },
+    "LLM Agent Generate ideas/hypotheses via Task Decomposition": {
+      "performed": "No"
+    },
+    "Generate ideas/hypotheses using Domain-Specialized LLM Agent": {
+      "performed": "No"
+    },
+    "Literature data used during idea/hypothesis generation as context": {
+      "performed": "Yes",
+      "Method details": "LLMs generate hypotheses using summaries of relevant literature as context.",
+      "Inputs": "Paper summaries",
+      "Outputs": "Literature-grounded hypotheses",
+      "Example": "LITERATURE-ONLY method and commercial tools like NOTEBOOKLM.",
+      "Role in workflow": "Ensures hypotheses are grounded in established knowledge."
+    },
+    "Summarization Literature data used during idea/hypothesis generation": {
+      "performed": "Yes",
+      "Method details": "Key findings from literature are summarized and provided as input for LLM-based hypothesis generation.",
+      "Inputs": "Summarized literature",
+      "Outputs": "Concise, literature-informed hypotheses",
+      "Example": "Summaries generated by the paper summarizer LLM.",
+      "Role in workflow": "Distills literature into focused prompts for hypothesis creation."
+    },
+    "Idea/hypothesis generation via Facet Recombination": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation via contructed Reasoning-Chain from literature": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation via Knowledge Graph developed from literature": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation via Pattern Detection from dataset": {
+      "performed": "Yes",
+      "Method details": "HYPOGENIC uses LLMs to analyze labeled data, extracting patterns that inform hypotheses.",
+      "Inputs": "Input-label pairs from datasets",
+      "Outputs": "Data-driven hypotheses based on empirical patterns",
+      "Example": "Detecting that reviews referencing past experiences are more likely truthful.",
+      "Role in workflow": "Enables adaptive, empirically grounded hypothesis generation."
+    },
+    "Idea/hypothesis generation via Few-Shot Data Seeding": {
+      "performed": "Yes",
+      "Method details": "LLMs are seeded with a small number of labeled examples to induce initial hypotheses.",
+      "Inputs": "Few-shot labeled examples",
+      "Outputs": "Initial hypotheses",
+      "Example": "HYPOGENIC initialization stage.",
+      "Role in workflow": "Bootstraps hypothesis generation from limited data."
+    },
+    "Idea/hypothesis generation using Observational data": {
+      "performed": "Yes",
+      "Method details": "LLMs use observed input-label pairs to iteratively refine hypotheses based on prediction errors.",
+      "Inputs": "Observational data (input-label pairs)",
+      "Outputs": "Refined hypotheses",
+      "Example": "HYPOGENIC update stage with wrong example pool.",
+      "Role in workflow": "Improves hypotheses through iterative empirical feedback."
+    },
+    "Idea/hypothesis generation via Feature-Driven Property Prediction": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation after Fine-Tuning the LLM model": {
+      "performed": "No"
+    }
+  },
+  "Hypothesis/Idea Prioritization": {
+    "performed": "Yes",
+    "LLM-based Hypothesis/Idea evaluation via Scientific Quality": {
+      "performed": "Yes",
+      "Method details": "Human participants rate hypotheses for clarity, novelty, and plausibility using Likert scales.",
+      "Inputs": "Generated hypotheses",
+      "Outputs": "Human ratings and qualitative feedback",
+      "Example": "Human study II: Likert rating survey.",
+      "Role in workflow": "Assesses and filters hypotheses based on perceived scientific quality."
+    },
+    "LLM-based Hypothesis/Idea evaluation via Domain-Specific Evaluation": {
+      "performed": "No"
+    },
+    "LLM-based Hypothesis/Idea evaluation via Contextual Evidence Scoring": {
+      "performed": "Yes",
+      "Method details": "LLMs score hypotheses based on predictive accuracy on held-out datasets.",
+      "Inputs": "Hypotheses, test datasets",
+      "Outputs": "Accuracy and F1 scores",
+      "Example": "Automatic evaluation on OOD and IND datasets.",
+      "Role in workflow": "Ranks hypotheses by empirical performance."
+    },
+    "LLM-based Hypothesis/Idea evaluation via Interpretability or Success Metrics": {
+      "performed": "Yes",
+      "Method details": "LLMs and humans assess interpretability and practical utility of hypotheses.",
+      "Inputs": "Hypotheses",
+      "Outputs": "Interpretability ratings, human accuracy improvements",
+      "Example": "Human study I: Utility in human decision-making.",
+      "Role in workflow": "Ensures hypotheses are actionable and understandable."
+    },
+    "Hypothesis/Idea evaluation via Novelty Checking with Literature Comparison": {
+      "performed": "Yes",
+      "Method details": "Human annotators compare literature-based and data-driven hypotheses for novelty.",
+      "Inputs": "Pairs of hypotheses",
+      "Outputs": "Novelty labels (majority vote)",
+      "Example": "Human study III: Novelty and nuance.",
+      "Role in workflow": "Identifies complementary and novel insights."
+    },
+    "Hypothesis/Idea evaluation via Alignment with Literature Chains": {
+      "performed": "No"
+    },
+    "Hypothesis/Idea evaluation via Knowledge-Graph Grounded Similarity Metrics": {
+      "performed": "No"
+    },
+    "Hypothesis/Idea evaluation via Quantitative Assessment Using Domain Metrics": {
+      "performed": "Yes",
+      "Method details": "Hypotheses are evaluated using quantitative metrics (accuracy, F1) on classification tasks.",
+      "Inputs": "Hypotheses, labeled datasets",
+      "Outputs": "Performance metrics",
+      "Example": "Reporting accuracy improvements over baselines.",
+      "Role in workflow": "Objectively measures hypothesis utility."
+    },
+    "Hypothesis/Idea evaluation via Human/Expert": {
+      "performed": "Yes",
+      "Method details": "Human participants provide qualitative and quantitative feedback on hypotheses.",
+      "Inputs": "Hypotheses",
+      "Outputs": "Human accuracy, helpfulness ratings",
+      "Example": "Human studies on deception and AIGC detection.",
+      "Role in workflow": "Validates practical impact and usability."
+    }
+  },
+  "Test": {
+    "performed": "Yes",
+    "Experimental Design Generation via literature-Grounded Model/Protocol Selection": {
+      "performed": "No"
+    },
+    "Experimental Design Generation via Literature Synthesis for New Protocol Generation": {
+      "performed": "No"
+    },
+    "Experimental Design Generation via Few-Shot or Example-Based Prompting": {
+      "performed": "No"
+    },
+    "Experimental Design Generation via Executable Code Generation from Literature": {
+      "performed": "No"
+    },
+    "LLM-Based Experimental Design Generation via Agentic Exploration and Planning": {
+      "performed": "No"
+    },
+    "LLM-Based Experimental Design Generation via Code and Workflow Translation": {
+      "performed": "No"
+    },
+    "LLM-Based Experimental Design Generation via Multi-Agent Planning with Specialized Roles": {
+      "performed": "No"
+    },
+    "LLM-Based Experimental Design Generation via Domain-Specific Experimental Mapping": {
+      "performed": "No"
+    },
+    "Test Execution via Human-in-the-Loop": {
+      "performed": "Yes",
+      "Method details": "Human participants use generated hypotheses to make predictions in deception and AIGC detection tasks.",
+      "Inputs": "Hypotheses, test instances",
+      "Outputs": "Human accuracy, selection frequency of hypotheses",
+      "Example": "Human study I: participants use hypotheses to assist decision-making.",
+      "Role in workflow": "Tests practical utility and impact of hypotheses in real-world tasks."
+    },
+    "Test Execution via Automated Wet-Lab Execution": {
+      "performed": "No"
+    },
+    "Test Execution via Computational or In-Silico": {
+      "performed": "Yes",
+      "Method details": "LLMs use generated hypotheses to perform inference on held-out datasets, reporting accuracy and F1.",
+      "Inputs": "Hypotheses, test datasets",
+      "Outputs": "Model predictions, performance metrics",
+      "Example": "Automatic evaluation on OOD and IND datasets.",
+      "Role in workflow": "Validates hypotheses computationally."
+    },
+    "Refinement via LLM Agent Feedback Loops": {
+      "performed": "Yes",
+      "Method details": "Literature-based and data-driven agents iteratively refine hypotheses, alternating between literature and data feedback.",
+      "Inputs": "Current hypotheses, literature summaries, wrong example pool",
+      "Outputs": "Refined hypotheses after multiple rounds",
+      "Example": "HYPOREFINE iterative refinement process.",
+      "Role in workflow": "Improves hypothesis quality through agentic collaboration."
+    },
+    "Refinement via Automated Quality Evaluation using Model-Based Critics": {
+      "performed": "No"
+    },
+    "Refinement via Dynamic Agent Updating Based on Evolving Context or Data": {
+      "performed": "Yes",
+      "Method details": "When hypotheses perform poorly on new data, new hypotheses are generated and refined based on updated error pools.",
+      "Inputs": "Wrongly predicted examples, updated data",
+      "Outputs": "New/refined hypotheses",
+      "Example": "HYPOGENIC update stage triggers new hypothesis generation.",
+      "Role in workflow": "Adapts hypotheses to empirical feedback."
+    },
+    "Refinement via guided by computational-data": {
+      "performed": "Yes",
+      "Method details": "Hypotheses are updated or replaced based on their empirical performance (accuracy) on datasets.",
+      "Inputs": "Performance metrics from test datasets",
+      "Outputs": "Updated hypothesis bank",
+      "Example": "Reward function in HYPOGENIC and union approach.",
+      "Role in workflow": "Ensures only empirically supported hypotheses are retained."
+    },
+    "Refinement via experimental validation": {
+      "performed": "No"
+    },
+    "Refinement via Performance-metric": {
+      "performed": "Yes",
+      "Method details": "Hypotheses are prioritized and retained based on accuracy and F1 scores on validation/test sets.",
+      "Inputs": "Performance metrics",
+      "Outputs": "Top-performing hypotheses",
+      "Example": "Selection of top hypotheses for final bank.",
+      "Role in workflow": "Optimizes hypothesis set for predictive performance."
+    },
+    "Refinement via Human–data integration": {
+      "performed": "No"
+    }
+  },
+  "paper_title": "Literature Meets Data: A Synergistic Approach to Hypothesis Generation",
+  "authors": [
+    "Haokun",
+    "Yangqiaoyu",
+    "Mingxuan",
+    "Chenfei",
+    "Chenhao"
+  ],
+  "published": "2025-01-08",
+  "link": "http://arxiv.org/abs/2410.17309"
+}

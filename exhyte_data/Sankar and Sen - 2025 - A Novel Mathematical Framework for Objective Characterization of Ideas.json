@@ -1,0 +1,644 @@
+{
+  "Inputs to the workflow": {
+    "performed": "Yes",
+    "User provide high-level research direction or goal": {
+      "performed": "Yes",
+      "Format": "Natural language problem statements describing product design challenges.",
+      "Example": "Product for segregation as a means for effective waste management.",
+      "Role in workflow": "Defines the design challenge for which ideas are to be generated and evaluated."
+    },
+    "User provide structured, domain-specific specifications": {
+      "performed": "No",
+      "Format": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "User provide research papers": {
+      "performed": "No",
+      "Format": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "User provide datasets other than research papers": {
+      "performed": "No",
+      "Format": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "User provide representations or formal inputs": {
+      "performed": "Yes",
+      "Format": "Action-Object-Context (AOC) structured idea descriptions.",
+      "Example": "{\"Action\": \"Automatically sort waste\", \"Object\": \"Bins\", \"Context\": \"Use sensors and AI to identify and segregate waste into recyclables, organics, and general waste\"}",
+      "Role in workflow": "Ensures consistency and comparability of generated ideas for downstream embedding and analysis."
+    }
+  },
+  "Query Structuring": {
+    "performed": "Yes",
+    "Query Decomposition": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "Structural or Entity Decomposition": {
+      "performed": "Yes",
+      "Method details": "Ideas are decomposed into Action, Object, and Context fields (AOC model) for structured representation.",
+      "Inputs": "Natural language idea descriptions.",
+      "Outputs": "Structured AOC representations.",
+      "Example": "Action: 'Disinfects using UV light', Object: 'Mat', Context: 'Placed at the entrance of homes or offices to sanitize shoes upon entry.'",
+      "Role in workflow": "Facilitates uniform embedding and semantic analysis."
+    },
+    "Workflow Decomposition": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "Textual or Knowledge Embedding": {
+      "performed": "Yes",
+      "Method details": "Text-Embedding-3 (TE3) model from OpenAI is used to convert idea statements into 3072-dimensional vectors.",
+      "Inputs": "AOC-structured idea statements.",
+      "Outputs": "High-dimensional vector embeddings for each idea.",
+      "Example": "Embedding vector for 'Smart Segregation Bins' idea.",
+      "Role in workflow": "Enables quantitative analysis of semantic similarity, clustering, and diversity."
+    },
+    "Molecular or Chemical Embedding": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "Biological or Phenotypic Embedding": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "Pattern and Feature Extraction": {
+      "performed": "Yes",
+      "Method details": "Principal Component Analysis (PCA) is used to extract dominant directions and assess dispersion in the embedding space.",
+      "Inputs": "Embedding vectors of ideas.",
+      "Outputs": "Eigenvalues and principal components indicating spread and coverage.",
+      "Example": "Top 10 eigenvalues from PCA of idea embeddings.",
+      "Role in workflow": "Quantifies comprehensiveness of idea space exploration."
+    },
+    "Biological Relationship Extraction": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "Property and Annotation Extraction": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "Sequence and Structure Feature Extraction": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    }
+  },
+  "Data Retrieval": {
+    "performed": "No",
+    "Data Retrieval via Multi-Query Generation and Exploration": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "Literature and Data Retrieval via APIs": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "Data Retrieval with Prioritization and Filtering Agents": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "Domain-Specific Data Retrieval and Reasoning": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "Code-Driven or Tool-Augmented Data Retrieval": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "Literature data Retrieval Citation-Network–Based Expansion": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "Literature data Retrieval via Semantic and Similarity-Based analysis": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "Literature data Retrieval via Multi-Step Reference and Evidence Selection": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "Domain-Specific Literature data Retrieval": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "Manual and Semi-Automatic Curation of Literature data": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "Structural or Similarity-Based Dataset Retrieval": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "Data Retrieval via Domain-Specific Repository Querying": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "Library Assembly and Data Augmentation": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    }
+  },
+  "Knowledge Assembly": {
+    "performed": "No",
+    "Standardized Section Extraction from Literature data": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "Concise Synopsis and Summarization of Literature data": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "Facet-Based or Field-Specific Extraction from Literature data": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "Domain-Tailored Extraction from Literature data": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "Task/Entity-Centric Knowledge Graphs": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "Causal or Relation-Specific Knowledge Graphs": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "Biomedical or Domain-Specific Interaction Graphs": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "Literature Database Construction": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "Entity- or Co-Occurrence–Based Databases": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "Reasoning-Chain or Temporal Databases for Literature": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    }
+  },
+  "Hypothesis/Idea Generation": {
+    "performed": "Yes",
+    "Idea/hypothesis generation without additional literature or dataset as context": {
+      "performed": "Yes",
+      "Method details": "Conversational AI (CAI) tool powered by LLMs (e.g., GPT) generates ideas based on user-provided problem statements, without explicit external literature or dataset context.",
+      "Inputs": "Problem statements (e.g., product design challenges).",
+      "Outputs": "100 ideas per problem, each in AOC structure.",
+      "Example": "Smart Segregation Bins: Automatically sort waste using sensors and AI.",
+      "Role in workflow": "Creates a large, diverse pool of candidate ideas for evaluation."
+    },
+    "LLM Agent Generate ideas/hypotheses via Task Decomposition": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "Generate ideas/hypotheses using Domain-Specialized LLM Agent": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "Literature data used during idea/hypothesis generation as context": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "Summarization Literature data used during idea/hypothesis generation": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "Idea/hypothesis generation via Facet Recombination": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "Idea/hypothesis generation via contructed Reasoning-Chain from literature": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "Idea/hypothesis generation via Knowledge Graph developed from literature": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "Idea/hypothesis generation via Pattern Detection from dataset": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "Idea/hypothesis generation via Few-Shot Data Seeding": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "Idea/hypothesis generation using Observational data": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "Idea/hypothesis generation via Feature-Driven Property Prediction": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "Idea/hypothesis generation after Fine-Tuning the LLM model": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    }
+  },
+  "Hypothesis/Idea Prioritization": {
+    "performed": "Yes",
+    "LLM-based Hypothesis/Idea evaluation via Scientific Quality": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "LLM-based Hypothesis/Idea evaluation via Domain-Specific Evaluation": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "LLM-based Hypothesis/Idea evaluation via Contextual Evidence Scoring": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "LLM-based Hypothesis/Idea evaluation via Interpretability or Success Metrics": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "Hypothesis/Idea evaluation via Novelty Checking with Literature Comparison": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "Hypothesis/Idea evaluation via Alignment with Literature Chains": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "Hypothesis/Idea evaluation via Knowledge-Graph Grounded Similarity Metrics": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "Hypothesis/Idea evaluation via Quantitative Assessment Using Domain Metrics": {
+      "performed": "Yes",
+      "Method details": "Ideas are embedded as vectors and analyzed using UMAP, DBSCAN, and PCA to assess diversity, dispersion, and distribution quantitatively.",
+      "Inputs": "Embedding vectors of ideas.",
+      "Outputs": "Cluster assignments, dispersion metrics, distribution scores.",
+      "Example": "Cluster analysis identifies groups of similar ideas; PCA eigenvalues quantify spread.",
+      "Role in workflow": "Objectively prioritizes and selects diverse, promising ideas from large pools."
+    },
+    "Hypothesis/Idea evaluation via Human/Expert": {
+      "performed": "Yes",
+      "Method details": "Expert designers assess semantic similarity of clustered ideas; non-experts select diverse ideas from visual cluster plots.",
+      "Inputs": "Clustered idea plots, idea groupings.",
+      "Outputs": "Expert ratings (Very Similar, Somewhat Similar, Very Different), selection indices.",
+      "Example": "30 experts rate idea similarity; 40 students select ideas from cluster plots.",
+      "Role in workflow": "Validates embedding-based clustering and supports practical idea selection."
+    }
+  },
+  "Test": {
+    "performed": "No",
+    "Experimental Design Generation via literature-Grounded Model/Protocol Selection": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "Experimental Design Generation via Literature Synthesis for New Protocol Generation": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "Experimental Design Generation via Few-Shot or Example-Based Prompting": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "Experimental Design Generation via Executable Code Generation from Literature": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "LLM-Based Experimental Design Generation via Agentic Exploration and Planning": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "LLM-Based Experimental Design Generation via Code and Workflow Translation": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "LLM-Based Experimental Design Generation via Multi-Agent Planning with Specialized Roles": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "LLM-Based Experimental Design Generation via Domain-Specific Experimental Mapping": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "Test Execution via Human-in-the-Loop": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "Test Execution via Automated Wet-Lab Execution": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "Test Execution via Computational or In-Silico": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "Refinement via LLM Agent Feedback Loops": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "Refinement via Automated Quality Evaluation using Model-Based Critics": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "Refinement via Dynamic Agent Updating Based on Evolving Context or Data": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "Refinement via guided by computational-data": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "Refinement via experimental validation": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "Refinement via Performance-metric": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "Refinement via Human–data integration": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    }
+  },
+  "paper_title": "A Novel Mathematical Framework for Objective Characterization of Ideas",
+  "authors": [
+    "B.",
+    "Dibakar"
+  ],
+  "published": "2025-05-15",
+  "link": "http://arxiv.org/abs/2409.07578"
+}

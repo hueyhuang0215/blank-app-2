@@ -1,0 +1,172 @@
+{
+  "Inputs to the workflow": {
+    "performed": "Yes",
+    "User provide high-level research direction or goal": {
+      "performed": "Yes",
+      "Format": "Task description and problem statement for symbolic regression in scientific domains.",
+      "Example": "Recover interpretable mathematical expressions from data in physics, chemistry, biology, and materials science.",
+      "Role in workflow": "Defines the discovery objective and scope for the automated workflow."
+    },
+    "User provide structured, domain-specific specifications": {
+      "performed": "Yes",
+      "Format": "Variable constraints, evaluation criteria, and reference equations provided in prompts.",
+      "Example": "Task description, variable constraints, and evaluation metrics for equation discovery.",
+      "Role in workflow": "Guides the LLM in generating equations aligned with domain requirements."
+    },
+    "User provide research papers": {
+      "performed": "No"
+    },
+    "User provide datasets other than research papers": {
+      "performed": "Yes",
+      "Format": "Structured datasets of input-output pairs from scientific domains.",
+      "Example": "Datasets for nonlinear oscillators, bacterial growth, stress-strain, LSR-Transform, and LSR-Synth.",
+      "Role in workflow": "Serves as empirical evidence for equation discovery and evaluation."
+    },
+    "User provide representations or formal inputs": {
+      "performed": "Yes",
+      "Format": "Equation skeletons, prompts, and structured data samples.",
+      "Example": "Equation skeletons with learnable parameters, structured prompts for LLM.",
+      "Role in workflow": "Enables LLM to generate, optimize, and evaluate candidate equations."
+    }
+  },
+  "Query Structuring": {
+    "performed": "Yes",
+    "Pattern and Feature Extraction": {
+      "performed": "Yes",
+      "Method details": "LLM-based data analysis module extracts structural patterns (monotonicity, nonlinearity, correlation) from sampled data.",
+      "Inputs": "Sampled input-output pairs from datasets.",
+      "Outputs": "Structured insights about variable relationships.",
+      "Example": "Analysis of how changes in x or v affect acceleration in oscillator datasets.",
+      "Role in workflow": "Provides data-driven priors to guide equation generation."
+    }
+  },
+  "Data Retrieval": {
+    "performed": "Yes",
+    "Data Retrieval via Domain-Specific Repository Querying": {
+      "performed": "Yes",
+      "Method details": "Benchmark datasets are sourced from LLM-SR and LLM-SRBench, covering multiple scientific domains.",
+      "Inputs": "Dataset names and sources specified in the paper.",
+      "Outputs": "Structured datasets for symbolic regression tasks.",
+      "Example": "Nonlinear Oscillators, Bacterial Growth, Stress-Strain, LSR-Transform, LSR-Synth.",
+      "Role in workflow": "Provides the empirical basis for model training and evaluation."
+    }
+  },
+  "Knowledge Assembly": {
+    "performed": "No"
+  },
+  "Hypothesis/Idea Generation": {
+    "performed": "Yes",
+    "Idea/hypothesis generation without additional literature or dataset as context": {
+      "performed": "Yes",
+      "Method details": "LLM generates candidate equation skeletons using internal scientific priors and prompt instructions.",
+      "Inputs": "Task description, variable constraints, evaluation criteria.",
+      "Outputs": "Candidate symbolic expressions (equation skeletons).",
+      "Example": "LLM proposes new equations for the relationship between variables in a dataset.",
+      "Role in workflow": "Initiates the search for interpretable mathematical models."
+    },
+    "Generate ideas/hypotheses using Domain-Specialized LLM Agent": {
+      "performed": "Yes",
+      "Method details": "Specialized LLM modules (πdata, πidea, πmain) handle data analysis, experience extraction, and equation generation.",
+      "Inputs": "Sampled data, prior insights, evaluation outcomes.",
+      "Outputs": "Data-driven insights, inductive ideas, and new equation candidates.",
+      "Example": "πdata analyzes residuals; πidea summarizes success/failure patterns.",
+      "Role in workflow": "Enables modular, role-specific reasoning for hypothesis generation and refinement."
+    },
+    "Idea/hypothesis generation via Pattern Detection from dataset": {
+      "performed": "Yes",
+      "Method details": "LLM analyzes sampled data and residuals to detect structural patterns and inform equation generation.",
+      "Inputs": "Sampled input-output pairs and residuals.",
+      "Outputs": "Structured insights about variable interactions.",
+      "Example": "Detection of nonlinear or multiplicative relationships in oscillator data.",
+      "Role in workflow": "Guides the LLM to generate equations that reflect empirical data patterns."
+    },
+    "Idea/hypothesis generation using Observational data": {
+      "performed": "Yes",
+      "Method details": "LLM uses observed data pairs to analyze and formalize relationships via symbolic regression.",
+      "Inputs": "Input-output data pairs from scientific datasets.",
+      "Outputs": "Candidate symbolic equations.",
+      "Example": "LLM fits equations to observed stress-strain data.",
+      "Role in workflow": "Directs hypothesis generation based on empirical evidence."
+    },
+    "Idea/hypothesis generation via Few-Shot Data Seeding": {
+      "performed": "Yes",
+      "Method details": "LLM is prompted with a small set of input-output examples to induce initial hypotheses.",
+      "Inputs": "Sampled data pairs (e.g., 100 examples).",
+      "Outputs": "Initial data-aware insights and candidate equations.",
+      "Example": "Uniformly sampled 100 input-output pairs for initial analysis.",
+      "Role in workflow": "Seeds the LLM with concrete examples to bootstrap hypothesis generation."
+    }
+  },
+  "Hypothesis/Idea Prioritization": {
+    "performed": "Yes",
+    "LLM-based Hypothesis/Idea evaluation via Scientific Quality": {
+      "performed": "Yes",
+      "Method details": "LLM evaluates generated equations for validity, interpretability, and scientific plausibility.",
+      "Inputs": "Generated equations, evaluation outcomes.",
+      "Outputs": "Categorization as positive, negative, or invalid; experience summaries.",
+      "Example": "LLM reflects on why an equation succeeded or failed.",
+      "Role in workflow": "Filters and prioritizes equations for further refinement."
+    },
+    "LLM-based Hypothesis/Idea evaluation via Interpretability or Success Metrics": {
+      "performed": "Yes",
+      "Method details": "Equations are evaluated for interpretability and performance using fitness metrics (e.g., NMSE, accuracy).",
+      "Inputs": "Candidate equations, dataset.",
+      "Outputs": "Fitness scores, interpretability assessments.",
+      "Example": "Equation with lower NMSE and higher accuracy is prioritized.",
+      "Role in workflow": "Ensures selected hypotheses are both accurate and interpretable."
+    },
+    "Hypothesis/Idea evaluation via Quantitative Assessment Using Domain Metrics": {
+      "performed": "Yes",
+      "Method details": "Equations are quantitatively scored using negative mean squared error and accuracy under error tolerance.",
+      "Inputs": "Predicted vs. true values from test data.",
+      "Outputs": "NMSE, ACCτ scores.",
+      "Example": "ACCτ and NMSE reported for each benchmark.",
+      "Role in workflow": "Objectively ranks hypotheses based on predictive performance."
+    }
+  },
+  "Test": {
+    "performed": "Yes",
+    "Test Execution via Computational or In-Silico": {
+      "performed": "Yes",
+      "Method details": "Candidate equations are fitted and evaluated on datasets using computational optimization (BFGS) and scoring.",
+      "Inputs": "Equation skeletons, datasets.",
+      "Outputs": "Optimized parameters, fitness scores.",
+      "Example": "BFGS optimization of parameters for each candidate equation.",
+      "Role in workflow": "Validates hypotheses through computational testing."
+    },
+    "Refinement via LLM Agent Feedback Loops": {
+      "performed": "Yes",
+      "Method details": "LLM modules iteratively reflect on evaluation outcomes, updating insights and idea libraries to guide next generation.",
+      "Inputs": "Evaluation results, residuals, prior insights, experience summaries.",
+      "Outputs": "Refined prompts, updated idea library, improved equations.",
+      "Example": "Experience buffer and idea extraction inform subsequent equation generation.",
+      "Role in workflow": "Enables iterative improvement of hypotheses based on feedback."
+    },
+    "Refinement via guided by computational-data": {
+      "performed": "Yes",
+      "Method details": "Residuals and performance metrics from computational tests are used to refine data insights and generation strategies.",
+      "Inputs": "Residuals, fitness scores.",
+      "Outputs": "Updated data-aware insights, refined equation candidates.",
+      "Example": "Residual-based refinement of structural insights after each improved equation.",
+      "Role in workflow": "Drives targeted refinement based on empirical test outcomes."
+    },
+    "Refinement via Performance-metric": {
+      "performed": "Yes",
+      "Method details": "Refinement is guided by improvements in NMSE and accuracy; only equations with better scores update insights and prompts.",
+      "Inputs": "Performance metrics from test phase.",
+      "Outputs": "Selection and retention of best-performing equations.",
+      "Example": "Equation replaces previous best if it achieves higher accuracy or lower NMSE.",
+      "Role in workflow": "Ensures iterative progress toward optimal solutions."
+    }
+  },
+  "paper_title": "DrSR: LLM based Scientific Equation Discovery with Dual Reasoning from Data and Experience",
+  "authors": [
+    "Runxiang",
+    "Boxiao",
+    "Kai",
+    "Yifan",
+    "Jian"
+  ],
+  "published": "2025-06-04",
+  "link": "http://arxiv.org/abs/2506.04282"
+}

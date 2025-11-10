@@ -1,0 +1,295 @@
+{
+  "Inputs to the workflow": {
+    "performed": "Yes",
+    "User provide high-level research direction or goal": {
+      "performed": "Yes",
+      "Format": "Short textual brief, problem description, or theme",
+      "Example": "A creative brief or a handful of seed ideas provided by the user",
+      "Role in workflow": "Defines the starting point for idea generation and latent space exploration"
+    },
+    "User provide structured, domain-specific specifications": {
+      "performed": "No"
+    },
+    "User provide research papers": {
+      "performed": "No"
+    },
+    "User provide datasets other than research papers": {
+      "performed": "No"
+    },
+    "User provide representations or formal inputs": {
+      "performed": "No"
+    }
+  },
+  "Query Structuring": {
+    "performed": "Yes",
+    "Query Decomposition": {
+      "performed": "No"
+    },
+    "Structural or Entity Decomposition": {
+      "performed": "No"
+    },
+    "Workflow Decomposition": {
+      "performed": "No"
+    },
+    "Textual or Knowledge Embedding": {
+      "performed": "Yes",
+      "Method details": "Seed ideas or prompts are encoded into fixed-dimensional latent vectors using a text encoder (SRF-Embeddings-Mistral).",
+      "Inputs": "Seed ideas or user-provided prompts",
+      "Outputs": "Dense semantic embeddings",
+      "Example": "Each idea text xi is encoded as ei = Enc(xi) ∈ Rd",
+      "Role in workflow": "Transforms ideas into a latent space for systematic exploration and generation"
+    },
+    "Molecular or Chemical Embedding": {
+      "performed": "No"
+    },
+    "Biological or Phenotypic Embedding": {
+      "performed": "No"
+    },
+    "Pattern and Feature Extraction": {
+      "performed": "No"
+    },
+    "Biological Relationship Extraction": {
+      "performed": "No"
+    },
+    "Property and Annotation Extraction": {
+      "performed": "No"
+    },
+    "Sequence and Structure Feature Extraction": {
+      "performed": "No"
+    }
+  },
+  "Data Retrieval": {
+    "performed": "No",
+    "Data Retrieval via Multi-Query Generation and Exploration": {
+      "performed": "No"
+    },
+    "Literature and Data Retrieval via APIs": {
+      "performed": "No"
+    },
+    "Data Retrieval with Prioritization and Filtering Agents": {
+      "performed": "No"
+    },
+    "Domain-Specific Data Retrieval and Reasoning": {
+      "performed": "No"
+    },
+    "Code-Driven or Tool-Augmented Data Retrieval": {
+      "performed": "No"
+    },
+    "Literature data Retrieval Citation-Network–Based Expansion": {
+      "performed": "No"
+    },
+    "Literature data Retrieval via Semantic and Similarity-Based analysis": {
+      "performed": "No"
+    },
+    "Literature data Retrieval via Multi-Step Reference and Evidence Selection": {
+      "performed": "No"
+    },
+    "Domain-Specific Literature data Retrieval": {
+      "performed": "No"
+    },
+    "Manual and Semi-Automatic Curation of Literature data": {
+      "performed": "No"
+    },
+    "Structural or Similarity-Based Dataset Retrieval": {
+      "performed": "No"
+    },
+    "Data Retrieval via Domain-Specific Repository Querying": {
+      "performed": "No"
+    },
+    "Library Assembly and Data Augmentation": {
+      "performed": "No"
+    }
+  },
+  "Knowledge Assembly": {
+    "performed": "No",
+    "Standardized Section Extraction from Literature data": {
+      "performed": "No"
+    },
+    "Concise Synopsis and Summarization of Literature data": {
+      "performed": "No"
+    },
+    "Facet-Based or Field-Specific Extraction from Literature data": {
+      "performed": "No"
+    },
+    "Domain-Tailored Extraction from Literature data": {
+      "performed": "No"
+    },
+    "Task/Entity-Centric Knowledge Graphs": {
+      "performed": "No"
+    },
+    "Causal or Relation-Specific Knowledge Graphs": {
+      "performed": "No"
+    },
+    "Biomedical or Domain-Specific Interaction Graphs": {
+      "performed": "No"
+    },
+    "Literature Database Construction": {
+      "performed": "No"
+    },
+    "Entity- or Co-Occurrence–Based Databases": {
+      "performed": "No"
+    },
+    "Reasoning-Chain or Temporal Databases for Literature": {
+      "performed": "No"
+    }
+  },
+  "Hypothesis/Idea Generation": {
+    "performed": "Yes",
+    "Idea/hypothesis generation without additional literature or dataset as context": {
+      "performed": "Yes",
+      "Method details": "LLM (Mistral 7B) generates ideas from seed prompts or user-provided concepts, without external literature or datasets.",
+      "Inputs": "Seed ideas or user-provided prompts",
+      "Outputs": "Initial set of idea snippets",
+      "Example": "LLM receives a creative brief and returns diverse, high-level idea snippets",
+      "Role in workflow": "Provides starting points for latent space exploration"
+    },
+    "LLM Agent Generate ideas/hypotheses via Task Decomposition": {
+      "performed": "No"
+    },
+    "Generate ideas/hypotheses using Domain-Specialized LLM Agent": {
+      "performed": "No"
+    },
+    "Literature data used during idea/hypothesis generation as context": {
+      "performed": "No"
+    },
+    "Summarization Literature data used during idea/hypothesis generation": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation via Facet Recombination": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation via contructed Reasoning-Chain from literature": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation via Knowledge Graph developed from literature": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation via Pattern Detection from dataset": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation via Few-Shot Data Seeding": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation using Observational data": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation via Feature-Driven Property Prediction": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation after Fine-Tuning the LLM model": {
+      "performed": "No"
+    }
+  },
+  "Hypothesis/Idea Prioritization": {
+    "performed": "Yes",
+    "LLM-based Hypothesis/Idea evaluation via Scientific Quality": {
+      "performed": "Yes",
+      "Method details": "GPT-4o is used to score generated ideas for originality and relevancy, filtering out low-quality outputs.",
+      "Inputs": "Generated idea descriptions",
+      "Outputs": "Filtered set of high-quality, relevant, and original ideas",
+      "Example": "Ideas are scored for originality (≥4) and relevancy; only top-scoring ideas are retained",
+      "Role in workflow": "Ensures only the most creative and relevant ideas are advanced"
+    },
+    "LLM-based Hypothesis/Idea evaluation via Domain-Specific Evaluation": {
+      "performed": "No"
+    },
+    "LLM-based Hypothesis/Idea evaluation via Contextual Evidence Scoring": {
+      "performed": "No"
+    },
+    "LLM-based Hypothesis/Idea evaluation via Interpretability or Success Metrics": {
+      "performed": "No"
+    },
+    "Hypothesis/Idea evaluation via Novelty Checking with Literature Comparison": {
+      "performed": "No"
+    },
+    "Hypothesis/Idea evaluation via Alignment with Literature Chains": {
+      "performed": "No"
+    },
+    "Hypothesis/Idea evaluation via Knowledge-Graph Grounded Similarity Metrics": {
+      "performed": "No"
+    },
+    "Hypothesis/Idea evaluation via Quantitative Assessment Using Domain Metrics": {
+      "performed": "No"
+    },
+    "Hypothesis/Idea evaluation via Human/Expert": {
+      "performed": "No"
+    }
+  },
+  "Test": {
+    "performed": "Yes",
+    "Experimental Design Generation via literature-Grounded Model/Protocol Selection": {
+      "performed": "No"
+    },
+    "Experimental Design Generation via Literature Synthesis for New Protocol Generation": {
+      "performed": "No"
+    },
+    "Experimental Design Generation via Few-Shot or Example-Based Prompting": {
+      "performed": "No"
+    },
+    "Experimental Design Generation via Executable Code Generation from Literature": {
+      "performed": "No"
+    },
+    "LLM-Based Experimental Design Generation via Agentic Exploration and Planning": {
+      "performed": "No"
+    },
+    "LLM-Based Experimental Design Generation via Code and Workflow Translation": {
+      "performed": "No"
+    },
+    "LLM-Based Experimental Design Generation via Multi-Agent Planning with Specialized Roles": {
+      "performed": "No"
+    },
+    "LLM-Based Experimental Design Generation via Domain-Specific Experimental Mapping": {
+      "performed": "No"
+    },
+    "Test Execution via Human-in-the-Loop": {
+      "performed": "No"
+    },
+    "Test Execution via Automated Wet-Lab Execution": {
+      "performed": "No"
+    },
+    "Test Execution via Computational or In-Silico": {
+      "performed": "Yes",
+      "Method details": "Generated ideas are evaluated on benchmark tasks (AUT, Instances, Similarities, Scientific) using computational metrics.",
+      "Inputs": "Generated and filtered idea sets",
+      "Outputs": "Benchmark scores for originality, elaboration, fluency, flexibility",
+      "Example": "Ideas are compared to LLM Discussion baseline on creativity benchmarks",
+      "Role in workflow": "Validates the effectiveness of the idea generation framework computationally"
+    },
+    "Refinement via LLM Agent Feedback Loops": {
+      "performed": "Yes",
+      "Method details": "High-scoring ideas are fed back into the latent space for further exploration and iterative improvement.",
+      "Inputs": "Filtered, high-quality ideas",
+      "Outputs": "Expanded and refined idea sets in subsequent iterations",
+      "Example": "Additional iteration on AUT results increases originality and fluency",
+      "Role in workflow": "Enables iterative self-improvement and deeper exploration of idea space"
+    },
+    "Refinement via Automated Quality Evaluation using Model-Based Critics": {
+      "performed": "No"
+    },
+    "Refinement via Dynamic Agent Updating Based on Evolving Context or Data": {
+      "performed": "No"
+    },
+    "Refinement via guided by computational-data": {
+      "performed": "No"
+    },
+    "Refinement via experimental validation": {
+      "performed": "No"
+    },
+    "Refinement via Performance-metric": {
+      "performed": "No"
+    },
+    "Refinement via Human–data integration": {
+      "performed": "No"
+    }
+  },
+  "paper_title": "Large Language Models as Innovators: A Framework to Leverage Latent Space Exploration for Novelty Discovery",
+  "authors": [
+    "Mateusz",
+    "Mikołaj",
+    "Grzegorz",
+    "Nitesh V.",
+    "Tomasz"
+  ],
+  "published": "2025-07-18",
+  "link": "http://arxiv.org/abs/2507.13874"
+}

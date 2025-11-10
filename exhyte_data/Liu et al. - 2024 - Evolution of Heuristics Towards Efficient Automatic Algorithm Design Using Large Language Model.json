@@ -1,0 +1,184 @@
+{
+  "Inputs to the workflow": {
+    "performed": "Yes",
+    "User provide high-level research direction or goal": {
+      "performed": "Yes",
+      "Format": "Problem statements for combinatorial optimization tasks (e.g., online bin packing, TSP, FSSP)",
+      "Example": "The objective is to allocate items into the fewest bins (bin packing); find shortest route (TSP); minimize makespan (FSSP).",
+      "Role in workflow": "Defines the optimization problem to be solved and guides the heuristic search."
+    },
+    "User provide structured, domain-specific specifications": {
+      "performed": "Yes",
+      "Format": "Problem-specific constraints and input/output formats for heuristics (e.g., item sizes, bin capacities, distance matrices, job/machine counts)",
+      "Example": "Inputs for bin packing: item size, bin capacities; for TSP: distance matrix, current route.",
+      "Role in workflow": "Constrains the heuristic design and ensures generated code is executable for the target problem."
+    },
+    "User provide research papers": {
+      "performed": "No"
+    },
+    "User provide datasets other than research papers": {
+      "performed": "Yes",
+      "Format": "Benchmark problem instances (e.g., Weibull instances for bin packing, TSP100 instances, Taillard FSSP instances)",
+      "Example": "Five Weibull instances of size 5k with capacity 100 for bin packing.",
+      "Role in workflow": "Used to evaluate and assign fitness to generated heuristics during evolution."
+    },
+    "User provide representations or formal inputs": {
+      "performed": "Yes",
+      "Format": "Natural language heuristic descriptions and Python code blocks implementing heuristics",
+      "Example": "Python function with defined inputs/outputs for scoring bins or updating distance matrices.",
+      "Role in workflow": "Serves as the representation for candidate heuristics in the evolutionary process."
+    }
+  },
+  "Query Structuring": {
+    "performed": "Yes",
+    "Query Decomposition": {
+      "performed": "Yes",
+      "Method details": "Prompt strategies (E1, E2, M1, M2, M3) guide LLMs to reason over and modify existing heuristics, decomposing the search for new heuristics into exploration and modification sub-tasks.",
+      "Inputs": "Current population of heuristics (thoughts and codes)",
+      "Outputs": "New heuristic descriptions and code implementations",
+      "Example": "E1: Generate heuristics different from parents; M1: Modify a parent heuristic for better performance.",
+      "Role in workflow": "Enables systematic exploration and refinement of heuristic ideas."
+    },
+    "Structural or Entity Decomposition": {
+      "performed": "No"
+    },
+    "Workflow Decomposition": {
+      "performed": "Yes",
+      "Method details": "Evolutionary framework decomposes the overall search into initialization, generation (via multiple prompt strategies), evaluation, and selection steps.",
+      "Inputs": "Initial population, prompt strategies, fitness evaluations",
+      "Outputs": "Sequential generations of improved heuristic populations",
+      "Example": "At each generation, five prompt strategies are used to generate new heuristics, followed by selection.",
+      "Role in workflow": "Structures the search process into actionable, iterative steps."
+    },
+    "Textual or Knowledge Embedding": {
+      "performed": "No"
+    },
+    "Molecular or Chemical Embedding": {
+      "performed": "No"
+    },
+    "Biological or Phenotypic Embedding": {
+      "performed": "No"
+    },
+    "Pattern and Feature Extraction": {
+      "performed": "No"
+    },
+    "Biological Relationship Extraction": {
+      "performed": "No"
+    },
+    "Property and Annotation Extraction": {
+      "performed": "No"
+    },
+    "Sequence and Structure Feature Extraction": {
+      "performed": "No"
+    }
+  },
+  "Data Retrieval": {
+    "performed": "Yes",
+    "Data Retrieval via Multi-Query Generation and Exploration": {
+      "performed": "Yes",
+      "Method details": "LLMs are prompted with multiple strategies (E1, E2, etc.) to generate diverse new heuristics from existing ones.",
+      "Inputs": "Parent heuristics (thoughts and codes)",
+      "Outputs": "Multiple new heuristic candidates per generation",
+      "Example": "E1: Generate heuristics as different as possible from selected parents.",
+      "Role in workflow": "Expands the search space and increases diversity of candidate solutions."
+    },
+    "Literature and Data Retrieval via APIs": {
+      "performed": "No"
+    },
+    "Data Retrieval with Prioritization and Filtering Agents": {
+      "performed": "Yes",
+      "Method details": "Selection step ranks heuristics by fitness and retains the top N for the next generation.",
+      "Inputs": "Evaluated heuristics with fitness scores",
+      "Outputs": "Filtered population of best-performing heuristics",
+      "Example": "N best heuristics are selected after each generation.",
+      "Role in workflow": "Focuses computational resources on promising candidates."
+    },
+    "Domain-Specific Data Retrieval and Reasoning": {
+      "performed": "No"
+    },
+    "Code-Driven or Tool-Augmented Data Retrieval": {
+      "performed": "No"
+    },
+    "Literature data Retrieval Citation-Network–Based Expansion": {
+      "performed": "No"
+    },
+    "Literature data Retrieval via Semantic and Similarity-Based analysis": {
+      "performed": "No"
+    },
+    "Literature data Retrieval via Multi-Step Reference and Evidence Selection": {
+      "performed": "No"
+    },
+    "Domain-Specific Literature data Retrieval": {
+      "performed": "No"
+    },
+    "Manual and Semi-Automatic Curation of Literature data": {
+      "performed": "No"
+    },
+    "Structural or Similarity-Based Dataset Retrieval": {
+      "performed": "No"
+    },
+    "Data Retrieval via Domain-Specific Repository Querying": {
+      "performed": "No"
+    },
+    "Library Assembly and Data Augmentation": {
+      "performed": "No"
+    }
+  },
+  "Knowledge Assembly": {
+    "performed": "No"
+  },
+  "Hypothesis/Idea Generation": {
+    "performed": "Yes",
+    "Idea/hypothesis generation without additional literature or dataset as context": {
+      "performed": "Yes",
+      "Method details": "LLMs generate new heuristic ideas based on prompt strategies and internal knowledge, without retrieving external literature.",
+      "Inputs": "Prompt instructions, parent heuristics",
+      "Outputs": "Natural language descriptions and code for new heuristics",
+      "Example": "LLM creates a new scoring function for bin packing based on prompt.",
+      "Role in workflow": "Produces candidate heuristics for evaluation."
+    }
+  },
+  "Hypothesis/Idea Prioritization": {
+    "performed": "Yes",
+    "Hypothesis/Idea evaluation via Quantitative Assessment Using Domain Metrics": {
+      "performed": "Yes",
+      "Method details": "Each heuristic is evaluated on benchmark problem instances using domain-specific metrics (e.g., gap to lower bound, makespan).",
+      "Inputs": "Generated heuristics, benchmark datasets",
+      "Outputs": "Fitness scores for each heuristic",
+      "Example": "Average gap to lower bound on five bin packing instances.",
+      "Role in workflow": "Objectively ranks heuristics for selection and further evolution."
+    }
+  },
+  "Test": {
+    "performed": "Yes",
+    "Test Execution via Computational or In-Silico": {
+      "performed": "Yes",
+      "Method details": "Heuristics are tested by running them on benchmark problem instances in simulation.",
+      "Inputs": "Heuristic code, problem instances",
+      "Outputs": "Performance metrics (e.g., number of bins used, route length, makespan)",
+      "Example": "Run heuristic on 5k-item bin packing instances and record results.",
+      "Role in workflow": "Validates the effectiveness of generated heuristics."
+    },
+    "Refinement via Performance-metric": {
+      "performed": "Yes",
+      "Method details": "Evolutionary selection uses performance metrics to guide which heuristics are retained and further evolved.",
+      "Inputs": "Fitness scores from computational tests",
+      "Outputs": "Improved heuristic population over generations",
+      "Example": "Select N best heuristics based on lowest gap to lower bound.",
+      "Role in workflow": "Drives iterative improvement of heuristic quality."
+    }
+  },
+  "paper_title": "Evolution of Heuristics: Towards Efficient Automatic Algorithm Design Using Large Language Model",
+  "authors": [
+    "Fei",
+    "Xialiang",
+    "Mingxuan",
+    "Xi",
+    "Fu",
+    "Zhenkun",
+    "Zhichao",
+    "Qingfu"
+  ],
+  "published": "2024-06-01",
+  "link": "http://arxiv.org/abs/2401.02051"
+}

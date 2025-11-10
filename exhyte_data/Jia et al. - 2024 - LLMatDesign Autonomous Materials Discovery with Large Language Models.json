@@ -1,0 +1,645 @@
+{
+  "Inputs to the workflow": {
+    "performed": "Yes",
+    "User provide high-level research direction or goal": {
+      "performed": "Yes",
+      "Format": "Natural language instructions specifying design objectives (e.g., target band gap, formation energy).",
+      "Example": "User provides a target property such as 'design a new material with a band gap of 1.4 eV.'",
+      "Role in workflow": "Defines the overall goal for the autonomous materials design process."
+    },
+    "User provide structured, domain-specific specifications": {
+      "performed": "Yes",
+      "Format": "Chemical composition and target property values.",
+      "Example": "User provides starting material composition and property (e.g., (CdCu2GeS4, 0.388 eV)).",
+      "Role in workflow": "Specifies the initial material and quantitative targets for the design loop."
+    },
+    "User provide research papers": {
+      "performed": "No",
+      "Format": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "User provide datasets other than research papers": {
+      "performed": "No",
+      "Format": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "User provide representations or formal inputs": {
+      "performed": "Yes",
+      "Format": "Chemical formulae, property values, and optional constraints in prompt templates.",
+      "Example": "User may specify constraints such as 'do not use Ba or Ca' or 'do not modify Sr.'",
+      "Role in workflow": "Guides the LLM agent in generating valid modifications and adhering to constraints."
+    }
+  },
+  "Query Structuring": {
+    "performed": "Yes",
+    "Query Decomposition": {
+      "performed": "Yes",
+      "Method details": "LLM prompt templates decompose the user’s high-level objective into actionable modification types (add, remove, substitute, exchange).",
+      "Inputs": "User-provided goals and material specifications.",
+      "Outputs": "Structured modification queries for the LLM agent.",
+      "Example": "Prompt asks LLM to select a modification type and elements to modify.",
+      "Role in workflow": "Enables the LLM to iteratively propose concrete material modifications."
+    },
+    "Structural or Entity Decomposition": {
+      "performed": "Yes",
+      "Method details": "Material compositions are parsed into constituent elements for targeted modification.",
+      "Inputs": "Chemical formula of the starting material.",
+      "Outputs": "Element-level modification actions (e.g., substitute S with Se).",
+      "Example": "LLM suggests 'substitute S with Se' for CdCu2GeS4.",
+      "Role in workflow": "Allows reasoning and modification at the element level."
+    },
+    "Workflow Decomposition": {
+      "performed": "Yes",
+      "Method details": "The design loop is decomposed into sequential steps: propose modification, apply, evaluate, reflect, and iterate.",
+      "Inputs": "Initial material, target property, modification history.",
+      "Outputs": "Stepwise workflow for autonomous material design.",
+      "Example": "Algorithm 1 describes the iterative process with LLM-driven decision-making and self-reflection.",
+      "Role in workflow": "Structures the overall discovery process into manageable, repeatable steps."
+    },
+    "Textual or Knowledge Embedding": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "Molecular or Chemical Embedding": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "Biological or Phenotypic Embedding": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "Pattern and Feature Extraction": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "Biological Relationship Extraction": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "Property and Annotation Extraction": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "Sequence and Structure Feature Extraction": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    }
+  },
+  "Data Retrieval": {
+    "performed": "Yes",
+    "Data Retrieval via Multi-Query Generation and Exploration": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "Literature and Data Retrieval via APIs": {
+      "performed": "Yes",
+      "Method details": "LLM agent queries the Materials Project API to retrieve crystal structures based on user-specified composition.",
+      "Inputs": "Chemical composition from user input.",
+      "Outputs": "Crystal structure with lowest formation energy per atom.",
+      "Example": "If no structure is provided, LLMatDesign queries Materials Project for the structure.",
+      "Role in workflow": "Obtains initial material structure for downstream modification."
+    },
+    "Data Retrieval with Prioritization and Filtering Agents": {
+      "performed": "Yes",
+      "Method details": "When multiple structures are retrieved, the one with the lowest formation energy per atom is selected.",
+      "Inputs": "Candidate structures from Materials Project.",
+      "Outputs": "Most stable structure for use in the workflow.",
+      "Example": "Selection of structure with lowest formation energy if multiple candidates exist.",
+      "Role in workflow": "Ensures the workflow starts from the most stable configuration."
+    },
+    "Domain-Specific Data Retrieval and Reasoning": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "Code-Driven or Tool-Augmented Data Retrieval": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "Literature data Retrieval Citation-Network–Based Expansion": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "Literature data Retrieval via Semantic and Similarity-Based analysis": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "Literature data Retrieval via Multi-Step Reference and Evidence Selection": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "Domain-Specific Literature data Retrieval": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "Manual and Semi-Automatic Curation of Literature data": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "Structural or Similarity-Based Dataset Retrieval": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "Data Retrieval via Domain-Specific Repository Querying": {
+      "performed": "Yes",
+      "Method details": "Direct querying of the Materials Project repository for crystal structures and property datasets.",
+      "Inputs": "Chemical composition or property queries.",
+      "Outputs": "Relevant material structures and property data.",
+      "Example": "Retrieving structures and properties for 10 starting materials from Materials Project.",
+      "Role in workflow": "Provides foundational data for the design and evaluation process."
+    },
+    "Library Assembly and Data Augmentation": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    }
+  },
+  "Knowledge Assembly": {
+    "performed": "No",
+    "Standardized Section Extraction from Literature data": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "Concise Synopsis and Summarization of Literature data": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "Facet-Based or Field-Specific Extraction from Literature data": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "Domain-Tailored Extraction from Literature data": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "Task/Entity-Centric Knowledge Graphs": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "Causal or Relation-Specific Knowledge Graphs": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "Biomedical or Domain-Specific Interaction Graphs": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "Literature Database Construction": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "Entity- or Co-Occurrence–Based Databases": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "Reasoning-Chain or Temporal Databases for Literature": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    }
+  },
+  "Hypothesis/Idea Generation": {
+    "performed": "Yes",
+    "Idea/hypothesis generation without additional literature or dataset as context": {
+      "performed": "Yes",
+      "Method details": "LLMs (GPT-4o, Gemini-1.0-pro) generate hypotheses for material modifications using internal knowledge and user prompts.",
+      "Inputs": "Material composition, property values, target objectives, and modification history.",
+      "Outputs": "Hypotheses and proposed modifications (e.g., 'substitute S with Se').",
+      "Example": "LLM hypothesizes that substituting S with Se will increase the band gap.",
+      "Role in workflow": "Drives the autonomous proposal of new material candidates."
+    },
+    "LLM Agent Generate ideas/hypotheses via Task Decomposition": {
+      "performed": "Yes",
+      "Method details": "LLM agent decomposes the design task into sequential modification steps, each with a hypothesis.",
+      "Inputs": "User objectives, current material state, modification history.",
+      "Outputs": "Stepwise hypotheses and modification actions.",
+      "Example": "Each iteration proposes a new modification and rationale.",
+      "Role in workflow": "Enables iterative, interpretable material design."
+    },
+    "Generate ideas/hypotheses using Domain-Specialized LLM Agent": {
+      "performed": "Yes",
+      "Method details": "LLMs are prompted as materials design experts (persona prompts) to generate domain-relevant hypotheses.",
+      "Inputs": "Material data, property targets, constraints.",
+      "Outputs": "Expert-level hypotheses and modification suggestions.",
+      "Example": "Persona prompt: 'You are a materials design expert...'",
+      "Role in workflow": "Improves hypothesis quality and domain relevance."
+    },
+    "Literature data used during idea/hypothesis generation as context": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "Summarization Literature data used during idea/hypothesis generation": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "Idea/hypothesis generation via Facet Recombination": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "Idea/hypothesis generation via contructed Reasoning-Chain from literature": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "Idea/hypothesis generation via Knowledge Graph developed from literature": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "Idea/hypothesis generation via Pattern Detection from dataset": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "Idea/hypothesis generation via Few-Shot Data Seeding": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "Idea/hypothesis generation using Observational data": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "Idea/hypothesis generation via Feature-Driven Property Prediction": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "Idea/hypothesis generation after Fine-Tuning the LLM model": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    }
+  },
+  "Hypothesis/Idea Prioritization": {
+    "performed": "Yes",
+    "LLM-based Hypothesis/Idea evaluation via Scientific Quality": {
+      "performed": "Yes",
+      "Method details": "LLM generates a hypothesis and provides reasoning for each modification, evaluating plausibility and expected effect.",
+      "Inputs": "Proposed modification, material state, target property.",
+      "Outputs": "Hypothesis with rationale (e.g., effect of atomic radius on band gap).",
+      "Example": "Hypothesis: 'Substituting S with Se is likely to increase the band gap...'",
+      "Role in workflow": "Ensures each modification is scientifically justified."
+    },
+    "LLM-based Hypothesis/Idea evaluation via Domain-Specific Evaluation": {
+      "performed": "Yes",
+      "Method details": "LLM considers chemical properties (e.g., electronegativity, atomic radius) in its reasoning.",
+      "Inputs": "Elemental properties, material context.",
+      "Outputs": "Domain-informed evaluation of modification impact.",
+      "Example": "Reflection notes whether substitution increased or decreased the band gap as expected.",
+      "Role in workflow": "Aligns hypotheses with chemical intuition and domain knowledge."
+    },
+    "LLM-based Hypothesis/Idea evaluation via Contextual Evidence Scoring": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "LLM-based Hypothesis/Idea evaluation via Interpretability or Success Metrics": {
+      "performed": "Yes",
+      "Method details": "LLM self-reflection step evaluates the success of each modification in achieving the target property.",
+      "Inputs": "Previous and current material, property values, modification, hypothesis.",
+      "Outputs": "Reflection on modification success/failure and reasoning.",
+      "Example": "Reflection: 'The modification was unsuccessful as the band gap decreased instead of increasing.'",
+      "Role in workflow": "Provides interpretability and iterative improvement."
+    },
+    "Hypothesis/Idea evaluation via Novelty Checking with Literature Comparison": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "Hypothesis/Idea evaluation via Alignment with Literature Chains": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "Hypothesis/Idea evaluation via Knowledge-Graph Grounded Similarity Metrics": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "Hypothesis/Idea evaluation via Quantitative Assessment Using Domain Metrics": {
+      "performed": "Yes",
+      "Method details": "Predicted properties (band gap, formation energy) are quantitatively compared to target values using ML property predictors.",
+      "Inputs": "Modified material structure.",
+      "Outputs": "Predicted property values for comparison to targets.",
+      "Example": "MLPP predicts band gap after each modification; convergence checked against 1.4 eV target.",
+      "Role in workflow": "Objectively assesses modification success."
+    },
+    "Hypothesis/Idea evaluation via Human/Expert": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    }
+  },
+  "Test": {
+    "performed": "Yes",
+    "Experimental Design Generation via literature-Grounded Model/Protocol Selection": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "Experimental Design Generation via Literature Synthesis for New Protocol Generation": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "Experimental Design Generation via Few-Shot or Example-Based Prompting": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "Experimental Design Generation via Executable Code Generation from Literature": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "LLM-Based Experimental Design Generation via Agentic Exploration and Planning": {
+      "performed": "Yes",
+      "Method details": "LLM autonomously plans and proposes sequential material modifications, integrating self-reflection and history.",
+      "Inputs": "Material state, property targets, modification history.",
+      "Outputs": "Stepwise experimental plan (modification proposals and evaluations).",
+      "Example": "Algorithm 1: LLM proposes, applies, and evaluates modifications in a loop.",
+      "Role in workflow": "Automates the experimental design and planning process."
+    },
+    "LLM-Based Experimental Design Generation via Code and Workflow Translation": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "LLM-Based Experimental Design Generation via Multi-Agent Planning with Specialized Roles": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "LLM-Based Experimental Design Generation via Domain-Specific Experimental Mapping": {
+      "performed": "Yes",
+      "Method details": "LLM interprets hypotheses and maps them to concrete simulation steps (modification, relaxation, property prediction).",
+      "Inputs": "Hypothesis, modification type, material structure.",
+      "Outputs": "Simulation-ready material modifications.",
+      "Example": "LLM suggests 'substitute Cu with Zn,' which is then applied and simulated.",
+      "Role in workflow": "Bridges hypothesis to executable simulation steps."
+    },
+    "Test Execution via Human-in-the-Loop": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "Test Execution via Automated Wet-Lab Execution": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "Test Execution via Computational or In-Silico": {
+      "performed": "Yes",
+      "Method details": "Material modifications are tested using ML force fields for structure relaxation and ML property predictors for property evaluation; DFT used for final validation.",
+      "Inputs": "Modified material structures.",
+      "Outputs": "Predicted properties (band gap, formation energy), DFT-validated results.",
+      "Example": "MLPP predicts band gap after each modification; DFT used for final structure validation.",
+      "Role in workflow": "Validates hypotheses and guides iterative refinement."
+    },
+    "Refinement via LLM Agent Feedback Loops": {
+      "performed": "Yes",
+      "Method details": "LLM performs self-reflection after each test, critiquing the outcome and incorporating feedback into subsequent prompts.",
+      "Inputs": "Modification, hypothesis, property change, reflection.",
+      "Outputs": "Updated modification history and improved future proposals.",
+      "Example": "Reflection: 'The modification was unsuccessful as the band gap decreased...'; history updated for next iteration.",
+      "Role in workflow": "Enables iterative improvement and learning from prior actions."
+    },
+    "Refinement via Automated Quality Evaluation using Model-Based Critics": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "Refinement via Dynamic Agent Updating Based on Evolving Context or Data": {
+      "performed": "Yes",
+      "Method details": "LLM updates its decision-making based on the full modification history and outcomes of previous iterations.",
+      "Inputs": "Modification history, property outcomes.",
+      "Outputs": "Adapted modification proposals in subsequent steps.",
+      "Example": "Inclusion of modification history in prompt improves convergence.",
+      "Role in workflow": "Allows the agent to adapt strategy based on evolving results."
+    },
+    "Refinement via guided by computational-data": {
+      "performed": "Yes",
+      "Method details": "Refinement is driven by computational evaluation of predicted properties after each modification.",
+      "Inputs": "Predicted property values from MLPP or DFT.",
+      "Outputs": "Decision to continue, stop, or change modification strategy.",
+      "Example": "If property is not within target threshold, new modification is proposed.",
+      "Role in workflow": "Ensures only promising candidates are pursued."
+    },
+    "Refinement via experimental validation": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "Refinement via Performance-metric": {
+      "performed": "Yes",
+      "Method details": "Performance (e.g., number of modifications to reach target, property value achieved) is used to assess and refine workflow.",
+      "Inputs": "Modification count, property values.",
+      "Outputs": "Improved efficiency and accuracy in subsequent runs.",
+      "Example": "Prompt optimization reduces average modifications needed.",
+      "Role in workflow": "Guides workflow optimization and benchmarking."
+    },
+    "Refinement via Human–data integration": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    }
+  },
+  "paper_title": "LLMatDesign: Autonomous Materials Discovery with Large Language Models",
+  "authors": [
+    "Shuyi",
+    "Chao",
+    "Victor"
+  ],
+  "published": "2024-06-19",
+  "link": "http://arxiv.org/abs/2406.13163"
+}

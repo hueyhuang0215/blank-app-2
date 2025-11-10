@@ -1,0 +1,355 @@
+{
+  "Inputs to the workflow": {
+    "performed": "Yes",
+    "User provide high-level research direction or goal": {
+      "performed": "Yes",
+      "Format": "Human selects domain (e.g., agents and virtual environments) and provides brief comments on ideas.",
+      "Example": "Domain expert selects 50 ideas from 2000 generated, provides comments to refine them.",
+      "Role in workflow": "Defines the research focus and guides the ideation and planning stages."
+    },
+    "User provide structured, domain-specific specifications": {
+      "performed": "No"
+    },
+    "User provide research papers": {
+      "performed": "Yes",
+      "Format": "Human-curated list of papers (57 recent papers in agent architectures and virtual environments).",
+      "Example": "Papers are input to the ideator for literature-grounded idea generation.",
+      "Role in workflow": "Provides grounding and context for LLM-based ideation."
+    },
+    "User provide datasets other than research papers": {
+      "performed": "No"
+    },
+    "User provide representations or formal inputs": {
+      "performed": "Yes",
+      "Format": "Library of vetted codeblocks for common research tasks (e.g., LLM calls, plotting, agent templates).",
+      "Example": "10 code snippets for LLM calls, ReAct agent, plotting, statistics, benchmarks.",
+      "Role in workflow": "Constrains and enables feasible experiment construction by the system."
+    }
+  },
+  "Query Structuring": {
+    "performed": "Yes",
+    "Query Decomposition": {
+      "performed": "Yes",
+      "Method details": "Ideator prompt encourages breaking down research programs into gaps, abstractions, extensions, and combinations.",
+      "Inputs": "Research papers, codeblock summaries.",
+      "Outputs": "Structured research ideas with hypothesis, variables, metrics, pilot design.",
+      "Example": "Prompt includes recipes for 'filling the gaps', 'combining ideas', 'challenging assumptions'.",
+      "Role in workflow": "Enables generation of actionable, focused research ideas."
+    },
+    "Structural or Entity Decomposition": {
+      "performed": "No"
+    },
+    "Workflow Decomposition": {
+      "performed": "Yes",
+      "Method details": "Planning step converts high-level ideas into detailed, operational experiment plans.",
+      "Inputs": "Selected idea, expert comments, codeblock library.",
+      "Outputs": "Experiment plan with required codeblocks and operational details.",
+      "Example": "Planner generates step-by-step instructions for experiment builder.",
+      "Role in workflow": "Bridges ideation and code generation, ensuring implementability."
+    },
+    "Textual or Knowledge Embedding": {
+      "performed": "No"
+    },
+    "Molecular or Chemical Embedding": {
+      "performed": "No"
+    },
+    "Biological or Phenotypic Embedding": {
+      "performed": "No"
+    },
+    "Pattern and Feature Extraction": {
+      "performed": "No"
+    },
+    "Biological Relationship Extraction": {
+      "performed": "No"
+    },
+    "Property and Annotation Extraction": {
+      "performed": "No"
+    },
+    "Sequence and Structure Feature Extraction": {
+      "performed": "No"
+    }
+  },
+  "Data Retrieval": {
+    "performed": "Yes",
+    "Data Retrieval via Multi-Query Generation and Exploration": {
+      "performed": "Yes",
+      "Method details": "Ideator generates ~2000 candidate ideas by sampling combinations of papers and codeblocks.",
+      "Inputs": "Randomly chosen pairs of papers, codeblock summaries.",
+      "Outputs": "Large pool of candidate experiment ideas.",
+      "Example": "200 random combinations of papers used to generate ideas.",
+      "Role in workflow": "Ensures diversity and coverage in ideation."
+    },
+    "Literature and Data Retrieval via APIs": {
+      "performed": "No"
+    },
+    "Data Retrieval with Prioritization and Filtering Agents": {
+      "performed": "Yes",
+      "Method details": "Human domain expert manually filters and selects 50 viable and diverse ideas from generated pool.",
+      "Inputs": "Candidate ideas.",
+      "Outputs": "Subset of 50 ideas for further development.",
+      "Example": "Manual selection after stratified sampling.",
+      "Role in workflow": "Focuses resources on promising, feasible experiments."
+    },
+    "Domain-Specific Data Retrieval and Reasoning": {
+      "performed": "No"
+    },
+    "Code-Driven or Tool-Augmented Data Retrieval": {
+      "performed": "Yes",
+      "Method details": "Experiment builder crawls accessible benchmarks or environments to generate datasets for experiments.",
+      "Inputs": "Benchmark environments (e.g., TextWorldExpress).",
+      "Outputs": "Automatically generated datasets for state prediction tasks.",
+      "Example": "System crawls environment to create benchmark for state prediction.",
+      "Role in workflow": "Enables experiments even when external datasets are unavailable."
+    },
+    "Literature data Retrieval Citation-Network–Based Expansion": {
+      "performed": "No"
+    },
+    "Literature data Retrieval via Semantic and Similarity-Based analysis": {
+      "performed": "No"
+    },
+    "Literature data Retrieval via Multi-Step Reference and Evidence Selection": {
+      "performed": "No"
+    },
+    "Domain-Specific Literature data Retrieval": {
+      "performed": "No"
+    },
+    "Manual and Semi-Automatic Curation of Literature data": {
+      "performed": "Yes",
+      "Method details": "Human curates the initial paper corpus and codeblock library.",
+      "Inputs": "Recent papers, code snippets.",
+      "Outputs": "Curated resources for ideation and experiment construction.",
+      "Example": "57 papers and 10 code snippets assembled by human.",
+      "Role in workflow": "Ensures quality and relevance of foundational resources."
+    },
+    "Structural or Similarity-Based Dataset Retrieval": {
+      "performed": "No"
+    },
+    "Data Retrieval via Domain-Specific Repository Querying": {
+      "performed": "No"
+    },
+    "Library Assembly and Data Augmentation": {
+      "performed": "No"
+    }
+  },
+  "Knowledge Assembly": {
+    "performed": "No"
+  },
+  "Hypothesis/Idea Generation": {
+    "performed": "Yes",
+    "Idea/hypothesis generation without additional literature or dataset as context": {
+      "performed": "No"
+    },
+    "LLM Agent Generate ideas/hypotheses via Task Decomposition": {
+      "performed": "Yes",
+      "Method details": "Ideator prompt includes recipes for decomposing research programs into actionable ideas.",
+      "Inputs": "Research papers, codeblock summaries.",
+      "Outputs": "Structured research ideas with hypotheses, variables, metrics.",
+      "Example": "LLM generates ideas by combining, extending, or challenging concepts from papers.",
+      "Role in workflow": "Produces diverse, implementable research ideas."
+    },
+    "Generate ideas/hypotheses using Domain-Specialized LLM Agent": {
+      "performed": "No"
+    },
+    "Literature data used during idea/hypothesis generation as context": {
+      "performed": "Yes",
+      "Method details": "Ideator conditions idea generation on content from selected research papers.",
+      "Inputs": "Human-curated paper corpus.",
+      "Outputs": "Ideas grounded in recent literature.",
+      "Example": "Prompt includes Latex of two papers for each ideation batch.",
+      "Role in workflow": "Ensures ideas are relevant and literature-informed."
+    },
+    "Summarization Literature data used during idea/hypothesis generation": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation via Facet Recombination": {
+      "performed": "Yes",
+      "Method details": "Prompt encourages combining facets from different papers (e.g., methods, hypotheses) to generate new ideas.",
+      "Inputs": "Multiple papers, codeblock summaries.",
+      "Outputs": "Novel research ideas via cross-over and mutation.",
+      "Example": "Genetic operators like cross-over and mutation used in ideator prompt.",
+      "Role in workflow": "Increases diversity and novelty of generated ideas."
+    },
+    "Idea/hypothesis generation via contructed Reasoning-Chain from literature": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation via Knowledge Graph developed from literature": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation via Pattern Detection from dataset": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation via Few-Shot Data Seeding": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation using Observational data": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation via Feature-Driven Property Prediction": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation after Fine-Tuning the LLM model": {
+      "performed": "No"
+    }
+  },
+  "Hypothesis/Idea Prioritization": {
+    "performed": "Yes",
+    "LLM-based Hypothesis/Idea evaluation via Scientific Quality": {
+      "performed": "Yes",
+      "Method details": "LLM-generated reports include explicit ratings of whether results support, reject, or are inconclusive for each hypothesis.",
+      "Inputs": "Experiment results, logs.",
+      "Outputs": "Categorized summaries (support/reject/inconclusive).",
+      "Example": "Automated summaries and ratings in Table 2.",
+      "Role in workflow": "Filters and highlights promising discoveries for human review."
+    },
+    "LLM-based Hypothesis/Idea evaluation via Domain-Specific Evaluation": {
+      "performed": "No"
+    },
+    "LLM-based Hypothesis/Idea evaluation via Contextual Evidence Scoring": {
+      "performed": "No"
+    },
+    "LLM-based Hypothesis/Idea evaluation via Interpretability or Success Metrics": {
+      "performed": "No"
+    },
+    "Hypothesis/Idea evaluation via Novelty Checking with Literature Comparison": {
+      "performed": "Yes",
+      "Method details": "External reviewers assess novelty relative to existing work; internal reviewer checks for implementation novelty.",
+      "Inputs": "Generated papers, code, experiment logs.",
+      "Outputs": "Novelty ratings (incremental, highly novel, etc.).",
+      "Example": "External review rubric includes novelty assessment.",
+      "Role in workflow": "Ensures discoveries are not duplicative of prior work."
+    },
+    "Hypothesis/Idea evaluation via Alignment with Literature Chains": {
+      "performed": "No"
+    },
+    "Hypothesis/Idea evaluation via Knowledge-Graph Grounded Similarity Metrics": {
+      "performed": "No"
+    },
+    "Hypothesis/Idea evaluation via Quantitative Assessment Using Domain Metrics": {
+      "performed": "Yes",
+      "Method details": "Experiments use statistical tests (e.g., bootstrap resampling) to assess significance of results.",
+      "Inputs": "Experiment results, performance metrics.",
+      "Outputs": "Statistical significance, effect sizes.",
+      "Example": "Bootstrap resampling for confidence intervals and p-values.",
+      "Role in workflow": "Objectively validates experimental findings."
+    },
+    "Hypothesis/Idea evaluation via Human/Expert": {
+      "performed": "Yes",
+      "Method details": "External reviewers (domain experts) and internal reviewer (author) assess soundness, novelty, and code fidelity.",
+      "Inputs": "Generated papers, code, experiment logs.",
+      "Outputs": "Binary pass/fail ratings, replication attempts.",
+      "Example": "Conference-style review and code review for 19 candidate discoveries.",
+      "Role in workflow": "Final validation and filtering of discoveries."
+    }
+  },
+  "Test": {
+    "performed": "Yes",
+    "Experimental Design Generation via literature-Grounded Model/Protocol Selection": {
+      "performed": "No"
+    },
+    "Experimental Design Generation via Literature Synthesis for New Protocol Generation": {
+      "performed": "No"
+    },
+    "Experimental Design Generation via Few-Shot or Example-Based Prompting": {
+      "performed": "No"
+    },
+    "Experimental Design Generation via Executable Code Generation from Literature": {
+      "performed": "Yes",
+      "Method details": "Experiment builder generates Python code for experiments based on plans grounded in literature and codeblocks.",
+      "Inputs": "Experiment plan, codeblock library.",
+      "Outputs": "Executable experiment code (Python scripts).",
+      "Example": "Code listings for each experiment in Appendix H.",
+      "Role in workflow": "Automates implementation of experimental protocols."
+    },
+    "LLM-Based Experimental Design Generation via Agentic Exploration and Planning": {
+      "performed": "Yes",
+      "Method details": "LLM-based planner generates detailed experiment plans, including pilot/full experiment modes.",
+      "Inputs": "Selected idea, expert comments, codeblock library.",
+      "Outputs": "Stepwise experiment plans for builder.",
+      "Example": "Planning prompt produces operationalized experiment instructions.",
+      "Role in workflow": "Structures and scopes experimental implementation."
+    },
+    "LLM-Based Experimental Design Generation via Code and Workflow Translation": {
+      "performed": "Yes",
+      "Method details": "LLM converts experiment plans into executable code, iteratively debugging and refining.",
+      "Inputs": "Experiment plan, codeblocks.",
+      "Outputs": "Python code for experiments.",
+      "Example": "Builder iteratively generates and refines code until successful execution.",
+      "Role in workflow": "Bridges planning and computational execution."
+    },
+    "LLM-Based Experimental Design Generation via Multi-Agent Planning with Specialized Roles": {
+      "performed": "No"
+    },
+    "LLM-Based Experimental Design Generation via Domain-Specific Experimental Mapping": {
+      "performed": "No"
+    },
+    "Test Execution via Human-in-the-Loop": {
+      "performed": "No"
+    },
+    "Test Execution via Automated Wet-Lab Execution": {
+      "performed": "No"
+    },
+    "Test Execution via Computational or In-Silico": {
+      "performed": "Yes",
+      "Method details": "Experiments are executed in an instrumented sandbox; results are logged and analyzed computationally.",
+      "Inputs": "Generated code, simulated environments (e.g., TextWorldExpress, DiscoveryWorld).",
+      "Outputs": "Experiment logs, results, plots, statistical analyses.",
+      "Example": "250 experiment runs over 50 ideas, all computational.",
+      "Role in workflow": "Validates hypotheses and ideas via simulation and analysis."
+    },
+    "Refinement via LLM Agent Feedback Loops": {
+      "performed": "Yes",
+      "Method details": "Builder iteratively reflects on code and output, modifying code until experiment is successful or limits reached.",
+      "Inputs": "Experiment logs, code, error messages.",
+      "Outputs": "Refined code, debugged experiments.",
+      "Example": "Generate-execute-reflect debugging cycles in experiment builder.",
+      "Role in workflow": "Improves experiment fidelity and success rate."
+    },
+    "Refinement via Automated Quality Evaluation using Model-Based Critics": {
+      "performed": "No"
+    },
+    "Refinement via Dynamic Agent Updating Based on Evolving Context or Data": {
+      "performed": "No"
+    },
+    "Refinement via guided by computational-data": {
+      "performed": "Yes",
+      "Method details": "Meta-analysis aggregates results from multiple runs, examines consistency, and informs discovery selection.",
+      "Inputs": "Summaries from 5 independent experiment runs per idea.",
+      "Outputs": "Meta-analysis reports, consistency judgments.",
+      "Example": "Meta-analysis step classifies results as consistent, mixed, or limited.",
+      "Role in workflow": "Reduces variability and increases reliability of findings."
+    },
+    "Refinement via experimental validation": {
+      "performed": "No"
+    },
+    "Refinement via Performance-metric": {
+      "performed": "Yes",
+      "Method details": "Statistical metrics (e.g., correlation, AUC, process score) guide assessment and refinement.",
+      "Inputs": "Experiment results, performance metrics.",
+      "Outputs": "Performance-based conclusions and further debugging if needed.",
+      "Example": "Correlation between confidence and accuracy, ROC AUC, process scores.",
+      "Role in workflow": "Ensures only robust, high-performing results are considered discoveries."
+    },
+    "Refinement via Human–data integration": {
+      "performed": "Yes",
+      "Method details": "Internal reviewer reruns experiments with more samples, examines code and logs for errors.",
+      "Inputs": "Experiment code, logs, results.",
+      "Outputs": "Replicated results, error corrections, final discovery selection.",
+      "Example": "Internal reviewer vetoes or confirms discoveries after code inspection.",
+      "Role in workflow": "Final safeguard for scientific validity and reproducibility."
+    }
+  },
+  "paper_title": "CodeScientist: End-to-End Semi-Automated Scientific Discovery with Code-based Experimentation",
+  "authors": [
+    "Peter",
+    "Oyvind",
+    "Marissa",
+    "Pao",
+    "Tom",
+    "Bhavana Dalvi",
+    "Bodhisattwa Prasad",
+    "Daniel S.",
+    "Peter"
+  ],
+  "published": "2025-03-20",
+  "link": "http://arxiv.org/abs/2503.22708"
+}

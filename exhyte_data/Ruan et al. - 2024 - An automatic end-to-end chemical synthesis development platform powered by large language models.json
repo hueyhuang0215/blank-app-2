@@ -1,0 +1,528 @@
+{
+  "Inputs to the workflow": {
+    "performed": "Yes",
+    "User provide high-level research direction or goal": {
+      "performed": "Yes",
+      "Format": "Natural language task descriptions via web interface",
+      "Example": "User inputs requests such as 'Searching for synthetic methods that can use air to oxidize alcohols into aldehydes.'",
+      "Role in workflow": "Defines the chemical synthesis goal and initiates the workflow."
+    },
+    "User provide structured, domain-specific specifications": {
+      "performed": "Yes",
+      "Format": "Natural language specifying variables, constraints, or optimization objectives",
+      "Example": "User specifies optimization variables: 'I want to optimize four variables: 1. Reaction time: 45–90 min; 2. Base volume: 0.125-0.25 mL; 3. Cu catalyst: CuCl2, CuBr2, Cu(OTf)2, Cu(BF4)2; 4. Base type: NMI, DBU.'",
+      "Role in workflow": "Constrains and guides experimental design and optimization."
+    },
+    "User provide research papers": {
+      "performed": "Yes",
+      "Format": "Upload or reference of literature documents",
+      "Example": "User uploads literature for extraction of procedures and design space.",
+      "Role in workflow": "Provides grounding for extraction of experimental protocols and chemical knowledge."
+    },
+    "User provide datasets other than research papers": {
+      "performed": "No"
+    },
+    "User provide representations or formal inputs": {
+      "performed": "Yes",
+      "Format": "Chemical structures, reaction schemes, or code snippets in natural language or structured JSON",
+      "Example": "User provides substrate structures or requests code for OT-2 liquid handler.",
+      "Role in workflow": "Enables translation to machine-executable protocols and chemical reasoning."
+    }
+  },
+  "Query Structuring": {
+    "performed": "Yes",
+    "Query Decomposition": {
+      "performed": "Yes",
+      "Method details": "LLM-based agents break down user queries into sub-tasks (e.g., literature search, extraction, experiment design).",
+      "Inputs": "Natural language task descriptions",
+      "Outputs": "Sub-queries for agents (e.g., method search, extraction, optimization)",
+      "Example": "User asks for method search, then for extraction of procedure, then for optimization.",
+      "Role in workflow": "Enables targeted retrieval and sequential workflow execution."
+    },
+    "Structural or Entity Decomposition": {
+      "performed": "Yes",
+      "Method details": "Agents identify and extract chemical entities (substrates, catalysts, bases) from literature and user input.",
+      "Inputs": "Literature documents, user-specified substrates/reagents",
+      "Outputs": "Lists of chemicals, variables, and experimental parameters",
+      "Example": "Extraction of Cu salts, bases, and time options from literature.",
+      "Role in workflow": "Supports experimental design and screening."
+    },
+    "Workflow Decomposition": {
+      "performed": "Yes",
+      "Method details": "Multi-agent system assigns specialized agents to sequential subtasks (e.g., Literature Scouter, Experiment Designer, Hardware Executor, etc.).",
+      "Inputs": "User task descriptions and extracted information",
+      "Outputs": "Ordered workflow of agent actions",
+      "Example": "LLM-RDF assigns literature search, then experiment design, then execution, then analysis.",
+      "Role in workflow": "Creates actionable, multi-step plans for end-to-end synthesis."
+    },
+    "Textual or Knowledge Embedding": {
+      "performed": "Yes",
+      "Method details": "Vector search technology used for semantic retrieval from Semantic Scholar.",
+      "Inputs": "User queries and literature database",
+      "Outputs": "Relevant literature based on semantic similarity",
+      "Example": "Literature Scouter uses vector search to find methods for aerobic alcohol oxidation.",
+      "Role in workflow": "Enables context-aware literature retrieval."
+    },
+    "Molecular or Chemical Embedding": {
+      "performed": "No"
+    },
+    "Biological or Phenotypic Embedding": {
+      "performed": "No"
+    },
+    "Pattern and Feature Extraction": {
+      "performed": "Yes",
+      "Method details": "Spectrum Analyzer extracts features (peaks, retention times, yields) from GC-FID-MS and NMR data.",
+      "Inputs": "Raw chromatogram and NMR data",
+      "Outputs": "Identified peaks, calculated yields, concentration profiles",
+      "Example": "Automated identification of product and substrate peaks in GC-MS data.",
+      "Role in workflow": "Automates data analysis and result interpretation."
+    },
+    "Biological Relationship Extraction": {
+      "performed": "No"
+    },
+    "Property and Annotation Extraction": {
+      "performed": "Yes",
+      "Method details": "Extraction of reaction conditions, yields, and selectivity from literature and experimental data.",
+      "Inputs": "Literature documents, experimental results",
+      "Outputs": "Structured tables of conditions, yields, and selectivity",
+      "Example": "Extraction of design space: Cu salts, bases, time from literature.",
+      "Role in workflow": "Informs experimental planning and optimization."
+    },
+    "Sequence and Structure Feature Extraction": {
+      "performed": "No"
+    }
+  },
+  "Data Retrieval": {
+    "performed": "Yes",
+    "Data Retrieval via Multi-Query Generation and Exploration": {
+      "performed": "Yes",
+      "Method details": "LLM agents generate follow-up queries based on initial user requests (e.g., method search, best method, procedure extraction).",
+      "Inputs": "User queries",
+      "Outputs": "Multiple related literature queries",
+      "Example": "After initial method search, agent is asked which method is best, then to extract procedures.",
+      "Role in workflow": "Expands literature exploration and evidence gathering."
+    },
+    "Literature and Data Retrieval via APIs": {
+      "performed": "Yes",
+      "Method details": "Literature Scouter agent queries Semantic Scholar via Consensus API for academic literature.",
+      "Inputs": "User queries, Semantic Scholar database",
+      "Outputs": "Relevant literature references and summaries",
+      "Example": "Retrieving methods for aerobic alcohol oxidation from Semantic Scholar.",
+      "Role in workflow": "Provides up-to-date, referenced literature for downstream tasks."
+    },
+    "Data Retrieval with Prioritization and Filtering Agents": {
+      "performed": "Yes",
+      "Method details": "Literature Scouter recommends most practical methods based on criteria (e.g., sustainability, selectivity).",
+      "Inputs": "Retrieved literature",
+      "Outputs": "Ranked or prioritized method recommendations",
+      "Example": "Agent recommends Cu/TEMPO system as most practical.",
+      "Role in workflow": "Focuses workflow on most promising approaches."
+    },
+    "Domain-Specific Data Retrieval and Reasoning": {
+      "performed": "Yes",
+      "Method details": "Agents extract and reason over domain-specific details (e.g., reaction conditions, substrate scope) from literature.",
+      "Inputs": "Literature documents",
+      "Outputs": "Extracted protocols, design spaces, and mechanistic insights",
+      "Example": "Extraction of procedure and design space for Cu/TEMPO oxidation.",
+      "Role in workflow": "Enables tailored experimental design."
+    },
+    "Code-Driven or Tool-Augmented Data Retrieval": {
+      "performed": "Yes",
+      "Method details": "Agents generate Python code to analyze raw experimental data (e.g., GC-MS, NMR) and retrieve results.",
+      "Inputs": "Raw data files, code interpreter",
+      "Outputs": "Processed data, yields, concentration profiles",
+      "Example": "Spectrum Analyzer writes Python code to process GC-MS data.",
+      "Role in workflow": "Automates data analysis and result extraction."
+    },
+    "Literature data Retrieval Citation-Network–Based Expansion": {
+      "performed": "No"
+    },
+    "Literature data Retrieval via Semantic and Similarity-Based analysis": {
+      "performed": "Yes",
+      "Method details": "Vector search enables semantic retrieval of literature matching user queries.",
+      "Inputs": "User queries, literature embeddings",
+      "Outputs": "Semantically relevant papers",
+      "Example": "Finding recent methods for alcohol oxidation using vector search.",
+      "Role in workflow": "Ensures contextually relevant literature is retrieved."
+    },
+    "Literature data Retrieval via Multi-Step Reference and Evidence Selection": {
+      "performed": "No"
+    },
+    "Domain-Specific Literature data Retrieval": {
+      "performed": "Yes",
+      "Method details": "Agents use chemistry-specific keywords and context to retrieve targeted literature.",
+      "Inputs": "Chemistry queries",
+      "Outputs": "Domain-relevant papers and protocols",
+      "Example": "Searching for 'synthetic methods that can use air to oxidize alcohols into aldehydes.'",
+      "Role in workflow": "Targets literature relevant to the chemical domain."
+    },
+    "Manual and Semi-Automatic Curation of Literature data": {
+      "performed": "Yes",
+      "Method details": "Human chemists review and select among agent-recommended methods and extracted protocols.",
+      "Inputs": "Agent outputs, literature summaries",
+      "Outputs": "Final selection of methods and protocols",
+      "Example": "Manual evaluation of recommended methods for practical application.",
+      "Role in workflow": "Ensures correctness and relevance of selected approaches."
+    },
+    "Structural or Similarity-Based Dataset Retrieval": {
+      "performed": "No"
+    },
+    "Data Retrieval via Domain-Specific Repository Querying": {
+      "performed": "No"
+    },
+    "Library Assembly and Data Augmentation": {
+      "performed": "No"
+    }
+  },
+  "Knowledge Assembly": {
+    "performed": "Yes",
+    "Standardized Section Extraction from Literature data": {
+      "performed": "Yes",
+      "Method details": "Literature Scouter extracts procedures, design spaces, and options from uploaded papers.",
+      "Inputs": "Literature documents",
+      "Outputs": "Structured protocols and parameter tables",
+      "Example": "Extraction of procedure: 'To a solution of alcohol in CH3CN...'",
+      "Role in workflow": "Normalizes literature content for downstream use."
+    },
+    "Concise Synopsis and Summarization of Literature data": {
+      "performed": "Yes",
+      "Method details": "Agents summarize key findings and practical aspects of literature methods.",
+      "Inputs": "Literature documents",
+      "Outputs": "Summaries of method advantages and limitations",
+      "Example": "Summarizing why Cu/TEMPO system is most practical.",
+      "Role in workflow": "Guides method selection and experimental planning."
+    },
+    "Facet-Based or Field-Specific Extraction from Literature data": {
+      "performed": "Yes",
+      "Method details": "Extraction of specific fields such as catalyst type, base, solvent, and time from literature.",
+      "Inputs": "Literature documents",
+      "Outputs": "Tables of experimental variables and options",
+      "Example": "Design space: Cu salts, bases, time options.",
+      "Role in workflow": "Enables systematic screening and optimization."
+    },
+    "Domain-Tailored Extraction from Literature data": {
+      "performed": "Yes",
+      "Method details": "Extraction of chemoselectivity, substrate compatibility, and mechanistic insights.",
+      "Inputs": "Literature and agent analysis",
+      "Outputs": "Domain-specific knowledge (e.g., selectivity for primary alcohols)",
+      "Example": "Recognition that Cu/TEMPO system selectively oxidizes primary alcohols.",
+      "Role in workflow": "Informs experimental design and mechanistic reasoning."
+    },
+    "Task/Entity-Centric Knowledge Graphs": {
+      "performed": "No"
+    },
+    "Causal or Relation-Specific Knowledge Graphs": {
+      "performed": "No"
+    },
+    "Biomedical or Domain-Specific Interaction Graphs": {
+      "performed": "No"
+    },
+    "Literature Database Construction": {
+      "performed": "No"
+    },
+    "Entity- or Co-Occurrence–Based Databases": {
+      "performed": "No"
+    },
+    "Reasoning-Chain or Temporal Databases for Literature": {
+      "performed": "No"
+    }
+  },
+  "Hypothesis/Idea Generation": {
+    "performed": "Yes",
+    "Idea/hypothesis generation without additional literature or dataset as context": {
+      "performed": "Yes",
+      "Method details": "LLM-based agents propose experimental modifications or troubleshooting based on internal knowledge.",
+      "Inputs": "User queries, agent context",
+      "Outputs": "Suggestions for solvent change, catalyst choice, etc.",
+      "Example": "Experiment Designer suggests switching to higher boiling point solvent due to volatility issues.",
+      "Role in workflow": "Generates new experimental ideas beyond literature."
+    },
+    "LLM Agent Generate ideas/hypotheses via Task Decomposition": {
+      "performed": "Yes",
+      "Method details": "Agents decompose tasks (e.g., screening, optimization, scale-up) and generate ideas for each step.",
+      "Inputs": "User goals, extracted knowledge",
+      "Outputs": "Subtask-specific hypotheses and plans",
+      "Example": "Suggesting two-stage scale-up strategy for gas-liquid biphasic reaction.",
+      "Role in workflow": "Structures idea generation across workflow stages."
+    },
+    "Generate ideas/hypotheses using Domain-Specialized LLM Agent": {
+      "performed": "Yes",
+      "Method details": "Specialized agents (e.g., Experiment Designer, Result Interpreter) generate domain-specific hypotheses and explanations.",
+      "Inputs": "Experimental data, literature, user queries",
+      "Outputs": "Mechanistic explanations, optimization strategies",
+      "Example": "Result Interpreter explains observed selectivity trends.",
+      "Role in workflow": "Provides expert-level reasoning for hypothesis generation."
+    },
+    "Literature data used during idea/hypothesis generation as context": {
+      "performed": "Yes",
+      "Method details": "Agents use extracted literature procedures and findings to inform hypothesis and protocol generation.",
+      "Inputs": "Extracted literature protocols",
+      "Outputs": "Contextualized experimental plans",
+      "Example": "Using literature procedure as basis for HTS design.",
+      "Role in workflow": "Grounds hypotheses in prior evidence."
+    },
+    "Summarization Literature data used during idea/hypothesis generation": {
+      "performed": "Yes",
+      "Method details": "Summarized literature findings are used to guide agent recommendations.",
+      "Inputs": "Literature summaries",
+      "Outputs": "Condensed context for hypothesis generation",
+      "Example": "Summarizing substrate scope and selectivity from literature.",
+      "Role in workflow": "Focuses idea generation on key findings."
+    },
+    "Idea/hypothesis generation via Facet Recombination": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation via contructed Reasoning-Chain from literature": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation via Knowledge Graph developed from literature": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation via Pattern Detection from dataset": {
+      "performed": "Yes",
+      "Method details": "Agents analyze HTS and kinetic data to detect patterns (e.g., yield trends, selectivity).",
+      "Inputs": "Experimental datasets",
+      "Outputs": "Pattern-based hypotheses (e.g., effect of electron-withdrawing groups)",
+      "Example": "Result Interpreter notes higher reactivity with electron-withdrawing groups.",
+      "Role in workflow": "Informs further experimental design."
+    },
+    "Idea/hypothesis generation via Few-Shot Data Seeding": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation using Observational data": {
+      "performed": "Yes",
+      "Method details": "Agents use observed experimental outcomes to refine mechanistic or optimization hypotheses.",
+      "Inputs": "Experimental results",
+      "Outputs": "Updated hypotheses or troubleshooting suggestions",
+      "Example": "Explaining lack of reactivity for certain diols based on observed data.",
+      "Role in workflow": "Enables data-driven hypothesis refinement."
+    },
+    "Idea/hypothesis generation via Feature-Driven Property Prediction": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation after Fine-Tuning the LLM model": {
+      "performed": "No"
+    }
+  },
+  "Hypothesis/Idea Prioritization": {
+    "performed": "Yes",
+    "LLM-based Hypothesis/Idea evaluation via Scientific Quality": {
+      "performed": "Yes",
+      "Method details": "Agents assess practicality, selectivity, and efficiency of methods and conditions.",
+      "Inputs": "Extracted literature, experimental results",
+      "Outputs": "Recommendations for best methods/conditions",
+      "Example": "Literature Scouter recommends Cu/TEMPO system for practical applications.",
+      "Role in workflow": "Focuses workflow on high-quality, feasible approaches."
+    },
+    "LLM-based Hypothesis/Idea evaluation via Domain-Specific Evaluation": {
+      "performed": "Yes",
+      "Method details": "Agents evaluate hypotheses against chemical criteria (e.g., yield, selectivity, cost).",
+      "Inputs": "Experimental data, literature",
+      "Outputs": "Domain-specific assessments",
+      "Example": "Result Interpreter evaluates optimization stopping based on yield and exploration.",
+      "Role in workflow": "Ensures alignment with chemical objectives."
+    },
+    "LLM-based Hypothesis/Idea evaluation via Contextual Evidence Scoring": {
+      "performed": "Yes",
+      "Method details": "Agents integrate literature and experimental evidence to support or reject hypotheses.",
+      "Inputs": "Literature, experimental results",
+      "Outputs": "Evidence-backed recommendations",
+      "Example": "Manual evaluation of agent recommendations for method selection.",
+      "Role in workflow": "Grounds prioritization in evidence."
+    },
+    "LLM-based Hypothesis/Idea evaluation via Interpretability or Success Metrics": {
+      "performed": "Yes",
+      "Method details": "Agents use metrics such as yield, selectivity, and reproducibility to assess success.",
+      "Inputs": "Experimental outcomes",
+      "Outputs": "Interpretability and performance-based evaluations",
+      "Example": "Stopping optimization when yield plateaus.",
+      "Role in workflow": "Guides decision to continue or stop experiments."
+    },
+    "Hypothesis/Idea evaluation via Novelty Checking with Literature Comparison": {
+      "performed": "No"
+    },
+    "Hypothesis/Idea evaluation via Alignment with Literature Chains": {
+      "performed": "No"
+    },
+    "Hypothesis/Idea evaluation via Knowledge-Graph Grounded Similarity Metrics": {
+      "performed": "No"
+    },
+    "Hypothesis/Idea evaluation via Quantitative Assessment Using Domain Metrics": {
+      "performed": "Yes",
+      "Method details": "Agents and Bayesian optimization use quantitative metrics (e.g., probability of improvement, R2 for kinetic fits).",
+      "Inputs": "Experimental data, optimization metrics",
+      "Outputs": "Quantitative stopping or selection criteria",
+      "Example": "Stopping optimization based on PI threshold or agent recommendation.",
+      "Role in workflow": "Objectively prioritizes best-performing conditions."
+    },
+    "Hypothesis/Idea evaluation via Human/Expert": {
+      "performed": "Yes",
+      "Method details": "Human chemists review agent outputs for correctness and completeness.",
+      "Inputs": "Agent recommendations, experimental plans",
+      "Outputs": "Final decisions on workflow progression",
+      "Example": "Manual inspection before executing agent-generated code.",
+      "Role in workflow": "Ensures safety and scientific validity."
+    }
+  },
+  "Test": {
+    "performed": "Yes",
+    "Experimental Design Generation via literature-Grounded Model/Protocol Selection": {
+      "performed": "Yes",
+      "Method details": "Agents extract and adapt experimental protocols directly from literature.",
+      "Inputs": "Literature procedures",
+      "Outputs": "Experimental protocols for screening, kinetics, optimization",
+      "Example": "Extracting and adapting Cu/TEMPO oxidation procedure.",
+      "Role in workflow": "Provides validated starting points for experiments."
+    },
+    "Experimental Design Generation via Literature Synthesis for New Protocol Generation": {
+      "performed": "Yes",
+      "Method details": "Agents synthesize literature and user constraints to generate new protocols (e.g., solvent change, scale-up strategy).",
+      "Inputs": "Literature, user specifications",
+      "Outputs": "Modified or new experimental protocols",
+      "Example": "Switching to DMSO solvent based on volatility issue.",
+      "Role in workflow": "Adapts protocols to practical constraints."
+    },
+    "Experimental Design Generation via Few-Shot or Example-Based Prompting": {
+      "performed": "No"
+    },
+    "Experimental Design Generation via Executable Code Generation from Literature": {
+      "performed": "Yes",
+      "Method details": "Agents generate OT-2 Python code from extracted protocols for automated execution.",
+      "Inputs": "Standardized protocols, code templates",
+      "Outputs": "Executable scripts for liquid handler",
+      "Example": "Hardware Executor generates code for OT-2 to run HTS.",
+      "Role in workflow": "Bridges literature and automation."
+    },
+    "LLM-Based Experimental Design Generation via Agentic Exploration and Planning": {
+      "performed": "Yes",
+      "Method details": "Agents autonomously plan experimental sequences (e.g., HTS, kinetics, optimization, scale-up).",
+      "Inputs": "User goals, extracted knowledge",
+      "Outputs": "Ordered experimental plans",
+      "Example": "Experiment Designer plans sampling schedule for kinetics.",
+      "Role in workflow": "Enables autonomous, multi-step experimentation."
+    },
+    "LLM-Based Experimental Design Generation via Code and Workflow Translation": {
+      "performed": "Yes",
+      "Method details": "Agents translate experimental plans into machine-executable code and JSON protocols.",
+      "Inputs": "Experimental plans, user constraints",
+      "Outputs": "Code/scripts for automation platforms",
+      "Example": "Generating OT-2 code from JSON protocol.",
+      "Role in workflow": "Automates experiment execution."
+    },
+    "LLM-Based Experimental Design Generation via Multi-Agent Planning with Specialized Roles": {
+      "performed": "Yes",
+      "Method details": "Specialized agents (e.g., Experiment Designer, Hardware Executor, Spectrum Analyzer) collaborate to design, execute, and analyze experiments.",
+      "Inputs": "User tasks, extracted knowledge",
+      "Outputs": "Integrated experimental workflows",
+      "Example": "Agents coordinate for HTS, analysis, and interpretation.",
+      "Role in workflow": "Enables end-to-end automation."
+    },
+    "LLM-Based Experimental Design Generation via Domain-Specific Experimental Mapping": {
+      "performed": "Yes",
+      "Method details": "Agents map hypotheses to concrete lab techniques and apparatus (e.g., OT-2, HPLC, Big Kahuna).",
+      "Inputs": "Experimental objectives",
+      "Outputs": "Mapped protocols and apparatus specifications",
+      "Example": "Mapping optimization task to Big Kahuna and HPLC.",
+      "Role in workflow": "Ensures correct experimental setup."
+    },
+    "Test Execution via Human-in-the-Loop": {
+      "performed": "Yes",
+      "Method details": "Human chemists review, approve, and sometimes manually execute or supervise agent-generated experiments.",
+      "Inputs": "Agent-generated protocols and code",
+      "Outputs": "Executed experiments, validated results",
+      "Example": "Manual TLC and column chromatography guided by agent recommendations.",
+      "Role in workflow": "Ensures safety and correctness."
+    },
+    "Test Execution via Automated Wet-Lab Execution": {
+      "performed": "Yes",
+      "Method details": "Automated platforms (OT-2, Big Kahuna, HPLC) execute agent-generated protocols without manual intervention.",
+      "Inputs": "Executable code, protocols",
+      "Outputs": "Experimental data (yields, spectra, etc.)",
+      "Example": "OT-2 runs HTS and sampling; Big Kahuna runs optimization.",
+      "Role in workflow": "Enables high-throughput and autonomous experimentation."
+    },
+    "Test Execution via Computational or In-Silico": {
+      "performed": "Yes",
+      "Method details": "Finite element analysis (FEniCS) used for current distribution simulation in photoelectrochemical reactor design.",
+      "Inputs": "Electrode design parameters",
+      "Outputs": "Simulated current distribution, design optimization",
+      "Example": "Result Interpreter uses FEniCS to simulate current in FTO photoanode.",
+      "Role in workflow": "Validates and optimizes reactor design computationally."
+    },
+    "Refinement via LLM Agent Feedback Loops": {
+      "performed": "Yes",
+      "Method details": "Agents iteratively critique and refine protocols and hypotheses based on test outcomes.",
+      "Inputs": "Experimental results, agent outputs",
+      "Outputs": "Refined protocols, updated recommendations",
+      "Example": "Result Interpreter suggests stopping optimization after plateau in yield.",
+      "Role in workflow": "Improves workflow efficiency and outcome quality."
+    },
+    "Refinement via Automated Quality Evaluation using Model-Based Critics": {
+      "performed": "Yes",
+      "Method details": "Bayesian optimization and statistical metrics (e.g., PI, R2) used to evaluate and refine experimental conditions.",
+      "Inputs": "Experimental data, optimization metrics",
+      "Outputs": "Refined experimental plans",
+      "Example": "Stopping optimization based on PI threshold.",
+      "Role in workflow": "Ensures optimal use of resources."
+    },
+    "Refinement via Dynamic Agent Updating Based on Evolving Context or Data": {
+      "performed": "Yes",
+      "Method details": "Agents update experimental plans in response to new data (e.g., switching solvents, adjusting sampling schedules).",
+      "Inputs": "Intermediate results, user feedback",
+      "Outputs": "Updated experimental designs",
+      "Example": "Changing solvent to DMSO after volatility issue observed.",
+      "Role in workflow": "Adapts workflow to real-time findings."
+    },
+    "Refinement via guided by computational-data": {
+      "performed": "Yes",
+      "Method details": "Refinement of hypotheses and protocols based on computational analysis of test results (e.g., kinetic model fitting).",
+      "Inputs": "Experimental data, computational fits",
+      "Outputs": "Updated models and protocols",
+      "Example": "Adjusting kinetic model parameters after NMR analysis.",
+      "Role in workflow": "Improves accuracy and predictive power."
+    },
+    "Refinement via experimental validation": {
+      "performed": "Yes",
+      "Method details": "Experimental outcomes (e.g., yields, purities) inform further protocol refinement and troubleshooting.",
+      "Inputs": "Wet-lab results",
+      "Outputs": "Refined experimental protocols",
+      "Example": "Iterative TLC to optimize eluent composition.",
+      "Role in workflow": "Ensures practical success of workflow."
+    },
+    "Refinement via Performance-metric": {
+      "performed": "Yes",
+      "Method details": "Performance metrics (yield, purity, current uniformity) guide further optimization and stopping decisions.",
+      "Inputs": "Experimental and computational metrics",
+      "Outputs": "Performance-optimized protocols",
+      "Example": "Selecting scale-up conditions based on yield and cost.",
+      "Role in workflow": "Maximizes efficiency and output quality."
+    },
+    "Refinement via Human–data integration": {
+      "performed": "Yes",
+      "Method details": "Human chemists provide feedback and integrate raw data for agent-driven refinement.",
+      "Inputs": "Experimental data, human feedback",
+      "Outputs": "Improved protocols and agent recommendations",
+      "Example": "Manual review of agent-generated code before execution.",
+      "Role in workflow": "Combines human expertise with automation."
+    }
+  },
+  "paper_title": "An automatic end-to-end chemical synthesis development platform powered by large language models",
+  "authors": [
+    "Yixiang",
+    "Chenyin",
+    "Ning",
+    "Yuchen",
+    "Yixin",
+    "Jian",
+    "Jun",
+    "Jianzhang",
+    "Qun",
+    "Hanyu",
+    "Xiaodong",
+    "Ning",
+    "Qiang",
+    "Yiming"
+  ],
+  "published": "2024-11-23",
+  "link": "https://www.nature.com/articles/s41467-024-54457-x"
+}

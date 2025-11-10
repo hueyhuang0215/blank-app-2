@@ -1,0 +1,340 @@
+{
+  "Inputs to the workflow": {
+    "performed": "Yes",
+    "User provide high-level research direction or goal": {
+      "performed": "Yes",
+      "Format": "Problem statement extracted from target research paper",
+      "Example": "Core problem statement from a paper in OAG-Bench dataset",
+      "Role in workflow": "Defines the focus for idea generation and retrieval"
+    },
+    "User provide structured, domain-specific specifications": {
+      "performed": "No"
+    },
+    "User provide research papers": {
+      "performed": "Yes",
+      "Format": "Full papers and their references from OAG-Bench dataset",
+      "Example": "87 papers with 3-5 important references each",
+      "Role in workflow": "Serve as knowledge base for retrieval and idea generation"
+    },
+    "User provide datasets other than research papers": {
+      "performed": "No"
+    },
+    "User provide representations or formal inputs": {
+      "performed": "Yes",
+      "Format": "Semi-structured JSON format for innovations and problems",
+      "Example": "Innovation entries with fields like problem, mechanisms, generalization levels",
+      "Role in workflow": "Standardizes knowledge for retrieval and combinatorial processing"
+    }
+  },
+  "Query Structuring": {
+    "performed": "Yes",
+    "Query Decomposition": {
+      "performed": "Yes",
+      "Method details": "AI agent analyzes the problem statement to extract multiple perspectives and structures for mapping across abstraction levels.",
+      "Inputs": "Problem statement from target paper",
+      "Outputs": "Multiple problem structures at different generalization levels",
+      "Example": "Extracting both concrete and abstract representations of a research problem",
+      "Role in workflow": "Enables multi-level semantic matching for cross-domain retrieval"
+    },
+    "Structural or Entity Decomposition": {
+      "performed": "Yes",
+      "Method details": "Component analysis breaks down innovations into mechanisms and principles for recombination.",
+      "Inputs": "Retrieved innovations",
+      "Outputs": "Fundamental components and mechanisms",
+      "Example": "Decomposing an innovation into rule-based mechanisms and hierarchical structures",
+      "Role in workflow": "Provides building blocks for combinatorial creativity"
+    },
+    "Workflow Decomposition": {
+      "performed": "No"
+    },
+    "Textual or Knowledge Embedding": {
+      "performed": "Yes",
+      "Method details": "Uses OpenAI text-embedding-3-large model to generate semantic embeddings for problems and innovations.",
+      "Inputs": "Problem structures and innovation entries",
+      "Outputs": "Vector embeddings for similarity computation",
+      "Example": "Embedding problem and innovation descriptions for cosine similarity search",
+      "Role in workflow": "Enables semantic retrieval and matching across abstraction levels"
+    },
+    "Molecular or Chemical Embedding": {
+      "performed": "No"
+    },
+    "Biological or Phenotypic Embedding": {
+      "performed": "No"
+    },
+    "Pattern and Feature Extraction": {
+      "performed": "No"
+    },
+    "Biological Relationship Extraction": {
+      "performed": "No"
+    },
+    "Property and Annotation Extraction": {
+      "performed": "No"
+    },
+    "Sequence and Structure Feature Extraction": {
+      "performed": "No"
+    }
+  },
+  "Data Retrieval": {
+    "performed": "Yes",
+    "Data Retrieval via Multi-Query Generation and Exploration": {
+      "performed": "No"
+    },
+    "Literature and Data Retrieval via APIs": {
+      "performed": "No"
+    },
+    "Data Retrieval with Prioritization and Filtering Agents": {
+      "performed": "No"
+    },
+    "Domain-Specific Data Retrieval and Reasoning": {
+      "performed": "No"
+    },
+    "Code-Driven or Tool-Augmented Data Retrieval": {
+      "performed": "No"
+    },
+    "Literature data Retrieval Citation-Network–Based Expansion": {
+      "performed": "Yes",
+      "Method details": "Important references for each target paper are selected based on citation impact and content relevance.",
+      "Inputs": "Citation network from OAG-Bench dataset",
+      "Outputs": "Set of important references per paper",
+      "Example": "Selecting 3-5 key references for each of 87 papers",
+      "Role in workflow": "Defines the knowledge base for idea generation"
+    },
+    "Literature data Retrieval via Semantic and Similarity-Based analysis": {
+      "performed": "Yes",
+      "Method details": "Cosine similarity between embeddings is used to match problems with innovations at multiple abstraction levels.",
+      "Inputs": "Embeddings of problem structures and innovations",
+      "Outputs": "Most similar innovations per generalization level",
+      "Example": "Selecting innovations with highest semantic similarity to the problem",
+      "Role in workflow": "Enables cross-domain retrieval for combinatorial creativity"
+    },
+    "Literature data Retrieval via Multi-Step Reference and Evidence Selection": {
+      "performed": "No"
+    },
+    "Domain-Specific Literature data Retrieval": {
+      "performed": "No"
+    },
+    "Manual and Semi-Automatic Curation of Literature data": {
+      "performed": "No"
+    },
+    "Structural or Similarity-Based Dataset Retrieval": {
+      "performed": "No"
+    },
+    "Data Retrieval via Domain-Specific Repository Querying": {
+      "performed": "No"
+    },
+    "Library Assembly and Data Augmentation": {
+      "performed": "No"
+    }
+  },
+  "Knowledge Assembly": {
+    "performed": "Yes",
+    "Standardized Section Extraction from Literature data": {
+      "performed": "No"
+    },
+    "Concise Synopsis and Summarization of Literature data": {
+      "performed": "No"
+    },
+    "Facet-Based or Field-Specific Extraction from Literature data": {
+      "performed": "Yes",
+      "Method details": "Semi-structured idea extraction captures fields such as problem, mechanisms, insights, generalization levels, and tradeoffs.",
+      "Inputs": "Full text of research papers and references",
+      "Outputs": "JSON records with structured fields for each innovation",
+      "Example": "Extracting 'problem structure', 'key mechanism', 'design rationale' from a paper",
+      "Role in workflow": "Enables structured comparison and recombination of ideas"
+    },
+    "Domain-Tailored Extraction from Literature data": {
+      "performed": "No"
+    },
+    "Task/Entity-Centric Knowledge Graphs": {
+      "performed": "No"
+    },
+    "Causal or Relation-Specific Knowledge Graphs": {
+      "performed": "No"
+    },
+    "Biomedical or Domain-Specific Interaction Graphs": {
+      "performed": "No"
+    },
+    "Literature Database Construction": {
+      "performed": "Yes",
+      "Method details": "Papers and references are stored as structured JSON entries with standardized fields for innovations.",
+      "Inputs": "Research papers and references",
+      "Outputs": "Structured database of innovations and problems",
+      "Example": "A database entry for 'Model-based Deep Rule Forests' with all key fields",
+      "Role in workflow": "Supports efficient retrieval and combinatorial processing"
+    },
+    "Entity- or Co-Occurrence–Based Databases": {
+      "performed": "No"
+    },
+    "Reasoning-Chain or Temporal Databases for Literature": {
+      "performed": "No"
+    }
+  },
+  "Hypothesis/Idea Generation": {
+    "performed": "Yes",
+    "Idea/hypothesis generation without additional literature or dataset as context": {
+      "performed": "No"
+    },
+    "LLM Agent Generate ideas/hypotheses via Task Decomposition": {
+      "performed": "No"
+    },
+    "Generate ideas/hypotheses using Domain-Specialized LLM Agent": {
+      "performed": "Yes",
+      "Method details": "Specialized AI agents analyze and recombine components of retrieved innovations at each abstraction level.",
+      "Inputs": "Batched innovations per generalization level",
+      "Outputs": "Component analyses and candidate recombinations",
+      "Example": "Agent identifies mechanisms from different domains for recombination",
+      "Role in workflow": "Drives combinatorial creativity by leveraging domain-specific insights"
+    },
+    "Literature data used during idea/hypothesis generation as context": {
+      "performed": "Yes",
+      "Method details": "Retrieved innovations from references are used as context for LLM-based idea generation.",
+      "Inputs": "Structured innovations from references",
+      "Outputs": "Contextualized idea generation prompts",
+      "Example": "Using mechanisms from prior work to inspire new solutions",
+      "Role in workflow": "Ensures generated ideas are grounded in existing research"
+    },
+    "Summarization Literature data used during idea/hypothesis generation": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation via Facet Recombination": {
+      "performed": "Yes",
+      "Method details": "Combinatorial process systematically analyzes and recombines components (mechanisms, principles) from multiple innovations.",
+      "Inputs": "Component analyses from multiple innovations",
+      "Outputs": "Novel solution concepts combining elements from different sources",
+      "Example": "Combining rule-based learning from one domain with hierarchical modeling from another",
+      "Role in workflow": "Enables generation of creative, cross-domain research ideas"
+    },
+    "Idea/hypothesis generation via contructed Reasoning-Chain from literature": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation via Knowledge Graph developed from literature": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation via Pattern Detection from dataset": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation via Few-Shot Data Seeding": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation using Observational data": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation via Feature-Driven Property Prediction": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation after Fine-Tuning the LLM model": {
+      "performed": "No"
+    }
+  },
+  "Hypothesis/Idea Prioritization": {
+    "performed": "Yes",
+    "LLM-based Hypothesis/Idea evaluation via Scientific Quality": {
+      "performed": "No"
+    },
+    "LLM-based Hypothesis/Idea evaluation via Domain-Specific Evaluation": {
+      "performed": "No"
+    },
+    "LLM-based Hypothesis/Idea evaluation via Contextual Evidence Scoring": {
+      "performed": "No"
+    },
+    "LLM-based Hypothesis/Idea evaluation via Interpretability or Success Metrics": {
+      "performed": "No"
+    },
+    "Hypothesis/Idea evaluation via Novelty Checking with Literature Comparison": {
+      "performed": "Yes",
+      "Method details": "Generated ideas are compared to actual research developments using semantic similarity metrics.",
+      "Inputs": "Generated ideas and target paper innovations",
+      "Outputs": "Similarity scores (e.g., cosine similarity via SPECTER embeddings)",
+      "Example": "Comparing design rationale, universal principle, and key mechanism fields",
+      "Role in workflow": "Assesses novelty and alignment with real research"
+    },
+    "Hypothesis/Idea evaluation via Alignment with Literature Chains": {
+      "performed": "Yes",
+      "Method details": "Field-wise similarity (problem structure, rationale, mechanism) is used to assess logical alignment with published research.",
+      "Inputs": "Generated and actual research idea fields",
+      "Outputs": "Field-level similarity scores",
+      "Example": "Line plots of similarity for each paper and field",
+      "Role in workflow": "Evaluates coherence and logical progression of generated ideas"
+    },
+    "Hypothesis/Idea evaluation via Knowledge-Graph Grounded Similarity Metrics": {
+      "performed": "No"
+    },
+    "Hypothesis/Idea evaluation via Quantitative Assessment Using Domain Metrics": {
+      "performed": "No"
+    },
+    "Hypothesis/Idea evaluation via Human/Expert": {
+      "performed": "No"
+    }
+  },
+  "Test": {
+    "performed": "Yes",
+    "Experimental Design Generation via literature-Grounded Model/Protocol Selection": {
+      "performed": "No"
+    },
+    "Experimental Design Generation via Literature Synthesis for New Protocol Generation": {
+      "performed": "No"
+    },
+    "Experimental Design Generation via Few-Shot or Example-Based Prompting": {
+      "performed": "No"
+    },
+    "Experimental Design Generation via Executable Code Generation from Literature": {
+      "performed": "No"
+    },
+    "LLM-Based Experimental Design Generation via Agentic Exploration and Planning": {
+      "performed": "No"
+    },
+    "LLM-Based Experimental Design Generation via Code and Workflow Translation": {
+      "performed": "No"
+    },
+    "LLM-Based Experimental Design Generation via Multi-Agent Planning with Specialized Roles": {
+      "performed": "No"
+    },
+    "LLM-Based Experimental Design Generation via Domain-Specific Experimental Mapping": {
+      "performed": "No"
+    },
+    "Test Execution via Human-in-the-Loop": {
+      "performed": "No"
+    },
+    "Test Execution via Automated Wet-Lab Execution": {
+      "performed": "No"
+    },
+    "Test Execution via Computational or In-Silico": {
+      "performed": "Yes",
+      "Method details": "Generated ideas are evaluated by comparing them to actual research outputs using automated similarity metrics.",
+      "Inputs": "Generated ideas and target paper innovations",
+      "Outputs": "Quantitative similarity scores for multiple fields",
+      "Example": "Cosine similarity using SPECTER embeddings for design rationale, principle, mechanism",
+      "Role in workflow": "Validates the generated ideas computationally against real research"
+    },
+    "Refinement via LLM Agent Feedback Loops": {
+      "performed": "No"
+    },
+    "Refinement via Automated Quality Evaluation using Model-Based Critics": {
+      "performed": "No"
+    },
+    "Refinement via Dynamic Agent Updating Based on Evolving Context or Data": {
+      "performed": "No"
+    },
+    "Refinement via guided by computational-data": {
+      "performed": "No"
+    },
+    "Refinement via experimental validation": {
+      "performed": "No"
+    },
+    "Refinement via Performance-metric": {
+      "performed": "No"
+    },
+    "Refinement via Human–data integration": {
+      "performed": "No"
+    }
+  },
+  "paper_title": "LLMs can Realize Combinatorial Creativity: Generating Creative Ideas via LLMs for Scientific Research",
+  "authors": [
+    "Tianyang",
+    "Jingjin",
+    "Zhihao",
+    "HaoHong"
+  ],
+  "published": "2025-02-17",
+  "link": "http://arxiv.org/abs/2412.14141"
+}

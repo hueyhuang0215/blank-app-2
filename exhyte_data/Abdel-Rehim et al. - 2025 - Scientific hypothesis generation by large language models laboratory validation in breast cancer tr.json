@@ -1,0 +1,334 @@
+{
+  "Inputs to the workflow": {
+    "performed": "Yes",
+    "User provide high-level research direction or goal": {
+      "performed": "Yes",
+      "Format": "Natural language prompt specifying the goal to generate novel drug combinations for breast cancer treatment targeting MCF7 cells.",
+      "Example": "Prompt to GPT4: propose hypotheses relating to novel drug combinations for targeted breast cancer treatment, specifically towards the MCF7 breast cancer cell line.",
+      "Role in workflow": "Defines the research objective and scope for hypothesis generation."
+    },
+    "User provide structured, domain-specific specifications": {
+      "performed": "Yes",
+      "Format": "Prompt constraints: at least one non-antineoplastic drug per pair, avoid harming MCF10A, drugs should be FDA-approved, affordable, accessible.",
+      "Example": "Prompt included requirements for drug selection and cell line specificity.",
+      "Role in workflow": "Constrains hypothesis generation to clinically relevant, safe, and novel drug combinations."
+    },
+    "User provide research papers": {
+      "performed": "No"
+    },
+    "User provide datasets other than research papers": {
+      "performed": "No"
+    },
+    "User provide representations or formal inputs": {
+      "performed": "No"
+    }
+  },
+  "Query Structuring": {
+    "performed": "Yes",
+    "Query Decomposition": {
+      "performed": "Yes",
+      "Method details": "Prompt engineering decomposed the task into sub-goals: impact on MCF7, avoidance of MCF10A toxicity, synergy, drug constraints.",
+      "Inputs": "High-level research goal and domain-specific constraints.",
+      "Outputs": "Structured prompt for GPT4.",
+      "Example": "Prompt specified multiple aims and requirements for drug combinations.",
+      "Role in workflow": "Enables LLM to address multiple facets of the hypothesis generation task."
+    },
+    "Structural or Entity Decomposition": {
+      "performed": "No"
+    },
+    "Workflow Decomposition": {
+      "performed": "No"
+    },
+    "Textual or Knowledge Embedding": {
+      "performed": "No"
+    },
+    "Molecular or Chemical Embedding": {
+      "performed": "No"
+    },
+    "Biological or Phenotypic Embedding": {
+      "performed": "No"
+    },
+    "Pattern and Feature Extraction": {
+      "performed": "No"
+    },
+    "Biological Relationship Extraction": {
+      "performed": "No"
+    },
+    "Property and Annotation Extraction": {
+      "performed": "No"
+    },
+    "Sequence and Structure Feature Extraction": {
+      "performed": "No"
+    }
+  },
+  "Data Retrieval": {
+    "performed": "No",
+    "Data Retrieval via Multi-Query Generation and Exploration": {
+      "performed": "No"
+    },
+    "Literature and Data Retrieval via APIs": {
+      "performed": "No"
+    },
+    "Data Retrieval with Prioritization and Filtering Agents": {
+      "performed": "No"
+    },
+    "Domain-Specific Data Retrieval and Reasoning": {
+      "performed": "No"
+    },
+    "Code-Driven or Tool-Augmented Data Retrieval": {
+      "performed": "No"
+    },
+    "Literature data Retrieval Citation-Network–Based Expansion": {
+      "performed": "No"
+    },
+    "Literature data Retrieval via Semantic and Similarity-Based analysis": {
+      "performed": "No"
+    },
+    "Literature data Retrieval via Multi-Step Reference and Evidence Selection": {
+      "performed": "No"
+    },
+    "Domain-Specific Literature data Retrieval": {
+      "performed": "No"
+    },
+    "Manual and Semi-Automatic Curation of Literature data": {
+      "performed": "No"
+    },
+    "Structural or Similarity-Based Dataset Retrieval": {
+      "performed": "No"
+    },
+    "Data Retrieval via Domain-Specific Repository Querying": {
+      "performed": "No"
+    },
+    "Library Assembly and Data Augmentation": {
+      "performed": "No"
+    }
+  },
+  "Knowledge Assembly": {
+    "performed": "No",
+    "Standardized Section Extraction from Literature data": {
+      "performed": "No"
+    },
+    "Concise Synopsis and Summarization of Literature data": {
+      "performed": "No"
+    },
+    "Facet-Based or Field-Specific Extraction from Literature data": {
+      "performed": "No"
+    },
+    "Domain-Tailored Extraction from Literature data": {
+      "performed": "No"
+    },
+    "Task/Entity-Centric Knowledge Graphs": {
+      "performed": "No"
+    },
+    "Causal or Relation-Specific Knowledge Graphs": {
+      "performed": "No"
+    },
+    "Biomedical or Domain-Specific Interaction Graphs": {
+      "performed": "No"
+    },
+    "Literature Database Construction": {
+      "performed": "No"
+    },
+    "Entity- or Co-Occurrence–Based Databases": {
+      "performed": "No"
+    },
+    "Reasoning-Chain or Temporal Databases for Literature": {
+      "performed": "No"
+    }
+  },
+  "Hypothesis/Idea Generation": {
+    "performed": "Yes",
+    "Idea/hypothesis generation without additional literature or dataset as context": {
+      "performed": "Yes",
+      "Method details": "GPT4 generated drug combination hypotheses using its internal knowledge, based on user prompts.",
+      "Inputs": "Structured prompt with research goal and constraints.",
+      "Outputs": "Lists of novel drug combinations with mechanistic rationales.",
+      "Example": "GPT4 proposed 12 drug pairs for MCF7 targeting, none found in existing literature.",
+      "Role in workflow": "Produces candidate hypotheses for experimental testing."
+    },
+    "LLM Agent Generate ideas/hypotheses via Task Decomposition": {
+      "performed": "No"
+    },
+    "Generate ideas/hypotheses using Domain-Specialized LLM Agent": {
+      "performed": "Yes",
+      "Method details": "Comparison with PubMedGPT and Gemini, which are domain-specialized LLMs, for hypothesis generation.",
+      "Inputs": "Similar prompts as for GPT4.",
+      "Outputs": "Alternative drug combination hypotheses.",
+      "Example": "PubMedGPT generated different pairs but with overlap in drug selection.",
+      "Role in workflow": "Assesses diversity and domain impact of LLM-generated hypotheses."
+    },
+    "Literature data used during idea/hypothesis generation as context": {
+      "performed": "No"
+    },
+    "Summarization Literature data used during idea/hypothesis generation": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation via Facet Recombination": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation via contructed Reasoning-Chain from literature": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation via Knowledge Graph developed from literature": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation via Pattern Detection from dataset": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation via Few-Shot Data Seeding": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation using Observational data": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation via Feature-Driven Property Prediction": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation after Fine-Tuning the LLM model": {
+      "performed": "No"
+    }
+  },
+  "Hypothesis/Idea Prioritization": {
+    "performed": "Yes",
+    "LLM-based Hypothesis/Idea evaluation via Scientific Quality": {
+      "performed": "No"
+    },
+    "LLM-based Hypothesis/Idea evaluation via Domain-Specific Evaluation": {
+      "performed": "No"
+    },
+    "LLM-based Hypothesis/Idea evaluation via Contextual Evidence Scoring": {
+      "performed": "No"
+    },
+    "LLM-based Hypothesis/Idea evaluation via Interpretability or Success Metrics": {
+      "performed": "No"
+    },
+    "Hypothesis/Idea evaluation via Novelty Checking with Literature Comparison": {
+      "performed": "Yes",
+      "Method details": "Authors checked literature to confirm that generated drug combinations were not previously reported.",
+      "Inputs": "GPT4-generated drug pairs.",
+      "Outputs": "Confirmation of novelty for all combinations.",
+      "Example": "No generated combinations found in cancer literature.",
+      "Role in workflow": "Ensures hypotheses are genuinely novel before experimental testing."
+    },
+    "Hypothesis/Idea evaluation via Alignment with Literature Chains": {
+      "performed": "No"
+    },
+    "Hypothesis/Idea evaluation via Knowledge-Graph Grounded Similarity Metrics": {
+      "performed": "No"
+    },
+    "Hypothesis/Idea evaluation via Quantitative Assessment Using Domain Metrics": {
+      "performed": "No"
+    },
+    "Hypothesis/Idea evaluation via Human/Expert": {
+      "performed": "Yes",
+      "Method details": "Researchers reviewed and selected GPT4-generated hypotheses and controls for laboratory testing.",
+      "Inputs": "LLM-generated drug combinations.",
+      "Outputs": "Selection of combinations for experimental validation.",
+      "Example": "Authors judged GPT4's control selections as fair and proceeded to test its hypotheses.",
+      "Role in workflow": "Human oversight ensures plausibility and safety before lab experiments."
+    }
+  },
+  "Test": {
+    "performed": "Yes",
+    "Experimental Design Generation via literature-Grounded Model/Protocol Selection": {
+      "performed": "Yes",
+      "Method details": "Standard cell line models (MCF7, MCF10A) and established viability assays were used for experimental testing.",
+      "Inputs": "Selected drug combinations and controls.",
+      "Outputs": "Experimental protocols for cell viability and synergy testing.",
+      "Example": "MCF7 and MCF10A cell lines used to test drug pairs for specificity and synergy.",
+      "Role in workflow": "Provides a validated experimental framework for hypothesis testing."
+    },
+    "Experimental Design Generation via Literature Synthesis for New Protocol Generation": {
+      "performed": "No"
+    },
+    "Experimental Design Generation via Few-Shot or Example-Based Prompting": {
+      "performed": "No"
+    },
+    "Experimental Design Generation via Executable Code Generation from Literature": {
+      "performed": "No"
+    },
+    "LLM-Based Experimental Design Generation via Agentic Exploration and Planning": {
+      "performed": "No"
+    },
+    "LLM-Based Experimental Design Generation via Code and Workflow Translation": {
+      "performed": "No"
+    },
+    "LLM-Based Experimental Design Generation via Multi-Agent Planning with Specialized Roles": {
+      "performed": "No"
+    },
+    "LLM-Based Experimental Design Generation via Domain-Specific Experimental Mapping": {
+      "performed": "No"
+    },
+    "Test Execution via Human-in-the-Loop": {
+      "performed": "Yes",
+      "Method details": "Laboratory scientists executed the experiments based on LLM-generated hypotheses.",
+      "Inputs": "Drug combinations proposed by GPT4.",
+      "Outputs": "Empirical data on cell viability and drug synergy.",
+      "Example": "Researchers tested 12 GPT4-generated drug pairs in wet-lab experiments.",
+      "Role in workflow": "Validates LLM-generated hypotheses through real-world experimentation."
+    },
+    "Test Execution via Automated Wet-Lab Execution": {
+      "performed": "No"
+    },
+    "Test Execution via Computational or In-Silico": {
+      "performed": "No"
+    },
+    "Refinement via LLM Agent Feedback Loops": {
+      "performed": "Yes",
+      "Method details": "Results from initial experiments were summarized and fed back to GPT4 to generate improved hypotheses.",
+      "Inputs": "Summary of primary screen results.",
+      "Outputs": "Second-round hypotheses incorporating experimental feedback.",
+      "Example": "GPT4 generated new combinations after being given results from the first round.",
+      "Role in workflow": "Enables iterative improvement of hypotheses based on experimental outcomes."
+    },
+    "Refinement via Automated Quality Evaluation using Model-Based Critics": {
+      "performed": "No"
+    },
+    "Refinement via Dynamic Agent Updating Based on Evolving Context or Data": {
+      "performed": "No"
+    },
+    "Refinement via guided by computational-data": {
+      "performed": "Yes",
+      "Method details": "Synergy scores and statistical analyses (e.g., ANOVA) guided which combinations were retested or prioritized.",
+      "Inputs": "Experimental viability and synergy data.",
+      "Outputs": "Selection and validation of promising drug pairs.",
+      "Example": "Combinations with high HSA scores were retested and further analyzed.",
+      "Role in workflow": "Data-driven refinement of experimental focus."
+    },
+    "Refinement via experimental validation": {
+      "performed": "Yes",
+      "Method details": "Experimental results informed subsequent hypothesis generation and selection for further testing.",
+      "Inputs": "Wet-lab results from initial and follow-up experiments.",
+      "Outputs": "Refined set of hypotheses for additional rounds.",
+      "Example": "Second and third rounds of GPT4 hypothesis generation used prior experimental outcomes.",
+      "Role in workflow": "Ensures that only empirically supported hypotheses are advanced."
+    },
+    "Refinement via Performance-metric": {
+      "performed": "Yes",
+      "Method details": "Synergy scores (HSA) and specificity metrics determined which combinations were considered successful.",
+      "Inputs": "Quantitative experimental results.",
+      "Outputs": "Ranking and selection of top-performing drug pairs.",
+      "Example": "Combinations with synergy scores above positive controls were highlighted.",
+      "Role in workflow": "Objective performance metrics guide refinement and prioritization."
+    },
+    "Refinement via Human–data integration": {
+      "performed": "No"
+    }
+  },
+  "paper_title": "Scientific hypothesis generation by large language models: laboratory validation in breast cancer treatment",
+  "authors": [
+    "Abbi",
+    "Hector",
+    "Oghenejokpeme",
+    "Marie",
+    "Ross J.",
+    "Elizabeth",
+    "Gareth W.",
+    "Emma",
+    "Holly X.",
+    "Larisa N.",
+    "Ross"
+  ],
+  "published": "06/2025",
+  "link": "https://royalsocietypublishing.org/doi/10.1098/rsif.2024.0674"
+}

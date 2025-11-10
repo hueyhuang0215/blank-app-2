@@ -1,0 +1,367 @@
+{
+  "Inputs to the workflow": {
+    "performed": "Yes",
+    "User provide high-level research direction or goal": {
+      "performed": "Yes",
+      "Format": "Natural language task statement or objective",
+      "Example": "Find a candidate in a complex parameter space that maximizes a target property (e.g., bio-activity).",
+      "Role in workflow": "Defines the optimization/discovery goal for the automated system."
+    },
+    "User provide structured, domain-specific specifications": {
+      "performed": "Yes",
+      "Format": "Domain-specific parameters, property targets, or constraints",
+      "Example": "Nanohelix geometric parameters, SMILES strings for molecules, material compositions.",
+      "Role in workflow": "Specifies the search/design space and target properties for each scientific scenario."
+    },
+    "User provide research papers": {
+      "performed": "No"
+    },
+    "User provide datasets other than research papers": {
+      "performed": "Yes",
+      "Format": "Structured datasets for surrogate model training",
+      "Example": "ChEMBL35 for molecules, DFT-simulated data for nanohelices, superconductor material datasets.",
+      "Role in workflow": "Used to train surrogate models that serve as in-silico validation functions."
+    },
+    "User provide representations or formal inputs": {
+      "performed": "Yes",
+      "Format": "SMILES strings, expert-defined or LLM-extracted scientific principles, parameter vectors",
+      "Example": "SMILES for molecules, principle statements for hypothesis generation.",
+      "Role in workflow": "Formalizes candidate solutions and guiding principles for agent-based reasoning."
+    }
+  },
+  "Query Structuring": {
+    "performed": "Yes",
+    "Query Decomposition": {
+      "performed": "No"
+    },
+    "Structural or Entity Decomposition": {
+      "performed": "Yes",
+      "Method details": "Agents decompose candidate solutions into parameter sets (e.g., nanohelix geometry, molecular structure).",
+      "Inputs": "Domain-specific representations (e.g., SMILES, parameter vectors)",
+      "Outputs": "Decomposed features for hypothesis formulation and validation",
+      "Example": "Breaking down a nanohelix into fiber radius, helix radius, number of turns, pitch.",
+      "Role in workflow": "Enables feature-level reasoning and property prediction for hypothesis generation."
+    },
+    "Workflow Decomposition": {
+      "performed": "Yes",
+      "Method details": "Multi-agent system splits the discovery process into hypothesis generation, validation, and planning roles.",
+      "Inputs": "Research objective and candidate principles",
+      "Outputs": "Sequential hypothesis-validation cycles",
+      "Example": "Planner agent directs Hypothesis and Experiment agents in an iterative loop.",
+      "Role in workflow": "Creates an actionable, multi-step workflow for automated discovery."
+    },
+    "Textual or Knowledge Embedding": {
+      "performed": "Yes",
+      "Method details": "Principle statements are embedded using LLM-derived sentence embeddings for semantic scoring.",
+      "Inputs": "Natural language principle statements",
+      "Outputs": "Vector embeddings for principle selection and information gain estimation",
+      "Example": "Cosine distance between principle embeddings used to guide exploration.",
+      "Role in workflow": "Supports semantic comparison and novelty assessment of scientific principles."
+    },
+    "Molecular or Chemical Embedding": {
+      "performed": "No"
+    },
+    "Biological or Phenotypic Embedding": {
+      "performed": "No"
+    },
+    "Pattern and Feature Extraction": {
+      "performed": "Yes",
+      "Method details": "Surrogate models extract patterns from datasets to predict properties for candidate solutions.",
+      "Inputs": "Structured datasets (e.g., molecular, material data)",
+      "Outputs": "Feature-based property predictions",
+      "Example": "GNN predicts bio-activity from molecular features.",
+      "Role in workflow": "Enables rapid property evaluation for hypothesis testing."
+    },
+    "Biological Relationship Extraction": {
+      "performed": "No"
+    },
+    "Property and Annotation Extraction": {
+      "performed": "Yes",
+      "Method details": "Surrogate models output quantitative property values for tested candidates.",
+      "Inputs": "Candidate representations (e.g., SMILES, parameter sets)",
+      "Outputs": "Predicted property values (e.g., g-factor, pChEMBL, Tc)",
+      "Example": "Model predicts g-factor for a given nanohelix geometry.",
+      "Role in workflow": "Provides objective feedback for hypothesis validation."
+    },
+    "Sequence and Structure Feature Extraction": {
+      "performed": "No"
+    }
+  },
+  "Data Retrieval": {
+    "performed": "Yes",
+    "Data Retrieval via Multi-Query Generation and Exploration": {
+      "performed": "No"
+    },
+    "Literature and Data Retrieval via APIs": {
+      "performed": "No"
+    },
+    "Data Retrieval with Prioritization and Filtering Agents": {
+      "performed": "No"
+    },
+    "Domain-Specific Data Retrieval and Reasoning": {
+      "performed": "No"
+    },
+    "Code-Driven or Tool-Augmented Data Retrieval": {
+      "performed": "No"
+    },
+    "Literature data Retrieval Citation-Network–Based Expansion": {
+      "performed": "No"
+    },
+    "Literature data Retrieval via Semantic and Similarity-Based analysis": {
+      "performed": "No"
+    },
+    "Literature data Retrieval via Multi-Step Reference and Evidence Selection": {
+      "performed": "No"
+    },
+    "Domain-Specific Literature data Retrieval": {
+      "performed": "No"
+    },
+    "Manual and Semi-Automatic Curation of Literature data": {
+      "performed": "No"
+    },
+    "Structural or Similarity-Based Dataset Retrieval": {
+      "performed": "Yes",
+      "Method details": "Datasets are selected based on relevance to the scientific domain (e.g., ChEMBL for molecules, DFT data for nanohelices).",
+      "Inputs": "Domain-specific dataset repositories",
+      "Outputs": "Curated datasets for surrogate model training",
+      "Example": "ChEMBL35 dataset for molecular bio-activity prediction.",
+      "Role in workflow": "Provides training data for property prediction models."
+    },
+    "Data Retrieval via Domain-Specific Repository Querying": {
+      "performed": "Yes",
+      "Method details": "Datasets are sourced from established repositories (e.g., ChEMBL, superconductor databases).",
+      "Inputs": "Domain repositories",
+      "Outputs": "Task-specific datasets",
+      "Example": "Superconductor dataset with chemical formulas and Tc values.",
+      "Role in workflow": "Enables construction of surrogate models for in-silico validation."
+    },
+    "Library Assembly and Data Augmentation": {
+      "performed": "No"
+    }
+  },
+  "Knowledge Assembly": {
+    "performed": "No"
+  },
+  "Hypothesis/Idea Generation": {
+    "performed": "Yes",
+    "Idea/hypothesis generation without additional literature or dataset as context": {
+      "performed": "Yes",
+      "Method details": "LLM-based agents generate hypotheses using internal knowledge and prior experimental outcomes, not external literature.",
+      "Inputs": "Principle statements, experimental history",
+      "Outputs": "Testable hypotheses for candidate solutions",
+      "Example": "Hypothesis agent proposes a new nanohelix geometry based on a guiding principle.",
+      "Role in workflow": "Drives the exploration of the solution space."
+    },
+    "LLM Agent Generate ideas/hypotheses via Task Decomposition": {
+      "performed": "Yes",
+      "Method details": "Planner agent decomposes the discovery process into hypothesis generation and validation tasks for specialized agents.",
+      "Inputs": "Research objective, principle pool",
+      "Outputs": "Subtasks for Hypothesis and Experiment agents",
+      "Example": "Planner instructs Hypothesis Agent to refine or explore based on PiFlow guidance.",
+      "Role in workflow": "Structures the workflow for efficient hypothesis exploration."
+    },
+    "Generate ideas/hypotheses using Domain-Specialized LLM Agent": {
+      "performed": "Yes",
+      "Method details": "Hypothesis Agent specializes in generating domain-relevant, principle-based hypotheses.",
+      "Inputs": "Domain principles, experimental feedback",
+      "Outputs": "Domain-specific hypotheses",
+      "Example": "Hypothesis Agent proposes a molecule modification to increase bio-activity.",
+      "Role in workflow": "Ensures hypotheses are grounded in domain knowledge."
+    },
+    "Literature data used during idea/hypothesis generation as context": {
+      "performed": "No"
+    },
+    "Summarization Literature data used during idea/hypothesis generation": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation via Facet Recombination": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation via contructed Reasoning-Chain from literature": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation via Knowledge Graph developed from literature": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation via Pattern Detection from dataset": {
+      "performed": "Yes",
+      "Method details": "Surrogate models trained on datasets reveal patterns that inform hypothesis generation.",
+      "Inputs": "Experimental results, surrogate model predictions",
+      "Outputs": "Pattern-informed hypotheses",
+      "Example": "Agent observes that increasing pitch increases g-factor and generates a new hypothesis.",
+      "Role in workflow": "Guides hypothesis refinement based on observed data patterns."
+    },
+    "Idea/hypothesis generation via Few-Shot Data Seeding": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation using Observational data": {
+      "performed": "Yes",
+      "Method details": "Agents use outcomes from previous experiments to inform new hypotheses.",
+      "Inputs": "History of tested candidates and outcomes",
+      "Outputs": "Data-driven hypotheses",
+      "Example": "Agent proposes a new material composition after observing prior Tc results.",
+      "Role in workflow": "Enables iterative, evidence-based hypothesis refinement."
+    },
+    "Idea/hypothesis generation via Feature-Driven Property Prediction": {
+      "performed": "Yes",
+      "Method details": "Feature-based surrogate models predict properties, informing hypothesis selection.",
+      "Inputs": "Candidate features",
+      "Outputs": "Predicted property values guiding hypothesis choice",
+      "Example": "GNN predicts bio-activity, influencing next molecule to test.",
+      "Role in workflow": "Supports rational hypothesis selection based on predicted outcomes."
+    },
+    "Idea/hypothesis generation after Fine-Tuning the LLM model": {
+      "performed": "No"
+    }
+  },
+  "Hypothesis/Idea Prioritization": {
+    "performed": "Yes",
+    "LLM-based Hypothesis/Idea evaluation via Scientific Quality": {
+      "performed": "Yes",
+      "Method details": "LLM-based agents evaluate hypotheses for logical consistency, testability, and alignment with principles.",
+      "Inputs": "Generated hypotheses, principle pool",
+      "Outputs": "Prioritized hypotheses for testing",
+      "Example": "Planner agent scores and selects hypotheses based on PiFlow's Min-Max optimization.",
+      "Role in workflow": "Focuses exploration on high-potential, scientifically sound hypotheses."
+    },
+    "LLM-based Hypothesis/Idea evaluation via Domain-Specific Evaluation": {
+      "performed": "Yes",
+      "Method details": "Hypotheses are evaluated for domain relevance and feasibility by agents using domain knowledge.",
+      "Inputs": "Hypotheses, domain principles",
+      "Outputs": "Domain-aligned hypothesis selection",
+      "Example": "Hypothesis Agent grounds proposals in physicochemical laws.",
+      "Role in workflow": "Ensures hypotheses are plausible within the scientific context."
+    },
+    "LLM-based Hypothesis/Idea evaluation via Contextual Evidence Scoring": {
+      "performed": "Yes",
+      "Method details": "PiFlow assigns scores to principles based on accumulated evidence and information gain.",
+      "Inputs": "Principle-outcome pairs, experimental history",
+      "Outputs": "Potential scores for principles",
+      "Example": "Principles with high empirical support are prioritized for refinement.",
+      "Role in workflow": "Directs attention to the most informative or promising principles."
+    },
+    "LLM-based Hypothesis/Idea evaluation via Interpretability or Success Metrics": {
+      "performed": "No"
+    },
+    "Hypothesis/Idea evaluation via Novelty Checking with Literature Comparison": {
+      "performed": "No"
+    },
+    "Hypothesis/Idea evaluation via Alignment with Literature Chains": {
+      "performed": "No"
+    },
+    "Hypothesis/Idea evaluation via Knowledge-Graph Grounded Similarity Metrics": {
+      "performed": "No"
+    },
+    "Hypothesis/Idea evaluation via Quantitative Assessment Using Domain Metrics": {
+      "performed": "Yes",
+      "Method details": "Surrogate models provide quantitative property values for hypothesis evaluation.",
+      "Inputs": "Tested candidate features",
+      "Outputs": "Objective scores (e.g., g-factor, pChEMBL, Tc)",
+      "Example": "Highest property value achieved is used as solution quality metric.",
+      "Role in workflow": "Enables objective comparison and prioritization of hypotheses."
+    },
+    "Hypothesis/Idea evaluation via Human/Expert": {
+      "performed": "No"
+    }
+  },
+  "Test": {
+    "performed": "Yes",
+    "Experimental Design Generation via literature-Grounded Model/Protocol Selection": {
+      "performed": "No"
+    },
+    "Experimental Design Generation via Literature Synthesis for New Protocol Generation": {
+      "performed": "No"
+    },
+    "Experimental Design Generation via Few-Shot or Example-Based Prompting": {
+      "performed": "No"
+    },
+    "Experimental Design Generation via Executable Code Generation from Literature": {
+      "performed": "No"
+    },
+    "LLM-Based Experimental Design Generation via Agentic Exploration and Planning": {
+      "performed": "Yes",
+      "Method details": "Planner and Hypothesis Agents collaboratively generate and refine experimental candidates for testing.",
+      "Inputs": "Principle-guided hypotheses",
+      "Outputs": "Concrete experimental candidates",
+      "Example": "Hypothesis Agent proposes a specific nanohelix geometry for validation.",
+      "Role in workflow": "Enables systematic, agent-driven experimental planning."
+    },
+    "LLM-Based Experimental Design Generation via Code and Workflow Translation": {
+      "performed": "No"
+    },
+    "LLM-Based Experimental Design Generation via Multi-Agent Planning with Specialized Roles": {
+      "performed": "Yes",
+      "Method details": "Planner, Hypothesis, and Experiment Agents coordinate to generate, test, and refine hypotheses.",
+      "Inputs": "Research objectives, principle pool, experimental history",
+      "Outputs": "Iterative hypothesis-validation cycles",
+      "Example": "Planner directs Hypothesis Agent, Experiment Agent validates candidate.",
+      "Role in workflow": "Implements a collaborative, role-based experimental workflow."
+    },
+    "LLM-Based Experimental Design Generation via Domain-Specific Experimental Mapping": {
+      "performed": "No"
+    },
+    "Test Execution via Human-in-the-Loop": {
+      "performed": "No"
+    },
+    "Test Execution via Automated Wet-Lab Execution": {
+      "performed": "No"
+    },
+    "Test Execution via Computational or In-Silico": {
+      "performed": "Yes",
+      "Method details": "Surrogate models predict properties of candidates, serving as in-silico experiments.",
+      "Inputs": "Candidate representations (e.g., SMILES, parameter sets)",
+      "Outputs": "Predicted property values",
+      "Example": "LightGBM model predicts g-factor for nanohelix; GNN predicts pChEMBL.",
+      "Role in workflow": "Validates hypotheses computationally, enabling rapid iteration."
+    },
+    "Refinement via LLM Agent Feedback Loops": {
+      "performed": "Yes",
+      "Method details": "Agents iteratively update hypotheses and principles based on test outcomes and PiFlow scoring.",
+      "Inputs": "Experimental results, principle scores",
+      "Outputs": "Refined hypotheses and principles",
+      "Example": "Low-performing principles are deprioritized; new hypotheses are generated.",
+      "Role in workflow": "Enables adaptive, evidence-driven refinement of discovery strategy."
+    },
+    "Refinement via Automated Quality Evaluation using Model-Based Critics": {
+      "performed": "No"
+    },
+    "Refinement via Dynamic Agent Updating Based on Evolving Context or Data": {
+      "performed": "Yes",
+      "Method details": "Principle and hypothesis selection dynamically adapts as new evidence accumulates.",
+      "Inputs": "Updated experimental history",
+      "Outputs": "Revised principle scores and hypothesis directions",
+      "Example": "PiFlow re-evaluates principle utility after each experiment.",
+      "Role in workflow": "Maintains exploration-exploitation balance as knowledge evolves."
+    },
+    "Refinement via guided by computational-data": {
+      "performed": "Yes",
+      "Method details": "Refinement decisions are based on computational analysis of test outcomes (e.g., regret, information gain).",
+      "Inputs": "Test results, PiFlow optimization outputs",
+      "Outputs": "Updated principle and hypothesis selection",
+      "Example": "Principles with low empirical support are replaced or refined.",
+      "Role in workflow": "Ensures refinement is grounded in quantitative evidence."
+    },
+    "Refinement via experimental validation": {
+      "performed": "No"
+    },
+    "Refinement via Performance-metric": {
+      "performed": "Yes",
+      "Method details": "Performance metrics (AUC, solution quality) guide the refinement of hypotheses and principles.",
+      "Inputs": "Exploration trajectory, property values",
+      "Outputs": "Performance-driven hypothesis updates",
+      "Example": "High AUC indicates robust exploration; poor performance triggers strategy shift.",
+      "Role in workflow": "Aligns refinement with objective measures of discovery efficiency."
+    },
+    "Refinement via Human–data integration": {
+      "performed": "No"
+    }
+  },
+  "paper_title": "PiFlow: Principle-aware Scientific Discovery with Multi-Agent Collaboration",
+  "authors": [
+    "Yingming",
+    "Tao",
+    "Hongyu"
+  ],
+  "published": "2025-09-29",
+  "link": "http://arxiv.org/abs/2505.15047"
+}

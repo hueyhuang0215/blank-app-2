@@ -1,0 +1,304 @@
+{
+  "Inputs to the workflow": {
+    "performed": "Yes",
+    "User provide high-level research direction or goal": {
+      "performed": "Yes",
+      "Format": "Natural language problem statements, user needs, design challenges",
+      "Example": "Product for segregation as a means for effective waste management; Product for footwear disinfection and cleaning for improved hygiene and safety.",
+      "Role in workflow": "Defines the design problem and sets the scope for ideation by the CAI system."
+    },
+    "User provide structured, domain-specific specifications": {
+      "performed": "Yes",
+      "Format": "Structured prompts with essential fields (e.g., activity, item, contradiction, constraint, criteria)",
+      "Example": "AI3C: Activity-Item-Contradiction-Constraint-Criteria model for problem statement structuring.",
+      "Role in workflow": "Guides the CAI to generate relevant and context-specific ideas."
+    },
+    "User provide research papers": {
+      "performed": "No",
+      "Format": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "User provide datasets other than research papers": {
+      "performed": "No",
+      "Format": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "User provide representations or formal inputs": {
+      "performed": "Yes",
+      "Format": "Structured prompts and problem statements; selection of ideation stage and prompt type via interface",
+      "Example": "Designer fills in essential fields in a pop-up window, which auto-populates the input message in a structured format.",
+      "Role in workflow": "Ensures the CAI receives actionable, well-structured queries for idea generation."
+    }
+  },
+  "Query Structuring": {
+    "performed": "Yes",
+    "Query Decomposition": {
+      "performed": "Yes",
+      "Method details": "Problem statements are decomposed into structured fields (activity, item, contradiction, constraint, criteria) using the AI3C model.",
+      "Inputs": "User-provided unstructured user needs or problem descriptions.",
+      "Outputs": "Structured problem statements for CAI input.",
+      "Example": "Populating AI3C fields for a water purification device problem.",
+      "Role in workflow": "Transforms vague user needs into actionable, structured prompts for the CAI."
+    },
+    "Structural or Entity Decomposition": {
+      "performed": "No"
+    },
+    "Workflow Decomposition": {
+      "performed": "No"
+    },
+    "Textual or Knowledge Embedding": {
+      "performed": "No"
+    },
+    "Molecular or Chemical Embedding": {
+      "performed": "No"
+    },
+    "Biological or Phenotypic Embedding": {
+      "performed": "No"
+    },
+    "Pattern and Feature Extraction": {
+      "performed": "No"
+    },
+    "Biological Relationship Extraction": {
+      "performed": "No"
+    },
+    "Property and Annotation Extraction": {
+      "performed": "No"
+    },
+    "Sequence and Structure Feature Extraction": {
+      "performed": "No"
+    }
+  },
+  "Data Retrieval": {
+    "performed": "No",
+    "Data Retrieval via Multi-Query Generation and Exploration": {
+      "performed": "No"
+    },
+    "Literature and Data Retrieval via APIs": {
+      "performed": "No"
+    },
+    "Data Retrieval with Prioritization and Filtering Agents": {
+      "performed": "No"
+    },
+    "Domain-Specific Data Retrieval and Reasoning": {
+      "performed": "No"
+    },
+    "Code-Driven or Tool-Augmented Data Retrieval": {
+      "performed": "No"
+    },
+    "Literature data Retrieval Citation-Network–Based Expansion": {
+      "performed": "No"
+    },
+    "Literature data Retrieval via Semantic and Similarity-Based analysis": {
+      "performed": "No"
+    },
+    "Literature data Retrieval via Multi-Step Reference and Evidence Selection": {
+      "performed": "No"
+    },
+    "Domain-Specific Literature data Retrieval": {
+      "performed": "No"
+    },
+    "Manual and Semi-Automatic Curation of Literature data": {
+      "performed": "No"
+    },
+    "Structural or Similarity-Based Dataset Retrieval": {
+      "performed": "No"
+    },
+    "Data Retrieval via Domain-Specific Repository Querying": {
+      "performed": "No"
+    },
+    "Library Assembly and Data Augmentation": {
+      "performed": "No"
+    }
+  },
+  "Knowledge Assembly": {
+    "performed": "No",
+    "Standardized Section Extraction from Literature data": {
+      "performed": "No"
+    },
+    "Concise Synopsis and Summarization of Literature data": {
+      "performed": "No"
+    },
+    "Facet-Based or Field-Specific Extraction from Literature data": {
+      "performed": "No"
+    },
+    "Domain-Tailored Extraction from Literature data": {
+      "performed": "No"
+    },
+    "Task/Entity-Centric Knowledge Graphs": {
+      "performed": "No"
+    },
+    "Causal or Relation-Specific Knowledge Graphs": {
+      "performed": "No"
+    },
+    "Biomedical or Domain-Specific Interaction Graphs": {
+      "performed": "No"
+    },
+    "Literature Database Construction": {
+      "performed": "No"
+    },
+    "Entity- or Co-Occurrence–Based Databases": {
+      "performed": "No"
+    },
+    "Reasoning-Chain or Temporal Databases for Literature": {
+      "performed": "No"
+    }
+  },
+  "Hypothesis/Idea Generation": {
+    "performed": "Yes",
+    "Idea/hypothesis generation without additional literature or dataset as context": {
+      "performed": "Yes",
+      "Method details": "A fine-tuned GPT-4 model generates design ideas based on structured prompts and problem statements, using its internal knowledge.",
+      "Inputs": "Structured prompts (AI3C, AOC, PFIC models), user-provided problem statements.",
+      "Outputs": "Textual statements of design ideas and concepts.",
+      "Example": "CAI generates ideas for a portable water purification device based on user-structured input.",
+      "Role in workflow": "Produces a large, diverse set of novel ideas for product design."
+    },
+    "LLM Agent Generate ideas/hypotheses via Task Decomposition": {
+      "performed": "No"
+    },
+    "Generate ideas/hypotheses using Domain-Specialized LLM Agent": {
+      "performed": "Yes",
+      "Method details": "GPT-4 is fine-tuned with domain-specific design knowledge and acts as an expert designer in ideation.",
+      "Inputs": "Domain-specific prompts, structured problem statements.",
+      "Outputs": "Contextually relevant, domain-specific design ideas.",
+      "Example": "GPT-4 generates ideas for waste management or footwear cleaning as an expert designer.",
+      "Role in workflow": "Ensures generated ideas are relevant to the specific design domain."
+    },
+    "Literature data used during idea/hypothesis generation as context": {
+      "performed": "No"
+    },
+    "Summarization Literature data used during idea/hypothesis generation": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation via Facet Recombination": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation via contructed Reasoning-Chain from literature": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation via Knowledge Graph developed from literature": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation via Pattern Detection from dataset": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation via Few-Shot Data Seeding": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation using Observational data": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation via Feature-Driven Property Prediction": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation after Fine-Tuning the LLM model": {
+      "performed": "Yes",
+      "Method details": "GPT-4 is fine-tuned on product design-related documents, books, and articles to enhance ideation capabilities.",
+      "Inputs": "Curated design domain corpus.",
+      "Outputs": "Enhanced, context-aware idea generation.",
+      "Example": "Fine-tuned GPT-4 generates more relevant and creative design ideas.",
+      "Role in workflow": "Improves the quality and relevance of generated ideas."
+    }
+  },
+  "Hypothesis/Idea Prioritization": {
+    "performed": "Yes",
+    "LLM-based Hypothesis/Idea evaluation via Scientific Quality": {
+      "performed": "No"
+    },
+    "LLM-based Hypothesis/Idea evaluation via Domain-Specific Evaluation": {
+      "performed": "No"
+    },
+    "LLM-based Hypothesis/Idea evaluation via Contextual Evidence Scoring": {
+      "performed": "No"
+    },
+    "LLM-based Hypothesis/Idea evaluation via Interpretability or Success Metrics": {
+      "performed": "No"
+    },
+    "Hypothesis/Idea evaluation via Novelty Checking with Literature Comparison": {
+      "performed": "No"
+    },
+    "Hypothesis/Idea evaluation via Alignment with Literature Chains": {
+      "performed": "No"
+    },
+    "Hypothesis/Idea evaluation via Knowledge-Graph Grounded Similarity Metrics": {
+      "performed": "No"
+    },
+    "Hypothesis/Idea evaluation via Quantitative Assessment Using Domain Metrics": {
+      "performed": "No"
+    },
+    "Hypothesis/Idea evaluation via Human/Expert": {
+      "performed": "Yes",
+      "Method details": "Expert evaluators (design researchers) assess the novelty, variety, and meaningfulness of ideas generated by CAI and traditional methods.",
+      "Inputs": "Sets of ideas generated by CAI and human designers.",
+      "Outputs": "Expert ratings (Likert scale) for novelty, variety, and meaningfulness.",
+      "Example": "80 experts rate ideas for novelty and variety; 20 experts compare pairs for meaningfulness.",
+      "Role in workflow": "Validates and prioritizes generated ideas based on expert judgment."
+    }
+  },
+  "Test": {
+    "performed": "No",
+    "Experimental Design Generation via literature-Grounded Model/Protocol Selection": {
+      "performed": "No"
+    },
+    "Experimental Design Generation via Literature Synthesis for New Protocol Generation": {
+      "performed": "No"
+    },
+    "Experimental Design Generation via Few-Shot or Example-Based Prompting": {
+      "performed": "No"
+    },
+    "Experimental Design Generation via Executable Code Generation from Literature": {
+      "performed": "No"
+    },
+    "LLM-Based Experimental Design Generation via Agentic Exploration and Planning": {
+      "performed": "No"
+    },
+    "LLM-Based Experimental Design Generation via Code and Workflow Translation": {
+      "performed": "No"
+    },
+    "LLM-Based Experimental Design Generation via Multi-Agent Planning with Specialized Roles": {
+      "performed": "No"
+    },
+    "LLM-Based Experimental Design Generation via Domain-Specific Experimental Mapping": {
+      "performed": "No"
+    },
+    "Test Execution via Human-in-the-Loop": {
+      "performed": "No"
+    },
+    "Test Execution via Automated Wet-Lab Execution": {
+      "performed": "No"
+    },
+    "Test Execution via Computational or In-Silico": {
+      "performed": "No"
+    },
+    "Refinement via LLM Agent Feedback Loops": {
+      "performed": "No"
+    },
+    "Refinement via Automated Quality Evaluation using Model-Based Critics": {
+      "performed": "No"
+    },
+    "Refinement via Dynamic Agent Updating Based on Evolving Context or Data": {
+      "performed": "No"
+    },
+    "Refinement via guided by computational-data": {
+      "performed": "No"
+    },
+    "Refinement via experimental validation": {
+      "performed": "No"
+    },
+    "Refinement via Performance-metric": {
+      "performed": "No"
+    },
+    "Refinement via Human–data integration": {
+      "performed": "No"
+    }
+  },
+  "paper_title": "A Novel Idea Generation Tool using a Structured Conversational AI (CAI) System",
+  "authors": [
+    "B.",
+    "Dibakar"
+  ],
+  "published": "2025",
+  "link": "http://arxiv.org/abs/2409.05747"
+}

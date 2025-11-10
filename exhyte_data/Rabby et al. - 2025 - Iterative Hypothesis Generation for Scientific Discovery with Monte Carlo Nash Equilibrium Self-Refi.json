@@ -1,0 +1,365 @@
+{
+  "Inputs to the workflow": {
+    "performed": "Yes",
+    "User provide high-level research direction or goal": {
+      "performed": "Yes",
+      "Format": "Problem instance or research question provided as input to the system.",
+      "Example": "Optimizing a synthetic peptide sequence for nuclear localization and solubility.",
+      "Role in workflow": "Defines the scope and focus for hypothesis generation and refinement."
+    },
+    "User provide structured, domain-specific specifications": {
+      "performed": "No"
+    },
+    "User provide research papers": {
+      "performed": "Yes",
+      "Format": "Research papers and structured datasets curated for evaluation.",
+      "Example": "LLM4BioHypoGen (biomedicine), MOOSE (social science), LLM4CSHypoGen (computer science) datasets.",
+      "Role in workflow": "Serve as grounding and validation for hypothesis generation and evaluation."
+    },
+    "User provide datasets other than research papers": {
+      "performed": "No"
+    },
+    "User provide representations or formal inputs": {
+      "performed": "Yes",
+      "Format": "Structured representations such as peptide sequences.",
+      "Example": "Input peptide sequence: MARTKQTARKSTGGKAPRKQLASKAARKSAARAAAAGGGGGGG.",
+      "Role in workflow": "Used as the starting point for hypothesis refinement and optimization."
+    }
+  },
+  "Query Structuring": {
+    "performed": "Yes",
+    "Query Decomposition": {
+      "performed": "Yes",
+      "Method details": "LLM (Zero-Shot Chain-of-Thought) generates initial hypotheses by breaking down the problem into reasoning steps.",
+      "Inputs": "Problem instance or research question.",
+      "Outputs": "Initial hypothesis and subcomponents for further refinement.",
+      "Example": "Decomposing peptide optimization into charge preservation and solubility enhancement.",
+      "Role in workflow": "Enables focused exploration and structured hypothesis refinement."
+    },
+    "Structural or Entity Decomposition": {
+      "performed": "Yes",
+      "Method details": "Hypotheses are constructed from smaller reasoning steps or building blocks (e.g., amino acid substitutions).",
+      "Inputs": "Peptide sequence or similar structured input.",
+      "Outputs": "Candidate modifications (e.g., residue substitutions).",
+      "Example": "Suggesting lysine-for-arginine substitution in the NLS region.",
+      "Role in workflow": "Allows feature-level reasoning and targeted hypothesis generation."
+    },
+    "Workflow Decomposition": {
+      "performed": "No"
+    },
+    "Textual or Knowledge Embedding": {
+      "performed": "No"
+    },
+    "Molecular or Chemical Embedding": {
+      "performed": "No"
+    },
+    "Biological or Phenotypic Embedding": {
+      "performed": "No"
+    },
+    "Pattern and Feature Extraction": {
+      "performed": "No"
+    },
+    "Biological Relationship Extraction": {
+      "performed": "No"
+    },
+    "Property and Annotation Extraction": {
+      "performed": "No"
+    },
+    "Sequence and Structure Feature Extraction": {
+      "performed": "Yes",
+      "Method details": "Analysis of sequence features (e.g., NLS, glycine-rich linker) to inform hypothesis refinement.",
+      "Inputs": "Peptide sequence.",
+      "Outputs": "Identified regions for targeted modification.",
+      "Example": "Identifying NLS and linker regions for substitution.",
+      "Role in workflow": "Guides logical transitions and refinement in the search tree."
+    }
+  },
+  "Data Retrieval": {
+    "performed": "Yes",
+    "Data Retrieval via Multi-Query Generation and Exploration": {
+      "performed": "No"
+    },
+    "Literature and Data Retrieval via APIs": {
+      "performed": "No"
+    },
+    "Data Retrieval with Prioritization and Filtering Agents": {
+      "performed": "No"
+    },
+    "Domain-Specific Data Retrieval and Reasoning": {
+      "performed": "No"
+    },
+    "Code-Driven or Tool-Augmented Data Retrieval": {
+      "performed": "No"
+    },
+    "Literature data Retrieval Citation-Network–Based Expansion": {
+      "performed": "No"
+    },
+    "Literature data Retrieval via Semantic and Similarity-Based analysis": {
+      "performed": "No"
+    },
+    "Literature data Retrieval via Multi-Step Reference and Evidence Selection": {
+      "performed": "No"
+    },
+    "Domain-Specific Literature data Retrieval": {
+      "performed": "No"
+    },
+    "Manual and Semi-Automatic Curation of Literature data": {
+      "performed": "Yes",
+      "Method details": "Datasets are curated and annotated by domain experts for evaluation.",
+      "Inputs": "Research papers from relevant domains.",
+      "Outputs": "Curated datasets (e.g., LLM4CSHypoGen, MOOSE, LLM4BioHypoGen).",
+      "Example": "LLM4CSHypoGen dataset with 150 computer science papers, cross-checked by experts.",
+      "Role in workflow": "Ensures high-quality, relevant data for hypothesis evaluation."
+    },
+    "Structural or Similarity-Based Dataset Retrieval": {
+      "performed": "No"
+    },
+    "Data Retrieval via Domain-Specific Repository Querying": {
+      "performed": "No"
+    },
+    "Library Assembly and Data Augmentation": {
+      "performed": "No"
+    }
+  },
+  "Knowledge Assembly": {
+    "performed": "Yes",
+    "Standardized Section Extraction from Literature data": {
+      "performed": "Yes",
+      "Method details": "Papers are segmented into fields such as title, abstract, methods, results, and conclusions.",
+      "Inputs": "Research papers.",
+      "Outputs": "Structured records with standardized fields.",
+      "Example": "LLM4CSHypoGen dataset includes columns for Title, Abstract, Method, Results, etc.",
+      "Role in workflow": "Normalizes content for downstream hypothesis generation and evaluation."
+    },
+    "Concise Synopsis and Summarization of Literature data": {
+      "performed": "Yes",
+      "Method details": "Summarized fields (e.g., Summarized_Method, Summarized_Results) are included in datasets.",
+      "Inputs": "Full-text research papers.",
+      "Outputs": "Concise summaries of key sections.",
+      "Example": "Summarized_Method and Summarized_Results columns in LLM4CSHypoGen.",
+      "Role in workflow": "Provides concise context for hypothesis generation and evaluation."
+    },
+    "Facet-Based or Field-Specific Extraction from Literature data": {
+      "performed": "Yes",
+      "Method details": "Extraction of specific fields such as Problem_Statement, Hypothesis, Method, Results.",
+      "Inputs": "Research papers.",
+      "Outputs": "Field-specific structured data.",
+      "Example": "Problem_Statement and Hypothesis columns in LLM4CSHypoGen.",
+      "Role in workflow": "Enables targeted reasoning and evaluation."
+    },
+    "Domain-Tailored Extraction from Literature data": {
+      "performed": "No"
+    },
+    "Task/Entity-Centric Knowledge Graphs": {
+      "performed": "No"
+    },
+    "Causal or Relation-Specific Knowledge Graphs": {
+      "performed": "No"
+    },
+    "Biomedical or Domain-Specific Interaction Graphs": {
+      "performed": "No"
+    },
+    "Literature Database Construction": {
+      "performed": "Yes",
+      "Method details": "Curated datasets are constructed from research papers, segmented into structured fields.",
+      "Inputs": "Research papers from multiple domains.",
+      "Outputs": "Structured literature databases (e.g., LLM4CSHypoGen, MOOSE, LLM4BioHypoGen).",
+      "Example": "LLM4CSHypoGen with 150 structured entries.",
+      "Role in workflow": "Supports systematic evaluation and benchmarking."
+    },
+    "Entity- or Co-Occurrence–Based Databases": {
+      "performed": "No"
+    },
+    "Reasoning-Chain or Temporal Databases for Literature": {
+      "performed": "No"
+    }
+  },
+  "Hypothesis/Idea Generation": {
+    "performed": "Yes",
+    "Idea/hypothesis generation without additional literature or dataset as context": {
+      "performed": "Yes",
+      "Method details": "LLMs (e.g., GPT-4o, DeepSeek) generate initial hypotheses using Zero-Shot Chain-of-Thought prompting.",
+      "Inputs": "Problem instance or research question.",
+      "Outputs": "Initial hypothesis.",
+      "Example": "LLM generates a hypothesis for peptide optimization without external context.",
+      "Role in workflow": "Provides a starting point for iterative refinement."
+    },
+    "LLM Agent Generate ideas/hypotheses via Task Decomposition": {
+      "performed": "No"
+    },
+    "Generate ideas/hypotheses using Domain-Specialized LLM Agent": {
+      "performed": "No"
+    },
+    "Literature data used during idea/hypothesis generation as context": {
+      "performed": "No"
+    },
+    "Summarization Literature data used during idea/hypothesis generation": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation via Facet Recombination": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation via contructed Reasoning-Chain from literature": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation via Knowledge Graph developed from literature": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation via Pattern Detection from dataset": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation via Few-Shot Data Seeding": {
+      "performed": "Yes",
+      "Method details": "Few-shot prompting (2-shot, 3-shot, 5-shot) is used to seed LLMs with example input-output pairs.",
+      "Inputs": "Small sets of example hypotheses.",
+      "Outputs": "LLM-generated hypotheses influenced by examples.",
+      "Example": "2-shot, 3-shot, and 5-shot configurations in experiments.",
+      "Role in workflow": "Improves hypothesis generation by providing exemplars."
+    },
+    "Idea/hypothesis generation using Observational data": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation via Feature-Driven Property Prediction": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation after Fine-Tuning the LLM model": {
+      "performed": "No"
+    }
+  },
+  "Hypothesis/Idea Prioritization": {
+    "performed": "Yes",
+    "LLM-based Hypothesis/Idea evaluation via Scientific Quality": {
+      "performed": "Yes",
+      "Method details": "LLMs (e.g., GPT-3.5) score hypotheses on novelty, clarity, significance, and verifiability using standardized prompts.",
+      "Inputs": "Generated hypotheses and background/context.",
+      "Outputs": "Scores (0-3) for each evaluation criterion.",
+      "Example": "GPT-3.5 rates a hypothesis as 'Score: 2' for novelty.",
+      "Role in workflow": "Filters and ranks hypotheses for further refinement or selection."
+    },
+    "LLM-based Hypothesis/Idea evaluation via Domain-Specific Evaluation": {
+      "performed": "No"
+    },
+    "LLM-based Hypothesis/Idea evaluation via Contextual Evidence Scoring": {
+      "performed": "No"
+    },
+    "LLM-based Hypothesis/Idea evaluation via Interpretability or Success Metrics": {
+      "performed": "No"
+    },
+    "Hypothesis/Idea evaluation via Novelty Checking with Literature Comparison": {
+      "performed": "No"
+    },
+    "Hypothesis/Idea evaluation via Alignment with Literature Chains": {
+      "performed": "No"
+    },
+    "Hypothesis/Idea evaluation via Knowledge-Graph Grounded Similarity Metrics": {
+      "performed": "No"
+    },
+    "Hypothesis/Idea evaluation via Quantitative Assessment Using Domain Metrics": {
+      "performed": "No"
+    },
+    "Hypothesis/Idea evaluation via Human/Expert": {
+      "performed": "Yes",
+      "Method details": "Domain experts (professors, postdocs, PhD students) blindly assess hypotheses using a 3-point scale.",
+      "Inputs": "Randomly selected hypotheses from baseline and proposed methods.",
+      "Outputs": "Expert-assigned scores for novelty, clarity, significance, verifiability.",
+      "Example": "Expert rates a hypothesis as 2 for significance.",
+      "Role in workflow": "Provides nuanced, contextual evaluation beyond automated metrics."
+    }
+  },
+  "Test": {
+    "performed": "Yes",
+    "Experimental Design Generation via literature-Grounded Model/Protocol Selection": {
+      "performed": "No"
+    },
+    "Experimental Design Generation via Literature Synthesis for New Protocol Generation": {
+      "performed": "No"
+    },
+    "Experimental Design Generation via Few-Shot or Example-Based Prompting": {
+      "performed": "No"
+    },
+    "Experimental Design Generation via Executable Code Generation from Literature": {
+      "performed": "No"
+    },
+    "LLM-Based Experimental Design Generation via Agentic Exploration and Planning": {
+      "performed": "No"
+    },
+    "LLM-Based Experimental Design Generation via Code and Workflow Translation": {
+      "performed": "No"
+    },
+    "LLM-Based Experimental Design Generation via Multi-Agent Planning with Specialized Roles": {
+      "performed": "No"
+    },
+    "LLM-Based Experimental Design Generation via Domain-Specific Experimental Mapping": {
+      "performed": "No"
+    },
+    "Test Execution via Human-in-the-Loop": {
+      "performed": "Yes",
+      "Method details": "Human experts validate and refine LLM-generated hypotheses, sometimes using experimental or computational validation.",
+      "Inputs": "LLM-generated hypotheses.",
+      "Outputs": "Validated/refined hypotheses and experimental results.",
+      "Example": "Human validation of peptide modifications for solubility and nuclear localization.",
+      "Role in workflow": "Ensures scientific rigor and empirical grounding."
+    },
+    "Test Execution via Automated Wet-Lab Execution": {
+      "performed": "No"
+    },
+    "Test Execution via Computational or In-Silico": {
+      "performed": "Yes",
+      "Method details": "Computational tools (e.g., AlphaFold) are used to visualize and assess peptide structure/function after hypothesis-driven modification.",
+      "Inputs": "Modified peptide sequences.",
+      "Outputs": "Predicted structures and functional assessments.",
+      "Example": "AlphaFold visualization of original and MC-NEST-generated peptide sequences.",
+      "Role in workflow": "Provides in-silico validation of hypothesis-driven modifications."
+    },
+    "Refinement via LLM Agent Feedback Loops": {
+      "performed": "Yes",
+      "Method details": "MC-NEST iteratively refines hypotheses using LLM-based self-critique and self-refinement.",
+      "Inputs": "Current hypothesis and critique.",
+      "Outputs": "Improved/refined hypothesis.",
+      "Example": "LLM critiques and refines peptide substitution hypotheses in multiple iterations.",
+      "Role in workflow": "Improves hypothesis quality through iterative feedback."
+    },
+    "Refinement via Automated Quality Evaluation using Model-Based Critics": {
+      "performed": "No"
+    },
+    "Refinement via Dynamic Agent Updating Based on Evolving Context or Data": {
+      "performed": "No"
+    },
+    "Refinement via guided by computational-data": {
+      "performed": "Yes",
+      "Method details": "Refinement is informed by computational validation (e.g., AlphaFold predictions, biochemical principles).",
+      "Inputs": "Computational results and experimental principles.",
+      "Outputs": "Further refined hypotheses.",
+      "Example": "Incorporating AlphaFold results and biochemical trade-offs into hypothesis refinement.",
+      "Role in workflow": "Ensures hypotheses are empirically grounded and scientifically robust."
+    },
+    "Refinement via experimental validation": {
+      "performed": "Yes",
+      "Method details": "Experimental validation is performed for selected hypotheses (e.g., peptide modifications tested for solubility and localization).",
+      "Inputs": "Modified peptide sequences.",
+      "Outputs": "Experimental results confirming or refuting hypothesis.",
+      "Example": "Experimental validation confirms improved solubility and nuclear localization.",
+      "Role in workflow": "Provides empirical evidence for hypothesis acceptance or further refinement."
+    },
+    "Refinement via Performance-metric": {
+      "performed": "No"
+    },
+    "Refinement via Human–data integration": {
+      "performed": "Yes",
+      "Method details": "Human experts integrate experimental and computational results to guide further refinement.",
+      "Inputs": "Experimental/computational data and human judgment.",
+      "Outputs": "Refined hypotheses aligned with domain knowledge.",
+      "Example": "Human validation of MC-NEST-generated hypotheses using experimental outcomes.",
+      "Role in workflow": "Blends human insight with automated analysis for robust discovery."
+    }
+  },
+  "paper_title": "Iterative Hypothesis Generation for Scientific Discovery with Monte Carlo Nash Equilibrium Self-Refining Trees",
+  "authors": [
+    "Gollam",
+    "Diyana",
+    "Prasenjit",
+    "Sören"
+  ],
+  "published": "2025-03-25",
+  "link": "http://arxiv.org/abs/2503.19309"
+}

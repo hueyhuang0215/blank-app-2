@@ -1,0 +1,650 @@
+{
+  "Inputs to the workflow": {
+    "performed": "Yes",
+    "User provide high-level research direction or goal": {
+      "performed": "Yes",
+      "Format": "Natural language task description",
+      "Example": "\"Please predict the stable structure for Ba2Fe2F9.\"",
+      "Role in workflow": "Defines the scientific objective for the agent system to plan and execute discovery workflows."
+    },
+    "User provide structured, domain-specific specifications": {
+      "performed": "Yes",
+      "Format": "Domain-specific intuition, constraints, or heuristics in structured prompts",
+      "Example": "\"Recent studies commonly employ Machine Learning force fields as an alternative to Density Functional Theory...\"",
+      "Role in workflow": "Guides workflow planning and constrains agent actions to scientifically plausible steps."
+    },
+    "User provide research papers": {
+      "performed": "No",
+      "Format": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "User provide datasets other than research papers": {
+      "performed": "Yes",
+      "Format": "Reference to datasets (e.g., structure prototype datasets, MP-20, Matbench, JARVIS-DFT)",
+      "Example": "A dataset is available at {path}, providing various structure prototypes.",
+      "Role in workflow": "Provides data for retrieval of structural prototypes and property values."
+    },
+    "User provide representations or formal inputs": {
+      "performed": "Yes",
+      "Format": "Formal representations such as chemical compositions, structure files (CIF), and code blocks",
+      "Example": "Chemical formula (e.g., Ba2Fe2F9), candidate structures in 'cif' format",
+      "Role in workflow": "Enables precise definition of targets and supports code-based execution of workflow steps."
+    }
+  },
+  "Query Structuring": {
+    "performed": "Yes",
+    "Query Decomposition": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "Structural or Entity Decomposition": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "Workflow Decomposition": {
+      "performed": "Yes",
+      "Method details": "A Workflow Planner agent (LLM-based) decomposes high-level tasks into multi-step, structured workflows (up to 5 steps), guided by human intuition.",
+      "Inputs": "Task description and human intuition",
+      "Outputs": "Ordered list of actionable workflow steps",
+      "Example": "Step 1: Query the structural database... Step 2: Use retrieved prototypes... Step 3: Optimize structures...",
+      "Role in workflow": "Transforms user goals into executable, domain-specific action sequences for discovery."
+    },
+    "Textual or Knowledge Embedding": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "Molecular or Chemical Embedding": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "Biological or Phenotypic Embedding": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "Pattern and Feature Extraction": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "Biological Relationship Extraction": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "Property and Annotation Extraction": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "Sequence and Structure Feature Extraction": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    }
+  },
+  "Data Retrieval": {
+    "performed": "Yes",
+    "Data Retrieval via Multi-Query Generation and Exploration": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "Literature and Data Retrieval via APIs": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "Data Retrieval with Prioritization and Filtering Agents": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "Domain-Specific Data Retrieval and Reasoning": {
+      "performed": "Yes",
+      "Method details": "Workflow steps include querying structural databases for similar compositions and retrieving prototypes using domain-specific logic.",
+      "Inputs": "Chemical composition, structural prototype dataset",
+      "Outputs": "Set of candidate structural prototypes",
+      "Example": "Step 1: Query the structural database for crystal structures with similar compositions...",
+      "Role in workflow": "Provides starting points for structure generation and prediction."
+    },
+    "Code-Driven or Tool-Augmented Data Retrieval": {
+      "performed": "Yes",
+      "Method details": "Tool Code Generator agent synthesizes Python code to access and process candidate structures from specified folders.",
+      "Inputs": "Folder paths, structure files",
+      "Outputs": "Processed or optimized structure files",
+      "Example": "Python code reads candidate CIF files from a folder and processes them.",
+      "Role in workflow": "Automates retrieval and processing of structural data for downstream steps."
+    },
+    "Literature data Retrieval Citation-Network–Based Expansion": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "Literature data Retrieval via Semantic and Similarity-Based analysis": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "Literature data Retrieval via Multi-Step Reference and Evidence Selection": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "Domain-Specific Literature data Retrieval": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "Manual and Semi-Automatic Curation of Literature data": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "Structural or Similarity-Based Dataset Retrieval": {
+      "performed": "Yes",
+      "Method details": "Retrieves structural prototypes based on similarity of chemical composition using domain-specific datasets.",
+      "Inputs": "Target chemical composition, prototype dataset",
+      "Outputs": "List of structurally similar prototypes",
+      "Example": "Querying for structures with similar reduced formulas to Ba2Fe2F9.",
+      "Role in workflow": "Enables generation of plausible candidate structures for further optimization."
+    },
+    "Data Retrieval via Domain-Specific Repository Querying": {
+      "performed": "Yes",
+      "Method details": "Queries established materials science repositories (e.g., MP-20, Matbench, JARVIS-DFT) for structures and property data.",
+      "Inputs": "Repository queries, dataset paths",
+      "Outputs": "Retrieved crystal structures and property values",
+      "Example": "Using MP-20 as retrieval database for structure generation.",
+      "Role in workflow": "Provides data for candidate generation and property evaluation."
+    },
+    "Library Assembly and Data Augmentation": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    }
+  },
+  "Knowledge Assembly": {
+    "performed": "No",
+    "Standardized Section Extraction from Literature data": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "Concise Synopsis and Summarization of Literature data": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "Facet-Based or Field-Specific Extraction from Literature data": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "Domain-Tailored Extraction from Literature data": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "Task/Entity-Centric Knowledge Graphs": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "Causal or Relation-Specific Knowledge Graphs": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "Biomedical or Domain-Specific Interaction Graphs": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "Literature Database Construction": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "Entity- or Co-Occurrence–Based Databases": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "Reasoning-Chain or Temporal Databases for Literature": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    }
+  },
+  "Hypothesis/Idea Generation": {
+    "performed": "Yes",
+    "Idea/hypothesis generation without additional literature or dataset as context": {
+      "performed": "Yes",
+      "Method details": "LLMs generate candidate crystal structures and workflows using internal knowledge, without explicit external literature context.",
+      "Inputs": "Task description, human intuition",
+      "Outputs": "Generated candidate structures, workflows",
+      "Example": "MAPPS generates crystal structures using pretrained LLMs without new model training.",
+      "Role in workflow": "Enables autonomous proposal of novel material structures."
+    },
+    "LLM Agent Generate ideas/hypotheses via Task Decomposition": {
+      "performed": "Yes",
+      "Method details": "Workflow Planner agent decomposes high-level tasks into actionable steps, each potentially generating new candidate structures or hypotheses.",
+      "Inputs": "Task description, human intuition",
+      "Outputs": "Multi-step workflow with sub-tasks",
+      "Example": "Stepwise plan for structure prediction, including prototype retrieval and optimization.",
+      "Role in workflow": "Structures the discovery process for efficient exploration."
+    },
+    "Generate ideas/hypotheses using Domain-Specialized LLM Agent": {
+      "performed": "Yes",
+      "Method details": "Tool Code Generator agent specializes in translating workflow steps into executable code using domain-specific tools (e.g., CHGNetCalculator, ASE).",
+      "Inputs": "Workflow step, previous results, expert intuition",
+      "Outputs": "Python functions for structure optimization, property calculation",
+      "Example": "Code to optimize candidate structures using ML force fields.",
+      "Role in workflow": "Implements domain-specific reasoning and execution for hypothesis testing."
+    },
+    "Literature data used during idea/hypothesis generation as context": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "Summarization Literature data used during idea/hypothesis generation": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "Idea/hypothesis generation via Facet Recombination": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "Idea/hypothesis generation via contructed Reasoning-Chain from literature": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "Idea/hypothesis generation via Knowledge Graph developed from literature": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "Idea/hypothesis generation via Pattern Detection from dataset": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "Idea/hypothesis generation via Few-Shot Data Seeding": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "Idea/hypothesis generation using Observational data": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "Idea/hypothesis generation via Feature-Driven Property Prediction": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "Idea/hypothesis generation after Fine-Tuning the LLM model": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    }
+  },
+  "Hypothesis/Idea Prioritization": {
+    "performed": "Yes",
+    "LLM-based Hypothesis/Idea evaluation via Scientific Quality": {
+      "performed": "Yes",
+      "Method details": "Scientific Mediator agent and human experts review and approve workflows and intermediate results for scientific plausibility and relevance.",
+      "Inputs": "Generated workflow, intermediate results",
+      "Outputs": "Approved or revised workflows/results",
+      "Example": "Workflow returned to scientist for review and refinement.",
+      "Role in workflow": "Ensures scientific validity and relevance of generated hypotheses."
+    },
+    "LLM-based Hypothesis/Idea evaluation via Domain-Specific Evaluation": {
+      "performed": "Yes",
+      "Method details": "Evaluation of candidate structures using domain-specific metrics (e.g., stability, bandgap, uniqueness, novelty) and surrogate models (CHGNet, M3GNet).",
+      "Inputs": "Generated structures, surrogate model predictions",
+      "Outputs": "Scores for stability, validity, novelty, etc.",
+      "Example": "Metastability and S.U.N. rates computed for generated crystals.",
+      "Role in workflow": "Quantifies the quality and feasibility of generated candidates."
+    },
+    "LLM-based Hypothesis/Idea evaluation via Contextual Evidence Scoring": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "LLM-based Hypothesis/Idea evaluation via Interpretability or Success Metrics": {
+      "performed": "Yes",
+      "Method details": "Evaluation includes interpretability metrics such as structural validity, compositional validity, and match rate.",
+      "Inputs": "Generated structures, evaluation metrics",
+      "Outputs": "Validity rates, match rates, RMSE",
+      "Example": "Validity and match rates reported in Tables 1–4.",
+      "Role in workflow": "Assesses interpretability and success of generated hypotheses."
+    },
+    "Hypothesis/Idea evaluation via Novelty Checking with Literature Comparison": {
+      "performed": "Yes",
+      "Method details": "Novelty assessed by comparing generated structures to existing datasets using StructureMatcher.",
+      "Inputs": "Generated structures, reference dataset",
+      "Outputs": "Novelty scores",
+      "Example": "A crystal is considered novel if it does not match any existing structure in the dataset.",
+      "Role in workflow": "Ensures generated candidates are not trivial rediscoveries."
+    },
+    "Hypothesis/Idea evaluation via Alignment with Literature Chains": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "Hypothesis/Idea evaluation via Knowledge-Graph Grounded Similarity Metrics": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "Hypothesis/Idea evaluation via Quantitative Assessment Using Domain Metrics": {
+      "performed": "Yes",
+      "Method details": "Quantitative assessment using DFT calculations, surrogate models (CHGNet, M3GNet), and domain-specific metrics (e.g., energy above hull, bandgap).",
+      "Inputs": "Generated structures, DFT/surrogate model outputs",
+      "Outputs": "Stability, bandgap, S.U.N. rates",
+      "Example": "DFT-computed bandgap distributions and stability rates.",
+      "Role in workflow": "Provides objective scoring for hypothesis prioritization."
+    },
+    "Hypothesis/Idea evaluation via Human/Expert": {
+      "performed": "Yes",
+      "Method details": "Human scientists review and provide feedback on workflows and intermediate results at key decision points.",
+      "Inputs": "Workflow, intermediate results",
+      "Outputs": "Approved or revised workflows/results",
+      "Example": "Scientist provides feedback or approval before proceeding to next workflow step.",
+      "Role in workflow": "Adds expert judgment and safeguards scientific reliability."
+    }
+  },
+  "Test": {
+    "performed": "Yes",
+    "Experimental Design Generation via literature-Grounded Model/Protocol Selection": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "Experimental Design Generation via Literature Synthesis for New Protocol Generation": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "Experimental Design Generation via Few-Shot or Example-Based Prompting": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "Experimental Design Generation via Executable Code Generation from Literature": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "LLM-Based Experimental Design Generation via Agentic Exploration and Planning": {
+      "performed": "Yes",
+      "Method details": "Workflow Planner agent autonomously proposes multi-step experimental plans for structure generation and prediction.",
+      "Inputs": "Task description, human intuition",
+      "Outputs": "Structured workflow plan",
+      "Example": "Workflow with steps for prototype retrieval, optimization, and validation.",
+      "Role in workflow": "Enables systematic exploration of discovery pathways."
+    },
+    "LLM-Based Experimental Design Generation via Code and Workflow Translation": {
+      "performed": "Yes",
+      "Method details": "Tool Code Generator agent translates workflow steps into executable Python code for structure optimization and property calculation.",
+      "Inputs": "Workflow step, previous results, expert intuition",
+      "Outputs": "Python functions for each workflow step",
+      "Example": "Generated code for optimizing candidate structures using CHGNetCalculator.",
+      "Role in workflow": "Automates execution of experimental protocols in silico."
+    },
+    "LLM-Based Experimental Design Generation via Multi-Agent Planning with Specialized Roles": {
+      "performed": "Yes",
+      "Method details": "MAPPS framework uses three agents (Workflow Planner, Tool Code Generator, Scientific Mediator) with distinct roles for planning, code generation, and coordination.",
+      "Inputs": "Task description, human intuition, workflow steps",
+      "Outputs": "Coordinated execution of discovery workflow",
+      "Example": "Scientific Mediator coordinates between agents and human feedback.",
+      "Role in workflow": "Enables robust, modular, and adaptive workflow execution."
+    },
+    "LLM-Based Experimental Design Generation via Domain-Specific Experimental Mapping": {
+      "performed": "Yes",
+      "Method details": "Tool Code Generator maps workflow steps to domain-specific simulation tools (e.g., CHGNetCalculator, ASE, pymatgen).",
+      "Inputs": "Workflow step, available physics tools",
+      "Outputs": "Simulation-ready code for structure optimization and property evaluation",
+      "Example": "Assigns CHGNetCalculator as the ASE calculator for structure relaxation.",
+      "Role in workflow": "Ensures physical validity and domain relevance of experimental execution."
+    },
+    "Test Execution via Human-in-the-Loop": {
+      "performed": "Yes",
+      "Method details": "Scientific Mediator queries human for approval or feedback at each workflow step before proceeding.",
+      "Inputs": "Intermediate results, workflow step",
+      "Outputs": "Approved or revised results",
+      "Example": "Human reviews and approves results after each workflow step.",
+      "Role in workflow": "Maintains scientific oversight and error correction."
+    },
+    "Test Execution via Automated Wet-Lab Execution": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "Test Execution via Computational or In-Silico": {
+      "performed": "Yes",
+      "Method details": "Workflow steps and generated code execute structure optimization, property calculation, and stability evaluation using computational tools (DFT, ML force fields).",
+      "Inputs": "Candidate structures, simulation code",
+      "Outputs": "Optimized structures, computed properties",
+      "Example": "DFT and surrogate model calculations for stability and bandgap.",
+      "Role in workflow": "Validates hypotheses and candidate structures computationally."
+    },
+    "Refinement via LLM Agent Feedback Loops": {
+      "performed": "Yes",
+      "Method details": "Tool Code Generator includes self-reflection; if code execution fails, it revises and regenerates code based on error signals.",
+      "Inputs": "Execution errors, input context",
+      "Outputs": "Revised code, corrected results",
+      "Example": "If runtime error occurs, code is regenerated and re-executed.",
+      "Role in workflow": "Improves robustness and reliability of workflow execution."
+    },
+    "Refinement via Automated Quality Evaluation using Model-Based Critics": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "Refinement via Dynamic Agent Updating Based on Evolving Context or Data": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "Refinement via guided by computational-data": {
+      "performed": "Yes",
+      "Method details": "Results from computational tests (e.g., DFT, surrogate models) are used to select or refine candidate structures based on stability, bandgap, and other metrics.",
+      "Inputs": "Computed properties, evaluation metrics",
+      "Outputs": "Refined candidate list, selected optimal structures",
+      "Example": "Selecting the structure with the lowest energy as the most probable stable configuration.",
+      "Role in workflow": "Ensures only high-quality, validated candidates are advanced."
+    },
+    "Refinement via experimental validation": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "Refinement via Performance-metric": {
+      "performed": "Yes",
+      "Method details": "Performance metrics such as S.U.N. rate, validity, uniqueness, and novelty guide refinement and selection of final candidates.",
+      "Inputs": "Evaluation metrics from computational tests",
+      "Outputs": "Performance-optimized candidate structures",
+      "Example": "Reporting and maximizing S.U.N. rate in results.",
+      "Role in workflow": "Drives selection and improvement of generated structures."
+    },
+    "Refinement via Human–data integration": {
+      "performed": "Yes",
+      "Method details": "Human feedback is incorporated at each workflow step, allowing revision and refinement based on expert judgment.",
+      "Inputs": "Intermediate results, human feedback",
+      "Outputs": "Revised workflows/results",
+      "Example": "Human reviews and suggests revisions to workflow or results.",
+      "Role in workflow": "Blends automated analysis with expert insight for optimal outcomes."
+    }
+  },
+  "paper_title": "Toward Greater Autonomy in Materials Discovery Agents: Unifying Planning, Physics, and Scientists",
+  "authors": [
+    "Lianhao",
+    "Hongyi",
+    "Keqiang",
+    "Kaiji",
+    "Xiaoning",
+    "Raymundo",
+    "Xiaofeng",
+    "Shuiwang"
+  ],
+  "published": "2025-06-09",
+  "link": "http://arxiv.org/abs/2506.05616"
+}

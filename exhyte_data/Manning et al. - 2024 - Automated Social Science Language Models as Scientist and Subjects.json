@@ -1,0 +1,330 @@
+{
+  "Inputs to the workflow": {
+    "performed": "Yes",
+    "User provide high-level research direction or goal": {
+      "performed": "Yes",
+      "Format": "Natural language scenario description",
+      "Example": "\"two people bargaining over a mug\"; \"a judge is setting bail for a criminal defendant who committed 50,000 dollars in tax fraud\"",
+      "Role in workflow": "Defines the social scenario to be simulated and studied by the automated system."
+    },
+    "User provide structured, domain-specific specifications": {
+      "performed": "No",
+      "Format": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "User provide research papers": {
+      "performed": "No",
+      "Format": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "User provide datasets other than research papers": {
+      "performed": "No",
+      "Format": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "User provide representations or formal inputs": {
+      "performed": "No",
+      "Format": "",
+      "Example": "",
+      "Role in workflow": ""
+    }
+  },
+  "Query Structuring": {
+    "performed": "Yes",
+    "Query Decomposition": {
+      "performed": "Yes",
+      "Method details": "LLM prompts decompose scenario into agents, outcomes, and potential causes.",
+      "Inputs": "Natural language scenario description",
+      "Outputs": "List of agents, outcomes, and exogenous variables for SCM construction",
+      "Example": "From 'two people bargaining over a mug', system identifies buyer, seller, outcome (deal), and causes (budget, attachment).",
+      "Role in workflow": "Transforms user scenario into actionable components for hypothesis and experiment design."
+    },
+    "Structural or Entity Decomposition": {
+      "performed": "Yes",
+      "Method details": "LLM identifies and constructs agent roles and attributes relevant to the scenario.",
+      "Inputs": "Scenario description",
+      "Outputs": "Agent profiles with roles, goals, constraints, and attributes",
+      "Example": "Buyer and seller agents with assigned budgets and attachment levels.",
+      "Role in workflow": "Enables simulation of social interactions by defining agent-level structure."
+    },
+    "Workflow Decomposition": {
+      "performed": "Yes",
+      "Method details": "System formalizes the research process into sequential steps: hypothesis generation, experiment design, execution, and analysis.",
+      "Inputs": "Scenario and SCM",
+      "Outputs": "Automated multi-step workflow for simulation and analysis",
+      "Example": "System autonomously generates hypotheses, designs experiments, runs simulations, and analyzes results.",
+      "Role in workflow": "Automates the end-to-end social science research process."
+    },
+    "Textual or Knowledge Embedding": {
+      "performed": "No"
+    },
+    "Molecular or Chemical Embedding": {
+      "performed": "No"
+    },
+    "Biological or Phenotypic Embedding": {
+      "performed": "No"
+    },
+    "Pattern and Feature Extraction": {
+      "performed": "No"
+    },
+    "Biological Relationship Extraction": {
+      "performed": "No"
+    },
+    "Property and Annotation Extraction": {
+      "performed": "No"
+    },
+    "Sequence and Structure Feature Extraction": {
+      "performed": "No"
+    }
+  },
+  "Data Retrieval": {
+    "performed": "No",
+    "Data Retrieval via Multi-Query Generation and Exploration": {
+      "performed": "No"
+    },
+    "Literature and Data Retrieval via APIs": {
+      "performed": "No"
+    },
+    "Data Retrieval with Prioritization and Filtering Agents": {
+      "performed": "No"
+    },
+    "Domain-Specific Data Retrieval and Reasoning": {
+      "performed": "No"
+    },
+    "Code-Driven or Tool-Augmented Data Retrieval": {
+      "performed": "No"
+    },
+    "Literature data Retrieval Citation-Network–Based Expansion": {
+      "performed": "No"
+    },
+    "Literature data Retrieval via Semantic and Similarity-Based analysis": {
+      "performed": "No"
+    },
+    "Literature data Retrieval via Multi-Step Reference and Evidence Selection": {
+      "performed": "No"
+    },
+    "Domain-Specific Literature data Retrieval": {
+      "performed": "No"
+    },
+    "Manual and Semi-Automatic Curation of Literature data": {
+      "performed": "No"
+    },
+    "Structural or Similarity-Based Dataset Retrieval": {
+      "performed": "No"
+    },
+    "Data Retrieval via Domain-Specific Repository Querying": {
+      "performed": "No"
+    },
+    "Library Assembly and Data Augmentation": {
+      "performed": "No"
+    }
+  },
+  "Knowledge Assembly": {
+    "performed": "Yes",
+    "Standardized Section Extraction from Literature data": {
+      "performed": "No"
+    },
+    "Concise Synopsis and Summarization of Literature data": {
+      "performed": "No"
+    },
+    "Facet-Based or Field-Specific Extraction from Literature data": {
+      "performed": "No"
+    },
+    "Domain-Tailored Extraction from Literature data": {
+      "performed": "No"
+    },
+    "Task/Entity-Centric Knowledge Graphs": {
+      "performed": "No"
+    },
+    "Causal or Relation-Specific Knowledge Graphs": {
+      "performed": "Yes",
+      "Method details": "System constructs structural causal models (SCMs) as directed acyclic graphs representing hypothesized causal relationships.",
+      "Inputs": "LLM-generated agents, outcomes, and causes",
+      "Outputs": "SCM/DAG encoding variables and causal paths",
+      "Example": "SCM for mug bargaining: buyer budget, seller attachment → deal outcome.",
+      "Role in workflow": "Provides explicit, testable causal structure for experiment design and analysis."
+    },
+    "Biomedical or Domain-Specific Interaction Graphs": {
+      "performed": "No"
+    },
+    "Literature Database Construction": {
+      "performed": "No"
+    },
+    "Entity- or Co-Occurrence–Based Databases": {
+      "performed": "No"
+    },
+    "Reasoning-Chain or Temporal Databases for Literature": {
+      "performed": "No"
+    }
+  },
+  "Hypothesis/Idea Generation": {
+    "performed": "Yes",
+    "Idea/hypothesis generation without additional literature or dataset as context": {
+      "performed": "Yes",
+      "Method details": "LLM is prompted to generate hypotheses (causal variables and outcomes) based solely on scenario description and internal knowledge.",
+      "Inputs": "Natural language scenario",
+      "Outputs": "List of hypothesized causes and outcomes for SCM",
+      "Example": "For bail hearing, LLM proposes criminal history, judge's case count, and remorse as causes.",
+      "Role in workflow": "Initiates the automated discovery process by proposing testable hypotheses."
+    },
+    "LLM Agent Generate ideas/hypotheses via Task Decomposition": {
+      "performed": "No"
+    },
+    "Generate ideas/hypotheses using Domain-Specialized LLM Agent": {
+      "performed": "No"
+    },
+    "Literature data used during idea/hypothesis generation as context": {
+      "performed": "No"
+    },
+    "Summarization Literature data used during idea/hypothesis generation": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation via Facet Recombination": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation via contructed Reasoning-Chain from literature": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation via Knowledge Graph developed from literature": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation via Pattern Detection from dataset": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation via Few-Shot Data Seeding": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation using Observational data": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation via Feature-Driven Property Prediction": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation after Fine-Tuning the LLM model": {
+      "performed": "No"
+    }
+  },
+  "Hypothesis/Idea Prioritization": {
+    "performed": "No",
+    "LLM-based Hypothesis/Idea evaluation via Scientific Quality": {
+      "performed": "No"
+    },
+    "LLM-based Hypothesis/Idea evaluation via Domain-Specific Evaluation": {
+      "performed": "No"
+    },
+    "LLM-based Hypothesis/Idea evaluation via Contextual Evidence Scoring": {
+      "performed": "No"
+    },
+    "LLM-based Hypothesis/Idea evaluation via Interpretability or Success Metrics": {
+      "performed": "No"
+    },
+    "Hypothesis/Idea evaluation via Novelty Checking with Literature Comparison": {
+      "performed": "No"
+    },
+    "Hypothesis/Idea evaluation via Alignment with Literature Chains": {
+      "performed": "No"
+    },
+    "Hypothesis/Idea evaluation via Knowledge-Graph Grounded Similarity Metrics": {
+      "performed": "No"
+    },
+    "Hypothesis/Idea evaluation via Quantitative Assessment Using Domain Metrics": {
+      "performed": "No"
+    },
+    "Hypothesis/Idea evaluation via Human/Expert": {
+      "performed": "No"
+    }
+  },
+  "Test": {
+    "performed": "Yes",
+    "Experimental Design Generation via literature-Grounded Model/Protocol Selection": {
+      "performed": "No"
+    },
+    "Experimental Design Generation via Literature Synthesis for New Protocol Generation": {
+      "performed": "No"
+    },
+    "Experimental Design Generation via Few-Shot or Example-Based Prompting": {
+      "performed": "No"
+    },
+    "Experimental Design Generation via Executable Code Generation from Literature": {
+      "performed": "No"
+    },
+    "LLM-Based Experimental Design Generation via Agentic Exploration and Planning": {
+      "performed": "Yes",
+      "Method details": "LLM autonomously generates experimental designs (variables, treatments, agent attributes, interaction protocols) based on SCM.",
+      "Inputs": "SCM, agent profiles",
+      "Outputs": "Experimental conditions, agent instantiations, survey questions",
+      "Example": "System selects factorial design for buyer/seller attributes, generates survey questions for outcomes.",
+      "Role in workflow": "Automates the setup of in-silico experiments to test hypotheses."
+    },
+    "LLM-Based Experimental Design Generation via Code and Workflow Translation": {
+      "performed": "Yes",
+      "Method details": "System implemented in Python, translates experimental design into executable code for simulation.",
+      "Inputs": "Experimental design parameters",
+      "Outputs": "Python code for agent simulation and data collection",
+      "Example": "Python code runs 405 simulations for mug bargaining scenario.",
+      "Role in workflow": "Enables automated, reproducible execution of experiments."
+    },
+    "LLM-Based Experimental Design Generation via Multi-Agent Planning with Specialized Roles": {
+      "performed": "Yes",
+      "Method details": "Independent LLM-powered agents are assigned roles (buyer, seller, judge, etc.) and interact according to scenario-specific protocols.",
+      "Inputs": "Agent roles, attributes, interaction protocol",
+      "Outputs": "Simulated conversations and behavioral data",
+      "Example": "Auction scenario with auctioneer and three bidders, each as an LLM agent.",
+      "Role in workflow": "Realizes social interactions for data generation."
+    },
+    "LLM-Based Experimental Design Generation via Domain-Specific Experimental Mapping": {
+      "performed": "No"
+    },
+    "Test Execution via Human-in-the-Loop": {
+      "performed": "No"
+    },
+    "Test Execution via Automated Wet-Lab Execution": {
+      "performed": "No"
+    },
+    "Test Execution via Computational or In-Silico": {
+      "performed": "Yes",
+      "Method details": "Experiments are executed entirely in-silico using LLM-powered agents simulating human behavior.",
+      "Inputs": "Experimental design, agent instantiations",
+      "Outputs": "Simulated behavioral data, conversation transcripts, survey responses",
+      "Example": "405 simulated bargaining conversations; 343 simulated auctions.",
+      "Role in workflow": "Tests hypotheses and generates data for analysis."
+    },
+    "Refinement via LLM Agent Feedback Loops": {
+      "performed": "No"
+    },
+    "Refinement via Automated Quality Evaluation using Model-Based Critics": {
+      "performed": "No"
+    },
+    "Refinement via Dynamic Agent Updating Based on Evolving Context or Data": {
+      "performed": "No"
+    },
+    "Refinement via guided by computational-data": {
+      "performed": "Yes",
+      "Method details": "After experiment, system fits SCM to data, drops insignificant variables, and can propose new variables for follow-on experiments.",
+      "Inputs": "Experimental results (fitted SCM, statistical significance)",
+      "Outputs": "Updated SCM, new experimental designs",
+      "Example": "Insignificant variables dropped; new causes proposed for next experiment.",
+      "Role in workflow": "Iteratively improves hypotheses and experimental focus based on computational analysis."
+    },
+    "Refinement via experimental validation": {
+      "performed": "No"
+    },
+    "Refinement via Performance-metric": {
+      "performed": "No"
+    },
+    "Refinement via Human–data integration": {
+      "performed": "No"
+    }
+  },
+  "paper_title": "Automated Social Science: Language Models as Scientist and Subjects",
+  "authors": [
+    "Benjamin S.",
+    "Kehang",
+    "John J."
+  ],
+  "published": "2024-04-25",
+  "link": "http://arxiv.org/abs/2404.11794"
+}

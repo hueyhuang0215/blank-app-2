@@ -1,0 +1,395 @@
+{
+  "Inputs to the workflow": {
+    "performed": "Yes",
+    "User provide high-level research direction or goal": {
+      "performed": "Yes",
+      "Format": "Natural language queries posed by the user_proxy agent",
+      "Example": "Design three proteins with sequence length of 120 and analyze their secondary structure and first 10 frequencies.",
+      "Role in workflow": "Initiates and defines the scope of the automated protein design and analysis tasks."
+    },
+    "User provide structured, domain-specific specifications": {
+      "performed": "Yes",
+      "Format": "Structured task constraints within user queries (e.g., protein length, CATH class, number of proteins)",
+      "Example": "Design two proteins of length 100 for each family of mainly beta, mainly alpha, and alpha beta proteins.",
+      "Role in workflow": "Specifies scientific constraints for candidate protein designs and downstream analyses."
+    },
+    "User provide research papers": {
+      "performed": "No"
+    },
+    "User provide datasets other than research papers": {
+      "performed": "No"
+    },
+    "User provide representations or formal inputs": {
+      "performed": "No"
+    }
+  },
+  "Query Structuring": {
+    "performed": "Yes",
+    "Query Decomposition": {
+      "performed": "Yes",
+      "Method details": "Planner agent breaks down user queries into actionable sub-tasks and function calls.",
+      "Inputs": "Natural language user queries",
+      "Outputs": "Stepwise plans with function names and parameters",
+      "Example": "Planner decomposes 'analyze secondary structure and compute frequencies' into sequential function calls.",
+      "Role in workflow": "Enables targeted execution of complex, multi-step protein design and analysis tasks."
+    },
+    "Structural or Entity Decomposition": {
+      "performed": "Yes",
+      "Method details": "Agents analyze protein sequences and structures, decomposing them into secondary structure elements and vibrational modes.",
+      "Inputs": "Protein sequences or structures",
+      "Outputs": "Secondary structure content, natural frequencies",
+      "Example": "Analyze secondary structure of a protein and compute its first 13 natural frequencies.",
+      "Role in workflow": "Supports feature-level reasoning and property prediction for proteins."
+    },
+    "Workflow Decomposition": {
+      "performed": "Yes",
+      "Method details": "Multi-agent system (planner, assistant, critic) generates and executes multi-step plans for each user query.",
+      "Inputs": "User queries",
+      "Outputs": "Ordered sequence of function executions and checks",
+      "Example": "Planner creates a plan: design proteins → analyze structure → compute frequencies → save results.",
+      "Role in workflow": "Creates actionable, multi-step workflows for automated discovery."
+    },
+    "Textual or Knowledge Embedding": {
+      "performed": "No"
+    },
+    "Molecular or Chemical Embedding": {
+      "performed": "No"
+    },
+    "Biological or Phenotypic Embedding": {
+      "performed": "No"
+    },
+    "Pattern and Feature Extraction": {
+      "performed": "Yes",
+      "Method details": "Functions extract secondary structure content and vibrational frequencies from protein data.",
+      "Inputs": "Protein sequences or 3D structures",
+      "Outputs": "Feature vectors (e.g., % alpha-helix, beta-sheet, frequency spectra)",
+      "Example": "Extracting secondary structure fractions and first 10 frequencies for designed proteins.",
+      "Role in workflow": "Generates empirical features for downstream analysis and evaluation."
+    },
+    "Biological Relationship Extraction": {
+      "performed": "No"
+    },
+    "Property and Annotation Extraction": {
+      "performed": "Yes",
+      "Method details": "Functions retrieve protein properties such as CATH classification, sequence length, and mechanical properties.",
+      "Inputs": "Protein IDs or sequences",
+      "Outputs": "Annotations (e.g., CATH class, max force, unfolding energy)",
+      "Example": "Determine CATH classification for a given protein.",
+      "Role in workflow": "Provides domain-specific annotations for analysis and comparison."
+    },
+    "Sequence and Structure Feature Extraction": {
+      "performed": "Yes",
+      "Method details": "BioPython DSSP and ProDy ANM extract secondary structure and vibrational features from protein structures.",
+      "Inputs": "Protein 3D structures",
+      "Outputs": "Secondary structure content, vibrational frequencies",
+      "Example": "Analyze secondary structure and compute normal modes for folded proteins.",
+      "Role in workflow": "Informs property prediction and model evaluation."
+    }
+  },
+  "Data Retrieval": {
+    "performed": "Yes",
+    "Data Retrieval via Multi-Query Generation and Exploration": {
+      "performed": "No"
+    },
+    "Literature and Data Retrieval via APIs": {
+      "performed": "Yes",
+      "Method details": "Custom 'retrieve_content' function queries knowledge databases for protein names and PDB IDs.",
+      "Inputs": "User queries specifying information needs (e.g., protein names, PDB IDs)",
+      "Outputs": "Lists of protein names, PDB IDs",
+      "Example": "Retrieve PDB IDs for proteins whose mechanical properties have been studied experimentally.",
+      "Role in workflow": "Provides relevant protein identifiers for downstream analysis."
+    },
+    "Data Retrieval with Prioritization and Filtering Agents": {
+      "performed": "No"
+    },
+    "Domain-Specific Data Retrieval and Reasoning": {
+      "performed": "Yes",
+      "Method details": "Retrieval agent accesses scientific literature databases using Llama Index for RAG.",
+      "Inputs": "Queries about protein properties or literature evidence",
+      "Outputs": "Relevant literature content or extracted knowledge",
+      "Example": "Retrieve content from full text of referenced papers for knowledge-augmented reasoning.",
+      "Role in workflow": "Augments agent reasoning with domain-specific literature."
+    },
+    "Code-Driven or Tool-Augmented Data Retrieval": {
+      "performed": "Yes",
+      "Method details": "Assistant agent executes Python functions to fetch protein data, analyze structures, and run simulations.",
+      "Inputs": "Function calls with parameters (e.g., PDB ID, sequence)",
+      "Outputs": "Computed or retrieved protein properties",
+      "Example": "Fetch protein structure, analyze secondary structure, compute frequencies.",
+      "Role in workflow": "Automates data retrieval and computation for protein analysis."
+    },
+    "Literature data Retrieval Citation-Network–Based Expansion": {
+      "performed": "No"
+    },
+    "Literature data Retrieval via Semantic and Similarity-Based analysis": {
+      "performed": "No"
+    },
+    "Literature data Retrieval via Multi-Step Reference and Evidence Selection": {
+      "performed": "No"
+    },
+    "Domain-Specific Literature data Retrieval": {
+      "performed": "No"
+    },
+    "Manual and Semi-Automatic Curation of Literature data": {
+      "performed": "No"
+    },
+    "Structural or Similarity-Based Dataset Retrieval": {
+      "performed": "No"
+    },
+    "Data Retrieval via Domain-Specific Repository Querying": {
+      "performed": "Yes",
+      "Method details": "Functions query protein databases (e.g., PDB) for structures and annotations.",
+      "Inputs": "Protein names or IDs",
+      "Outputs": "Protein structures, sequences, annotations",
+      "Example": "Retrieve protein structure for a given PDB ID.",
+      "Role in workflow": "Provides foundational data for computational experiments."
+    },
+    "Library Assembly and Data Augmentation": {
+      "performed": "No"
+    }
+  },
+  "Knowledge Assembly": {
+    "performed": "No"
+  },
+  "Hypothesis/Idea Generation": {
+    "performed": "Yes",
+    "Idea/hypothesis generation without additional literature or dataset as context": {
+      "performed": "Yes",
+      "Method details": "LLM-powered agents generate protein design ideas and analysis plans based on user queries and internal knowledge.",
+      "Inputs": "User queries, agent reasoning",
+      "Outputs": "Protein design strategies, analysis workflows",
+      "Example": "Planner agent devises a plan for de novo protein design and analysis.",
+      "Role in workflow": "Initiates creative solution generation for protein design tasks."
+    },
+    "LLM Agent Generate ideas/hypotheses via Task Decomposition": {
+      "performed": "Yes",
+      "Method details": "Planner agent decomposes complex tasks into sub-tasks, assigning each to specialized agents.",
+      "Inputs": "Complex user queries",
+      "Outputs": "Decomposed, actionable sub-tasks",
+      "Example": "Break down 'design and analyze proteins' into sequential steps for each agent.",
+      "Role in workflow": "Enables systematic exploration and execution of multi-step discovery tasks."
+    },
+    "Generate ideas/hypotheses using Domain-Specialized LLM Agent": {
+      "performed": "Yes",
+      "Method details": "Agents with domain-specific roles (e.g., assistant, critic) generate and refine protein design and analysis ideas.",
+      "Inputs": "Task plans, protein data",
+      "Outputs": "Domain-specific design and analysis outputs",
+      "Example": "Critic agent evaluates and suggests corrections to protein design plans.",
+      "Role in workflow": "Ensures domain relevance and quality in generated hypotheses and plans."
+    },
+    "Literature data used during idea/hypothesis generation as context": {
+      "performed": "Yes",
+      "Method details": "Retrieval agent can access literature via RAG to inform reasoning and planning.",
+      "Inputs": "Literature content retrieved via Llama Index",
+      "Outputs": "Knowledge-augmented plans or analyses",
+      "Example": "Retrieve literature evidence to support protein property analysis.",
+      "Role in workflow": "Grounds hypothesis generation in external scientific knowledge."
+    },
+    "Summarization Literature data used during idea/hypothesis generation": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation via Facet Recombination": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation via contructed Reasoning-Chain from literature": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation via Knowledge Graph developed from literature": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation via Pattern Detection from dataset": {
+      "performed": "Yes",
+      "Method details": "Feature extraction functions identify patterns in secondary structure and vibrational data for new protein designs.",
+      "Inputs": "Generated protein sequences and structures",
+      "Outputs": "Patterns in secondary structure content, frequency spectra",
+      "Example": "Identify that Chroma-generated proteins do not always match desired secondary structure patterns.",
+      "Role in workflow": "Informs evaluation and refinement of generated protein designs."
+    },
+    "Idea/hypothesis generation via Few-Shot Data Seeding": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation using Observational data": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation via Feature-Driven Property Prediction": {
+      "performed": "Yes",
+      "Method details": "ProteinForceGPT predicts mechanical properties from sequence features.",
+      "Inputs": "Protein sequences",
+      "Outputs": "Predicted max force, unfolding energy, force-extension curves",
+      "Example": "Predict unfolding force and energy for designed proteins.",
+      "Role in workflow": "Links sequence features to functional/mechanical hypotheses."
+    },
+    "Idea/hypothesis generation after Fine-Tuning the LLM model": {
+      "performed": "Yes",
+      "Method details": "ProteinForceGPT is fine-tuned on MD simulation data for property prediction.",
+      "Inputs": "Fine-tuned model, protein sequences",
+      "Outputs": "Predicted mechanical properties",
+      "Example": "Use fine-tuned ProteinForceGPT to predict force-extension curves.",
+      "Role in workflow": "Enables hypothesis generation grounded in simulation-trained models."
+    }
+  },
+  "Hypothesis/Idea Prioritization": {
+    "performed": "Yes",
+    "LLM-based Hypothesis/Idea evaluation via Scientific Quality": {
+      "performed": "Yes",
+      "Method details": "Critic agent reviews and critiques plans and results for completeness, correctness, and scientific validity.",
+      "Inputs": "Plans, function outputs",
+      "Outputs": "Feedback, corrections, approval or rejection",
+      "Example": "Critic identifies errors in JSON formatting or plan logic and suggests corrections.",
+      "Role in workflow": "Ensures scientific rigor and correctness in workflow execution."
+    },
+    "LLM-based Hypothesis/Idea evaluation via Domain-Specific Evaluation": {
+      "performed": "Yes",
+      "Method details": "Critic agent evaluates whether generated proteins meet domain-specific criteria (e.g., secondary structure content).",
+      "Inputs": "Analysis results, domain constraints",
+      "Outputs": "Domain-specific feedback and evaluation",
+      "Example": "Critic assesses if Chroma-generated proteins match desired CATH class.",
+      "Role in workflow": "Validates domain relevance and success of generated hypotheses."
+    },
+    "LLM-based Hypothesis/Idea evaluation via Contextual Evidence Scoring": {
+      "performed": "No"
+    },
+    "LLM-based Hypothesis/Idea evaluation via Interpretability or Success Metrics": {
+      "performed": "Yes",
+      "Method details": "Critic agent interprets and summarizes results, checking if outputs match expected scientific metrics.",
+      "Inputs": "Computed results, expected metrics",
+      "Outputs": "Interpretation and success/failure assessment",
+      "Example": "Critic notes that a generated protein does not match the expected beta-sheet content.",
+      "Role in workflow": "Assesses interpretability and success of generated outputs."
+    },
+    "Hypothesis/Idea evaluation via Novelty Checking with Literature Comparison": {
+      "performed": "No"
+    },
+    "Hypothesis/Idea evaluation via Alignment with Literature Chains": {
+      "performed": "No"
+    },
+    "Hypothesis/Idea evaluation via Knowledge-Graph Grounded Similarity Metrics": {
+      "performed": "No"
+    },
+    "Hypothesis/Idea evaluation via Quantitative Assessment Using Domain Metrics": {
+      "performed": "Yes",
+      "Method details": "Computed metrics (e.g., secondary structure fractions, frequencies, mechanical properties) are compared to task requirements.",
+      "Inputs": "Analysis results, task constraints",
+      "Outputs": "Quantitative assessment of success",
+      "Example": "Compare predicted secondary structure content to desired CATH class.",
+      "Role in workflow": "Objectively scores hypothesis success using domain metrics."
+    },
+    "Hypothesis/Idea evaluation via Human/Expert": {
+      "performed": "No"
+    }
+  },
+  "Test": {
+    "performed": "Yes",
+    "Experimental Design Generation via literature-Grounded Model/Protocol Selection": {
+      "performed": "No"
+    },
+    "Experimental Design Generation via Literature Synthesis for New Protocol Generation": {
+      "performed": "No"
+    },
+    "Experimental Design Generation via Few-Shot or Example-Based Prompting": {
+      "performed": "No"
+    },
+    "Experimental Design Generation via Executable Code Generation from Literature": {
+      "performed": "No"
+    },
+    "LLM-Based Experimental Design Generation via Agentic Exploration and Planning": {
+      "performed": "Yes",
+      "Method details": "Planner agent autonomously generates experimental plans for protein design and analysis.",
+      "Inputs": "User queries",
+      "Outputs": "Stepwise experimental plans",
+      "Example": "Planner outlines steps: design proteins, analyze structure, compute frequencies, save results.",
+      "Role in workflow": "Automates experimental planning for in-silico protein discovery."
+    },
+    "LLM-Based Experimental Design Generation via Code and Workflow Translation": {
+      "performed": "Yes",
+      "Method details": "Assistant agent translates plans into executable Python function calls for simulations and analyses.",
+      "Inputs": "Plans from planner agent",
+      "Outputs": "Executed functions, computed results",
+      "Example": "Assistant executes 'design_protein_from_length', 'analyze_protein_structure', etc.",
+      "Role in workflow": "Bridges planning and execution for automated testing."
+    },
+    "LLM-Based Experimental Design Generation via Multi-Agent Planning with Specialized Roles": {
+      "performed": "Yes",
+      "Method details": "Planner, assistant, and critic agents collaborate to refine, execute, and validate experimental workflows.",
+      "Inputs": "User queries, intermediate results",
+      "Outputs": "Refined plans, executed experiments, validated results",
+      "Example": "Critic reviews assistant's outputs and suggests corrections; planner updates plan.",
+      "Role in workflow": "Enables robust, autonomous experimental design and execution."
+    },
+    "LLM-Based Experimental Design Generation via Domain-Specific Experimental Mapping": {
+      "performed": "Yes",
+      "Method details": "Functions map high-level tasks to domain-specific tools (e.g., Chroma for design, OmegaFold for folding, ProDy for ANM).",
+      "Inputs": "Task requirements",
+      "Outputs": "Domain-specific experimental executions",
+      "Example": "Use Chroma to generate proteins, OmegaFold to fold them, ProDy to compute frequencies.",
+      "Role in workflow": "Ensures domain-appropriate experimental execution."
+    },
+    "Test Execution via Human-in-the-Loop": {
+      "performed": "No"
+    },
+    "Test Execution via Automated Wet-Lab Execution": {
+      "performed": "No"
+    },
+    "Test Execution via Computational or In-Silico": {
+      "performed": "Yes",
+      "Method details": "All experiments (protein design, folding, property prediction) are performed computationally using Python functions and simulation tools.",
+      "Inputs": "Protein sequences, structures, simulation parameters",
+      "Outputs": "Computed properties, analysis results, CSV files",
+      "Example": "Compute natural frequencies using ProDy ANM; predict unfolding force with ProteinForceGPT.",
+      "Role in workflow": "Validates hypotheses and designs through automated in-silico testing."
+    },
+    "Refinement via LLM Agent Feedback Loops": {
+      "performed": "Yes",
+      "Method details": "Critic agent identifies errors or inconsistencies and suggests corrections, prompting re-execution or plan revision.",
+      "Inputs": "Intermediate outputs, error messages",
+      "Outputs": "Corrected plans, re-executed functions, improved results",
+      "Example": "Critic detects JSON formatting error, assistant corrects and re-saves results.",
+      "Role in workflow": "Iteratively improves workflow execution and output quality."
+    },
+    "Refinement via Automated Quality Evaluation using Model-Based Critics": {
+      "performed": "Yes",
+      "Method details": "Critic agent automatically checks output quality, correctness, and adherence to task requirements.",
+      "Inputs": "Function outputs, analysis results",
+      "Outputs": "Quality assessments, error detection, feedback",
+      "Example": "Critic notes mismatch between generated protein structure and desired CATH class.",
+      "Role in workflow": "Ensures high-quality, scientifically valid outputs."
+    },
+    "Refinement via Dynamic Agent Updating Based on Evolving Context or Data": {
+      "performed": "Yes",
+      "Method details": "Agents update plans and actions in response to new results or errors during workflow execution.",
+      "Inputs": "Intermediate results, error feedback",
+      "Outputs": "Updated plans, re-executed steps",
+      "Example": "Plan is revised after critic feedback; assistant re-executes corrected function.",
+      "Role in workflow": "Maintains workflow adaptability and robustness."
+    },
+    "Refinement via guided by computational-data": {
+      "performed": "Yes",
+      "Method details": "Refinement decisions are based on computational analysis of test results (e.g., structure content, property values).",
+      "Inputs": "Computed test results",
+      "Outputs": "Refined hypotheses, updated outputs",
+      "Example": "Adjusts evaluation based on observed secondary structure content.",
+      "Role in workflow": "Ensures refinement is data-driven and evidence-based."
+    },
+    "Refinement via experimental validation": {
+      "performed": "No"
+    },
+    "Refinement via Performance-metric": {
+      "performed": "Yes",
+      "Method details": "Performance metrics (e.g., match to target secondary structure, predicted mechanical properties) guide refinement.",
+      "Inputs": "Performance metrics from computational tests",
+      "Outputs": "Refined outputs, success/failure assessments",
+      "Example": "Critic evaluates if generated proteins meet specified performance criteria.",
+      "Role in workflow": "Drives iterative improvement based on quantifiable outcomes."
+    },
+    "Refinement via Human–data integration": {
+      "performed": "No"
+    }
+  },
+  "paper_title": "ProtAgents: Protein discovery via large language model multi-agent collaborations combining physics and machine learning",
+  "authors": [
+    "A.",
+    "M. J."
+  ],
+  "published": "2024-01-27",
+  "link": "http://arxiv.org/abs/2402.04268"
+}

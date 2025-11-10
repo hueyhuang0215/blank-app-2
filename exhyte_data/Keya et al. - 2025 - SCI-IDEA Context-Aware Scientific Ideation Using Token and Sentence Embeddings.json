@@ -1,0 +1,315 @@
+{
+  "Inputs to the workflow": {
+    "performed": "Yes",
+    "User provide high-level research direction or goal": {
+      "performed": "Yes",
+      "Format": "Natural language research queries (e.g., 'How can we improve the energy efficiency of AI models?')",
+      "Example": "A researcher provides a query such as 'How can we improve the energy efficiency of training DRL agents?'",
+      "Role in workflow": "Defines the research focus and initiates the ideation process."
+    },
+    "User provide structured, domain-specific specifications": {
+      "performed": "No"
+    },
+    "User provide research papers": {
+      "performed": "Yes",
+      "Format": "Researcher’s ORCID or institutional profile used to retrieve their publications.",
+      "Example": "System retrieves publications like 'Sparse Neural Networks for Energy-Efficient Inference' using ORCID ID.",
+      "Role in workflow": "Provides grounding and context for idea generation and gap identification."
+    },
+    "User provide datasets other than research papers": {
+      "performed": "No"
+    },
+    "User provide representations or formal inputs": {
+      "performed": "No"
+    }
+  },
+  "Query Structuring": {
+    "performed": "Yes",
+    "Query Decomposition": {
+      "performed": "Yes",
+      "Method details": "LLM extracts keyphrases from user queries to focus retrieval and analysis.",
+      "Inputs": "Natural language research queries.",
+      "Outputs": "Keyphrases (e.g., 'sparsity', 'energy efficiency', 'AI optimization').",
+      "Example": "From 'How can we improve the energy efficiency of AI models?', keyphrases like 'sparsity' are extracted.",
+      "Role in workflow": "Enables targeted retrieval of relevant literature and context extension."
+    },
+    "Structural or Entity Decomposition": {
+      "performed": "No"
+    },
+    "Workflow Decomposition": {
+      "performed": "Yes",
+      "Method details": "LLM-based prompting strategies (e.g., zero-shot chain-of-thought) break down research gap identification into sequential steps.",
+      "Inputs": "Identified research gaps and context.",
+      "Outputs": "Stepwise reasoning for idea generation (e.g., identify architectures, adapt for RL, apply to agents).",
+      "Example": "Step 1: Identify energy-efficient architectures. Step 2: Adapt for RL. Step 3: Apply to agent control.",
+      "Role in workflow": "Structures the ideation process for multi-step reasoning."
+    },
+    "Textual or Knowledge Embedding": {
+      "performed": "Yes",
+      "Method details": "Uses BERT and SciBERT to generate semantic embeddings for ideas and context.",
+      "Inputs": "Generated ideas, prior ideas, and context.",
+      "Outputs": "Vector embeddings for novelty and surprise evaluation.",
+      "Example": "Cosine similarity between idea embeddings to assess novelty.",
+      "Role in workflow": "Supports semantic comparison and evaluation of generated ideas."
+    },
+    "Molecular or Chemical Embedding": {
+      "performed": "No"
+    },
+    "Biological or Phenotypic Embedding": {
+      "performed": "No"
+    },
+    "Pattern and Feature Extraction": {
+      "performed": "No"
+    },
+    "Biological Relationship Extraction": {
+      "performed": "No"
+    },
+    "Property and Annotation Extraction": {
+      "performed": "No"
+    },
+    "Sequence and Structure Feature Extraction": {
+      "performed": "No"
+    }
+  },
+  "Data Retrieval": {
+    "performed": "Yes",
+    "Data Retrieval via Multi-Query Generation and Exploration": {
+      "performed": "No"
+    },
+    "Literature and Data Retrieval via APIs": {
+      "performed": "Yes",
+      "Method details": "System queries APIs like CORE, arXiv, and Semantic Scholar using keyphrases and researcher IDs.",
+      "Inputs": "Keyphrases, researcher ORCID/profile.",
+      "Outputs": "Relevant publications and their metadata/full text.",
+      "Example": "Retrieves 'Energy-Efficient Deep Learning via Dynamic Precision Scaling' from arXiv.",
+      "Role in workflow": "Collects literature for context-aware idea generation."
+    },
+    "Data Retrieval with Prioritization and Filtering Agents": {
+      "performed": "No"
+    },
+    "Domain-Specific Data Retrieval and Reasoning": {
+      "performed": "No"
+    },
+    "Code-Driven or Tool-Augmented Data Retrieval": {
+      "performed": "No"
+    },
+    "Literature data Retrieval Citation-Network–Based Expansion": {
+      "performed": "No"
+    },
+    "Literature data Retrieval via Semantic and Similarity-Based analysis": {
+      "performed": "Yes",
+      "Method details": "Retrieves similar papers based on keyphrase/topic similarity and semantic embeddings.",
+      "Inputs": "Extracted keyphrases and embeddings.",
+      "Outputs": "List of semantically similar publications.",
+      "Example": "Papers retrieved using similarity to 'sparsity' and 'energy efficiency'.",
+      "Role in workflow": "Expands literature context for more comprehensive idea generation."
+    },
+    "Literature data Retrieval via Multi-Step Reference and Evidence Selection": {
+      "performed": "No"
+    },
+    "Domain-Specific Literature data Retrieval": {
+      "performed": "Yes",
+      "Method details": "Uses domain-relevant keywords and metadata to retrieve targeted literature.",
+      "Inputs": "Keyphrases from user queries.",
+      "Outputs": "Domain-specific papers (e.g., deep learning, energy efficiency).",
+      "Example": "Retrieves papers on 'Sparse Training Techniques for Neural Networks'.",
+      "Role in workflow": "Ensures literature relevance to the research domain."
+    },
+    "Manual and Semi-Automatic Curation of Literature data": {
+      "performed": "No"
+    },
+    "Structural or Similarity-Based Dataset Retrieval": {
+      "performed": "No"
+    },
+    "Data Retrieval via Domain-Specific Repository Querying": {
+      "performed": "Yes",
+      "Method details": "Queries established repositories (CORE, arXiv, Semantic Scholar) for relevant publications.",
+      "Inputs": "Researcher ID, keyphrases.",
+      "Outputs": "Full texts and metadata of relevant papers.",
+      "Example": "Retrieves 'Sparse Neural Networks for Energy-Efficient Inference' from CORE.",
+      "Role in workflow": "Provides foundational literature for downstream analysis."
+    },
+    "Library Assembly and Data Augmentation": {
+      "performed": "No"
+    }
+  },
+  "Knowledge Assembly": {
+    "performed": "Yes",
+    "Standardized Section Extraction from Literature data": {
+      "performed": "No"
+    },
+    "Concise Synopsis and Summarization of Literature data": {
+      "performed": "Yes",
+      "Method details": "LLM summarizes prior work and contributions from selected papers.",
+      "Inputs": "Extracted facets and full texts.",
+      "Outputs": "Summaries of research contributions and gaps.",
+      "Example": "Summarizes advances and limitations in energy-efficient AI models.",
+      "Role in workflow": "Condenses literature for efficient gap identification and ideation."
+    },
+    "Facet-Based or Field-Specific Extraction from Literature data": {
+      "performed": "Yes",
+      "Method details": "LLM extracts structured facets: objectives, methodologies, evaluation, future work.",
+      "Inputs": "Full texts of retrieved papers.",
+      "Outputs": "Structured facets for each publication.",
+      "Example": "Extracts 'objective', 'methodology', 'evaluation', 'future work' from 'Sparse Neural Networks for Energy-Efficient Inference'.",
+      "Role in workflow": "Enables structured comparison and recombination for idea generation."
+    },
+    "Domain-Tailored Extraction from Literature data": {
+      "performed": "No"
+    },
+    "Task/Entity-Centric Knowledge Graphs": {
+      "performed": "No"
+    },
+    "Causal or Relation-Specific Knowledge Graphs": {
+      "performed": "No"
+    },
+    "Biomedical or Domain-Specific Interaction Graphs": {
+      "performed": "No"
+    },
+    "Literature Database Construction": {
+      "performed": "No"
+    },
+    "Entity- or Co-Occurrence–Based Databases": {
+      "performed": "No"
+    },
+    "Reasoning-Chain or Temporal Databases for Literature": {
+      "performed": "No"
+    }
+  },
+  "Hypothesis/Idea Generation": {
+    "performed": "Yes",
+    "Idea/hypothesis generation without additional literature or dataset as context": {
+      "performed": "No"
+    },
+    "LLM Agent Generate ideas/hypotheses via Task Decomposition": {
+      "performed": "Yes",
+      "Method details": "LLM uses prompting strategies (e.g., chain-of-thought) to break down research gaps into steps for idea generation.",
+      "Inputs": "Identified research gaps and structured facets.",
+      "Outputs": "Stepwise generated ideas addressing each sub-task.",
+      "Example": "Stepwise reasoning: identify architectures, adapt for RL, apply to agents.",
+      "Role in workflow": "Structures idea generation for complex research problems."
+    },
+    "Generate ideas/hypotheses using Domain-Specialized LLM Agent": {
+      "performed": "No"
+    },
+    "Literature data used during idea/hypothesis generation as context": {
+      "performed": "Yes",
+      "Method details": "LLMs generate ideas using context from retrieved and structured literature.",
+      "Inputs": "Extracted facets and summaries from relevant papers.",
+      "Outputs": "Context-aware scientific ideas.",
+      "Example": "Idea: Integrate dynamic precision scaling with structured sparsity for energy-efficient AI.",
+      "Role in workflow": "Ensures generated ideas are grounded in existing research."
+    },
+    "Summarization Literature data used during idea/hypothesis generation": {
+      "performed": "Yes",
+      "Method details": "LLM condenses key sections from papers to inform idea generation.",
+      "Inputs": "Paper facets and summaries.",
+      "Outputs": "Concise context for LLM prompts.",
+      "Example": "Summarized evaluation and future work inform new idea proposals.",
+      "Role in workflow": "Provides focused, relevant context for ideation."
+    },
+    "Idea/hypothesis generation via Facet Recombination": {
+      "performed": "Yes",
+      "Method details": "LLM recombines facets (objectives, methods, etc.) from multiple papers to generate novel ideas.",
+      "Inputs": "Structured facets from several publications.",
+      "Outputs": "Ideas combining elements from different works.",
+      "Example": "Combining sparsity from one paper with dynamic precision scaling from another.",
+      "Role in workflow": "Facilitates creative synthesis and identification of research gaps."
+    },
+    "Idea/hypothesis generation via contructed Reasoning-Chain from literature": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation via Knowledge Graph developed from literature": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation via Pattern Detection from dataset": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation via Few-Shot Data Seeding": {
+      "performed": "Yes",
+      "Method details": "Few-shot prompting provides LLMs with example ideas to guide generation.",
+      "Inputs": "Example input-output pairs (few-shot prompts).",
+      "Outputs": "Ideas aligned with provided examples.",
+      "Example": "3-shot and 5-shot prompting configurations used in experiments.",
+      "Role in workflow": "Improves relevance and diversity of generated ideas."
+    },
+    "Idea/hypothesis generation using Observational data": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation via Feature-Driven Property Prediction": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation after Fine-Tuning the LLM model": {
+      "performed": "No"
+    }
+  },
+  "Hypothesis/Idea Prioritization": {
+    "performed": "Yes",
+    "LLM-based Hypothesis/Idea evaluation via Scientific Quality": {
+      "performed": "Yes",
+      "Method details": "LLMs score ideas on novelty, excitement, feasibility, and effectiveness using explicit evaluation prompts.",
+      "Inputs": "Generated ideas.",
+      "Outputs": "Scores (1-10) for each criterion and overall ranking.",
+      "Example": "LLM assigns scores and ranks ideas based on provided criteria.",
+      "Role in workflow": "Filters and prioritizes ideas for further consideration."
+    },
+    "LLM-based Hypothesis/Idea evaluation via Domain-Specific Evaluation": {
+      "performed": "Yes",
+      "Method details": "LLMs and human experts evaluate ideas using domain-relevant criteria.",
+      "Inputs": "Generated ideas, domain context.",
+      "Outputs": "Scores and qualitative feedback.",
+      "Example": "PhD reviewers assess feasibility and impact in computer science.",
+      "Role in workflow": "Ensures ideas are practical and impactful within the domain."
+    },
+    "LLM-based Hypothesis/Idea evaluation via Contextual Evidence Scoring": {
+      "performed": "Yes",
+      "Method details": "Novelty and surprise are computed using semantic embeddings and language model likelihoods.",
+      "Inputs": "Idea embeddings, context embeddings.",
+      "Outputs": "Novelty (cosine similarity) and surprise (negative log-likelihood) scores.",
+      "Example": "Ideas flagged as 'Aha moments' if thresholds are exceeded.",
+      "Role in workflow": "Identifies transformative and unexpected ideas."
+    },
+    "LLM-based Hypothesis/Idea evaluation via Interpretability or Success Metrics": {
+      "performed": "No"
+    },
+    "Hypothesis/Idea evaluation via Novelty Checking with Literature Comparison": {
+      "performed": "Yes",
+      "Method details": "Novelty measured by comparing idea embeddings to prior ideas using cosine similarity.",
+      "Inputs": "Embeddings of new and previous ideas.",
+      "Outputs": "Novelty scores.",
+      "Example": "Novelty(ci) = 1 - max(cosine_similarity(ci, cj)).",
+      "Role in workflow": "Ensures generated ideas are distinct from existing ones."
+    },
+    "Hypothesis/Idea evaluation via Alignment with Literature Chains": {
+      "performed": "No"
+    },
+    "Hypothesis/Idea evaluation via Knowledge-Graph Grounded Similarity Metrics": {
+      "performed": "No"
+    },
+    "Hypothesis/Idea evaluation via Quantitative Assessment Using Domain Metrics": {
+      "performed": "No"
+    },
+    "Hypothesis/Idea evaluation via Human/Expert": {
+      "performed": "Yes",
+      "Method details": "Human experts (PhDs) independently score ideas using structured review forms.",
+      "Inputs": "Generated ideas.",
+      "Outputs": "Scores and qualitative rationales.",
+      "Example": "Three evaluators rate novelty, excitement, feasibility, and effectiveness.",
+      "Role in workflow": "Provides nuanced, expert validation of idea quality."
+    }
+  },
+  "Test": {
+    "performed": "No"
+  },
+  "paper_title": "SCI-IDEA: Context-Aware Scientific Ideation Using Token and Sentence Embeddings",
+  "authors": [
+    "Farhana",
+    "Gollam",
+    "Prasenjit",
+    "Sahar",
+    "Sören",
+    "Yaser"
+  ],
+  "published": "2025-03-25",
+  "link": "http://arxiv.org/abs/2503.19257"
+}

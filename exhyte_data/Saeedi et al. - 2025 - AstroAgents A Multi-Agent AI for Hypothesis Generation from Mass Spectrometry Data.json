@@ -1,0 +1,353 @@
+{
+  "Inputs to the workflow": {
+    "performed": "Yes",
+    "User provide high-level research direction or goal": {
+      "performed": "Yes",
+      "Format": "Natural language instructions describing the experiment and desired hypothesis generation focus.",
+      "Example": "I want you to analyze the table and come up with interesting conclusions and hypotheses. Note that your hypotheses should be novel and specific.",
+      "Role in workflow": "Sets the scope and focus for the multi-agent system's hypothesis generation."
+    },
+    "User provide structured, domain-specific specifications": {
+      "performed": "Yes",
+      "Format": "LaTeX-formatted tables with compound IDs, mass/charge, retention times, compound names, and sample origins.",
+      "Example": "Mass spectrometry data table listing compounds, M/Z, RTs, and sample sources.",
+      "Role in workflow": "Provides the structured experimental data for analysis and hypothesis generation."
+    },
+    "User provide research papers": {
+      "performed": "Yes",
+      "Format": "User-selected research papers converted to Markdown using pymupdf4llm.",
+      "Example": "Ten astrobiology research papers and a book provided as background context.",
+      "Role in workflow": "Grounds the agents in relevant literature for context-aware hypothesis generation."
+    },
+    "User provide datasets other than research papers": {
+      "performed": "Yes",
+      "Format": "Mass spectrometry datasets from meteorite and soil samples.",
+      "Example": "GCxGC-HRTOF-MS data from eight meteorites and ten soils.",
+      "Role in workflow": "Empirical evidence for pattern extraction and hypothesis support."
+    },
+    "User provide representations or formal inputs": {
+      "performed": "No"
+    }
+  },
+  "Query Structuring": {
+    "performed": "Yes",
+    "Query Decomposition": {
+      "performed": "No"
+    },
+    "Structural or Entity Decomposition": {
+      "performed": "Yes",
+      "Method details": "Compounds in the dataset are assigned unique IDs and grouped by chemical class (e.g., PAHs, sulfur-containing, terpenes) for targeted analysis.",
+      "Inputs": "Mass spectrometry data table with compound IDs and classes.",
+      "Outputs": "Subsets of compounds for each scientist agent to analyze.",
+      "Example": "Planner assigns PAH analysis to one agent, sulfur/oxygen compounds to another, alkylated aromatics to a third.",
+      "Role in workflow": "Enables focused, feature-level reasoning by agent specialization."
+    },
+    "Workflow Decomposition": {
+      "performed": "Yes",
+      "Method details": "A planner agent divides the analysis into sub-tasks, delegating each to a specialized scientist agent.",
+      "Inputs": "Data analyst's summary of patterns and user instructions.",
+      "Outputs": "JSON-formatted instructions for each scientist agent.",
+      "Example": "Planner instructs Agent 1 to analyze PAH distribution, Agent 2 to investigate sulfur/oxygen compounds, etc.",
+      "Role in workflow": "Creates parallel, domain-specific hypothesis generation workflows."
+    },
+    "Textual or Knowledge Embedding": {
+      "performed": "No"
+    },
+    "Molecular or Chemical Embedding": {
+      "performed": "No"
+    },
+    "Biological or Phenotypic Embedding": {
+      "performed": "No"
+    },
+    "Pattern and Feature Extraction": {
+      "performed": "Yes",
+      "Method details": "Data analyst agent identifies significant patterns, anomalies, and contamination indicators in the mass spectrometry data.",
+      "Inputs": "Mass spectrometry data, user instructions, literature context.",
+      "Outputs": "Key observations and highlighted molecular patterns.",
+      "Example": "Detection of methylated naphthalenes only in meteorites, or terpenes only in soils.",
+      "Role in workflow": "Provides empirical basis for hypothesis generation."
+    },
+    "Biological Relationship Extraction": {
+      "performed": "No"
+    },
+    "Property and Annotation Extraction": {
+      "performed": "No"
+    },
+    "Sequence and Structure Feature Extraction": {
+      "performed": "No"
+    }
+  },
+  "Data Retrieval": {
+    "performed": "Yes",
+    "Data Retrieval via Multi-Query Generation and Exploration": {
+      "performed": "No"
+    },
+    "Literature and Data Retrieval via APIs": {
+      "performed": "Yes",
+      "Method details": "Literature review agent queries Semantic Scholar API for papers relevant to each generated hypothesis.",
+      "Inputs": "Hypothesis statements.",
+      "Outputs": "Up to five relevant paper snippets per hypothesis.",
+      "Example": "Semantic Scholar search for 'methylated naphthalenes in meteorites'.",
+      "Role in workflow": "Provides literature evidence for hypothesis evaluation."
+    },
+    "Data Retrieval with Prioritization and Filtering Agents": {
+      "performed": "No"
+    },
+    "Domain-Specific Data Retrieval and Reasoning": {
+      "performed": "No"
+    },
+    "Code-Driven or Tool-Augmented Data Retrieval": {
+      "performed": "No"
+    },
+    "Literature data Retrieval Citation-Network–Based Expansion": {
+      "performed": "No"
+    },
+    "Literature data Retrieval via Semantic and Similarity-Based analysis": {
+      "performed": "No"
+    },
+    "Literature data Retrieval via Multi-Step Reference and Evidence Selection": {
+      "performed": "No"
+    },
+    "Domain-Specific Literature data Retrieval": {
+      "performed": "No"
+    },
+    "Manual and Semi-Automatic Curation of Literature data": {
+      "performed": "No"
+    },
+    "Structural or Similarity-Based Dataset Retrieval": {
+      "performed": "No"
+    },
+    "Data Retrieval via Domain-Specific Repository Querying": {
+      "performed": "No"
+    },
+    "Library Assembly and Data Augmentation": {
+      "performed": "No"
+    }
+  },
+  "Knowledge Assembly": {
+    "performed": "Yes",
+    "Standardized Section Extraction from Literature data": {
+      "performed": "No"
+    },
+    "Concise Synopsis and Summarization of Literature data": {
+      "performed": "Yes",
+      "Method details": "Literature review agent synthesizes and summarizes key findings from retrieved papers for each hypothesis.",
+      "Inputs": "Semantic Scholar search results (paper snippets).",
+      "Outputs": "Concise summaries highlighting relevant findings and conflicts.",
+      "Example": "Summarized analysis of PAH formation mechanisms from multiple papers.",
+      "Role in workflow": "Condenses literature evidence for hypothesis critique."
+    },
+    "Facet-Based or Field-Specific Extraction from Literature data": {
+      "performed": "No"
+    },
+    "Domain-Tailored Extraction from Literature data": {
+      "performed": "No"
+    },
+    "Task/Entity-Centric Knowledge Graphs": {
+      "performed": "No"
+    },
+    "Causal or Relation-Specific Knowledge Graphs": {
+      "performed": "No"
+    },
+    "Biomedical or Domain-Specific Interaction Graphs": {
+      "performed": "No"
+    },
+    "Literature Database Construction": {
+      "performed": "No"
+    },
+    "Entity- or Co-Occurrence–Based Databases": {
+      "performed": "No"
+    },
+    "Reasoning-Chain or Temporal Databases for Literature": {
+      "performed": "No"
+    }
+  },
+  "Hypothesis/Idea Generation": {
+    "performed": "Yes",
+    "Idea/hypothesis generation without additional literature or dataset as context": {
+      "performed": "No"
+    },
+    "LLM Agent Generate ideas/hypotheses via Task Decomposition": {
+      "performed": "Yes",
+      "Method details": "Planner agent decomposes the analysis into sub-tasks, each handled by a scientist agent generating hypotheses for their assigned data segment.",
+      "Inputs": "Planner's JSON instructions, compound subsets, literature context.",
+      "Outputs": "Structured JSON hypotheses per agent.",
+      "Example": "Scientist 1 generates hypotheses about PAH alkylation in meteorites.",
+      "Role in workflow": "Enables parallel, focused hypothesis generation."
+    },
+    "Generate ideas/hypotheses using Domain-Specialized LLM Agent": {
+      "performed": "Yes",
+      "Method details": "Scientist agents are prompted as domain experts (e.g., astrobiologist, prebiotic chemist) and generate hypotheses based on their assigned chemical class.",
+      "Inputs": "Compound subsets, literature context, agent instructions.",
+      "Outputs": "Domain-specific hypotheses with supporting data points.",
+      "Example": "Scientist 2 hypothesizes about sulfur incorporation in meteorites.",
+      "Role in workflow": "Leverages specialized knowledge for hypothesis quality."
+    },
+    "Literature data used during idea/hypothesis generation as context": {
+      "performed": "Yes",
+      "Method details": "Selected research papers are provided as background context to data analyst and scientist agents during hypothesis generation.",
+      "Inputs": "User-selected papers in Markdown format.",
+      "Outputs": "Context-aware hypotheses referencing literature.",
+      "Example": "Hypotheses referencing known PAH formation pathways.",
+      "Role in workflow": "Ensures hypotheses are grounded in current scientific knowledge."
+    },
+    "Summarization Literature data used during idea/hypothesis generation": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation via Facet Recombination": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation via contructed Reasoning-Chain from literature": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation via Knowledge Graph developed from literature": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation via Pattern Detection from dataset": {
+      "performed": "Yes",
+      "Method details": "Scientist agents use patterns identified by the data analyst (e.g., exclusive presence/absence of compounds) to generate hypotheses.",
+      "Inputs": "Pattern summaries, compound occurrence data.",
+      "Outputs": "Hypotheses linking observed patterns to chemical processes.",
+      "Example": "Linking methylated naphthalenes in meteorites to abiotic alkylation.",
+      "Role in workflow": "Transforms empirical patterns into mechanistic hypotheses."
+    },
+    "Idea/hypothesis generation via Few-Shot Data Seeding": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation using Observational data": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation via Feature-Driven Property Prediction": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation after Fine-Tuning the LLM model": {
+      "performed": "No"
+    }
+  },
+  "Hypothesis/Idea Prioritization": {
+    "performed": "Yes",
+    "LLM-based Hypothesis/Idea evaluation via Scientific Quality": {
+      "performed": "Yes",
+      "Method details": "Critic agent evaluates hypotheses for clarity, novelty, plausibility, and scientific rigor, providing structured feedback.",
+      "Inputs": "Accumulated hypotheses, literature review summaries.",
+      "Outputs": "Critique with strengths, weaknesses, and improvement suggestions.",
+      "Example": "Critic flags oversimplified causation or lack of mechanistic evidence.",
+      "Role in workflow": "Filters and improves hypothesis quality."
+    },
+    "LLM-based Hypothesis/Idea evaluation via Domain-Specific Evaluation": {
+      "performed": "Yes",
+      "Method details": "Critic agent assesses hypotheses for alignment with domain-specific processes (e.g., PAH formation, parent body chemistry).",
+      "Inputs": "Hypotheses, literature context, data patterns.",
+      "Outputs": "Domain-specific critique and recommendations.",
+      "Example": "Critic notes preservation bias in methylated naphthalene hypothesis.",
+      "Role in workflow": "Ensures domain relevance and scientific validity."
+    },
+    "LLM-based Hypothesis/Idea evaluation via Contextual Evidence Scoring": {
+      "performed": "Yes",
+      "Method details": "Critic agent integrates literature review findings to assess empirical and theoretical support for each hypothesis.",
+      "Inputs": "Literature review summaries, hypotheses.",
+      "Outputs": "Evidence-based scoring and critique.",
+      "Example": "Critic rewards hypotheses with strong literature support.",
+      "Role in workflow": "Prioritizes hypotheses with robust evidence."
+    },
+    "LLM-based Hypothesis/Idea evaluation via Interpretability or Success Metrics": {
+      "performed": "No"
+    },
+    "Hypothesis/Idea evaluation via Novelty Checking with Literature Comparison": {
+      "performed": "Yes",
+      "Method details": "Critic agent explicitly penalizes non-novel or overly general hypotheses by comparing with literature context.",
+      "Inputs": "Hypotheses, literature review, background papers.",
+      "Outputs": "Novelty assessment and scoring.",
+      "Example": "Hypotheses scored for novelty; non-novel ones are flagged.",
+      "Role in workflow": "Promotes originality in hypothesis generation."
+    },
+    "Hypothesis/Idea evaluation via Alignment with Literature Chains": {
+      "performed": "No"
+    },
+    "Hypothesis/Idea evaluation via Knowledge-Graph Grounded Similarity Metrics": {
+      "performed": "No"
+    },
+    "Hypothesis/Idea evaluation via Quantitative Assessment Using Domain Metrics": {
+      "performed": "No"
+    },
+    "Hypothesis/Idea evaluation via Human/Expert": {
+      "performed": "Yes",
+      "Method details": "Astrobiology expert evaluates each hypothesis on six criteria (novelty, consistency, clarity, empirical support, generalizability, predictive power).",
+      "Inputs": "Generated hypotheses.",
+      "Outputs": "Expert scores and qualitative feedback.",
+      "Example": "Expert assigns scores and identifies plausible/novel hypotheses.",
+      "Role in workflow": "Provides final validation and benchmarking of system output."
+    }
+  },
+  "Test": {
+    "performed": "No",
+    "Experimental Design Generation via literature-Grounded Model/Protocol Selection": {
+      "performed": "No"
+    },
+    "Experimental Design Generation via Literature Synthesis for New Protocol Generation": {
+      "performed": "No"
+    },
+    "Experimental Design Generation via Few-Shot or Example-Based Prompting": {
+      "performed": "No"
+    },
+    "Experimental Design Generation via Executable Code Generation from Literature": {
+      "performed": "No"
+    },
+    "LLM-Based Experimental Design Generation via Agentic Exploration and Planning": {
+      "performed": "No"
+    },
+    "LLM-Based Experimental Design Generation via Code and Workflow Translation": {
+      "performed": "No"
+    },
+    "LLM-Based Experimental Design Generation via Multi-Agent Planning with Specialized Roles": {
+      "performed": "No"
+    },
+    "LLM-Based Experimental Design Generation via Domain-Specific Experimental Mapping": {
+      "performed": "No"
+    },
+    "Test Execution via Human-in-the-Loop": {
+      "performed": "No"
+    },
+    "Test Execution via Automated Wet-Lab Execution": {
+      "performed": "No"
+    },
+    "Test Execution via Computational or In-Silico": {
+      "performed": "No"
+    },
+    "Refinement via LLM Agent Feedback Loops": {
+      "performed": "Yes",
+      "Method details": "Critic agent's feedback is sent to the data analyst, who refines subsequent analyses and hypothesis generation in iterative cycles.",
+      "Inputs": "Critic feedback, previous hypotheses and analyses.",
+      "Outputs": "Improved analyses and hypotheses in next iteration.",
+      "Example": "Data analyst addresses critic's points in the next round.",
+      "Role in workflow": "Enables iterative improvement of hypotheses based on critique."
+    },
+    "Refinement via Automated Quality Evaluation using Model-Based Critics": {
+      "performed": "No"
+    },
+    "Refinement via Dynamic Agent Updating Based on Evolving Context or Data": {
+      "performed": "No"
+    },
+    "Refinement via guided by computational-data": {
+      "performed": "No"
+    },
+    "Refinement via experimental validation": {
+      "performed": "No"
+    },
+    "Refinement via Performance-metric": {
+      "performed": "No"
+    },
+    "Refinement via Human–data integration": {
+      "performed": "No"
+    }
+  },
+  "paper_title": "AstroAgents: A Multi-Agent AI for Hypothesis Generation from Mass Spectrometry Data",
+  "authors": [
+    "Daniel",
+    "Denise",
+    "Jose C.",
+    "Amirali"
+  ],
+  "published": "2025-03-29",
+  "link": "http://arxiv.org/abs/2503.23170"
+}

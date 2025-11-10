@@ -1,0 +1,457 @@
+{
+  "Inputs to the workflow": {
+    "performed": "Yes",
+    "User provide high-level research direction or goal": {
+      "performed": "Yes",
+      "Format": "System-level goal to discover novel language model architectures that improve on the transformer baseline.",
+      "Example": "Can we model the process of discovering novel language model architectures that improve on the standard transformer architecture?",
+      "Role in workflow": "Defines the overarching objective for the automated discovery system."
+    },
+    "User provide structured, domain-specific specifications": {
+      "performed": "No"
+    },
+    "User provide research papers": {
+      "performed": "Yes",
+      "Format": "Curated reference library of 297 LM papers, with code and metadata, stored in a searchable vector store.",
+      "Example": "Manually curated reference library (Fig. 2) of 297 LM papers (stored in a searchable vector store) coupled with code.",
+      "Role in workflow": "Provides background knowledge and context for idea generation and literature search."
+    },
+    "User provide datasets other than research papers": {
+      "performed": "Yes",
+      "Format": "High-quality educational corpus (SmolLM-1/8-Corpus) for model pretraining and evaluation.",
+      "Example": "We build our corpus upon SmolLM... a high-quality dataset for training high-performance small LMs.",
+      "Role in workflow": "Serves as the training and evaluation data for verifying candidate architectures."
+    },
+    "User provide representations or formal inputs": {
+      "performed": "Yes",
+      "Format": "Seed architecture designs (code for GPT, Mamba2, RWKV6, RetNet, TTT) and code templates for model blocks.",
+      "Example": "The evolutionary tree is initially populated with several state-of-the-art architecture designs, including the transformer/GPT, Mamba2, RetNet, RWKV6, and TTT.",
+      "Role in workflow": "Initializes the search space and provides concrete starting points for genetic programming."
+    }
+  },
+  "Query Structuring": {
+    "performed": "Yes",
+    "Query Decomposition": {
+      "performed": "Yes",
+      "Method details": "LLM agents (proposer, planner) break down research proposals into unit-wise modifications and implementation steps.",
+      "Inputs": "Parent design(s), reference library, research proposal.",
+      "Outputs": "Specific unit(s) to modify or implement in the architecture.",
+      "Example": "The proposal stage starts by selecting a past design or pair of designs... then a proposal agent comes up with a novel research idea involving a modification of the selected design(s).",
+      "Role in workflow": "Enables targeted exploration and structured code generation."
+    },
+    "Structural or Entity Decomposition": {
+      "performed": "Yes",
+      "Method details": "Block designs are factorized into discrete GAU trees, decomposing architectures into units for mutation/crossover.",
+      "Inputs": "Block program (code), architecture design.",
+      "Outputs": "GAU tree representation (unit-level decomposition).",
+      "Example": "Genesys factorizes each block program BLM into a discrete tree representation called a generalized autoregressive unit (GAU) tree.",
+      "Role in workflow": "Supports fine-grained genetic programming and interpretable search."
+    },
+    "Workflow Decomposition": {
+      "performed": "Yes",
+      "Method details": "Multi-agent LLM system splits the discovery process into proposal, review, planning, coding, and verification stages.",
+      "Inputs": "Research goal, past designs, literature references.",
+      "Outputs": "Sequential workflow: proposal → review → implementation → verification.",
+      "Example": "We break the design process into two stages, a proposal stage and an implementation stage... designer and verifier agents in parallel.",
+      "Role in workflow": "Enables modular, agent-based orchestration of the discovery pipeline."
+    },
+    "Textual or Knowledge Embedding": {
+      "performed": "Yes",
+      "Method details": "Papers and code are embedded using OpenAI and Cohere models for semantic retrieval from the reference library.",
+      "Inputs": "Paper PDFs, code, queries.",
+      "Outputs": "Vector embeddings for semantic search and retrieval.",
+      "Example": "We embed each chunk with the same embedding model in vectors and then store them in the Pinecone vector store.",
+      "Role in workflow": "Facilitates context-aware literature and code retrieval for idea generation."
+    },
+    "Molecular or Chemical Embedding": {
+      "performed": "No"
+    },
+    "Biological or Phenotypic Embedding": {
+      "performed": "No"
+    },
+    "Pattern and Feature Extraction": {
+      "performed": "No"
+    },
+    "Biological Relationship Extraction": {
+      "performed": "No"
+    },
+    "Property and Annotation Extraction": {
+      "performed": "No"
+    },
+    "Sequence and Structure Feature Extraction": {
+      "performed": "No"
+    }
+  },
+  "Data Retrieval": {
+    "performed": "Yes",
+    "Data Retrieval via Multi-Query Generation and Exploration": {
+      "performed": "Yes",
+      "Method details": "LLM agents generate search keywords and descriptions for querying external sources and internal libraries.",
+      "Inputs": "Research proposal, agent prompts.",
+      "Outputs": "Multiple search queries for literature and web search.",
+      "Example": "Provide up to 3 precise and simple keywords for external source searches... describe the content you want to find in the internal library.",
+      "Role in workflow": "Expands the breadth of literature and code considered during ideation."
+    },
+    "Literature and Data Retrieval via APIs": {
+      "performed": "Yes",
+      "Method details": "Agents query APIs such as arXiv, Semantic Scholar, PapersWithCode, and Perplexity.ai for papers and code.",
+      "Inputs": "Keywords, descriptions from agents.",
+      "Outputs": "Relevant papers, code, and web results.",
+      "Example": "We search for papers after 2015 from the top ML or NLP conferences, including NeurIPS, ICML, ICLR, ACL, EMNLP and NAACL from S2. In arXiv, we filter the results by domains.",
+      "Role in workflow": "Provides up-to-date and relevant literature for grounding proposals."
+    },
+    "Data Retrieval with Prioritization and Filtering Agents": {
+      "performed": "Yes",
+      "Method details": "Cohere reranker filters top 20% most relevant results from vector DB; LLM agents review and select references.",
+      "Inputs": "Retrieved papers, code chunks.",
+      "Outputs": "Prioritized and filtered literature/code for agent consumption.",
+      "Example": "We apply a Cohere rerank-english-v3.0 reranker to filter the top 20% most relevant results.",
+      "Role in workflow": "Ensures only the most relevant information is used for ideation and implementation."
+    },
+    "Domain-Specific Data Retrieval and Reasoning": {
+      "performed": "No"
+    },
+    "Code-Driven or Tool-Augmented Data Retrieval": {
+      "performed": "No"
+    },
+    "Literature data Retrieval Citation-Network–Based Expansion": {
+      "performed": "Yes",
+      "Method details": "Reference library encodes citation links between papers; agents can traverse citation graphs.",
+      "Inputs": "Seed/reference papers.",
+      "Outputs": "Expanded set of related papers via citation links.",
+      "Example": "A graph of papers on architecture design (nodes containing details... and citation links (edges)).",
+      "Role in workflow": "Supports exploration of research lineages and related work."
+    },
+    "Literature data Retrieval via Semantic and Similarity-Based analysis": {
+      "performed": "Yes",
+      "Method details": "Semantic chunking and vector embedding enable similarity-based retrieval from paper database.",
+      "Inputs": "Text chunks from papers, agent queries.",
+      "Outputs": "Semantically similar papers or code.",
+      "Example": "The library uses vector search to find relevant excerpts. So the description formulation should consider the features of the cosine similarity vector search algorithm.",
+      "Role in workflow": "Improves relevance of literature/code retrieved for proposal context."
+    },
+    "Literature data Retrieval via Multi-Step Reference and Evidence Selection": {
+      "performed": "Yes",
+      "Method details": "Agents iteratively refine search and select references over multiple rounds, recording analysis notes.",
+      "Inputs": "Search results, agent feedback.",
+      "Outputs": "Curated set of references and analysis notes.",
+      "Example": "You need to perform this process for multiple rounds until you think you have sufficient information and thoughts for you to provide the proposal.",
+      "Role in workflow": "Enables iterative, evidence-driven refinement of proposal context."
+    },
+    "Domain-Specific Literature data Retrieval": {
+      "performed": "Yes",
+      "Method details": "Domain-specific keywords and metadata are used for targeted literature retrieval in ML/LM architecture.",
+      "Inputs": "Keywords, domain filters.",
+      "Outputs": "Domain-relevant papers and code.",
+      "Example": "We search for papers after 2015 from the top ML or NLP conferences... filter the results by domains: Machine Learning (cs.LG) and Computation and Language (cs.CL).",
+      "Role in workflow": "Ensures literature is relevant to language model architecture discovery."
+    },
+    "Manual and Semi-Automatic Curation of Literature data": {
+      "performed": "Yes",
+      "Method details": "Manual curation of 297 reference papers and extraction of code from released repositories.",
+      "Inputs": "Conference proceedings, arXiv, GitHub repositories.",
+      "Outputs": "Curated reference library with code and metadata.",
+      "Example": "We manually constructed a reference library of pivotal innovations in Transformer and alternative architectures.",
+      "Role in workflow": "Provides high-quality, vetted background knowledge for the system."
+    },
+    "Structural or Similarity-Based Dataset Retrieval": {
+      "performed": "No"
+    },
+    "Data Retrieval via Domain-Specific Repository Querying": {
+      "performed": "No"
+    },
+    "Library Assembly and Data Augmentation": {
+      "performed": "Yes",
+      "Method details": "Reference library assembled from multiple sources; code and metadata augmented for each entry.",
+      "Inputs": "Papers, code repositories.",
+      "Outputs": "Augmented library with code, metadata, citation links.",
+      "Example": "We manually extract the LM block implementation or core implementations of their proposed method from the released code base and store them in the node data.",
+      "Role in workflow": "Expands the diversity and utility of the knowledge base for discovery."
+    }
+  },
+  "Knowledge Assembly": {
+    "performed": "Yes",
+    "Standardized Section Extraction from Literature data": {
+      "performed": "Yes",
+      "Method details": "Paper PDFs are converted to text, chunked semantically, and stored with metadata (titles, authors, abstracts).",
+      "Inputs": "Paper PDFs.",
+      "Outputs": "Structured records with fields for title, abstract, code, etc.",
+      "Example": "Metadata like titles, authors, and abstracts were retrieved via S2, forming reference nodes in the EvoTree.",
+      "Role in workflow": "Normalizes literature for efficient retrieval and downstream use."
+    },
+    "Concise Synopsis and Summarization of Literature data": {
+      "performed": "No"
+    },
+    "Facet-Based or Field-Specific Extraction from Literature data": {
+      "performed": "No"
+    },
+    "Domain-Tailored Extraction from Literature data": {
+      "performed": "No"
+    },
+    "Task/Entity-Centric Knowledge Graphs": {
+      "performed": "Yes",
+      "Method details": "Reference library is represented as a graph with papers as nodes and citation links as edges.",
+      "Inputs": "Curated papers and citation metadata.",
+      "Outputs": "Citation graph for architecture design literature.",
+      "Example": "A graph of papers on architecture design (nodes containing details... and citation links (edges)).",
+      "Role in workflow": "Supports reasoning about research lineages and related work."
+    },
+    "Causal or Relation-Specific Knowledge Graphs": {
+      "performed": "No"
+    },
+    "Biomedical or Domain-Specific Interaction Graphs": {
+      "performed": "No"
+    },
+    "Literature Database Construction": {
+      "performed": "Yes",
+      "Method details": "Curated literature from top venues, segmented into structured fields, and stored as structured records.",
+      "Inputs": "Conference papers, arXiv, code repositories.",
+      "Outputs": "Structured literature database for retrieval.",
+      "Example": "We compiled 297 reference designs. Metadata like titles, authors, and abstracts were retrieved via S2.",
+      "Role in workflow": "Enables efficient, large-scale retrieval and synthesis."
+    },
+    "Entity- or Co-Occurrence–Based Databases": {
+      "performed": "No"
+    },
+    "Reasoning-Chain or Temporal Databases for Literature": {
+      "performed": "No"
+    }
+  },
+  "Hypothesis/Idea Generation": {
+    "performed": "Yes",
+    "Idea/hypothesis generation without additional literature or dataset as context": {
+      "performed": "No"
+    },
+    "LLM Agent Generate ideas/hypotheses via Task Decomposition": {
+      "performed": "Yes",
+      "Method details": "Proposer agent decomposes design improvement into unit-level modifications; planner agent further decomposes implementation.",
+      "Inputs": "Parent designs, literature references.",
+      "Outputs": "Research proposals specifying unit-wise changes.",
+      "Example": "A proposal agent comes up with a novel research idea involving a modification of the selected design(s)... modifications are limited to either mutating a particular unit, mixing units, or designing a block from scratch.",
+      "Role in workflow": "Enables systematic exploration of the architecture design space."
+    },
+    "Generate ideas/hypotheses using Domain-Specialized LLM Agent": {
+      "performed": "Yes",
+      "Method details": "LLM agents (proposer, reviewer, planner, coder, observer) specialize in literature search, proposal, code generation, and evaluation.",
+      "Inputs": "Reference library, past designs, agent prompts.",
+      "Outputs": "Novel architecture proposals and code implementations.",
+      "Example": "Genesys then consists of LLM-driven designer agents that propose new research ideas and produce executable architecture designs.",
+      "Role in workflow": "Combines domain knowledge and agent specialization for creative design."
+    },
+    "Literature data used during idea/hypothesis generation as context": {
+      "performed": "Yes",
+      "Method details": "Agents retrieve and incorporate relevant literature/code as context for proposal generation.",
+      "Inputs": "Reference library, retrieved papers/code.",
+      "Outputs": "Contextualized research proposals.",
+      "Example": "Based on this input, an LLM proposal agent comes up with a novel research idea... using background references from the reference library.",
+      "Role in workflow": "Grounds idea generation in existing research and code."
+    },
+    "Summarization Literature data used during idea/hypothesis generation": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation via Facet Recombination": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation via contructed Reasoning-Chain from literature": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation via Knowledge Graph developed from literature": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation via Pattern Detection from dataset": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation via Few-Shot Data Seeding": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation using Observational data": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation via Feature-Driven Property Prediction": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation after Fine-Tuning the LLM model": {
+      "performed": "No"
+    }
+  },
+  "Hypothesis/Idea Prioritization": {
+    "performed": "Yes",
+    "LLM-based Hypothesis/Idea evaluation via Scientific Quality": {
+      "performed": "Yes",
+      "Method details": "Reviewer agent evaluates proposals for clarity, novelty, plausibility, and scientific rationale, assigning a rating.",
+      "Inputs": "Research proposals, literature context.",
+      "Outputs": "Proposal ratings and review feedback.",
+      "Example": "A separate LLM reviewer agent reviews and scores this proposal in a way analogous to an adversarial peer-reviewer.",
+      "Role in workflow": "Filters and prioritizes proposals before implementation."
+    },
+    "LLM-based Hypothesis/Idea evaluation via Domain-Specific Evaluation": {
+      "performed": "Yes",
+      "Method details": "Reviewer and observer agents assess proposals and code for domain-specific criteria (e.g., efficiency, scalability, robustness).",
+      "Inputs": "Proposals, code, literature context.",
+      "Outputs": "Domain-specific feedback and ratings.",
+      "Example": "Assess whether the proposed design can potentially improve performance in key areas: low perplexity, high accuracy, robustness, efficiency, scalability.",
+      "Role in workflow": "Ensures proposals meet domain-relevant standards."
+    },
+    "LLM-based Hypothesis/Idea evaluation via Contextual Evidence Scoring": {
+      "performed": "Yes",
+      "Method details": "Reviewer agent compares proposals to literature and sibling designs for novelty and contextual relevance.",
+      "Inputs": "Proposals, literature/code, sibling designs.",
+      "Outputs": "Contextualized ratings and novelty checks.",
+      "Example": "Compares against past proposals to ensure novelty.",
+      "Role in workflow": "Prevents redundant or non-novel proposals from advancing."
+    },
+    "LLM-based Hypothesis/Idea evaluation via Interpretability or Success Metrics": {
+      "performed": "Yes",
+      "Method details": "Observer agent evaluates code for quality, novelty, and adherence to proposal; symbolic checker ensures code validity.",
+      "Inputs": "Code implementations, proposal, prior units.",
+      "Outputs": "Observer ratings and feedback.",
+      "Example": "A LLM observer that assesses code quality, proposal adherence, and novelty against prior/sibling implementations, then rates it.",
+      "Role in workflow": "Ensures code is interpretable, novel, and implementable."
+    },
+    "Hypothesis/Idea evaluation via Novelty Checking with Literature Comparison": {
+      "performed": "Yes",
+      "Method details": "Reviewer and observer agents check proposals and code against prior designs and literature for novelty.",
+      "Inputs": "Proposals, code, reference library, sibling designs.",
+      "Outputs": "Novelty assessments and ratings.",
+      "Example": "Reviewer agent compares against past proposals to ensure novelty.",
+      "Role in workflow": "Promotes exploration of new design space."
+    },
+    "Hypothesis/Idea evaluation via Alignment with Literature Chains": {
+      "performed": "No"
+    },
+    "Hypothesis/Idea evaluation via Knowledge-Graph Grounded Similarity Metrics": {
+      "performed": "No"
+    },
+    "Hypothesis/Idea evaluation via Quantitative Assessment Using Domain Metrics": {
+      "performed": "Yes",
+      "Method details": "Fitness function computes empirical performance of designs on downstream tasks and model scales.",
+      "Inputs": "Trained models, evaluation benchmarks.",
+      "Outputs": "Aggregate fitness scores for each design.",
+      "Example": "F is defined as the average empirical performance Perf of BLM on a set of M downstream tasks across K different model scales.",
+      "Role in workflow": "Guides selection and evolution of promising designs."
+    },
+    "Hypothesis/Idea evaluation via Human/Expert": {
+      "performed": "No"
+    }
+  },
+  "Test": {
+    "performed": "Yes",
+    "Experimental Design Generation via literature-Grounded Model/Protocol Selection": {
+      "performed": "Yes",
+      "Method details": "Seed designs and reference code from literature are used as templates for new experimental model architectures.",
+      "Inputs": "Reference library, seed code.",
+      "Outputs": "Executable model architecture code.",
+      "Example": "The evolutionary tree is initially populated with several state-of-the-art architecture designs, including the transformer/GPT, Mamba2, RetNet, RWKV6, and TTT.",
+      "Role in workflow": "Provides proven experimental baselines for further exploration."
+    },
+    "Experimental Design Generation via Literature Synthesis for New Protocol Generation": {
+      "performed": "Yes",
+      "Method details": "LLM agents synthesize literature/code context and proposal details to generate new architecture code.",
+      "Inputs": "Research proposal, literature/code context.",
+      "Outputs": "Executable code for novel model blocks.",
+      "Example": "Accepted research proposals are translated to executable designs BLM... step-by-step recursive generation procedure.",
+      "Role in workflow": "Creates new experimental protocols (model architectures) grounded in literature."
+    },
+    "Experimental Design Generation via Few-Shot or Example-Based Prompting": {
+      "performed": "No"
+    },
+    "Experimental Design Generation via Executable Code Generation from Literature": {
+      "performed": "Yes",
+      "Method details": "LLM coder agent generates Python code for model blocks, referencing literature/code examples.",
+      "Inputs": "Proposal, literature/code, code templates.",
+      "Outputs": "Executable PyTorch modules for model blocks.",
+      "Example": "A LLM coder agent generates the Python code, potentially decomposing the GAU by declaring new children.",
+      "Role in workflow": "Automates translation from design idea to testable code."
+    },
+    "LLM-Based Experimental Design Generation via Agentic Exploration and Planning": {
+      "performed": "Yes",
+      "Method details": "Planner, coder, and observer agents coordinate to plan, implement, and validate code for new designs.",
+      "Inputs": "Proposal, GAU tree, code templates.",
+      "Outputs": "Stepwise code implementations and validation.",
+      "Example": "A hybrid network of planner-coder-observer agents... produce code.",
+      "Role in workflow": "Enables structured, agent-driven experimental design."
+    },
+    "LLM-Based Experimental Design Generation via Code and Workflow Translation": {
+      "performed": "Yes",
+      "Method details": "LLM agents convert proposals and plans into executable code, using code templates and symbolic checkers.",
+      "Inputs": "Proposal, plan, code templates.",
+      "Outputs": "Executable model code.",
+      "Example": "This procedure builds up a block program gradually by incrementally constructing the GAU tree.",
+      "Role in workflow": "Ensures reliable, stepwise translation from design to experiment."
+    },
+    "LLM-Based Experimental Design Generation via Multi-Agent Planning with Specialized Roles": {
+      "performed": "Yes",
+      "Method details": "Specialized agents (proposer, reviewer, planner, coder, observer) collaborate to generate, review, and implement designs.",
+      "Inputs": "Proposals, code, feedback.",
+      "Outputs": "Fully implemented and validated model blocks.",
+      "Example": "Designer and verifier agents in parallel... communicate through the evolutionary tree.",
+      "Role in workflow": "Distributes responsibilities for robust experimental design."
+    },
+    "LLM-Based Experimental Design Generation via Domain-Specific Experimental Mapping": {
+      "performed": "No"
+    },
+    "Test Execution via Human-in-the-Loop": {
+      "performed": "No"
+    },
+    "Test Execution via Automated Wet-Lab Execution": {
+      "performed": "No"
+    },
+    "Test Execution via Computational or In-Silico": {
+      "performed": "Yes",
+      "Method details": "Verification engine automates pretraining and evaluation of candidate models on benchmark datasets.",
+      "Inputs": "Executable model code, training corpus, evaluation benchmarks.",
+      "Outputs": "Empirical performance metrics (loss, accuracy, etc.).",
+      "Example": "VE can perform design verification by automating pretraining in a filtered SmolLM corpus and evaluation on 29 selected LM-Eval benchmarks.",
+      "Role in workflow": "Validates candidate designs through computational experiments."
+    },
+    "Refinement via LLM Agent Feedback Loops": {
+      "performed": "Yes",
+      "Method details": "Failed code implementations are iteratively refined by planner, coder, and observer agents based on feedback and checker reports.",
+      "Inputs": "Failed code, checker/observer feedback.",
+      "Outputs": "Refined code implementations.",
+      "Example": "If both checks pass, the GAU is accepted; otherwise, the tree state reverts for a retry.",
+      "Role in workflow": "Improves code quality and feasibility through agentic iteration."
+    },
+    "Refinement via Automated Quality Evaluation using Model-Based Critics": {
+      "performed": "Yes",
+      "Method details": "Symbolic checker performs static and runtime analysis for code validity, differentiability, causality, and efficiency.",
+      "Inputs": "Generated code.",
+      "Outputs": "Pass/fail status and error reports.",
+      "Example": "Symbolic checker that performs static (AST-based) and runtime (PyTorch-based) code analysis.",
+      "Role in workflow": "Ensures only valid, executable designs proceed to testing."
+    },
+    "Refinement via Dynamic Agent Updating Based on Evolving Context or Data": {
+      "performed": "No"
+    },
+    "Refinement via guided by computational-data": {
+      "performed": "Yes",
+      "Method details": "Design selection and evolution are guided by empirical fitness metrics from computational tests.",
+      "Inputs": "Performance metrics from model evaluation.",
+      "Outputs": "Selection of promising designs for further evolution.",
+      "Example": "Designs in the evolutionary tree are assessed along two dimensions: fitness... and confidence.",
+      "Role in workflow": "Focuses resources on high-performing designs."
+    },
+    "Refinement via experimental validation": {
+      "performed": "No"
+    },
+    "Refinement via Performance-metric": {
+      "performed": "Yes",
+      "Method details": "Evolutionary selection and resource allocation are based on quantifiable performance improvements.",
+      "Inputs": "Aggregate fitness scores from benchmarks.",
+      "Outputs": "Prioritized designs for further mutation/crossover.",
+      "Example": "Designers primarily exploit ‘Good & Confident’ designs for further improvement.",
+      "Role in workflow": "Drives iterative improvement based on objective metrics."
+    },
+    "Refinement via Human–data integration": {
+      "performed": "No"
+    }
+  },
+  "paper_title": "Language Modeling by Language Models",
+  "authors": [
+    "Junyan",
+    "Peter",
+    "Kyle"
+  ],
+  "published": "2025-06-25",
+  "link": "http://arxiv.org/abs/2506.20249"
+}

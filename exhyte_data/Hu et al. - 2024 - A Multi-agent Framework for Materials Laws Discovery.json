@@ -1,0 +1,359 @@
+{
+  "Inputs to the workflow": {
+    "performed": "Yes",
+    "User provide high-level research direction or goal": {
+      "performed": "Yes",
+      "Format": "Problem statement and motivation in natural language",
+      "Example": "Define the goal of discovering explicit materials laws, e.g., uncovering structure-property relationships for glass-forming ability (GFA) in metallic glasses.",
+      "Role in workflow": "Sets the scope for the symbolic regression and formula discovery process."
+    },
+    "User provide structured, domain-specific specifications": {
+      "performed": "Yes",
+      "Format": "Task description in prompt, including variables, operators, evaluation criteria, and constraints (e.g., unit consistency).",
+      "Example": "Specify Tg, Tx, Tl as variables, allowed operators [+,-,*,/,^], and require dimensionless formulas.",
+      "Role in workflow": "Constrains and guides formula generation by LLM agents."
+    },
+    "User provide research papers": {
+      "performed": "No"
+    },
+    "User provide datasets other than research papers": {
+      "performed": "Yes",
+      "Format": "Tabular datasets of metallic glasses with characteristic temperatures and critical cooling rates.",
+      "Example": "23 MGs for training, 33 MGs for testing, each with Tg, Tx, Tl, Rc.",
+      "Role in workflow": "Provides empirical data for formula fitting, evaluation, and validation."
+    },
+    "User provide representations or formal inputs": {
+      "performed": "Yes",
+      "Format": "Mathematical expressions and code templates in prompts; variables and operator sets.",
+      "Example": "Prompt section: 'Output requirements' specifies formula format as F = %Function%.",
+      "Role in workflow": "Ensures generated formulas are machine-readable and executable for evaluation."
+    }
+  },
+  "Query Structuring": {
+    "performed": "Yes",
+    "Query Decomposition": {
+      "performed": "Yes",
+      "Method details": "Prompts decompose the overall task into subcomponents: problem definition, dataset, operators, evaluation criteria.",
+      "Inputs": "User-provided task description and dataset.",
+      "Outputs": "Structured prompt sections for LLM agents.",
+      "Example": "Prompt includes 'Task Description', 'Formula Memory', and 'Output Requirements'.",
+      "Role in workflow": "Enables LLMs to focus on specific aspects of formula generation and evaluation."
+    },
+    "Structural or Entity Decomposition": {
+      "performed": "No"
+    },
+    "Workflow Decomposition": {
+      "performed": "Yes",
+      "Method details": "Multi-agent system splits the workflow into generation, translation, and reflection agents; DFS further structures the search.",
+      "Inputs": "Structured prompts, previous search trajectories.",
+      "Outputs": "Sequential and iterative formula generation, evaluation, and refinement.",
+      "Example": "DFS iterations with memory and reflection agents guiding each step.",
+      "Role in workflow": "Creates a multi-step, agent-based workflow for symbolic regression."
+    },
+    "Textual or Knowledge Embedding": {
+      "performed": "No"
+    },
+    "Molecular or Chemical Embedding": {
+      "performed": "No"
+    },
+    "Biological or Phenotypic Embedding": {
+      "performed": "No"
+    },
+    "Pattern and Feature Extraction": {
+      "performed": "Yes",
+      "Method details": "Correlation analysis between parameters and log Rc; extraction of features (Tg, Tx, Tl) from dataset.",
+      "Inputs": "Tabular dataset of metallic glass properties.",
+      "Outputs": "Feature vectors and parameter correlations.",
+      "Example": "Calculate R2 between candidate parameters and log Rc.",
+      "Role in workflow": "Identifies relevant features for formula generation and evaluation."
+    },
+    "Biological Relationship Extraction": {
+      "performed": "No"
+    },
+    "Property and Annotation Extraction": {
+      "performed": "No"
+    },
+    "Sequence and Structure Feature Extraction": {
+      "performed": "No"
+    }
+  },
+  "Data Retrieval": {
+    "performed": "Yes",
+    "Data Retrieval via Multi-Query Generation and Exploration": {
+      "performed": "No"
+    },
+    "Literature and Data Retrieval via APIs": {
+      "performed": "No"
+    },
+    "Data Retrieval with Prioritization and Filtering Agents": {
+      "performed": "No"
+    },
+    "Domain-Specific Data Retrieval and Reasoning": {
+      "performed": "No"
+    },
+    "Code-Driven or Tool-Augmented Data Retrieval": {
+      "performed": "No"
+    },
+    "Literature data Retrieval Citation-Network–Based Expansion": {
+      "performed": "No"
+    },
+    "Literature data Retrieval via Semantic and Similarity-Based analysis": {
+      "performed": "No"
+    },
+    "Literature data Retrieval via Multi-Step Reference and Evidence Selection": {
+      "performed": "No"
+    },
+    "Domain-Specific Literature data Retrieval": {
+      "performed": "No"
+    },
+    "Manual and Semi-Automatic Curation of Literature data": {
+      "performed": "No"
+    },
+    "Structural or Similarity-Based Dataset Retrieval": {
+      "performed": "No"
+    },
+    "Data Retrieval via Domain-Specific Repository Querying": {
+      "performed": "No"
+    },
+    "Library Assembly and Data Augmentation": {
+      "performed": "No"
+    }
+  },
+  "Knowledge Assembly": {
+    "performed": "No"
+  },
+  "Hypothesis/Idea Generation": {
+    "performed": "Yes",
+    "Idea/hypothesis generation without additional literature or dataset as context": {
+      "performed": "No"
+    },
+    "LLM Agent Generate ideas/hypotheses via Task Decomposition": {
+      "performed": "Yes",
+      "Method details": "Multi-agent LLM system decomposes formula discovery into generation, evaluation, and reflection tasks.",
+      "Inputs": "Structured prompts, dataset, prior search trajectory.",
+      "Outputs": "Candidate formulas for GFA prediction.",
+      "Example": "Generation agent proposes new formulas; reflection agent suggests improvements.",
+      "Role in workflow": "Enables systematic exploration and refinement of candidate formulas."
+    },
+    "Generate ideas/hypotheses using Domain-Specialized LLM Agent": {
+      "performed": "Yes",
+      "Method details": "LLM agents (deepseek-chat) specialized for code and scientific reasoning generate and refine formulas.",
+      "Inputs": "Task description, dataset, operator set.",
+      "Outputs": "Mathematical expressions for GFA prediction.",
+      "Example": "Generation agent outputs F = 0.76(Tg/Tl) − Tg/Tx.",
+      "Role in workflow": "Leverages LLMs' scientific knowledge for domain-specific formula generation."
+    },
+    "Literature data used during idea/hypothesis generation as context": {
+      "performed": "No"
+    },
+    "Summarization Literature data used during idea/hypothesis generation": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation via Facet Recombination": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation via contructed Reasoning-Chain from literature": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation via Knowledge Graph developed from literature": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation via Pattern Detection from dataset": {
+      "performed": "Yes",
+      "Method details": "Framework identifies patterns and correlations in dataset (e.g., R2 between parameters and log Rc) to guide formula search.",
+      "Inputs": "Empirical data (Tg, Tx, Tl, Rc).",
+      "Outputs": "Pattern-informed candidate formulas.",
+      "Example": "Selection of features and formula structures with high correlation to GFA.",
+      "Role in workflow": "Guides LLMs toward promising formula structures."
+    },
+    "Idea/hypothesis generation via Few-Shot Data Seeding": {
+      "performed": "Yes",
+      "Method details": "Prompts include few-shot examples and prior search trajectories as in-context learning.",
+      "Inputs": "Previous formulas and scores, example outputs.",
+      "Outputs": "Improved formula proposals.",
+      "Example": "Memory section in prompt provides examples for LLM to mimic.",
+      "Role in workflow": "Improves LLM formula generation via in-context learning."
+    },
+    "Idea/hypothesis generation using Observational data": {
+      "performed": "Yes",
+      "Method details": "LLMs use observed input-output pairs (Tg, Tx, Tl, Rc) to fit and propose formulas.",
+      "Inputs": "Tabular dataset of metallic glass properties.",
+      "Outputs": "Formulas mapping features to Rc.",
+      "Example": "LLM fits formulas to training data and evaluates on test data.",
+      "Role in workflow": "Directs formula search based on empirical relationships."
+    },
+    "Idea/hypothesis generation via Feature-Driven Property Prediction": {
+      "performed": "Yes",
+      "Method details": "Framework uses extracted features (Tg, Tx, Tl) to predict GFA via symbolic regression.",
+      "Inputs": "Feature vectors from dataset.",
+      "Outputs": "Property-predictive formulas.",
+      "Example": "Formulas like F = 0.76(Tg/Tl) − Tg/Tx.",
+      "Role in workflow": "Connects structural features to target property."
+    },
+    "Idea/hypothesis generation after Fine-Tuning the LLM model": {
+      "performed": "No"
+    }
+  },
+  "Hypothesis/Idea Prioritization": {
+    "performed": "Yes",
+    "LLM-based Hypothesis/Idea evaluation via Scientific Quality": {
+      "performed": "Yes",
+      "Method details": "Reflection agent reviews formula search trajectory, suggests improvements, and checks for scientific validity (e.g., unit consistency).",
+      "Inputs": "Generated formulas, search trajectory.",
+      "Outputs": "Feedback and improved formula proposals.",
+      "Example": "Reflection agent flags unit errors or redundant terms.",
+      "Role in workflow": "Ensures scientific plausibility and iterative improvement."
+    },
+    "LLM-based Hypothesis/Idea evaluation via Domain-Specific Evaluation": {
+      "performed": "Yes",
+      "Method details": "Formulas are evaluated for domain relevance (e.g., dimensionless, interpretable, low complexity) as specified in prompts.",
+      "Inputs": "Candidate formulas, domain constraints.",
+      "Outputs": "Filtered and prioritized formulas.",
+      "Example": "Formulas violating unit constraints are excluded.",
+      "Role in workflow": "Aligns formula selection with domain-specific requirements."
+    },
+    "LLM-based Hypothesis/Idea evaluation via Contextual Evidence Scoring": {
+      "performed": "No"
+    },
+    "LLM-based Hypothesis/Idea evaluation via Interpretability or Success Metrics": {
+      "performed": "Yes",
+      "Method details": "Formulas are scored based on accuracy (R2) and complexity (number of operators); reflection agent promotes interpretability.",
+      "Inputs": "Formula, dataset, scoring function.",
+      "Outputs": "Ranked formulas with interpretability considerations.",
+      "Example": "Preference for formulas with high R2 and low operator count.",
+      "Role in workflow": "Promotes selection of interpretable, high-performing formulas."
+    },
+    "Hypothesis/Idea evaluation via Novelty Checking with Literature Comparison": {
+      "performed": "Yes",
+      "Method details": "Generated formulas are compared to previously reported parameters (Table I) for novelty and performance.",
+      "Inputs": "Generated and literature formulas.",
+      "Outputs": "Relative performance and novelty assessment.",
+      "Example": "Comparison of new formula R2 to best literature values.",
+      "Role in workflow": "Assesses novelty and improvement over prior work."
+    },
+    "Hypothesis/Idea evaluation via Alignment with Literature Chains": {
+      "performed": "No"
+    },
+    "Hypothesis/Idea evaluation via Knowledge-Graph Grounded Similarity Metrics": {
+      "performed": "No"
+    },
+    "Hypothesis/Idea evaluation via Quantitative Assessment Using Domain Metrics": {
+      "performed": "Yes",
+      "Method details": "Formulas are quantitatively evaluated using normalized mean squared error (NMSE) and R2 on test data.",
+      "Inputs": "Formulas, test dataset.",
+      "Outputs": "Quantitative performance scores.",
+      "Example": "Best formula achieves R2 = 0.948 on test set.",
+      "Role in workflow": "Objectively ranks formulas by predictive accuracy."
+    },
+    "Hypothesis/Idea evaluation via Human/Expert": {
+      "performed": "No"
+    }
+  },
+  "Test": {
+    "performed": "Yes",
+    "Experimental Design Generation via literature-Grounded Model/Protocol Selection": {
+      "performed": "No"
+    },
+    "Experimental Design Generation via Literature Synthesis for New Protocol Generation": {
+      "performed": "No"
+    },
+    "Experimental Design Generation via Few-Shot or Example-Based Prompting": {
+      "performed": "Yes",
+      "Method details": "Prompt templates include example outputs and prior search trajectories to guide formula generation.",
+      "Inputs": "Few-shot examples in prompt.",
+      "Outputs": "LLM-generated candidate formulas.",
+      "Example": "Output requirements section provides example formula format.",
+      "Role in workflow": "Improves formula generation by providing concrete examples."
+    },
+    "Experimental Design Generation via Executable Code Generation from Literature": {
+      "performed": "No"
+    },
+    "LLM-Based Experimental Design Generation via Agentic Exploration and Planning": {
+      "performed": "Yes",
+      "Method details": "Multi-agent system (generation, translation, reflection agents) plans and executes formula search and evaluation.",
+      "Inputs": "Structured prompts, dataset.",
+      "Outputs": "Candidate formulas, evaluation scores.",
+      "Example": "DFS algorithm with agentic feedback loops.",
+      "Role in workflow": "Enables systematic exploration and refinement of formulas."
+    },
+    "LLM-Based Experimental Design Generation via Code and Workflow Translation": {
+      "performed": "Yes",
+      "Method details": "Translation agent converts LLM-generated formulas into executable Python code for evaluation.",
+      "Inputs": "Mathematical expressions from LLM.",
+      "Outputs": "Python code for formula evaluation.",
+      "Example": "Translation agent parses F = a*(Tx-Tg)/(Tl-Tg+1) into Python code.",
+      "Role in workflow": "Automates formula testing and scoring."
+    },
+    "LLM-Based Experimental Design Generation via Multi-Agent Planning with Specialized Roles": {
+      "performed": "Yes",
+      "Method details": "Distinct agents handle generation, translation, and reflection, coordinating via DFS and memory.",
+      "Inputs": "Prompt, dataset, prior trajectory.",
+      "Outputs": "Refined, executable formulas.",
+      "Example": "Reflection agent critiques, generation agent proposes, translation agent codes.",
+      "Role in workflow": "Specialized roles improve workflow robustness and output quality."
+    },
+    "LLM-Based Experimental Design Generation via Domain-Specific Experimental Mapping": {
+      "performed": "No"
+    },
+    "Test Execution via Human-in-the-Loop": {
+      "performed": "No"
+    },
+    "Test Execution via Automated Wet-Lab Execution": {
+      "performed": "No"
+    },
+    "Test Execution via Computational or In-Silico": {
+      "performed": "Yes",
+      "Method details": "Formulas are evaluated computationally on training and test datasets using Python scripts.",
+      "Inputs": "Candidate formulas, datasets.",
+      "Outputs": "Performance metrics (R2, NMSE).",
+      "Example": "Evaluate formula on 33 test MGs for R2.",
+      "Role in workflow": "Validates formula accuracy and generalization in silico."
+    },
+    "Refinement via LLM Agent Feedback Loops": {
+      "performed": "Yes",
+      "Method details": "Reflection agent reviews search trajectory, provides feedback, and guides next formula generation.",
+      "Inputs": "Search trajectory, formula scores.",
+      "Outputs": "Improved candidate formulas.",
+      "Example": "Reflection agent suggests inverting terms or simplifying expressions.",
+      "Role in workflow": "Iteratively improves formula quality and complexity."
+    },
+    "Refinement via Automated Quality Evaluation using Model-Based Critics": {
+      "performed": "No"
+    },
+    "Refinement via Dynamic Agent Updating Based on Evolving Context or Data": {
+      "performed": "No"
+    },
+    "Refinement via guided by computational-data": {
+      "performed": "Yes",
+      "Method details": "Formulas are refined based on computational evaluation (score minimization, error checking, complexity control).",
+      "Inputs": "Formula performance metrics.",
+      "Outputs": "Optimized formulas with lower error and complexity.",
+      "Example": "Exclude formulas with calculation errors or high complexity.",
+      "Role in workflow": "Ensures only high-performing, valid formulas are retained."
+    },
+    "Refinement via experimental validation": {
+      "performed": "No"
+    },
+    "Refinement via Performance-metric": {
+      "performed": "Yes",
+      "Method details": "Refinement is guided by R2 and complexity metrics; only formulas with high R2 and low complexity are selected.",
+      "Inputs": "Performance metrics from computational tests.",
+      "Outputs": "Final set of optimized formulas.",
+      "Example": "Select formula with R2 = 0.948 and 4 operators.",
+      "Role in workflow": "Ensures final outputs are both accurate and interpretable."
+    },
+    "Refinement via Human–data integration": {
+      "performed": "No"
+    }
+  },
+  "paper_title": "A Multi-agent Framework for Materials Laws Discovery",
+  "authors": [
+    "Bo",
+    "Siyu",
+    "Beilin",
+    "Yun",
+    "Tongqi"
+  ],
+  "published": "2024-11-25",
+  "link": "http://arxiv.org/abs/2411.16416"
+}

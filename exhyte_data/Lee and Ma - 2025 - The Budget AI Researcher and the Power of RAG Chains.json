@@ -1,0 +1,367 @@
+{
+  "Inputs to the workflow": {
+    "performed": "Yes",
+    "User provide high-level research direction or goal": {
+      "performed": "Yes",
+      "Format": "Natural language queries or prompts about machine learning research topics.",
+      "Example": "User asks for research ideas or requests summarization/QA on ML topics.",
+      "Role in workflow": "Initiates the ideation, summarization, or question-answering process."
+    },
+    "User provide structured, domain-specific specifications": {
+      "performed": "No"
+    },
+    "User provide research papers": {
+      "performed": "No"
+    },
+    "User provide datasets other than research papers": {
+      "performed": "No"
+    },
+    "User provide representations or formal inputs": {
+      "performed": "No"
+    }
+  },
+  "Query Structuring": {
+    "performed": "Yes",
+    "Query Decomposition": {
+      "performed": "No"
+    },
+    "Structural or Entity Decomposition": {
+      "performed": "No"
+    },
+    "Workflow Decomposition": {
+      "performed": "No"
+    },
+    "Textual or Knowledge Embedding": {
+      "performed": "Yes",
+      "Method details": "Papers are split into 3000-character chunks and embedded as vectors using Chroma and LangChain.",
+      "Inputs": "Extracted text from ML conference papers.",
+      "Outputs": "Vector embeddings stored in Chroma database.",
+      "Example": "Text from PDFs is vectorized for semantic retrieval.",
+      "Role in workflow": "Enables semantic search and retrieval for RAG chains."
+    },
+    "Molecular or Chemical Embedding": {
+      "performed": "No"
+    },
+    "Biological or Phenotypic Embedding": {
+      "performed": "No"
+    },
+    "Pattern and Feature Extraction": {
+      "performed": "No"
+    },
+    "Biological Relationship Extraction": {
+      "performed": "No"
+    },
+    "Property and Annotation Extraction": {
+      "performed": "No"
+    },
+    "Sequence and Structure Feature Extraction": {
+      "performed": "No"
+    }
+  },
+  "Data Retrieval": {
+    "performed": "Yes",
+    "Data Retrieval via Multi-Query Generation and Exploration": {
+      "performed": "No"
+    },
+    "Literature and Data Retrieval via APIs": {
+      "performed": "Yes",
+      "Method details": "Semantic Scholar API is used to retrieve abstracts, references, and citations for selected papers.",
+      "Inputs": "Paper titles from conference scraping.",
+      "Outputs": "Abstracts and citation metadata.",
+      "Example": "Semantic Scholar API fetches abstracts for evaluation and polishing.",
+      "Role in workflow": "Provides external context for abstract evaluation and refinement."
+    },
+    "Data Retrieval with Prioritization and Filtering Agents": {
+      "performed": "Yes",
+      "Method details": "LLM (Groq) selects the 25 most relevant and novel papers from each 250-title chunk.",
+      "Inputs": "Lists of paper titles from conference websites.",
+      "Outputs": "Filtered list of relevant/novel papers.",
+      "Example": "LLM filters 250 titles down to 25 per chunk.",
+      "Role in workflow": "Focuses downstream processing on the most promising papers."
+    },
+    "Domain-Specific Data Retrieval and Reasoning": {
+      "performed": "No"
+    },
+    "Code-Driven or Tool-Augmented Data Retrieval": {
+      "performed": "Yes",
+      "Method details": "Python scripts using requests and BeautifulSoup automate scraping of paper titles, links, and PDFs from conference sites.",
+      "Inputs": "Conference websites’ accepted paper lists.",
+      "Outputs": "PDFs and extracted text.",
+      "Example": "Automated requests and parsing to download and extract papers.",
+      "Role in workflow": "Automates large-scale literature collection."
+    },
+    "Literature data Retrieval Citation-Network–Based Expansion": {
+      "performed": "Yes",
+      "Method details": "References and citations for selected papers are retrieved via Semantic Scholar API.",
+      "Inputs": "Paper titles from main extraction.",
+      "Outputs": "Lists of referenced and citing papers’ abstracts.",
+      "Example": "Semantic Scholar API used to expand context with references/citations.",
+      "Role in workflow": "Broadens context for idea evaluation and novelty checking."
+    },
+    "Literature data Retrieval via Semantic and Similarity-Based analysis": {
+      "performed": "Yes",
+      "Method details": "Chroma vector database enables similarity search between paper embeddings.",
+      "Inputs": "Vectorized paper chunks.",
+      "Outputs": "Similarity scores and nearest-neighbor papers.",
+      "Example": "Similarity search to find distant topic pairs for ideation.",
+      "Role in workflow": "Identifies novel topic combinations for idea generation."
+    },
+    "Literature data Retrieval via Multi-Step Reference and Evidence Selection": {
+      "performed": "No"
+    },
+    "Domain-Specific Literature data Retrieval": {
+      "performed": "Yes",
+      "Method details": "Papers are scraped from nine major ML conference websites.",
+      "Inputs": "Accepted paper lists from CVPR, ECCV, ICCV, NeurIPS, ICLR, ICML, ACL, EMNLP, NAACL.",
+      "Outputs": "Full texts and metadata of ML papers.",
+      "Example": "Automated scraping of conference proceedings.",
+      "Role in workflow": "Builds a domain-specific literature corpus."
+    },
+    "Manual and Semi-Automatic Curation of Literature data": {
+      "performed": "No"
+    },
+    "Structural or Similarity-Based Dataset Retrieval": {
+      "performed": "No"
+    },
+    "Data Retrieval via Domain-Specific Repository Querying": {
+      "performed": "No"
+    },
+    "Library Assembly and Data Augmentation": {
+      "performed": "No"
+    }
+  },
+  "Knowledge Assembly": {
+    "performed": "Yes",
+    "Standardized Section Extraction from Literature data": {
+      "performed": "No"
+    },
+    "Concise Synopsis and Summarization of Literature data": {
+      "performed": "Yes",
+      "Method details": "LLM (Llama 3.1-8b-Instant) summarizes full papers using StuffChain.",
+      "Inputs": "Full text of research papers.",
+      "Outputs": "100-word (or longer) summaries.",
+      "Example": "Summarization of papers on hedonic games and 3D hand reconstruction.",
+      "Role in workflow": "Provides concise context for users and downstream tasks."
+    },
+    "Facet-Based or Field-Specific Extraction from Literature data": {
+      "performed": "No"
+    },
+    "Domain-Tailored Extraction from Literature data": {
+      "performed": "No"
+    },
+    "Task/Entity-Centric Knowledge Graphs": {
+      "performed": "No"
+    },
+    "Causal or Relation-Specific Knowledge Graphs": {
+      "performed": "No"
+    },
+    "Biomedical or Domain-Specific Interaction Graphs": {
+      "performed": "No"
+    },
+    "Literature Database Construction": {
+      "performed": "Yes",
+      "Method details": "Extracted and vectorized papers are stored in Chroma vector database with metadata.",
+      "Inputs": "Extracted text and metadata from ML papers.",
+      "Outputs": "Structured, queryable vector database.",
+      "Example": "ChromaDB stores embeddings and metadata for retrieval.",
+      "Role in workflow": "Enables efficient semantic search and RAG chains."
+    },
+    "Entity- or Co-Occurrence–Based Databases": {
+      "performed": "No"
+    },
+    "Reasoning-Chain or Temporal Databases for Literature": {
+      "performed": "No"
+    }
+  },
+  "Hypothesis/Idea Generation": {
+    "performed": "Yes",
+    "Idea/hypothesis generation without additional literature or dataset as context": {
+      "performed": "No"
+    },
+    "LLM Agent Generate ideas/hypotheses via Task Decomposition": {
+      "performed": "No"
+    },
+    "Generate ideas/hypotheses using Domain-Specialized LLM Agent": {
+      "performed": "Yes",
+      "Method details": "Llama 3.1/3.2 models, augmented with ML literature, generate research abstracts and ideas.",
+      "Inputs": "Retrieved papers, topic trees, and user prompts.",
+      "Outputs": "Draft research abstracts and novel research ideas.",
+      "Example": "LLM generates abstracts merging distant ML topics.",
+      "Role in workflow": "Synthesizes new research ideas grounded in domain literature."
+    },
+    "Literature data used during idea/hypothesis generation as context": {
+      "performed": "Yes",
+      "Method details": "RAG chains provide relevant paper chunks as context for LLM-based abstract generation.",
+      "Inputs": "Vectorized literature from ChromaDB.",
+      "Outputs": "Context-aware research abstracts.",
+      "Example": "LLM uses retrieved abstracts to inform new idea generation.",
+      "Role in workflow": "Ensures generated ideas are grounded in existing research."
+    },
+    "Summarization Literature data used during idea/hypothesis generation": {
+      "performed": "Yes",
+      "Method details": "LLM summarizes relevant papers to provide concise context for ideation.",
+      "Inputs": "Full papers or abstracts.",
+      "Outputs": "Summaries used as input to idea generation.",
+      "Example": "Summaries of related work inform abstract writing.",
+      "Role in workflow": "Condenses background for efficient LLM input."
+    },
+    "Idea/hypothesis generation via Facet Recombination": {
+      "performed": "Yes",
+      "Method details": "System pairs distant topics from a topic tree and prompts LLM to merge them into new research ideas.",
+      "Inputs": "Topic tree, representative papers from each topic.",
+      "Outputs": "Novel research abstracts combining disparate topics.",
+      "Example": "Combining 'LLM evaluation' and 'adversarial attacks' into a new research idea.",
+      "Role in workflow": "Drives novelty by recombining unrelated research areas."
+    },
+    "Idea/hypothesis generation via contructed Reasoning-Chain from literature": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation via Knowledge Graph developed from literature": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation via Pattern Detection from dataset": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation via Few-Shot Data Seeding": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation using Observational data": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation via Feature-Driven Property Prediction": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation after Fine-Tuning the LLM model": {
+      "performed": "No"
+    }
+  },
+  "Hypothesis/Idea Prioritization": {
+    "performed": "Yes",
+    "LLM-based Hypothesis/Idea evaluation via Scientific Quality": {
+      "performed": "Yes",
+      "Method details": "LLMs (e.g., ChatGPT-4o) rate abstracts for interestingness, novelty, feasibility using one-shot learning.",
+      "Inputs": "Generated abstracts and reference examples.",
+      "Outputs": "Quantitative ratings and qualitative feedback.",
+      "Example": "ChatGPT rates abstracts on a 1–10 scale for novelty.",
+      "Role in workflow": "Filters and ranks generated ideas for further development."
+    },
+    "LLM-based Hypothesis/Idea evaluation via Domain-Specific Evaluation": {
+      "performed": "Yes",
+      "Method details": "LLMs and human experts assess feasibility and domain relevance of generated ideas.",
+      "Inputs": "Generated abstracts, domain-specific criteria.",
+      "Outputs": "Feasibility and domain alignment scores.",
+      "Example": "Human PhD students rate feasibility of abstracts.",
+      "Role in workflow": "Ensures ideas are practical and relevant to ML research."
+    },
+    "LLM-based Hypothesis/Idea evaluation via Contextual Evidence Scoring": {
+      "performed": "Yes",
+      "Method details": "LLMs compare generated abstracts to retrieved literature for validity and novelty.",
+      "Inputs": "Generated abstracts, retrieved references/citations.",
+      "Outputs": "Contextual validation and novelty assessment.",
+      "Example": "LLM checks if an idea is already present in 2024 conference papers.",
+      "Role in workflow": "Prevents duplication and enhances originality."
+    },
+    "LLM-based Hypothesis/Idea evaluation via Interpretability or Success Metrics": {
+      "performed": "No"
+    },
+    "Hypothesis/Idea evaluation via Novelty Checking with Literature Comparison": {
+      "performed": "Yes",
+      "Method details": "Similarity scoring between generated abstracts and recent conference papers using vector embeddings.",
+      "Inputs": "Generated abstracts, 2024 conference paper embeddings.",
+      "Outputs": "Novelty/similarity scores.",
+      "Example": "Budget AI Researcher’s ideas compared to 2024 ML conference papers.",
+      "Role in workflow": "Quantifies novelty relative to state-of-the-art."
+    },
+    "Hypothesis/Idea evaluation via Alignment with Literature Chains": {
+      "performed": "No"
+    },
+    "Hypothesis/Idea evaluation via Knowledge-Graph Grounded Similarity Metrics": {
+      "performed": "No"
+    },
+    "Hypothesis/Idea evaluation via Quantitative Assessment Using Domain Metrics": {
+      "performed": "No"
+    },
+    "Hypothesis/Idea evaluation via Human/Expert": {
+      "performed": "Yes",
+      "Method details": "Human evaluators (graduate students) rate abstracts for interestingness, feasibility, and novelty.",
+      "Inputs": "Generated abstracts.",
+      "Outputs": "Human ratings (1–5 scale).",
+      "Example": "SUNY Stony Brook students rate de-identified abstracts.",
+      "Role in workflow": "Provides external validation and nuanced assessment."
+    }
+  },
+  "Test": {
+    "performed": "Yes",
+    "Experimental Design Generation via literature-Grounded Model/Protocol Selection": {
+      "performed": "No"
+    },
+    "Experimental Design Generation via Literature Synthesis for New Protocol Generation": {
+      "performed": "Yes",
+      "Method details": "LLM generates experimental procedures by integrating methods and constraints from retrieved literature.",
+      "Inputs": "Background context, related papers, constraints.",
+      "Outputs": "Stepwise experimental procedures.",
+      "Example": "Sample procedure: gather context, retrieve inspirations, generate ideas, iteratively improve, evaluate with experts.",
+      "Role in workflow": "Outlines how to test or realize generated research ideas."
+    },
+    "Experimental Design Generation via Few-Shot or Example-Based Prompting": {
+      "performed": "No"
+    },
+    "Experimental Design Generation via Executable Code Generation from Literature": {
+      "performed": "No"
+    },
+    "LLM-Based Experimental Design Generation via Agentic Exploration and Planning": {
+      "performed": "No"
+    },
+    "LLM-Based Experimental Design Generation via Code and Workflow Translation": {
+      "performed": "No"
+    },
+    "LLM-Based Experimental Design Generation via Multi-Agent Planning with Specialized Roles": {
+      "performed": "No"
+    },
+    "LLM-Based Experimental Design Generation via Domain-Specific Experimental Mapping": {
+      "performed": "No"
+    },
+    "Test Execution via Human-in-the-Loop": {
+      "performed": "No"
+    },
+    "Test Execution via Automated Wet-Lab Execution": {
+      "performed": "No"
+    },
+    "Test Execution via Computational or In-Silico": {
+      "performed": "No"
+    },
+    "Refinement via LLM Agent Feedback Loops": {
+      "performed": "Yes",
+      "Method details": "LLM iteratively critiques and polishes abstracts using retrieved literature and peer reviews.",
+      "Inputs": "Initial abstract, retrieved references, OpenReview peer reviews.",
+      "Outputs": "Refined, more professional and novel abstracts.",
+      "Example": "Abstracts are polished for novelty and validity using context and reviews.",
+      "Role in workflow": "Improves quality and originality of generated research ideas."
+    },
+    "Refinement via Automated Quality Evaluation using Model-Based Critics": {
+      "performed": "No"
+    },
+    "Refinement via Dynamic Agent Updating Based on Evolving Context or Data": {
+      "performed": "No"
+    },
+    "Refinement via guided by computational-data": {
+      "performed": "No"
+    },
+    "Refinement via experimental validation": {
+      "performed": "No"
+    },
+    "Refinement via Performance-metric": {
+      "performed": "No"
+    },
+    "Refinement via Human–data integration": {
+      "performed": "No"
+    }
+  },
+  "paper_title": "The Budget AI Researcher and the Power of RAG Chains",
+  "authors": [
+    "Franklin",
+    "Tengfei"
+  ],
+  "published": "2025-06-14",
+  "link": "http://arxiv.org/abs/2506.12317"
+}

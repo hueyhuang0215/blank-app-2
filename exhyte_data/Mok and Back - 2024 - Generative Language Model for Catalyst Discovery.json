@@ -1,0 +1,644 @@
+{
+  "Inputs to the workflow": {
+    "performed": "Yes",
+    "User provide high-level research direction or goal": {
+      "performed": "Yes",
+      "Format": "Research objective stated in introduction and abstract",
+      "Example": "Discovery of novel and promising catalyst materials, specifically for 2e-ORR",
+      "Role in workflow": "Defines the focus for generative model development and catalyst discovery"
+    },
+    "User provide structured, domain-specific specifications": {
+      "performed": "Yes",
+      "Format": "Rules for binary alloy composition and adsorption site for 2e-ORR catalysts",
+      "Example": "Binary alloys must consist of oxophilic and oxophobic elements; active sites must be ontop of oxophilic atoms",
+      "Role in workflow": "Constrains fine-tuning and evaluation of generated catalysts"
+    },
+    "User provide research papers": {
+      "performed": "No",
+      "Format": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "User provide datasets other than research papers": {
+      "performed": "Yes",
+      "Format": "Publicly available catalyst structure datasets (OC20-S2EF, 2e-ORR dataset)",
+      "Example": "OC20-S2EF 2M dataset, 2e-ORR dataset",
+      "Role in workflow": "Used for model training, validation, and fine-tuning"
+    },
+    "User provide representations or formal inputs": {
+      "performed": "Yes",
+      "Format": "String representations of catalyst structures (lattice parameters, atomic symbols, coordinates)",
+      "Example": "C = (l1, l2, l3, θ1, θ2, θ3, e1, x1, y1, z1, …, eN, xN, yN, zN)",
+      "Role in workflow": "Input format for generative model and anomaly detection"
+    }
+  },
+  "Query Structuring": {
+    "performed": "Yes",
+    "Query Decomposition": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "Structural or Entity Decomposition": {
+      "performed": "Yes",
+      "Method details": "Structures are decomposed into lattice parameters, atomic symbols, and coordinates for tokenization",
+      "Inputs": "Catalyst structure files",
+      "Outputs": "Tokenized sequences representing each atom and its properties",
+      "Example": "Bulk, surface, and adsorbate atoms are identified and ordered",
+      "Role in workflow": "Enables sequential generation and evaluation of catalyst structures"
+    },
+    "Workflow Decomposition": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "Textual or Knowledge Embedding": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "Molecular or Chemical Embedding": {
+      "performed": "Yes",
+      "Method details": "CrystalNN and Magpie fingerprints are used to convert structures and compositions into vectors",
+      "Inputs": "Generated and ground-truth catalyst structures",
+      "Outputs": "Vector representations for similarity and coverage analysis",
+      "Example": "Coverage and property distribution metrics use these embeddings",
+      "Role in workflow": "Quantifies similarity and diversity of generated catalysts"
+    },
+    "Biological or Phenotypic Embedding": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "Pattern and Feature Extraction": {
+      "performed": "Yes",
+      "Method details": "Anomaly detection model extracts features indicating incompletion or scale mismatch from string representations",
+      "Inputs": "String representations of generated catalysts",
+      "Outputs": "Binary classification (valid/invalid)",
+      "Example": "BERT-based model trained on corrupted and valid data",
+      "Role in workflow": "Filters out structurally or chemically invalid generations"
+    },
+    "Biological Relationship Extraction": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "Property and Annotation Extraction": {
+      "performed": "Yes",
+      "Method details": "Density and number of unique elements are extracted for property distribution analysis",
+      "Inputs": "Generated and validation catalyst structures",
+      "Outputs": "Property distributions for comparison",
+      "Example": "Earth Mover’s Distance (EMD) calculated for density and element count",
+      "Role in workflow": "Assesses how well generated data matches real catalyst properties"
+    },
+    "Sequence and Structure Feature Extraction": {
+      "performed": "Yes",
+      "Method details": "Order of atoms (bulk, surface, adsorbate) is preserved and used as a feature in generation",
+      "Inputs": "Catalyst structure data",
+      "Outputs": "Ordered token sequences",
+      "Example": "Atom ordering affects end-of-sequence prediction in the model",
+      "Role in workflow": "Improves model’s ability to generate realistic structures"
+    }
+  },
+  "Data Retrieval": {
+    "performed": "Yes",
+    "Data Retrieval via Multi-Query Generation and Exploration": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "Literature and Data Retrieval via APIs": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "Data Retrieval with Prioritization and Filtering Agents": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "Domain-Specific Data Retrieval and Reasoning": {
+      "performed": "Yes",
+      "Method details": "OC20-S2EF and 2e-ORR datasets are directly accessed and used for model training and validation",
+      "Inputs": "OC20-S2EF 2M dataset, 2e-ORR dataset",
+      "Outputs": "Training, validation, and fine-tuning data for models",
+      "Example": "OC20 dataset downloaded from public repository",
+      "Role in workflow": "Provides large-scale, domain-relevant data for generative modeling"
+    },
+    "Code-Driven or Tool-Augmented Data Retrieval": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "Literature data Retrieval Citation-Network–Based Expansion": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "Literature data Retrieval via Semantic and Similarity-Based analysis": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "Literature data Retrieval via Multi-Step Reference and Evidence Selection": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "Domain-Specific Literature data Retrieval": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "Manual and Semi-Automatic Curation of Literature data": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "Structural or Similarity-Based Dataset Retrieval": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "Data Retrieval via Domain-Specific Repository Querying": {
+      "performed": "Yes",
+      "Method details": "OC20 and 2e-ORR datasets are obtained from domain repositories (links provided)",
+      "Inputs": "Public dataset repositories",
+      "Outputs": "Downloaded datasets for model use",
+      "Example": "https://fair-chem.github.io/core/datasets/oc20.html",
+      "Role in workflow": "Ensures reproducibility and access to high-quality data"
+    },
+    "Library Assembly and Data Augmentation": {
+      "performed": "Yes",
+      "Method details": "Data augmentation via translation, rotation, and permutation of atomic coordinates",
+      "Inputs": "Original catalyst structure datasets",
+      "Outputs": "Augmented datasets for model training",
+      "Example": "33% translated, 33% rotated, 33% unchanged; permutation dataset for atom order",
+      "Role in workflow": "Improves model invariance and generalization"
+    }
+  },
+  "Knowledge Assembly": {
+    "performed": "No",
+    "Standardized Section Extraction from Literature data": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "Concise Synopsis and Summarization of Literature data": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "Facet-Based or Field-Specific Extraction from Literature data": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "Domain-Tailored Extraction from Literature data": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "Task/Entity-Centric Knowledge Graphs": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "Causal or Relation-Specific Knowledge Graphs": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "Biomedical or Domain-Specific Interaction Graphs": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "Literature Database Construction": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "Entity- or Co-Occurrence–Based Databases": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "Reasoning-Chain or Temporal Databases for Literature": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    }
+  },
+  "Hypothesis/Idea Generation": {
+    "performed": "Yes",
+    "Idea/hypothesis generation without additional literature or dataset as context": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "LLM Agent Generate ideas/hypotheses via Task Decomposition": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "Generate ideas/hypotheses using Domain-Specialized LLM Agent": {
+      "performed": "Yes",
+      "Method details": "GPT-2-based CatGPT model trained to generate catalyst structures as text sequences",
+      "Inputs": "Tokenized catalyst structure data",
+      "Outputs": "Novel catalyst structure candidates",
+      "Example": "CatGPT generates 10,000 new catalyst structures from <bos> token",
+      "Role in workflow": "Proposes new catalyst structures for downstream evaluation"
+    },
+    "Literature data used during idea/hypothesis generation as context": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "Summarization Literature data used during idea/hypothesis generation": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "Idea/hypothesis generation via Facet Recombination": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "Idea/hypothesis generation via contructed Reasoning-Chain from literature": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "Idea/hypothesis generation via Knowledge Graph developed from literature": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "Idea/hypothesis generation via Pattern Detection from dataset": {
+      "performed": "Yes",
+      "Method details": "Anomaly detection model identifies invalid patterns (incompletion, scale mismatch) in generated structures",
+      "Inputs": "Generated catalyst structure strings",
+      "Outputs": "Filtered set of valid candidate structures",
+      "Example": "BERT-based classifier removes incomplete or mismatched structures",
+      "Role in workflow": "Ensures only plausible hypotheses (structures) are considered"
+    },
+    "Idea/hypothesis generation via Few-Shot Data Seeding": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "Idea/hypothesis generation using Observational data": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "Idea/hypothesis generation via Feature-Driven Property Prediction": {
+      "performed": "Yes",
+      "Method details": "MLP and DFT calculations predict binding energies and selectivity/activity descriptors for generated catalysts",
+      "Inputs": "Generated catalyst structures",
+      "Outputs": "Predicted ΔGOOH* and ΔGO* values",
+      "Example": "EquiformerV2 MLP predicts binding energies for screening",
+      "Role in workflow": "Informs which generated structures are likely to be active/selective catalysts"
+    },
+    "Idea/hypothesis generation after Fine-Tuning the LLM model": {
+      "performed": "Yes",
+      "Method details": "CatGPT is fine-tuned on a small, biased 2e-ORR dataset to generate catalysts with desired properties",
+      "Inputs": "Pre-trained CatGPT, 2e-ORR fine-tuning dataset",
+      "Outputs": "Catalyst structures specialized for 2e-ORR",
+      "Example": "Fine-tuned model generates binary alloy catalysts for H2O2 production",
+      "Role in workflow": "Focuses generative process on a specific catalytic task"
+    }
+  },
+  "Hypothesis/Idea Prioritization": {
+    "performed": "Yes",
+    "LLM-based Hypothesis/Idea evaluation via Scientific Quality": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "LLM-based Hypothesis/Idea evaluation via Domain-Specific Evaluation": {
+      "performed": "Yes",
+      "Method details": "Generated catalysts are evaluated for composition and adsorption validity based on domain rules",
+      "Inputs": "Generated catalyst structures",
+      "Outputs": "Scores for composition and adsorption validity",
+      "Example": "Structures must have oxophilic/oxophobic composition and correct adsorption site",
+      "Role in workflow": "Filters candidates to those matching domain-specific requirements"
+    },
+    "LLM-based Hypothesis/Idea evaluation via Contextual Evidence Scoring": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "LLM-based Hypothesis/Idea evaluation via Interpretability or Success Metrics": {
+      "performed": "Yes",
+      "Method details": "Metrics such as generation validity, structural validity, catalyst validity, coverage, and property distribution are computed",
+      "Inputs": "Generated and validation structures",
+      "Outputs": "Quantitative scores for validity and similarity",
+      "Example": "Anomaly detection model, EMD for property distribution",
+      "Role in workflow": "Assesses quality and realism of generated hypotheses"
+    },
+    "Hypothesis/Idea evaluation via Novelty Checking with Literature Comparison": {
+      "performed": "Yes",
+      "Method details": "Novelty is assessed by checking if generated structures exist in the training set using StructureMatcher",
+      "Inputs": "Generated and training dataset structures",
+      "Outputs": "Novelty score (proportion not in training set)",
+      "Example": "133 unique and novel structures identified",
+      "Role in workflow": "Prioritizes truly novel catalyst candidates"
+    },
+    "Hypothesis/Idea evaluation via Alignment with Literature Chains": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "Hypothesis/Idea evaluation via Knowledge-Graph Grounded Similarity Metrics": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "Hypothesis/Idea evaluation via Quantitative Assessment Using Domain Metrics": {
+      "performed": "Yes",
+      "Method details": "Binding energies and selectivity/activity descriptors are quantitatively evaluated using MLP and DFT",
+      "Inputs": "Generated catalyst structures",
+      "Outputs": "ΔGOOH* and ΔGO* values for activity/selectivity",
+      "Example": "DFT confirms 10 structures meet activity/selectivity criteria",
+      "Role in workflow": "Objectively ranks candidates for experimental relevance"
+    },
+    "Hypothesis/Idea evaluation via Human/Expert": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    }
+  },
+  "Test": {
+    "performed": "Yes",
+    "Experimental Design Generation via literature-Grounded Model/Protocol Selection": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "Experimental Design Generation via Literature Synthesis for New Protocol Generation": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "Experimental Design Generation via Few-Shot or Example-Based Prompting": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "Experimental Design Generation via Executable Code Generation from Literature": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "LLM-Based Experimental Design Generation via Agentic Exploration and Planning": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "LLM-Based Experimental Design Generation via Code and Workflow Translation": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "LLM-Based Experimental Design Generation via Multi-Agent Planning with Specialized Roles": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "LLM-Based Experimental Design Generation via Domain-Specific Experimental Mapping": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "Test Execution via Human-in-the-Loop": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "Test Execution via Automated Wet-Lab Execution": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "Test Execution via Computational or In-Silico": {
+      "performed": "Yes",
+      "Method details": "MLP (EquiformerV2) and DFT calculations are used to optimize structures and compute binding energies",
+      "Inputs": "Generated catalyst structures",
+      "Outputs": "Optimized geometries, ΔGOOH*, ΔGO* values",
+      "Example": "35 structures screened by MLP, 10 validated by DFT",
+      "Role in workflow": "Validates activity/selectivity of generated catalysts computationally"
+    },
+    "Refinement via LLM Agent Feedback Loops": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "Refinement via Automated Quality Evaluation using Model-Based Critics": {
+      "performed": "Yes",
+      "Method details": "Anomaly detection model (BERT) and structural validity checks filter invalid generations",
+      "Inputs": "Generated catalyst structures",
+      "Outputs": "Set of valid, high-quality structures",
+      "Example": "Structures with incompletion or scale mismatch are removed",
+      "Role in workflow": "Ensures only valid structures proceed to further evaluation"
+    },
+    "Refinement via Dynamic Agent Updating Based on Evolving Context or Data": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "Refinement via guided by computational-data": {
+      "performed": "Yes",
+      "Method details": "Screening and selection of candidates is based on computational results (MLP/DFT binding energies)",
+      "Inputs": "Predicted binding energies and validity scores",
+      "Outputs": "Refined set of promising catalysts",
+      "Example": "Only structures meeting activity/selectivity criteria are retained",
+      "Role in workflow": "Focuses resources on most promising candidates"
+    },
+    "Refinement via experimental validation": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "Refinement via Performance-metric": {
+      "performed": "Yes",
+      "Method details": "Performance metrics (activity/selectivity windows) guide which structures are selected after computational testing",
+      "Inputs": "ΔGOOH*, ΔGO* values",
+      "Outputs": "Subset of structures within optimal performance range",
+      "Example": "5 structures with ΔGOOH* in 4.22 ± 0.2 eV range",
+      "Role in workflow": "Ensures only high-performing catalysts are proposed"
+    },
+    "Refinement via Human–data integration": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    }
+  },
+  "paper_title": "Generative Language Model for Catalyst Discovery",
+  "authors": [
+    "Dong Hyeon",
+    "Seoin"
+  ],
+  "published": "2024-12-11",
+  "link": "http://arxiv.org/abs/2407.14040"
+}

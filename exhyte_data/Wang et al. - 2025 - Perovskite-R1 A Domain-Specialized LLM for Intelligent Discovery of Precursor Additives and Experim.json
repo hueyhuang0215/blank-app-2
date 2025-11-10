@@ -1,0 +1,463 @@
+{
+  "Inputs to the workflow": {
+    "performed": "Yes",
+    "User provide high-level research direction or goal": {
+      "performed": "Yes",
+      "Format": "Research objective defined by authors: intelligent discovery and design of perovskite precursor additives for solar cells.",
+      "Example": "Goal: Enhance stability and efficiency of perovskite solar cells via additive engineering.",
+      "Role in workflow": "Sets the scope for dataset construction, model training, and experimental validation."
+    },
+    "User provide structured, domain-specific specifications": {
+      "performed": "Yes",
+      "Format": "Explicit criteria in prompts: defect passivation, crystallization control, energy-level alignment, solubility, compatibility.",
+      "Example": "Prompts specify requirements such as 'Prioritize heterocyclic compounds that can enhance device stability.'",
+      "Role in workflow": "Guides LLM in screening and ranking candidate additives."
+    },
+    "User provide research papers": {
+      "performed": "Yes",
+      "Format": "1,232 peer-reviewed research articles curated from top publishers.",
+      "Example": "Papers with detailed precursor additive synthesis, material characterization, and performance optimization.",
+      "Role in workflow": "Forms the core of the instruction-tuning dataset for LLM fine-tuning."
+    },
+    "User provide datasets other than research papers": {
+      "performed": "Yes",
+      "Format": "Library of 33,269 drug-like candidate compounds.",
+      "Example": "Drug-like molecular library used for additive screening.",
+      "Role in workflow": "Expands chemical diversity for model training and candidate selection."
+    },
+    "User provide representations or formal inputs": {
+      "performed": "Yes",
+      "Format": "CAS numbers, chemical names, and structured prompts.",
+      "Example": "Additives specified by chemical name and CAS number in prompts and outputs.",
+      "Role in workflow": "Enables precise identification and reasoning over candidate molecules."
+    }
+  },
+  "Query Structuring": {
+    "performed": "Yes",
+    "Query Decomposition": {
+      "performed": "Yes",
+      "Method details": "Prompts decompose the task into core goals, design principles, and critical considerations.",
+      "Inputs": "User-defined research objectives and criteria.",
+      "Outputs": "Structured prompts with explicit sub-goals for LLM.",
+      "Example": "Prompt sections: Core Design Goals, Key Design Principles, Critical Design Considerations.",
+      "Role in workflow": "Focuses LLM reasoning on specific aspects of additive selection."
+    },
+    "Structural or Entity Decomposition": {
+      "performed": "Yes",
+      "Method details": "LLM analyzes each candidate molecule for functional groups, solubility, and mechanistic roles.",
+      "Inputs": "List of candidate compounds with names and CAS numbers.",
+      "Outputs": "Per-compound analysis in chain-of-thought reasoning.",
+      "Example": "LLM output: 'Dimethylphosphine oxide—solubility, Lewis basicity, defect passivation potential.'",
+      "Role in workflow": "Enables feature-level reasoning for additive screening."
+    },
+    "Workflow Decomposition": {
+      "performed": "No"
+    },
+    "Textual or Knowledge Embedding": {
+      "performed": "Yes",
+      "Method details": "Papers converted to text, segmented into overlapping chunks for semantic coherence; embeddings used for CoT generation.",
+      "Inputs": "PDFs of research articles.",
+      "Outputs": "Text chunks (up to 2,500 tokens) for LLM-based Q&A generation.",
+      "Example": "Text segmentation with 20% overlap for context preservation.",
+      "Role in workflow": "Improves coherence and quality of reasoning paths."
+    },
+    "Molecular or Chemical Embedding": {
+      "performed": "No"
+    },
+    "Biological or Phenotypic Embedding": {
+      "performed": "No"
+    },
+    "Pattern and Feature Extraction": {
+      "performed": "Yes",
+      "Method details": "LLM extracts and reasons over molecular features (e.g., functional groups, solubility) during additive analysis.",
+      "Inputs": "Candidate compound data.",
+      "Outputs": "Feature-based rationale for additive selection.",
+      "Example": "Analysis of carboxylic acid and hydroxyl groups for defect passivation.",
+      "Role in workflow": "Supports mechanistic evaluation of candidates."
+    },
+    "Biological Relationship Extraction": {
+      "performed": "No"
+    },
+    "Property and Annotation Extraction": {
+      "performed": "Yes",
+      "Method details": "LLM identifies and annotates properties such as solubility, Lewis acidity/basicity, and compatibility.",
+      "Inputs": "Compound lists and literature-derived data.",
+      "Outputs": "Annotated reasoning steps in CoT outputs.",
+      "Example": "LLM notes: 'Likely soluble in DMF/DMSO due to polar functional groups.'",
+      "Role in workflow": "Informs selection and ranking of additives."
+    },
+    "Sequence and Structure Feature Extraction": {
+      "performed": "No"
+    }
+  },
+  "Data Retrieval": {
+    "performed": "Yes",
+    "Data Retrieval via Multi-Query Generation and Exploration": {
+      "performed": "No"
+    },
+    "Literature and Data Retrieval via APIs": {
+      "performed": "No"
+    },
+    "Data Retrieval with Prioritization and Filtering Agents": {
+      "performed": "Yes",
+      "Method details": "Manual curation of 1,232 high-quality papers based on detailed criteria; LLM screens and ranks additives from compound library.",
+      "Inputs": "Research articles and compound library.",
+      "Outputs": "Curated dataset and prioritized candidate lists.",
+      "Example": "Selection prioritizes studies with detailed synthesis and high-impact results.",
+      "Role in workflow": "Ensures relevance and quality of training data and candidate pool."
+    },
+    "Domain-Specific Data Retrieval and Reasoning": {
+      "performed": "Yes",
+      "Method details": "Papers and compounds selected for relevance to perovskite precursor additive design.",
+      "Inputs": "Domain-specific keywords and criteria.",
+      "Outputs": "Dataset focused on perovskite additive strategies.",
+      "Example": "Selection from ACS, Elsevier, RSC, Wiley, Springer Nature.",
+      "Role in workflow": "Targets literature and data relevant to the domain."
+    },
+    "Code-Driven or Tool-Augmented Data Retrieval": {
+      "performed": "Yes",
+      "Method details": "pdfminer used to convert PDFs to structured text for downstream processing.",
+      "Inputs": "PDF files of research articles.",
+      "Outputs": "Plain text files segmented for LLM input.",
+      "Example": "Automated PDF-to-text conversion pipeline.",
+      "Role in workflow": "Enables automated extraction and structuring of literature."
+    },
+    "Literature data Retrieval Citation-Network–Based Expansion": {
+      "performed": "No"
+    },
+    "Literature data Retrieval via Semantic and Similarity-Based analysis": {
+      "performed": "No"
+    },
+    "Literature data Retrieval via Multi-Step Reference and Evidence Selection": {
+      "performed": "No"
+    },
+    "Domain-Specific Literature data Retrieval": {
+      "performed": "Yes",
+      "Method details": "Manual and criteria-based selection of perovskite precursor additive papers from top journals.",
+      "Inputs": "Domain-specific search and filtering.",
+      "Outputs": "Curated literature dataset.",
+      "Example": "Selection based on synthesis pathways, characterization, and performance optimization.",
+      "Role in workflow": "Ensures domain relevance and coverage."
+    },
+    "Manual and Semi-Automatic Curation of Literature data": {
+      "performed": "Yes",
+      "Method details": "Experts curate papers based on detailed inclusion criteria.",
+      "Inputs": "Research articles from publishers.",
+      "Outputs": "High-quality instruction-tuning dataset.",
+      "Example": "Prioritizing high-impact, detailed studies.",
+      "Role in workflow": "Improves dataset quality for LLM fine-tuning."
+    },
+    "Structural or Similarity-Based Dataset Retrieval": {
+      "performed": "No"
+    },
+    "Data Retrieval via Domain-Specific Repository Querying": {
+      "performed": "No"
+    },
+    "Library Assembly and Data Augmentation": {
+      "performed": "Yes",
+      "Method details": "33,269-compound drug-like molecular library assembled to expand candidate diversity.",
+      "Inputs": "Multiple chemical databases.",
+      "Outputs": "Large, diverse candidate additive library.",
+      "Example": "Library used for additive screening and model training.",
+      "Role in workflow": "Enables broad exploration of chemical space."
+    }
+  },
+  "Knowledge Assembly": {
+    "performed": "Yes",
+    "Standardized Section Extraction from Literature data": {
+      "performed": "Yes",
+      "Method details": "PDFs segmented into text chunks (up to 2,500 tokens) with overlap for context preservation.",
+      "Inputs": "Full-text research articles.",
+      "Outputs": "Structured text segments for LLM input.",
+      "Example": "20% overlap between segments to maintain semantic consistency.",
+      "Role in workflow": "Normalizes literature for downstream Q&A generation."
+    },
+    "Concise Synopsis and Summarization of Literature data": {
+      "performed": "Yes",
+      "Method details": "LLM generates question–answer pairs and chain-of-thought summaries from text segments.",
+      "Inputs": "Segmented literature data.",
+      "Outputs": "Q&A pairs with explicit reasoning steps.",
+      "Example": "OpenAI o1 API used for automated Q&A and CoT generation.",
+      "Role in workflow": "Condenses literature into actionable knowledge for model training."
+    },
+    "Facet-Based or Field-Specific Extraction from Literature data": {
+      "performed": "Yes",
+      "Method details": "Extraction of synthesis pathways, characterization methods, and optimization strategies from papers.",
+      "Inputs": "Curated research articles.",
+      "Outputs": "Instruction-tuning dataset with domain-specific facets.",
+      "Example": "Selection criteria prioritize detailed descriptions of additive synthesis.",
+      "Role in workflow": "Enables targeted instruction tuning."
+    },
+    "Domain-Tailored Extraction from Literature data": {
+      "performed": "Yes",
+      "Method details": "LLM generates domain-specific Q&A pairs and reasoning chains focused on perovskite additive design.",
+      "Inputs": "Segmented literature and compound data.",
+      "Outputs": "Instruction dataset with scientific logic and semantic structure.",
+      "Example": "Customized CoT template guides explicit reasoning.",
+      "Role in workflow": "Strengthens model’s domain reasoning."
+    },
+    "Task/Entity-Centric Knowledge Graphs": {
+      "performed": "No"
+    },
+    "Causal or Relation-Specific Knowledge Graphs": {
+      "performed": "No"
+    },
+    "Biomedical or Domain-Specific Interaction Graphs": {
+      "performed": "No"
+    },
+    "Literature Database Construction": {
+      "performed": "Yes",
+      "Method details": "Curated literature and compound data organized as structured records for instruction tuning.",
+      "Inputs": "Segmented and annotated literature, compound library.",
+      "Outputs": "Structured instruction-tuning dataset.",
+      "Example": "Dataset available on HuggingFace.",
+      "Role in workflow": "Supports efficient retrieval and synthesis during model training."
+    },
+    "Entity- or Co-Occurrence–Based Databases": {
+      "performed": "No"
+    },
+    "Reasoning-Chain or Temporal Databases for Literature": {
+      "performed": "Yes",
+      "Method details": "Dataset includes chain-of-thought reasoning paths for each Q&A pair.",
+      "Inputs": "Segmented literature and compound data.",
+      "Outputs": "CoT-annotated instruction dataset.",
+      "Example": "Each data record contains explicit reasoning steps and conclusions.",
+      "Role in workflow": "Enables structured inference and interpretability."
+    }
+  },
+  "Hypothesis/Idea Generation": {
+    "performed": "Yes",
+    "Idea/hypothesis generation without additional literature or dataset as context": {
+      "performed": "No"
+    },
+    "LLM Agent Generate ideas/hypotheses via Task Decomposition": {
+      "performed": "No"
+    },
+    "Generate ideas/hypotheses using Domain-Specialized LLM Agent": {
+      "performed": "Yes",
+      "Method details": "Perovskite-R1, a fine-tuned LLM, generates candidate additives and defect passivation strategies.",
+      "Inputs": "Instruction-tuning dataset, structured prompts, compound library.",
+      "Outputs": "Ranked lists of candidate additives with mechanistic rationale.",
+      "Example": "LLM recommends 3,5-difluoropyridine-2-carboxylic acid and 5-hydroxy-2-methylbenzoic acid.",
+      "Role in workflow": "Synthesizes literature and data to propose novel, testable solutions."
+    },
+    "Literature data used during idea/hypothesis generation as context": {
+      "performed": "Yes",
+      "Method details": "LLM uses literature-derived Q&A pairs and reasoning chains as context for hypothesis generation.",
+      "Inputs": "Curated literature and compound data.",
+      "Outputs": "Contextualized additive recommendations.",
+      "Example": "Model integrates insights from 1,232 papers during candidate screening.",
+      "Role in workflow": "Grounds hypothesis generation in empirical evidence."
+    },
+    "Summarization Literature data used during idea/hypothesis generation": {
+      "performed": "Yes",
+      "Method details": "Summarized findings from literature are included in instruction-tuning data for LLM.",
+      "Inputs": "Extracted summaries from research articles.",
+      "Outputs": "Condensed knowledge for model input.",
+      "Example": "Q&A pairs include summarized mechanisms and outcomes.",
+      "Role in workflow": "Provides concise context for hypothesis generation."
+    },
+    "Idea/hypothesis generation via Facet Recombination": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation via contructed Reasoning-Chain from literature": {
+      "performed": "Yes",
+      "Method details": "LLM outputs include explicit reasoning steps linking molecular features to additive function.",
+      "Inputs": "CoT-annotated instruction dataset.",
+      "Outputs": "Mechanistically justified additive recommendations.",
+      "Example": "Chain-of-thought: 'Carboxylic acid group may interact with defects, influencing crystallization.'",
+      "Role in workflow": "Ensures recommendations are evidence-grounded and interpretable."
+    },
+    "Idea/hypothesis generation via Knowledge Graph developed from literature": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation via Pattern Detection from dataset": {
+      "performed": "Yes",
+      "Method details": "LLM identifies patterns in molecular features (e.g., functional groups) correlated with performance.",
+      "Inputs": "Compound library and literature-derived data.",
+      "Outputs": "Pattern-informed additive selection.",
+      "Example": "Preference for molecules with Lewis acid/base groups for defect passivation.",
+      "Role in workflow": "Guides candidate prioritization based on learned patterns."
+    },
+    "Idea/hypothesis generation via Few-Shot Data Seeding": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation using Observational data": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation via Feature-Driven Property Prediction": {
+      "performed": "Yes",
+      "Method details": "LLM predicts additive performance based on extracted molecular features.",
+      "Inputs": "Annotated compound data.",
+      "Outputs": "Predicted impact on device efficiency and stability.",
+      "Example": "LLM predicts improved PCE for AI-DFCA and AI-HMBA.",
+      "Role in workflow": "Informs experimental prioritization."
+    },
+    "Idea/hypothesis generation after Fine-Tuning the LLM model": {
+      "performed": "Yes",
+      "Method details": "QwQ-32B model fine-tuned on perovskite-specific instruction dataset.",
+      "Inputs": "Curated literature and compound data.",
+      "Outputs": "Domain-adapted LLM (Perovskite-R1) with enhanced reasoning.",
+      "Example": "Perovskite-R1 generates innovative additive recommendations.",
+      "Role in workflow": "Enables domain-specific hypothesis generation."
+    }
+  },
+  "Hypothesis/Idea Prioritization": {
+    "performed": "Yes",
+    "LLM-based Hypothesis/Idea evaluation via Scientific Quality": {
+      "performed": "Yes",
+      "Method details": "LLM evaluates candidates for mechanistic plausibility, solubility, and compatibility.",
+      "Inputs": "Candidate additive list, structured prompts.",
+      "Outputs": "Ranked and filtered additive recommendations.",
+      "Example": "Only additives meeting all criteria are output; others are excluded.",
+      "Role in workflow": "Ensures scientific rigor in candidate selection."
+    },
+    "LLM-based Hypothesis/Idea evaluation via Domain-Specific Evaluation": {
+      "performed": "Yes",
+      "Method details": "LLM assesses candidates against perovskite-specific criteria (e.g., defect passivation, film morphology).",
+      "Inputs": "Domain-specific prompt criteria.",
+      "Outputs": "Additive rankings based on expected PV efficiency improvement.",
+      "Example": "Ranking by anticipated mechanism of action and processing compatibility.",
+      "Role in workflow": "Aligns recommendations with domain requirements."
+    },
+    "LLM-based Hypothesis/Idea evaluation via Contextual Evidence Scoring": {
+      "performed": "Yes",
+      "Method details": "LLM integrates literature-derived evidence and molecular features in reasoning chains.",
+      "Inputs": "Instruction-tuning dataset, compound features.",
+      "Outputs": "Evidence-supported additive recommendations.",
+      "Example": "Reasoning steps cite literature mechanisms and empirical findings.",
+      "Role in workflow": "Strengthens confidence in selected candidates."
+    },
+    "LLM-based Hypothesis/Idea evaluation via Interpretability or Success Metrics": {
+      "performed": "Yes",
+      "Method details": "LLM outputs explicit rationale for each recommendation, supporting interpretability.",
+      "Inputs": "Structured prompts and candidate data.",
+      "Outputs": "Transparent, stepwise reasoning for each additive.",
+      "Example": "Chain-of-thought details for each candidate.",
+      "Role in workflow": "Facilitates expert review and validation."
+    },
+    "Hypothesis/Idea evaluation via Novelty Checking with Literature Comparison": {
+      "performed": "No"
+    },
+    "Hypothesis/Idea evaluation via Alignment with Literature Chains": {
+      "performed": "No"
+    },
+    "Hypothesis/Idea evaluation via Knowledge-Graph Grounded Similarity Metrics": {
+      "performed": "No"
+    },
+    "Hypothesis/Idea evaluation via Quantitative Assessment Using Domain Metrics": {
+      "performed": "Yes",
+      "Method details": "Experimental PCE, VOC, JSC, and FF used to assess additive performance.",
+      "Inputs": "Device performance metrics from experiments.",
+      "Outputs": "Quantitative comparison of LLM-selected vs. manually selected additives.",
+      "Example": "AI-DFCA and AI-HMBA yield higher PCE than manual additives.",
+      "Role in workflow": "Provides objective validation of LLM recommendations."
+    },
+    "Hypothesis/Idea evaluation via Human/Expert": {
+      "performed": "Yes",
+      "Method details": "Domain experts curate literature and design experimental protocols based on LLM output.",
+      "Inputs": "LLM-generated recommendations.",
+      "Outputs": "Expert-reviewed experimental plans.",
+      "Example": "Chemistry experts guide synthesis and validation.",
+      "Role in workflow": "Ensures practical feasibility and scientific oversight."
+    }
+  },
+  "Test": {
+    "performed": "Yes",
+    "Experimental Design Generation via literature-Grounded Model/Protocol Selection": {
+      "performed": "Yes",
+      "Method details": "Experimental protocols designed based on LLM recommendations and literature precedents.",
+      "Inputs": "LLM output, literature-derived methods.",
+      "Outputs": "Lab-ready experimental protocols.",
+      "Example": "Additives incorporated into Cs0.05MA0.1FA0.85PbI3 devices at specified concentrations.",
+      "Role in workflow": "Enables empirical validation of LLM-generated hypotheses."
+    },
+    "Experimental Design Generation via Literature Synthesis for New Protocol Generation": {
+      "performed": "Yes",
+      "Method details": "LLM synthesizes literature insights to generate new experimental protocols.",
+      "Inputs": "Instruction-tuning dataset, structured prompts.",
+      "Outputs": "Novel experimental designs for additive testing.",
+      "Example": "Protocols specify additive concentrations and fabrication steps.",
+      "Role in workflow": "Facilitates innovative experimental approaches."
+    },
+    "Experimental Design Generation via Few-Shot or Example-Based Prompting": {
+      "performed": "No"
+    },
+    "Experimental Design Generation via Executable Code Generation from Literature": {
+      "performed": "No"
+    },
+    "LLM-Based Experimental Design Generation via Agentic Exploration and Planning": {
+      "performed": "No"
+    },
+    "LLM-Based Experimental Design Generation via Code and Workflow Translation": {
+      "performed": "No"
+    },
+    "LLM-Based Experimental Design Generation via Multi-Agent Planning with Specialized Roles": {
+      "performed": "No"
+    },
+    "LLM-Based Experimental Design Generation via Domain-Specific Experimental Mapping": {
+      "performed": "Yes",
+      "Method details": "LLM maps additive recommendations to concrete device fabrication and testing protocols.",
+      "Inputs": "LLM output, experimental constraints.",
+      "Outputs": "Detailed experimental plans for lab execution.",
+      "Example": "Specification of additive type, concentration, and device architecture.",
+      "Role in workflow": "Bridges computational recommendations and wet-lab implementation."
+    },
+    "Test Execution via Human-in-the-Loop": {
+      "performed": "Yes",
+      "Method details": "Human researchers synthesize and test devices using LLM-generated protocols.",
+      "Inputs": "LLM-generated experimental plans.",
+      "Outputs": "Empirical device performance data.",
+      "Example": "Lab validation of AI-DFCA and AI-HMBA additives.",
+      "Role in workflow": "Provides real-world feedback for model validation."
+    },
+    "Test Execution via Automated Wet-Lab Execution": {
+      "performed": "No"
+    },
+    "Test Execution via Computational or In-Silico": {
+      "performed": "No"
+    },
+    "Refinement via LLM Agent Feedback Loops": {
+      "performed": "No"
+    },
+    "Refinement via Automated Quality Evaluation using Model-Based Critics": {
+      "performed": "No"
+    },
+    "Refinement via Dynamic Agent Updating Based on Evolving Context or Data": {
+      "performed": "No"
+    },
+    "Refinement via guided by computational-data": {
+      "performed": "No"
+    },
+    "Refinement via experimental validation": {
+      "performed": "Yes",
+      "Method details": "Experimental results inform assessment of LLM recommendations; successful additives validated in lab.",
+      "Inputs": "Device performance data from experiments.",
+      "Outputs": "Validated or rejected additive candidates.",
+      "Example": "AI-DFCA and AI-HMBA shown to improve PCE over manual additives.",
+      "Role in workflow": "Closes the loop between computational prediction and empirical validation."
+    },
+    "Refinement via Performance-metric": {
+      "performed": "Yes",
+      "Method details": "Additive selection refined based on device-level performance metrics (PCE, VOC, JSC, FF).",
+      "Inputs": "Experimental results.",
+      "Outputs": "Performance-guided additive prioritization.",
+      "Example": "Only additives improving PCE are considered successful.",
+      "Role in workflow": "Ensures recommendations are guided by quantifiable outcomes."
+    },
+    "Refinement via Human–data integration": {
+      "performed": "No"
+    }
+  },
+  "paper_title": "Perovskite-R1: A Domain-Specialized LLM for Intelligent Discovery of Precursor Additives and Experimental Design",
+  "authors": [
+    "Xin-De",
+    "Zhi-Rui",
+    "Peng-Jie",
+    "Ze-Feng",
+    "Cheng",
+    "Zhong-Yi"
+  ],
+  "published": "2025-07-22",
+  "link": "http://arxiv.org/abs/2507.16307"
+}

@@ -1,0 +1,311 @@
+{
+  "Inputs to the workflow": {
+    "performed": "Yes",
+    "User provide high-level research direction or goal": {
+      "performed": "Yes",
+      "Format": "Natural language query describing a research problem or challenge.",
+      "Example": "The need to reduce the memory footprint and training time in finetuning large language models...",
+      "Role in workflow": "Serves as the initial input to define the research context and guide literature retrieval and idea generation."
+    },
+    "User provide structured, domain-specific specifications": {
+      "performed": "No"
+    },
+    "User provide research papers": {
+      "performed": "No"
+    },
+    "User provide datasets other than research papers": {
+      "performed": "No"
+    },
+    "User provide representations or formal inputs": {
+      "performed": "No"
+    }
+  },
+  "Query Structuring": {
+    "performed": "Yes",
+    "Query Decomposition": {
+      "performed": "Yes",
+      "Method details": "User queries are expanded and clarified using prompt engineering to extract technical terms and provide detailed background.",
+      "Inputs": "User's initial query.",
+      "Outputs": "Transformed, detailed background and extracted keywords.",
+      "Example": "Transforming a brief user query into a detailed research background and extracting keywords like 'memory footprint', 'training time', etc.",
+      "Role in workflow": "Improves the accuracy and relevance of subsequent literature retrieval and idea generation."
+    },
+    "Structural or Entity Decomposition": {
+      "performed": "Yes",
+      "Method details": "LLM-based entity extraction identifies key entities/keywords from user queries and paper content.",
+      "Inputs": "User query and paper content.",
+      "Outputs": "List of key entities/keywords.",
+      "Example": "Extracting entities such as 'large language models', 'optimizer states', 'intermediate activations'.",
+      "Role in workflow": "Enables targeted keyword-based retrieval and semantic expansion."
+    },
+    "Workflow Decomposition": {
+      "performed": "No"
+    },
+    "Textual or Knowledge Embedding": {
+      "performed": "Yes",
+      "Method details": "Backgrounds and ideas from papers and user queries are encoded into vector embeddings using a text-matching embedding model (jina-embedding-v3).",
+      "Inputs": "Summarized backgrounds and ideas from papers and user queries.",
+      "Outputs": "Vector embeddings for semantic retrieval.",
+      "Example": "Encoding the background of a user query and comparing it to paper embeddings for similarity search.",
+      "Role in workflow": "Enables semantic-based literature retrieval beyond keyword matching."
+    },
+    "Molecular or Chemical Embedding": {
+      "performed": "No"
+    },
+    "Biological or Phenotypic Embedding": {
+      "performed": "No"
+    },
+    "Pattern and Feature Extraction": {
+      "performed": "No"
+    },
+    "Biological Relationship Extraction": {
+      "performed": "No"
+    },
+    "Property and Annotation Extraction": {
+      "performed": "No"
+    },
+    "Sequence and Structure Feature Extraction": {
+      "performed": "No"
+    }
+  },
+  "Data Retrieval": {
+    "performed": "Yes",
+    "Data Retrieval via Multi-Query Generation and Exploration": {
+      "performed": "No"
+    },
+    "Literature and Data Retrieval via APIs": {
+      "performed": "No"
+    },
+    "Data Retrieval with Prioritization and Filtering Agents": {
+      "performed": "Yes",
+      "Method details": "Clustering and filtering are applied to retrieved papers to reduce redundancy and ensure diversity, based on idea similarity.",
+      "Inputs": "Set of retrieved papers from SKC retrieval.",
+      "Outputs": "Filtered, diverse set of relevant papers.",
+      "Example": "Clustering papers with similar ideas and selecting representative ones for further processing.",
+      "Role in workflow": "Ensures the literature provided to the idea generation phase is non-redundant and diverse."
+    },
+    "Domain-Specific Data Retrieval and Reasoning": {
+      "performed": "No"
+    },
+    "Code-Driven or Tool-Augmented Data Retrieval": {
+      "performed": "No"
+    },
+    "Literature data Retrieval Citation-Network–Based Expansion": {
+      "performed": "Yes",
+      "Method details": "Papers are retrieved based on co-citation relationships; if two papers are frequently cited together, both are included.",
+      "Inputs": "Initial set of retrieved papers.",
+      "Outputs": "Expanded set including co-cited papers.",
+      "Example": "If p1 is retrieved and p2 is often co-cited with p1, p2 is added to the retrieval set.",
+      "Role in workflow": "Captures latent relationships and expands the literature context for idea generation."
+    },
+    "Literature data Retrieval via Semantic and Similarity-Based analysis": {
+      "performed": "Yes",
+      "Method details": "Semantic embeddings of user queries and paper backgrounds are compared to retrieve topically similar papers.",
+      "Inputs": "User query embedding, paper background embeddings.",
+      "Outputs": "Top-K semantically similar papers.",
+      "Example": "Retrieving papers whose background embeddings are most similar to the user's query embedding.",
+      "Role in workflow": "Ensures retrieval of literature addressing similar challenges as the user query."
+    },
+    "Literature data Retrieval via Multi-Step Reference and Evidence Selection": {
+      "performed": "No"
+    },
+    "Domain-Specific Literature data Retrieval": {
+      "performed": "Yes",
+      "Method details": "Keyword-based retrieval uses domain-specific keywords extracted from queries and papers to find relevant literature.",
+      "Inputs": "Expanded keyword set from user query and retrieved papers.",
+      "Outputs": "Papers containing matching keywords.",
+      "Example": "Searching for papers that include keywords like 'memory footprint' or 'optimizer states'.",
+      "Role in workflow": "Targets literature highly relevant to the user's research area."
+    },
+    "Manual and Semi-Automatic Curation of Literature data": {
+      "performed": "No"
+    },
+    "Structural or Similarity-Based Dataset Retrieval": {
+      "performed": "No"
+    },
+    "Data Retrieval via Domain-Specific Repository Querying": {
+      "performed": "No"
+    },
+    "Library Assembly and Data Augmentation": {
+      "performed": "No"
+    }
+  },
+  "Knowledge Assembly": {
+    "performed": "Yes",
+    "Standardized Section Extraction from Literature data": {
+      "performed": "Yes",
+      "Method details": "PDF parser extracts titles, abstracts, introductions, methods, and references from papers.",
+      "Inputs": "Full-text PDFs of research papers.",
+      "Outputs": "Segmented paper sections.",
+      "Example": "Extracting the 'method' section from a PDF for summarization.",
+      "Role in workflow": "Enables structured summarization and downstream embedding."
+    },
+    "Concise Synopsis and Summarization of Literature data": {
+      "performed": "Yes",
+      "Method details": "LLMs summarize each paper into structured quintuples: keywords, backgrounds, ideas, concise methods, and references.",
+      "Inputs": "Extracted paper sections.",
+      "Outputs": "Structured summaries for each paper.",
+      "Example": "Summarizing a paper's background and main idea into a single sentence.",
+      "Role in workflow": "Facilitates efficient retrieval and idea synthesis."
+    },
+    "Facet-Based or Field-Specific Extraction from Literature data": {
+      "performed": "Yes",
+      "Method details": "Prompt engineering extracts motivations, innovative details, and concise methods from paper sections.",
+      "Inputs": "Title, abstract, introduction, and method sections.",
+      "Outputs": "Motivations, details, concise methods.",
+      "Example": "Extracting three innovative details not mentioned in the summary.",
+      "Role in workflow": "Provides granular information for idea generation."
+    },
+    "Domain-Tailored Extraction from Literature data": {
+      "performed": "No"
+    },
+    "Task/Entity-Centric Knowledge Graphs": {
+      "performed": "Yes",
+      "Method details": "Paper-keyword graph links each paper to its extracted keywords, capturing co-occurrence relationships.",
+      "Inputs": "Papers and their extracted keywords.",
+      "Outputs": "Paper-keyword graph.",
+      "Example": "Creating an edge between a paper and the keyword 'Transformer'.",
+      "Role in workflow": "Supports efficient graph-based traversal and retrieval."
+    },
+    "Causal or Relation-Specific Knowledge Graphs": {
+      "performed": "No"
+    },
+    "Biomedical or Domain-Specific Interaction Graphs": {
+      "performed": "No"
+    },
+    "Literature Database Construction": {
+      "performed": "Yes",
+      "Method details": "A database of 78,571 AI papers is built, storing structured summaries and embeddings for each.",
+      "Inputs": "Papers from top AI conferences.",
+      "Outputs": "Structured, queryable literature database.",
+      "Example": "Database entry includes keywords, background, ideas, concise methods, references, and embeddings.",
+      "Role in workflow": "Foundation for multi-granularity retrieval and idea generation."
+    },
+    "Entity- or Co-Occurrence–Based Databases": {
+      "performed": "Yes",
+      "Method details": "Database records co-occurrence of papers and keywords, enabling neighborhood-based keyword expansion.",
+      "Inputs": "Papers and extracted keywords.",
+      "Outputs": "Co-occurrence relationships in the database.",
+      "Example": "If 'Transformer' appears in multiple papers, co-occurrence is tracked.",
+      "Role in workflow": "Enables keyword expansion and co-occurrence-based retrieval."
+    },
+    "Reasoning-Chain or Temporal Databases for Literature": {
+      "performed": "No"
+    }
+  },
+  "Hypothesis/Idea Generation": {
+    "performed": "Yes",
+    "Idea/hypothesis generation without additional literature or dataset as context": {
+      "performed": "Yes",
+      "Method details": "LLM generates ideas using only its internal knowledge, guided by a transformed user query.",
+      "Inputs": "Transformed user query/background.",
+      "Outputs": "3-4 initial ideas described in several sentences.",
+      "Example": "Brainstorming ideas for reducing memory footprint in LLM finetuning without referencing external papers.",
+      "Role in workflow": "Provides a baseline set of ideas from the LLM's knowledge."
+    },
+    "LLM Agent Generate ideas/hypotheses via Task Decomposition": {
+      "performed": "No"
+    },
+    "Generate ideas/hypotheses using Domain-Specialized LLM Agent": {
+      "performed": "No"
+    },
+    "Literature data used during idea/hypothesis generation as context": {
+      "performed": "Yes",
+      "Method details": "LLM generates ideas using insights from retrieved literature, including concise method summaries and inspirations.",
+      "Inputs": "Transformed background and summarized methods/inspirations from retrieved papers.",
+      "Outputs": "Novel ideas synthesized from literature context.",
+      "Example": "Generating ideas for RAG systems by integrating methods from multiple retrieved papers.",
+      "Role in workflow": "Grounds idea generation in current literature, increasing feasibility and relevance."
+    },
+    "Summarization Literature data used during idea/hypothesis generation": {
+      "performed": "Yes",
+      "Method details": "LLM summarizes methodology sections of retrieved papers into concise, informative descriptions for use in idea generation.",
+      "Inputs": "Methodology sections from retrieved papers.",
+      "Outputs": "Concise method summaries.",
+      "Example": "Summarizing a paper's method to extract actionable insights for idea synthesis.",
+      "Role in workflow": "Provides focused, relevant context for LLM-based idea generation."
+    },
+    "Idea/hypothesis generation via Facet Recombination": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation via contructed Reasoning-Chain from literature": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation via Knowledge Graph developed from literature": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation via Pattern Detection from dataset": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation via Few-Shot Data Seeding": {
+      "performed": "Yes",
+      "Method details": "Few-shot learning is used to guide LLMs in summarizing methodology sections by providing curated examples.",
+      "Inputs": "Manually curated summaries and new methodology sections.",
+      "Outputs": "Accurate, focused method summaries.",
+      "Example": "Providing example summaries to improve LLM output quality.",
+      "Role in workflow": "Improves the quality of literature-derived context for idea generation."
+    },
+    "Idea/hypothesis generation using Observational data": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation via Feature-Driven Property Prediction": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation after Fine-Tuning the LLM model": {
+      "performed": "No"
+    }
+  },
+  "Hypothesis/Idea Prioritization": {
+    "performed": "Yes",
+    "LLM-based Hypothesis/Idea evaluation via Scientific Quality": {
+      "performed": "No"
+    },
+    "LLM-based Hypothesis/Idea evaluation via Domain-Specific Evaluation": {
+      "performed": "No"
+    },
+    "LLM-based Hypothesis/Idea evaluation via Contextual Evidence Scoring": {
+      "performed": "No"
+    },
+    "LLM-based Hypothesis/Idea evaluation via Interpretability or Success Metrics": {
+      "performed": "No"
+    },
+    "Hypothesis/Idea evaluation via Novelty Checking with Literature Comparison": {
+      "performed": "No"
+    },
+    "Hypothesis/Idea evaluation via Alignment with Literature Chains": {
+      "performed": "No"
+    },
+    "Hypothesis/Idea evaluation via Knowledge-Graph Grounded Similarity Metrics": {
+      "performed": "No"
+    },
+    "Hypothesis/Idea evaluation via Quantitative Assessment Using Domain Metrics": {
+      "performed": "No"
+    },
+    "Hypothesis/Idea evaluation via Human/Expert": {
+      "performed": "Yes",
+      "Method details": "Human researchers (graduate students/PhDs) evaluate generated ideas for novelty, clarity, feasibility, relevance, and helpfulness.",
+      "Inputs": "Generated ideas from SciPIP and baselines.",
+      "Outputs": "Ratings and qualitative feedback.",
+      "Example": "Panel of 12 researchers rate ideas on a 0-5 scale for multiple criteria.",
+      "Role in workflow": "Provides expert validation and comparative assessment of idea quality."
+    }
+  },
+  "Test": {
+    "performed": "No"
+  },
+  "paper_title": "SciPIP: An LLM-based Scientific Paper Idea Proposer",
+  "authors": [
+    "Wenxiao",
+    "Lihui",
+    "Liye",
+    "Yunxiang",
+    "Yi",
+    "Chen",
+    "Liang",
+    "Binbin",
+    "Xiaofei",
+    "Jieping"
+  ],
+  "published": "2025-02-17",
+  "link": "http://arxiv.org/abs/2410.23166"
+}

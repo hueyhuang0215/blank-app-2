@@ -1,0 +1,157 @@
+{
+  "Inputs to the workflow": {
+    "performed": "Yes",
+    "User provide high-level research direction or goal": {
+      "performed": "Yes",
+      "Format": "Natural language prompt specifying a broad research area (e.g., 'do research on diffusion modeling', 'transformer-based language modeling', 'grokking analysis')",
+      "Example": "The AI Scientist is asked to do research on diffusion modeling.",
+      "Role in workflow": "Defines the initial scope and topic for autonomous research cycles."
+    },
+    "User provide structured, domain-specific specifications": {
+      "performed": "Yes",
+      "Format": "Initial code templates for specific ML tasks (e.g., diffusion models, language models, grokking analysis)",
+      "Example": "A codebase that trains a small transformer on Shakespeare or a diffusion model on 2D datasets.",
+      "Role in workflow": "Constrains the search space and provides a starting point for code-based experimentation."
+    },
+    "User provide research papers": {
+      "performed": "No"
+    },
+    "User provide datasets other than research papers": {
+      "performed": "Yes",
+      "Format": "Predefined datasets included in code templates (e.g., 2D geometric datasets, Shakespeare text, enwik8, text8, modular arithmetic datasets)",
+      "Example": "The code template for diffusion modeling includes 2D datasets like circle, dino, line, and moons.",
+      "Role in workflow": "Serves as the empirical basis for experiments and evaluation."
+    },
+    "User provide representations or formal inputs": {
+      "performed": "Yes",
+      "Format": "Code templates, LaTeX paper templates, plotting scripts",
+      "Example": "A LaTeX folder with section headers and plotting code is provided.",
+      "Role in workflow": "Enables code-level modifications, experiment execution, and automated paper writing."
+    }
+  },
+  "Query Structuring": {
+    "performed": "Yes",
+    "Workflow Decomposition": {
+      "performed": "Yes",
+      "Method details": "LLMs are prompted to break down the research process into sequential phases: idea generation, experiment planning, code editing, experiment execution, result visualization, paper writing, and review.",
+      "Inputs": "High-level research direction, code template",
+      "Outputs": "Ordered workflow steps for autonomous execution",
+      "Example": "The AI Scientist has three main phases: (1) Idea Generation, (2) Experimental Iteration, and (3) Paper Write-up.",
+      "Role in workflow": "Structures the end-to-end autonomous research pipeline."
+    }
+  },
+  "Data Retrieval": {
+    "performed": "Yes",
+    "Literature and Data Retrieval via APIs": {
+      "performed": "Yes",
+      "Method details": "LLM agent queries the Semantic Scholar API to search for related literature for novelty checking and citation gathering.",
+      "Inputs": "Proposed research idea, paper draft",
+      "Outputs": "Relevant paper titles, abstracts, BibTeX entries",
+      "Example": "The AI Scientist connects to the Semantic Scholar API to discard ideas too similar to existing literature and to fill in citations.",
+      "Role in workflow": "Supports novelty filtering and automated citation/reference generation."
+    },
+    "Data Retrieval with Prioritization and Filtering Agents": {
+      "performed": "Yes",
+      "Method details": "LLM agent filters out ideas that are not novel based on retrieved literature; selects most relevant papers for related work sections.",
+      "Inputs": "Search results from Semantic Scholar API",
+      "Outputs": "Filtered list of novel ideas, curated references",
+      "Example": "The AI Scientist discards any idea that is too similar to existing literature.",
+      "Role in workflow": "Ensures novelty and relevance of generated research."
+    }
+  },
+  "Knowledge Assembly": {
+    "performed": "Yes",
+    "Standardized Section Extraction from Literature data": {
+      "performed": "Yes",
+      "Method details": "Automated paper writing fills in LaTeX templates section by section (introduction, background, methods, results, etc.).",
+      "Inputs": "Experimental notes, plots, results",
+      "Outputs": "Structured scientific manuscript",
+      "Example": "Aider is prompted to fill in a blank conference template section by section.",
+      "Role in workflow": "Produces standardized, interpretable research outputs."
+    },
+    "Concise Synopsis and Summarization of Literature data": {
+      "performed": "Yes",
+      "Method details": "LLM agent generates brief descriptions of selected references for inclusion in related work sections.",
+      "Inputs": "Retrieved papers from Semantic Scholar",
+      "Outputs": "Short summaries/descriptions for each citation",
+      "Example": "Alongside each selected paper, a short description is produced of where and how to include the citation.",
+      "Role in workflow": "Facilitates concise literature contextualization in generated papers."
+    }
+  },
+  "Hypothesis/Idea Generation": {
+    "performed": "Yes",
+    "Idea/hypothesis generation without additional literature or dataset as context": {
+      "performed": "Yes",
+      "Method details": "LLMs generate novel research ideas based on the provided code template and prior archive of ideas, using chain-of-thought and self-reflection.",
+      "Inputs": "Code template, prior ideas, numerical scores",
+      "Outputs": "New research idea JSON objects with description, plan, and self-assessed scores",
+      "Example": "The AI Scientist first 'brainstorms' a diverse set of novel research directions.",
+      "Role in workflow": "Initiates the autonomous research cycle with creative, testable ideas."
+    },
+    "Idea/hypothesis generation via Few-Shot Data Seeding": {
+      "performed": "Yes",
+      "Method details": "A few basic seed ideas (e.g., modifying learning rate or batch size) are provided to the LLM to bootstrap idea generation.",
+      "Inputs": "Seed ideas, code template",
+      "Outputs": "Expanded set of new research ideas",
+      "Example": "For each run, we provide 1-2 basic seed ideas as examples and have it generate another 50 new ideas.",
+      "Role in workflow": "Guides the LLM to generate relevant and feasible research ideas."
+    }
+  },
+  "Hypothesis/Idea Prioritization": {
+    "performed": "Yes",
+    "LLM-based Hypothesis/Idea evaluation via Scientific Quality": {
+      "performed": "Yes",
+      "Method details": "LLM reviewer agent evaluates generated papers for soundness, presentation, contribution, and overall quality using conference guidelines.",
+      "Inputs": "Generated manuscript",
+      "Outputs": "Numerical scores, strengths/weaknesses, accept/reject decision",
+      "Example": "The review agent processes the raw text of the PDF manuscript and outputs scores and a decision.",
+      "Role in workflow": "Filters and selects the best research outputs for archiving and iteration."
+    },
+    "Hypothesis/Idea evaluation via Novelty Checking with Literature Comparison": {
+      "performed": "Yes",
+      "Method details": "LLM agent checks for novelty by searching literature via Semantic Scholar API and comparing ideas to existing work.",
+      "Inputs": "Proposed idea, literature search results",
+      "Outputs": "Novelty flag (true/false), filtered idea list",
+      "Example": "The AI Scientist discards any idea that is too similar to existing literature.",
+      "Role in workflow": "Ensures generated research is original and non-duplicative."
+    }
+  },
+  "Test": {
+    "performed": "Yes",
+    "LLM-Based Experimental Design Generation via Code and Workflow Translation": {
+      "performed": "Yes",
+      "Method details": "LLM agent (Aider) edits and generates code to implement experimental plans, modify baselines, and create new plots.",
+      "Inputs": "Research idea, code template, experimental plan",
+      "Outputs": "Modified codebase, plotting scripts",
+      "Example": "Aider is used to plan a list of experiments, implement code changes, and generate plots.",
+      "Role in workflow": "Automates the translation of research ideas into executable experiments."
+    },
+    "Test Execution via Computational or In-Silico": {
+      "performed": "Yes",
+      "Method details": "Experiments are executed automatically by running the generated code on provided datasets; results are logged and visualized.",
+      "Inputs": "Modified code, datasets",
+      "Outputs": "Experimental results, plots, logs",
+      "Example": "After the completion of each experiment, results are saved and used for paper writing.",
+      "Role in workflow": "Validates hypotheses and ideas through computational experiments."
+    },
+    "Refinement via LLM Agent Feedback Loops": {
+      "performed": "Yes",
+      "Method details": "LLM agent uses self-reflection to iteratively refine ideas, experimental plans, and manuscript sections based on intermediate results.",
+      "Inputs": "Experimental results, prior outputs",
+      "Outputs": "Improved code, revised paper sections",
+      "Example": "Each section is initially refined with one round of self-reflection as it is being written.",
+      "Role in workflow": "Improves quality and coherence of research outputs through iterative feedback."
+    }
+  },
+  "paper_title": "The AI Scientist: Towards Fully Automated Open-Ended Scientific Discovery",
+  "authors": [
+    "Chris",
+    "Cong",
+    "Robert Tjarko",
+    "Jakob",
+    "Jeff",
+    "David"
+  ],
+  "published": "2024-09-01",
+  "link": "http://arxiv.org/abs/2408.06292"
+}

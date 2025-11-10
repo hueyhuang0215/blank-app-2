@@ -1,0 +1,273 @@
+{
+  "Inputs to the workflow": {
+    "performed": "Yes",
+    "User provide high-level research direction or goal": {
+      "performed": "Yes",
+      "Format": "Task description and requirements for generating product ideas from patents, including output structure (title, description, implementation, differentiation).",
+      "Example": "Participants are to generate a realistic product idea from a patent that could be implemented and launched within three years.",
+      "Role in workflow": "Defines the objective and constraints for the automated idea generation process."
+    },
+    "User provide structured, domain-specific specifications": {
+      "performed": "No"
+    },
+    "User provide research papers": {
+      "performed": "No"
+    },
+    "User provide datasets other than research papers": {
+      "performed": "Yes",
+      "Format": "Curated dataset of 150 U.S. patents with metadata (title, abstract, claims, description, etc.)",
+      "Example": "Dataset includes 50 patents each from Computer Science, NLP, and Material Chemistry.",
+      "Role in workflow": "Serves as the primary input for idea generation and evaluation."
+    },
+    "User provide representations or formal inputs": {
+      "performed": "No"
+    }
+  },
+  "Query Structuring": {
+    "performed": "Yes",
+    "Query Decomposition": {
+      "performed": "No"
+    },
+    "Structural or Entity Decomposition": {
+      "performed": "No"
+    },
+    "Workflow Decomposition": {
+      "performed": "Yes",
+      "Method details": "Multi-agent architecture splits the process into specialized agents: Patent Analyst, Keyword Extractor, Researcher, Idea Generator, Validator.",
+      "Inputs": "Patent text (title, abstract, claims, description).",
+      "Outputs": "Sequential outputs: patent summary, keywords, external product summaries, business idea, validation.",
+      "Example": "Patent Analyst summarizes, Keyword Extractor finds keywords, Researcher searches, Idea Generator creates idea, Validator checks output.",
+      "Role in workflow": "Enables modular, stepwise processing for robust and controlled idea generation."
+    },
+    "Textual or Knowledge Embedding": {
+      "performed": "No"
+    },
+    "Molecular or Chemical Embedding": {
+      "performed": "No"
+    },
+    "Biological or Phenotypic Embedding": {
+      "performed": "No"
+    },
+    "Pattern and Feature Extraction": {
+      "performed": "No"
+    },
+    "Biological Relationship Extraction": {
+      "performed": "No"
+    },
+    "Property and Annotation Extraction": {
+      "performed": "No"
+    },
+    "Sequence and Structure Feature Extraction": {
+      "performed": "No"
+    }
+  },
+  "Data Retrieval": {
+    "performed": "Yes",
+    "Data Retrieval via Multi-Query Generation and Exploration": {
+      "performed": "No"
+    },
+    "Literature and Data Retrieval via APIs": {
+      "performed": "No"
+    },
+    "Data Retrieval with Prioritization and Filtering Agents": {
+      "performed": "No"
+    },
+    "Domain-Specific Data Retrieval and Reasoning": {
+      "performed": "No"
+    },
+    "Code-Driven or Tool-Augmented Data Retrieval": {
+      "performed": "Yes",
+      "Method details": "Researcher agent uses DuckDuckGo tool to search for existing products/tools using extracted keywords.",
+      "Inputs": "Keywords extracted from patent summary.",
+      "Outputs": "Summaries of relevant existing products/tools.",
+      "Example": "Researcher agent performs web search for 'keyword1' and 'keyword2' to find related products.",
+      "Role in workflow": "Provides external market context to inform and differentiate generated product ideas."
+    },
+    "Literature data Retrieval Citation-Network–Based Expansion": {
+      "performed": "No"
+    },
+    "Literature data Retrieval via Semantic and Similarity-Based analysis": {
+      "performed": "No"
+    },
+    "Literature data Retrieval via Multi-Step Reference and Evidence Selection": {
+      "performed": "No"
+    },
+    "Domain-Specific Literature data Retrieval": {
+      "performed": "No"
+    },
+    "Manual and Semi-Automatic Curation of Literature data": {
+      "performed": "No"
+    },
+    "Structural or Similarity-Based Dataset Retrieval": {
+      "performed": "No"
+    },
+    "Data Retrieval via Domain-Specific Repository Querying": {
+      "performed": "No"
+    },
+    "Library Assembly and Data Augmentation": {
+      "performed": "No"
+    }
+  },
+  "Knowledge Assembly": {
+    "performed": "Yes",
+    "Standardized Section Extraction from Literature data": {
+      "performed": "Yes",
+      "Method details": "Patent descriptions are segmented into sections (background, drawings, detailed description) using regex-based preprocessing.",
+      "Inputs": "Raw patent documents.",
+      "Outputs": "Structured patent sections for downstream processing.",
+      "Example": "Extracting 'Background', 'Claims', 'Description of Figures', etc. from each patent.",
+      "Role in workflow": "Enables efficient and focused processing by LLMs and agents."
+    },
+    "Concise Synopsis and Summarization of Literature data": {
+      "performed": "Yes",
+      "Method details": "Patent Analyst agent summarizes the core innovation and usage of the patent.",
+      "Inputs": "Patent sections (title, abstract, claims, description).",
+      "Outputs": "Structured summary of key patent features.",
+      "Example": "Patent Analyst outputs a summary highlighting the main innovation and potential uses.",
+      "Role in workflow": "Provides a condensed, actionable representation for downstream agents."
+    },
+    "Facet-Based or Field-Specific Extraction from Literature data": {
+      "performed": "No"
+    },
+    "Domain-Tailored Extraction from Literature data": {
+      "performed": "No"
+    },
+    "Task/Entity-Centric Knowledge Graphs": {
+      "performed": "No"
+    },
+    "Causal or Relation-Specific Knowledge Graphs": {
+      "performed": "No"
+    },
+    "Biomedical or Domain-Specific Interaction Graphs": {
+      "performed": "No"
+    },
+    "Literature Database Construction": {
+      "performed": "No"
+    },
+    "Entity- or Co-Occurrence–Based Databases": {
+      "performed": "No"
+    },
+    "Reasoning-Chain or Temporal Databases for Literature": {
+      "performed": "No"
+    }
+  },
+  "Hypothesis/Idea Generation": {
+    "performed": "Yes",
+    "Idea/hypothesis generation without additional literature or dataset as context": {
+      "performed": "Yes",
+      "Method details": "Prompt-based LLM approach generates product ideas using only the patent text as input.",
+      "Inputs": "Patent (title, abstract, claims, summarized description).",
+      "Outputs": "Product idea with title, description, implementation, differentiation.",
+      "Example": "Single-prompt LLM generates a business idea from a patent.",
+      "Role in workflow": "Serves as a baseline for idea generation without external context."
+    },
+    "LLM Agent Generate ideas/hypotheses via Task Decomposition": {
+      "performed": "Yes",
+      "Method details": "Multi-agent system assigns specialized roles (summarization, keyword extraction, research, idea generation, validation) for sequential processing.",
+      "Inputs": "Patent text and outputs from previous agents.",
+      "Outputs": "Structured business idea, validated for format and novelty.",
+      "Example": "Business Idea Generator agent creates idea, Validator agent checks structure and uniqueness.",
+      "Role in workflow": "Enables modular, robust, and controlled idea generation."
+    },
+    "Generate ideas/hypotheses using Domain-Specialized LLM Agent": {
+      "performed": "No"
+    },
+    "Literature data used during idea/hypothesis generation as context": {
+      "performed": "Yes",
+      "Method details": "Agent with Tool approach uses external web search results (existing products/tools) as additional context for idea generation.",
+      "Inputs": "Patent summary and external product summaries.",
+      "Outputs": "Business idea differentiated from known solutions.",
+      "Example": "Idea Generator agent uses both patent and web search results to create a novel product idea.",
+      "Role in workflow": "Improves relevance and novelty by grounding ideas in current market landscape."
+    },
+    "Summarization Literature data used during idea/hypothesis generation": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation via Facet Recombination": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation via contructed Reasoning-Chain from literature": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation via Knowledge Graph developed from literature": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation via Pattern Detection from dataset": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation via Few-Shot Data Seeding": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation using Observational data": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation via Feature-Driven Property Prediction": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation after Fine-Tuning the LLM model": {
+      "performed": "No"
+    }
+  },
+  "Hypothesis/Idea Prioritization": {
+    "performed": "Yes",
+    "LLM-based Hypothesis/Idea evaluation via Scientific Quality": {
+      "performed": "Yes",
+      "Method details": "LLM-as-a-judge evaluates generated ideas on technical validity, innovativeness, specificity, need, market size, and competitive advantage.",
+      "Inputs": "Patent description and two generated product ideas.",
+      "Outputs": "Selection of better idea with rationale in JSON format.",
+      "Example": "LLM compares two ideas and outputs the preferred one with justification.",
+      "Role in workflow": "Automates comparative evaluation and selection of high-quality ideas."
+    },
+    "LLM-based Hypothesis/Idea evaluation via Domain-Specific Evaluation": {
+      "performed": "Yes",
+      "Method details": "Evaluation criteria include domain-relevant aspects such as technical feasibility and market need.",
+      "Inputs": "Patent, generated ideas.",
+      "Outputs": "Rankings or selection based on domain-specific criteria.",
+      "Example": "Ideas are scored for technical validity, market size, etc.",
+      "Role in workflow": "Ensures ideas are assessed for domain relevance and feasibility."
+    },
+    "LLM-based Hypothesis/Idea evaluation via Contextual Evidence Scoring": {
+      "performed": "No"
+    },
+    "LLM-based Hypothesis/Idea evaluation via Interpretability or Success Metrics": {
+      "performed": "No"
+    },
+    "Hypothesis/Idea evaluation via Novelty Checking with Literature Comparison": {
+      "performed": "Yes",
+      "Method details": "Validator agent and LLM judge check for originality and differentiation from existing products found via web search.",
+      "Inputs": "Generated idea, external product summaries.",
+      "Outputs": "Feedback on novelty and uniqueness.",
+      "Example": "Validator ensures idea is not a duplicate of known solutions.",
+      "Role in workflow": "Prevents redundant or non-novel ideas from being selected."
+    },
+    "Hypothesis/Idea evaluation via Alignment with Literature Chains": {
+      "performed": "No"
+    },
+    "Hypothesis/Idea evaluation via Knowledge-Graph Grounded Similarity Metrics": {
+      "performed": "No"
+    },
+    "Hypothesis/Idea evaluation via Quantitative Assessment Using Domain Metrics": {
+      "performed": "No"
+    },
+    "Hypothesis/Idea evaluation via Human/Expert": {
+      "performed": "Yes",
+      "Method details": "Human experts (organizers) rank submissions based on multiple criteria (technical validity, innovativeness, etc.).",
+      "Inputs": "Generated ideas from different systems.",
+      "Outputs": "Rankings and scores for each domain and criterion.",
+      "Example": "Organizer evaluation ranks system outputs for Chemistry, CS, NLP.",
+      "Role in workflow": "Provides external, domain-informed validation of automated evaluations."
+    }
+  },
+  "Test": {
+    "performed": "No"
+  },
+  "paper_title": "Agent Ideate: A Framework for Product Idea Generation from Patents Using Agentic AI",
+  "authors": [
+    "Gopichand",
+    "Ashok",
+    "Charaka Vinayak",
+    "Bala Mallikarjunarao"
+  ],
+  "published": "2025-07-02",
+  "link": "http://arxiv.org/abs/2507.01717"
+}

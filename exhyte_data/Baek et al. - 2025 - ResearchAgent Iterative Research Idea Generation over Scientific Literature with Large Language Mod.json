@@ -1,0 +1,359 @@
+{
+  "Inputs to the workflow": {
+    "performed": "Yes",
+    "User provide high-level research direction or goal": {
+      "performed": "No"
+    },
+    "User provide structured, domain-specific specifications": {
+      "performed": "No"
+    },
+    "User provide research papers": {
+      "performed": "Yes",
+      "Format": "User/system selects core papers (titles, abstracts) from Semantic Scholar Academic Graph API, focusing on high-impact papers (e.g., >20 citations after May 2023).",
+      "Example": "A core paper and its references are provided as input for idea generation.",
+      "Role in workflow": "Serves as the primary knowledge base for LLM-driven research idea generation."
+    },
+    "User provide datasets other than research papers": {
+      "performed": "No"
+    },
+    "User provide representations or formal inputs": {
+      "performed": "No"
+    }
+  },
+  "Query Structuring": {
+    "performed": "Yes",
+    "Query Decomposition": {
+      "performed": "No"
+    },
+    "Structural or Entity Decomposition": {
+      "performed": "Yes",
+      "Method details": "Entities are extracted from titles and abstracts of papers using the BLINK entity linker; these entities are treated as atomic knowledge units.",
+      "Inputs": "Titles and abstracts of core and related papers.",
+      "Outputs": "Sets of entities per paper; entity co-occurrence matrix.",
+      "Example": "Extracting 'database', 'CRISPR', etc., from abstracts for knowledge augmentation.",
+      "Role in workflow": "Enables cross-domain knowledge integration and entity-centric knowledge augmentation."
+    },
+    "Workflow Decomposition": {
+      "performed": "Yes",
+      "Method details": "LLM-based system decomposes research idea generation into three steps: problem identification, method development, and experiment design.",
+      "Inputs": "Core paper, related papers, extracted entities.",
+      "Outputs": "Structured outputs for each step (problem, method, experiment).",
+      "Example": "Sequentially generating problem, then method, then experiment design.",
+      "Role in workflow": "Structures the ideation process into actionable sub-tasks for LLM agents."
+    },
+    "Textual or Knowledge Embedding": {
+      "performed": "Yes",
+      "Method details": "Abstracts are compared using embedding-based similarity to select relevant references; entity retrieval can use embedding similarity.",
+      "Inputs": "Abstracts of core and candidate reference papers; entity embeddings.",
+      "Outputs": "Ranked list of relevant papers/entities.",
+      "Example": "Selecting references most similar to the core paper using abstract embeddings.",
+      "Role in workflow": "Filters and prioritizes literature and entities for context augmentation."
+    },
+    "Molecular or Chemical Embedding": {
+      "performed": "No"
+    },
+    "Biological or Phenotypic Embedding": {
+      "performed": "No"
+    },
+    "Pattern and Feature Extraction": {
+      "performed": "No"
+    },
+    "Biological Relationship Extraction": {
+      "performed": "No"
+    },
+    "Property and Annotation Extraction": {
+      "performed": "No"
+    },
+    "Sequence and Structure Feature Extraction": {
+      "performed": "No"
+    }
+  },
+  "Data Retrieval": {
+    "performed": "Yes",
+    "Data Retrieval via Multi-Query Generation and Exploration": {
+      "performed": "No"
+    },
+    "Literature and Data Retrieval via APIs": {
+      "performed": "Yes",
+      "Method details": "Papers are retrieved using the Semantic Scholar Academic Graph API, filtered by date and citation count.",
+      "Inputs": "API queries specifying date and citation filters.",
+      "Outputs": "Sets of core and related papers (titles, abstracts, references).",
+      "Example": "Selecting papers after May 2023 with >20 citations.",
+      "Role in workflow": "Provides the literature corpus for downstream idea generation."
+    },
+    "Data Retrieval with Prioritization and Filtering Agents": {
+      "performed": "Yes",
+      "Method details": "References are filtered by abstract similarity to the core paper; core paper is selected by citation count.",
+      "Inputs": "Candidate reference papers, core paper.",
+      "Outputs": "Filtered set of relevant references.",
+      "Example": "Selecting references most similar to the core paper's abstract.",
+      "Role in workflow": "Ensures only the most relevant literature is used for idea generation."
+    },
+    "Domain-Specific Data Retrieval and Reasoning": {
+      "performed": "No"
+    },
+    "Code-Driven or Tool-Augmented Data Retrieval": {
+      "performed": "No"
+    },
+    "Literature data Retrieval Citation-Network–Based Expansion": {
+      "performed": "Yes",
+      "Method details": "Papers that cite or are cited by the core paper are retrieved to expand the literature context.",
+      "Inputs": "Core paper.",
+      "Outputs": "Direct citation network (references and citations).",
+      "Example": "Expanding from a core paper to its citation network.",
+      "Role in workflow": "Broadens the knowledge base for idea generation."
+    },
+    "Literature data Retrieval via Semantic and Similarity-Based analysis": {
+      "performed": "Yes",
+      "Method details": "Abstract similarity is used to select the most relevant references for each core paper.",
+      "Inputs": "Abstracts of core and candidate papers.",
+      "Outputs": "Similarity-ranked references.",
+      "Example": "Filtering references by abstract similarity.",
+      "Role in workflow": "Improves contextual relevance for LLM input."
+    },
+    "Literature data Retrieval via Multi-Step Reference and Evidence Selection": {
+      "performed": "No"
+    },
+    "Domain-Specific Literature data Retrieval": {
+      "performed": "No"
+    },
+    "Manual and Semi-Automatic Curation of Literature data": {
+      "performed": "No"
+    },
+    "Structural or Similarity-Based Dataset Retrieval": {
+      "performed": "No"
+    },
+    "Data Retrieval via Domain-Specific Repository Querying": {
+      "performed": "No"
+    },
+    "Library Assembly and Data Augmentation": {
+      "performed": "No"
+    }
+  },
+  "Knowledge Assembly": {
+    "performed": "Yes",
+    "Standardized Section Extraction from Literature data": {
+      "performed": "Yes",
+      "Method details": "Titles and abstracts are extracted from papers for downstream processing.",
+      "Inputs": "Full papers from Semantic Scholar.",
+      "Outputs": "Standardized fields: title, abstract.",
+      "Example": "Extracting title and abstract for each paper.",
+      "Role in workflow": "Normalizes literature input for LLM and entity extraction."
+    },
+    "Concise Synopsis and Summarization of Literature data": {
+      "performed": "No"
+    },
+    "Facet-Based or Field-Specific Extraction from Literature data": {
+      "performed": "No"
+    },
+    "Domain-Tailored Extraction from Literature data": {
+      "performed": "No"
+    },
+    "Task/Entity-Centric Knowledge Graphs": {
+      "performed": "No"
+    },
+    "Causal or Relation-Specific Knowledge Graphs": {
+      "performed": "No"
+    },
+    "Biomedical or Domain-Specific Interaction Graphs": {
+      "performed": "No"
+    },
+    "Literature Database Construction": {
+      "performed": "No"
+    },
+    "Entity- or Co-Occurrence–Based Databases": {
+      "performed": "Yes",
+      "Method details": "Entities are extracted from titles/abstracts and stored in a co-occurrence matrix (knowledge store) representing entity relationships.",
+      "Inputs": "Extracted entities from papers.",
+      "Outputs": "Sparse matrix of entity co-occurrences.",
+      "Example": "Matrix K where K[i,j] counts co-occurrences of entities ei and ej.",
+      "Role in workflow": "Supports entity-centric knowledge augmentation for idea generation."
+    },
+    "Reasoning-Chain or Temporal Databases for Literature": {
+      "performed": "No"
+    }
+  },
+  "Hypothesis/Idea Generation": {
+    "performed": "Yes",
+    "Idea/hypothesis generation without additional literature or dataset as context": {
+      "performed": "No"
+    },
+    "LLM Agent Generate ideas/hypotheses via Task Decomposition": {
+      "performed": "Yes",
+      "Method details": "LLM-based ResearchAgent decomposes the process into problem identification, method development, and experiment design.",
+      "Inputs": "Core paper, related papers, entities.",
+      "Outputs": "Structured research ideas (problem, method, experiment).",
+      "Example": "Sequentially generating a research problem, then a method, then an experiment.",
+      "Role in workflow": "Enables stepwise, structured idea generation."
+    },
+    "Generate ideas/hypotheses using Domain-Specialized LLM Agent": {
+      "performed": "No"
+    },
+    "Literature data used during idea/hypothesis generation as context": {
+      "performed": "Yes",
+      "Method details": "LLMs are prompted with the title/abstract of the core paper, relevant references, and retrieved entities.",
+      "Inputs": "Titles, abstracts, entities.",
+      "Outputs": "Research ideas grounded in literature and entity context.",
+      "Example": "Generating a novel research problem using the provided literature and entities.",
+      "Role in workflow": "Ensures ideas are relevant and grounded in current research."
+    },
+    "Summarization Literature data used during idea/hypothesis generation": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation via Facet Recombination": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation via contructed Reasoning-Chain from literature": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation via Knowledge Graph developed from literature": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation via Pattern Detection from dataset": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation via Few-Shot Data Seeding": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation using Observational data": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation via Feature-Driven Property Prediction": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation after Fine-Tuning the LLM model": {
+      "performed": "No"
+    }
+  },
+  "Hypothesis/Idea Prioritization": {
+    "performed": "Yes",
+    "LLM-based Hypothesis/Idea evaluation via Scientific Quality": {
+      "performed": "Yes",
+      "Method details": "LLM-powered ReviewingAgents evaluate generated ideas on clarity, originality, feasibility, etc., using criteria induced from human judgments.",
+      "Inputs": "Generated research ideas (problem, method, experiment), evaluation criteria.",
+      "Outputs": "Scores and feedback for each idea.",
+      "Example": "ReviewingAgents rate a proposed method for clarity and validity.",
+      "Role in workflow": "Filters and improves idea quality through iterative feedback."
+    },
+    "LLM-based Hypothesis/Idea evaluation via Domain-Specific Evaluation": {
+      "performed": "Yes",
+      "Method details": "ReviewingAgents use domain-aligned criteria (elicited from human experts) to evaluate ideas.",
+      "Inputs": "Research ideas, domain-specific evaluation criteria.",
+      "Outputs": "Domain-relevant scores and feedback.",
+      "Example": "Evaluating experiment design for reproducibility and robustness.",
+      "Role in workflow": "Aligns idea evaluation with domain standards."
+    },
+    "LLM-based Hypothesis/Idea evaluation via Contextual Evidence Scoring": {
+      "performed": "No"
+    },
+    "LLM-based Hypothesis/Idea evaluation via Interpretability or Success Metrics": {
+      "performed": "No"
+    },
+    "Hypothesis/Idea evaluation via Novelty Checking with Literature Comparison": {
+      "performed": "No"
+    },
+    "Hypothesis/Idea evaluation via Alignment with Literature Chains": {
+      "performed": "No"
+    },
+    "Hypothesis/Idea evaluation via Knowledge-Graph Grounded Similarity Metrics": {
+      "performed": "No"
+    },
+    "Hypothesis/Idea evaluation via Quantitative Assessment Using Domain Metrics": {
+      "performed": "No"
+    },
+    "Hypothesis/Idea evaluation via Human/Expert": {
+      "performed": "Yes",
+      "Method details": "Human experts (with ≥3 papers) score and compare generated ideas for each criterion.",
+      "Inputs": "Generated research ideas, evaluation criteria.",
+      "Outputs": "Human-assigned scores and qualitative feedback.",
+      "Example": "Experts rate the significance of a generated research problem.",
+      "Role in workflow": "Provides ground-truth alignment and validation for LLM-based evaluation."
+    }
+  },
+  "Test": {
+    "performed": "Yes",
+    "Experimental Design Generation via literature-Grounded Model/Protocol Selection": {
+      "performed": "No"
+    },
+    "Experimental Design Generation via Literature Synthesis for New Protocol Generation": {
+      "performed": "Yes",
+      "Method details": "LLMs synthesize experiment designs by integrating context from the core paper, references, and entities.",
+      "Inputs": "Research problem, method, literature, entities.",
+      "Outputs": "Novel experiment designs.",
+      "Example": "Designing an experiment to test a proposed method using literature-derived context.",
+      "Role in workflow": "Enables systematic, literature-grounded experimental planning."
+    },
+    "Experimental Design Generation via Few-Shot or Example-Based Prompting": {
+      "performed": "No"
+    },
+    "Experimental Design Generation via Executable Code Generation from Literature": {
+      "performed": "No"
+    },
+    "LLM-Based Experimental Design Generation via Agentic Exploration and Planning": {
+      "performed": "Yes",
+      "Method details": "LLM agents iteratively generate and refine experiment designs, incorporating feedback from ReviewingAgents.",
+      "Inputs": "Initial experiment design, ReviewingAgent feedback.",
+      "Outputs": "Refined experiment designs.",
+      "Example": "Iteratively improving experiment design based on LLM agent reviews.",
+      "Role in workflow": "Improves experimental plans through agentic iteration."
+    },
+    "LLM-Based Experimental Design Generation via Code and Workflow Translation": {
+      "performed": "No"
+    },
+    "LLM-Based Experimental Design Generation via Multi-Agent Planning with Specialized Roles": {
+      "performed": "Yes",
+      "Method details": "Multiple LLM-based ReviewingAgents provide specialized feedback on different criteria for experiment design.",
+      "Inputs": "Experiment design drafts.",
+      "Outputs": "Multi-perspective feedback and improved designs.",
+      "Example": "Different agents critique clarity, feasibility, and reproducibility.",
+      "Role in workflow": "Ensures comprehensive evaluation and refinement."
+    },
+    "LLM-Based Experimental Design Generation via Domain-Specific Experimental Mapping": {
+      "performed": "No"
+    },
+    "Test Execution via Human-in-the-Loop": {
+      "performed": "No"
+    },
+    "Test Execution via Automated Wet-Lab Execution": {
+      "performed": "No"
+    },
+    "Test Execution via Computational or In-Silico": {
+      "performed": "No"
+    },
+    "Refinement via LLM Agent Feedback Loops": {
+      "performed": "Yes",
+      "Method details": "ResearchAgent iteratively updates ideas based on ReviewingAgent feedback, repeating for several refinement steps.",
+      "Inputs": "Generated ideas, ReviewingAgent feedback.",
+      "Outputs": "Improved research problems, methods, and experiment designs.",
+      "Example": "Three rounds of LLM-based review and revision.",
+      "Role in workflow": "Enhances idea quality and feasibility through iterative critique."
+    },
+    "Refinement via Automated Quality Evaluation using Model-Based Critics": {
+      "performed": "No"
+    },
+    "Refinement via Dynamic Agent Updating Based on Evolving Context or Data": {
+      "performed": "No"
+    },
+    "Refinement via guided by computational-data": {
+      "performed": "No"
+    },
+    "Refinement via experimental validation": {
+      "performed": "No"
+    },
+    "Refinement via Performance-metric": {
+      "performed": "No"
+    },
+    "Refinement via Human–data integration": {
+      "performed": "No"
+    }
+  },
+  "paper_title": "ResearchAgent: Iterative Research Idea Generation over Scientific Literature with Large Language Models",
+  "authors": [
+    "Jinheon",
+    "Sujay Kumar",
+    "Silviu",
+    "Sung Ju"
+  ],
+  "published": "2025-02-09",
+  "link": "http://arxiv.org/abs/2404.07738"
+}

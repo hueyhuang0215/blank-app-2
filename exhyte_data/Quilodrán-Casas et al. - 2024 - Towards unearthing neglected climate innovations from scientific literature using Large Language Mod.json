@@ -1,0 +1,304 @@
+{
+  "Inputs to the workflow": {
+    "performed": "Yes",
+    "User provide high-level research direction or goal": {
+      "performed": "Yes",
+      "Format": "Research hypothesis and objective stated by authors",
+      "Example": "Hypothesis: Many impactful climate solutions exist in UK scientific literature but are underutilised.",
+      "Role in workflow": "Defines the scope—identifying neglected climate innovations in UK research outputs."
+    },
+    "User provide structured, domain-specific specifications": {
+      "performed": "Yes",
+      "Format": "Institutional affiliation, publication year, research domain/topic filters",
+      "Example": "Papers from 6 UK institutions, published after 2000, excluding Health/Social Sciences, with climate-relevant topics.",
+      "Role in workflow": "Constrains dataset to relevant research for climate innovation discovery."
+    },
+    "User provide research papers": {
+      "performed": "Yes",
+      "Format": "Titles and abstracts of research papers from OpenAlex",
+      "Example": "101,374 works with abstracts and topic metadata; 100 abstracts selected for analysis.",
+      "Role in workflow": "Primary evidence base for LLM and human evaluation."
+    },
+    "User provide datasets other than research papers": {
+      "performed": "No"
+    },
+    "User provide representations or formal inputs": {
+      "performed": "No"
+    }
+  },
+  "Query Structuring": {
+    "performed": "Yes",
+    "Query Decomposition": {
+      "performed": "Yes",
+      "Method details": "Seven binary evaluation questions decompose the broad goal into specific dimensions (e.g., mitigation, technology, readiness, market, enabling, eco-focus, neglectedness).",
+      "Inputs": "Research abstracts",
+      "Outputs": "Seven binary responses per abstract",
+      "Example": "Q1: Could this research feasibly lead to a reduction of greenhouse gas emissions?",
+      "Role in workflow": "Structures evaluation for both LLM and human raters, enabling targeted assessment."
+    },
+    "Structural or Entity Decomposition": {
+      "performed": "No"
+    },
+    "Workflow Decomposition": {
+      "performed": "No"
+    },
+    "Textual or Knowledge Embedding": {
+      "performed": "No"
+    },
+    "Molecular or Chemical Embedding": {
+      "performed": "No"
+    },
+    "Biological or Phenotypic Embedding": {
+      "performed": "No"
+    },
+    "Pattern and Feature Extraction": {
+      "performed": "No"
+    },
+    "Biological Relationship Extraction": {
+      "performed": "No"
+    },
+    "Property and Annotation Extraction": {
+      "performed": "No"
+    },
+    "Sequence and Structure Feature Extraction": {
+      "performed": "No"
+    }
+  },
+  "Data Retrieval": {
+    "performed": "Yes",
+    "Data Retrieval via Multi-Query Generation and Exploration": {
+      "performed": "No"
+    },
+    "Literature and Data Retrieval via APIs": {
+      "performed": "Yes",
+      "Method details": "OpenAlex API queried using pyalex Python library with institution, topic, and date filters.",
+      "Inputs": "Query parameters (institutions, publication year, topic domain)",
+      "Outputs": "Dataset of 133,619 works, filtered to 101,374 with abstracts and topic metadata",
+      "Example": "pyalex query filters for UK institutions, research type, and climate-relevant topics.",
+      "Role in workflow": "Automates large-scale retrieval of relevant research papers."
+    },
+    "Data Retrieval with Prioritization and Filtering Agents": {
+      "performed": "Yes",
+      "Method details": "Automated filtering by topic, type, and presence of abstract; manual curation for positive controls.",
+      "Inputs": "Raw OpenAlex dataset",
+      "Outputs": "Filtered dataset for analysis; 100 abstracts selected (including 5 positive controls)",
+      "Example": "Exclusion of works without abstracts or relevant topics; manual addition of spin-out related papers.",
+      "Role in workflow": "Ensures dataset relevance and includes known positives for sensitivity analysis."
+    },
+    "Domain-Specific Data Retrieval and Reasoning": {
+      "performed": "Yes",
+      "Method details": "Topic classification based on CWTS taxonomy to select climate-relevant research.",
+      "Inputs": "OpenAlex topic metadata",
+      "Outputs": "Subset of works with climate innovation relevance",
+      "Example": "1860 topic classifications selected as relevant to climate innovation.",
+      "Role in workflow": "Focuses retrieval on domain-specific content."
+    },
+    "Code-Driven or Tool-Augmented Data Retrieval": {
+      "performed": "Yes",
+      "Method details": "pyalex Python library used to automate API queries and data extraction.",
+      "Inputs": "Query script",
+      "Outputs": "Bulk download of filtered research metadata",
+      "Example": "Listing 1: pyalex query code provided in appendix.",
+      "Role in workflow": "Enables reproducible, automated data collection."
+    },
+    "Literature data Retrieval Citation-Network–Based Expansion": {
+      "performed": "No"
+    },
+    "Literature data Retrieval via Semantic and Similarity-Based analysis": {
+      "performed": "No"
+    },
+    "Literature data Retrieval via Multi-Step Reference and Evidence Selection": {
+      "performed": "No"
+    },
+    "Domain-Specific Literature data Retrieval": {
+      "performed": "Yes",
+      "Method details": "Filtering by domain/topic using OpenAlex metadata and CWTS taxonomy.",
+      "Inputs": "OpenAlex topic/domain metadata",
+      "Outputs": "Climate-relevant research subset",
+      "Example": "Exclusion of Health/Social Sciences; selection of climate innovation topics.",
+      "Role in workflow": "Targets literature retrieval to climate innovation."
+    },
+    "Manual and Semi-Automatic Curation of Literature data": {
+      "performed": "Yes",
+      "Method details": "Manual addition of 5 positive control abstracts linked to climate-tech spin-outs.",
+      "Inputs": "Filtered dataset",
+      "Outputs": "Final test set of 100 abstracts",
+      "Example": "‘Spiking’ the sample with known positives for evaluation.",
+      "Role in workflow": "Validates sensitivity of evaluation process."
+    },
+    "Structural or Similarity-Based Dataset Retrieval": {
+      "performed": "No"
+    },
+    "Data Retrieval via Domain-Specific Repository Querying": {
+      "performed": "No"
+    },
+    "Library Assembly and Data Augmentation": {
+      "performed": "No"
+    }
+  },
+  "Knowledge Assembly": {
+    "performed": "Yes",
+    "Standardized Section Extraction from Literature data": {
+      "performed": "Yes",
+      "Method details": "Extraction of titles and abstracts as standardized fields from OpenAlex metadata.",
+      "Inputs": "OpenAlex records",
+      "Outputs": "Title-abstract pairs for each paper",
+      "Example": "Works lacking abstracts were excluded.",
+      "Role in workflow": "Normalizes input for LLM and human evaluation."
+    },
+    "Concise Synopsis and Summarization of Literature data": {
+      "performed": "No"
+    },
+    "Facet-Based or Field-Specific Extraction from Literature data": {
+      "performed": "No"
+    },
+    "Domain-Tailored Extraction from Literature data": {
+      "performed": "No"
+    },
+    "Task/Entity-Centric Knowledge Graphs": {
+      "performed": "No"
+    },
+    "Causal or Relation-Specific Knowledge Graphs": {
+      "performed": "No"
+    },
+    "Biomedical or Domain-Specific Interaction Graphs": {
+      "performed": "No"
+    },
+    "Literature Database Construction": {
+      "performed": "Yes",
+      "Method details": "Curated and filtered OpenAlex records stored as a structured dataset for downstream evaluation.",
+      "Inputs": "OpenAlex metadata, filtered by topic and abstract presence",
+      "Outputs": "Structured dataset of 101,374 works; 100 selected for evaluation",
+      "Example": "Bulk download and filtering using pyalex.",
+      "Role in workflow": "Creates a queryable, structured corpus for analysis."
+    },
+    "Entity- or Co-Occurrence–Based Databases": {
+      "performed": "No"
+    },
+    "Reasoning-Chain or Temporal Databases for Literature": {
+      "performed": "No"
+    }
+  },
+  "Hypothesis/Idea Generation": {
+    "performed": "Yes",
+    "Idea/hypothesis generation without additional literature or dataset as context": {
+      "performed": "No"
+    },
+    "LLM Agent Generate ideas/hypotheses via Task Decomposition": {
+      "performed": "No"
+    },
+    "Generate ideas/hypotheses using Domain-Specialized LLM Agent": {
+      "performed": "No"
+    },
+    "Literature data used during idea/hypothesis generation as context": {
+      "performed": "Yes",
+      "Method details": "LLMs (GPT-4o) and humans evaluate abstracts to identify potential climate innovations, using the abstract as context.",
+      "Inputs": "Research abstracts",
+      "Outputs": "Binary scores for seven evaluation questions per abstract",
+      "Example": "LLM prompted with abstract and question context to assess mitigation potential, readiness, etc.",
+      "Role in workflow": "Generates candidate climate innovations from literature evidence."
+    },
+    "Summarization Literature data used during idea/hypothesis generation": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation via Facet Recombination": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation via contructed Reasoning-Chain from literature": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation via Knowledge Graph developed from literature": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation via Pattern Detection from dataset": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation via Few-Shot Data Seeding": {
+      "performed": "Yes",
+      "Method details": "LLM provided with 10 example abstracts (spin-out cases) as few-shot prompts to guide evaluation.",
+      "Inputs": "Few-shot examples plus new abstracts",
+      "Outputs": "LLM-generated binary scores for each question",
+      "Example": "Few-shot scenario: LLM sees 10 positive controls before evaluating new abstracts.",
+      "Role in workflow": "Improves LLM’s ability to identify promising innovations."
+    },
+    "Idea/hypothesis generation using Observational data": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation via Feature-Driven Property Prediction": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation after Fine-Tuning the LLM model": {
+      "performed": "No"
+    }
+  },
+  "Hypothesis/Idea Prioritization": {
+    "performed": "Yes",
+    "LLM-based Hypothesis/Idea evaluation via Scientific Quality": {
+      "performed": "Yes",
+      "Method details": "LLMs score abstracts on seven dimensions (e.g., mitigation, readiness, neglectedness) using binary or scalar outputs.",
+      "Inputs": "Abstracts, evaluation questions",
+      "Outputs": "Scores per abstract per question",
+      "Example": "LLM answers: Yes/No for each question; scalar scores in extended scenario.",
+      "Role in workflow": "Assesses scientific and practical merit of candidate innovations."
+    },
+    "LLM-based Hypothesis/Idea evaluation via Domain-Specific Evaluation": {
+      "performed": "Yes",
+      "Method details": "Evaluation questions target domain-specific aspects (e.g., market need, technology enabling, eco-focus).",
+      "Inputs": "Abstracts, domain-specific questions",
+      "Outputs": "Domain-relevant scores",
+      "Example": "Q4: Does a clear commercial market or industry need exist for this research?",
+      "Role in workflow": "Filters for domain-relevant, actionable innovations."
+    },
+    "LLM-based Hypothesis/Idea evaluation via Contextual Evidence Scoring": {
+      "performed": "Yes",
+      "Method details": "LLM uses context (abstract + question explanations) to inform scoring; logistic regression weights scores for ranking.",
+      "Inputs": "Abstracts, context, logistic regression weights",
+      "Outputs": "Weighted scores and rankings",
+      "Example": "Logistic regression trained on positive controls to weight question responses.",
+      "Role in workflow": "Ranks candidates by evidence-based potential."
+    },
+    "LLM-based Hypothesis/Idea evaluation via Interpretability or Success Metrics": {
+      "performed": "No"
+    },
+    "Hypothesis/Idea evaluation via Novelty Checking with Literature Comparison": {
+      "performed": "No"
+    },
+    "Hypothesis/Idea evaluation via Alignment with Literature Chains": {
+      "performed": "No"
+    },
+    "Hypothesis/Idea evaluation via Knowledge-Graph Grounded Similarity Metrics": {
+      "performed": "No"
+    },
+    "Hypothesis/Idea evaluation via Quantitative Assessment Using Domain Metrics": {
+      "performed": "Yes",
+      "Method details": "Logistic regression applied to question responses to derive weights for ranking abstracts.",
+      "Inputs": "Binary/scalar scores for Q2-7, positive control labels",
+      "Outputs": "Weighted sum per abstract for ranking",
+      "Example": "Table 2: Weights for each question determined by logistic regression.",
+      "Role in workflow": "Provides quantitative, data-driven prioritization."
+    },
+    "Hypothesis/Idea evaluation via Human/Expert": {
+      "performed": "Yes",
+      "Method details": "Six human evaluators score abstracts on the same seven questions as LLM.",
+      "Inputs": "Abstracts, evaluation questions",
+      "Outputs": "Human-generated binary scores",
+      "Example": "Qualtrics survey with binary Yes/No answers per question.",
+      "Role in workflow": "Benchmarks and validates LLM performance."
+    }
+  },
+  "Test": {
+    "performed": "No"
+  },
+  "paper_title": "Towards unearthing neglected climate innovations from scientific literature using Large Language Models",
+  "authors": [
+    "César",
+    "Christopher",
+    "Nicole",
+    "Diyona",
+    "Cathal",
+    "Larissa",
+    "Alyssa"
+  ],
+  "published": "2024-11-15",
+  "link": "http://arxiv.org/abs/2411.10055"
+}

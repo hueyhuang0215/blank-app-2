@@ -1,0 +1,353 @@
+{
+  "Inputs to the workflow": {
+    "performed": "Yes",
+    "User provide high-level research direction or goal": {
+      "performed": "Yes",
+      "Format": "Natural language descriptions of scientific problems, motivations, experimental settings, and goals.",
+      "Example": "Background context describing problems with pretrained language models and lifelong integration of information sources.",
+      "Role in workflow": "Defines the problem context for which the system is to generate novel scientific ideas."
+    },
+    "User provide structured, domain-specific specifications": {
+      "performed": "No"
+    },
+    "User provide research papers": {
+      "performed": "Yes",
+      "Format": "Full-text scientific papers (PDFs, abstracts, titles) from ACL Anthology and PubMed.",
+      "Example": "67,408 ACL Anthology papers and PubMed papers are used for data extraction and inspiration retrieval.",
+      "Role in workflow": "Serve as the source for extracting background contexts, ideas, and as the reference corpus for novelty checking."
+    },
+    "User provide datasets other than research papers": {
+      "performed": "No"
+    },
+    "User provide representations or formal inputs": {
+      "performed": "No"
+    }
+  },
+  "Query Structuring": {
+    "performed": "Yes",
+    "Query Decomposition": {
+      "performed": "No"
+    },
+    "Structural or Entity Decomposition": {
+      "performed": "Yes",
+      "Method details": "Scientific IE models extract entities (Task, Method, Evaluation Metric, Material) and relations (e.g., used-for) from paper abstracts.",
+      "Inputs": "Abstracts and titles from scientific papers.",
+      "Outputs": "Structured entities and relations for downstream retrieval and KG construction.",
+      "Example": "Extracting 'knowledge acquisition' as a seed term and 'function preserved model expansion' as a target from a method sentence.",
+      "Role in workflow": "Enables fine-grained retrieval and knowledge graph construction for inspiration and context."
+    },
+    "Workflow Decomposition": {
+      "performed": "No"
+    },
+    "Textual or Knowledge Embedding": {
+      "performed": "Yes",
+      "Method details": "SentenceBERT (all-mpnet-base-v2) is used to embed background contexts and candidate inspirations for semantic similarity retrieval.",
+      "Inputs": "Background context, seed terms, and candidate inspirations.",
+      "Outputs": "Vector representations for similarity-based retrieval.",
+      "Example": "Computing cosine similarity between input context and training set examples to retrieve semantic neighbors.",
+      "Role in workflow": "Supports semantic retrieval of relevant inspirations and novelty checking."
+    },
+    "Molecular or Chemical Embedding": {
+      "performed": "No"
+    },
+    "Biological or Phenotypic Embedding": {
+      "performed": "No"
+    },
+    "Pattern and Feature Extraction": {
+      "performed": "Yes",
+      "Method details": "Information extraction models identify key sentences (background, method, objective) and salient entities/relations.",
+      "Inputs": "Paper abstracts and titles.",
+      "Outputs": "Labeled sentences and extracted entities/relations.",
+      "Example": "Classifying sentences as 'Background' or 'Method' and extracting [method, used-for, task] relations.",
+      "Role in workflow": "Provides structured features for training and inspiration retrieval."
+    },
+    "Biological Relationship Extraction": {
+      "performed": "Yes",
+      "Method details": "In biomedical case study, PubTator 3 extracts relations among genes, chemicals, diseases, etc.",
+      "Inputs": "PubMed abstracts.",
+      "Outputs": "Extracted biomedical entities and their relationships.",
+      "Example": "Extracting gene-disease or chemical-gene relations from PubMed abstracts.",
+      "Role in workflow": "Enables KG construction and domain-specific inspiration retrieval."
+    },
+    "Property and Annotation Extraction": {
+      "performed": "No"
+    },
+    "Sequence and Structure Feature Extraction": {
+      "performed": "No"
+    }
+  },
+  "Data Retrieval": {
+    "performed": "Yes",
+    "Data Retrieval via Multi-Query Generation and Exploration": {
+      "performed": "No"
+    },
+    "Literature and Data Retrieval via APIs": {
+      "performed": "Yes",
+      "Method details": "Papers are downloaded using Semantic Scholar Academic Graph API and Entrez Programming Utilities API.",
+      "Inputs": "API queries for papers from ACL Anthology and PubMed.",
+      "Outputs": "Large corpora of papers for extraction and retrieval.",
+      "Example": "Downloading 67,408 ACL Anthology papers and 5,708 PubMed papers.",
+      "Role in workflow": "Provides the raw literature data for all downstream extraction and retrieval."
+    },
+    "Data Retrieval with Prioritization and Filtering Agents": {
+      "performed": "Yes",
+      "Method details": "High-confidence outputs from IE models are retained; test set is filtered for low similarity between background and ground truth.",
+      "Inputs": "Extracted sentences and entities.",
+      "Outputs": "Filtered, high-quality training and test instances.",
+      "Example": "Removing noisy IE outputs and selecting test pairs with cosine similarity ≤0.074.",
+      "Role in workflow": "Ensures quality and relevance of data used for training and evaluation."
+    },
+    "Domain-Specific Data Retrieval and Reasoning": {
+      "performed": "No"
+    },
+    "Code-Driven or Tool-Augmented Data Retrieval": {
+      "performed": "No"
+    },
+    "Literature data Retrieval Citation-Network–Based Expansion": {
+      "performed": "Yes",
+      "Method details": "Citation networks are used to retrieve titles of papers cited by or citing the source document for inspiration.",
+      "Inputs": "Citation graph metadata from papers.",
+      "Outputs": "Titles of related papers for use as inspiration.",
+      "Example": "Retrieving cited paper titles for a given document and selecting those with high semantic similarity.",
+      "Role in workflow": "Provides additional contextually relevant inspirations for idea generation."
+    },
+    "Literature data Retrieval via Semantic and Similarity-Based analysis": {
+      "performed": "Yes",
+      "Method details": "Semantic neighbors are retrieved using SentenceBERT embeddings to find similar problems and solutions.",
+      "Inputs": "Background context and seed term embeddings.",
+      "Outputs": "Semantically similar training examples as inspirations.",
+      "Example": "Retrieving top-k similar inputs from the training set based on cosine similarity.",
+      "Role in workflow": "Grounds idea generation in related prior work."
+    },
+    "Literature data Retrieval via Multi-Step Reference and Evidence Selection": {
+      "performed": "No"
+    },
+    "Domain-Specific Literature data Retrieval": {
+      "performed": "Yes",
+      "Method details": "Knowledge graph neighbors are retrieved based on one-hop connections in a background KG built from the corpus.",
+      "Inputs": "Seed term and background KG.",
+      "Outputs": "Adjacent nodes (methods, tasks, etc.) as inspirations.",
+      "Example": "Selecting neighbor nodes of 'knowledge acquisition' in the KG.",
+      "Role in workflow": "Provides domain-specific inspirations for idea generation."
+    },
+    "Manual and Semi-Automatic Curation of Literature data": {
+      "performed": "Yes",
+      "Method details": "Manual annotation and filtering of test set to ensure challenging, high-quality evaluation instances.",
+      "Inputs": "Automatically extracted test instances.",
+      "Outputs": "Gold subset of test instances with manual validation.",
+      "Example": "Annotators remove trivial or irrelevant test pairs.",
+      "Role in workflow": "Improves reliability of evaluation."
+    },
+    "Structural or Similarity-Based Dataset Retrieval": {
+      "performed": "No"
+    },
+    "Data Retrieval via Domain-Specific Repository Querying": {
+      "performed": "Yes",
+      "Method details": "Biomedical case study queries PubMed and uses PubTator 3 for entity/relation extraction.",
+      "Inputs": "PubMed abstracts.",
+      "Outputs": "Biomedical entities and relations for KG and inspiration retrieval.",
+      "Example": "Extracting gene, chemical, and disease relations from PubMed.",
+      "Role in workflow": "Enables domain transfer and biomedical idea generation."
+    },
+    "Library Assembly and Data Augmentation": {
+      "performed": "No"
+    }
+  },
+  "Knowledge Assembly": {
+    "performed": "Yes",
+    "Standardized Section Extraction from Literature data": {
+      "performed": "Yes",
+      "Method details": "Scientific sentence classification segments abstracts into Background, Method, Objective, etc.",
+      "Inputs": "Paper abstracts.",
+      "Outputs": "Labeled sentences for extraction.",
+      "Example": "Classifying sentences as 'Background' or 'Method' for downstream pairing.",
+      "Role in workflow": "Enables structured extraction of problem and solution pairs."
+    },
+    "Concise Synopsis and Summarization of Literature data": {
+      "performed": "No"
+    },
+    "Facet-Based or Field-Specific Extraction from Literature data": {
+      "performed": "Yes",
+      "Method details": "IE models extract entities and relations such as Task, Method, Evaluation Metric, Material, and used-for relations.",
+      "Inputs": "Labeled sentences from abstracts.",
+      "Outputs": "Structured entity-relation tuples.",
+      "Example": "Extracting [method, used-for, task] relations from method sentences.",
+      "Role in workflow": "Provides structured data for training and inspiration retrieval."
+    },
+    "Domain-Tailored Extraction from Literature data": {
+      "performed": "Yes",
+      "Method details": "Biomedical IE (PubTator 3) extracts domain-specific entities and relations from PubMed abstracts.",
+      "Inputs": "Biomedical paper abstracts.",
+      "Outputs": "Gene, chemical, disease, and other biomedical relations.",
+      "Example": "Extracting gene-disease relations for KG construction.",
+      "Role in workflow": "Supports domain-specific KG and idea generation."
+    },
+    "Task/Entity-Centric Knowledge Graphs": {
+      "performed": "Yes",
+      "Method details": "Global background KG constructed from extracted entities and used-for relations across the corpus.",
+      "Inputs": "Extracted entities and relations from all papers.",
+      "Outputs": "Knowledge graph with nodes (tasks, methods, etc.) and edges (used-for).",
+      "Example": "KG node 'knowledge acquisition' linked to methods and tasks.",
+      "Role in workflow": "Enables KG-based inspiration retrieval and novelty checking."
+    },
+    "Causal or Relation-Specific Knowledge Graphs": {
+      "performed": "No"
+    },
+    "Biomedical or Domain-Specific Interaction Graphs": {
+      "performed": "Yes",
+      "Method details": "Biomedical KG built from PubTator 3 outputs, modeling interactions among genes, chemicals, diseases.",
+      "Inputs": "Biomedical entity/relation extractions.",
+      "Outputs": "Domain-specific interaction graph.",
+      "Example": "KG with gene-chemical-disease relations for biomedical idea generation.",
+      "Role in workflow": "Supports domain-specific retrieval and hypothesis generation."
+    },
+    "Literature Database Construction": {
+      "performed": "Yes",
+      "Method details": "Corpus of papers is segmented, structured, and stored for retrieval and downstream tasks.",
+      "Inputs": "Downloaded papers.",
+      "Outputs": "Structured database of papers with extracted fields.",
+      "Example": "67,408 ACL Anthology papers stored with extracted sentences and entities.",
+      "Role in workflow": "Enables large-scale retrieval and training."
+    },
+    "Entity- or Co-Occurrence–Based Databases": {
+      "performed": "No"
+    },
+    "Reasoning-Chain or Temporal Databases for Literature": {
+      "performed": "No"
+    }
+  },
+  "Hypothesis/Idea Generation": {
+    "performed": "Yes",
+    "Idea/hypothesis generation without additional literature or dataset as context": {
+      "performed": "Yes",
+      "Method details": "LLMs (GPT-3.5, GPT-4) generate ideas in zero-shot and few-shot settings using only the input context.",
+      "Inputs": "Background context and seed term.",
+      "Outputs": "Generated idea sentences.",
+      "Example": "GPT-4 zero-shot generates an idea for 'knowledge acquisition' in lifelong learning.",
+      "Role in workflow": "Baseline for idea generation without explicit literature grounding."
+    },
+    "LLM Agent Generate ideas/hypotheses via Task Decomposition": {
+      "performed": "No"
+    },
+    "Generate ideas/hypotheses using Domain-Specialized LLM Agent": {
+      "performed": "Yes",
+      "Method details": "Biomedical domain: Meditron-7b LLM fine-tuned on biomedical data generates domain-specific ideas.",
+      "Inputs": "Biomedical background context and seed term.",
+      "Outputs": "Biomedical idea sentences.",
+      "Example": "Meditron-7b generates ideas for gene 'ARO10' in biochemical context.",
+      "Role in workflow": "Enables domain transfer and specialized idea generation."
+    },
+    "Literature data used during idea/hypothesis generation as context": {
+      "performed": "Yes",
+      "Method details": "Retrieved inspirations (semantic neighbors, KG neighbors, citation neighbors) are provided as additional context to LLMs.",
+      "Inputs": "Background context, seed term, and retrieved inspirations.",
+      "Outputs": "Idea sentences grounded in literature.",
+      "Example": "GPT-4 receives retrieved inspirations and generates a more grounded idea.",
+      "Role in workflow": "Improves relevance and grounding of generated ideas."
+    },
+    "Summarization Literature data used during idea/hypothesis generation": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation via Facet Recombination": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation via contructed Reasoning-Chain from literature": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation via Knowledge Graph developed from literature": {
+      "performed": "Yes",
+      "Method details": "KG neighbors are used as inspirations for idea generation, leveraging structured relationships.",
+      "Inputs": "Seed term and KG neighbors.",
+      "Outputs": "Idea sentences incorporating KG-derived inspirations.",
+      "Example": "Using KG neighbors of 'knowledge acquisition' to suggest new methods.",
+      "Role in workflow": "Enables structured, relation-based inspiration for idea generation."
+    },
+    "Idea/hypothesis generation via Pattern Detection from dataset": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation via Few-Shot Data Seeding": {
+      "performed": "Yes",
+      "Method details": "LLMs are prompted with few-shot examples (input-output pairs) from the training set.",
+      "Inputs": "Background context, seed term, and few-shot examples.",
+      "Outputs": "Idea sentences generated in few-shot setting.",
+      "Example": "GPT-3.5FS and GPT-4FS use few-shot prompts for idea generation.",
+      "Role in workflow": "Improves LLM performance by providing concrete examples."
+    },
+    "Idea/hypothesis generation using Observational data": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation via Feature-Driven Property Prediction": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation after Fine-Tuning the LLM model": {
+      "performed": "Yes",
+      "Method details": "T5 and Meditron-7b models are fine-tuned on extracted (background, idea) pairs for idea generation.",
+      "Inputs": "Curated training data of background-idea pairs.",
+      "Outputs": "Fine-tuned LLMs generating ideas.",
+      "Example": "T5 fine-tuned on NLP data; Meditron-7b on biomedical data.",
+      "Role in workflow": "Improves idea generation by adapting LLMs to domain-specific data."
+    }
+  },
+  "Hypothesis/Idea Prioritization": {
+    "performed": "Yes",
+    "LLM-based Hypothesis/Idea evaluation via Scientific Quality": {
+      "performed": "Yes",
+      "Method details": "Human annotators rate generated ideas for relevance, novelty, clarity, and reasonableness.",
+      "Inputs": "Generated idea sentences.",
+      "Outputs": "Human ratings of idea helpfulness and quality.",
+      "Example": "Annotators rate GPT-4 and T5 outputs for helpfulness.",
+      "Role in workflow": "Evaluates the scientific quality of generated ideas."
+    },
+    "LLM-based Hypothesis/Idea evaluation via Domain-Specific Evaluation": {
+      "performed": "Yes",
+      "Method details": "Biomedical domain experts evaluate Meditron-7b outputs for technical detail and relevance.",
+      "Inputs": "Biomedical idea sentences.",
+      "Outputs": "Expert ratings of biomedical ideas.",
+      "Example": "Experts rate 80% of Meditron-7b outputs as helpful.",
+      "Role in workflow": "Assesses domain-specific quality of generated ideas."
+    },
+    "LLM-based Hypothesis/Idea evaluation via Contextual Evidence Scoring": {
+      "performed": "No"
+    },
+    "LLM-based Hypothesis/Idea evaluation via Interpretability or Success Metrics": {
+      "performed": "No"
+    },
+    "Hypothesis/Idea evaluation via Novelty Checking with Literature Comparison": {
+      "performed": "Yes",
+      "Method details": "Iterative novelty boosting: LLM compares generated ideas to retrieved literature and updates ideas if too similar.",
+      "Inputs": "Generated idea and top-k similar literature ideas.",
+      "Outputs": "Updated, more novel idea sentences.",
+      "Example": "LLM instructed to revise idea if cosine similarity to literature exceeds threshold.",
+      "Role in workflow": "Ensures generated ideas are novel relative to prior work."
+    },
+    "Hypothesis/Idea evaluation via Alignment with Literature Chains": {
+      "performed": "No"
+    },
+    "Hypothesis/Idea evaluation via Knowledge-Graph Grounded Similarity Metrics": {
+      "performed": "No"
+    },
+    "Hypothesis/Idea evaluation via Quantitative Assessment Using Domain Metrics": {
+      "performed": "No"
+    },
+    "Hypothesis/Idea evaluation via Human/Expert": {
+      "performed": "Yes",
+      "Method details": "Human annotators and domain experts provide qualitative evaluation of generated ideas.",
+      "Inputs": "Generated ideas and ground truth ideas.",
+      "Outputs": "Human ratings and comparative rankings.",
+      "Example": "Annotators compare GPT-4 outputs to ground truth for novelty and technical depth.",
+      "Role in workflow": "Provides nuanced, context-aware evaluation beyond automated metrics."
+    }
+  },
+  "Test": {
+    "performed": "No"
+  },
+  "paper_title": "SciMON: Scientific Inspiration Machines Optimized for Novelty",
+  "authors": [
+    "Qingyun",
+    "Doug",
+    "Heng",
+    "Tom"
+  ],
+  "published": "2024",
+  "link": "http://arxiv.org/abs/2305.14259"
+}

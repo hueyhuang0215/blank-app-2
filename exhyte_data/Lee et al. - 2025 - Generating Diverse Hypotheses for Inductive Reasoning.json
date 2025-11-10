@@ -1,0 +1,262 @@
+{
+  "Inputs to the workflow": {
+    "performed": "Yes",
+    "User provide high-level research direction or goal": {
+      "performed": "Yes",
+      "Format": "Inductive reasoning problem statements and motivation for improving hypothesis diversity in LLMs.",
+      "Example": "Generate a rule that maps the following inputs to their corresponding outputs.",
+      "Role in workflow": "Defines the scope and objective for the automated hypothesis generation and evaluation process."
+    },
+    "User provide structured, domain-specific specifications": {
+      "performed": "Yes",
+      "Format": "Input-output pairs for inductive reasoning tasks; dataset/task selection.",
+      "Example": "Train examples Dtrain = {(x1, y1), ..., (xn, yn)} and test examples Dtest = {(x'1, y'1), ..., (x'm, y'm)}.",
+      "Role in workflow": "Provides concrete examples for LLMs to induce transformation rules."
+    },
+    "User provide research papers": {
+      "performed": "No"
+    },
+    "User provide datasets other than research papers": {
+      "performed": "Yes",
+      "Format": "Benchmark datasets for inductive reasoning (List Functions, MiniARC, MBPP+, Playgol-str).",
+      "Example": "List Functions dataset, MiniARC, MBPP+, Playgol-str.",
+      "Role in workflow": "Serves as the ground truth for evaluating hypothesis generation and testing."
+    },
+    "User provide representations or formal inputs": {
+      "performed": "Yes",
+      "Format": "Python code implementations of hypotheses; JSON-formatted concept lists.",
+      "Example": "Hypotheses are implemented as Python functions; concepts are listed in JSON.",
+      "Role in workflow": "Enables automated parsing, execution, and evaluation of generated hypotheses."
+    }
+  },
+  "Query Structuring": {
+    "performed": "Yes",
+    "Query Decomposition": {
+      "performed": "Yes",
+      "Method details": "MoC method decomposes the hypothesis generation process into two stages: concept proposal (listing K concepts) and hypothesis generation (one per concept).",
+      "Inputs": "Input-output pairs for a reasoning task.",
+      "Outputs": "List of K elementary concepts; K hypothesis prompts.",
+      "Example": "LLM instructed to generate a list of K concepts, then each concept is used as a hint for hypothesis generation.",
+      "Role in workflow": "Structures the search space for hypothesis generation, increasing semantic diversity."
+    },
+    "Structural or Entity Decomposition": {
+      "performed": "No"
+    },
+    "Workflow Decomposition": {
+      "performed": "Yes",
+      "Method details": "The MoC approach splits the workflow into concept proposal and hypothesis generation stages.",
+      "Inputs": "Input-output pairs.",
+      "Outputs": "Separate prompts for concept generation and for hypothesis generation conditioned on each concept.",
+      "Example": "First, generate K concepts; then, for each, generate a hypothesis and code.",
+      "Role in workflow": "Enables parallel, semantically diverse hypothesis generation."
+    },
+    "Textual or Knowledge Embedding": {
+      "performed": "No"
+    },
+    "Molecular or Chemical Embedding": {
+      "performed": "No"
+    },
+    "Biological or Phenotypic Embedding": {
+      "performed": "No"
+    },
+    "Pattern and Feature Extraction": {
+      "performed": "No"
+    },
+    "Biological Relationship Extraction": {
+      "performed": "No"
+    },
+    "Property and Annotation Extraction": {
+      "performed": "No"
+    },
+    "Sequence and Structure Feature Extraction": {
+      "performed": "No"
+    }
+  },
+  "Data Retrieval": {
+    "performed": "Yes",
+    "Data Retrieval via Multi-Query Generation and Exploration": {
+      "performed": "Yes",
+      "Method details": "LLMs generate multiple concepts (queries) per problem, each guiding a distinct hypothesis.",
+      "Inputs": "Input-output pairs.",
+      "Outputs": "Multiple concept prompts and corresponding hypotheses.",
+      "Example": "MoC generates a list of K concepts, each leading to a different hypothesis.",
+      "Role in workflow": "Expands the diversity of hypotheses by exploring multiple conceptual angles."
+    },
+    "Literature and Data Retrieval via APIs": {
+      "performed": "No"
+    },
+    "Data Retrieval with Prioritization and Filtering Agents": {
+      "performed": "No"
+    },
+    "Domain-Specific Data Retrieval and Reasoning": {
+      "performed": "No"
+    },
+    "Code-Driven or Tool-Augmented Data Retrieval": {
+      "performed": "No"
+    },
+    "Literature data Retrieval Citation-Network–Based Expansion": {
+      "performed": "No"
+    },
+    "Literature data Retrieval via Semantic and Similarity-Based analysis": {
+      "performed": "No"
+    },
+    "Literature data Retrieval via Multi-Step Reference and Evidence Selection": {
+      "performed": "No"
+    },
+    "Domain-Specific Literature data Retrieval": {
+      "performed": "No"
+    },
+    "Manual and Semi-Automatic Curation of Literature data": {
+      "performed": "No"
+    },
+    "Structural or Similarity-Based Dataset Retrieval": {
+      "performed": "No"
+    },
+    "Data Retrieval via Domain-Specific Repository Querying": {
+      "performed": "No"
+    },
+    "Library Assembly and Data Augmentation": {
+      "performed": "No"
+    }
+  },
+  "Knowledge Assembly": {
+    "performed": "No"
+  },
+  "Hypothesis/Idea Generation": {
+    "performed": "Yes",
+    "Idea/hypothesis generation without additional literature or dataset as context": {
+      "performed": "Yes",
+      "Method details": "LLMs generate hypotheses based solely on provided input-output pairs, without external literature.",
+      "Inputs": "Input-output pairs.",
+      "Outputs": "Natural language hypotheses and Python code implementations.",
+      "Example": "LLM prompted to generate a hypothesis and code for a transformation task.",
+      "Role in workflow": "Core mechanism for proposing candidate rules for the observed data."
+    },
+    "LLM Agent Generate ideas/hypotheses via Task Decomposition": {
+      "performed": "Yes",
+      "Method details": "MoC decomposes the task into concept proposal and hypothesis generation, each handled by LLM prompts.",
+      "Inputs": "Input-output pairs.",
+      "Outputs": "List of concepts, then hypotheses per concept.",
+      "Example": "First, generate concepts; then, for each, generate a hypothesis and code.",
+      "Role in workflow": "Improves diversity and coverage of generated hypotheses."
+    },
+    "Generate ideas/hypotheses using Domain-Specialized LLM Agent": {
+      "performed": "No"
+    },
+    "Literature data used during idea/hypothesis generation as context": {
+      "performed": "No"
+    },
+    "Summarization Literature data used during idea/hypothesis generation": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation via Facet Recombination": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation via contructed Reasoning-Chain from literature": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation via Knowledge Graph developed from literature": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation via Pattern Detection from dataset": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation via Few-Shot Data Seeding": {
+      "performed": "Yes",
+      "Method details": "LLMs are provided with a small set of input-output pairs (few-shot) to induce hypotheses.",
+      "Inputs": "Few-shot train examples.",
+      "Outputs": "Hypotheses and code.",
+      "Example": "Prompt includes several input-output pairs for the LLM to infer the rule.",
+      "Role in workflow": "Enables LLMs to generalize from limited data to generate candidate rules."
+    },
+    "Idea/hypothesis generation using Observational data": {
+      "performed": "Yes",
+      "Method details": "LLMs use observed input-output pairs to infer transformation rules.",
+      "Inputs": "Observed input-output pairs.",
+      "Outputs": "Hypotheses and code.",
+      "Example": "Given Dtrain, LLM generates a hypothesis explaining the mapping.",
+      "Role in workflow": "Directly grounds hypothesis generation in empirical data."
+    },
+    "Idea/hypothesis generation via Feature-Driven Property Prediction": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation after Fine-Tuning the LLM model": {
+      "performed": "No"
+    }
+  },
+  "Hypothesis/Idea Prioritization": {
+    "performed": "Yes",
+    "LLM-based Hypothesis/Idea evaluation via Scientific Quality": {
+      "performed": "Yes",
+      "Method details": "Hypotheses are evaluated by checking if they perfectly explain all train examples; degenerate or low-quality outputs are filtered.",
+      "Inputs": "Generated hypotheses and train examples.",
+      "Outputs": "Set of hypotheses passing all train cases.",
+      "Example": "Select hypothesis where yi = fk(xi) for all i.",
+      "Role in workflow": "Ensures only plausible, correct hypotheses are considered for testing."
+    },
+    "LLM-based Hypothesis/Idea evaluation via Domain-Specific Evaluation": {
+      "performed": "Yes",
+      "Method details": "Hypotheses are implemented as Python code and validated for correctness on domain-specific tasks.",
+      "Inputs": "Python code hypotheses, train/test examples.",
+      "Outputs": "Validated hypotheses.",
+      "Example": "Check if hypothesis passes all test cases in List Functions or MiniARC.",
+      "Role in workflow": "Filters hypotheses based on task-specific correctness."
+    },
+    "LLM-based Hypothesis/Idea evaluation via Contextual Evidence Scoring": {
+      "performed": "No"
+    },
+    "LLM-based Hypothesis/Idea evaluation via Interpretability or Success Metrics": {
+      "performed": "No"
+    },
+    "Hypothesis/Idea evaluation via Novelty Checking with Literature Comparison": {
+      "performed": "No"
+    },
+    "Hypothesis/Idea evaluation via Alignment with Literature Chains": {
+      "performed": "No"
+    },
+    "Hypothesis/Idea evaluation via Knowledge-Graph Grounded Similarity Metrics": {
+      "performed": "No"
+    },
+    "Hypothesis/Idea evaluation via Quantitative Assessment Using Domain Metrics": {
+      "performed": "Yes",
+      "Method details": "Performance is measured by test accuracy (percentage of test cases passed) and number of unique hypotheses.",
+      "Inputs": "Test examples, generated hypotheses.",
+      "Outputs": "Accuracy scores, diversity metrics.",
+      "Example": "Report test accuracy and number of unique hypotheses for each method.",
+      "Role in workflow": "Quantifies the effectiveness and diversity of hypothesis generation."
+    },
+    "Hypothesis/Idea evaluation via Human/Expert": {
+      "performed": "No"
+    }
+  },
+  "Test": {
+    "performed": "Yes",
+    "Test Execution via Computational or In-Silico": {
+      "performed": "Yes",
+      "Method details": "Generated Python code hypotheses are executed on test examples to validate correctness.",
+      "Inputs": "Python code hypotheses, test input-output pairs.",
+      "Outputs": "Pass/fail results for each hypothesis.",
+      "Example": "A hypothesis is considered correct if it passes all test cases.",
+      "Role in workflow": "Provides automated, objective validation of generated hypotheses."
+    },
+    "Refinement via Performance-metric": {
+      "performed": "Yes",
+      "Method details": "If no hypothesis passes all train examples, the problem is marked unsolved; performance is improved by increasing hypothesis diversity.",
+      "Inputs": "Test results, accuracy metrics.",
+      "Outputs": "Refined hypothesis generation strategies (e.g., MoC vs IID sampling).",
+      "Example": "MoC enables solving problems unsolved by IID sampling within compute budget.",
+      "Role in workflow": "Guides iterative improvement of hypothesis generation based on test outcomes."
+    }
+  },
+  "paper_title": "Generating Diverse Hypotheses for Inductive Reasoning",
+  "authors": [
+    "Kang-il",
+    "Hyukhun",
+    "Dongryeol",
+    "Seunghyun",
+    "Minsung",
+    "Kyomin"
+  ],
+  "published": "2025-02-08",
+  "link": "http://arxiv.org/abs/2412.13422"
+}

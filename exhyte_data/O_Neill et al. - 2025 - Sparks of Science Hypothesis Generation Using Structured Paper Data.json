@@ -1,0 +1,303 @@
+{
+  "Inputs to the workflow": {
+    "performed": "Yes",
+    "User provide high-level research direction or goal": {
+      "performed": "No"
+    },
+    "User provide structured, domain-specific specifications": {
+      "performed": "No"
+    },
+    "User provide research papers": {
+      "performed": "Yes",
+      "Format": "Full-text and abstracts of research papers from NeurIPS 2023 and ICLR 2024.",
+      "Example": "5478 papers from NeurIPS 2023 and ICLR 2024 are used as input.",
+      "Role in workflow": "Serve as the primary source for extracting structured problem-hypothesis pairs."
+    },
+    "User provide datasets other than research papers": {
+      "performed": "No"
+    },
+    "User provide representations or formal inputs": {
+      "performed": "No"
+    }
+  },
+  "Query Structuring": {
+    "performed": "Yes",
+    "Query Decomposition": {
+      "performed": "Yes",
+      "Method details": "OpenAI’s o1 model is prompted to extract Bit (problem), Flip (solution), and Spark (key insight) from paper abstracts.",
+      "Inputs": "Paper abstracts.",
+      "Outputs": "Structured Bit, Flip, and Spark fields.",
+      "Example": "For Bahdanau et al. (2015), the Bit is the conventional NMT bottleneck, Spark is 'Soft alignment for flexible translation', Flip is the attention mechanism.",
+      "Role in workflow": "Transforms unstructured abstracts into actionable, structured representations for downstream hypothesis generation."
+    },
+    "Structural or Entity Decomposition": {
+      "performed": "No"
+    },
+    "Workflow Decomposition": {
+      "performed": "No"
+    },
+    "Textual or Knowledge Embedding": {
+      "performed": "No"
+    },
+    "Molecular or Chemical Embedding": {
+      "performed": "No"
+    },
+    "Biological or Phenotypic Embedding": {
+      "performed": "No"
+    },
+    "Pattern and Feature Extraction": {
+      "performed": "No"
+    },
+    "Biological Relationship Extraction": {
+      "performed": "No"
+    },
+    "Property and Annotation Extraction": {
+      "performed": "No"
+    },
+    "Sequence and Structure Feature Extraction": {
+      "performed": "No"
+    }
+  },
+  "Data Retrieval": {
+    "performed": "Yes",
+    "Data Retrieval via Multi-Query Generation and Exploration": {
+      "performed": "No"
+    },
+    "Literature and Data Retrieval via APIs": {
+      "performed": "No"
+    },
+    "Data Retrieval with Prioritization and Filtering Agents": {
+      "performed": "No"
+    },
+    "Domain-Specific Data Retrieval and Reasoning": {
+      "performed": "No"
+    },
+    "Code-Driven or Tool-Augmented Data Retrieval": {
+      "performed": "No"
+    },
+    "Literature data Retrieval Citation-Network–Based Expansion": {
+      "performed": "No"
+    },
+    "Literature data Retrieval via Semantic and Similarity-Based analysis": {
+      "performed": "No"
+    },
+    "Literature data Retrieval via Multi-Step Reference and Evidence Selection": {
+      "performed": "No"
+    },
+    "Domain-Specific Literature data Retrieval": {
+      "performed": "Yes",
+      "Method details": "Manual curation of papers from top-tier computer science conferences (NeurIPS, ICLR).",
+      "Inputs": "Conference proceedings.",
+      "Outputs": "Corpus of 5478 papers.",
+      "Example": "Papers from NeurIPS 2023 and ICLR 2024 are collected for dataset construction.",
+      "Role in workflow": "Provides the foundational literature corpus for extraction and hypothesis generation."
+    },
+    "Manual and Semi-Automatic Curation of Literature data": {
+      "performed": "Yes",
+      "Method details": "Selection of accepted papers from specific conferences.",
+      "Inputs": "Conference paper lists.",
+      "Outputs": "Curated set of research papers.",
+      "Example": "Accepted papers from NeurIPS 2023 and ICLR 2024.",
+      "Role in workflow": "Ensures high-quality, domain-relevant input data."
+    },
+    "Structural or Similarity-Based Dataset Retrieval": {
+      "performed": "No"
+    },
+    "Data Retrieval via Domain-Specific Repository Querying": {
+      "performed": "No"
+    },
+    "Library Assembly and Data Augmentation": {
+      "performed": "No"
+    }
+  },
+  "Knowledge Assembly": {
+    "performed": "Yes",
+    "Standardized Section Extraction from Literature data": {
+      "performed": "Yes",
+      "Method details": "Extraction of Bit, Flip, and Spark from abstracts; Chain-of-Reasoning from full text (excluding abstract).",
+      "Inputs": "Paper abstracts and full texts.",
+      "Outputs": "Structured JSON records with Bit, Flip, Spark, Chain-of-Reasoning.",
+      "Example": "For each paper, the o1 model outputs a JSON object with these fields.",
+      "Role in workflow": "Normalizes and structures literature content for model training and inference."
+    },
+    "Concise Synopsis and Summarization of Literature data": {
+      "performed": "Yes",
+      "Method details": "Spark field provides a 4-6 word summary of the core insight.",
+      "Inputs": "Paper abstracts.",
+      "Outputs": "Concise Spark summaries.",
+      "Example": "Spark: 'Soft alignment for flexible translation'.",
+      "Role in workflow": "Distills the main conceptual leap for each hypothesis."
+    },
+    "Facet-Based or Field-Specific Extraction from Literature data": {
+      "performed": "Yes",
+      "Method details": "Extraction of specific fields (Bit, Flip, Spark, Chain-of-Reasoning) using LLM prompts.",
+      "Inputs": "Abstracts and full texts.",
+      "Outputs": "Field-specific structured data.",
+      "Example": "Bit: conventional assumption; Flip: innovative approach; Spark: summary.",
+      "Role in workflow": "Enables targeted hypothesis generation and evaluation."
+    },
+    "Domain-Tailored Extraction from Literature data": {
+      "performed": "Yes",
+      "Method details": "Chain-of-Reasoning extracted as a narrative of the scientist’s ideation process.",
+      "Inputs": "Full paper text (excluding abstract).",
+      "Outputs": "First-person narrative reasoning chains.",
+      "Example": "Detailed Chain-of-Reasoning for each hypothesis.",
+      "Role in workflow": "Captures the intellectual process from problem to solution."
+    },
+    "Task/Entity-Centric Knowledge Graphs": {
+      "performed": "No"
+    },
+    "Causal or Relation-Specific Knowledge Graphs": {
+      "performed": "No"
+    },
+    "Biomedical or Domain-Specific Interaction Graphs": {
+      "performed": "No"
+    },
+    "Literature Database Construction": {
+      "performed": "Yes",
+      "Method details": "Outputs stored in JSON format with metadata (paper ID, title, authors, etc.).",
+      "Inputs": "Extracted structured fields from papers.",
+      "Outputs": "Structured database for training and evaluation.",
+      "Example": "HypoGen dataset at huggingface.co/datasets/UniverseTBD/hypogen-dr1.",
+      "Role in workflow": "Enables large-scale training and benchmarking of hypothesis generation models."
+    },
+    "Entity- or Co-Occurrence–Based Databases": {
+      "performed": "No"
+    },
+    "Reasoning-Chain or Temporal Databases for Literature": {
+      "performed": "Yes",
+      "Method details": "Chain-of-Reasoning field encodes stepwise intellectual progression.",
+      "Inputs": "Full paper text.",
+      "Outputs": "Reasoning-chain records per hypothesis.",
+      "Example": "Scientist’s ideation notebook for each Bit-Flip pair.",
+      "Role in workflow": "Supports interpretability and transparency in hypothesis generation."
+    }
+  },
+  "Hypothesis/Idea Generation": {
+    "performed": "Yes",
+    "Idea/hypothesis generation without additional literature or dataset as context": {
+      "performed": "No"
+    },
+    "LLM Agent Generate ideas/hypotheses via Task Decomposition": {
+      "performed": "No"
+    },
+    "Generate ideas/hypotheses using Domain-Specialized LLM Agent": {
+      "performed": "No"
+    },
+    "Literature data used during idea/hypothesis generation as context": {
+      "performed": "Yes",
+      "Method details": "Fine-tuned LLaMA models generate hypotheses conditioned on the Bit, using the structured dataset derived from literature.",
+      "Inputs": "Bit field (problem statement) from literature.",
+      "Outputs": "Generated Spark and Chain-of-Reasoning.",
+      "Example": "Given a Bit, the model outputs a Spark and reasoning chain.",
+      "Role in workflow": "Grounds hypothesis generation in real scientific problems."
+    },
+    "Summarization Literature data used during idea/hypothesis generation": {
+      "performed": "Yes",
+      "Method details": "Spark summary and Chain-of-Reasoning are generated as part of the hypothesis.",
+      "Inputs": "Bit (and optionally Flip) from literature.",
+      "Outputs": "Concise Spark and detailed reasoning chain.",
+      "Example": "Model generates a 4-6 word Spark and a narrative reasoning chain.",
+      "Role in workflow": "Provides both a summary and detailed rationale for each hypothesis."
+    },
+    "Idea/hypothesis generation via Facet Recombination": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation via contructed Reasoning-Chain from literature": {
+      "performed": "Yes",
+      "Method details": "Model generates a detailed Chain-of-Reasoning connecting Bit to Flip.",
+      "Inputs": "Bit (problem statement).",
+      "Outputs": "Stepwise reasoning narrative.",
+      "Example": "Model outputs a scientist’s ideation notebook for each hypothesis.",
+      "Role in workflow": "Ensures hypotheses are accompanied by transparent reasoning."
+    },
+    "Idea/hypothesis generation via Knowledge Graph developed from literature": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation via Pattern Detection from dataset": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation via Few-Shot Data Seeding": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation using Observational data": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation via Feature-Driven Property Prediction": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation after Fine-Tuning the LLM model": {
+      "performed": "Yes",
+      "Method details": "LLaMA 3.1 8B and R1-distilled LLaMA 3.1 8B models are fine-tuned on the HypoGen dataset.",
+      "Inputs": "Structured Bit-Flip-Spark+Chain-of-Reasoning pairs.",
+      "Outputs": "Hypotheses (Spark + Chain-of-Reasoning) generated from Bit.",
+      "Example": "Fine-tuned model generates a hypothesis for a new Bit.",
+      "Role in workflow": "Improves hypothesis quality and alignment with scientific reasoning."
+    }
+  },
+  "Hypothesis/Idea Prioritization": {
+    "performed": "Yes",
+    "LLM-based Hypothesis/Idea evaluation via Scientific Quality": {
+      "performed": "Yes",
+      "Method details": "LLM judges (Claude 3.7 Sonnet, o3-mini) perform pairwise evaluation of generated hypotheses for novelty, feasibility, and overall quality.",
+      "Inputs": "Generated hypotheses (Spark + Chain-of-Reasoning) for each Bit.",
+      "Outputs": "Preference scores and qualitative feedback.",
+      "Example": "LLM judge selects the more novel or feasible hypothesis between two options.",
+      "Role in workflow": "Ranks and filters hypotheses based on scientific merit."
+    },
+    "LLM-based Hypothesis/Idea evaluation via Domain-Specific Evaluation": {
+      "performed": "No"
+    },
+    "LLM-based Hypothesis/Idea evaluation via Contextual Evidence Scoring": {
+      "performed": "No"
+    },
+    "LLM-based Hypothesis/Idea evaluation via Interpretability or Success Metrics": {
+      "performed": "No"
+    },
+    "Hypothesis/Idea evaluation via Novelty Checking with Literature Comparison": {
+      "performed": "Yes",
+      "Method details": "IAScore metric quantifies alignment between generated ideas and author-proposed research ideas.",
+      "Inputs": "Generated hypotheses and author-proposed future research ideas.",
+      "Outputs": "IAScore values indicating novelty/alignment.",
+      "Example": "IAScore computed using GPT-based IdeaMatcher.",
+      "Role in workflow": "Assesses novelty and overlap with existing literature."
+    },
+    "Hypothesis/Idea evaluation via Alignment with Literature Chains": {
+      "performed": "No"
+    },
+    "Hypothesis/Idea evaluation via Knowledge-Graph Grounded Similarity Metrics": {
+      "performed": "No"
+    },
+    "Hypothesis/Idea evaluation via Quantitative Assessment Using Domain Metrics": {
+      "performed": "Yes",
+      "Method details": "Perplexity and Idea Distinctness Index are used to assess fluency and diversity of generated hypotheses.",
+      "Inputs": "Generated hypotheses.",
+      "Outputs": "Perplexity scores, distinctness indices.",
+      "Example": "Lower perplexity indicates higher fluency; distinctness index measures semantic diversity.",
+      "Role in workflow": "Provides quantitative assessment of hypothesis quality."
+    },
+    "Hypothesis/Idea evaluation via Human/Expert": {
+      "performed": "Yes",
+      "Method details": "Blind human evaluation of hypothesis pairs for novelty, feasibility, and overall preference.",
+      "Inputs": "Generated hypotheses.",
+      "Outputs": "Human preference scores.",
+      "Example": "Author evaluates 20 hypothesis pairs.",
+      "Role in workflow": "Validates LLM-based evaluation and provides expert judgment."
+    }
+  },
+  "Test": {
+    "performed": "No"
+  },
+  "paper_title": "Sparks of Science: Hypothesis Generation Using Structured Paper Data",
+  "authors": [
+    "Charles",
+    "Tirthankar",
+    "Roberta",
+    "Mike",
+    "Thang",
+    "Kevin",
+    "Ioana"
+  ],
+  "published": "2025-04-17",
+  "link": "http://arxiv.org/abs/2504.12976"
+}

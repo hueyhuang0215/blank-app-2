@@ -1,0 +1,406 @@
+{
+  "Inputs to the workflow": {
+    "performed": "Yes",
+    "User provide high-level research direction or goal": {
+      "performed": "Yes",
+      "Format": "Natural language query specifying a target product or reaction goal.",
+      "Example": "User asks for a high-yield reaction condition for a given product SMILES.",
+      "Role in workflow": "Defines the synthesis target and initiates the automated workflow."
+    },
+    "User provide structured, domain-specific specifications": {
+      "performed": "Yes",
+      "Format": "SMILES string of target molecule; optional constraints on reaction space.",
+      "Example": "\"CN1C2=CC=CC(C3=CC=C4N=CC=CC4=C3)=C2C=N1\" as target product.",
+      "Role in workflow": "Specifies the chemical target for which reaction conditions are to be optimized."
+    },
+    "User provide research papers": {
+      "performed": "No"
+    },
+    "User provide datasets other than research papers": {
+      "performed": "No"
+    },
+    "User provide representations or formal inputs": {
+      "performed": "Yes",
+      "Format": "SMILES strings; possibly code or structured queries.",
+      "Example": "SMILES input for molecule; code snippets generated for API queries.",
+      "Role in workflow": "Enables precise identification and retrieval of relevant chemical data."
+    }
+  },
+  "Query Structuring": {
+    "performed": "Yes",
+    "Query Decomposition": {
+      "performed": "No"
+    },
+    "Structural or Entity Decomposition": {
+      "performed": "Yes",
+      "Method details": "Uses chemistry-informed molecular graph (CIMG) descriptors to encode molecular structure for ML models.",
+      "Inputs": "Molecular structures (SMILES) of reactants, ligands, bases, solvents.",
+      "Outputs": "Graph-based molecular representations for downstream ML tasks.",
+      "Example": "CIMG encodes NMR shifts and BDEs as node/edge features in a GNN.",
+      "Role in workflow": "Enables feature-level reasoning and property prediction for reaction condition optimization."
+    },
+    "Workflow Decomposition": {
+      "performed": "Yes",
+      "Method details": "Three-phase pipeline: retrieval (Phase One), recommendation (Phase Two), validation (Phase Three).",
+      "Inputs": "User query and target molecule.",
+      "Outputs": "Sequential sub-tasks: data retrieval, condition recommendation, robotic validation.",
+      "Example": "LLM agent orchestrates retrieval, CAD tool use, and robotic execution.",
+      "Role in workflow": "Creates actionable multi-step plan for automated reaction condition discovery."
+    },
+    "Textual or Knowledge Embedding": {
+      "performed": "Yes",
+      "Method details": "Uses OpenAI ADA-002 model to embed prompts and documentation slices for semantic similarity.",
+      "Inputs": "Prompt text and API documentation slices.",
+      "Outputs": "Vector embeddings for similarity-based selection of relevant documentation.",
+      "Example": "Semantic similarity used to select top match slice (TMS) for in-context learning.",
+      "Role in workflow": "Enables context-aware code generation for API-based data retrieval."
+    },
+    "Molecular or Chemical Embedding": {
+      "performed": "Yes",
+      "Method details": "CIMG descriptors and CL-SCL fingerprints encode chemical reactions for ML models.",
+      "Inputs": "Molecular structures and reaction components.",
+      "Outputs": "Numerical embeddings for reaction condition prediction.",
+      "Example": "CL-SCL fingerprint combines CIMG and supervised contrastive learning.",
+      "Role in workflow": "Facilitates similarity search and ML-driven reaction condition optimization."
+    },
+    "Biological or Phenotypic Embedding": {
+      "performed": "No"
+    },
+    "Pattern and Feature Extraction": {
+      "performed": "Yes",
+      "Method details": "Extracts NMR shifts, BDEs, and yield labels as features for ML models.",
+      "Inputs": "Reaction datasets with molecular and yield data.",
+      "Outputs": "Feature vectors for ML training and prediction.",
+      "Example": "Yield labels categorized as high, medium, low for robust learning.",
+      "Role in workflow": "Enables robust property prediction and reaction classification."
+    },
+    "Biological Relationship Extraction": {
+      "performed": "No"
+    },
+    "Property and Annotation Extraction": {
+      "performed": "Yes",
+      "Method details": "Extracts reaction yields and other properties from literature and datasets.",
+      "Inputs": "Reaction records from databases and literature.",
+      "Outputs": "Structured property data (e.g., yield, conditions).",
+      "Example": "Retrieves yield and condition data for similar molecules.",
+      "Role in workflow": "Provides empirical grounding for ML model training and recommendation."
+    },
+    "Sequence and Structure Feature Extraction": {
+      "performed": "No"
+    }
+  },
+  "Data Retrieval": {
+    "performed": "Yes",
+    "Data Retrieval via Multi-Query Generation and Exploration": {
+      "performed": "No"
+    },
+    "Literature and Data Retrieval via APIs": {
+      "performed": "Yes",
+      "Method details": "LLM generates Python code to query PubChem and Amazon EC2 APIs for reaction data.",
+      "Inputs": "SMILES string of target molecule.",
+      "Outputs": "Relevant reaction conditions and similar molecules.",
+      "Example": "Python code generated to retrieve similar molecules via PubChem API.",
+      "Role in workflow": "Automates access to chemical reaction data for downstream analysis."
+    },
+    "Data Retrieval with Prioritization and Filtering Agents": {
+      "performed": "Yes",
+      "Method details": "Hierarchical matching: exact SMILES match, then similarity search, prioritizing closest matches.",
+      "Inputs": "Target molecule SMILES.",
+      "Outputs": "Most relevant reaction conditions from database.",
+      "Example": "If no exact match, searches for most similar molecule and retrieves its conditions.",
+      "Role in workflow": "Narrows search space to most relevant data for efficient recommendation."
+    },
+    "Domain-Specific Data Retrieval and Reasoning": {
+      "performed": "Yes",
+      "Method details": "LLM interprets API documentation and generates code for chemistry-specific data retrieval.",
+      "Inputs": "API documentation, user query.",
+      "Outputs": "Executable code for chemical data extraction.",
+      "Example": "LLM uses TMS from API docs to generate PubChem queries.",
+      "Role in workflow": "Bridges chemistry domain knowledge and computational retrieval."
+    },
+    "Code-Driven or Tool-Augmented Data Retrieval": {
+      "performed": "Yes",
+      "Method details": "LLM generates Python scripts for API-based data retrieval.",
+      "Inputs": "Prompt, API documentation.",
+      "Outputs": "Executable code for data extraction.",
+      "Example": "Auto-generated code to retrieve similar molecules from PubChem.",
+      "Role in workflow": "Enables automated, reproducible data access."
+    },
+    "Literature data Retrieval Citation-Network–Based Expansion": {
+      "performed": "No"
+    },
+    "Literature data Retrieval via Semantic and Similarity-Based analysis": {
+      "performed": "Yes",
+      "Method details": "Uses semantic similarity (cosine/L2) between prompt and documentation slices for TMS selection.",
+      "Inputs": "Prompt embedding, documentation slice embeddings.",
+      "Outputs": "Most semantically relevant documentation slice.",
+      "Example": "Slice #3 selected as most relevant for similar molecule inquiry.",
+      "Role in workflow": "Improves code generation accuracy for data retrieval."
+    },
+    "Literature data Retrieval via Multi-Step Reference and Evidence Selection": {
+      "performed": "No"
+    },
+    "Domain-Specific Literature data Retrieval": {
+      "performed": "Yes",
+      "Method details": "Queries chemistry-specific databases (CAS, PubChem) for reaction conditions.",
+      "Inputs": "Target molecule SMILES.",
+      "Outputs": "Literature-derived reaction conditions.",
+      "Example": "Retrieves conditions for Suzuki–Miyaura coupling from CAS database.",
+      "Role in workflow": "Ensures retrieval is tailored to chemical synthesis domain."
+    },
+    "Manual and Semi-Automatic Curation of Literature data": {
+      "performed": "No"
+    },
+    "Structural or Similarity-Based Dataset Retrieval": {
+      "performed": "Yes",
+      "Method details": "Similarity search for molecules using SMILES and PubChem API.",
+      "Inputs": "Target molecule SMILES.",
+      "Outputs": "List of similar molecules and their reaction data.",
+      "Example": "If no exact match, retrieves data for most similar molecule.",
+      "Role in workflow": "Expands retrieval to structurally related compounds."
+    },
+    "Data Retrieval via Domain-Specific Repository Querying": {
+      "performed": "Yes",
+      "Method details": "Queries CAS and PubChem repositories for chemical reaction data.",
+      "Inputs": "SMILES string.",
+      "Outputs": "Reaction conditions and literature data.",
+      "Example": "Amazon EC2 API used for CAS database queries.",
+      "Role in workflow": "Accesses authoritative chemistry data sources."
+    },
+    "Library Assembly and Data Augmentation": {
+      "performed": "No"
+    }
+  },
+  "Knowledge Assembly": {
+    "performed": "No"
+  },
+  "Hypothesis/Idea Generation": {
+    "performed": "Yes",
+    "Idea/hypothesis generation without additional literature or dataset as context": {
+      "performed": "No"
+    },
+    "LLM Agent Generate ideas/hypotheses via Task Decomposition": {
+      "performed": "Yes",
+      "Method details": "LLM agent orchestrates multi-phase workflow: retrieval, recommendation, validation.",
+      "Inputs": "User query and retrieved data.",
+      "Outputs": "Recommended reaction conditions.",
+      "Example": "LLM agent coordinates retrieval and CAD tool use for RCO.",
+      "Role in workflow": "Breaks down the discovery process into actionable steps."
+    },
+    "Generate ideas/hypotheses using Domain-Specialized LLM Agent": {
+      "performed": "Yes",
+      "Method details": "LLM agent leverages chemistry-specific APIs and CAD tools for condition recommendation.",
+      "Inputs": "Chemical data, literature, molecular embeddings.",
+      "Outputs": "Predicted high-yield reaction conditions.",
+      "Example": "LLM selects and applies CAD tools via API for RCO.",
+      "Role in workflow": "Applies domain expertise to generate actionable recommendations."
+    },
+    "Literature data used during idea/hypothesis generation as context": {
+      "performed": "Yes",
+      "Method details": "Retrieved literature and database records inform condition recommendation.",
+      "Inputs": "Reaction conditions from literature/databases.",
+      "Outputs": "Context-aware reaction condition suggestions.",
+      "Example": "Uses literature-derived K2CO3 and dioxane/H2O as optimal base/solvent.",
+      "Role in workflow": "Grounds recommendations in empirical evidence."
+    },
+    "Summarization Literature data used during idea/hypothesis generation": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation via Facet Recombination": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation via contructed Reasoning-Chain from literature": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation via Knowledge Graph developed from literature": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation via Pattern Detection from dataset": {
+      "performed": "Yes",
+      "Method details": "ML models trained on reaction datasets detect patterns for high-yield conditions.",
+      "Inputs": "Reaction datasets with yield labels.",
+      "Outputs": "Predicted optimal reaction conditions.",
+      "Example": "CL-SCL fingerprint enables ML to distinguish high-yield reactions.",
+      "Role in workflow": "Informs hypothesis generation with empirical data patterns."
+    },
+    "Idea/hypothesis generation via Few-Shot Data Seeding": {
+      "performed": "Yes",
+      "Method details": "In-context learning (ICL) with exemplar code snippets for API programming.",
+      "Inputs": "Prompt with example code/documentation slice.",
+      "Outputs": "LLM-generated code for data retrieval.",
+      "Example": "TMS-ICL improves code generation for PubChem API.",
+      "Role in workflow": "Bootstraps LLM performance for hypothesis-relevant code generation."
+    },
+    "Idea/hypothesis generation using Observational data": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation via Feature-Driven Property Prediction": {
+      "performed": "Yes",
+      "Method details": "ML models use CIMG and CL-SCL features to predict reaction yields.",
+      "Inputs": "Encoded reaction features.",
+      "Outputs": "Predicted yield and recommended conditions.",
+      "Example": "CL-SCL fingerprint outperforms prior methods in yield prediction.",
+      "Role in workflow": "Directs hypothesis generation toward high-yielding conditions."
+    },
+    "Idea/hypothesis generation after Fine-Tuning the LLM model": {
+      "performed": "No"
+    }
+  },
+  "Hypothesis/Idea Prioritization": {
+    "performed": "Yes",
+    "LLM-based Hypothesis/Idea evaluation via Scientific Quality": {
+      "performed": "No"
+    },
+    "LLM-based Hypothesis/Idea evaluation via Domain-Specific Evaluation": {
+      "performed": "Yes",
+      "Method details": "ML models evaluate candidate conditions for expected yield using domain-specific features.",
+      "Inputs": "Candidate reaction conditions and encoded features.",
+      "Outputs": "Ranked or selected high-yield conditions.",
+      "Example": "Batch recommendations with highest predicted yields are prioritized.",
+      "Role in workflow": "Focuses experimental validation on most promising candidates."
+    },
+    "LLM-based Hypothesis/Idea evaluation via Contextual Evidence Scoring": {
+      "performed": "No"
+    },
+    "LLM-based Hypothesis/Idea evaluation via Interpretability or Success Metrics": {
+      "performed": "No"
+    },
+    "Hypothesis/Idea evaluation via Novelty Checking with Literature Comparison": {
+      "performed": "No"
+    },
+    "Hypothesis/Idea evaluation via Alignment with Literature Chains": {
+      "performed": "No"
+    },
+    "Hypothesis/Idea evaluation via Knowledge-Graph Grounded Similarity Metrics": {
+      "performed": "No"
+    },
+    "Hypothesis/Idea evaluation via Quantitative Assessment Using Domain Metrics": {
+      "performed": "Yes",
+      "Method details": "Predicted yields from ML models serve as quantitative metric for prioritization.",
+      "Inputs": "Predicted yields for candidate conditions.",
+      "Outputs": "Selection of top-yielding candidates for testing.",
+      "Example": "µN (maximum observed yield) used as figure of merit.",
+      "Role in workflow": "Objectively selects best candidates for experimental validation."
+    },
+    "Hypothesis/Idea evaluation via Human/Expert": {
+      "performed": "No"
+    }
+  },
+  "Test": {
+    "performed": "Yes",
+    "Experimental Design Generation via literature-Grounded Model/Protocol Selection": {
+      "performed": "Yes",
+      "Method details": "Literature-derived conditions (e.g., K2CO3, dioxane/H2O) inform experimental setup.",
+      "Inputs": "Retrieved literature conditions.",
+      "Outputs": "Experimental protocols for wet-lab validation.",
+      "Example": "Agent identifies optimal base/solvent from literature for Suzuki–Miyaura coupling.",
+      "Role in workflow": "Ensures experimental design is grounded in prior successful protocols."
+    },
+    "Experimental Design Generation via Literature Synthesis for New Protocol Generation": {
+      "performed": "No"
+    },
+    "Experimental Design Generation via Few-Shot or Example-Based Prompting": {
+      "performed": "Yes",
+      "Method details": "LLM uses demonstration videos and example code to generate control scripts for lab automation.",
+      "Inputs": "Demonstration video, example scripts.",
+      "Outputs": "Automated control scripts for robotic execution.",
+      "Example": "Key frame detection and OCR guide LLM in generating pyautogui scripts.",
+      "Role in workflow": "Enables automated translation of human procedures to robotic execution."
+    },
+    "Experimental Design Generation via Executable Code Generation from Literature": {
+      "performed": "Yes",
+      "Method details": "LLM generates executable Python code for robotic control based on literature and demonstration.",
+      "Inputs": "Literature protocols, demonstration videos.",
+      "Outputs": "Executable scripts for lab automation.",
+      "Example": "LLM generates code to configure and run experiments on IC platform.",
+      "Role in workflow": "Automates experimental setup and execution."
+    },
+    "LLM-Based Experimental Design Generation via Agentic Exploration and Planning": {
+      "performed": "No"
+    },
+    "LLM-Based Experimental Design Generation via Code and Workflow Translation": {
+      "performed": "Yes",
+      "Method details": "LLM translates experimental plans into pyautogui scripts for GUI-based lab control.",
+      "Inputs": "Experimental plan, demonstration video.",
+      "Outputs": "Control scripts for automated execution.",
+      "Example": "LLM generates mouse click sequences for configuring experiments.",
+      "Role in workflow": "Bridges experimental planning and robotic execution."
+    },
+    "LLM-Based Experimental Design Generation via Multi-Agent Planning with Specialized Roles": {
+      "performed": "No"
+    },
+    "LLM-Based Experimental Design Generation via Domain-Specific Experimental Mapping": {
+      "performed": "Yes",
+      "Method details": "LLM interprets reaction conditions and maps them to specific robotic actions and GUI operations.",
+      "Inputs": "Recommended reaction conditions.",
+      "Outputs": "Automated configuration and execution scripts.",
+      "Example": "OCR extracts reagent names, LLM matches to GUI elements.",
+      "Role in workflow": "Ensures correct mapping from chemical plan to robotic execution."
+    },
+    "Test Execution via Human-in-the-Loop": {
+      "performed": "No"
+    },
+    "Test Execution via Automated Wet-Lab Execution": {
+      "performed": "Yes",
+      "Method details": "Robotic system (IC platform) autonomously executes experiments using LLM-generated scripts.",
+      "Inputs": "Control scripts, reaction conditions.",
+      "Outputs": "Experimental results (yields, product identification).",
+      "Example": "Unchained Lab and robotic arms perform synthesis, post-treatment, and analysis.",
+      "Role in workflow": "Validates recommended conditions without human intervention."
+    },
+    "Test Execution via Computational or In-Silico": {
+      "performed": "No"
+    },
+    "Refinement via LLM Agent Feedback Loops": {
+      "performed": "No"
+    },
+    "Refinement via Automated Quality Evaluation using Model-Based Critics": {
+      "performed": "No"
+    },
+    "Refinement via Dynamic Agent Updating Based on Evolving Context or Data": {
+      "performed": "No"
+    },
+    "Refinement via guided by computational-data": {
+      "performed": "No"
+    },
+    "Refinement via experimental validation": {
+      "performed": "Yes",
+      "Method details": "Experimental results (yields) are compared to predictions; high-yielding conditions are confirmed.",
+      "Inputs": "Experimental yield data.",
+      "Outputs": "Validated reaction conditions.",
+      "Example": "µ5 > 90% for Chemist-X batches, confirming model predictions.",
+      "Role in workflow": "Empirically verifies and refines recommended conditions."
+    },
+    "Refinement via Performance-metric": {
+      "performed": "Yes",
+      "Method details": "Performance (yield) metrics from experiments guide validation of recommendations.",
+      "Inputs": "Experimental yields.",
+      "Outputs": "Performance-validated reaction conditions.",
+      "Example": "µN (maximum observed yield) used to assess success.",
+      "Role in workflow": "Ensures only high-performing conditions are accepted."
+    },
+    "Refinement via Human–data integration": {
+      "performed": "No"
+    }
+  },
+  "paper_title": "Chemist-X: Large Language Model-empowered Agent for Reaction Condition Recommendation in Chemical Synthesis",
+  "authors": [
+    "Kexin",
+    "Jiamin",
+    "Junyou",
+    "Xiaoran",
+    "Yuyang",
+    "Kunyi",
+    "Qiannuan",
+    "Jiahui",
+    "Lanqing",
+    "Jiezhong",
+    "Jianzhang",
+    "Yi",
+    "Qun",
+    "Pheng Ann",
+    "Guangyong"
+  ],
+  "published": "2025-04-17",
+  "link": "http://arxiv.org/abs/2311.10776"
+}

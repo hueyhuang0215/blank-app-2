@@ -1,0 +1,427 @@
+{
+  "Inputs to the workflow": {
+    "performed": "Yes",
+    "User provide high-level research direction or goal": {
+      "performed": "Yes",
+      "Format": "Natural language task description (e.g., 'Predict liver toxicity')",
+      "Example": "User provides a prompt describing a drug discovery task of interest.",
+      "Role in workflow": "Defines the specific molecular question or prediction task for the system."
+    },
+    "User provide structured, domain-specific specifications": {
+      "performed": "Yes",
+      "Format": "SMILES string for query molecule",
+      "Example": "User inputs a SMILES representation of a molecule.",
+      "Role in workflow": "Specifies the molecular structure to be analyzed or queried."
+    },
+    "User provide research papers": {
+      "performed": "No"
+    },
+    "User provide datasets other than research papers": {
+      "performed": "No"
+    },
+    "User provide representations or formal inputs": {
+      "performed": "Yes",
+      "Format": "SMILES string",
+      "Example": "gq = ‘C1=CC(=C(C=C1CCN)O)O ’",
+      "Role in workflow": "Formal molecular input for downstream retrieval and reasoning."
+    }
+  },
+  "Query Structuring": {
+    "performed": "Yes",
+    "Query Decomposition": {
+      "performed": "Yes",
+      "Method details": "Planning Team (MolAnn Planner and KG Planner agents) determines which data sources and models are relevant for the query.",
+      "Inputs": "User task prompt and query molecule (SMILES)",
+      "Outputs": "Decisions on which agents and data sources to invoke",
+      "Example": "Planning Team decides whether to use annotation databases, knowledge graphs, or external tools.",
+      "Role in workflow": "Directs the workflow by breaking down the query into actionable retrieval and analysis steps."
+    },
+    "Structural or Entity Decomposition": {
+      "performed": "Yes",
+      "Method details": "Molecule Understanding Agent analyzes the structure of the query molecule and contextualizes it with external data.",
+      "Inputs": "SMILES string, annotations, captions",
+      "Outputs": "Structured report on molecular features and context",
+      "Example": "MU Agent uses SMILES and captions to generate a molecular annotation report.",
+      "Role in workflow": "Enables feature-level reasoning and property prediction."
+    },
+    "Workflow Decomposition": {
+      "performed": "Yes",
+      "Method details": "Multi-agent system (Planning, Knowledge Graph, Molecule Understanding, Prediction agents) splits the workflow into specialized subtasks.",
+      "Inputs": "Task prompt, molecule, agent outputs",
+      "Outputs": "Parallel and sequential agent reports for integration",
+      "Example": "Planning Team assigns subtasks to KG Team and MU Team.",
+      "Role in workflow": "Creates a modular, multi-step workflow for comprehensive analysis."
+    },
+    "Textual or Knowledge Embedding": {
+      "performed": "No"
+    },
+    "Molecular or Chemical Embedding": {
+      "performed": "Yes",
+      "Method details": "Graph neural network (GIN, pre-trained with GraphMVP) generates structure-aware molecular embeddings for similarity search.",
+      "Inputs": "SMILES string of query molecule and molecules in KG",
+      "Outputs": "Vector embeddings for similarity computation",
+      "Example": "emb(gq) · emb(g) used to find anchor drug in KG.",
+      "Role in workflow": "Enables retrieval of structurally similar molecules from the knowledge graph."
+    },
+    "Biological or Phenotypic Embedding": {
+      "performed": "No"
+    },
+    "Pattern and Feature Extraction": {
+      "performed": "No"
+    },
+    "Biological Relationship Extraction": {
+      "performed": "Yes",
+      "Method details": "BioRel Agent extracts and summarizes biological relationships (e.g., protein targets, pathways) from KG 2-hop paths.",
+      "Inputs": "Anchor drug, related drugs, 2-hop KG paths",
+      "Outputs": "Task-relevant summaries of biological relationships",
+      "Example": "BioRel Agent summarizes how anchor and related drugs are biologically related.",
+      "Role in workflow": "Discovers associations among drugs, proteins, and diseases for reasoning."
+    },
+    "Property and Annotation Extraction": {
+      "performed": "Yes",
+      "Method details": "MolAnn Planner retrieves textual annotations from PubChem; MU Agent aggregates these with tool-generated captions.",
+      "Inputs": "Query molecule, annotation database, captioning tools",
+      "Outputs": "Concatenated property annotations and captions",
+      "Example": "Annotations from PubChem and captions from MolT5 are combined.",
+      "Role in workflow": "Provides biochemical properties and functional context for the molecule."
+    },
+    "Sequence and Structure Feature Extraction": {
+      "performed": "No"
+    }
+  },
+  "Data Retrieval": {
+    "performed": "Yes",
+    "Data Retrieval via Multi-Query Generation and Exploration": {
+      "performed": "No"
+    },
+    "Literature and Data Retrieval via APIs": {
+      "performed": "No"
+    },
+    "Data Retrieval with Prioritization and Filtering Agents": {
+      "performed": "Yes",
+      "Method details": "Planning Team agents (MolAnn Planner, KG Planner) decide which data sources are relevant and whether to invoke further tools.",
+      "Inputs": "Query molecule, annotations, similarity metrics",
+      "Outputs": "Boolean decisions to use or skip data sources/tools",
+      "Example": "KG Planner uses Tanimoto similarity to decide KG relevance.",
+      "Role in workflow": "Filters and prioritizes data sources for efficient retrieval."
+    },
+    "Domain-Specific Data Retrieval and Reasoning": {
+      "performed": "Yes",
+      "Method details": "Agents retrieve and reason over data from PubChem (annotations), PrimeKG (knowledge graph), and MolT5 (captioning tool).",
+      "Inputs": "Query molecule, task prompt",
+      "Outputs": "Relevant annotations, KG subgraphs, generated captions",
+      "Example": "KG Team retrieves 2-hop paths from PrimeKG for anchor drug.",
+      "Role in workflow": "Combines retrieval with domain-specific reasoning for context-rich analysis."
+    },
+    "Code-Driven or Tool-Augmented Data Retrieval": {
+      "performed": "Yes",
+      "Method details": "External captioning tools (MolT5) are invoked to generate additional molecular descriptions.",
+      "Inputs": "SMILES string",
+      "Outputs": "Generated molecular captions",
+      "Example": "MU Agent calls MolT5 to generate captions if annotations are sparse.",
+      "Role in workflow": "Augments human annotations with tool-generated descriptions."
+    },
+    "Literature data Retrieval Citation-Network–Based Expansion": {
+      "performed": "No"
+    },
+    "Literature data Retrieval via Semantic and Similarity-Based analysis": {
+      "performed": "Yes",
+      "Method details": "Anchor drug is selected from KG based on maximum cosine similarity of molecular embeddings; Tanimoto similarity is also used.",
+      "Inputs": "Molecular embeddings, Tanimoto similarity",
+      "Outputs": "Anchor drug and related drugs for KG retrieval",
+      "Example": "Anchor drug ga = argmax emb(gq) · emb(g)",
+      "Role in workflow": "Enables semantic and structural similarity-based retrieval in KG."
+    },
+    "Literature data Retrieval via Multi-Step Reference and Evidence Selection": {
+      "performed": "No"
+    },
+    "Domain-Specific Literature data Retrieval": {
+      "performed": "No"
+    },
+    "Manual and Semi-Automatic Curation of Literature data": {
+      "performed": "No"
+    },
+    "Structural or Similarity-Based Dataset Retrieval": {
+      "performed": "Yes",
+      "Method details": "KG Team retrieves related drugs by computing 2-hop paths from anchor drug to other drugs in KG based on shared biological entities.",
+      "Inputs": "Anchor drug, KG structure",
+      "Outputs": "Top-k related drugs with most 2-hop paths",
+      "Example": "Selects drugs sharing biological targets with anchor drug.",
+      "Role in workflow": "Finds biologically relevant molecules for contextual reasoning."
+    },
+    "Data Retrieval via Domain-Specific Repository Querying": {
+      "performed": "Yes",
+      "Method details": "Annotation data from PubChem and knowledge graph data from PrimeKG are directly queried.",
+      "Inputs": "Query molecule",
+      "Outputs": "Textual annotations, KG subgraphs",
+      "Example": "MU Agent retrieves annotations from PubChem.",
+      "Role in workflow": "Accesses domain repositories for up-to-date biochemical data."
+    },
+    "Library Assembly and Data Augmentation": {
+      "performed": "No"
+    }
+  },
+  "Knowledge Assembly": {
+    "performed": "Yes",
+    "Standardized Section Extraction from Literature data": {
+      "performed": "No"
+    },
+    "Concise Synopsis and Summarization of Literature data": {
+      "performed": "Yes",
+      "Method details": "BioRel Agent and DrugRel Agent generate concise reports summarizing relevant biological and structural relationships.",
+      "Inputs": "KG subgraphs, related drugs, task prompt",
+      "Outputs": "Summarized agent reports",
+      "Example": "BioRel Agent summarizes 2-hop KG paths for task relevance.",
+      "Role in workflow": "Condenses complex KG data into actionable summaries."
+    },
+    "Facet-Based or Field-Specific Extraction from Literature data": {
+      "performed": "No"
+    },
+    "Domain-Tailored Extraction from Literature data": {
+      "performed": "No"
+    },
+    "Task/Entity-Centric Knowledge Graphs": {
+      "performed": "Yes",
+      "Method details": "PrimeKG is used as a knowledge graph connecting drugs, proteins, diseases, and other entities.",
+      "Inputs": "Entities and relations from PrimeKG",
+      "Outputs": "Subgraphs relevant to the query molecule",
+      "Example": "KG Team retrieves 2-hop paths connecting anchor drug to related drugs via biological entities.",
+      "Role in workflow": "Provides structured, queryable representation of biochemical relationships."
+    },
+    "Causal or Relation-Specific Knowledge Graphs": {
+      "performed": "No"
+    },
+    "Biomedical or Domain-Specific Interaction Graphs": {
+      "performed": "Yes",
+      "Method details": "PrimeKG models interactions among drugs, proteins, diseases, etc.; agents extract and summarize these for reasoning.",
+      "Inputs": "PrimeKG triplets",
+      "Outputs": "Interaction summaries in agent reports",
+      "Example": "BioRel Agent interprets drug-protein-disease relationships.",
+      "Role in workflow": "Enables reasoning over domain-specific biochemical interactions."
+    },
+    "Literature Database Construction": {
+      "performed": "No"
+    },
+    "Entity- or Co-Occurrence–Based Databases": {
+      "performed": "No"
+    },
+    "Reasoning-Chain or Temporal Databases for Literature": {
+      "performed": "No"
+    }
+  },
+  "Hypothesis/Idea Generation": {
+    "performed": "Yes",
+    "Idea/hypothesis generation without additional literature or dataset as context": {
+      "performed": "Yes",
+      "Method details": "General-purpose LLMs (GPT-4o mini) generate answers using internal knowledge when external data is sparse.",
+      "Inputs": "Task prompt, SMILES",
+      "Outputs": "Predicted properties, captions, or targets",
+      "Example": "LLM predicts toxicity or protein targets without external context.",
+      "Role in workflow": "Provides fallback reasoning when external data is insufficient."
+    },
+    "LLM Agent Generate ideas/hypotheses via Task Decomposition": {
+      "performed": "Yes",
+      "Method details": "Planning Team decomposes the task and assigns subtasks to specialized agents (KG, MU, Prediction).",
+      "Inputs": "Task prompt, molecule",
+      "Outputs": "Agent-specific reports and final prediction",
+      "Example": "Planning Team splits workflow into annotation retrieval, KG analysis, and prediction.",
+      "Role in workflow": "Enables modular, collaborative hypothesis generation."
+    },
+    "Generate ideas/hypotheses using Domain-Specialized LLM Agent": {
+      "performed": "Yes",
+      "Method details": "Domain-specific LMs (e.g., MolT5) are used as external captioning tools for molecular understanding.",
+      "Inputs": "SMILES string",
+      "Outputs": "Generated molecular captions",
+      "Example": "MolT5 generates property-specific captions for molecules.",
+      "Role in workflow": "Provides domain-informed hypotheses about molecular properties."
+    },
+    "Literature data used during idea/hypothesis generation as context": {
+      "performed": "No"
+    },
+    "Summarization Literature data used during idea/hypothesis generation": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation via Facet Recombination": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation via contructed Reasoning-Chain from literature": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation via Knowledge Graph developed from literature": {
+      "performed": "Yes",
+      "Method details": "Agents use PrimeKG to identify and summarize relationships, supporting hypothesis generation about molecular function or targets.",
+      "Inputs": "KG subgraphs, anchor and related drugs",
+      "Outputs": "Predicted targets, pathways, or properties",
+      "Example": "BioRel Agent uses KG paths to hypothesize protein targets.",
+      "Role in workflow": "Grounds hypotheses in structured biochemical relationships."
+    },
+    "Idea/hypothesis generation via Pattern Detection from dataset": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation via Few-Shot Data Seeding": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation using Observational data": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation via Feature-Driven Property Prediction": {
+      "performed": "Yes",
+      "Method details": "MU Agent and Prediction Agent use extracted features and annotations to predict molecular properties or toxicity.",
+      "Inputs": "SMILES, annotations, captions, KG reports",
+      "Outputs": "Predicted properties or toxicity labels",
+      "Example": "Prediction Agent outputs 'this molecule does not have liver toxicity concerns'.",
+      "Role in workflow": "Transforms features into actionable predictions."
+    },
+    "Idea/hypothesis generation after Fine-Tuning the LLM model": {
+      "performed": "No"
+    }
+  },
+  "Hypothesis/Idea Prioritization": {
+    "performed": "Yes",
+    "LLM-based Hypothesis/Idea evaluation via Scientific Quality": {
+      "performed": "Yes",
+      "Method details": "Prediction Agent integrates evidence from all agents to generate the final answer, considering relevance and plausibility.",
+      "Inputs": "Agent reports (MU, DrugRel, BioRel)",
+      "Outputs": "Final prediction or answer",
+      "Example": "Prediction Agent synthesizes reports to answer the user query.",
+      "Role in workflow": "Ensures the most plausible, evidence-supported answer is selected."
+    },
+    "LLM-based Hypothesis/Idea evaluation via Domain-Specific Evaluation": {
+      "performed": "Yes",
+      "Method details": "Agents evaluate hypotheses using domain-specific metrics (e.g., Tanimoto similarity, biological relevance).",
+      "Inputs": "Similarity scores, KG relationships, annotations",
+      "Outputs": "Agent decisions and prioritized outputs",
+      "Example": "KG Planner uses Tanimoto similarity to assess KG relevance.",
+      "Role in workflow": "Applies domain criteria to filter and prioritize hypotheses."
+    },
+    "LLM-based Hypothesis/Idea evaluation via Contextual Evidence Scoring": {
+      "performed": "Yes",
+      "Method details": "Prediction Agent weighs evidence from annotations, KG, and tool-generated captions to support its answer.",
+      "Inputs": "All agent reports and retrieved data",
+      "Outputs": "Contextually grounded predictions",
+      "Example": "Prediction Agent integrates KG and annotation evidence for toxicity prediction.",
+      "Role in workflow": "Scores hypotheses based on multi-source contextual evidence."
+    },
+    "LLM-based Hypothesis/Idea evaluation via Interpretability or Success Metrics": {
+      "performed": "Yes",
+      "Method details": "CLADD provides transparent agent interactions and report chains, improving interpretability of predictions.",
+      "Inputs": "Agent reports and reasoning chains",
+      "Outputs": "Interpretable, explainable answers",
+      "Example": "Case studies show how agent collaboration leads to interpretable predictions.",
+      "Role in workflow": "Enhances trust and understanding of system outputs."
+    },
+    "Hypothesis/Idea evaluation via Novelty Checking with Literature Comparison": {
+      "performed": "No"
+    },
+    "Hypothesis/Idea evaluation via Alignment with Literature Chains": {
+      "performed": "No"
+    },
+    "Hypothesis/Idea evaluation via Knowledge-Graph Grounded Similarity Metrics": {
+      "performed": "Yes",
+      "Method details": "Tanimoto similarity and KG path analysis are used to assess the relevance of retrieved knowledge to the query molecule.",
+      "Inputs": "Molecular embeddings, KG relationships",
+      "Outputs": "Similarity scores, relevance decisions",
+      "Example": "KG Planner uses Tanimoto similarity to decide on KG use.",
+      "Role in workflow": "Ensures hypotheses are grounded in structurally and semantically relevant knowledge."
+    },
+    "Hypothesis/Idea evaluation via Quantitative Assessment Using Domain Metrics": {
+      "performed": "Yes",
+      "Method details": "Performance is evaluated using AUROC, Precision@5, Macro-F1 on benchmark datasets.",
+      "Inputs": "Predicted outputs, ground truth labels",
+      "Outputs": "Quantitative performance metrics",
+      "Example": "CLADD outperforms baselines on molecular captioning and toxicity prediction tasks.",
+      "Role in workflow": "Provides objective scoring of hypothesis quality."
+    },
+    "Hypothesis/Idea evaluation via Human/Expert": {
+      "performed": "No"
+    }
+  },
+  "Test": {
+    "performed": "Yes",
+    "Experimental Design Generation via literature-Grounded Model/Protocol Selection": {
+      "performed": "No"
+    },
+    "Experimental Design Generation via Literature Synthesis for New Protocol Generation": {
+      "performed": "No"
+    },
+    "Experimental Design Generation via Few-Shot or Example-Based Prompting": {
+      "performed": "No"
+    },
+    "Experimental Design Generation via Executable Code Generation from Literature": {
+      "performed": "No"
+    },
+    "LLM-Based Experimental Design Generation via Agentic Exploration and Planning": {
+      "performed": "No"
+    },
+    "LLM-Based Experimental Design Generation via Code and Workflow Translation": {
+      "performed": "No"
+    },
+    "LLM-Based Experimental Design Generation via Multi-Agent Planning with Specialized Roles": {
+      "performed": "Yes",
+      "Method details": "CLADD employs coordinated agents (Planning, KG, MU, Prediction) with specialized roles to generate and integrate predictions.",
+      "Inputs": "Task prompt, molecule, agent outputs",
+      "Outputs": "Final prediction or answer",
+      "Example": "Prediction Agent integrates reports from all teams for the final output.",
+      "Role in workflow": "Enables collaborative, multi-perspective evaluation and prediction."
+    },
+    "LLM-Based Experimental Design Generation via Domain-Specific Experimental Mapping": {
+      "performed": "No"
+    },
+    "Test Execution via Human-in-the-Loop": {
+      "performed": "No"
+    },
+    "Test Execution via Automated Wet-Lab Execution": {
+      "performed": "No"
+    },
+    "Test Execution via Computational or In-Silico": {
+      "performed": "Yes",
+      "Method details": "CLADD's predictions are evaluated on benchmark datasets using computational metrics (AUROC, Precision@5, Macro-F1).",
+      "Inputs": "Predicted outputs, benchmark datasets",
+      "Outputs": "Performance scores, comparative results",
+      "Example": "CLADD tested on BBBP, Sider, ClinTox, BACE, hERG, DILI, Skin, Carcinogens datasets.",
+      "Role in workflow": "Validates hypotheses and predictions computationally."
+    },
+    "Refinement via LLM Agent Feedback Loops": {
+      "performed": "No"
+    },
+    "Refinement via Automated Quality Evaluation using Model-Based Critics": {
+      "performed": "No"
+    },
+    "Refinement via Dynamic Agent Updating Based on Evolving Context or Data": {
+      "performed": "No"
+    },
+    "Refinement via guided by computational-data": {
+      "performed": "Yes",
+      "Method details": "Ablation studies and performance analysis guide iterative improvements to the CLADD framework.",
+      "Inputs": "Performance metrics, ablation results",
+      "Outputs": "Refined agent roles and workflow strategies",
+      "Example": "Ablation studies inform the importance of each agent and data source.",
+      "Role in workflow": "Improves workflow based on computational evaluation."
+    },
+    "Refinement via experimental validation": {
+      "performed": "No"
+    },
+    "Refinement via Performance-metric": {
+      "performed": "Yes",
+      "Method details": "Performance metrics (AUROC, Precision@5, Macro-F1) are used to assess and refine the system.",
+      "Inputs": "Test results, performance scores",
+      "Outputs": "Refined system components and workflow",
+      "Example": "Performance improvements observed after integrating external knowledge.",
+      "Role in workflow": "Guides system refinement based on quantitative outcomes."
+    },
+    "Refinement via Human–data integration": {
+      "performed": "No"
+    }
+  },
+  "paper_title": "RAG-Enhanced Collaborative LLM Agents for Drug Discovery",
+  "authors": [
+    "Namkyeong",
+    "Edward De",
+    "Ehsan",
+    "Tommaso",
+    "Chanyoung",
+    "Gabriele"
+  ],
+  "published": "2025-03-10",
+  "link": "http://arxiv.org/abs/2502.17506"
+}

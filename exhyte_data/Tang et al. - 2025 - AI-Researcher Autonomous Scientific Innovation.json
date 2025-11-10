@@ -1,0 +1,420 @@
+{
+  "Inputs to the workflow": {
+    "performed": "Yes",
+    "User provide high-level research direction or goal": {
+      "performed": "Yes",
+      "Format": "User provides a research instruction or goal, sometimes as a core research idea or task description.",
+      "Example": "Level-1 tasks provide explicit research instructions directly extracted from paper y.",
+      "Role in workflow": "Defines the research focus for the autonomous system to pursue."
+    },
+    "User provide structured, domain-specific specifications": {
+      "performed": "No"
+    },
+    "User provide research papers": {
+      "performed": "Yes",
+      "Format": "User supplies 10-15 reference papers relevant to the research domain.",
+      "Example": "Users need only provide 10-15 reference papers.",
+      "Role in workflow": "Grounds the system’s literature review, idea generation, and benchmarking."
+    },
+    "User provide datasets other than research papers": {
+      "performed": "Yes",
+      "Format": "User may provide datasets associated with the research task.",
+      "Example": "Input features X = {R, I, D} comprise reference papers R, research instruction I, and datasets D.",
+      "Role in workflow": "Provides empirical data for algorithm implementation and validation."
+    },
+    "User provide representations or formal inputs": {
+      "performed": "No"
+    }
+  },
+  "Query Structuring": {
+    "performed": "Yes",
+    "Query Decomposition": {
+      "performed": "Yes",
+      "Method details": "Resource Analyst agent decomposes complex research concepts into atomic components.",
+      "Inputs": "Initial research idea, reference papers.",
+      "Outputs": "Atomic academic concepts with explicit mappings to math/code.",
+      "Example": "Resource Analyst agents decompose complex research concepts into atomic components.",
+      "Role in workflow": "Enables focused analysis and implementation planning."
+    },
+    "Structural or Entity Decomposition": {
+      "performed": "No"
+    },
+    "Workflow Decomposition": {
+      "performed": "Yes",
+      "Method details": "Multi-agent system splits the research workflow into literature review, idea generation, implementation, and documentation.",
+      "Inputs": "Research instruction, references.",
+      "Outputs": "Sequential multi-stage research plan.",
+      "Example": "Framework employs a comprehensive multi-agent architecture where specialized components collaborate.",
+      "Role in workflow": "Creates actionable steps for autonomous research."
+    },
+    "Textual or Knowledge Embedding": {
+      "performed": "No"
+    },
+    "Molecular or Chemical Embedding": {
+      "performed": "No"
+    },
+    "Biological or Phenotypic Embedding": {
+      "performed": "No"
+    },
+    "Pattern and Feature Extraction": {
+      "performed": "No"
+    },
+    "Biological Relationship Extraction": {
+      "performed": "No"
+    },
+    "Property and Annotation Extraction": {
+      "performed": "No"
+    },
+    "Sequence and Structure Feature Extraction": {
+      "performed": "No"
+    }
+  },
+  "Data Retrieval": {
+    "performed": "Yes",
+    "Data Retrieval via Multi-Query Generation and Exploration": {
+      "performed": "No"
+    },
+    "Literature and Data Retrieval via APIs": {
+      "performed": "No"
+    },
+    "Data Retrieval with Prioritization and Filtering Agents": {
+      "performed": "Yes",
+      "Method details": "Knowledge Acquisition Agent filters and selects the most relevant papers and code repositories using criteria like recency, popularity, and documentation quality.",
+      "Inputs": "User-provided reference papers, GitHub search results.",
+      "Outputs": "5-8 high-quality code repositories and associated papers.",
+      "Example": "Agent applies sophisticated filtering algorithms to identify at least 5 high-quality GitHub repositories.",
+      "Role in workflow": "Ensures only the most relevant resources are used for downstream analysis."
+    },
+    "Domain-Specific Data Retrieval and Reasoning": {
+      "performed": "No"
+    },
+    "Code-Driven or Tool-Augmented Data Retrieval": {
+      "performed": "Yes",
+      "Method details": "Agents use tools to clone repositories, generate code trees, and read files for analysis.",
+      "Inputs": "Repository URLs, local file system.",
+      "Outputs": "Downloaded codebases and extracted code structures.",
+      "Example": "Agent uses 'execute_command' to git clone repositories and 'gen_code_tree_structure' to analyze code.",
+      "Role in workflow": "Automates acquisition and inspection of code resources."
+    },
+    "Literature data Retrieval Citation-Network–Based Expansion": {
+      "performed": "No"
+    },
+    "Literature data Retrieval via Semantic and Similarity-Based analysis": {
+      "performed": "No"
+    },
+    "Literature data Retrieval via Multi-Step Reference and Evidence Selection": {
+      "performed": "Yes",
+      "Method details": "LLM-based multi-step process evaluates references by citation frequency, context, evidence, and impact scoring.",
+      "Inputs": "Target paper, its references.",
+      "Outputs": "Top 15-20 most influential references per paper.",
+      "Example": "Comprehensive five-step LLM-based evaluation process for reference input selection.",
+      "Role in workflow": "Selects the most impactful literature for grounding research."
+    },
+    "Domain-Specific Literature data Retrieval": {
+      "performed": "Yes",
+      "Method details": "Domain-specific keywords and citation-based filtering are used to retrieve top-cited papers from arXiv across 16 AI research areas.",
+      "Inputs": "Domain keywords, arXiv database.",
+      "Outputs": "22 representative benchmark papers.",
+      "Example": "Retrieved top-cited papers from arXiv for each domain (10 papers per keyword).",
+      "Role in workflow": "Ensures coverage of diverse AI research domains."
+    },
+    "Manual and Semi-Automatic Curation of Literature data": {
+      "performed": "No"
+    },
+    "Structural or Similarity-Based Dataset Retrieval": {
+      "performed": "No"
+    },
+    "Data Retrieval via Domain-Specific Repository Querying": {
+      "performed": "No"
+    },
+    "Library Assembly and Data Augmentation": {
+      "performed": "No"
+    }
+  },
+  "Knowledge Assembly": {
+    "performed": "Yes",
+    "Standardized Section Extraction from Literature data": {
+      "performed": "Yes",
+      "Method details": "Paper Analyst agent extracts mathematical formulations and theoretical foundations from LaTeX source files.",
+      "Inputs": "Downloaded papers in LaTeX format.",
+      "Outputs": "Structured notes with definitions, formulas, and theoretical components.",
+      "Example": "Systematically extracting mathematical formulations of each atomic concept.",
+      "Role in workflow": "Provides structured theoretical basis for implementation."
+    },
+    "Concise Synopsis and Summarization of Literature data": {
+      "performed": "Yes",
+      "Method details": "Agents summarize key findings and concepts from reference papers for downstream use.",
+      "Inputs": "Reference papers.",
+      "Outputs": "Summarized notes and concept profiles.",
+      "Example": "Comprehensive concept profiles, effectively establishing clear bidirectional connections.",
+      "Role in workflow": "Condenses literature for efficient reasoning and planning."
+    },
+    "Facet-Based or Field-Specific Extraction from Literature data": {
+      "performed": "Yes",
+      "Method details": "Extraction of objectives, methods, and mathematical details for each atomic concept.",
+      "Inputs": "Reference papers, code repositories.",
+      "Outputs": "Detailed research reports and implementation roadmaps.",
+      "Example": "Extracts formal definitions, mathematical formulas, and key theoretical components.",
+      "Role in workflow": "Enables precise mapping from theory to code."
+    },
+    "Domain-Tailored Extraction from Literature data": {
+      "performed": "No"
+    },
+    "Task/Entity-Centric Knowledge Graphs": {
+      "performed": "No"
+    },
+    "Causal or Relation-Specific Knowledge Graphs": {
+      "performed": "No"
+    },
+    "Biomedical or Domain-Specific Interaction Graphs": {
+      "performed": "No"
+    },
+    "Literature Database Construction": {
+      "performed": "No"
+    },
+    "Entity- or Co-Occurrence–Based Databases": {
+      "performed": "No"
+    },
+    "Reasoning-Chain or Temporal Databases for Literature": {
+      "performed": "No"
+    }
+  },
+  "Hypothesis/Idea Generation": {
+    "performed": "Yes",
+    "Idea/hypothesis generation without additional literature or dataset as context": {
+      "performed": "No"
+    },
+    "LLM Agent Generate ideas/hypotheses via Task Decomposition": {
+      "performed": "Yes",
+      "Method details": "Idea Generator agent uses knowledge synthesis and multi-phase divergent-convergent process to generate and refine multiple research directions.",
+      "Inputs": "Synthesized knowledge from literature and code analysis.",
+      "Outputs": "Five distinct research proposals, ranked and refined.",
+      "Example": "Divergent phase generates five conceptually distinct research directions, followed by convergent evaluation.",
+      "Role in workflow": "Produces novel, actionable research ideas for implementation."
+    },
+    "Generate ideas/hypotheses using Domain-Specialized LLM Agent": {
+      "performed": "Yes",
+      "Method details": "Specialized agents (e.g., Resource Analyst, Idea Generator) target domain-specific gaps and synthesize new concepts.",
+      "Inputs": "Domain-specific literature, code, and empirical findings.",
+      "Outputs": "Domain-relevant research proposals.",
+      "Example": "Idea Generator employs knowledge synthesis techniques to identify unexplored research territories.",
+      "Role in workflow": "Ensures ideas are grounded in domain expertise."
+    },
+    "Literature data used during idea/hypothesis generation as context": {
+      "performed": "Yes",
+      "Method details": "Idea generation is explicitly based on prior literature and code analysis.",
+      "Inputs": "Reference papers, code repositories.",
+      "Outputs": "Contextually grounded research proposals.",
+      "Example": "Operating after comprehensive theoretical and empirical analysis.",
+      "Role in workflow": "Anchors idea generation in existing knowledge."
+    },
+    "Summarization Literature data used during idea/hypothesis generation": {
+      "performed": "Yes",
+      "Method details": "Key findings and gaps from literature are summarized and used to motivate new research directions.",
+      "Inputs": "Summarized literature and code analysis.",
+      "Outputs": "Motivated, literature-informed proposals.",
+      "Example": "Agent deliberately seeks conceptual gaps, contradictory findings, and emerging patterns.",
+      "Role in workflow": "Identifies promising areas for innovation."
+    },
+    "Idea/hypothesis generation via Facet Recombination": {
+      "performed": "Yes",
+      "Method details": "Combines challenges, limitations, and methods from multiple sources to propose new approaches.",
+      "Inputs": "Extracted facets from literature and code.",
+      "Outputs": "Novel research proposals.",
+      "Example": "Each generated proposal deliberately pushes beyond established paradigms.",
+      "Role in workflow": "Facilitates creative recombination of knowledge."
+    },
+    "Idea/hypothesis generation via contructed Reasoning-Chain from literature": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation via Knowledge Graph developed from literature": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation via Pattern Detection from dataset": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation via Few-Shot Data Seeding": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation using Observational data": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation via Feature-Driven Property Prediction": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation after Fine-Tuning the LLM model": {
+      "performed": "No"
+    }
+  },
+  "Hypothesis/Idea Prioritization": {
+    "performed": "Yes",
+    "LLM-based Hypothesis/Idea evaluation via Scientific Quality": {
+      "performed": "Yes",
+      "Method details": "LLM-based review agents rate and justify the scientific merit of generated research proposals using peer-review criteria.",
+      "Inputs": "AI-generated and human-authored papers.",
+      "Outputs": "Comparative ratings and structured justifications.",
+      "Example": "Paper review agent produces a comparative rating r and structured set of justifications.",
+      "Role in workflow": "Selects and validates the most promising research outputs."
+    },
+    "LLM-based Hypothesis/Idea evaluation via Domain-Specific Evaluation": {
+      "performed": "Yes",
+      "Method details": "Evaluation criteria mirror ICLR standards, including technical novelty, rigor, and empirical validation.",
+      "Inputs": "Generated research papers and groundtruth papers.",
+      "Outputs": "Domain-specific quality assessments.",
+      "Example": "Assessed research quality across technical novelty, methodological rigor, empirical validation, and impact.",
+      "Role in workflow": "Ensures outputs meet domain standards."
+    },
+    "LLM-based Hypothesis/Idea evaluation via Contextual Evidence Scoring": {
+      "performed": "No"
+    },
+    "LLM-based Hypothesis/Idea evaluation via Interpretability or Success Metrics": {
+      "performed": "No"
+    },
+    "Hypothesis/Idea evaluation via Novelty Checking with Literature Comparison": {
+      "performed": "Yes",
+      "Method details": "LLM reviewers compare AI-generated work to human-authored papers to assess novelty.",
+      "Inputs": "AI and human research papers.",
+      "Outputs": "Novelty ratings and justifications.",
+      "Example": "Comparative evaluation reveals papers generated by AI-Researcher receive moderately lower average ratings than human-authored works.",
+      "Role in workflow": "Determines if outputs advance beyond prior work."
+    },
+    "Hypothesis/Idea evaluation via Alignment with Literature Chains": {
+      "performed": "No"
+    },
+    "Hypothesis/Idea evaluation via Knowledge-Graph Grounded Similarity Metrics": {
+      "performed": "No"
+    },
+    "Hypothesis/Idea evaluation via Quantitative Assessment Using Domain Metrics": {
+      "performed": "No"
+    },
+    "Hypothesis/Idea evaluation via Human/Expert": {
+      "performed": "Yes",
+      "Method details": "Validation of LLM-based review agent against human expert judgments using ICLR accept/reject decisions.",
+      "Inputs": "ICLR paper pairs with known outcomes.",
+      "Outputs": "Agreement rates and accuracy metrics.",
+      "Example": "System demonstrates strong decision alignment with expert conference reviewers.",
+      "Role in workflow": "Benchmarks automated evaluation against human standards."
+    }
+  },
+  "Test": {
+    "performed": "Yes",
+    "Experimental Design Generation via literature-Grounded Model/Protocol Selection": {
+      "performed": "Yes",
+      "Method details": "Implementation plans are based on extracted methods and protocols from reference codebases and papers.",
+      "Inputs": "Survey notes, reference codebases.",
+      "Outputs": "Implementation roadmap with training/testing procedures.",
+      "Example": "Plan Agent transforms findings into a comprehensive implementation roadmap.",
+      "Role in workflow": "Guides experimental setup and execution."
+    },
+    "Experimental Design Generation via Literature Synthesis for New Protocol Generation": {
+      "performed": "Yes",
+      "Method details": "Plans integrate insights from multiple references to generate new experimental protocols.",
+      "Inputs": "Synthesized literature and code analysis.",
+      "Outputs": "Detailed experimental plans.",
+      "Example": "Plan Agent creates a complete, executable research strategy.",
+      "Role in workflow": "Enables novel experimental designs."
+    },
+    "Experimental Design Generation via Few-Shot or Example-Based Prompting": {
+      "performed": "No"
+    },
+    "Experimental Design Generation via Executable Code Generation from Literature": {
+      "performed": "Yes",
+      "Method details": "Code Agent translates research plans into executable code, referencing literature-derived implementations.",
+      "Inputs": "Implementation plan, reference code.",
+      "Outputs": "Self-contained codebase for experiments.",
+      "Example": "Code Agent transforms research analysis and development plans into executable implementations.",
+      "Role in workflow": "Automates experimental execution."
+    },
+    "LLM-Based Experimental Design Generation via Agentic Exploration and Planning": {
+      "performed": "Yes",
+      "Method details": "Multi-agent system iteratively refines experimental designs through feedback cycles.",
+      "Inputs": "Advisor Agent feedback, experimental results.",
+      "Outputs": "Improved experimental protocols and code.",
+      "Example": "Advisor Agent provides expert feedback that bridges the gap between theory and implementation.",
+      "Role in workflow": "Ensures robust, iterative experimental development."
+    },
+    "LLM-Based Experimental Design Generation via Code and Workflow Translation": {
+      "performed": "Yes",
+      "Method details": "LLMs convert plans and analyses into scripts and workflows for direct execution.",
+      "Inputs": "Implementation plan, research artifacts.",
+      "Outputs": "Executable scripts and workflows.",
+      "Example": "Code Agent creates structured implementations with comprehensive file system and execution capabilities.",
+      "Role in workflow": "Enables seamless transition from plan to experiment."
+    },
+    "LLM-Based Experimental Design Generation via Multi-Agent Planning with Specialized Roles": {
+      "performed": "Yes",
+      "Method details": "Specialized agents (e.g., Code Agent, Advisor Agent) collaborate to refine and validate experimental designs.",
+      "Inputs": "Research plan, code, feedback.",
+      "Outputs": "Refined experimental implementations.",
+      "Example": "Framework deliberately models the advisor-student relationship.",
+      "Role in workflow": "Improves experimental quality through collaboration."
+    },
+    "LLM-Based Experimental Design Generation via Domain-Specific Experimental Mapping": {
+      "performed": "No"
+    },
+    "Test Execution via Human-in-the-Loop": {
+      "performed": "No"
+    },
+    "Test Execution via Automated Wet-Lab Execution": {
+      "performed": "No"
+    },
+    "Test Execution via Computational or In-Silico": {
+      "performed": "Yes",
+      "Method details": "Code is executed in a Docker containerized environment for computational experiments and validation.",
+      "Inputs": "Generated code, datasets.",
+      "Outputs": "Experimental results, logs.",
+      "Example": "All operations execute within a secure containerized Docker environment.",
+      "Role in workflow": "Validates hypotheses and implementations computationally."
+    },
+    "Refinement via LLM Agent Feedback Loops": {
+      "performed": "Yes",
+      "Method details": "Advisor Agent and multi-stage refinement cycles iteratively improve code and experiments based on feedback.",
+      "Inputs": "Experimental results, code, feedback.",
+      "Outputs": "Refined implementations and experiments.",
+      "Example": "Cyclical development process with explicit feedback mechanisms.",
+      "Role in workflow": "Ensures convergence on feasible, validated results."
+    },
+    "Refinement via Automated Quality Evaluation using Model-Based Critics": {
+      "performed": "No"
+    },
+    "Refinement via Dynamic Agent Updating Based on Evolving Context or Data": {
+      "performed": "Yes",
+      "Method details": "Agents adapt plans and implementations in response to new experimental outcomes and feedback.",
+      "Inputs": "Updated results, feedback.",
+      "Outputs": "Modified research strategies.",
+      "Example": "Advisor Agent provides analytical support by evaluating results and recommending supplementary investigations.",
+      "Role in workflow": "Maintains adaptability and responsiveness."
+    },
+    "Refinement via guided by computational-data": {
+      "performed": "Yes",
+      "Method details": "Refinement is driven by analysis of test outcomes, such as performance metrics and experimental logs.",
+      "Inputs": "Experimental results, performance data.",
+      "Outputs": "Updated code and experimental protocols.",
+      "Example": "Advisor Agent evaluates results and recommends supplementary investigations.",
+      "Role in workflow": "Improves research quality based on empirical evidence."
+    },
+    "Refinement via experimental validation": {
+      "performed": "No"
+    },
+    "Refinement via Performance-metric": {
+      "performed": "Yes",
+      "Method details": "Performance metrics from experiments guide further refinement and iteration.",
+      "Inputs": "Experimental performance data.",
+      "Outputs": "Performance-driven code and experiment updates.",
+      "Example": "Implementations systematically evolve toward optimal performance.",
+      "Role in workflow": "Optimizes research outputs."
+    },
+    "Refinement via Human–data integration": {
+      "performed": "No"
+    }
+  },
+  "paper_title": "AI-Researcher: Autonomous Scientific Innovation",
+  "authors": [
+    "Jiabin",
+    "Lianghao",
+    "Zhonghang",
+    "Chao"
+  ],
+  "published": "2025-05-24",
+  "link": "http://arxiv.org/abs/2505.18705"
+}

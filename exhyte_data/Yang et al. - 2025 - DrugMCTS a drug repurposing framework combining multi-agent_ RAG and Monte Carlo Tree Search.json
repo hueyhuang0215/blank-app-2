@@ -1,0 +1,446 @@
+{
+  "Inputs to the workflow": {
+    "performed": "Yes",
+    "User provide high-level research direction or goal": {
+      "performed": "Yes",
+      "Format": "Drug repositioning task definition; query molecule as input.",
+      "Example": "Given a query molecule, identify likely protein targets for repositioning.",
+      "Role in workflow": "Defines the main objective for the automated workflow."
+    },
+    "User provide structured, domain-specific specifications": {
+      "performed": "Yes",
+      "Format": "SMILES strings for molecules; requirement for protein interaction prediction.",
+      "Example": "Input molecule in SMILES format; constraints on number of interacting proteins.",
+      "Role in workflow": "Specifies the molecular entity and constraints for candidate selection."
+    },
+    "User provide research papers": {
+      "performed": "No"
+    },
+    "User provide datasets other than research papers": {
+      "performed": "Yes",
+      "Format": "DrugBank and KIBA datasets.",
+      "Example": "DrugBank: 788 entries; KIBA: 626 entries, each with molecule and interacting proteins.",
+      "Role in workflow": "Provides ground truth for evaluation and candidate pool for retrieval."
+    },
+    "User provide representations or formal inputs": {
+      "performed": "Yes",
+      "Format": "SMILES strings; molecular structures; protein sequences.",
+      "Example": "SMILES for query and candidate molecules; PDB files for proteins.",
+      "Role in workflow": "Enables structured retrieval, analysis, and reasoning by agents."
+    }
+  },
+  "Query Structuring": {
+    "performed": "Yes",
+    "Query Decomposition": {
+      "performed": "No"
+    },
+    "Structural or Entity Decomposition": {
+      "performed": "Yes",
+      "Method details": "Molecule-Analysis Agent extracts and summarizes structural and physicochemical properties (e.g., chiral centers, scaffolds, functional groups, molecular weight, logP, PSA).",
+      "Inputs": "SMILES or molecular structure of query and candidate molecules.",
+      "Outputs": "Dictionary of molecular features; natural language summary.",
+      "Example": "Extracting chiral centers, hydrogen bond donors/acceptors from RDKit/PubChem.",
+      "Role in workflow": "Enables feature-level reasoning and filtering for drug-likeness and pharmacophore integrity."
+    },
+    "Workflow Decomposition": {
+      "performed": "Yes",
+      "Method details": "Multi-agent system with five specialized agents (retrieval, molecule analysis, molecule selection, interaction analysis, decision) coordinated via MCTS.",
+      "Inputs": "Query molecule and retrieved candidates.",
+      "Outputs": "Sequential agent actions and reasoning steps.",
+      "Example": "Retrieval agent → Molecule-Analysis agent → Molecule-Selection agent → Interaction-Analysis agent → Decision agent.",
+      "Role in workflow": "Creates a structured, multi-step plan for drug-target prediction."
+    },
+    "Textual or Knowledge Embedding": {
+      "performed": "No"
+    },
+    "Molecular or Chemical Embedding": {
+      "performed": "Yes",
+      "Method details": "Tanimoto coefficient and ChemBERTa-based cosine similarity used to embed and compare molecules.",
+      "Inputs": "SMILES strings of query and database molecules.",
+      "Outputs": "Similarity scores; top-10 most similar molecules per metric.",
+      "Example": "ChemBERTa last hidden state for cosine similarity; Tanimoto for fingerprint similarity.",
+      "Role in workflow": "Enables retrieval of structurally similar molecules for candidate pool."
+    },
+    "Biological or Phenotypic Embedding": {
+      "performed": "No"
+    },
+    "Pattern and Feature Extraction": {
+      "performed": "Yes",
+      "Method details": "Extraction of molecular and protein features (e.g., pocket features from PDB via PLIP).",
+      "Inputs": "Molecular structures; PDB files.",
+      "Outputs": "Feature dictionaries; textual summaries.",
+      "Example": "Extracting binding pocket features from PDB using PLIP.",
+      "Role in workflow": "Provides empirical features for downstream interaction analysis."
+    },
+    "Biological Relationship Extraction": {
+      "performed": "No"
+    },
+    "Property and Annotation Extraction": {
+      "performed": "Yes",
+      "Method details": "RDKit and PubChemPy APIs extract physicochemical and structural properties.",
+      "Inputs": "SMILES or molecular structure.",
+      "Outputs": "Properties such as molecular weight, logP, PSA, H-bond donors/acceptors.",
+      "Example": "Calling RDKit to get molecular weight and logP.",
+      "Role in workflow": "Supplies detailed annotations for molecule analysis and filtering."
+    },
+    "Sequence and Structure Feature Extraction": {
+      "performed": "Yes",
+      "Method details": "PLIP library extracts protein binding pocket features from PDB files; literature summaries from PubMed.",
+      "Inputs": "Protein PDB files; PubMed literature.",
+      "Outputs": "Textual descriptions of binding pockets; literature context.",
+      "Example": "Extracting and summarizing pocket features for candidate proteins.",
+      "Role in workflow": "Enables LLMs to reason over protein structure for interaction prediction."
+    }
+  },
+  "Data Retrieval": {
+    "performed": "Yes",
+    "Data Retrieval via Multi-Query Generation and Exploration": {
+      "performed": "No"
+    },
+    "Literature and Data Retrieval via APIs": {
+      "performed": "Yes",
+      "Method details": "Agents use RDKit, PubChemPy, PLIP, and PubMed APIs to retrieve molecular properties, protein pocket features, and literature.",
+      "Inputs": "Query molecule, candidate molecules, protein IDs.",
+      "Outputs": "Molecular property dictionaries, pocket features, literature summaries.",
+      "Example": "Calling PubChemPy for molecular properties; PLIP for pocket features; PubMed for literature.",
+      "Role in workflow": "Provides structured and contextual data for agent-based reasoning."
+    },
+    "Data Retrieval with Prioritization and Filtering Agents": {
+      "performed": "Yes",
+      "Method details": "Molecule-Selection Agent filters candidates based on drug-likeness, pharmacophore integrity, and similarity.",
+      "Inputs": "Retrieved molecule pool and their properties.",
+      "Outputs": "Filtered set of reference molecules and proteins.",
+      "Example": "Filtering out low-relevance molecules before downstream analysis.",
+      "Role in workflow": "Reduces noise and improves relevance for subsequent reasoning."
+    },
+    "Domain-Specific Data Retrieval and Reasoning": {
+      "performed": "Yes",
+      "Method details": "Retrieval Agent and Interaction-Analysis Agent access domain-specific databases (DrugBank, KIBA, PDB, PubMed) for molecules and proteins.",
+      "Inputs": "Query molecule, candidate molecules, protein IDs.",
+      "Outputs": "Relevant molecules, proteins, pocket features, literature.",
+      "Example": "Retrieving proteins interacting with candidate molecules from DrugBank/KIBA.",
+      "Role in workflow": "Grounds reasoning in domain-specific, structured data."
+    },
+    "Code-Driven or Tool-Augmented Data Retrieval": {
+      "performed": "Yes",
+      "Method details": "Python APIs (RDKit, PubChemPy, PLIP) are programmatically called to extract data.",
+      "Inputs": "SMILES, PDB files.",
+      "Outputs": "Structured property and feature data.",
+      "Example": "Automated extraction of molecular features using RDKit.",
+      "Role in workflow": "Automates data extraction for agent consumption."
+    },
+    "Literature data Retrieval Citation-Network–Based Expansion": {
+      "performed": "No"
+    },
+    "Literature data Retrieval via Semantic and Similarity-Based analysis": {
+      "performed": "No"
+    },
+    "Literature data Retrieval via Multi-Step Reference and Evidence Selection": {
+      "performed": "No"
+    },
+    "Domain-Specific Literature data Retrieval": {
+      "performed": "Yes",
+      "Method details": "PubMed queried for literature relevant to candidate proteins.",
+      "Inputs": "Protein IDs.",
+      "Outputs": "Relevant literature summaries.",
+      "Example": "Retrieving PubMed articles for candidate proteins.",
+      "Role in workflow": "Provides biological context for interaction analysis."
+    },
+    "Manual and Semi-Automatic Curation of Literature data": {
+      "performed": "No"
+    },
+    "Structural or Similarity-Based Dataset Retrieval": {
+      "performed": "Yes",
+      "Method details": "Retrieval Agent uses Tanimoto and ChemBERTa similarity to select top-10 similar molecules.",
+      "Inputs": "Query molecule SMILES.",
+      "Outputs": "Candidate molecule pool.",
+      "Example": "Selecting top-10 similar molecules for each metric and merging results.",
+      "Role in workflow": "Builds candidate set for downstream analysis."
+    },
+    "Data Retrieval via Domain-Specific Repository Querying": {
+      "performed": "Yes",
+      "Method details": "DrugBank and KIBA datasets are queried for molecules and protein interactions.",
+      "Inputs": "Query molecule.",
+      "Outputs": "Candidate molecules and proteins.",
+      "Example": "Extracting all proteins interacting with candidate molecules from DrugBank.",
+      "Role in workflow": "Provides comprehensive candidate pools for repositioning."
+    },
+    "Library Assembly and Data Augmentation": {
+      "performed": "No"
+    }
+  },
+  "Knowledge Assembly": {
+    "performed": "Yes",
+    "Standardized Section Extraction from Literature data": {
+      "performed": "No"
+    },
+    "Concise Synopsis and Summarization of Literature data": {
+      "performed": "Yes",
+      "Method details": "Interaction-Analysis Agent summarizes literature from PubMed into natural language for LLM consumption.",
+      "Inputs": "PubMed articles.",
+      "Outputs": "Textual summaries of protein-ligand interactions.",
+      "Example": "Summarizing binding mechanisms from literature.",
+      "Role in workflow": "Makes literature-derived evidence accessible to LLMs."
+    },
+    "Facet-Based or Field-Specific Extraction from Literature data": {
+      "performed": "No"
+    },
+    "Domain-Tailored Extraction from Literature data": {
+      "performed": "Yes",
+      "Method details": "PLIP-extracted pocket features and literature are reformatted into descriptive paragraphs.",
+      "Inputs": "PDB files, PubMed literature.",
+      "Outputs": "Domain-specific textual descriptions.",
+      "Example": "Transforming tabular pocket data into narrative summaries.",
+      "Role in workflow": "Enables LLMs to reason over domain-specific structural data."
+    },
+    "Task/Entity-Centric Knowledge Graphs": {
+      "performed": "No"
+    },
+    "Causal or Relation-Specific Knowledge Graphs": {
+      "performed": "No"
+    },
+    "Biomedical or Domain-Specific Interaction Graphs": {
+      "performed": "No"
+    },
+    "Literature Database Construction": {
+      "performed": "No"
+    },
+    "Entity- or Co-Occurrence–Based Databases": {
+      "performed": "No"
+    },
+    "Reasoning-Chain or Temporal Databases for Literature": {
+      "performed": "No"
+    }
+  },
+  "Hypothesis/Idea Generation": {
+    "performed": "Yes",
+    "Idea/hypothesis generation without additional literature or dataset as context": {
+      "performed": "No"
+    },
+    "LLM Agent Generate ideas/hypotheses via Task Decomposition": {
+      "performed": "Yes",
+      "Method details": "Multi-agent system decomposes the repositioning task into retrieval, analysis, filtering, interaction analysis, and decision steps.",
+      "Inputs": "Query molecule, retrieved data.",
+      "Outputs": "Candidate protein hypotheses.",
+      "Example": "Each agent handles a subtask, e.g., molecule analysis or protein selection.",
+      "Role in workflow": "Enables structured, stepwise hypothesis generation."
+    },
+    "Generate ideas/hypotheses using Domain-Specialized LLM Agent": {
+      "performed": "Yes",
+      "Method details": "Specialized agents (e.g., Molecule-Analysis, Interaction-Analysis) use LLMs to reason over domain-specific data.",
+      "Inputs": "Molecular and protein features, literature.",
+      "Outputs": "Hypotheses about drug-target interactions.",
+      "Example": "Interaction-Analysis Agent predicts likely protein targets.",
+      "Role in workflow": "Leverages domain expertise for hypothesis generation."
+    },
+    "Literature data used during idea/hypothesis generation as context": {
+      "performed": "Yes",
+      "Method details": "Interaction-Analysis Agent incorporates literature summaries from PubMed to inform predictions.",
+      "Inputs": "PubMed literature.",
+      "Outputs": "Contextualized hypotheses.",
+      "Example": "Using literature to support or refute candidate interactions.",
+      "Role in workflow": "Grounds hypotheses in published evidence."
+    },
+    "Summarization Literature data used during idea/hypothesis generation": {
+      "performed": "Yes",
+      "Method details": "Literature is summarized into natural language for LLM input during interaction analysis.",
+      "Inputs": "PubMed articles.",
+      "Outputs": "Concise summaries.",
+      "Example": "Summarizing binding mechanisms for candidate proteins.",
+      "Role in workflow": "Provides concise, relevant context for hypothesis generation."
+    },
+    "Idea/hypothesis generation via Facet Recombination": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation via contructed Reasoning-Chain from literature": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation via Knowledge Graph developed from literature": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation via Pattern Detection from dataset": {
+      "performed": "Yes",
+      "Method details": "Extraction of molecular and protein features informs prediction of likely interactions.",
+      "Inputs": "Molecular property and protein feature datasets.",
+      "Outputs": "Predicted drug-target pairs.",
+      "Example": "Using extracted features to predict binding affinity.",
+      "Role in workflow": "Supports data-driven hypothesis formation."
+    },
+    "Idea/hypothesis generation via Few-Shot Data Seeding": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation using Observational data": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation via Feature-Driven Property Prediction": {
+      "performed": "Yes",
+      "Method details": "LLMs use extracted features to predict drug-likeness and interaction potential.",
+      "Inputs": "Molecular and protein features.",
+      "Outputs": "Predicted properties and interactions.",
+      "Example": "Filtering molecules based on drug-likeness before interaction analysis.",
+      "Role in workflow": "Improves quality of generated hypotheses."
+    },
+    "Idea/hypothesis generation after Fine-Tuning the LLM model": {
+      "performed": "No"
+    }
+  },
+  "Hypothesis/Idea Prioritization": {
+    "performed": "Yes",
+    "LLM-based Hypothesis/Idea evaluation via Scientific Quality": {
+      "performed": "No"
+    },
+    "LLM-based Hypothesis/Idea evaluation via Domain-Specific Evaluation": {
+      "performed": "Yes",
+      "Method details": "Decision Agent integrates molecular, interaction, and literature evidence to select most promising protein targets.",
+      "Inputs": "Molecular properties, interaction analyses, literature summaries.",
+      "Outputs": "Ranked protein hypotheses.",
+      "Example": "Selecting final protein based on all upstream outputs.",
+      "Role in workflow": "Ensures domain-relevant prioritization of hypotheses."
+    },
+    "LLM-based Hypothesis/Idea evaluation via Contextual Evidence Scoring": {
+      "performed": "Yes",
+      "Method details": "MCTS framework uses reward signals based on self-consistency and absolute evidence from model outputs.",
+      "Inputs": "Model predictions, literature, protein features.",
+      "Outputs": "Reward scores for candidate proteins.",
+      "Example": "Combining frequency of selection and affirmative responses as reward.",
+      "Role in workflow": "Prioritizes hypotheses with strongest evidence."
+    },
+    "LLM-based Hypothesis/Idea evaluation via Interpretability or Success Metrics": {
+      "performed": "Yes",
+      "Method details": "Ablation studies and case studies assess interpretability and transparency of predictions.",
+      "Inputs": "Stepwise reasoning outputs.",
+      "Outputs": "Interpretability metrics, case study validation.",
+      "Example": "Case study of Equol-CXCR3 interaction with docking validation.",
+      "Role in workflow": "Demonstrates interpretability and success of predictions."
+    },
+    "Hypothesis/Idea evaluation via Novelty Checking with Literature Comparison": {
+      "performed": "Yes",
+      "Method details": "Case study identifies previously unreported interactions and compares with literature.",
+      "Inputs": "Predicted interactions, literature search.",
+      "Outputs": "Novelty assessment.",
+      "Example": "Equol-CXCR3 interaction not previously reported.",
+      "Role in workflow": "Validates novelty of predictions."
+    },
+    "Hypothesis/Idea evaluation via Alignment with Literature Chains": {
+      "performed": "No"
+    },
+    "Hypothesis/Idea evaluation via Knowledge-Graph Grounded Similarity Metrics": {
+      "performed": "No"
+    },
+    "Hypothesis/Idea evaluation via Quantitative Assessment Using Domain Metrics": {
+      "performed": "Yes",
+      "Method details": "Docking scores (e.g., AutoDock Vina) and recall metrics used to assess prediction quality.",
+      "Inputs": "Predicted interactions, docking simulations, recall calculations.",
+      "Outputs": "Quantitative performance metrics.",
+      "Example": "Docking score of -8.4 kcal/mol for Equol-CXCR3.",
+      "Role in workflow": "Provides objective assessment of hypothesis quality."
+    },
+    "Hypothesis/Idea evaluation via Human/Expert": {
+      "performed": "No"
+    }
+  },
+  "Test": {
+    "performed": "Yes",
+    "Experimental Design Generation via literature-Grounded Model/Protocol Selection": {
+      "performed": "No"
+    },
+    "Experimental Design Generation via Literature Synthesis for New Protocol Generation": {
+      "performed": "No"
+    },
+    "Experimental Design Generation via Few-Shot or Example-Based Prompting": {
+      "performed": "No"
+    },
+    "Experimental Design Generation via Executable Code Generation from Literature": {
+      "performed": "No"
+    },
+    "LLM-Based Experimental Design Generation via Agentic Exploration and Planning": {
+      "performed": "Yes",
+      "Method details": "MCTS framework explores multiple reasoning trajectories, guided by agent outputs and reward signals.",
+      "Inputs": "Candidate molecules, proteins, agent outputs.",
+      "Outputs": "Explored decision paths, selected hypotheses.",
+      "Example": "Iterative rollouts in MCTS to refine predictions.",
+      "Role in workflow": "Enables structured, feedback-driven exploration of hypotheses."
+    },
+    "LLM-Based Experimental Design Generation via Code and Workflow Translation": {
+      "performed": "No"
+    },
+    "LLM-Based Experimental Design Generation via Multi-Agent Planning with Specialized Roles": {
+      "performed": "Yes",
+      "Method details": "Five specialized agents collaborate in a coordinated pipeline to implement the workflow.",
+      "Inputs": "Query molecule, retrieved data.",
+      "Outputs": "Stepwise experimental reasoning and predictions.",
+      "Example": "Retrieval, analysis, filtering, interaction analysis, decision.",
+      "Role in workflow": "Implements multi-step experimental reasoning."
+    },
+    "LLM-Based Experimental Design Generation via Domain-Specific Experimental Mapping": {
+      "performed": "No"
+    },
+    "Test Execution via Human-in-the-Loop": {
+      "performed": "No"
+    },
+    "Test Execution via Automated Wet-Lab Execution": {
+      "performed": "No"
+    },
+    "Test Execution via Computational or In-Silico": {
+      "performed": "Yes",
+      "Method details": "Predictions validated using computational docking (AutoDock Vina) and recall metrics on DrugBank/KIBA datasets.",
+      "Inputs": "Predicted drug-target pairs.",
+      "Outputs": "Docking scores, recall values.",
+      "Example": "Docking simulation for Equol-CXCR3; recall calculation for benchmark datasets.",
+      "Role in workflow": "Validates hypotheses computationally."
+    },
+    "Refinement via LLM Agent Feedback Loops": {
+      "performed": "Yes",
+      "Method details": "MCTS iteratively refines decision paths based on reward signals from agent outputs.",
+      "Inputs": "Intermediate predictions, reward scores.",
+      "Outputs": "Refined hypotheses after multiple rollouts.",
+      "Example": "Feedback-driven search in MCTS to improve prediction quality.",
+      "Role in workflow": "Improves robustness and accuracy of predictions."
+    },
+    "Refinement via Automated Quality Evaluation using Model-Based Critics": {
+      "performed": "No"
+    },
+    "Refinement via Dynamic Agent Updating Based on Evolving Context or Data": {
+      "performed": "Yes",
+      "Method details": "Dynamic adjustment of candidate selection (TopK+3 strategy) based on intermediate results.",
+      "Inputs": "Intermediate candidate pools, performance metrics.",
+      "Outputs": "Updated candidate sets and predictions.",
+      "Example": "Increasing candidate pool size if needed for better recall.",
+      "Role in workflow": "Adapts workflow based on evolving results."
+    },
+    "Refinement via guided by computational-data": {
+      "performed": "Yes",
+      "Method details": "Refinement of predictions based on computational evaluation (recall, docking scores, reward signals).",
+      "Inputs": "Performance metrics from computational tests.",
+      "Outputs": "Improved predictions and workflow parameters.",
+      "Example": "Adjusting rollout number or candidate selection based on recall.",
+      "Role in workflow": "Optimizes workflow using computational feedback."
+    },
+    "Refinement via experimental validation": {
+      "performed": "No"
+    },
+    "Refinement via Performance-metric": {
+      "performed": "Yes",
+      "Method details": "Performance (recall) and cost-efficiency metrics guide selection of rollout number and workflow parameters.",
+      "Inputs": "Recall scores, computational cost.",
+      "Outputs": "Optimized workflow settings.",
+      "Example": "Selecting rollout=12 for best performance/cost trade-off.",
+      "Role in workflow": "Ensures efficient and effective workflow execution."
+    },
+    "Refinement via Human–data integration": {
+      "performed": "No"
+    }
+  },
+  "paper_title": "DrugMCTS: a drug repurposing framework combining multi-agent, RAG and Monte Carlo Tree Search",
+  "authors": [
+    "Zerui",
+    "Yuwei",
+    "Siyu",
+    "Yudai",
+    "Tong",
+    "Bram",
+    "Linqi"
+  ],
+  "published": "2025-07-31",
+  "link": "http://arxiv.org/abs/2507.07426"
+}

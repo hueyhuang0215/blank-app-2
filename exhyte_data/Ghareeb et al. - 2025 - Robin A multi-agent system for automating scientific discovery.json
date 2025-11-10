@@ -1,0 +1,443 @@
+{
+  "Inputs to the workflow": {
+    "performed": "Yes",
+    "User provide high-level research direction or goal": {
+      "performed": "Yes",
+      "Format": "Natural language input specifying disease name or research target.",
+      "Example": "The scientist directs the system by providing the name of the disease to target.",
+      "Role in workflow": "Initiates the workflow and defines the scope for hypothesis generation and experimental planning."
+    },
+    "User provide structured, domain-specific specifications": {
+      "performed": "No"
+    },
+    "User provide research papers": {
+      "performed": "No"
+    },
+    "User provide datasets other than research papers": {
+      "performed": "Yes",
+      "Format": "Upload of raw or semi-processed experimental data (e.g., flow cytometry .fcs files, RNA-seq data).",
+      "Example": "The scientist uploads raw or semi-processed data and prompts Robin with a desired analysis approach.",
+      "Role in workflow": "Provides empirical results for autonomous analysis and hypothesis refinement."
+    },
+    "User provide representations or formal inputs": {
+      "performed": "No"
+    }
+  },
+  "Query Structuring": {
+    "performed": "Yes",
+    "Query Decomposition": {
+      "performed": "Yes",
+      "Method details": "LLM agents generate multiple focused queries from the disease name to cover diverse mechanistic and assay-related aspects.",
+      "Inputs": "Disease name or research goal.",
+      "Outputs": "Lists of detailed literature search queries.",
+      "Example": "Return a list of {num_queries} queries... to develop detailed, mechanistic cell culture assays...",
+      "Role in workflow": "Enables comprehensive literature retrieval and structured exploration for hypothesis and assay generation."
+    },
+    "Structural or Entity Decomposition": {
+      "performed": "No"
+    },
+    "Workflow Decomposition": {
+      "performed": "Yes",
+      "Method details": "Multi-agent system (Robin) orchestrates sequential subtasks: literature review, hypothesis generation, experimental planning, data analysis.",
+      "Inputs": "User goal, literature, experimental data.",
+      "Outputs": "Ordered workflow of subtasks assigned to specialized agents (Crow, Falcon, Finch).",
+      "Example": "Robin utilizes specialized language agents for literature search (Crow and Falcon) and data analysis (Finch)...",
+      "Role in workflow": "Breaks down the discovery process into manageable, agent-specific steps."
+    },
+    "Textual or Knowledge Embedding": {
+      "performed": "No"
+    },
+    "Molecular or Chemical Embedding": {
+      "performed": "No"
+    },
+    "Biological or Phenotypic Embedding": {
+      "performed": "No"
+    },
+    "Pattern and Feature Extraction": {
+      "performed": "Yes",
+      "Method details": "Finch agent analyzes experimental data (e.g., flow cytometry, RNA-seq) to extract features such as gene expression changes or phagocytosis metrics.",
+      "Inputs": "Raw experimental datasets.",
+      "Outputs": "Statistical summaries, plots, and identified significant features.",
+      "Example": "Finch executes analysis code in a Jupyter notebook and provides an interpretable and reproducible summary of its findings.",
+      "Role in workflow": "Transforms raw data into actionable insights for hypothesis refinement."
+    },
+    "Biological Relationship Extraction": {
+      "performed": "No"
+    },
+    "Property and Annotation Extraction": {
+      "performed": "No"
+    },
+    "Sequence and Structure Feature Extraction": {
+      "performed": "No"
+    }
+  },
+  "Data Retrieval": {
+    "performed": "Yes",
+    "Data Retrieval via Multi-Query Generation and Exploration": {
+      "performed": "Yes",
+      "Method details": "LLM agents generate multiple literature search queries to cover broad mechanistic and assay-related topics.",
+      "Inputs": "Disease name, research goal.",
+      "Outputs": "Diverse sets of search queries for literature review.",
+      "Example": "Return a list of {num_queries} queries... to develop detailed, mechanistic cell culture assays...",
+      "Role in workflow": "Ensures comprehensive literature coverage for hypothesis and assay development."
+    },
+    "Literature and Data Retrieval via APIs": {
+      "performed": "Yes",
+      "Method details": "PaperQA2-based agents (Crow, Falcon) access scientific literature, clinical trial reports, and Open Targets Platform.",
+      "Inputs": "Structured queries.",
+      "Outputs": "Relevant papers, clinical trial data, and platform-derived information.",
+      "Example": "PaperQA2 achieves expert-level performance in information retrieval and summarization, with access to scientific literature, clinical trial reports, and the Open Targets Platform.",
+      "Role in workflow": "Automates retrieval of relevant scientific evidence for downstream reasoning."
+    },
+    "Data Retrieval with Prioritization and Filtering Agents": {
+      "performed": "Yes",
+      "Method details": "LLM judge ranks and filters literature-derived hypotheses and assay proposals via pairwise comparisons.",
+      "Inputs": "Literature review outputs, candidate lists.",
+      "Outputs": "Ranked lists of assays or therapeutic candidates.",
+      "Example": "Robin uses an LLM judge to make pairwise comparisons between reports, which are used to calculate their relative rankings.",
+      "Role in workflow": "Focuses attention on the most promising hypotheses and experimental strategies."
+    },
+    "Domain-Specific Data Retrieval and Reasoning": {
+      "performed": "Yes",
+      "Method details": "Agents query domain-specific resources (Open Targets Platform) and synthesize findings for hypothesis generation.",
+      "Inputs": "Disease-specific queries.",
+      "Outputs": "Domain-relevant literature and data.",
+      "Example": "PaperQA2... with access to scientific literature, clinical trial reports, and the Open Targets Platform.",
+      "Role in workflow": "Ensures retrieval is tailored to biomedical context."
+    },
+    "Code-Driven or Tool-Augmented Data Retrieval": {
+      "performed": "No"
+    },
+    "Literature data Retrieval Citation-Network–Based Expansion": {
+      "performed": "No"
+    },
+    "Literature data Retrieval via Semantic and Similarity-Based analysis": {
+      "performed": "No"
+    },
+    "Literature data Retrieval via Multi-Step Reference and Evidence Selection": {
+      "performed": "Yes",
+      "Method details": "Sequential evaluation of literature and candidate hypotheses using LLM-judged tournaments.",
+      "Inputs": "Literature review outputs, candidate lists.",
+      "Outputs": "Prioritized hypotheses and experimental strategies.",
+      "Example": "The drug candidates are ranked by an LLM-judged tournament according to the strength of the scientific rationale...",
+      "Role in workflow": "Refines candidate selection through iterative evidence-based evaluation."
+    },
+    "Domain-Specific Literature data Retrieval": {
+      "performed": "Yes",
+      "Method details": "Agents use domain-specific keywords and context for targeted literature retrieval.",
+      "Inputs": "Mechanistic and assay-related queries.",
+      "Outputs": "Relevant biomedical literature.",
+      "Example": "Crow and Falcon are used to conduct concise and deep literature searches, respectively, to gather information to guide hypothesis generation.",
+      "Role in workflow": "Targets literature most relevant to the disease and experimental context."
+    },
+    "Manual and Semi-Automatic Curation of Literature data": {
+      "performed": "No"
+    },
+    "Structural or Similarity-Based Dataset Retrieval": {
+      "performed": "No"
+    },
+    "Data Retrieval via Domain-Specific Repository Querying": {
+      "performed": "Yes",
+      "Method details": "Agents access Open Targets Platform and clinical trial reports for disease-relevant data.",
+      "Inputs": "Disease-specific queries.",
+      "Outputs": "Domain-specific datasets and literature.",
+      "Example": "PaperQA2... with access to scientific literature, clinical trial reports, and the Open Targets Platform.",
+      "Role in workflow": "Provides authoritative, up-to-date biomedical data for hypothesis generation."
+    },
+    "Library Assembly and Data Augmentation": {
+      "performed": "No"
+    }
+  },
+  "Knowledge Assembly": {
+    "performed": "Yes",
+    "Standardized Section Extraction from Literature data": {
+      "performed": "No"
+    },
+    "Concise Synopsis and Summarization of Literature data": {
+      "performed": "Yes",
+      "Method details": "Crow agent produces concise literature reviews; Falcon generates deep, comprehensive summaries.",
+      "Inputs": "Retrieved literature.",
+      "Outputs": "Summarized reports on disease mechanisms, assays, and candidate drugs.",
+      "Example": "Crow and Falcon are literature search agents... that conduct concise and deep literature summaries, respectively.",
+      "Role in workflow": "Condenses large volumes of literature into actionable insights for hypothesis generation."
+    },
+    "Facet-Based or Field-Specific Extraction from Literature data": {
+      "performed": "Yes",
+      "Method details": "Agents extract assay descriptions, mechanistic rationales, and candidate drug evaluations from literature.",
+      "Inputs": "Literature review outputs.",
+      "Outputs": "Structured reports detailing assay strategies and drug mechanisms.",
+      "Example": "Crow prepares a detailed report describing an in vitro model of the disease mechanism and corresponding assay...",
+      "Role in workflow": "Structures literature-derived knowledge for downstream evaluation and planning."
+    },
+    "Domain-Tailored Extraction from Literature data": {
+      "performed": "Yes",
+      "Method details": "Extraction focuses on disease mechanisms, assay relevance, and drug mechanism-of-action.",
+      "Inputs": "Biomedical literature.",
+      "Outputs": "Domain-specific summaries and evaluations.",
+      "Example": "Falcon... generate a detailed report to evaluate each candidate. These reports contain both justification... and potential limitations...",
+      "Role in workflow": "Ensures extracted knowledge is relevant to biomedical discovery."
+    },
+    "Task/Entity-Centric Knowledge Graphs": {
+      "performed": "No"
+    },
+    "Causal or Relation-Specific Knowledge Graphs": {
+      "performed": "No"
+    },
+    "Biomedical or Domain-Specific Interaction Graphs": {
+      "performed": "No"
+    },
+    "Literature Database Construction": {
+      "performed": "No"
+    },
+    "Entity- or Co-Occurrence–Based Databases": {
+      "performed": "No"
+    },
+    "Reasoning-Chain or Temporal Databases for Literature": {
+      "performed": "No"
+    }
+  },
+  "Hypothesis/Idea Generation": {
+    "performed": "Yes",
+    "Idea/hypothesis generation without additional literature or dataset as context": {
+      "performed": "No"
+    },
+    "LLM Agent Generate ideas/hypotheses via Task Decomposition": {
+      "performed": "Yes",
+      "Method details": "Robin orchestrates sequential subtasks (mechanism identification, assay proposal, candidate generation) assigned to specialized agents.",
+      "Inputs": "Disease name, literature summaries.",
+      "Outputs": "Lists of disease mechanisms, assays, and candidate drugs.",
+      "Example": "Robin formulates a series of general questions about the disease pathology and queries Crow to answer each question...",
+      "Role in workflow": "Enables systematic exploration of the hypothesis space."
+    },
+    "Generate ideas/hypotheses using Domain-Specialized LLM Agent": {
+      "performed": "Yes",
+      "Method details": "Crow, Falcon, and Finch are specialized for literature review and data analysis in biomedical contexts.",
+      "Inputs": "Literature, experimental data.",
+      "Outputs": "Mechanistic hypotheses, assay proposals, drug candidates.",
+      "Example": "Robin utilizes specialized language agents for literature search (Crow and Falcon) and data analysis (Finch)...",
+      "Role in workflow": "Leverages domain expertise for hypothesis generation."
+    },
+    "Literature data used during idea/hypothesis generation as context": {
+      "performed": "Yes",
+      "Method details": "Hypotheses are generated using literature reviews as context for LLM-based reasoning.",
+      "Inputs": "Literature summaries and reports.",
+      "Outputs": "Mechanistic and therapeutic hypotheses.",
+      "Example": "Robin uses the reports from Crow as context... to generate hypotheses.",
+      "Role in workflow": "Grounds hypothesis generation in current scientific knowledge."
+    },
+    "Summarization Literature data used during idea/hypothesis generation": {
+      "performed": "Yes",
+      "Method details": "Summarized literature sections are provided as input to candidate generation prompts.",
+      "Inputs": "Concise and deep literature summaries.",
+      "Outputs": "Contextualized hypotheses and candidate lists.",
+      "Example": "Robin synthesizes this strategy into an overall goal and then generates several novel therapeutic candidates...",
+      "Role in workflow": "Ensures hypotheses are informed by key findings from literature."
+    },
+    "Idea/hypothesis generation via Facet Recombination": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation via contructed Reasoning-Chain from literature": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation via Knowledge Graph developed from literature": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation via Pattern Detection from dataset": {
+      "performed": "Yes",
+      "Method details": "Finch analyzes experimental data (e.g., RNA-seq) to identify differentially expressed genes and pathways.",
+      "Inputs": "Experimental datasets.",
+      "Outputs": "Identified patterns (e.g., upregulation of ABCA1) used for mechanistic insight.",
+      "Example": "Finch’s DGE analysis revealed that Y-27632 treatment also induced rapid transcriptional changes...",
+      "Role in workflow": "Links empirical data patterns to mechanistic hypotheses."
+    },
+    "Idea/hypothesis generation via Few-Shot Data Seeding": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation using Observational data": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation via Feature-Driven Property Prediction": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation after Fine-Tuning the LLM model": {
+      "performed": "No"
+    }
+  },
+  "Hypothesis/Idea Prioritization": {
+    "performed": "Yes",
+    "LLM-based Hypothesis/Idea evaluation via Scientific Quality": {
+      "performed": "Yes",
+      "Method details": "LLM judge (Claude 3.7 Sonnet) evaluates hypotheses for scientific rationale, novelty, and plausibility via pairwise comparisons.",
+      "Inputs": "Candidate hypotheses, literature summaries.",
+      "Outputs": "Ranked hypotheses.",
+      "Example": "The ranking of hypotheses was calculated via a series of pairwise comparisons adjudicated by the LLM judge.",
+      "Role in workflow": "Selects the most promising hypotheses for experimental testing."
+    },
+    "LLM-based Hypothesis/Idea evaluation via Domain-Specific Evaluation": {
+      "performed": "Yes",
+      "Method details": "LLM judge uses domain-specific criteria (pharmacological profile, methodology, literature support) for ranking.",
+      "Inputs": "Candidate lists, domain-specific evaluation prompts.",
+      "Outputs": "Ranked lists of assays and drug candidates.",
+      "Example": "The drug candidates are ranked by an LLM-judged tournament according to the strength of the scientific rationale, pharmacological profile, and methodology...",
+      "Role in workflow": "Ensures prioritization aligns with biomedical standards."
+    },
+    "LLM-based Hypothesis/Idea evaluation via Contextual Evidence Scoring": {
+      "performed": "Yes",
+      "Method details": "LLM judge integrates evidence from literature and experimental data to inform ranking.",
+      "Inputs": "Literature reviews, candidate evaluations.",
+      "Outputs": "Evidence-weighted rankings.",
+      "Example": "LLM judge demonstrated high concordance with expert preferences...",
+      "Role in workflow": "Ranks candidates based on contextual evidence."
+    },
+    "LLM-based Hypothesis/Idea evaluation via Interpretability or Success Metrics": {
+      "performed": "No"
+    },
+    "Hypothesis/Idea evaluation via Novelty Checking with Literature Comparison": {
+      "performed": "Yes",
+      "Method details": "LLM judge considers whether candidates have been previously proposed for the disease.",
+      "Inputs": "Literature reviews, candidate history.",
+      "Outputs": "Novelty assessment as part of ranking.",
+      "Example": "Ripasudil is a clinically-used rho kinase (ROCK) inhibitor that has never previously been proposed for treating dAMD.",
+      "Role in workflow": "Promotes novel, literature-grounded hypotheses."
+    },
+    "Hypothesis/Idea evaluation via Alignment with Literature Chains": {
+      "performed": "No"
+    },
+    "Hypothesis/Idea evaluation via Knowledge-Graph Grounded Similarity Metrics": {
+      "performed": "No"
+    },
+    "Hypothesis/Idea evaluation via Quantitative Assessment Using Domain Metrics": {
+      "performed": "No"
+    },
+    "Hypothesis/Idea evaluation via Human/Expert": {
+      "performed": "Yes",
+      "Method details": "Human experts compare and validate LLM judge rankings; expert evaluations used to tune LLM judge prompts.",
+      "Inputs": "Candidate hypotheses, expert feedback.",
+      "Outputs": "Concordance metrics, prompt refinement.",
+      "Example": "When comparing the LLM judge’s preferences with experts’, the LLM judge demonstrated high concordance with expert preferences...",
+      "Role in workflow": "Ensures LLM-based prioritization aligns with human expertise."
+    }
+  },
+  "Test": {
+    "performed": "Yes",
+    "Experimental Design Generation via literature-Grounded Model/Protocol Selection": {
+      "performed": "Yes",
+      "Method details": "Robin selects experimental assays based on literature review of disease mechanisms and prior models.",
+      "Inputs": "Literature summaries, assay proposals.",
+      "Outputs": "Selected in vitro assay protocols.",
+      "Example": "Robin... deploys Crow to prepare a detailed report describing an in vitro model of the disease mechanism and corresponding assay...",
+      "Role in workflow": "Ensures experimental design is grounded in validated models."
+    },
+    "Experimental Design Generation via Literature Synthesis for New Protocol Generation": {
+      "performed": "Yes",
+      "Method details": "Robin synthesizes literature findings to propose experimental strategies and assay goals.",
+      "Inputs": "Literature reviews, disease mechanism reports.",
+      "Outputs": "Synthesized experimental strategies.",
+      "Example": "Robin synthesizes this strategy into an overall goal and then generates several novel therapeutic candidates...",
+      "Role in workflow": "Integrates literature to create actionable experimental plans."
+    },
+    "Experimental Design Generation via Few-Shot or Example-Based Prompting": {
+      "performed": "No"
+    },
+    "Experimental Design Generation via Executable Code Generation from Literature": {
+      "performed": "No"
+    },
+    "LLM-Based Experimental Design Generation via Agentic Exploration and Planning": {
+      "performed": "Yes",
+      "Method details": "Robin coordinates agents to iteratively plan and refine experimental strategies based on literature and data.",
+      "Inputs": "Literature, prior experimental results.",
+      "Outputs": "Iterative experimental plans.",
+      "Example": "Robin drives an iterative therapeutics development cycle where hypotheses are generated, tested, analyzed, and refined...",
+      "Role in workflow": "Enables adaptive, agent-driven experimental planning."
+    },
+    "LLM-Based Experimental Design Generation via Code and Workflow Translation": {
+      "performed": "No"
+    },
+    "LLM-Based Experimental Design Generation via Multi-Agent Planning with Specialized Roles": {
+      "performed": "Yes",
+      "Method details": "Crow, Falcon, and Finch collaborate to generate, analyze, and refine experimental designs.",
+      "Inputs": "Disease name, literature, experimental data.",
+      "Outputs": "Coordinated experimental workflows.",
+      "Example": "Robin utilizes specialized language agents for literature search (Crow and Falcon) and data analysis (Finch)...",
+      "Role in workflow": "Leverages agent specialization for robust experimental planning."
+    },
+    "LLM-Based Experimental Design Generation via Domain-Specific Experimental Mapping": {
+      "performed": "No"
+    },
+    "Test Execution via Human-in-the-Loop": {
+      "performed": "Yes",
+      "Method details": "Human researchers execute experimental protocols suggested by Robin and upload resulting data for analysis.",
+      "Inputs": "LLM-generated experimental protocols.",
+      "Outputs": "Experimental data (e.g., flow cytometry, RNA-seq).",
+      "Example": "Researchers next conduct the experiments and provide the resulting data to Robin for autonomous analysis.",
+      "Role in workflow": "Bridges automated planning with real-world experimentation."
+    },
+    "Test Execution via Automated Wet-Lab Execution": {
+      "performed": "No"
+    },
+    "Test Execution via Computational or In-Silico": {
+      "performed": "No"
+    },
+    "Refinement via LLM Agent Feedback Loops": {
+      "performed": "Yes",
+      "Method details": "Robin iteratively updates hypotheses and experimental plans based on analysis of new experimental data.",
+      "Inputs": "Experimental results, analysis outputs.",
+      "Outputs": "Refined hypotheses and candidate lists.",
+      "Example": "Robin distills actionable scientific insights from these processed experimental results... used to inform the next cycle of therapeutic hypothesis generation.",
+      "Role in workflow": "Enables continuous improvement of hypotheses and strategies."
+    },
+    "Refinement via Automated Quality Evaluation using Model-Based Critics": {
+      "performed": "No"
+    },
+    "Refinement via Dynamic Agent Updating Based on Evolving Context or Data": {
+      "performed": "Yes",
+      "Method details": "Robin and Finch update hypotheses and analyses in response to new experimental findings.",
+      "Inputs": "New experimental data.",
+      "Outputs": "Updated hypotheses and experimental plans.",
+      "Example": "Robin can launch 10 Finch analysis trajectories... a meta-analysis can be conducted to synthesize all outputs into a consensus-driven conclusion.",
+      "Role in workflow": "Adapts reasoning and planning to evolving empirical context."
+    },
+    "Refinement via guided by computational-data": {
+      "performed": "Yes",
+      "Method details": "Finch performs statistical analyses (e.g., Dunnett test, DGE analysis) to guide hypothesis refinement.",
+      "Inputs": "Experimental data.",
+      "Outputs": "Statistical test results, updated candidate rankings.",
+      "Example": "Finch performs statistical tests to compare candidate drugs to the DMSO control and plots the results.",
+      "Role in workflow": "Ensures refinement is data-driven and statistically grounded."
+    },
+    "Refinement via experimental validation": {
+      "performed": "Yes",
+      "Method details": "Hypotheses and candidate drugs are experimentally tested; outcomes inform subsequent hypothesis cycles.",
+      "Inputs": "Experimental results.",
+      "Outputs": "Validated or refined hypotheses.",
+      "Example": "The cycle continues until a human has a satisfactory novel drug candidate.",
+      "Role in workflow": "Closes the loop between hypothesis and empirical validation."
+    },
+    "Refinement via Performance-metric": {
+      "performed": "No"
+    },
+    "Refinement via Human–data integration": {
+      "performed": "Yes",
+      "Method details": "Humans upload experimental data and can review/refine candidate lists based on Robin’s outputs.",
+      "Inputs": "Human-generated experimental data.",
+      "Outputs": "Integrated analysis and candidate selection.",
+      "Example": "This ranked list can then be reviewed by human scientists, and top drug candidates can be tested in the lab...",
+      "Role in workflow": "Combines human judgment with automated analysis for robust discovery."
+    }
+  },
+  "paper_title": "Robin: A multi-agent system for automating scientific discovery",
+  "authors": [
+    "Ali Essam",
+    "Benjamin",
+    "Ludovico",
+    "Angela",
+    "Caralyn J.",
+    "Jon M.",
+    "Muhammed T.",
+    "Andrew D.",
+    "Michaela M.",
+    "Samuel G."
+  ],
+  "published": "2025-05-19",
+  "link": "http://arxiv.org/abs/2505.13400"
+}

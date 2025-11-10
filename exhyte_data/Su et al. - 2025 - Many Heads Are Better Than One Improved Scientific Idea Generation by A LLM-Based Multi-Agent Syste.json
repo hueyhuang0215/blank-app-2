@@ -1,0 +1,368 @@
+{
+  "Inputs to the workflow": {
+    "performed": "Yes",
+    "User provide high-level research direction or goal": {
+      "performed": "Yes",
+      "Format": "Natural language topic or research direction, e.g., 'NanoGPT' or a general research area.",
+      "Example": "Team leader or agents propose and discuss research topics/goals in natural language.",
+      "Role in workflow": "Defines the focus for team discussion and idea generation."
+    },
+    "User provide structured, domain-specific specifications": {
+      "performed": "No"
+    },
+    "User provide research papers": {
+      "performed": "No"
+    },
+    "User provide datasets other than research papers": {
+      "performed": "No"
+    },
+    "User provide representations or formal inputs": {
+      "performed": "No"
+    }
+  },
+  "Query Structuring": {
+    "performed": "Yes",
+    "Query Decomposition": {
+      "performed": "Yes",
+      "Method details": "Team discussion decomposes broad research topics into more specific subtopics or candidate ideas through multi-turn dialogue.",
+      "Inputs": "Initial research topic or goal.",
+      "Outputs": "List of candidate research ideas or refined topics.",
+      "Example": "Agents propose, refine, and select among several research directions during topic discussion.",
+      "Role in workflow": "Enables focused exploration and idea generation."
+    },
+    "Structural or Entity Decomposition": {
+      "performed": "No"
+    },
+    "Workflow Decomposition": {
+      "performed": "Yes",
+      "Method details": "Multi-agent system divides the workflow into sequential steps: collaborator selection, topic discussion, idea generation, novelty assessment, abstract generation.",
+      "Inputs": "Overall research goal and agent profiles.",
+      "Outputs": "Structured multi-step workflow for idea generation.",
+      "Example": "VIRSCI pipeline with explicit stages and agent roles.",
+      "Role in workflow": "Organizes the discovery process into actionable steps."
+    },
+    "Textual or Knowledge Embedding": {
+      "performed": "Yes",
+      "Method details": "Papers and author profiles are embedded using the 'mxbai-embed-large' model for semantic retrieval and similarity analysis.",
+      "Inputs": "Titles, abstracts, author profiles.",
+      "Outputs": "Vector embeddings for semantic search and novelty assessment.",
+      "Example": "Faiss-based retrieval of similar papers using embeddings.",
+      "Role in workflow": "Supports literature retrieval and novelty evaluation."
+    },
+    "Molecular or Chemical Embedding": {
+      "performed": "No"
+    },
+    "Biological or Phenotypic Embedding": {
+      "performed": "No"
+    },
+    "Pattern and Feature Extraction": {
+      "performed": "No"
+    },
+    "Biological Relationship Extraction": {
+      "performed": "No"
+    },
+    "Property and Annotation Extraction": {
+      "performed": "No"
+    },
+    "Sequence and Structure Feature Extraction": {
+      "performed": "No"
+    }
+  },
+  "Data Retrieval": {
+    "performed": "Yes",
+    "Data Retrieval via Multi-Query Generation and Exploration": {
+      "performed": "No"
+    },
+    "Literature and Data Retrieval via APIs": {
+      "performed": "Yes",
+      "Method details": "Agents retrieve related papers using Faiss similarity search and, for baseline comparison, Semantic Scholar API.",
+      "Inputs": "Research topic, idea descriptions.",
+      "Outputs": "Relevant papers and abstracts.",
+      "Example": "Bpast and Bcon databases queried for similar papers.",
+      "Role in workflow": "Provides literature context for idea generation and novelty assessment."
+    },
+    "Data Retrieval with Prioritization and Filtering Agents": {
+      "performed": "No"
+    },
+    "Domain-Specific Data Retrieval and Reasoning": {
+      "performed": "No"
+    },
+    "Code-Driven or Tool-Augmented Data Retrieval": {
+      "performed": "No"
+    },
+    "Literature data Retrieval Citation-Network–Based Expansion": {
+      "performed": "No"
+    },
+    "Literature data Retrieval via Semantic and Similarity-Based analysis": {
+      "performed": "Yes",
+      "Method details": "Papers are retrieved based on embedding similarity to topics or generated ideas using Faiss.",
+      "Inputs": "Topic or idea embeddings.",
+      "Outputs": "List of semantically similar papers.",
+      "Example": "Retrieving top-5 most similar abstracts for novelty scoring.",
+      "Role in workflow": "Enables novelty and impact assessment."
+    },
+    "Literature data Retrieval via Multi-Step Reference and Evidence Selection": {
+      "performed": "No"
+    },
+    "Domain-Specific Literature data Retrieval": {
+      "performed": "Yes",
+      "Method details": "Retrieval is constrained to domain-specific datasets (e.g., Computer Science, Open Academic Graph).",
+      "Inputs": "Domain-filtered paper databases.",
+      "Outputs": "Relevant literature within the specified domain.",
+      "Example": "Filtering papers by field and citation count.",
+      "Role in workflow": "Ensures relevance and quality of retrieved literature."
+    },
+    "Manual and Semi-Automatic Curation of Literature data": {
+      "performed": "Yes",
+      "Method details": "Papers and authors are filtered by citation count, presence of abstracts, and co-author thresholds.",
+      "Inputs": "Raw paper and author datasets.",
+      "Outputs": "Curated, high-quality paper and author databases.",
+      "Example": "Filtering out papers with <10 citations or missing abstracts.",
+      "Role in workflow": "Improves quality and relevance of the knowledge base."
+    },
+    "Structural or Similarity-Based Dataset Retrieval": {
+      "performed": "No"
+    },
+    "Data Retrieval via Domain-Specific Repository Querying": {
+      "performed": "No"
+    },
+    "Library Assembly and Data Augmentation": {
+      "performed": "No"
+    }
+  },
+  "Knowledge Assembly": {
+    "performed": "Yes",
+    "Standardized Section Extraction from Literature data": {
+      "performed": "Yes",
+      "Method details": "Papers are segmented into title, abstract, citation count, and ID fields for database construction.",
+      "Inputs": "Raw paper records.",
+      "Outputs": "Structured paper entries.",
+      "Example": "Each paper in Bpast/Bcon includes title, abstract, citation count.",
+      "Role in workflow": "Enables structured retrieval and downstream analysis."
+    },
+    "Concise Synopsis and Summarization of Literature data": {
+      "performed": "No"
+    },
+    "Facet-Based or Field-Specific Extraction from Literature data": {
+      "performed": "No"
+    },
+    "Domain-Tailored Extraction from Literature data": {
+      "performed": "No"
+    },
+    "Task/Entity-Centric Knowledge Graphs": {
+      "performed": "No"
+    },
+    "Causal or Relation-Specific Knowledge Graphs": {
+      "performed": "No"
+    },
+    "Biomedical or Domain-Specific Interaction Graphs": {
+      "performed": "No"
+    },
+    "Literature Database Construction": {
+      "performed": "Yes",
+      "Method details": "Curated and filtered literature databases (Bpast, Bcon) are constructed for each domain.",
+      "Inputs": "Filtered paper records.",
+      "Outputs": "Structured, queryable literature databases.",
+      "Example": "Bpast (past papers), Bcon (contemporary papers) for each experiment.",
+      "Role in workflow": "Supports retrieval, novelty assessment, and evaluation."
+    },
+    "Entity- or Co-Occurrence–Based Databases": {
+      "performed": "No"
+    },
+    "Reasoning-Chain or Temporal Databases for Literature": {
+      "performed": "No"
+    }
+  },
+  "Hypothesis/Idea Generation": {
+    "performed": "Yes",
+    "Idea/hypothesis generation without additional literature or dataset as context": {
+      "performed": "No"
+    },
+    "LLM Agent Generate ideas/hypotheses via Task Decomposition": {
+      "performed": "Yes",
+      "Method details": "Multi-agent system assigns agents to propose, refine, and critique ideas in sequential discussion rounds.",
+      "Inputs": "Research topic, agent backgrounds.",
+      "Outputs": "Multiple candidate research ideas.",
+      "Example": "Each agent proposes or refines an idea in turn.",
+      "Role in workflow": "Enables collaborative, multi-perspective idea generation."
+    },
+    "Generate ideas/hypotheses using Domain-Specialized LLM Agent": {
+      "performed": "Yes",
+      "Method details": "Agents initialized with real scientist profiles and domain expertise generate ideas relevant to their background.",
+      "Inputs": "Agent knowledge, topic, literature context.",
+      "Outputs": "Domain-relevant research ideas.",
+      "Example": "Agents with data security expertise propose access control ideas.",
+      "Role in workflow": "Brings domain expertise into idea generation."
+    },
+    "Literature data used during idea/hypothesis generation as context": {
+      "performed": "Yes",
+      "Method details": "Relevant papers from Bpast are retrieved and provided as references for idea generation.",
+      "Inputs": "Research topic, Bpast database.",
+      "Outputs": "Contextualized idea proposals.",
+      "Example": "Agents cite or build on retrieved literature when proposing ideas.",
+      "Role in workflow": "Grounds idea generation in existing research."
+    },
+    "Summarization Literature data used during idea/hypothesis generation": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation via Facet Recombination": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation via contructed Reasoning-Chain from literature": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation via Knowledge Graph developed from literature": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation via Pattern Detection from dataset": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation via Few-Shot Data Seeding": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation using Observational data": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation via Feature-Driven Property Prediction": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation after Fine-Tuning the LLM model": {
+      "performed": "No"
+    }
+  },
+  "Hypothesis/Idea Prioritization": {
+    "performed": "Yes",
+    "LLM-based Hypothesis/Idea evaluation via Scientific Quality": {
+      "performed": "Yes",
+      "Method details": "Agents rate ideas for clarity, feasibility, and novelty; LLMs and humans also review abstracts for scientific quality.",
+      "Inputs": "Candidate ideas, abstracts.",
+      "Outputs": "Scores and qualitative feedback.",
+      "Example": "Agents assign 1-10 scores for clarity, feasibility, novelty.",
+      "Role in workflow": "Filters and ranks ideas for selection."
+    },
+    "LLM-based Hypothesis/Idea evaluation via Domain-Specific Evaluation": {
+      "performed": "No"
+    },
+    "LLM-based Hypothesis/Idea evaluation via Contextual Evidence Scoring": {
+      "performed": "No"
+    },
+    "LLM-based Hypothesis/Idea evaluation via Interpretability or Success Metrics": {
+      "performed": "No"
+    },
+    "Hypothesis/Idea evaluation via Novelty Checking with Literature Comparison": {
+      "performed": "Yes",
+      "Method details": "Agents compare candidate ideas to retrieved literature for overlap; similarity metrics (embedding distance) are used.",
+      "Inputs": "Idea descriptions, Bpast papers.",
+      "Outputs": "Novelty scores, selection of most novel idea.",
+      "Example": "Voting for the idea with least overlap to existing papers.",
+      "Role in workflow": "Ensures selected ideas are novel."
+    },
+    "Hypothesis/Idea evaluation via Alignment with Literature Chains": {
+      "performed": "No"
+    },
+    "Hypothesis/Idea evaluation via Knowledge-Graph Grounded Similarity Metrics": {
+      "performed": "No"
+    },
+    "Hypothesis/Idea evaluation via Quantitative Assessment Using Domain Metrics": {
+      "performed": "Yes",
+      "Method details": "Novelty and impact are quantified using normalized embedding distances and citation counts.",
+      "Inputs": "Generated abstract embeddings, Bpast/Bcon embeddings, citation data.",
+      "Outputs": "Historical Dissimilarity, Contemporary Dissimilarity, Contemporary Impact, Overall Novelty metrics.",
+      "Example": "Calculating ON = (HD × CI)/CD for each abstract.",
+      "Role in workflow": "Provides objective, quantitative evaluation of novelty and impact."
+    },
+    "Hypothesis/Idea evaluation via Human/Expert": {
+      "performed": "Yes",
+      "Method details": "Human experts rate abstracts for novelty, feasibility, and effectiveness on a 10-point scale.",
+      "Inputs": "Generated abstracts.",
+      "Outputs": "Human evaluation scores.",
+      "Example": "Ten PhD students rate abstracts for novelty.",
+      "Role in workflow": "Provides external validation of automated evaluations."
+    }
+  },
+  "Test": {
+    "performed": "Yes",
+    "Experimental Design Generation via literature-Grounded Model/Protocol Selection": {
+      "performed": "No"
+    },
+    "Experimental Design Generation via Literature Synthesis for New Protocol Generation": {
+      "performed": "No"
+    },
+    "Experimental Design Generation via Few-Shot or Example-Based Prompting": {
+      "performed": "No"
+    },
+    "Experimental Design Generation via Executable Code Generation from Literature": {
+      "performed": "No"
+    },
+    "LLM-Based Experimental Design Generation via Agentic Exploration and Planning": {
+      "performed": "No"
+    },
+    "LLM-Based Experimental Design Generation via Code and Workflow Translation": {
+      "performed": "No"
+    },
+    "LLM-Based Experimental Design Generation via Multi-Agent Planning with Specialized Roles": {
+      "performed": "Yes",
+      "Method details": "Agents collaboratively generate, critique, and iteratively refine abstracts based on selected ideas.",
+      "Inputs": "Selected idea, agent feedback.",
+      "Outputs": "Finalized research abstract.",
+      "Example": "Sequential revision of abstract by team members.",
+      "Role in workflow": "Transforms selected idea into a publishable research abstract."
+    },
+    "LLM-Based Experimental Design Generation via Domain-Specific Experimental Mapping": {
+      "performed": "No"
+    },
+    "Test Execution via Human-in-the-Loop": {
+      "performed": "No"
+    },
+    "Test Execution via Automated Wet-Lab Execution": {
+      "performed": "No"
+    },
+    "Test Execution via Computational or In-Silico": {
+      "performed": "No"
+    },
+    "Refinement via LLM Agent Feedback Loops": {
+      "performed": "Yes",
+      "Method details": "Agents iteratively critique and revise abstracts, with optional self-review for novelty before finalization.",
+      "Inputs": "Draft abstract, agent evaluations.",
+      "Outputs": "Improved, finalized abstract.",
+      "Example": "Multiple revision rounds with agent feedback and self-review.",
+      "Role in workflow": "Ensures quality and novelty of the final output."
+    },
+    "Refinement via Automated Quality Evaluation using Model-Based Critics": {
+      "performed": "No"
+    },
+    "Refinement via Dynamic Agent Updating Based on Evolving Context or Data": {
+      "performed": "No"
+    },
+    "Refinement via guided by computational-data": {
+      "performed": "No"
+    },
+    "Refinement via experimental validation": {
+      "performed": "No"
+    },
+    "Refinement via Performance-metric": {
+      "performed": "No"
+    },
+    "Refinement via Human–data integration": {
+      "performed": "No"
+    }
+  },
+  "paper_title": "Many Heads Are Better Than One: Improved Scientific Idea Generation by A LLM-Based Multi-Agent System",
+  "authors": [
+    "Haoyang",
+    "Renqi",
+    "Shixiang",
+    "Zhenfei",
+    "Xinzhe",
+    "Jinzhe",
+    "Biqing",
+    "Qi",
+    "Hui",
+    "Wanli",
+    "Philip",
+    "Bowen",
+    "Nanqing"
+  ],
+  "published": "2025-05-27",
+  "link": "http://arxiv.org/abs/2410.09403"
+}

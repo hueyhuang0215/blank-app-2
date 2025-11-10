@@ -1,0 +1,333 @@
+{
+  "Inputs to the workflow": {
+    "performed": "Yes",
+    "User provide high-level research direction or goal": {
+      "performed": "Yes",
+      "Format": "Research problem statement: automatic discovery of meta-structures in heterogeneous information networks (HINs) for improved performance and explainability.",
+      "Example": "Goal to jointly optimize empirical prediction performance and semantic explainability of meta-structures in HINs.",
+      "Role in workflow": "Defines the overall objective and scope for the automated discovery process."
+    },
+    "User provide structured, domain-specific specifications": {
+      "performed": "No"
+    },
+    "User provide research papers": {
+      "performed": "No"
+    },
+    "User provide datasets other than research papers": {
+      "performed": "Yes",
+      "Format": "Selection of benchmark HIN datasets for recommendation and node classification tasks.",
+      "Example": "Datasets: Amazon, Yelp, Douban Movie, LastFM, ACM, IMDB, DBLP, OAG-NN.",
+      "Role in workflow": "Provides empirical data for meta-structure search, evaluation, and benchmarking."
+    },
+    "User provide representations or formal inputs": {
+      "performed": "Yes",
+      "Format": "Meta-structure representations (graph templates), meta-paths, and network schema.",
+      "Example": "Meta-structures encoded as graphs and translated into natural language sentences for LLM processing.",
+      "Role in workflow": "Serves as the formal input for candidate generation, LLM reasoning, and downstream GNN training."
+    }
+  },
+  "Query Structuring": {
+    "performed": "Yes",
+    "Query Decomposition": {
+      "performed": "No"
+    },
+    "Structural or Entity Decomposition": {
+      "performed": "Yes",
+      "Method details": "Each meta-structure is traversed to extract all simple paths (meta-paths) connecting source and target nodes.",
+      "Inputs": "Meta-structure graph representation.",
+      "Outputs": "Set of meta-paths (simple paths) per meta-structure.",
+      "Example": "Decomposing a meta-structure into all possible meta-paths for natural language encoding.",
+      "Role in workflow": "Enables fine-grained semantic encoding and LLM-based reasoning over sub-structures."
+    },
+    "Workflow Decomposition": {
+      "performed": "No"
+    },
+    "Textual or Knowledge Embedding": {
+      "performed": "Yes",
+      "Method details": "Meta-structures are translated into natural language sentences using a grammar translator for LLM comprehension.",
+      "Inputs": "Meta-structure (graph or matrix representation).",
+      "Outputs": "Natural language sentences describing the meta-structure.",
+      "Example": "Encoding a meta-structure as: 'A user visits a business THAT is located in a city AND belongs to a category.'",
+      "Role in workflow": "Facilitates LLM-based evaluation, selection, and explanation by providing semantically rich, interpretable inputs."
+    },
+    "Molecular or Chemical Embedding": {
+      "performed": "No"
+    },
+    "Biological or Phenotypic Embedding": {
+      "performed": "No"
+    },
+    "Pattern and Feature Extraction": {
+      "performed": "Yes",
+      "Method details": "Extraction of sub-structures (meta-paths, components) and identification of beneficial/detrimental sub-structures via LLM analysis.",
+      "Inputs": "Meta-structure candidates and their neighbors.",
+      "Outputs": "Identified sub-structures and their attributed roles in performance.",
+      "Example": "LLM highlights relevant sub-structures in red and distracting ones in blue during explanation.",
+      "Role in workflow": "Supports explainability and guides refinement of meta-structure candidates."
+    },
+    "Biological Relationship Extraction": {
+      "performed": "No"
+    },
+    "Property and Annotation Extraction": {
+      "performed": "No"
+    },
+    "Sequence and Structure Feature Extraction": {
+      "performed": "No"
+    }
+  },
+  "Data Retrieval": {
+    "performed": "Yes",
+    "Data Retrieval via Multi-Query Generation and Exploration": {
+      "performed": "No"
+    },
+    "Literature and Data Retrieval via APIs": {
+      "performed": "No"
+    },
+    "Data Retrieval with Prioritization and Filtering Agents": {
+      "performed": "No"
+    },
+    "Domain-Specific Data Retrieval and Reasoning": {
+      "performed": "No"
+    },
+    "Code-Driven or Tool-Augmented Data Retrieval": {
+      "performed": "No"
+    },
+    "Literature data Retrieval Citation-Network–Based Expansion": {
+      "performed": "No"
+    },
+    "Literature data Retrieval via Semantic and Similarity-Based analysis": {
+      "performed": "No"
+    },
+    "Literature data Retrieval via Multi-Step Reference and Evidence Selection": {
+      "performed": "No"
+    },
+    "Domain-Specific Literature data Retrieval": {
+      "performed": "No"
+    },
+    "Manual and Semi-Automatic Curation of Literature data": {
+      "performed": "No"
+    },
+    "Structural or Similarity-Based Dataset Retrieval": {
+      "performed": "No"
+    },
+    "Data Retrieval via Domain-Specific Repository Querying": {
+      "performed": "No"
+    },
+    "Library Assembly and Data Augmentation": {
+      "performed": "No"
+    }
+  },
+  "Knowledge Assembly": {
+    "performed": "No"
+  },
+  "Hypothesis/Idea Generation": {
+    "performed": "Yes",
+    "Idea/hypothesis generation without additional literature or dataset as context": {
+      "performed": "No"
+    },
+    "LLM Agent Generate ideas/hypotheses via Task Decomposition": {
+      "performed": "No"
+    },
+    "Generate ideas/hypotheses using Domain-Specialized LLM Agent": {
+      "performed": "Yes",
+      "Method details": "LLM agents (GPT-4 and others) generate, evaluate, and explain meta-structure candidates using natural language reasoning.",
+      "Inputs": "Natural language encoded meta-structures, performance history, candidate pool.",
+      "Outputs": "New meta-structure candidates and explanations.",
+      "Example": "LLM predicts performance and confidence for each candidate, selects promising ones, and generates explanations.",
+      "Role in workflow": "Drives the creative search and refinement of meta-structures tailored to HIN tasks."
+    },
+    "Literature data used during idea/hypothesis generation as context": {
+      "performed": "No"
+    },
+    "Summarization Literature data used during idea/hypothesis generation": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation via Facet Recombination": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation via contructed Reasoning-Chain from literature": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation via Knowledge Graph developed from literature": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation via Pattern Detection from dataset": {
+      "performed": "Yes",
+      "Method details": "LLM agents analyze performance history and structural patterns to guide candidate generation and selection.",
+      "Inputs": "Performance pool of previously evaluated meta-structures.",
+      "Outputs": "Predicted high-performing meta-structure candidates.",
+      "Example": "Few-shot LLM predictor uses structure-performance pairs to estimate new candidate performance.",
+      "Role in workflow": "Enables data-driven generation and prioritization of promising meta-structures."
+    },
+    "Idea/hypothesis generation via Few-Shot Data Seeding": {
+      "performed": "Yes",
+      "Method details": "LLM predictor is provided with a small set of structure-performance pairs (few-shot examples) to estimate candidate performance.",
+      "Inputs": "Sampled structure-performance pairs from performance pool.",
+      "Outputs": "Performance and confidence predictions for new candidates.",
+      "Example": "LLM uses 30 sampled records to inform predictions for candidate meta-structures.",
+      "Role in workflow": "Bootstraps LLM reasoning for performance estimation and candidate selection."
+    },
+    "Idea/hypothesis generation using Observational data": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation via Feature-Driven Property Prediction": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation after Fine-Tuning the LLM model": {
+      "performed": "No"
+    }
+  },
+  "Hypothesis/Idea Prioritization": {
+    "performed": "Yes",
+    "LLM-based Hypothesis/Idea evaluation via Scientific Quality": {
+      "performed": "Yes",
+      "Method details": "LLM selector evaluates candidates for semantic meaning, simplicity, and interpretability, often preferring simpler, more generalizable structures.",
+      "Inputs": "Natural language encoded candidates, predicted performance/confidence.",
+      "Outputs": "Selected candidate meta-structures for next generation.",
+      "Example": "LLM invokes 'Occam’s razor' and interpretability in selection decisions.",
+      "Role in workflow": "Ensures selected meta-structures are both high-performing and human-comprehensible."
+    },
+    "LLM-based Hypothesis/Idea evaluation via Domain-Specific Evaluation": {
+      "performed": "Yes",
+      "Method details": "LLM selector considers domain-specific factors such as overfitting risk, structural complexity, and alignment with HIN objectives.",
+      "Inputs": "Meta-structure candidates, domain context.",
+      "Outputs": "Prioritized candidate for evolutionary update.",
+      "Example": "LLM weighs complexity vs. performance and generalizability.",
+      "Role in workflow": "Balances empirical performance with domain-relevant criteria."
+    },
+    "LLM-based Hypothesis/Idea evaluation via Contextual Evidence Scoring": {
+      "performed": "Yes",
+      "Method details": "LLM predictor uses structure-performance history to inform confidence and performance estimates for new candidates.",
+      "Inputs": "Performance pool, candidate meta-structures.",
+      "Outputs": "Predicted performance and confidence scores.",
+      "Example": "LLM assigns higher confidence to candidates similar to previously successful structures.",
+      "Role in workflow": "Guides selection toward empirically promising candidates."
+    },
+    "LLM-based Hypothesis/Idea evaluation via Interpretability or Success Metrics": {
+      "performed": "Yes",
+      "Method details": "LLM explainer generates natural language explanations highlighting relevant and distracting sub-structures.",
+      "Inputs": "Meta-structure and its neighbors, performance results.",
+      "Outputs": "Human-comprehensible explanations.",
+      "Example": "LLM-generated explanations preferred by 77.6% of human evaluators.",
+      "Role in workflow": "Improves transparency and user trust in discovered meta-structures."
+    },
+    "Hypothesis/Idea evaluation via Novelty Checking with Literature Comparison": {
+      "performed": "No"
+    },
+    "Hypothesis/Idea evaluation via Alignment with Literature Chains": {
+      "performed": "No"
+    },
+    "Hypothesis/Idea evaluation via Knowledge-Graph Grounded Similarity Metrics": {
+      "performed": "No"
+    },
+    "Hypothesis/Idea evaluation via Quantitative Assessment Using Domain Metrics": {
+      "performed": "Yes",
+      "Method details": "Empirical evaluation of meta-structures using AUC and Macro-F1 on benchmark datasets.",
+      "Inputs": "Candidate meta-structures, HIN datasets.",
+      "Outputs": "Performance scores for each candidate.",
+      "Example": "AUC and Macro-F1 reported for recommendation and node classification tasks.",
+      "Role in workflow": "Provides objective, quantitative basis for evolutionary selection and refinement."
+    },
+    "Hypothesis/Idea evaluation via Human/Expert": {
+      "performed": "Yes",
+      "Method details": "User study with 73 graduate students evaluates comprehensibility and usefulness of discovered meta-structures and explanations.",
+      "Inputs": "Visualizations and explanations of meta-structures.",
+      "Outputs": "Human preference statistics.",
+      "Example": "46.6% of participants preferred ReStruct’s meta-structures for comprehensibility.",
+      "Role in workflow": "Validates explainability and practical value of automated discoveries."
+    }
+  },
+  "Test": {
+    "performed": "Yes",
+    "Experimental Design Generation via literature-Grounded Model/Protocol Selection": {
+      "performed": "No"
+    },
+    "Experimental Design Generation via Literature Synthesis for New Protocol Generation": {
+      "performed": "No"
+    },
+    "Experimental Design Generation via Few-Shot or Example-Based Prompting": {
+      "performed": "No"
+    },
+    "Experimental Design Generation via Executable Code Generation from Literature": {
+      "performed": "No"
+    },
+    "LLM-Based Experimental Design Generation via Agentic Exploration and Planning": {
+      "performed": "No"
+    },
+    "LLM-Based Experimental Design Generation via Code and Workflow Translation": {
+      "performed": "No"
+    },
+    "LLM-Based Experimental Design Generation via Multi-Agent Planning with Specialized Roles": {
+      "performed": "No"
+    },
+    "LLM-Based Experimental Design Generation via Domain-Specific Experimental Mapping": {
+      "performed": "No"
+    },
+    "Test Execution via Human-in-the-Loop": {
+      "performed": "No"
+    },
+    "Test Execution via Automated Wet-Lab Execution": {
+      "performed": "No"
+    },
+    "Test Execution via Computational or In-Silico": {
+      "performed": "Yes",
+      "Method details": "Candidate meta-structures are empirically evaluated by training GNNs on HIN datasets for recommendation and node classification.",
+      "Inputs": "Meta-structure candidates, HIN datasets.",
+      "Outputs": "Empirical performance metrics (AUC, Macro-F1).",
+      "Example": "Each meta-structure is used to train a GNN; performance is measured and used for evolutionary selection.",
+      "Role in workflow": "Validates candidate meta-structures and informs evolutionary refinement."
+    },
+    "Refinement via LLM Agent Feedback Loops": {
+      "performed": "Yes",
+      "Method details": "Evolutionary updater eliminates underperforming meta-structures and reproduces promising ones, guided by LLM selection and empirical results.",
+      "Inputs": "Performance scores, LLM-selected candidates.",
+      "Outputs": "Refined population of meta-structures for next generation.",
+      "Example": "Elimination-reproduction loop with LLM-guided targeted mutation.",
+      "Role in workflow": "Iteratively improves meta-structure quality and performance."
+    },
+    "Refinement via Automated Quality Evaluation using Model-Based Critics": {
+      "performed": "No"
+    },
+    "Refinement via Dynamic Agent Updating Based on Evolving Context or Data": {
+      "performed": "Yes",
+      "Method details": "LLM agents update candidate selection and explanations based on evolving performance pool and search history.",
+      "Inputs": "Updated performance pool, search history.",
+      "Outputs": "Adapted candidate selection and explanations.",
+      "Example": "LLM selector and explainer use latest empirical results for next-round reasoning.",
+      "Role in workflow": "Ensures adaptation to new evidence and continuous improvement."
+    },
+    "Refinement via guided by computational-data": {
+      "performed": "Yes",
+      "Method details": "Refinement of meta-structure population is driven by empirical performance metrics from computational tests.",
+      "Inputs": "AUC, Macro-F1, and other performance data.",
+      "Outputs": "Selection and mutation of meta-structures.",
+      "Example": "Underperforming structures are eliminated based on test results.",
+      "Role in workflow": "Directs evolutionary search toward empirically validated solutions."
+    },
+    "Refinement via experimental validation": {
+      "performed": "No"
+    },
+    "Refinement via Performance-metric": {
+      "performed": "Yes",
+      "Method details": "Evolutionary updater uses empirical performance (AUC, Macro-F1) to guide elimination and reproduction.",
+      "Inputs": "Performance metrics from GNN training.",
+      "Outputs": "Updated meta-structure population.",
+      "Example": "Meta-structures with higher AUC/Macro-F1 are more likely to be retained and duplicated.",
+      "Role in workflow": "Ensures population evolves toward higher-performing solutions."
+    },
+    "Refinement via Human–data integration": {
+      "performed": "No"
+    }
+  },
+  "paper_title": "Large Language Model-driven Meta-structure Discovery in Heterogeneous Information Network",
+  "authors": [
+    "Lin",
+    "Fengli",
+    "Nian",
+    "Zhenyu",
+    "Meng",
+    "Yong",
+    "Pan"
+  ],
+  "published": "2024-08-25",
+  "link": "http://arxiv.org/abs/2402.11518"
+}

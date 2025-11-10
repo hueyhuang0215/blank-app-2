@@ -1,0 +1,372 @@
+{
+  "Inputs to the workflow": {
+    "performed": "Yes",
+    "User provide high-level research direction or goal": {
+      "performed": "Yes",
+      "Format": "Natural language instructions/goals in prompts",
+      "Example": "Prompt includes dataset description and modeling constraints, e.g., 'this model should be interpretable to an ecologist.'",
+      "Role in workflow": "Guides the LM in proposing models aligned with user-specified scientific goals or constraints."
+    },
+    "User provide structured, domain-specific specifications": {
+      "performed": "Yes",
+      "Format": "Natural language constraints, metadata, and modeling requirements",
+      "Example": "Instructions such as 'use informative priors based on biological knowledge of dugongs.'",
+      "Role in workflow": "Constrains the model search space and ensures domain relevance."
+    },
+    "User provide research papers": {
+      "performed": "No"
+    },
+    "User provide datasets other than research papers": {
+      "performed": "Yes",
+      "Format": "Tabular datasets (CSV, dataframe), visual plots",
+      "Example": "Dugong age/length data, SAT score improvements, hospital mortality rates, time series datasets.",
+      "Role in workflow": "Serves as the empirical basis for model discovery and evaluation."
+    },
+    "User provide representations or formal inputs": {
+      "performed": "Yes",
+      "Format": "Probabilistic program code, exemplar models, code snippets",
+      "Example": "Seed models in Python/pymc, initial kernel expressions for Gaussian processes.",
+      "Role in workflow": "Provides starting points or exemplars for LM-driven model proposal."
+    }
+  },
+  "Query Structuring": {
+    "performed": "Yes",
+    "Query Decomposition": {
+      "performed": "Yes",
+      "Method details": "LMs are prompted to reflect on dataset properties, sketch modeling approaches, and state hypotheses before code generation.",
+      "Inputs": "Dataset, metadata, prior model code, natural language instructions",
+      "Outputs": "Structured modeling hypotheses and annotated code proposals",
+      "Example": "LM breaks down modeling task into sub-hypotheses (e.g., 'Hypothesis 1: Logistic growth for prey...') before writing code.",
+      "Role in workflow": "Enables systematic exploration of modeling strategies and explicit hypothesis formation."
+    },
+    "Structural or Entity Decomposition": {
+      "performed": "No"
+    },
+    "Workflow Decomposition": {
+      "performed": "Yes",
+      "Method details": "Box’s Loop is implemented as an iterative workflow: model proposal, fitting, criticism, and prompt update.",
+      "Inputs": "Current prompt (models, feedback, data), exemplars, statistics",
+      "Outputs": "Sequential rounds of model proposals and refinements",
+      "Example": "Algorithm 1: Each round consists of proposal, fitting, criticism, and prompt update.",
+      "Role in workflow": "Structures the discovery process into actionable, iterative steps."
+    },
+    "Textual or Knowledge Embedding": {
+      "performed": "No"
+    },
+    "Molecular or Chemical Embedding": {
+      "performed": "No"
+    },
+    "Biological or Phenotypic Embedding": {
+      "performed": "No"
+    },
+    "Pattern and Feature Extraction": {
+      "performed": "Yes",
+      "Method details": "LMs and model fitting extract summary statistics (means, variances, residuals) from posterior predictive samples.",
+      "Inputs": "Fitted probabilistic models, observed data",
+      "Outputs": "Posterior predictive means, variances, residuals",
+      "Example": "Posterior predictive checks for model criticism.",
+      "Role in workflow": "Provides empirical evidence for model evaluation and refinement."
+    },
+    "Biological Relationship Extraction": {
+      "performed": "No"
+    },
+    "Property and Annotation Extraction": {
+      "performed": "No"
+    },
+    "Sequence and Structure Feature Extraction": {
+      "performed": "No"
+    }
+  },
+  "Data Retrieval": {
+    "performed": "Yes",
+    "Data Retrieval via Multi-Query Generation and Exploration": {
+      "performed": "No"
+    },
+    "Literature and Data Retrieval via APIs": {
+      "performed": "No"
+    },
+    "Data Retrieval with Prioritization and Filtering Agents": {
+      "performed": "Yes",
+      "Method details": "LM selects top-k exemplar models based on model fit scores (e.g., ELPD LOO) for use in subsequent rounds.",
+      "Inputs": "Set of proposed models and their scores",
+      "Outputs": "Best k models (exemplars) for next prompt",
+      "Example": "select-exemplars(k, {zt_i}, {si}) in Algorithm 1.",
+      "Role in workflow": "Focuses exploration on promising model candidates."
+    },
+    "Domain-Specific Data Retrieval and Reasoning": {
+      "performed": "No"
+    },
+    "Code-Driven or Tool-Augmented Data Retrieval": {
+      "performed": "Yes",
+      "Method details": "LMs generate code to access and process datasets; pymc is used for model fitting and inference.",
+      "Inputs": "Dataset, code for probabilistic programs",
+      "Outputs": "Fitted models, posterior samples, model scores",
+      "Example": "LM-generated pymc code for model fitting.",
+      "Role in workflow": "Automates data processing and model evaluation."
+    },
+    "Literature data Retrieval Citation-Network–Based Expansion": {
+      "performed": "No"
+    },
+    "Literature data Retrieval via Semantic and Similarity-Based analysis": {
+      "performed": "No"
+    },
+    "Literature data Retrieval via Multi-Step Reference and Evidence Selection": {
+      "performed": "No"
+    },
+    "Domain-Specific Literature data Retrieval": {
+      "performed": "No"
+    },
+    "Manual and Semi-Automatic Curation of Literature data": {
+      "performed": "No"
+    },
+    "Structural or Similarity-Based Dataset Retrieval": {
+      "performed": "No"
+    },
+    "Data Retrieval via Domain-Specific Repository Querying": {
+      "performed": "No"
+    },
+    "Library Assembly and Data Augmentation": {
+      "performed": "No"
+    }
+  },
+  "Knowledge Assembly": {
+    "performed": "No"
+  },
+  "Hypothesis/Idea Generation": {
+    "performed": "Yes",
+    "Idea/hypothesis generation without additional literature or dataset as context": {
+      "performed": "Yes",
+      "Method details": "LMs use internal knowledge and prompt context to propose new probabilistic models and hypotheses.",
+      "Inputs": "Prompt (dataset, metadata, prior models, feedback)",
+      "Outputs": "Probabilistic program code, annotated with hypotheses",
+      "Example": "LM proposes a new ODE or regression model based on data and prior feedback.",
+      "Role in workflow": "Drives creative model discovery without external literature."
+    },
+    "LLM Agent Generate ideas/hypotheses via Task Decomposition": {
+      "performed": "Yes",
+      "Method details": "LMs are instructed to break down modeling into sub-hypotheses and address each in code/comments.",
+      "Inputs": "Prompt, dataset, prior models",
+      "Outputs": "Structured code with explicit hypotheses",
+      "Example": "Comments in code: 'Hypothesis 1: Logistic growth for prey...'",
+      "Role in workflow": "Ensures systematic exploration of modeling alternatives."
+    },
+    "Generate ideas/hypotheses using Domain-Specialized LLM Agent": {
+      "performed": "Yes",
+      "Method details": "LMs act as both modeler and domain expert, leveraging domain knowledge to propose models (e.g., von Bertalanffy for animal growth).",
+      "Inputs": "Dataset, metadata, domain-specific instructions",
+      "Outputs": "Domain-informed probabilistic programs",
+      "Example": "LM proposes a von Bertalanffy growth model for dugongs when given biological metadata.",
+      "Role in workflow": "Aligns model proposals with domain conventions and knowledge."
+    },
+    "Literature data used during idea/hypothesis generation as context": {
+      "performed": "No"
+    },
+    "Summarization Literature data used during idea/hypothesis generation": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation via Facet Recombination": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation via contructed Reasoning-Chain from literature": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation via Knowledge Graph developed from literature": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation via Pattern Detection from dataset": {
+      "performed": "Yes",
+      "Method details": "LMs and model criticism steps use patterns in data (e.g., periodicity, nonlinearity) to guide model proposals.",
+      "Inputs": "Dataset, summary statistics, plots",
+      "Outputs": "Model hypotheses reflecting detected patterns",
+      "Example": "LM proposes periodic*linear kernels for time series with increasing amplitude.",
+      "Role in workflow": "Enables data-driven hypothesis/model generation."
+    },
+    "Idea/hypothesis generation via Few-Shot Data Seeding": {
+      "performed": "Yes",
+      "Method details": "In-context exemplars (top models from previous rounds) are provided to the LM to seed new proposals.",
+      "Inputs": "Best k models from prior rounds",
+      "Outputs": "New model proposals influenced by exemplars",
+      "Example": "Prompt includes code for previous high-scoring models.",
+      "Role in workflow": "Bootstraps model discovery using few-shot learning."
+    },
+    "Idea/hypothesis generation using Observational data": {
+      "performed": "Yes",
+      "Method details": "LMs use observed input-output pairs (datasets) to propose models capturing structural relationships.",
+      "Inputs": "Tabular datasets (e.g., age vs length, time series)",
+      "Outputs": "Probabilistic programs modeling observed relationships",
+      "Example": "LM proposes polynomial regression for observed nonlinear data.",
+      "Role in workflow": "Grounds model proposals in empirical data."
+    },
+    "Idea/hypothesis generation via Feature-Driven Property Prediction": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation after Fine-Tuning the LLM model": {
+      "performed": "No"
+    }
+  },
+  "Hypothesis/Idea Prioritization": {
+    "performed": "Yes",
+    "LLM-based Hypothesis/Idea evaluation via Scientific Quality": {
+      "performed": "Yes",
+      "Method details": "Critic LM provides natural language feedback on model plausibility, fit, and scientific rationale.",
+      "Inputs": "Model code, fit statistics, posterior predictive summaries",
+      "Outputs": "Natural language criticism and suggestions",
+      "Example": "Critic LM notes: 'Models with higher LOO scores use the von Bertalanffy growth function.'",
+      "Role in workflow": "Guides model revision and selection."
+    },
+    "LLM-based Hypothesis/Idea evaluation via Domain-Specific Evaluation": {
+      "performed": "Yes",
+      "Method details": "Critic LM evaluates models for domain alignment (e.g., biological plausibility, interpretability for ecologists).",
+      "Inputs": "Model code, domain-specific constraints, fit statistics",
+      "Outputs": "Feedback on domain relevance and interpretability",
+      "Example": "Critic LM suggests using informative priors based on biological knowledge.",
+      "Role in workflow": "Ensures models meet domain requirements."
+    },
+    "LLM-based Hypothesis/Idea evaluation via Contextual Evidence Scoring": {
+      "performed": "Yes",
+      "Method details": "Model fit is quantitatively assessed using ELPD LOO and other statistics; top models are selected as exemplars.",
+      "Inputs": "Model fit scores, posterior predictive statistics",
+      "Outputs": "Ranking and selection of models for next round",
+      "Example": "Models are scored and top-k are chosen for further exploration.",
+      "Role in workflow": "Prioritizes promising models for iterative refinement."
+    },
+    "LLM-based Hypothesis/Idea evaluation via Interpretability or Success Metrics": {
+      "performed": "Yes",
+      "Method details": "Critic LM and user constraints evaluate interpretability (e.g., 'model should be interpretable to an ecologist').",
+      "Inputs": "Model code, user constraints, feedback",
+      "Outputs": "Interpretability-focused feedback and model selection",
+      "Example": "LM is guided to propose models interpretable to domain experts.",
+      "Role in workflow": "Balances model complexity and interpretability."
+    },
+    "Hypothesis/Idea evaluation via Novelty Checking with Literature Comparison": {
+      "performed": "No"
+    },
+    "Hypothesis/Idea evaluation via Alignment with Literature Chains": {
+      "performed": "No"
+    },
+    "Hypothesis/Idea evaluation via Knowledge-Graph Grounded Similarity Metrics": {
+      "performed": "No"
+    },
+    "Hypothesis/Idea evaluation via Quantitative Assessment Using Domain Metrics": {
+      "performed": "Yes",
+      "Method details": "Model performance is evaluated using domain metrics such as mean absolute error (MAE), ELPD LOO.",
+      "Inputs": "Model predictions, observed data",
+      "Outputs": "Quantitative scores for model comparison",
+      "Example": "Test MAE and ELPD LOO reported for all models.",
+      "Role in workflow": "Provides objective basis for model selection."
+    },
+    "Hypothesis/Idea evaluation via Human/Expert": {
+      "performed": "No"
+    }
+  },
+  "Test": {
+    "performed": "Yes",
+    "Experimental Design Generation via literature-Grounded Model/Protocol Selection": {
+      "performed": "No"
+    },
+    "Experimental Design Generation via Literature Synthesis for New Protocol Generation": {
+      "performed": "No"
+    },
+    "Experimental Design Generation via Few-Shot or Example-Based Prompting": {
+      "performed": "Yes",
+      "Method details": "LM is prompted with exemplar models and feedback to generate new model code for testing.",
+      "Inputs": "Prior model code, feedback, dataset",
+      "Outputs": "New executable model code",
+      "Example": "Prompt includes code for previous models as few-shot examples.",
+      "Role in workflow": "Guides LM to generate testable model variants."
+    },
+    "Experimental Design Generation via Executable Code Generation from Literature": {
+      "performed": "No"
+    },
+    "LLM-Based Experimental Design Generation via Agentic Exploration and Planning": {
+      "performed": "Yes",
+      "Method details": "Box’s Loop orchestrates iterative model proposal, fitting, and criticism as an agentic workflow.",
+      "Inputs": "Prompt, dataset, prior models, feedback",
+      "Outputs": "Sequence of model proposals and evaluations",
+      "Example": "Algorithm 1: Automated Box’s Loop with LMs.",
+      "Role in workflow": "Automates the experimental/modeling cycle."
+    },
+    "LLM-Based Experimental Design Generation via Code and Workflow Translation": {
+      "performed": "Yes",
+      "Method details": "LMs generate executable Python/pymc code for probabilistic models and ODEs.",
+      "Inputs": "Prompt, dataset, modeling instructions",
+      "Outputs": "Executable code for model fitting and simulation",
+      "Example": "LM-generated pymc or Jax code for model fitting.",
+      "Role in workflow": "Enables direct computational testing of model hypotheses."
+    },
+    "LLM-Based Experimental Design Generation via Multi-Agent Planning with Specialized Roles": {
+      "performed": "No"
+    },
+    "LLM-Based Experimental Design Generation via Domain-Specific Experimental Mapping": {
+      "performed": "No"
+    },
+    "Test Execution via Human-in-the-Loop": {
+      "performed": "No"
+    },
+    "Test Execution via Automated Wet-Lab Execution": {
+      "performed": "No"
+    },
+    "Test Execution via Computational or In-Silico": {
+      "performed": "Yes",
+      "Method details": "Models are fit and evaluated using computational/statistical inference (pymc, gradient descent, simulation).",
+      "Inputs": "Model code, dataset",
+      "Outputs": "Fitted models, predictive samples, performance metrics",
+      "Example": "pymc used for MCMC inference; diffrax/Jax for ODE parameter learning.",
+      "Role in workflow": "Validates model hypotheses computationally."
+    },
+    "Refinement via LLM Agent Feedback Loops": {
+      "performed": "Yes",
+      "Method details": "Critic LM provides feedback after each test, which is incorporated into the next round’s prompt for further model refinement.",
+      "Inputs": "Model code, fit statistics, feedback",
+      "Outputs": "Updated prompt and refined model proposals",
+      "Example": "Natural language criticism and best models guide next proposal round.",
+      "Role in workflow": "Enables iterative improvement of models."
+    },
+    "Refinement via Automated Quality Evaluation using Model-Based Critics": {
+      "performed": "Yes",
+      "Method details": "Model fit statistics (e.g., ELPD LOO, MAE) and posterior predictive checks are used to assess and refine models.",
+      "Inputs": "Model fit results, predictive statistics",
+      "Outputs": "Selection and refinement of models",
+      "Example": "Posterior predictive means/variances used for model criticism.",
+      "Role in workflow": "Ensures only high-quality models are propagated."
+    },
+    "Refinement via Dynamic Agent Updating Based on Evolving Context or Data": {
+      "performed": "Yes",
+      "Method details": "Prompt is updated each round with new feedback, exemplars, and statistics, dynamically guiding LM proposals.",
+      "Inputs": "Current round’s results, feedback, exemplars",
+      "Outputs": "Updated prompt for next round",
+      "Example": "ht+1 is sampled from critic LM based on new results.",
+      "Role in workflow": "Adapts model search to evolving discoveries."
+    },
+    "Refinement via guided by computational-data": {
+      "performed": "Yes",
+      "Method details": "Refinement decisions are based on computational evaluation of model fit and predictive performance.",
+      "Inputs": "Model scores, predictive checks",
+      "Outputs": "Model selection and prompt updates",
+      "Example": "Best models (by ELPD LOO) are selected for next round.",
+      "Role in workflow": "Ensures data-driven refinement."
+    },
+    "Refinement via experimental validation": {
+      "performed": "No"
+    },
+    "Refinement via Performance-metric": {
+      "performed": "Yes",
+      "Method details": "Model refinement is guided by performance metrics such as MAE, ELPD LOO, and squared error.",
+      "Inputs": "Performance metrics from computational tests",
+      "Outputs": "Improved models in subsequent rounds",
+      "Example": "Round-to-round improvement in ELPD LOO and MAE.",
+      "Role in workflow": "Drives convergence toward optimal models."
+    },
+    "Refinement via Human–data integration": {
+      "performed": "No"
+    }
+  },
+  "paper_title": "Automated Statistical Model Discovery with Language Models",
+  "authors": [
+    "Michael Y.",
+    "Emily B.",
+    "Noah D."
+  ],
+  "published": "2024-06-22",
+  "link": "http://arxiv.org/abs/2402.17879"
+}

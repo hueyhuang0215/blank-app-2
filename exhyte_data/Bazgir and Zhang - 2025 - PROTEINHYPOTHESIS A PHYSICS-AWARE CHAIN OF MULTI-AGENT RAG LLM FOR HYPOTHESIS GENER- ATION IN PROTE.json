@@ -1,0 +1,433 @@
+{
+  "Inputs to the workflow": {
+    "performed": "Yes",
+    "User provide high-level research direction or goal": {
+      "performed": "Yes",
+      "Format": "Research topic and domain focus specified in system configuration.",
+      "Example": "Keywords such as 'Protein Science', 'Protein Folding' guide literature and data retrieval.",
+      "Role in workflow": "Defines the scientific scope for automated hypothesis generation and retrieval."
+    },
+    "User provide structured, domain-specific specifications": {
+      "performed": "No"
+    },
+    "User provide research papers": {
+      "performed": "Yes",
+      "Format": "Scientific literature (PDFs, metadata, abstracts) retrieved via APIs.",
+      "Example": "arXiv papers on protein science downloaded and parsed.",
+      "Role in workflow": "Provides empirical and theoretical context for hypothesis generation."
+    },
+    "User provide datasets other than research papers": {
+      "performed": "Yes",
+      "Format": "Structured experimental datasets in CSV format.",
+      "Example": "Protein sequence and property datasets loaded via CSVLoader.",
+      "Role in workflow": "Supplies empirical data for pattern extraction and hypothesis grounding."
+    },
+    "User provide representations or formal inputs": {
+      "performed": "No"
+    }
+  },
+  "Query Structuring": {
+    "performed": "Yes",
+    "Query Decomposition": {
+      "performed": "No"
+    },
+    "Structural or Entity Decomposition": {
+      "performed": "No"
+    },
+    "Workflow Decomposition": {
+      "performed": "Yes",
+      "Method details": "Multi-agent LLM pipeline splits hypothesis generation into sequential phases: initial, refined, and specialized evaluation.",
+      "Inputs": "Retrieved literature and structured data.",
+      "Outputs": "Phase-specific hypothesis lists, each refined by different agent roles.",
+      "Example": "Phase 1: initial hypotheses; Phase 2: refined by general agents; Phase 3: scored by protein-specialized agents.",
+      "Role in workflow": "Enables systematic, multi-stage hypothesis refinement and evaluation."
+    },
+    "Textual or Knowledge Embedding": {
+      "performed": "Yes",
+      "Method details": "Text chunks embedded using SentenceTransformers; structured data embedded with Google-GenerativeAIEmbeddings.",
+      "Inputs": "Preprocessed literature text and structured data features.",
+      "Outputs": "High-dimensional vector embeddings stored in FAISS DB.",
+      "Example": "Chunks from arXiv papers and CSV features embedded for semantic retrieval.",
+      "Role in workflow": "Supports semantic retrieval and context-aware hypothesis generation."
+    },
+    "Molecular or Chemical Embedding": {
+      "performed": "No"
+    },
+    "Biological or Phenotypic Embedding": {
+      "performed": "No"
+    },
+    "Pattern and Feature Extraction": {
+      "performed": "Yes",
+      "Method details": "Extracts features (e.g., sequence motifs, secondary structure) and handles missing data from CSV datasets.",
+      "Inputs": "Structured experimental datasets (CSV).",
+      "Outputs": "Feature vectors and descriptive summaries for each protein entry.",
+      "Example": "Identifies glycine-rich regions, hydrophobic patches, or secondary structure motifs.",
+      "Role in workflow": "Provides empirical patterns for hypothesis formulation."
+    },
+    "Biological Relationship Extraction": {
+      "performed": "No"
+    },
+    "Property and Annotation Extraction": {
+      "performed": "Yes",
+      "Method details": "Extracts labels, functional annotations, and physicochemical properties from structured datasets.",
+      "Inputs": "CSV files with annotated protein data.",
+      "Outputs": "Annotated features (e.g., label positions, stability metrics).",
+      "Example": "Extracts 'label' column indicating functional sites.",
+      "Role in workflow": "Enables mapping of structural features to biological function."
+    },
+    "Sequence and Structure Feature Extraction": {
+      "performed": "Yes",
+      "Method details": "Processes sequence and secondary structure columns to identify motifs and folding patterns.",
+      "Inputs": "Protein sequence and structure data from CSV.",
+      "Outputs": "Identified sequence motifs, secondary structure elements.",
+      "Example": "Extracts alpha-helix and loop regions from 'ss8_seq' column.",
+      "Role in workflow": "Informs hypothesis generation about structure-function relationships."
+    }
+  },
+  "Data Retrieval": {
+    "performed": "Yes",
+    "Data Retrieval via Multi-Query Generation and Exploration": {
+      "performed": "No"
+    },
+    "Literature and Data Retrieval via APIs": {
+      "performed": "Yes",
+      "Method details": "Queries arXiv API with domain-specific keywords to retrieve relevant papers and metadata.",
+      "Inputs": "Domain keywords (e.g., 'Protein Science').",
+      "Outputs": "Titles, abstracts, PDFs, and metadata for relevant papers.",
+      "Example": "Automated retrieval of protein science papers from arXiv.",
+      "Role in workflow": "Populates the literature corpus for embedding and hypothesis generation."
+    },
+    "Data Retrieval with Prioritization and Filtering Agents": {
+      "performed": "No"
+    },
+    "Domain-Specific Data Retrieval and Reasoning": {
+      "performed": "No"
+    },
+    "Code-Driven or Tool-Augmented Data Retrieval": {
+      "performed": "No"
+    },
+    "Literature data Retrieval Citation-Network–Based Expansion": {
+      "performed": "No"
+    },
+    "Literature data Retrieval via Semantic and Similarity-Based analysis": {
+      "performed": "Yes",
+      "Method details": "Uses FAISS vector similarity search to retrieve semantically relevant literature and data chunks.",
+      "Inputs": "Embedded vectors of literature and structured data.",
+      "Outputs": "Top-matching segments for hypothesis generation.",
+      "Example": "Retrieves literature segments most similar to a protein science query.",
+      "Role in workflow": "Ensures contextually relevant information is used for hypothesis synthesis."
+    },
+    "Literature data Retrieval via Multi-Step Reference and Evidence Selection": {
+      "performed": "No"
+    },
+    "Domain-Specific Literature data Retrieval": {
+      "performed": "Yes",
+      "Method details": "Uses domain-specific keywords for targeted literature retrieval.",
+      "Inputs": "Keywords like 'Protein Folding', 'Protein Science'.",
+      "Outputs": "Domain-relevant papers and metadata.",
+      "Example": "Retrieves only protein science literature from arXiv.",
+      "Role in workflow": "Focuses retrieval on the scientific domain of interest."
+    },
+    "Manual and Semi-Automatic Curation of Literature data": {
+      "performed": "No"
+    },
+    "Structural or Similarity-Based Dataset Retrieval": {
+      "performed": "No"
+    },
+    "Data Retrieval via Domain-Specific Repository Querying": {
+      "performed": "Yes",
+      "Method details": "Loads structured experimental datasets (e.g., protein CSVs) via utility modules like LangChain's CSVLoader.",
+      "Inputs": "CSV files with protein data.",
+      "Outputs": "Processed datasets for embedding and analysis.",
+      "Example": "Loads and preprocesses protein property datasets.",
+      "Role in workflow": "Provides empirical data for hypothesis grounding."
+    },
+    "Library Assembly and Data Augmentation": {
+      "performed": "No"
+    }
+  },
+  "Knowledge Assembly": {
+    "performed": "Yes",
+    "Standardized Section Extraction from Literature data": {
+      "performed": "Yes",
+      "Method details": "Extracts titles, abstracts, main hypotheses, and results from retrieved papers.",
+      "Inputs": "Full-text or metadata of scientific papers.",
+      "Outputs": "Structured summaries (title, abstract, hypothesis, results).",
+      "Example": "Summarizes key elements of a paper for RAG input.",
+      "Role in workflow": "Normalizes literature for downstream embedding and reasoning."
+    },
+    "Concise Synopsis and Summarization of Literature data": {
+      "performed": "Yes",
+      "Method details": "Summarizes main ideas and key results from each paper using RAG queries.",
+      "Inputs": "Extracted paper sections.",
+      "Outputs": "Concise summaries for hypothesis generation.",
+      "Example": "Summarizes LLPS findings from a crystallization paper.",
+      "Role in workflow": "Condenses literature for efficient hypothesis context."
+    },
+    "Facet-Based or Field-Specific Extraction from Literature data": {
+      "performed": "Yes",
+      "Method details": "Extracts specific fields (e.g., main hypothesis, summary of results) from each paper.",
+      "Inputs": "Paper metadata and text.",
+      "Outputs": "Field-specific structured data.",
+      "Example": "Extracts 'main hypothesis' and 'summary of results' for each paper.",
+      "Role in workflow": "Enables targeted reasoning and evidence mapping."
+    },
+    "Domain-Tailored Extraction from Literature data": {
+      "performed": "Yes",
+      "Method details": "Extracts domain-relevant insights (e.g., protein folding, LLPS mechanisms) from literature.",
+      "Inputs": "Protein science papers.",
+      "Outputs": "Domain-specific knowledge elements.",
+      "Example": "Extracts findings on glycine-rich regions in LLPS.",
+      "Role in workflow": "Aligns extracted knowledge with protein science domain."
+    },
+    "Task/Entity-Centric Knowledge Graphs": {
+      "performed": "No"
+    },
+    "Causal or Relation-Specific Knowledge Graphs": {
+      "performed": "No"
+    },
+    "Biomedical or Domain-Specific Interaction Graphs": {
+      "performed": "No"
+    },
+    "Literature Database Construction": {
+      "performed": "Yes",
+      "Method details": "Stores processed literature and data embeddings in FAISS vector DB and JSON files.",
+      "Inputs": "Embedded literature and structured data.",
+      "Outputs": "Queryable vector database and JSON logs.",
+      "Example": "FAISS DB for fast similarity search across literature and data.",
+      "Role in workflow": "Enables efficient retrieval and reproducibility."
+    },
+    "Entity- or Co-Occurrence–Based Databases": {
+      "performed": "No"
+    },
+    "Reasoning-Chain or Temporal Databases for Literature": {
+      "performed": "No"
+    }
+  },
+  "Hypothesis/Idea Generation": {
+    "performed": "Yes",
+    "Idea/hypothesis generation without additional literature or dataset as context": {
+      "performed": "No"
+    },
+    "LLM Agent Generate ideas/hypotheses via Task Decomposition": {
+      "performed": "Yes",
+      "Method details": "Multi-agent LLM system assigns specialized roles (e.g., Internal Consistency, Feasibility) to agents for hypothesis refinement.",
+      "Inputs": "Initial hypotheses from RAG outputs.",
+      "Outputs": "Refined hypotheses after agent-based evaluation.",
+      "Example": "Agents clarify assumptions, improve experimental designs, and suggest references.",
+      "Role in workflow": "Enables systematic, multi-perspective hypothesis refinement."
+    },
+    "Generate ideas/hypotheses using Domain-Specialized LLM Agent": {
+      "performed": "Yes",
+      "Method details": "Protein-specialized agents (BioAgent, MolAgent, etc.) evaluate hypotheses for domain-specific criteria.",
+      "Inputs": "Refined hypotheses from general agents.",
+      "Outputs": "Numerically scored, domain-validated hypotheses.",
+      "Example": "EvoAgent checks evolutionary consistency; DrugAgent assesses therapeutic relevance.",
+      "Role in workflow": "Ensures hypotheses are relevant and feasible in protein science."
+    },
+    "Literature data used during idea/hypothesis generation as context": {
+      "performed": "Yes",
+      "Method details": "RAG retrieves literature segments as context for LLM-based hypothesis generation.",
+      "Inputs": "Relevant literature chunks from FAISS DB.",
+      "Outputs": "Contextually grounded hypotheses.",
+      "Example": "Hypotheses on LLPS informed by recent crystallization studies.",
+      "Role in workflow": "Anchors hypothesis generation in empirical evidence."
+    },
+    "Summarization Literature data used during idea/hypothesis generation": {
+      "performed": "Yes",
+      "Method details": "Summarized literature insights are included in the hypothesis prompt structure.",
+      "Inputs": "Summarized background from literature.",
+      "Outputs": "Hypotheses with explicit literature grounding.",
+      "Example": "Background insight from LLPS literature included in hypothesis template.",
+      "Role in workflow": "Ensures hypotheses are concise and evidence-based."
+    },
+    "Idea/hypothesis generation via Facet Recombination": {
+      "performed": "Yes",
+      "Method details": "Combines literature-derived insights and structured data patterns in a four-step hypothesis template.",
+      "Inputs": "Extracted literature facets and dataset patterns.",
+      "Outputs": "Novel hypotheses integrating both sources.",
+      "Example": "Combines glycine-rich region pattern with LLPS literature to propose new hypothesis.",
+      "Role in workflow": "Fosters innovation by integrating diverse evidence."
+    },
+    "Idea/hypothesis generation via contructed Reasoning-Chain from literature": {
+      "performed": "Yes",
+      "Method details": "Uses Chain-of-Thought (CoT) reasoning in multi-agent evaluation to trace logical underpinnings.",
+      "Inputs": "Initial and refined hypotheses, literature context.",
+      "Outputs": "Stepwise refined, logically consistent hypotheses.",
+      "Example": "Agents identify contradictions or missing arguments in hypothesis logic.",
+      "Role in workflow": "Ensures logical rigor and transparency in hypothesis development."
+    },
+    "Idea/hypothesis generation via Knowledge Graph developed from literature": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation via Pattern Detection from dataset": {
+      "performed": "Yes",
+      "Method details": "Identifies empirical patterns (e.g., sequence motifs, hydrophobic patches) from structured data for hypothesis input.",
+      "Inputs": "Processed experimental datasets.",
+      "Outputs": "Pattern-driven hypotheses.",
+      "Example": "Detects conserved hydrophobic patches linked to protein flexibility.",
+      "Role in workflow": "Grounds hypotheses in observed data trends."
+    },
+    "Idea/hypothesis generation via Few-Shot Data Seeding": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation using Observational data": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation via Feature-Driven Property Prediction": {
+      "performed": "Yes",
+      "Method details": "Links structural features (e.g., alpha-helices, hydrophobic cores) to predicted functional properties in hypotheses.",
+      "Inputs": "Extracted sequence/structure features.",
+      "Outputs": "Hypotheses predicting property-function relationships.",
+      "Example": "Hypothesis: conserved alpha-helices predict protein essentiality.",
+      "Role in workflow": "Connects empirical features to functional predictions."
+    },
+    "Idea/hypothesis generation after Fine-Tuning the LLM model": {
+      "performed": "No"
+    }
+  },
+  "Hypothesis/Idea Prioritization": {
+    "performed": "Yes",
+    "LLM-based Hypothesis/Idea evaluation via Scientific Quality": {
+      "performed": "Yes",
+      "Method details": "General-purpose LLM agents assess internal consistency, feasibility, novelty, impact, and scalability.",
+      "Inputs": "Generated hypotheses.",
+      "Outputs": "Ranked and refined hypothesis list.",
+      "Example": "Internal Consistency agent checks logical coherence.",
+      "Role in workflow": "Filters hypotheses for scientific rigor."
+    },
+    "LLM-based Hypothesis/Idea evaluation via Domain-Specific Evaluation": {
+      "performed": "Yes",
+      "Method details": "Protein-specialized agents score hypotheses on molecular stability, biochemical plausibility, etc.",
+      "Inputs": "Refined hypotheses.",
+      "Outputs": "Numerically scored, domain-validated hypotheses.",
+      "Example": "StrucAgent evaluates structural compatibility.",
+      "Role in workflow": "Ensures domain relevance and feasibility."
+    },
+    "LLM-based Hypothesis/Idea evaluation via Contextual Evidence Scoring": {
+      "performed": "Yes",
+      "Method details": "Agents use literature and data context to support or flag hypotheses.",
+      "Inputs": "Contextual evidence from RAG retrieval.",
+      "Outputs": "Evidence-backed hypothesis scores.",
+      "Example": "Hypotheses failing threshold scores are flagged for reprocessing.",
+      "Role in workflow": "Prioritizes hypotheses with strong supporting evidence."
+    },
+    "LLM-based Hypothesis/Idea evaluation via Interpretability or Success Metrics": {
+      "performed": "No"
+    },
+    "Hypothesis/Idea evaluation via Novelty Checking with Literature Comparison": {
+      "performed": "Yes",
+      "Method details": "Novelty Assessment agent checks if hypotheses introduce unique or underexplored concepts.",
+      "Inputs": "Generated hypotheses and literature context.",
+      "Outputs": "Novelty scores and rankings.",
+      "Example": "Agent flags hypotheses overlapping with existing literature.",
+      "Role in workflow": "Promotes innovative, non-redundant hypotheses."
+    },
+    "Hypothesis/Idea evaluation via Alignment with Literature Chains": {
+      "performed": "Yes",
+      "Method details": "Chain-of-Thought reasoning ensures hypotheses align with established scientific logic.",
+      "Inputs": "Hypotheses, literature-derived reasoning chains.",
+      "Outputs": "Stepwise evaluation logs.",
+      "Example": "Agents trace logical progression from literature to hypothesis.",
+      "Role in workflow": "Ensures logical and empirical alignment."
+    },
+    "Hypothesis/Idea evaluation via Knowledge-Graph Grounded Similarity Metrics": {
+      "performed": "No"
+    },
+    "Hypothesis/Idea evaluation via Quantitative Assessment Using Domain Metrics": {
+      "performed": "Yes",
+      "Method details": "Specialized agents assign numerical scores (1–3) for aspects like molecular stability, functional relevance.",
+      "Inputs": "Refined hypotheses.",
+      "Outputs": "Quantitative agent scores.",
+      "Example": "Hypotheses below threshold are reprocessed.",
+      "Role in workflow": "Objectively ranks hypotheses for selection."
+    },
+    "Hypothesis/Idea evaluation via Human/Expert": {
+      "performed": "No"
+    }
+  },
+  "Test": {
+    "performed": "Yes",
+    "Experimental Design Generation via literature-Grounded Model/Protocol Selection": {
+      "performed": "No"
+    },
+    "Experimental Design Generation via Literature Synthesis for New Protocol Generation": {
+      "performed": "No"
+    },
+    "Experimental Design Generation via Few-Shot or Example-Based Prompting": {
+      "performed": "No"
+    },
+    "Experimental Design Generation via Executable Code Generation from Literature": {
+      "performed": "No"
+    },
+    "LLM-Based Experimental Design Generation via Agentic Exploration and Planning": {
+      "performed": "No"
+    },
+    "LLM-Based Experimental Design Generation via Code and Workflow Translation": {
+      "performed": "No"
+    },
+    "LLM-Based Experimental Design Generation via Multi-Agent Planning with Specialized Roles": {
+      "performed": "Yes",
+      "Method details": "Protein-specialized agents map hypotheses to experimental strategies (e.g., mutagenesis, molecular dynamics).",
+      "Inputs": "Top-ranked hypotheses.",
+      "Outputs": "Mapped experimental validation strategies.",
+      "Example": "Suggests mutagenesis to test glycine-rich region hypothesis.",
+      "Role in workflow": "Links hypotheses to concrete, testable experiments."
+    },
+    "LLM-Based Experimental Design Generation via Domain-Specific Experimental Mapping": {
+      "performed": "Yes",
+      "Method details": "Agents assign hypotheses to domain-appropriate experimental methods (e.g., NMR, cryo-EM, simulations).",
+      "Inputs": "Final hypotheses.",
+      "Outputs": "Experimentally actionable plans.",
+      "Example": "Maps flexibility hypothesis to NMR spectroscopy.",
+      "Role in workflow": "Ensures hypotheses are experimentally testable."
+    },
+    "Test Execution via Human-in-the-Loop": {
+      "performed": "No"
+    },
+    "Test Execution via Automated Wet-Lab Execution": {
+      "performed": "No"
+    },
+    "Test Execution via Computational or In-Silico": {
+      "performed": "Yes",
+      "Method details": "Suggests computational validation (e.g., molecular dynamics simulations) as part of experimental strategy.",
+      "Inputs": "Hypotheses with mapped validation strategies.",
+      "Outputs": "Simulation-ready experimental plans.",
+      "Example": "Proposes molecular dynamics to assess phase behavior changes.",
+      "Role in workflow": "Enables in-silico testing of hypotheses."
+    },
+    "Refinement via LLM Agent Feedback Loops": {
+      "performed": "Yes",
+      "Method details": "Multi-agent system iteratively critiques and refines hypotheses based on agent scoring and validation mapping.",
+      "Inputs": "Agent-scored hypotheses and validation outcomes.",
+      "Outputs": "Final, experimentally actionable hypotheses.",
+      "Example": "Hypotheses failing agent thresholds are reprocessed.",
+      "Role in workflow": "Ensures only robust, validated hypotheses proceed."
+    },
+    "Refinement via Automated Quality Evaluation using Model-Based Critics": {
+      "performed": "No"
+    },
+    "Refinement via Dynamic Agent Updating Based on Evolving Context or Data": {
+      "performed": "No"
+    },
+    "Refinement via guided by computational-data": {
+      "performed": "No"
+    },
+    "Refinement via experimental validation": {
+      "performed": "No"
+    },
+    "Refinement via Performance-metric": {
+      "performed": "No"
+    },
+    "Refinement via Human–data integration": {
+      "performed": "No"
+    }
+  },
+  "paper_title": "PROTEINHYPOTHESIS: A PHYSICS-AWARE CHAIN OF MULTI-AGENT RAG LLM FOR HYPOTHESIS GENER- ATION IN PROTEIN SCIENCE",
+  "authors": [
+    "Adib",
+    "Yuwen"
+  ],
+  "published": "2025",
+  "link": null
+}

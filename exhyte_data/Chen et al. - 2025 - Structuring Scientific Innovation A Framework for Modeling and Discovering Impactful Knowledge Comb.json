@@ -1,0 +1,392 @@
+{
+  "Inputs to the workflow": {
+    "performed": "Yes",
+    "User provide high-level research direction or goal": {
+      "performed": "Yes",
+      "Format": "Natural language research question or problem statement",
+      "Example": "Given a research question, our framework first retrieves and synthesizes relevant papers...",
+      "Role in workflow": "Defines the scope for problem-method combination exploration and downstream analysis."
+    },
+    "User provide structured, domain-specific specifications": {
+      "performed": "No"
+    },
+    "User provide research papers": {
+      "performed": "Yes",
+      "Format": "Academic literature (titles, abstracts, keywords, full papers)",
+      "Example": "The paper database is built upon a large-scale collection of academic literature.",
+      "Role in workflow": "Serves as the primary knowledge base for method extraction, summarization, and disruptiveness evaluation."
+    },
+    "User provide datasets other than research papers": {
+      "performed": "Yes",
+      "Format": "Patent records, publication metadata from DBLP, PubMed, PatSnap",
+      "Example": "For DBLP, we extract records... From PubMed, we select 96,612 research articles... for PatSnap, we use 6,677 patent records...",
+      "Role in workflow": "Provides structured data for evaluation and benchmarking of the framework."
+    },
+    "User provide representations or formal inputs": {
+      "performed": "No"
+    }
+  },
+  "Query Structuring": {
+    "performed": "Yes",
+    "Query Decomposition": {
+      "performed": "No"
+    },
+    "Structural or Entity Decomposition": {
+      "performed": "No"
+    },
+    "Workflow Decomposition": {
+      "performed": "No"
+    },
+    "Textual or Knowledge Embedding": {
+      "performed": "Yes",
+      "Method details": "Research problems are embedded into a semantic vector space for similarity-based retrieval.",
+      "Inputs": "New research problem (text)",
+      "Outputs": "Semantic vector representation of the problem",
+      "Example": "The system embeds it into a semantic vector space: vPnew = Embed(Pnew)",
+      "Role in workflow": "Enables efficient retrieval of similar problems and associated methods from the literature database."
+    },
+    "Molecular or Chemical Embedding": {
+      "performed": "No"
+    },
+    "Biological or Phenotypic Embedding": {
+      "performed": "No"
+    },
+    "Pattern and Feature Extraction": {
+      "performed": "No"
+    },
+    "Biological Relationship Extraction": {
+      "performed": "No"
+    },
+    "Property and Annotation Extraction": {
+      "performed": "No"
+    },
+    "Sequence and Structure Feature Extraction": {
+      "performed": "No"
+    }
+  },
+  "Data Retrieval": {
+    "performed": "Yes",
+    "Data Retrieval via Multi-Query Generation and Exploration": {
+      "performed": "No"
+    },
+    "Literature and Data Retrieval via APIs": {
+      "performed": "No"
+    },
+    "Data Retrieval with Prioritization and Filtering Agents": {
+      "performed": "Yes",
+      "Method details": "Heuristic filtering mechanism selects relevant methods based on similarity and rules.",
+      "Inputs": "Candidate methods associated with similar problems",
+      "Outputs": "Filtered set of methods (Mfinal)",
+      "Example": "A heuristic filtering mechanism H is applied: Mfinal = H(Msim, sim(·), rule(·))",
+      "Role in workflow": "Narrows down method candidates for combination with the new problem."
+    },
+    "Domain-Specific Data Retrieval and Reasoning": {
+      "performed": "No"
+    },
+    "Code-Driven or Tool-Augmented Data Retrieval": {
+      "performed": "No"
+    },
+    "Literature data Retrieval Citation-Network–Based Expansion": {
+      "performed": "No"
+    },
+    "Literature data Retrieval via Semantic and Similarity-Based analysis": {
+      "performed": "Yes",
+      "Method details": "Semantic similarity between problem-method pairs is used to retrieve top-k relevant references.",
+      "Inputs": "Problem-method pair, structured literature database",
+      "Outputs": "Top-k references with high semantic similarity",
+      "Example": "We first compute the similarity and select the top-k references: Rtop = {Ri ∈ D | sim((P, M), (Pi, Mi)) ≥ δ}",
+      "Role in workflow": "Identifies literature most relevant to the candidate problem-method combination for disruptiveness evaluation."
+    },
+    "Literature data Retrieval via Multi-Step Reference and Evidence Selection": {
+      "performed": "Yes",
+      "Method details": "After initial filtering, a frozen pre-trained model performs fine-grained semantic comparison to select key references.",
+      "Inputs": "Generated summary, candidate reference summaries",
+      "Outputs": "Key source references relevant to the problem-method combination",
+      "Example": "We employ a frozen pre-trained model to perform a fine-grained semantic comparison between the generated summaries and candidate reference summaries.",
+      "Role in workflow": "Ensures only the most relevant literature is used for disruptiveness prediction."
+    },
+    "Domain-Specific Literature data Retrieval": {
+      "performed": "Yes",
+      "Method details": "Retrieval is performed from domain-specific datasets: DBLP (AI), PubMed (depression), PatSnap (medical robotics).",
+      "Inputs": "Domain-specific queries or problem statements",
+      "Outputs": "Relevant papers or patents from the specified domain",
+      "Example": "For DBLP, we extract records... From PubMed... for PatSnap...",
+      "Role in workflow": "Focuses retrieval on literature relevant to the scientific domain under study."
+    },
+    "Manual and Semi-Automatic Curation of Literature data": {
+      "performed": "No"
+    },
+    "Structural or Similarity-Based Dataset Retrieval": {
+      "performed": "No"
+    },
+    "Data Retrieval via Domain-Specific Repository Querying": {
+      "performed": "No"
+    },
+    "Library Assembly and Data Augmentation": {
+      "performed": "No"
+    }
+  },
+  "Knowledge Assembly": {
+    "performed": "Yes",
+    "Standardized Section Extraction from Literature data": {
+      "performed": "Yes",
+      "Method details": "Preprocessing extracts titles, abstracts, and keywords from papers to remove noise and ensure consistency.",
+      "Inputs": "Raw academic papers",
+      "Outputs": "Cleaned, structured fields (title, abstract, keywords)",
+      "Example": "We preprocess textual information such as paper titles, abstracts, and keywords to remove redundant and noisy data.",
+      "Role in workflow": "Normalizes literature for downstream method extraction and summarization."
+    },
+    "Concise Synopsis and Summarization of Literature data": {
+      "performed": "Yes",
+      "Method details": "A fine-tuned summary generation model (LoRA) produces concise summaries for problem-method pairs.",
+      "Inputs": "Problem-method pair, task-specific prompt",
+      "Outputs": "Concise summary S",
+      "Example": "The summary generation model Gθ produces a concise summary S: S = Gθ(P, M, Prompt)",
+      "Role in workflow": "Condenses key logic and relationships for disruptiveness evaluation."
+    },
+    "Facet-Based or Field-Specific Extraction from Literature data": {
+      "performed": "Yes",
+      "Method details": "NLP techniques extract research problem and method from each paper for indexing.",
+      "Inputs": "Preprocessed paper text",
+      "Outputs": "Indexed research problem and method fields",
+      "Example": "NLP techniques are employed to extract the research problem and research method from each paper.",
+      "Role in workflow": "Enables efficient retrieval and structured pairing for combination analysis."
+    },
+    "Domain-Tailored Extraction from Literature data": {
+      "performed": "No"
+    },
+    "Task/Entity-Centric Knowledge Graphs": {
+      "performed": "No"
+    },
+    "Causal or Relation-Specific Knowledge Graphs": {
+      "performed": "No"
+    },
+    "Biomedical or Domain-Specific Interaction Graphs": {
+      "performed": "No"
+    },
+    "Literature Database Construction": {
+      "performed": "Yes",
+      "Method details": "A structured paper database is constructed, indexed by problems and methods.",
+      "Inputs": "Large-scale academic literature",
+      "Outputs": "Database with problem-method indices",
+      "Example": "The paper database is built upon a large-scale collection of academic literature... indexed as key entries.",
+      "Role in workflow": "Supports efficient retrieval and candidate generation for method exploration."
+    },
+    "Entity- or Co-Occurrence–Based Databases": {
+      "performed": "No"
+    },
+    "Reasoning-Chain or Temporal Databases for Literature": {
+      "performed": "No"
+    }
+  },
+  "Hypothesis/Idea Generation": {
+    "performed": "Yes",
+    "Idea/hypothesis generation without additional literature or dataset as context": {
+      "performed": "No"
+    },
+    "LLM Agent Generate ideas/hypotheses via Task Decomposition": {
+      "performed": "No"
+    },
+    "Generate ideas/hypotheses using Domain-Specialized LLM Agent": {
+      "performed": "Yes",
+      "Method details": "LLM assistant, fine-tuned with LoRA, generates combination strategies for research questions and candidate methods.",
+      "Inputs": "Research question, candidate methods, prompts",
+      "Outputs": "Problem-method combination strategies",
+      "Example": "Our assistant generates combination strategies based on research questions and candidate methods.",
+      "Role in workflow": "Synthesizes new problem-method pairs with potential for disruptive discovery."
+    },
+    "Literature data used during idea/hypothesis generation as context": {
+      "performed": "Yes",
+      "Method details": "Relevant papers are retrieved and synthesized to inform LLM-based generation of new combinations.",
+      "Inputs": "Research question, retrieved literature",
+      "Outputs": "Contextualized candidate methods and strategies",
+      "Example": "Our framework first retrieves and synthesizes relevant papers, then employs an LLM assistant...",
+      "Role in workflow": "Grounds idea generation in existing literature."
+    },
+    "Summarization Literature data used during idea/hypothesis generation": {
+      "performed": "Yes",
+      "Method details": "Summaries of problem-method pairs are generated and used in downstream disruptiveness prediction.",
+      "Inputs": "Problem-method pair, literature context",
+      "Outputs": "Concise summary for evaluation",
+      "Example": "The summary generation model... produces a concise summary S...",
+      "Role in workflow": "Provides condensed, relevant context for evaluating new combinations."
+    },
+    "Idea/hypothesis generation via Facet Recombination": {
+      "performed": "Yes",
+      "Method details": "Candidate problem-method pairs are constructed by recombining methods from similar problems.",
+      "Inputs": "New problem, filtered method set",
+      "Outputs": "Set of candidate problem-method pairs",
+      "Example": "The system constructs candidate problem-method pairs: C = {(Pnew, M) | M ∈ Mfinal}",
+      "Role in workflow": "Explores novel combinations for potential breakthroughs."
+    },
+    "Idea/hypothesis generation via contructed Reasoning-Chain from literature": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation via Knowledge Graph developed from literature": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation via Pattern Detection from dataset": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation via Few-Shot Data Seeding": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation using Observational data": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation via Feature-Driven Property Prediction": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation after Fine-Tuning the LLM model": {
+      "performed": "Yes",
+      "Method details": "LLM models are fine-tuned (e.g., Qwen-32B, LoRA) on domain-specific data for improved summarization and combination generation.",
+      "Inputs": "Curated literature, problem-method pairs",
+      "Outputs": "Fine-tuned LLM for domain-specific generation",
+      "Example": "A summary generation model fine-tuned using Low-Rank Adaptation (LoRA)...",
+      "Role in workflow": "Enhances the quality and relevance of generated ideas."
+    }
+  },
+  "Hypothesis/Idea Prioritization": {
+    "performed": "Yes",
+    "LLM-based Hypothesis/Idea evaluation via Scientific Quality": {
+      "performed": "Yes",
+      "Method details": "Disruptive index prediction model evaluates the innovative potential of problem-method combinations.",
+      "Inputs": "Problem-method summary, extracted reference information",
+      "Outputs": "Predicted disruptive index score",
+      "Example": "The third sub-module utilizes the generated problem-method summaries and extracted critical information to predict the disruptive index...",
+      "Role in workflow": "Quantitatively assesses the potential impact of generated combinations."
+    },
+    "LLM-based Hypothesis/Idea evaluation via Domain-Specific Evaluation": {
+      "performed": "No"
+    },
+    "LLM-based Hypothesis/Idea evaluation via Contextual Evidence Scoring": {
+      "performed": "Yes",
+      "Method details": "Model integrates summaries and extracted reference information for disruptiveness prediction.",
+      "Inputs": "Summaries, key references",
+      "Outputs": "Disruptive index score",
+      "Example": "Supervision is provided using real summaries and extracted reference information.",
+      "Role in workflow": "Ensures predictions are grounded in contextual evidence from literature."
+    },
+    "LLM-based Hypothesis/Idea evaluation via Interpretability or Success Metrics": {
+      "performed": "No"
+    },
+    "Hypothesis/Idea evaluation via Novelty Checking with Literature Comparison": {
+      "performed": "Yes",
+      "Method details": "Adaptive bias-aware alignment model compares candidate strategies with source literature to predict disruptiveness.",
+      "Inputs": "Current and source strategies, literature database",
+      "Outputs": "Disruptive index reflecting novelty",
+      "Example": "We identify potential source literature... analyze differences between source strategies and current strategies...",
+      "Role in workflow": "Evaluates whether a combination supersedes prior approaches."
+    },
+    "Hypothesis/Idea evaluation via Alignment with Literature Chains": {
+      "performed": "No"
+    },
+    "Hypothesis/Idea evaluation via Knowledge-Graph Grounded Similarity Metrics": {
+      "performed": "No"
+    },
+    "Hypothesis/Idea evaluation via Quantitative Assessment Using Domain Metrics": {
+      "performed": "Yes",
+      "Method details": "Disruptive index (DI) is used as a quantitative metric for prioritization.",
+      "Inputs": "Problem-method combination, literature-derived features",
+      "Outputs": "DI score",
+      "Example": "The Disruptive Index (DI)... captures whether a scientific discovery supersedes previous approaches...",
+      "Role in workflow": "Provides objective, quantitative prioritization of ideas."
+    },
+    "Hypothesis/Idea evaluation via Human/Expert": {
+      "performed": "No"
+    }
+  },
+  "Test": {
+    "performed": "Yes",
+    "Experimental Design Generation via literature-Grounded Model/Protocol Selection": {
+      "performed": "No"
+    },
+    "Experimental Design Generation via Literature Synthesis for New Protocol Generation": {
+      "performed": "No"
+    },
+    "Experimental Design Generation via Few-Shot or Example-Based Prompting": {
+      "performed": "No"
+    },
+    "Experimental Design Generation via Executable Code Generation from Literature": {
+      "performed": "No"
+    },
+    "LLM-Based Experimental Design Generation via Agentic Exploration and Planning": {
+      "performed": "No"
+    },
+    "LLM-Based Experimental Design Generation via Code and Workflow Translation": {
+      "performed": "No"
+    },
+    "LLM-Based Experimental Design Generation via Multi-Agent Planning with Specialized Roles": {
+      "performed": "No"
+    },
+    "LLM-Based Experimental Design Generation via Domain-Specific Experimental Mapping": {
+      "performed": "No"
+    },
+    "Test Execution via Human-in-the-Loop": {
+      "performed": "No"
+    },
+    "Test Execution via Automated Wet-Lab Execution": {
+      "performed": "No"
+    },
+    "Test Execution via Computational or In-Silico": {
+      "performed": "Yes",
+      "Method details": "Framework performance is evaluated on real-world datasets (DBLP, PubMed, PatSnap) using computational experiments.",
+      "Inputs": "Candidate problem-method combinations, datasets",
+      "Outputs": "Performance metrics (e.g., MSE, MAE, hit rate)",
+      "Example": "We conduct experiments on three citation-based datasets... Our framework... consistently outperforms existing state-of-the-art LLMs...",
+      "Role in workflow": "Validates the effectiveness of the framework and its predictions."
+    },
+    "Refinement via LLM Agent Feedback Loops": {
+      "performed": "Yes",
+      "Method details": "Iterative feedback-driven optimization refines method combinations based on disruptive index feedback.",
+      "Inputs": "Current method configuration, disruptive index score",
+      "Outputs": "Refined method combinations with higher disruptiveness",
+      "Example": "After each prediction iteration, the results are fed back to the model, prompting self-awareness and evaluation of prediction deviations.",
+      "Role in workflow": "Improves the quality of candidate combinations through iterative refinement."
+    },
+    "Refinement via Automated Quality Evaluation using Model-Based Critics": {
+      "performed": "No"
+    },
+    "Refinement via Dynamic Agent Updating Based on Evolving Context or Data": {
+      "performed": "Yes",
+      "Method details": "Adaptive learning component adjusts feedback weighting based on observed trends over multiple iterations.",
+      "Inputs": "Disruptive index scores over iterations",
+      "Outputs": "Updated weights and refined method selection",
+      "Example": "Adaptive learning component dynamically adjusts the weight of disruptive index feedback based on observed trends...",
+      "Role in workflow": "Ensures the optimization process remains responsive to performance trends."
+    },
+    "Refinement via guided by computational-data": {
+      "performed": "Yes",
+      "Method details": "Entropy-based weighted evaluation and KL-divergence balancing guide model updates based on computational feedback.",
+      "Inputs": "Prediction errors, entropy weights, KL divergence",
+      "Outputs": "Improved model parameters and predictions",
+      "Example": "We introduce an entropy-based weighted evaluation metric... KL-divergence-based balancing mechanism to stabilize training outcomes.",
+      "Role in workflow": "Drives model refinement using computational evaluation of prediction outcomes."
+    },
+    "Refinement via experimental validation": {
+      "performed": "No"
+    },
+    "Refinement via Performance-metric": {
+      "performed": "Yes",
+      "Method details": "Optimization uses disruptive index as the performance metric to guide method selection.",
+      "Inputs": "Disruptive index scores",
+      "Outputs": "Method combinations with maximized disruptive index",
+      "Example": "The system evaluates the disruptive index... and utilizes this information to guide subsequent modifications.",
+      "Role in workflow": "Directs refinement toward higher-impact solutions."
+    },
+    "Refinement via Human–data integration": {
+      "performed": "No"
+    }
+  },
+  "paper_title": "Structuring Scientific Innovation: A Framework for Modeling and Discovering Impactful Knowledge Combinations",
+  "authors": [
+    "Junlan",
+    "Kexin",
+    "Daifeng",
+    "Yangyang",
+    "Yuxuan",
+    "Bowen"
+  ],
+  "published": "2025-04-14",
+  "link": "http://arxiv.org/abs/2503.18865"
+}

@@ -1,0 +1,318 @@
+{
+  "Inputs to the workflow": {
+    "performed": "Yes",
+    "User provide high-level research direction or goal": {
+      "performed": "Yes",
+      "Format": "Natural language prompts to LLM, e.g., 'Generate materials with a high bandgap and thermal stability.'",
+      "Example": "Prompting the LLM with queries like 'Propose a novel perovskite structure for efficient solar energy conversion.'",
+      "Role in workflow": "Defines the material generation objective and conditions for the LLM."
+    },
+    "User provide structured, domain-specific specifications": {
+      "performed": "Yes",
+      "Format": "Chemical formula or material property constraints in prompts.",
+      "Example": "Prompt includes desired chemical formula or properties for conditional generation.",
+      "Role in workflow": "Guides the LLM to generate materials with specific compositions or properties."
+    },
+    "User provide research papers": {
+      "performed": "No"
+    },
+    "User provide datasets other than research papers": {
+      "performed": "Yes",
+      "Format": "Materials Project MP-20 dataset of crystal structures.",
+      "Example": "MP-20 dataset with 45,231 inorganic crystalline materials used for training and evaluation.",
+      "Role in workflow": "Provides ground truth data for LLM fine-tuning and RFM training."
+    },
+    "User provide representations or formal inputs": {
+      "performed": "Yes",
+      "Format": "String representations of crystals, including atom types, fractional coordinates, and lattice parameters.",
+      "Example": "Crystals encoded as text strings for LLM input/output; converted to graph representations for RFM.",
+      "Role in workflow": "Enables LLM-based generation and subsequent graph-based refinement."
+    }
+  },
+  "Query Structuring": {
+    "performed": "Yes",
+    "Query Decomposition": {
+      "performed": "No"
+    },
+    "Structural or Entity Decomposition": {
+      "performed": "Yes",
+      "Method details": "Crystals are decomposed into atom types, fractional coordinates, and lattice parameters for modeling.",
+      "Inputs": "String or graph representations of crystals.",
+      "Outputs": "Separate fields for atom types, positions, and lattice geometry.",
+      "Example": "c := (a, f, l) where a = atom types, f = fractional coordinates, l = lattice parameters.",
+      "Role in workflow": "Facilitates targeted modeling of discrete and continuous aspects in LLM and RFM."
+    },
+    "Workflow Decomposition": {
+      "performed": "Yes",
+      "Method details": "Two-stage workflow: LLM generates initial material, RFM refines continuous variables.",
+      "Inputs": "LLM-generated crystal representation.",
+      "Outputs": "Refined crystal structure after RFM.",
+      "Example": "c0 ~ pLLM; c1 ~ pRFM(c|c0)",
+      "Role in workflow": "Enables hybrid modeling by splitting discrete and continuous generation tasks."
+    },
+    "Textual or Knowledge Embedding": {
+      "performed": "No"
+    },
+    "Molecular or Chemical Embedding": {
+      "performed": "No"
+    },
+    "Biological or Phenotypic Embedding": {
+      "performed": "No"
+    },
+    "Pattern and Feature Extraction": {
+      "performed": "Yes",
+      "Method details": "Extraction of atom types, coordinates, and lattice parameters from dataset for model input.",
+      "Inputs": "MP-20 dataset crystal structures.",
+      "Outputs": "Tokenized and structured features for LLM and RFM.",
+      "Example": "Tokenization of fractional coordinates, lattice lengths, and angles.",
+      "Role in workflow": "Prepares data for model training and generation."
+    },
+    "Biological Relationship Extraction": {
+      "performed": "No"
+    },
+    "Property and Annotation Extraction": {
+      "performed": "Yes",
+      "Method details": "Extraction of properties such as stability (Ehull), uniqueness, and novelty for evaluation.",
+      "Inputs": "Generated and reference crystal structures.",
+      "Outputs": "Stability, S.U.N. rate, and other metrics.",
+      "Example": "Calculation of Ehull and S.U.N. rate for generated materials.",
+      "Role in workflow": "Enables quantitative assessment of generated materials."
+    },
+    "Sequence and Structure Feature Extraction": {
+      "performed": "Yes",
+      "Method details": "Extraction of sequence (atom types) and structure (coordinates, lattice) features for modeling.",
+      "Inputs": "Crystal string or graph representations.",
+      "Outputs": "Features for LLM tokenization and GNN input.",
+      "Example": "Atom types as tokens; coordinates as numerical features.",
+      "Role in workflow": "Supports both LLM and GNN-based modeling."
+    }
+  },
+  "Data Retrieval": {
+    "performed": "Yes",
+    "Data Retrieval via Multi-Query Generation and Exploration": {
+      "performed": "No"
+    },
+    "Literature and Data Retrieval via APIs": {
+      "performed": "No"
+    },
+    "Data Retrieval with Prioritization and Filtering Agents": {
+      "performed": "No"
+    },
+    "Domain-Specific Data Retrieval and Reasoning": {
+      "performed": "No"
+    },
+    "Code-Driven or Tool-Augmented Data Retrieval": {
+      "performed": "No"
+    },
+    "Literature data Retrieval Citation-Network–Based Expansion": {
+      "performed": "No"
+    },
+    "Literature data Retrieval via Semantic and Similarity-Based analysis": {
+      "performed": "No"
+    },
+    "Literature data Retrieval via Multi-Step Reference and Evidence Selection": {
+      "performed": "No"
+    },
+    "Domain-Specific Literature data Retrieval": {
+      "performed": "No"
+    },
+    "Manual and Semi-Automatic Curation of Literature data": {
+      "performed": "No"
+    },
+    "Structural or Similarity-Based Dataset Retrieval": {
+      "performed": "Yes",
+      "Method details": "Reference to similarity-based novelty filtering using StructureMatcher for S.U.N. metric.",
+      "Inputs": "Generated and training dataset structures.",
+      "Outputs": "Novelty assessment for generated materials.",
+      "Example": "Generated structure is novel if not similar to any training structure (StructureMatcher).",
+      "Role in workflow": "Ensures novelty in generated materials."
+    },
+    "Data Retrieval via Domain-Specific Repository Querying": {
+      "performed": "Yes",
+      "Method details": "Direct use of the Materials Project MP-20 dataset for model training and evaluation.",
+      "Inputs": "MP-20 dataset.",
+      "Outputs": "Training and evaluation data for LLM and RFM.",
+      "Example": "Download and use of MP-20 dataset from public repository.",
+      "Role in workflow": "Provides authoritative data source for workflow."
+    },
+    "Library Assembly and Data Augmentation": {
+      "performed": "No"
+    }
+  },
+  "Knowledge Assembly": {
+    "performed": "No"
+  },
+  "Hypothesis/Idea Generation": {
+    "performed": "Yes",
+    "Idea/hypothesis generation without additional literature or dataset as context": {
+      "performed": "No"
+    },
+    "LLM Agent Generate ideas/hypotheses via Task Decomposition": {
+      "performed": "No"
+    },
+    "Generate ideas/hypotheses using Domain-Specialized LLM Agent": {
+      "performed": "Yes",
+      "Method details": "Fine-tuned LLaMA-2 LLM generates candidate crystal structures as text, optionally conditioned on prompts.",
+      "Inputs": "Prompts (optionally with chemical formula/properties), fine-tuned LLM.",
+      "Outputs": "Initial candidate crystal structures as text.",
+      "Example": "LLM generates a crystal structure string from a prompt.",
+      "Role in workflow": "Produces candidate materials for further refinement."
+    },
+    "Literature data used during idea/hypothesis generation as context": {
+      "performed": "No"
+    },
+    "Summarization Literature data used during idea/hypothesis generation": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation via Facet Recombination": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation via contructed Reasoning-Chain from literature": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation via Knowledge Graph developed from literature": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation via Pattern Detection from dataset": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation via Few-Shot Data Seeding": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation using Observational data": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation via Feature-Driven Property Prediction": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation after Fine-Tuning the LLM model": {
+      "performed": "Yes",
+      "Method details": "LLaMA-2 LLM is fine-tuned on MP-20 crystal data to improve material generation.",
+      "Inputs": "Pre-trained LLaMA-2, MP-20 dataset.",
+      "Outputs": "Fine-tuned LLM capable of generating realistic crystal structures.",
+      "Example": "Fine-tuning LLaMA-2 with crystal structure strings.",
+      "Role in workflow": "Enables domain-specific material generation."
+    }
+  },
+  "Hypothesis/Idea Prioritization": {
+    "performed": "Yes",
+    "LLM-based Hypothesis/Idea evaluation via Scientific Quality": {
+      "performed": "No"
+    },
+    "LLM-based Hypothesis/Idea evaluation via Domain-Specific Evaluation": {
+      "performed": "No"
+    },
+    "LLM-based Hypothesis/Idea evaluation via Contextual Evidence Scoring": {
+      "performed": "No"
+    },
+    "LLM-based Hypothesis/Idea evaluation via Interpretability or Success Metrics": {
+      "performed": "No"
+    },
+    "Hypothesis/Idea evaluation via Novelty Checking with Literature Comparison": {
+      "performed": "Yes",
+      "Method details": "Novelty of generated structures is checked by comparing to training data using StructureMatcher.",
+      "Inputs": "Generated and training dataset structures.",
+      "Outputs": "Novelty label for each generated structure.",
+      "Example": "A structure is novel if not similar to any in the training set.",
+      "Role in workflow": "Ensures generated materials are not duplicates of known structures."
+    },
+    "Hypothesis/Idea evaluation via Alignment with Literature Chains": {
+      "performed": "No"
+    },
+    "Hypothesis/Idea evaluation via Knowledge-Graph Grounded Similarity Metrics": {
+      "performed": "No"
+    },
+    "Hypothesis/Idea evaluation via Quantitative Assessment Using Domain Metrics": {
+      "performed": "Yes",
+      "Method details": "Generated materials are evaluated for stability (Ehull), S.U.N. rate, and other domain metrics.",
+      "Inputs": "Generated structures, DFT/CHGNet calculations.",
+      "Outputs": "Stability rate, S.U.N. rate, RMSD, energy difference, etc.",
+      "Example": "Stability rate = % of generated materials with Ehull < 0.",
+      "Role in workflow": "Quantifies scientific value and feasibility of generated materials."
+    },
+    "Hypothesis/Idea evaluation via Human/Expert": {
+      "performed": "No"
+    }
+  },
+  "Test": {
+    "performed": "Yes",
+    "Experimental Design Generation via literature-Grounded Model/Protocol Selection": {
+      "performed": "No"
+    },
+    "Experimental Design Generation via Literature Synthesis for New Protocol Generation": {
+      "performed": "No"
+    },
+    "Experimental Design Generation via Few-Shot or Example-Based Prompting": {
+      "performed": "No"
+    },
+    "Experimental Design Generation via Executable Code Generation from Literature": {
+      "performed": "No"
+    },
+    "LLM-Based Experimental Design Generation via Agentic Exploration and Planning": {
+      "performed": "No"
+    },
+    "LLM-Based Experimental Design Generation via Code and Workflow Translation": {
+      "performed": "No"
+    },
+    "LLM-Based Experimental Design Generation via Multi-Agent Planning with Specialized Roles": {
+      "performed": "No"
+    },
+    "LLM-Based Experimental Design Generation via Domain-Specific Experimental Mapping": {
+      "performed": "No"
+    },
+    "Test Execution via Human-in-the-Loop": {
+      "performed": "No"
+    },
+    "Test Execution via Automated Wet-Lab Execution": {
+      "performed": "No"
+    },
+    "Test Execution via Computational or In-Silico": {
+      "performed": "Yes",
+      "Method details": "Generated structures are tested for stability and other properties using CHGNet pre-relaxation and DFT calculations.",
+      "Inputs": "Generated crystal structures.",
+      "Outputs": "Relaxed structures, stability (Ehull), S.U.N. rate, RMSD, energy difference.",
+      "Example": "DFT and CHGNet used to relax and evaluate generated materials.",
+      "Role in workflow": "Validates the physical plausibility and synthesizability of generated materials."
+    },
+    "Refinement via LLM Agent Feedback Loops": {
+      "performed": "No"
+    },
+    "Refinement via Automated Quality Evaluation using Model-Based Critics": {
+      "performed": "No"
+    },
+    "Refinement via Dynamic Agent Updating Based on Evolving Context or Data": {
+      "performed": "No"
+    },
+    "Refinement via guided by computational-data": {
+      "performed": "Yes",
+      "Method details": "RFM model iteratively refines LLM-generated structures based on computational feedback.",
+      "Inputs": "LLM-generated crystal structures.",
+      "Outputs": "Refined structures closer to ground state.",
+      "Example": "RFM updates coordinates and lattice parameters to minimize loss relative to data distribution.",
+      "Role in workflow": "Improves accuracy and stability of generated materials before final evaluation."
+    },
+    "Refinement via experimental validation": {
+      "performed": "No"
+    },
+    "Refinement via Performance-metric": {
+      "performed": "Yes",
+      "Method details": "Refinement is guided by metrics such as RMSD, energy difference, and number of relaxation steps.",
+      "Inputs": "Generated and relaxed structures, performance metrics.",
+      "Outputs": "Improved structure generation and reduced computational cost.",
+      "Example": "FlowLLM generates structures closer to relaxed state, reducing DFT steps.",
+      "Role in workflow": "Optimizes workflow efficiency and output quality."
+    },
+    "Refinement via Human–data integration": {
+      "performed": "No"
+    }
+  },
+  "paper_title": "FlowLLM: Flow Matching for Material Generation with Large Language Models as Base Distributions",
+  "authors": [
+    "Anuroop",
+    "Benjamin Kurt",
+    "Ricky T. Q.",
+    "Brandon M."
+  ],
+  "published": "2024-10-30",
+  "link": "http://arxiv.org/abs/2410.23405"
+}

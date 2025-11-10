@@ -1,0 +1,649 @@
+{
+  "Inputs to the workflow": {
+    "performed": "Yes",
+    "User provide high-level research direction or goal": {
+      "performed": "Yes",
+      "Format": "Natural language task description",
+      "Example": "Design an AI model to predict Absorption (one of the ADMET properties) using the PAMPA dataset.",
+      "Role in workflow": "Defines the objective for the LLM Planner and Instructor agents."
+    },
+    "User provide structured, domain-specific specifications": {
+      "performed": "No",
+      "Format": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "User provide research papers": {
+      "performed": "No",
+      "Format": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "User provide datasets other than research papers": {
+      "performed": "Yes",
+      "Format": "Starter files, e.g., CSV datasets for PAMPA, DAVIS, HIV",
+      "Example": "train.csv, val.csv, test.csv for each task",
+      "Role in workflow": "Provides the data for model training, validation, and testing."
+    },
+    "User provide representations or formal inputs": {
+      "performed": "Yes",
+      "Format": "SMILES strings for molecules, amino acid sequences for proteins",
+      "Example": "Drug column with SMILES, Protein column with sequence in CSV files",
+      "Role in workflow": "Serves as input features for featurization and modeling."
+    }
+  },
+  "Query Structuring": {
+    "performed": "Yes",
+    "Query Decomposition": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "Structural or Entity Decomposition": {
+      "performed": "Yes",
+      "Method details": "Featurization of molecules and proteins using fingerprints, graph-based, and one-hot encoding methods.",
+      "Inputs": "SMILES strings, protein sequences",
+      "Outputs": "Feature vectors for drugs and proteins",
+      "Example": "ECFP4 fingerprint for drugs, CT encoding for proteins",
+      "Role in workflow": "Enables downstream ML models to process biological entities."
+    },
+    "Workflow Decomposition": {
+      "performed": "Yes",
+      "Method details": "LLM Planner splits the task into multiple solution ideas and substeps, iteratively refined by the Instructor.",
+      "Inputs": "Task description",
+      "Outputs": "Set of candidate solution ideas and substeps",
+      "Example": "Planner generates ideas: LR (one-hot), GNN, Random Forest (fingerprinting), DNN, etc.",
+      "Role in workflow": "Structures the exploration of solution space and guides implementation."
+    },
+    "Textual or Knowledge Embedding": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "Molecular or Chemical Embedding": {
+      "performed": "Yes",
+      "Method details": "Drug featurization using ECFP4 fingerprints and other molecular descriptors.",
+      "Inputs": "SMILES strings",
+      "Outputs": "Molecular feature vectors",
+      "Example": "DrugFeaturizer(method='ECFP4')",
+      "Role in workflow": "Transforms chemical structures into ML-ready features."
+    },
+    "Biological or Phenotypic Embedding": {
+      "performed": "Yes",
+      "Method details": "Protein featurization using CT encoding and other fingerprinting methods.",
+      "Inputs": "Protein amino acid sequences",
+      "Outputs": "Protein feature vectors",
+      "Example": "ProteinFeaturizer(method='ct')",
+      "Role in workflow": "Enables ML models to process protein sequence information."
+    },
+    "Pattern and Feature Extraction": {
+      "performed": "Yes",
+      "Method details": "Extraction of features from datasets via domain-specific featurizers for drugs and proteins.",
+      "Inputs": "Raw molecular and protein data",
+      "Outputs": "Feature matrices for ML models",
+      "Example": "Concatenation of drug and protein features for Random Forest input",
+      "Role in workflow": "Provides empirical input for model training and evaluation."
+    },
+    "Biological Relationship Extraction": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "Property and Annotation Extraction": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "Sequence and Structure Feature Extraction": {
+      "performed": "Yes",
+      "Method details": "Protein sequence features extracted via fingerprinting and one-hot encoding.",
+      "Inputs": "Protein sequences",
+      "Outputs": "Feature vectors",
+      "Example": "One-hot encoding or CT fingerprint for protein",
+      "Role in workflow": "Enables ML models to utilize sequence-level information."
+    }
+  },
+  "Data Retrieval": {
+    "performed": "Yes",
+    "Data Retrieval via Multi-Query Generation and Exploration": {
+      "performed": "Yes",
+      "Method details": "LLM Planner generates multiple solution ideas, each potentially requiring different data preprocessing or retrieval.",
+      "Inputs": "Task description",
+      "Outputs": "Candidate solution ideas with associated data requirements",
+      "Example": "Planner considers GNN (needs graph data), Random Forest (needs fingerprints), etc.",
+      "Role in workflow": "Ensures diverse data representations are explored."
+    },
+    "Literature and Data Retrieval via APIs": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "Data Retrieval with Prioritization and Filtering Agents": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "Domain-Specific Data Retrieval and Reasoning": {
+      "performed": "Yes",
+      "Method details": "Instructor agent uses domain-specific documentation and tools (TDC, RDKit, DGL-LifeSci, PyBioMed) to retrieve and preprocess data.",
+      "Inputs": "Dataset files, domain documentation",
+      "Outputs": "Preprocessed, ML-ready data",
+      "Example": "Downloading and splitting data using TDC library",
+      "Role in workflow": "Ensures correct handling of biological data for ML tasks."
+    },
+    "Code-Driven or Tool-Augmented Data Retrieval": {
+      "performed": "Yes",
+      "Method details": "Agents generate and execute code to load, preprocess, and featurize datasets.",
+      "Inputs": "Starter files, code templates",
+      "Outputs": "Processed data for modeling",
+      "Example": "Python code to load CSVs and apply featurizers",
+      "Role in workflow": "Automates data preparation for downstream ML."
+    },
+    "Literature data Retrieval Citation-Network–Based Expansion": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "Literature data Retrieval via Semantic and Similarity-Based analysis": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "Literature data Retrieval via Multi-Step Reference and Evidence Selection": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "Domain-Specific Literature data Retrieval": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "Manual and Semi-Automatic Curation of Literature data": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "Structural or Similarity-Based Dataset Retrieval": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "Data Retrieval via Domain-Specific Repository Querying": {
+      "performed": "Yes",
+      "Method details": "Datasets are accessed and split using TDC library functions.",
+      "Inputs": "Dataset names (PAMPA, DAVIS, HIV)",
+      "Outputs": "Train/validation/test splits",
+      "Example": "TDC random split strategy for PAMPA and HIV datasets",
+      "Role in workflow": "Provides standardized data splits for benchmarking."
+    },
+    "Library Assembly and Data Augmentation": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    }
+  },
+  "Knowledge Assembly": {
+    "performed": "No",
+    "Standardized Section Extraction from Literature data": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "Concise Synopsis and Summarization of Literature data": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "Facet-Based or Field-Specific Extraction from Literature data": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "Domain-Tailored Extraction from Literature data": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "Task/Entity-Centric Knowledge Graphs": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "Causal or Relation-Specific Knowledge Graphs": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "Biomedical or Domain-Specific Interaction Graphs": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "Literature Database Construction": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "Entity- or Co-Occurrence–Based Databases": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "Reasoning-Chain or Temporal Databases for Literature": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    }
+  },
+  "Hypothesis/Idea Generation": {
+    "performed": "Yes",
+    "Idea/hypothesis generation without additional literature or dataset as context": {
+      "performed": "Yes",
+      "Method details": "LLM Planner generates solution ideas using internal knowledge and task description.",
+      "Inputs": "Natural language task description",
+      "Outputs": "Set of candidate solution ideas (e.g., model types, featurization strategies)",
+      "Example": "Planner proposes LR (one-hot), GNN, Random Forest (fingerprinting), DNN, etc.",
+      "Role in workflow": "Initiates exploration of solution space for the drug discovery task."
+    },
+    "LLM Agent Generate ideas/hypotheses via Task Decomposition": {
+      "performed": "Yes",
+      "Method details": "Planner agent decomposes the task into multiple solution strategies and substeps.",
+      "Inputs": "Task description",
+      "Outputs": "List of actionable solution ideas",
+      "Example": "Planner generates and explores multiple modeling approaches in parallel.",
+      "Role in workflow": "Enables systematic exploration and comparison of diverse approaches."
+    },
+    "Generate ideas/hypotheses using Domain-Specialized LLM Agent": {
+      "performed": "Yes",
+      "Method details": "Instructor agent integrates domain-specific documentation and tools to generate feasible implementations.",
+      "Inputs": "Solution idea, domain documentation",
+      "Outputs": "Domain-aware code and implementation plan",
+      "Example": "Instructor selects appropriate featurization and modeling tools for drug/protein data.",
+      "Role in workflow": "Ensures generated ideas are grounded in domain best practices."
+    },
+    "Literature data used during idea/hypothesis generation as context": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "Summarization Literature data used during idea/hypothesis generation": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "Idea/hypothesis generation via Facet Recombination": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "Idea/hypothesis generation via contructed Reasoning-Chain from literature": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "Idea/hypothesis generation via Knowledge Graph developed from literature": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "Idea/hypothesis generation via Pattern Detection from dataset": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "Idea/hypothesis generation via Few-Shot Data Seeding": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "Idea/hypothesis generation using Observational data": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "Idea/hypothesis generation via Feature-Driven Property Prediction": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "Idea/hypothesis generation after Fine-Tuning the LLM model": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    }
+  },
+  "Hypothesis/Idea Prioritization": {
+    "performed": "Yes",
+    "LLM-based Hypothesis/Idea evaluation via Scientific Quality": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "LLM-based Hypothesis/Idea evaluation via Domain-Specific Evaluation": {
+      "performed": "Yes",
+      "Method details": "Instructor agent evaluates feasibility and correctness of ideas using domain knowledge and documentation.",
+      "Inputs": "Candidate solution idea, domain documentation",
+      "Outputs": "Success/failure report, refined idea set",
+      "Example": "Instructor rejects graph-based protein encoding as infeasible for 1D sequences.",
+      "Role in workflow": "Filters out unworkable or suboptimal approaches before implementation."
+    },
+    "LLM-based Hypothesis/Idea evaluation via Contextual Evidence Scoring": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "LLM-based Hypothesis/Idea evaluation via Interpretability or Success Metrics": {
+      "performed": "Yes",
+      "Method details": "Ideas are evaluated based on empirical performance (e.g., ROC-AUC on validation set).",
+      "Inputs": "Validation results from model execution",
+      "Outputs": "Performance scores for each idea",
+      "Example": "Validation ROC-AUC = 0.922 for Random Forest approach.",
+      "Role in workflow": "Guides selection of the best-performing solution for final submission."
+    },
+    "Hypothesis/Idea evaluation via Novelty Checking with Literature Comparison": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "Hypothesis/Idea evaluation via Alignment with Literature Chains": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "Hypothesis/Idea evaluation via Knowledge-Graph Grounded Similarity Metrics": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "Hypothesis/Idea evaluation via Quantitative Assessment Using Domain Metrics": {
+      "performed": "Yes",
+      "Method details": "Performance metrics such as ROC-AUC are used to quantitatively assess and compare ideas.",
+      "Inputs": "Validation/test set predictions",
+      "Outputs": "ROC-AUC scores",
+      "Example": "Average ROC-AUC reported for each method across datasets.",
+      "Role in workflow": "Objective selection of top-performing models."
+    },
+    "Hypothesis/Idea evaluation via Human/Expert": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    }
+  },
+  "Test": {
+    "performed": "Yes",
+    "Experimental Design Generation via literature-Grounded Model/Protocol Selection": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "Experimental Design Generation via Literature Synthesis for New Protocol Generation": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "Experimental Design Generation via Few-Shot or Example-Based Prompting": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "Experimental Design Generation via Executable Code Generation from Literature": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "LLM-Based Experimental Design Generation via Agentic Exploration and Planning": {
+      "performed": "Yes",
+      "Method details": "Planner and Instructor agents collaboratively generate, refine, and implement experimental code for ML pipelines.",
+      "Inputs": "Selected solution idea",
+      "Outputs": "Executable code for model training, validation, and testing",
+      "Example": "Agents generate Python scripts for Random Forest training and evaluation.",
+      "Role in workflow": "Automates the design and execution of ML experiments."
+    },
+    "LLM-Based Experimental Design Generation via Code and Workflow Translation": {
+      "performed": "Yes",
+      "Method details": "Agents translate solution ideas into executable scripts, including data loading, featurization, model training, and prediction.",
+      "Inputs": "Solution idea, domain tools",
+      "Outputs": "Python code implementing the ML workflow",
+      "Example": "Sample code for Random Forest with ECFP4 and CT features.",
+      "Role in workflow": "Bridges high-level ideas and concrete experimental execution."
+    },
+    "LLM-Based Experimental Design Generation via Multi-Agent Planning with Specialized Roles": {
+      "performed": "Yes",
+      "Method details": "Planner generates ideas; Instructor implements and tests them, reporting back for iterative refinement.",
+      "Inputs": "Task description, candidate ideas",
+      "Outputs": "Refined, executable ML pipelines",
+      "Example": "Planner-Instructor loop for exploring and selecting optimal approaches.",
+      "Role in workflow": "Enables division of labor and iterative improvement."
+    },
+    "LLM-Based Experimental Design Generation via Domain-Specific Experimental Mapping": {
+      "performed": "Yes",
+      "Method details": "Instructor maps solution ideas to domain-specific tools and featurizers (e.g., ECFP4, CT, ChemBERTa, ESM).",
+      "Inputs": "Solution idea, domain documentation",
+      "Outputs": "Domain-appropriate experimental code",
+      "Example": "Selecting ECFP4 for drug and CT for protein encoding.",
+      "Role in workflow": "Ensures experimental design is tailored to biomedical context."
+    },
+    "Test Execution via Human-in-the-Loop": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "Test Execution via Automated Wet-Lab Execution": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "Test Execution via Computational or In-Silico": {
+      "performed": "Yes",
+      "Method details": "Generated code is executed to train and evaluate ML models on provided datasets.",
+      "Inputs": "Processed data, executable scripts",
+      "Outputs": "Model predictions, performance metrics",
+      "Example": "Random Forest model trained and evaluated on DAVIS dataset.",
+      "Role in workflow": "Validates solution ideas through computational experiments."
+    },
+    "Refinement via LLM Agent Feedback Loops": {
+      "performed": "Yes",
+      "Method details": "Planner and Instructor iteratively update idea space and implementation based on test outcomes and failure reports.",
+      "Inputs": "Test results, failure/success reports",
+      "Outputs": "Refined solution ideas and code",
+      "Example": "Planner discards infeasible ideas after Instructor reports failure.",
+      "Role in workflow": "Improves solution quality through iterative feedback."
+    },
+    "Refinement via Automated Quality Evaluation using Model-Based Critics": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "Refinement via Dynamic Agent Updating Based on Evolving Context or Data": {
+      "performed": "Yes",
+      "Method details": "Planner updates idea set in response to observed failures or successes during execution.",
+      "Inputs": "Execution outcomes",
+      "Outputs": "Updated idea space",
+      "Example": "Skipping graph-based methods after failed protein graph encoding.",
+      "Role in workflow": "Adapts exploration based on empirical feedback."
+    },
+    "Refinement via guided by computational-data": {
+      "performed": "Yes",
+      "Method details": "Refinement decisions are based on validation/test performance metrics (e.g., ROC-AUC).",
+      "Inputs": "Performance metrics from computational tests",
+      "Outputs": "Selection of best-performing solution",
+      "Example": "Choosing Random Forest over Logistic Regression based on higher ROC-AUC.",
+      "Role in workflow": "Ensures only empirically validated solutions are advanced."
+    },
+    "Refinement via experimental validation": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "Refinement via Performance-metric": {
+      "performed": "Yes",
+      "Method details": "Performance on validation/test sets (e.g., ROC-AUC) guides refinement and final selection.",
+      "Inputs": "Validation/test results",
+      "Outputs": "Best-performing model/code",
+      "Example": "Selecting top-3 solutions based on validation ROC-AUC.",
+      "Role in workflow": "Directs iterative improvement and final submission."
+    },
+    "Refinement via Human–data integration": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    }
+  },
+  "paper_title": "DrugAgent: Automating AI-aided Drug Discovery Programming through LLM Multi-Agent Collaboration",
+  "authors": [
+    "Sizhe",
+    "Yizhou",
+    "Siyu",
+    "Xiyang",
+    "Jieyu",
+    "Yingzhou",
+    "Yue"
+  ],
+  "published": "2025-03-05",
+  "link": "http://arxiv.org/abs/2411.15692"
+}

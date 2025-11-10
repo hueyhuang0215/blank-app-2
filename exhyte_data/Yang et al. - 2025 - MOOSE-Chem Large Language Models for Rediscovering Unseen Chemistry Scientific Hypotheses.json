@@ -1,0 +1,377 @@
+{
+  "Inputs to the workflow": {
+    "performed": "Yes",
+    "User provide high-level research direction or goal": {
+      "performed": "Yes",
+      "Format": "Natural language research question and/or background survey",
+      "Example": "A scientist provides a research question and optionally a survey summarizing existing methods.",
+      "Role in workflow": "Defines the research background and focus for hypothesis discovery."
+    },
+    "User provide structured, domain-specific specifications": {
+      "performed": "No"
+    },
+    "User provide research papers": {
+      "performed": "Yes",
+      "Format": "Corpus of chemistry papers (titles and abstracts), including ground truth inspiration papers and randomly selected top-cited papers.",
+      "Example": "A corpus of 3000 most cited chemistry papers, with titles and abstracts, is provided for inspiration retrieval.",
+      "Role in workflow": "Serves as the searchable literature base for inspiration retrieval and hypothesis composition."
+    },
+    "User provide datasets other than research papers": {
+      "performed": "No"
+    },
+    "User provide representations or formal inputs": {
+      "performed": "No"
+    }
+  },
+  "Query Structuring": {
+    "performed": "Yes",
+    "Query Decomposition": {
+      "performed": "Yes",
+      "Method details": "The workflow decomposes the research background into background question and background survey, and further into background, inspirations, and hypothesis for each benchmark paper.",
+      "Inputs": "Research question and/or background survey",
+      "Outputs": "Structured components: background, inspirations, hypothesis",
+      "Example": "Each benchmark paper is split into background question, background survey, inspirations, and hypothesis.",
+      "Role in workflow": "Enables targeted retrieval and structured hypothesis generation."
+    },
+    "Structural or Entity Decomposition": {
+      "performed": "No"
+    },
+    "Workflow Decomposition": {
+      "performed": "Yes",
+      "Method details": "The MOOSE-Chem framework decomposes the overall hypothesis discovery task into three subtasks: inspiration retrieval, hypothesis composition, and hypothesis ranking.",
+      "Inputs": "Research background, literature corpus",
+      "Outputs": "Sequential subtasks for agentic execution",
+      "Example": "Equation 2 and Figure 1 show decomposition into inspiration retrieval, composition, and ranking.",
+      "Role in workflow": "Creates a multi-stage, agentic workflow for automated discovery."
+    },
+    "Textual or Knowledge Embedding": {
+      "performed": "No"
+    },
+    "Molecular or Chemical Embedding": {
+      "performed": "No"
+    },
+    "Biological or Phenotypic Embedding": {
+      "performed": "No"
+    },
+    "Pattern and Feature Extraction": {
+      "performed": "No"
+    },
+    "Biological Relationship Extraction": {
+      "performed": "No"
+    },
+    "Property and Annotation Extraction": {
+      "performed": "No"
+    },
+    "Sequence and Structure Feature Extraction": {
+      "performed": "No"
+    }
+  },
+  "Data Retrieval": {
+    "performed": "Yes",
+    "Data Retrieval via Multi-Query Generation and Exploration": {
+      "performed": "No"
+    },
+    "Literature and Data Retrieval via APIs": {
+      "performed": "No"
+    },
+    "Data Retrieval with Prioritization and Filtering Agents": {
+      "performed": "Yes",
+      "Method details": "LLMs screen fixed-size windows of papers from the corpus, selecting those most likely to serve as inspirations for the given background.",
+      "Inputs": "Background, literature corpus (titles and abstracts)",
+      "Outputs": "Ranked/filtered list of candidate inspiration papers",
+      "Example": "For each window of 15 papers, LLM selects 3 as potential inspirations, iteratively narrowing the corpus.",
+      "Role in workflow": "Prioritizes relevant literature for downstream hypothesis generation."
+    },
+    "Domain-Specific Data Retrieval and Reasoning": {
+      "performed": "No"
+    },
+    "Code-Driven or Tool-Augmented Data Retrieval": {
+      "performed": "No"
+    },
+    "Literature data Retrieval Citation-Network–Based Expansion": {
+      "performed": "No"
+    },
+    "Literature data Retrieval via Semantic and Similarity-Based analysis": {
+      "performed": "No"
+    },
+    "Literature data Retrieval via Multi-Step Reference and Evidence Selection": {
+      "performed": "Yes",
+      "Method details": "Multi-round screening: LLMs iteratively select top candidate inspiration papers through several rounds, each time narrowing the pool.",
+      "Inputs": "Background, previously selected papers, literature corpus",
+      "Outputs": "Final set of inspiration papers for hypothesis composition",
+      "Example": "Screening 15 papers at a time, selecting 3 per round, repeated for up to 3 rounds.",
+      "Role in workflow": "Ensures only the most relevant inspirations are used for hypothesis generation."
+    },
+    "Domain-Specific Literature data Retrieval": {
+      "performed": "Yes",
+      "Method details": "Retrieval is restricted to chemistry and material science literature, using domain-specific corpora.",
+      "Inputs": "Chemistry research background, chemistry literature corpus",
+      "Outputs": "Domain-relevant inspiration papers",
+      "Example": "Corpus consists of 3000 top-cited chemistry papers.",
+      "Role in workflow": "Focuses retrieval on the relevant scientific domain."
+    },
+    "Manual and Semi-Automatic Curation of Literature data": {
+      "performed": "Yes",
+      "Method details": "Benchmark construction involves manual annotation by PhD chemists, decomposing papers into background, inspirations, and hypothesis.",
+      "Inputs": "Published chemistry papers",
+      "Outputs": "Annotated benchmark with structured components",
+      "Example": "51 papers manually split into background, inspirations, and hypothesis.",
+      "Role in workflow": "Provides ground truth for evaluation and system development."
+    },
+    "Structural or Similarity-Based Dataset Retrieval": {
+      "performed": "No"
+    },
+    "Data Retrieval via Domain-Specific Repository Querying": {
+      "performed": "No"
+    },
+    "Library Assembly and Data Augmentation": {
+      "performed": "No"
+    }
+  },
+  "Knowledge Assembly": {
+    "performed": "Yes",
+    "Standardized Section Extraction from Literature data": {
+      "performed": "Yes",
+      "Method details": "Each benchmark paper is segmented into standardized fields: background question, survey, inspirations, hypothesis, etc.",
+      "Inputs": "Full text of chemistry papers",
+      "Outputs": "Structured records with consistent fields",
+      "Example": "Each paper split into background, inspirations, hypothesis, experiments, reasoning process.",
+      "Role in workflow": "Normalizes literature for retrieval and evaluation."
+    },
+    "Concise Synopsis and Summarization of Literature data": {
+      "performed": "Yes",
+      "Method details": "Manual annotation includes concise summaries of inspirations and reasoning processes for each paper.",
+      "Inputs": "Chemistry papers",
+      "Outputs": "Summarized key points and reasoning",
+      "Example": "Summarization of inspirations and reasoning process fields in the benchmark.",
+      "Role in workflow": "Provides distilled context for hypothesis evaluation."
+    },
+    "Facet-Based or Field-Specific Extraction from Literature data": {
+      "performed": "Yes",
+      "Method details": "Extraction of specific components such as background, inspirations, hypothesis, experiments, and reasoning process.",
+      "Inputs": "Chemistry papers",
+      "Outputs": "Field-specific structured data",
+      "Example": "Each benchmark entry includes explicit fields for each component.",
+      "Role in workflow": "Enables targeted retrieval and structured hypothesis generation."
+    },
+    "Domain-Tailored Extraction from Literature data": {
+      "performed": "Yes",
+      "Method details": "Extraction focuses on chemistry-specific elements, such as methods, materials, and experimental reasoning.",
+      "Inputs": "Chemistry papers",
+      "Outputs": "Domain-relevant structured fields",
+      "Example": "Background survey and inspiration reasons tailored to chemistry.",
+      "Role in workflow": "Ensures relevance and utility for chemistry hypothesis discovery."
+    },
+    "Task/Entity-Centric Knowledge Graphs": {
+      "performed": "No"
+    },
+    "Causal or Relation-Specific Knowledge Graphs": {
+      "performed": "No"
+    },
+    "Biomedical or Domain-Specific Interaction Graphs": {
+      "performed": "No"
+    },
+    "Literature Database Construction": {
+      "performed": "Yes",
+      "Method details": "A benchmark database of 51 annotated chemistry papers is constructed for evaluation.",
+      "Inputs": "Published chemistry papers",
+      "Outputs": "Structured benchmark database",
+      "Example": "TOMATO-Chem benchmark with decomposed fields.",
+      "Role in workflow": "Serves as ground truth and evaluation set."
+    },
+    "Entity- or Co-Occurrence–Based Databases": {
+      "performed": "No"
+    },
+    "Reasoning-Chain or Temporal Databases for Literature": {
+      "performed": "Yes",
+      "Method details": "Reasoning process fields encode the logical chain linking background, inspirations, and hypothesis.",
+      "Inputs": "Annotated benchmark papers",
+      "Outputs": "Reasoning chains for each hypothesis",
+      "Example": "\"background + inspiration 1 + inspiration 2 = hypothesis\" entries.",
+      "Role in workflow": "Supports structured evaluation of hypothesis generation."
+    }
+  },
+  "Hypothesis/Idea Generation": {
+    "performed": "Yes",
+    "Idea/hypothesis generation without additional literature or dataset as context": {
+      "performed": "No"
+    },
+    "LLM Agent Generate ideas/hypotheses via Task Decomposition": {
+      "performed": "Yes",
+      "Method details": "The MOOSE-Chem framework uses LLMs to decompose the process into inspiration retrieval, hypothesis composition (with evolutionary algorithm), and ranking.",
+      "Inputs": "Background, selected inspirations",
+      "Outputs": "Generated hypotheses",
+      "Example": "Evolutionary unit generates multiple hypothesis mutations and refines them.",
+      "Role in workflow": "Enables systematic, multi-step hypothesis generation."
+    },
+    "Generate ideas/hypotheses using Domain-Specialized LLM Agent": {
+      "performed": "Yes",
+      "Method details": "LLMs are prompted with chemistry-specific backgrounds and inspirations to generate hypotheses relevant to the domain.",
+      "Inputs": "Chemistry background, inspiration papers",
+      "Outputs": "Chemistry hypotheses",
+      "Example": "LLM composes hypotheses using retrieved chemistry inspirations.",
+      "Role in workflow": "Ensures domain relevance and plausibility."
+    },
+    "Literature data used during idea/hypothesis generation as context": {
+      "performed": "Yes",
+      "Method details": "LLMs are provided with titles and abstracts of selected inspiration papers as context for hypothesis generation.",
+      "Inputs": "Background, selected inspiration papers",
+      "Outputs": "Contextualized hypotheses",
+      "Example": "LLM composes hypotheses using background and retrieved inspiration abstracts.",
+      "Role in workflow": "Grounds hypothesis generation in existing literature."
+    },
+    "Summarization Literature data used during idea/hypothesis generation": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation via Facet Recombination": {
+      "performed": "Yes",
+      "Method details": "Evolutionary algorithm generates multiple hypothesis mutations by combining background and different inspirations, followed by recombination.",
+      "Inputs": "Background, multiple inspirations",
+      "Outputs": "Diverse hypothesis candidates",
+      "Example": "Evolutionary unit creates and refines multiple hypothesis variants.",
+      "Role in workflow": "Promotes diversity and novelty in hypothesis generation."
+    },
+    "Idea/hypothesis generation via contructed Reasoning-Chain from literature": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation via Knowledge Graph developed from literature": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation via Pattern Detection from dataset": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation via Few-Shot Data Seeding": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation using Observational data": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation via Feature-Driven Property Prediction": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation after Fine-Tuning the LLM model": {
+      "performed": "No"
+    }
+  },
+  "Hypothesis/Idea Prioritization": {
+    "performed": "Yes",
+    "LLM-based Hypothesis/Idea evaluation via Scientific Quality": {
+      "performed": "Yes",
+      "Method details": "LLMs score hypotheses on validness, novelty, significance, and potential using a structured prompt.",
+      "Inputs": "Generated hypotheses",
+      "Outputs": "Quality scores for each hypothesis",
+      "Example": "LLM assigns 1–5 scores for each aspect; top hypotheses are selected by beam search.",
+      "Role in workflow": "Ranks hypotheses to prioritize those most promising for further investigation."
+    },
+    "LLM-based Hypothesis/Idea evaluation via Domain-Specific Evaluation": {
+      "performed": "Yes",
+      "Method details": "Evaluation criteria include chemistry-specific aspects such as significance and potential for further development.",
+      "Inputs": "Generated hypotheses",
+      "Outputs": "Domain-relevant evaluation scores",
+      "Example": "Significance and potential are explicitly scored for chemistry hypotheses.",
+      "Role in workflow": "Ensures prioritization aligns with domain standards."
+    },
+    "LLM-based Hypothesis/Idea evaluation via Contextual Evidence Scoring": {
+      "performed": "No"
+    },
+    "LLM-based Hypothesis/Idea evaluation via Interpretability or Success Metrics": {
+      "performed": "No"
+    },
+    "Hypothesis/Idea evaluation via Novelty Checking with Literature Comparison": {
+      "performed": "No"
+    },
+    "Hypothesis/Idea evaluation via Alignment with Literature Chains": {
+      "performed": "No"
+    },
+    "Hypothesis/Idea evaluation via Knowledge-Graph Grounded Similarity Metrics": {
+      "performed": "No"
+    },
+    "Hypothesis/Idea evaluation via Quantitative Assessment Using Domain Metrics": {
+      "performed": "No"
+    },
+    "Hypothesis/Idea evaluation via Human/Expert": {
+      "performed": "Yes",
+      "Method details": "Chemistry PhD students manually evaluate generated hypotheses for similarity to ground truth and coverage of key innovations.",
+      "Inputs": "Generated hypotheses, ground truth hypotheses",
+      "Outputs": "Expert-assigned Matched Scores",
+      "Example": "Experts rate hypotheses on a 0–5 scale for matching key points.",
+      "Role in workflow": "Provides human-grounded validation of automated hypothesis generation."
+    }
+  },
+  "Test": {
+    "performed": "No",
+    "Experimental Design Generation via literature-Grounded Model/Protocol Selection": {
+      "performed": "No"
+    },
+    "Experimental Design Generation via Literature Synthesis for New Protocol Generation": {
+      "performed": "No"
+    },
+    "Experimental Design Generation via Few-Shot or Example-Based Prompting": {
+      "performed": "No"
+    },
+    "Experimental Design Generation via Executable Code Generation from Literature": {
+      "performed": "No"
+    },
+    "LLM-Based Experimental Design Generation via Agentic Exploration and Planning": {
+      "performed": "No"
+    },
+    "LLM-Based Experimental Design Generation via Code and Workflow Translation": {
+      "performed": "No"
+    },
+    "LLM-Based Experimental Design Generation via Multi-Agent Planning with Specialized Roles": {
+      "performed": "No"
+    },
+    "LLM-Based Experimental Design Generation via Domain-Specific Experimental Mapping": {
+      "performed": "No"
+    },
+    "Test Execution via Human-in-the-Loop": {
+      "performed": "No"
+    },
+    "Test Execution via Automated Wet-Lab Execution": {
+      "performed": "No"
+    },
+    "Test Execution via Computational or In-Silico": {
+      "performed": "No"
+    },
+    "Refinement via LLM Agent Feedback Loops": {
+      "performed": "Yes",
+      "Method details": "Evolutionary unit provides feedback on hypothesis mutations (validness, novelty, clarity, significance) and refines them iteratively.",
+      "Inputs": "Hypothesis mutations",
+      "Outputs": "Refined hypotheses",
+      "Example": "LLM critiques and refines each mutation before recombination.",
+      "Role in workflow": "Improves hypothesis quality through iterative feedback."
+    },
+    "Refinement via Automated Quality Evaluation using Model-Based Critics": {
+      "performed": "No"
+    },
+    "Refinement via Dynamic Agent Updating Based on Evolving Context or Data": {
+      "performed": "No"
+    },
+    "Refinement via guided by computational-data": {
+      "performed": "No"
+    },
+    "Refinement via experimental validation": {
+      "performed": "No"
+    },
+    "Refinement via Performance-metric": {
+      "performed": "No"
+    },
+    "Refinement via Human–data integration": {
+      "performed": "No"
+    }
+  },
+  "paper_title": "MOOSE-Chem: Large Language Models for Rediscovering Unseen Chemistry Scientific Hypotheses",
+  "authors": [
+    "Zonglin",
+    "Wanhao",
+    "Ben",
+    "Tong",
+    "Yuqiang",
+    "Wanli",
+    "Soujanya",
+    "Erik",
+    "Dongzhan"
+  ],
+  "published": "2025-05-18",
+  "link": "http://arxiv.org/abs/2410.07076"
+}

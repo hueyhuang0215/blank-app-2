@@ -1,0 +1,166 @@
+{
+  "Inputs to the workflow": {
+    "performed": "Yes",
+    "User provide high-level research direction or goal": {
+      "performed": "Yes",
+      "Format": "Selection of clinical research questions and sub-disciplines from systematic reviews.",
+      "Example": "Sampling reviews from RCT dataset relevant to clinical questions.",
+      "Role in workflow": "Defines the scope for literature-grounded hypothesis generation in the medical domain."
+    },
+    "User provide research papers": {
+      "performed": "Yes",
+      "Format": "Papers (titles, abstracts, years, citation counts) from PubMed and Semantic Scholar.",
+      "Example": "Source and citing papers retrieved for reasoning chain construction.",
+      "Role in workflow": "Serve as the primary evidence base for constructing reasoning chains and hypothesis generation."
+    }
+  },
+  "Query Structuring": {
+    "performed": "Yes",
+    "Query Decomposition": {
+      "performed": "Yes",
+      "Method details": "LLM prompts and pipeline iteratively break down literature exploration into sequential citation-based hops.",
+      "Inputs": "Source paper, citing papers within a time window.",
+      "Outputs": "Ordered reasoning chains of papers.",
+      "Example": "Each chain step selects top relevant citing papers for the next hop.",
+      "Role in workflow": "Enables stepwise construction of logical literature chains for hypothesis grounding."
+    },
+    "Textual or Knowledge Embedding": {
+      "performed": "Yes",
+      "Method details": "LLMs (Llama-3.1-70B) score paper relevance using semantic understanding of abstracts.",
+      "Inputs": "Paper abstracts and titles.",
+      "Outputs": "Relevance scores (0, 1, 2) and explanations.",
+      "Example": "LLM assigns dependency/inspiration scores to citing papers.",
+      "Role in workflow": "Supports fine-grained relevance assessment for chain construction."
+    }
+  },
+  "Data Retrieval": {
+    "performed": "Yes",
+    "Literature and Data Retrieval via APIs": {
+      "performed": "Yes",
+      "Method details": "Semantic Scholar API retrieves citing papers for each source paper within a defined time window.",
+      "Inputs": "Source paper identifier.",
+      "Outputs": "Batches of citing papers with metadata.",
+      "Example": "Retrieving all papers citing pk within a two-year window.",
+      "Role in workflow": "Populates candidate pool for reasoning chain construction."
+    },
+    "Data Retrieval with Prioritization and Filtering Agents": {
+      "performed": "Yes",
+      "Method details": "LLM assigns relevance scores; top relevant papers are selected based on score and citation count.",
+      "Inputs": "Batch of citing papers.",
+      "Outputs": "Top 3 relevant papers per batch.",
+      "Example": "Papers with highest relevance and impact are prioritized for chain continuation.",
+      "Role in workflow": "Ensures only highly relevant literature is used for reasoning chains."
+    },
+    "Literature data Retrieval Citation-Network–Based Expansion": {
+      "performed": "Yes",
+      "Method details": "Chains are constructed by iteratively following citation links from each selected paper.",
+      "Inputs": "Current paper in chain.",
+      "Outputs": "Next set of citing papers.",
+      "Example": "Each node in the chain cites its predecessor, forming a temporal citation path.",
+      "Role in workflow": "Traces the evolution of ideas through the literature."
+    }
+  },
+  "Knowledge Assembly": {
+    "performed": "Yes",
+    "Standardized Section Extraction from Literature data": {
+      "performed": "Yes",
+      "Method details": "Titles and abstracts are extracted for each paper; citation counts and years are recorded.",
+      "Inputs": "Full paper records from APIs.",
+      "Outputs": "Structured fields: title, abstract, year, citation count.",
+      "Example": "Each chain node includes title, abstract, year, and citation count.",
+      "Role in workflow": "Normalizes literature data for downstream reasoning."
+    },
+    "Concise Synopsis and Summarization of Literature data": {
+      "performed": "Yes",
+      "Method details": "LLM generates brief explanations of each paper’s relevance to the chain.",
+      "Inputs": "Paper abstract, source paper context.",
+      "Outputs": "Short relevance explanations.",
+      "Example": "LLM explains how a citing paper is inspired by or dependent on the source.",
+      "Role in workflow": "Provides interpretable rationales for chain links."
+    },
+    "Reasoning-Chain or Temporal Databases for Literature": {
+      "performed": "Yes",
+      "Method details": "Structured datasets of reasoning chains are built, encoding temporal and logical dependencies.",
+      "Inputs": "Validated citation chains with relevance labels.",
+      "Outputs": "Dataset of 3,523 reasoning chains with fine-grained labels.",
+      "Example": "Each chain is a temporally ordered sequence of papers with dependency annotations.",
+      "Role in workflow": "Enables supervised training and evaluation of reasoning over literature."
+    }
+  },
+  "Hypothesis/Idea Generation": {
+    "performed": "Yes",
+    "Literature data used during idea/hypothesis generation as context": {
+      "performed": "Yes",
+      "Method details": "HypER model generates hypotheses conditioned on validated reasoning chains from literature.",
+      "Inputs": "Validated reasoning chain (sequence of papers, explanations).",
+      "Outputs": "Rationale, research idea, and concrete hypothesis.",
+      "Example": "Model outputs a hypothesis grounded in the logical progression of the chain.",
+      "Role in workflow": "Ensures generated hypotheses are evidence-based and literature-grounded."
+    },
+    "Idea/hypothesis generation via contructed Reasoning-Chain from literature": {
+      "performed": "Yes",
+      "Method details": "HypER uses validated reasoning chains as scaffolds for hypothesis generation.",
+      "Inputs": "Structured reasoning chain.",
+      "Outputs": "Hypothesis with supporting rationale.",
+      "Example": "Model identifies valid chain, explains rationale, and formulates a hypothesis.",
+      "Role in workflow": "Links hypothesis generation directly to logical literature progression."
+    },
+    "Idea/hypothesis generation after Fine-Tuning the LLM model": {
+      "performed": "Yes",
+      "Method details": "Small LLMs (e.g., Phi-3-mini-128k-instruct) are fine-tuned on reasoning chain datasets.",
+      "Inputs": "Dataset of labeled reasoning chains.",
+      "Outputs": "Fine-tuned model capable of evidence-based hypothesis generation.",
+      "Example": "HypER_Phi3-3.8B is fine-tuned for multi-task reasoning and generation.",
+      "Role in workflow": "Improves model’s ability to generate grounded, feasible hypotheses."
+    }
+  },
+  "Hypothesis/Idea Prioritization": {
+    "performed": "Yes",
+    "LLM-based Hypothesis/Idea evaluation via Scientific Quality": {
+      "performed": "Yes",
+      "Method details": "LLMs and human experts rate hypotheses for clarity, novelty, feasibility, and impact.",
+      "Inputs": "Generated hypotheses and rationales.",
+      "Outputs": "Likert-scale ratings and qualitative feedback.",
+      "Example": "Experts and LLM-as-judge score hypotheses on a 5-point scale.",
+      "Role in workflow": "Filters and prioritizes hypotheses based on scientific merit."
+    },
+    "Hypothesis/Idea evaluation via Novelty Checking with Literature Comparison": {
+      "performed": "Yes",
+      "Method details": "Novelty is assessed by querying literature to check if the idea introduces new insights.",
+      "Inputs": "Generated hypothesis, literature database.",
+      "Outputs": "Novelty assessment (e.g., via iterative literature queries).",
+      "Example": "Novelty measured following Lu et al. (2024) by literature queries.",
+      "Role in workflow": "Ensures hypotheses are not redundant with existing work."
+    },
+    "Hypothesis/Idea evaluation via Alignment with Literature Chains": {
+      "performed": "Yes",
+      "Method details": "Automated metrics (Alignscore) and expert review assess hypothesis faithfulness to input chain.",
+      "Inputs": "Generated hypothesis, input reasoning chain.",
+      "Outputs": "Groundedness/faithfulness scores.",
+      "Example": "Alignscore measures how well hypothesis reflects chain logic.",
+      "Role in workflow": "Validates that hypotheses are logically supported by literature."
+    },
+    "Hypothesis/Idea evaluation via Human/Expert": {
+      "performed": "Yes",
+      "Method details": "Medical experts evaluate hypotheses for clarity, originality, feasibility, and impact.",
+      "Inputs": "Generated hypotheses and rationales.",
+      "Outputs": "Expert Likert-scale ratings and comments.",
+      "Example": "10 medical experts rate hypotheses on multiple criteria.",
+      "Role in workflow": "Provides nuanced, domain-specific assessment of hypothesis quality."
+    }
+  },
+  "Test": {
+    "performed": "No"
+  },
+  "paper_title": "HypER: Literature-grounded Hypothesis Generation and Distillation with Provenance",
+  "authors": [
+    "Rosni",
+    "Chandrayee",
+    "Bhavana Dalvi",
+    "Cristina",
+    "Peter",
+    "Abraham"
+  ],
+  "published": "2025-08-21",
+  "link": "http://arxiv.org/abs/2506.12937"
+}

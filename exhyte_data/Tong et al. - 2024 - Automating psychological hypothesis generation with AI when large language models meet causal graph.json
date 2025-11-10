@@ -1,0 +1,348 @@
+{
+  "Inputs to the workflow": {
+    "performed": "Yes",
+    "User provide high-level research direction or goal": {
+      "performed": "Yes",
+      "Format": "Research focus on hypothesis generation in psychology, specifically well-being.",
+      "Example": "Selecting 'well-being' as the central concept for hypothesis generation and evaluation.",
+      "Role in workflow": "Defines the thematic scope for automated hypothesis generation and comparison."
+    },
+    "User provide structured, domain-specific specifications": {
+      "performed": "No"
+    },
+    "User provide research papers": {
+      "performed": "Yes",
+      "Format": "Full-text psychology articles (PDF/XML) from PMC Open Access Subset and other journals.",
+      "Example": "43,312 psychology articles used for causal extraction and knowledge graph construction.",
+      "Role in workflow": "Primary evidence base for extracting causal relationships and building the causal graph."
+    },
+    "User provide datasets other than research papers": {
+      "performed": "No"
+    },
+    "User provide representations or formal inputs": {
+      "performed": "No"
+    }
+  },
+  "Query Structuring": {
+    "performed": "Yes",
+    "Query Decomposition": {
+      "performed": "No"
+    },
+    "Structural or Entity Decomposition": {
+      "performed": "No"
+    },
+    "Workflow Decomposition": {
+      "performed": "No"
+    },
+    "Textual or Knowledge Embedding": {
+      "performed": "Yes",
+      "Method details": "Node2vec used to embed concepts from the causal graph into a vector space for similarity and link prediction.",
+      "Inputs": "Nodes (concepts) from the constructed causal graph.",
+      "Outputs": "Vector representations of concepts for similarity analysis and link prediction.",
+      "Example": "Concepts such as 'well-being', 'resilience', etc., embedded for link prediction.",
+      "Role in workflow": "Enables similarity-based link prediction to identify novel hypothesis candidates."
+    },
+    "Molecular or Chemical Embedding": {
+      "performed": "No"
+    },
+    "Biological or Phenotypic Embedding": {
+      "performed": "No"
+    },
+    "Pattern and Feature Extraction": {
+      "performed": "No"
+    },
+    "Biological Relationship Extraction": {
+      "performed": "No"
+    },
+    "Property and Annotation Extraction": {
+      "performed": "No"
+    },
+    "Sequence and Structure Feature Extraction": {
+      "performed": "No"
+    }
+  },
+  "Data Retrieval": {
+    "performed": "Yes",
+    "Data Retrieval via Multi-Query Generation and Exploration": {
+      "performed": "No"
+    },
+    "Literature and Data Retrieval via APIs": {
+      "performed": "No"
+    },
+    "Data Retrieval with Prioritization and Filtering Agents": {
+      "performed": "Yes",
+      "Method details": "Articles filtered by keywords in titles/abstracts and metadata to ensure relevance to psychology.",
+      "Inputs": "PMC Open Access Subset and other journal metadata.",
+      "Outputs": "A curated set of 43,312 psychology articles.",
+      "Example": "Filtering for 'psychol', 'clin psychol', etc., in titles/abstracts.",
+      "Role in workflow": "Ensures only relevant literature is used for causal extraction."
+    },
+    "Domain-Specific Data Retrieval and Reasoning": {
+      "performed": "Yes",
+      "Method details": "Domain-specific keyword and metadata filtering for psychology and neuroscience.",
+      "Inputs": "Article metadata and domain-specific keywords.",
+      "Outputs": "Subset of articles focused on psychology/neuroscience.",
+      "Example": "Selection based on journal titles containing 'Psychol'.",
+      "Role in workflow": "Aligns data retrieval with the domain of interest."
+    },
+    "Code-Driven or Tool-Augmented Data Retrieval": {
+      "performed": "Yes",
+      "Method details": "PyPDF2 Python library used to extract and clean full-text from PDFs.",
+      "Inputs": "PDF files of selected articles.",
+      "Outputs": "Cleaned text (titles, abstracts, main content) for each article.",
+      "Example": "Automated removal of references and tables from extracted text.",
+      "Role in workflow": "Prepares raw text for causal pair extraction."
+    },
+    "Literature data Retrieval Citation-Network–Based Expansion": {
+      "performed": "No"
+    },
+    "Literature data Retrieval via Semantic and Similarity-Based analysis": {
+      "performed": "No"
+    },
+    "Literature data Retrieval via Multi-Step Reference and Evidence Selection": {
+      "performed": "No"
+    },
+    "Domain-Specific Literature data Retrieval": {
+      "performed": "Yes",
+      "Method details": "Articles selected based on domain-specific keywords and journal metadata.",
+      "Inputs": "Article metadata, domain keywords.",
+      "Outputs": "Psychology-focused article set.",
+      "Example": "Filtering for 'psychol' in journal titles.",
+      "Role in workflow": "Ensures literature is relevant to the psychological domain."
+    },
+    "Manual and Semi-Automatic Curation of Literature data": {
+      "performed": "No"
+    },
+    "Structural or Similarity-Based Dataset Retrieval": {
+      "performed": "No"
+    },
+    "Data Retrieval via Domain-Specific Repository Querying": {
+      "performed": "Yes",
+      "Method details": "PMC Open Access Subset used as the main repository for article retrieval.",
+      "Inputs": "PMC Open Access Subset.",
+      "Outputs": "Download of full-text XML articles.",
+      "Example": "Over 2 million articles available; ~140k initially filtered, 43,312 selected.",
+      "Role in workflow": "Provides the primary literature corpus for downstream processing."
+    },
+    "Library Assembly and Data Augmentation": {
+      "performed": "No"
+    }
+  },
+  "Knowledge Assembly": {
+    "performed": "Yes",
+    "Standardized Section Extraction from Literature data": {
+      "performed": "Yes",
+      "Method details": "Extraction and concatenation of titles, abstracts, and main content; removal of references/tables.",
+      "Inputs": "Full-text PDFs.",
+      "Outputs": "Cleaned, standardized article text.",
+      "Example": "PyPDF2 and regex used to segment and clean article sections.",
+      "Role in workflow": "Prepares consistent input for causal extraction."
+    },
+    "Concise Synopsis and Summarization of Literature data": {
+      "performed": "No"
+    },
+    "Facet-Based or Field-Specific Extraction from Literature data": {
+      "performed": "No"
+    },
+    "Domain-Tailored Extraction from Literature data": {
+      "performed": "Yes",
+      "Method details": "GPT-4 prompted to extract causal and correlational relationships from article text.",
+      "Inputs": "Cleaned article text.",
+      "Outputs": "Standardized causal pairs in JSON format.",
+      "Example": "Prompted extraction of [cause, effect] pairs with relationship type and polarity.",
+      "Role in workflow": "Transforms unstructured text into structured causal knowledge."
+    },
+    "Task/Entity-Centric Knowledge Graphs": {
+      "performed": "No"
+    },
+    "Causal or Relation-Specific Knowledge Graphs": {
+      "performed": "Yes",
+      "Method details": "Causal pairs stored as nodes and directed edges in a Neo4j graph database.",
+      "Inputs": "Extracted causal pairs.",
+      "Outputs": "Causal knowledge graph with 197k concepts and 235k connections.",
+      "Example": "Nodes: 'depression', 'well-being'; Edge: 'depression' → 'well-being'.",
+      "Role in workflow": "Enables graph-based reasoning and link prediction for hypothesis generation."
+    },
+    "Biomedical or Domain-Specific Interaction Graphs": {
+      "performed": "No"
+    },
+    "Literature Database Construction": {
+      "performed": "No"
+    },
+    "Entity- or Co-Occurrence–Based Databases": {
+      "performed": "No"
+    },
+    "Reasoning-Chain or Temporal Databases for Literature": {
+      "performed": "No"
+    }
+  },
+  "Hypothesis/Idea Generation": {
+    "performed": "Yes",
+    "Idea/hypothesis generation without additional literature or dataset as context": {
+      "performed": "Yes",
+      "Method details": "LLMs (GPT-4, Claude-2) prompted directly to generate hypotheses on well-being without external literature context.",
+      "Inputs": "Prompt instructions only.",
+      "Outputs": "Hypotheses generated from LLM internal knowledge.",
+      "Example": "Claude-2 generated 50 hypotheses per prompt; GPT-4 generated 60 hypotheses.",
+      "Role in workflow": "Provides a baseline for comparison with literature/graph-based methods."
+    },
+    "LLM Agent Generate ideas/hypotheses via Task Decomposition": {
+      "performed": "No"
+    },
+    "Generate ideas/hypotheses using Domain-Specialized LLM Agent": {
+      "performed": "No"
+    },
+    "Literature data used during idea/hypothesis generation as context": {
+      "performed": "No"
+    },
+    "Summarization Literature data used during idea/hypothesis generation": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation via Facet Recombination": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation via contructed Reasoning-Chain from literature": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation via Knowledge Graph developed from literature": {
+      "performed": "Yes",
+      "Method details": "Link prediction (node2vec, Jaccard similarity) on the causal graph identifies high-probability novel causal pairs; GPT-4 generates hypotheses for these pairs.",
+      "Inputs": "Causal knowledge graph, node embeddings.",
+      "Outputs": "Novel hypotheses connecting previously unlinked concepts.",
+      "Example": "Hypothesis: 'Divergent thinking exercises can expand one’s sense of self and purpose, enhancing well-being.'",
+      "Role in workflow": "Automates discovery of novel, plausible hypotheses grounded in literature-derived structure."
+    },
+    "Idea/hypothesis generation via Pattern Detection from dataset": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation via Few-Shot Data Seeding": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation using Observational data": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation via Feature-Driven Property Prediction": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation after Fine-Tuning the LLM model": {
+      "performed": "No"
+    }
+  },
+  "Hypothesis/Idea Prioritization": {
+    "performed": "Yes",
+    "LLM-based Hypothesis/Idea evaluation via Scientific Quality": {
+      "performed": "Yes",
+      "Method details": "GPT-4 used to evaluate and select the most innovative, relevant, and academically valuable hypotheses from Claude-2 outputs.",
+      "Inputs": "LLM-generated hypotheses.",
+      "Outputs": "Top 30 hypotheses per group for evaluation.",
+      "Example": "GPT-4 filtered 50 Claude-2 hypotheses to select the best 30.",
+      "Role in workflow": "Ensures only high-quality hypotheses are compared and evaluated."
+    },
+    "LLM-based Hypothesis/Idea evaluation via Domain-Specific Evaluation": {
+      "performed": "No"
+    },
+    "LLM-based Hypothesis/Idea evaluation via Contextual Evidence Scoring": {
+      "performed": "No"
+    },
+    "LLM-based Hypothesis/Idea evaluation via Interpretability or Success Metrics": {
+      "performed": "No"
+    },
+    "Hypothesis/Idea evaluation via Novelty Checking with Literature Comparison": {
+      "performed": "Yes",
+      "Method details": "Hypotheses checked for novelty by comparing to existing literature and causal graph connections.",
+      "Inputs": "Generated hypotheses, literature-derived causal graph.",
+      "Outputs": "Novelty scores and identification of previously undocumented hypotheses.",
+      "Example": "Hypotheses not present in the literature or graph considered novel.",
+      "Role in workflow": "Quantifies the originality of generated hypotheses."
+    },
+    "Hypothesis/Idea evaluation via Alignment with Literature Chains": {
+      "performed": "No"
+    },
+    "Hypothesis/Idea evaluation via Knowledge-Graph Grounded Similarity Metrics": {
+      "performed": "Yes",
+      "Method details": "BERT embeddings and t-SNE used to analyze semantic similarity and diversity among hypotheses.",
+      "Inputs": "Hypothesis text, BERT model.",
+      "Outputs": "Semantic distance metrics and visualizations.",
+      "Example": "t-SNE plots show clustering and dispersion of hypotheses by group.",
+      "Role in workflow": "Assesses conceptual diversity and alignment with knowledge graph structure."
+    },
+    "Hypothesis/Idea evaluation via Quantitative Assessment Using Domain Metrics": {
+      "performed": "No"
+    },
+    "Hypothesis/Idea evaluation via Human/Expert": {
+      "performed": "Yes",
+      "Method details": "Three psychology professors rated hypotheses for novelty and usefulness using a standardized questionnaire.",
+      "Inputs": "Generated hypotheses.",
+      "Outputs": "Expert ratings and statistical analysis of novelty/usefulness.",
+      "Example": "Boxplots and ANOVA of expert scores for each group.",
+      "Role in workflow": "Provides human-grounded assessment of hypothesis quality."
+    }
+  },
+  "Test": {
+    "performed": "No",
+    "Experimental Design Generation via literature-Grounded Model/Protocol Selection": {
+      "performed": "No"
+    },
+    "Experimental Design Generation via Literature Synthesis for New Protocol Generation": {
+      "performed": "No"
+    },
+    "Experimental Design Generation via Few-Shot or Example-Based Prompting": {
+      "performed": "No"
+    },
+    "Experimental Design Generation via Executable Code Generation from Literature": {
+      "performed": "No"
+    },
+    "LLM-Based Experimental Design Generation via Agentic Exploration and Planning": {
+      "performed": "No"
+    },
+    "LLM-Based Experimental Design Generation via Code and Workflow Translation": {
+      "performed": "No"
+    },
+    "LLM-Based Experimental Design Generation via Multi-Agent Planning with Specialized Roles": {
+      "performed": "No"
+    },
+    "LLM-Based Experimental Design Generation via Domain-Specific Experimental Mapping": {
+      "performed": "No"
+    },
+    "Test Execution via Human-in-the-Loop": {
+      "performed": "No"
+    },
+    "Test Execution via Automated Wet-Lab Execution": {
+      "performed": "No"
+    },
+    "Test Execution via Computational or In-Silico": {
+      "performed": "No"
+    },
+    "Refinement via LLM Agent Feedback Loops": {
+      "performed": "No"
+    },
+    "Refinement via Automated Quality Evaluation using Model-Based Critics": {
+      "performed": "No"
+    },
+    "Refinement via Dynamic Agent Updating Based on Evolving Context or Data": {
+      "performed": "No"
+    },
+    "Refinement via guided by computational-data": {
+      "performed": "No"
+    },
+    "Refinement via experimental validation": {
+      "performed": "No"
+    },
+    "Refinement via Performance-metric": {
+      "performed": "No"
+    },
+    "Refinement via Human–data integration": {
+      "performed": "No"
+    }
+  },
+  "paper_title": "Automating psychological hypothesis generation with AI: when large language models meet causal graph",
+  "authors": [
+    "Song",
+    "Kai",
+    "Zhen",
+    "Yukun",
+    "Kaiping"
+  ],
+  "published": "2024-07-09",
+  "link": "http://arxiv.org/abs/2402.14424"
+}

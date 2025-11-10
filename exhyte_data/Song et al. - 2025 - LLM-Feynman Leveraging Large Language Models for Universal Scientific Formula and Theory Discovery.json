@@ -1,0 +1,373 @@
+{
+  "Inputs to the workflow": {
+    "performed": "Yes",
+    "User provide high-level research direction or goal": {
+      "performed": "Yes",
+      "Format": "Research problem statements and scientific discovery objectives.",
+      "Example": "Automated discovery of interpretable scientific formulas from data and domain knowledge.",
+      "Role in workflow": "Defines the overall aim for the LLM-Feynman framework to derive generalizable scientific formulas."
+    },
+    "User provide structured, domain-specific specifications": {
+      "performed": "Yes",
+      "Format": "Material features, target values, physical meanings, and dimensions.",
+      "Example": "Material features X, target values y, and their physical meanings/dimensions for materials science tasks.",
+      "Role in workflow": "Provides domain constraints and context for formula discovery and feature engineering."
+    },
+    "User provide research papers": {
+      "performed": "Yes",
+      "Format": "Scientific papers (PDFs or text) for data extraction.",
+      "Example": "360 papers scraped for extracting experimentally synthesized 2D material compositions.",
+      "Role in workflow": "Source for positive examples in synthesizability prediction; supports dataset construction."
+    },
+    "User provide datasets other than research papers": {
+      "performed": "Yes",
+      "Format": "Structured datasets (CSV, database tables) of material properties.",
+      "Example": "DFT calculation data for single-atom catalysts, experimental datasets for ionic conductivity and GW bandgaps.",
+      "Role in workflow": "Primary input for regression/classification tasks and formula discovery."
+    },
+    "User provide representations or formal inputs": {
+      "performed": "Yes",
+      "Format": "Physical meanings, dimensions, and descriptors; Python function representations.",
+      "Example": "Features with associated physical meanings and dimensions; formulas as Python functions.",
+      "Role in workflow": "Guides LLM prompts and symbolic regression; ensures interpretability and domain alignment."
+    }
+  },
+  "Query Structuring": {
+    "performed": "Yes",
+    "Query Decomposition": {
+      "performed": "No"
+    },
+    "Structural or Entity Decomposition": {
+      "performed": "Yes",
+      "Method details": "Feature engineering decomposes materials into compositional and structural descriptors using Automatminer and LLM-guided matching.",
+      "Inputs": "Material compositions and structures.",
+      "Outputs": "Sets of features (e.g., coordination number, valence electrons, atomic radii).",
+      "Example": "Six features computed for single-atom catalysts, including coordination number and electronegativity.",
+      "Role in workflow": "Enables feature-level reasoning and property prediction for formula discovery."
+    },
+    "Workflow Decomposition": {
+      "performed": "No"
+    },
+    "Textual or Knowledge Embedding": {
+      "performed": "Yes",
+      "Method details": "LLMs generate and embed physical meanings and dimensions for features and targets via structured prompts.",
+      "Inputs": "Feature names, target names.",
+      "Outputs": "Textual descriptions of physical meanings and dimensions.",
+      "Example": "LLM generates physical meanings and dimensions for features in the feature engineering pipeline.",
+      "Role in workflow": "Supports interpretability and domain knowledge integration in formula generation."
+    },
+    "Molecular or Chemical Embedding": {
+      "performed": "No"
+    },
+    "Biological or Phenotypic Embedding": {
+      "performed": "No"
+    },
+    "Pattern and Feature Extraction": {
+      "performed": "Yes",
+      "Method details": "Automatminer and mutual information screening extract informative features from raw data.",
+      "Inputs": "Raw material datasets.",
+      "Outputs": "Selected features relevant to prediction tasks.",
+      "Example": "1,200 features generated, 52 selected for 2D materials synthesizability task.",
+      "Role in workflow": "Reduces dimensionality and focuses on relevant empirical patterns for downstream modeling."
+    },
+    "Biological Relationship Extraction": {
+      "performed": "No"
+    },
+    "Property and Annotation Extraction": {
+      "performed": "Yes",
+      "Method details": "LLM and Automatminer extract and annotate physical properties and dimensions for features.",
+      "Inputs": "Material features and targets.",
+      "Outputs": "Annotated features with physical property descriptions.",
+      "Example": "Features enhanced with automatically generated physical meanings and dimensions.",
+      "Role in workflow": "Improves interpretability and supports domain-informed formula discovery."
+    },
+    "Sequence and Structure Feature Extraction": {
+      "performed": "Yes",
+      "Method details": "Structural features such as Voronoi coordination, atomic packing, and crystal system indicators are computed.",
+      "Inputs": "Material structures.",
+      "Outputs": "Structural descriptors (e.g., VoroMol, AtomRadPol, TetraSys).",
+      "Example": "Features for GW bandgap prediction include VoroMol and AtomRadPol.",
+      "Role in workflow": "Captures domain-specific structure for regression tasks."
+    }
+  },
+  "Data Retrieval": {
+    "performed": "Yes",
+    "Data Retrieval via Multi-Query Generation and Exploration": {
+      "performed": "No"
+    },
+    "Literature and Data Retrieval via APIs": {
+      "performed": "No"
+    },
+    "Data Retrieval with Prioritization and Filtering Agents": {
+      "performed": "No"
+    },
+    "Domain-Specific Data Retrieval and Reasoning": {
+      "performed": "Yes",
+      "Method details": "LLM-guided feature matching retrieves physically meaningful descriptors from Matminer.",
+      "Inputs": "Material features and Matminer library.",
+      "Outputs": "Matched domain-specific descriptors.",
+      "Example": "LLM suggests descriptors from Matminer for feature engineering.",
+      "Role in workflow": "Ensures features are physically meaningful and relevant to the domain."
+    },
+    "Code-Driven or Tool-Augmented Data Retrieval": {
+      "performed": "Yes",
+      "Method details": "PyPaperBot used to scrape papers; Automatminer and Matminer used for feature extraction.",
+      "Inputs": "Paper URLs, material datasets.",
+      "Outputs": "Extracted compositions, features.",
+      "Example": "360 papers scraped for 2D materials; Automatminer computes features.",
+      "Role in workflow": "Automates data and feature acquisition for downstream tasks."
+    },
+    "Literature data Retrieval Citation-Network–Based Expansion": {
+      "performed": "No"
+    },
+    "Literature data Retrieval via Semantic and Similarity-Based analysis": {
+      "performed": "No"
+    },
+    "Literature data Retrieval via Multi-Step Reference and Evidence Selection": {
+      "performed": "No"
+    },
+    "Domain-Specific Literature data Retrieval": {
+      "performed": "Yes",
+      "Method details": "Structures extracted from ICSD, C2DB, Materials Cloud, and 2DMatPedia databases.",
+      "Inputs": "Material names/compositions.",
+      "Outputs": "Validated 2D material structures.",
+      "Example": "Experimentally synthesized 2D structures reconstructed from ICSD and theoretical databases.",
+      "Role in workflow": "Provides high-quality, domain-specific data for model training and validation."
+    },
+    "Manual and Semi-Automatic Curation of Literature data": {
+      "performed": "Yes",
+      "Method details": "LLM-extracted compositions are manually validated and structures reconstructed.",
+      "Inputs": "LLM-extracted data from papers.",
+      "Outputs": "Curated dataset of synthesized 2D materials.",
+      "Example": "Manual validation of 151 synthesized 2D structures.",
+      "Role in workflow": "Ensures data quality and correctness for downstream analysis."
+    },
+    "Structural or Similarity-Based Dataset Retrieval": {
+      "performed": "No"
+    },
+    "Data Retrieval via Domain-Specific Repository Querying": {
+      "performed": "Yes",
+      "Method details": "Direct queries to ICSD, C2DB, Materials Cloud, and 2DMatPedia for material structures.",
+      "Inputs": "Material identifiers.",
+      "Outputs": "Material structure data.",
+      "Example": "Structures for 2D materials sourced from domain repositories.",
+      "Role in workflow": "Provides authoritative structural data for feature engineering and modeling."
+    },
+    "Library Assembly and Data Augmentation": {
+      "performed": "No"
+    }
+  },
+  "Knowledge Assembly": {
+    "performed": "No"
+  },
+  "Hypothesis/Idea Generation": {
+    "performed": "Yes",
+    "Idea/hypothesis generation without additional literature or dataset as context": {
+      "performed": "Yes",
+      "Method details": "LLMs generate candidate formulas using internal knowledge and structured prompts.",
+      "Inputs": "Features, targets, physical meanings, and dimensions.",
+      "Outputs": "Initial candidate formulas (Python functions).",
+      "Example": "LLM generates N initial formulas for symbolic regression.",
+      "Role in workflow": "Proposes interpretable mathematical relationships for evaluation."
+    },
+    "LLM Agent Generate ideas/hypotheses via Task Decomposition": {
+      "performed": "No"
+    },
+    "Generate ideas/hypotheses using Domain-Specialized LLM Agent": {
+      "performed": "Yes",
+      "Method details": "ChemLLM-20B and LLaMA3-8B, fine-tuned on chemical/material data, generate domain-specific formulas.",
+      "Inputs": "Domain-specific features and targets.",
+      "Outputs": "Formulas tailored to materials science and chemistry.",
+      "Example": "ChemLLM generates formulas for adsorption energy prediction.",
+      "Role in workflow": "Leverages domain expertise for hypothesis generation."
+    },
+    "Literature data used during idea/hypothesis generation as context": {
+      "performed": "No"
+    },
+    "Summarization Literature data used during idea/hypothesis generation": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation via Facet Recombination": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation via contructed Reasoning-Chain from literature": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation via Knowledge Graph developed from literature": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation via Pattern Detection from dataset": {
+      "performed": "Yes",
+      "Method details": "Patterns in datasets are identified via feature engineering and mutual information screening.",
+      "Inputs": "Structured datasets of material properties.",
+      "Outputs": "Empirical patterns and feature sets for formula generation.",
+      "Example": "Mutual information selects features with strong patterns for synthesizability prediction.",
+      "Role in workflow": "Guides LLMs to generate formulas reflecting empirical data patterns."
+    },
+    "Idea/hypothesis generation via Few-Shot Data Seeding": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation using Observational data": {
+      "performed": "Yes",
+      "Method details": "LLM-Feynman uses observed input-output pairs (features and targets) for symbolic regression.",
+      "Inputs": "Empirical datasets (features and targets).",
+      "Outputs": "Formulas mapping features to targets.",
+      "Example": "Formulas for ionic conductivity and GW bandgap derived from observed data.",
+      "Role in workflow": "Grounds hypothesis generation in real-world data."
+    },
+    "Idea/hypothesis generation via Feature-Driven Property Prediction": {
+      "performed": "Yes",
+      "Method details": "Feature selection and engineering drive property prediction via symbolic regression.",
+      "Inputs": "Selected features from materials datasets.",
+      "Outputs": "Predictive formulas for material properties.",
+      "Example": "Formula for 2D material synthesizability based on selected features.",
+      "Role in workflow": "Links empirical features to target properties for hypothesis formation."
+    },
+    "Idea/hypothesis generation after Fine-Tuning the LLM model": {
+      "performed": "Yes",
+      "Method details": "ChemLLM-20B is fine-tuned on chemical/material data for improved hypothesis generation.",
+      "Inputs": "Domain-specific training data.",
+      "Outputs": "Enhanced LLM for formula discovery.",
+      "Example": "ChemLLM outperforms general LLMs in formula accuracy.",
+      "Role in workflow": "Improves relevance and accuracy of generated hypotheses."
+    }
+  },
+  "Hypothesis/Idea Prioritization": {
+    "performed": "Yes",
+    "LLM-based Hypothesis/Idea evaluation via Scientific Quality": {
+      "performed": "Yes",
+      "Method details": "LLM self-evaluates formulas for clarity, scientific relevance, and coherence, assigning interpretability scores.",
+      "Inputs": "Generated formulas.",
+      "Outputs": "Interpretability score S (0 to 1).",
+      "Example": "LLM assigns a score of -72 to a poor explanation, 65 to a refined one.",
+      "Role in workflow": "Filters and prioritizes formulas based on scientific quality."
+    },
+    "LLM-based Hypothesis/Idea evaluation via Domain-Specific Evaluation": {
+      "performed": "Yes",
+      "Method details": "LLM evaluates formulas for physical and chemical interpretability using domain knowledge.",
+      "Inputs": "Formulas, physical meanings, and dimensions.",
+      "Outputs": "Domain-informed interpretability assessment.",
+      "Example": "Formulas required to have clear physical/chemical meaning.",
+      "Role in workflow": "Ensures formulas are aligned with domain principles."
+    },
+    "LLM-based Hypothesis/Idea evaluation via Contextual Evidence Scoring": {
+      "performed": "No"
+    },
+    "LLM-based Hypothesis/Idea evaluation via Interpretability or Success Metrics": {
+      "performed": "Yes",
+      "Method details": "Interpretability score S is combined with accuracy and complexity in a loss function for formula selection.",
+      "Inputs": "Formula accuracy, complexity, interpretability score.",
+      "Outputs": "Loss value for formula ranking.",
+      "Example": "Formulas with lowest loss selected for further processing.",
+      "Role in workflow": "Balances accuracy, simplicity, and interpretability in prioritization."
+    },
+    "Hypothesis/Idea evaluation via Novelty Checking with Literature Comparison": {
+      "performed": "No"
+    },
+    "Hypothesis/Idea evaluation via Alignment with Literature Chains": {
+      "performed": "No"
+    },
+    "Hypothesis/Idea evaluation via Knowledge-Graph Grounded Similarity Metrics": {
+      "performed": "No"
+    },
+    "Hypothesis/Idea evaluation via Quantitative Assessment Using Domain Metrics": {
+      "performed": "Yes",
+      "Method details": "Formulas are quantitatively assessed using metrics such as MAE, R2, accuracy, precision, recall, F1 score.",
+      "Inputs": "Predicted vs. actual values from datasets.",
+      "Outputs": "Quantitative performance metrics.",
+      "Example": "MAE and R2 used to evaluate regression formulas.",
+      "Role in workflow": "Provides objective scoring for formula selection."
+    },
+    "Hypothesis/Idea evaluation via Human/Expert": {
+      "performed": "No"
+    }
+  },
+  "Test": {
+    "performed": "Yes",
+    "Experimental Design Generation via literature-Grounded Model/Protocol Selection": {
+      "performed": "No"
+    },
+    "Experimental Design Generation via Literature Synthesis for New Protocol Generation": {
+      "performed": "No"
+    },
+    "Experimental Design Generation via Few-Shot or Example-Based Prompting": {
+      "performed": "No"
+    },
+    "Experimental Design Generation via Executable Code Generation from Literature": {
+      "performed": "No"
+    },
+    "LLM-Based Experimental Design Generation via Agentic Exploration and Planning": {
+      "performed": "No"
+    },
+    "LLM-Based Experimental Design Generation via Code and Workflow Translation": {
+      "performed": "No"
+    },
+    "LLM-Based Experimental Design Generation via Multi-Agent Planning with Specialized Roles": {
+      "performed": "No"
+    },
+    "LLM-Based Experimental Design Generation via Domain-Specific Experimental Mapping": {
+      "performed": "No"
+    },
+    "Test Execution via Human-in-the-Loop": {
+      "performed": "No"
+    },
+    "Test Execution via Automated Wet-Lab Execution": {
+      "performed": "No"
+    },
+    "Test Execution via Computational or In-Silico": {
+      "performed": "Yes",
+      "Method details": "Formulas are tested on held-out test sets and synthetic data with noise; performance is measured computationally.",
+      "Inputs": "Test datasets, synthetic data.",
+      "Outputs": "Predicted values, performance metrics.",
+      "Example": "Success rates for rediscovering Feynman formulas under noise; R2 and MAE for regression tasks.",
+      "Role in workflow": "Validates hypotheses/formulas computationally."
+    },
+    "Refinement via LLM Agent Feedback Loops": {
+      "performed": "Yes",
+      "Method details": "LLM iteratively generates and self-evaluates new formulas, refining outputs over multiple iterations.",
+      "Inputs": "Current best formulas, loss values, interpretability scores.",
+      "Outputs": "Improved formulas with lower loss.",
+      "Example": "500 iterations of formula generation and self-evaluation.",
+      "Role in workflow": "Enables iterative improvement of hypotheses/formulas."
+    },
+    "Refinement via Automated Quality Evaluation using Model-Based Critics": {
+      "performed": "No"
+    },
+    "Refinement via Dynamic Agent Updating Based on Evolving Context or Data": {
+      "performed": "No"
+    },
+    "Refinement via guided by computational-data": {
+      "performed": "Yes",
+      "Method details": "Formulas are refined based on computational evaluation of loss, accuracy, and interpretability metrics.",
+      "Inputs": "Performance metrics from test execution.",
+      "Outputs": "Updated formulas with improved metrics.",
+      "Example": "Pareto frontier analysis selects formulas balancing accuracy and complexity.",
+      "Role in workflow": "Guides formula refinement using computational feedback."
+    },
+    "Refinement via experimental validation": {
+      "performed": "No"
+    },
+    "Refinement via Performance-metric": {
+      "performed": "Yes",
+      "Method details": "Refinement is guided by quantifiable metrics (accuracy, MAE, R2, F1 score) from computational tests.",
+      "Inputs": "Performance metrics from test datasets.",
+      "Outputs": "Formulas with optimal performance.",
+      "Example": "Selection of formulas at the lower-left corner of Pareto frontiers.",
+      "Role in workflow": "Ensures only high-performing formulas are retained."
+    },
+    "Refinement via Human–data integration": {
+      "performed": "No"
+    }
+  },
+  "paper_title": "LLM-Feynman: Leveraging Large Language Models for Universal Scientific Formula and Theory Discovery",
+  "authors": [
+    "Zhilong",
+    "Qionghua",
+    "Chunjin",
+    "Chongyi",
+    "Minggang",
+    "Jinlan"
+  ],
+  "published": "2025-07-25",
+  "link": "http://arxiv.org/abs/2503.06512"
+}

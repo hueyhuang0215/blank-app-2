@@ -1,0 +1,305 @@
+{
+  "Inputs to the workflow": {
+    "performed": "Yes",
+    "User provide high-level research direction or goal": {
+      "performed": "Yes",
+      "Format": "Research problem statement and motivation",
+      "Example": "Goal to discover interpretable factors linking street view imagery to road safety outcomes in urban environments.",
+      "Role in workflow": "Defines the scope for automated hypothesis generation and evaluation."
+    },
+    "User provide structured, domain-specific specifications": {
+      "performed": "No"
+    },
+    "User provide research papers": {
+      "performed": "No"
+    },
+    "User provide datasets other than research papers": {
+      "performed": "Yes",
+      "Format": "Structured datasets: street view images, crash records, traffic volume, road segment data",
+      "Example": "16,000 training, 2,000 validation, and 2,000 test street view images with associated crash rates for Manhattan road segments.",
+      "Role in workflow": "Provides empirical basis for hypothesis testing and model evaluation."
+    },
+    "User provide representations or formal inputs": {
+      "performed": "No"
+    }
+  },
+  "Query Structuring": {
+    "performed": "Yes",
+    "Query Decomposition": {
+      "performed": "Yes",
+      "Method details": "LLM generates a set of natural-language, categorical hypotheses (questions) about visual features relevant to crash risk.",
+      "Inputs": "Research goal and prior hypothesis set with statistical feedback.",
+      "Outputs": "List of interpretable, visually-grounded questions (hypotheses) for each iteration.",
+      "Example": "Hypo_0: Is the road surface marked with visible lane lines? Hypo_1: Is there a pedestrian crossing visible?",
+      "Role in workflow": "Breaks down the broad research question into actionable, testable sub-queries for MLLM evaluation."
+    },
+    "Structural or Entity Decomposition": {
+      "performed": "No"
+    },
+    "Workflow Decomposition": {
+      "performed": "No"
+    },
+    "Textual or Knowledge Embedding": {
+      "performed": "No"
+    },
+    "Molecular or Chemical Embedding": {
+      "performed": "No"
+    },
+    "Biological or Phenotypic Embedding": {
+      "performed": "No"
+    },
+    "Pattern and Feature Extraction": {
+      "performed": "Yes",
+      "Method details": "MLLMs extract categorical features from street view images by answering generated hypotheses.",
+      "Inputs": "Street view images and hypothesis set.",
+      "Outputs": "Interpretable embedding vectors (categorical feature arrays) for each image.",
+      "Example": "For each image, MLLM outputs binary/categorical answers to 50 hypotheses, forming a feature vector.",
+      "Role in workflow": "Transforms unstructured visual data into structured, hypothesis-aligned features for statistical modeling."
+    },
+    "Biological Relationship Extraction": {
+      "performed": "No"
+    },
+    "Property and Annotation Extraction": {
+      "performed": "No"
+    },
+    "Sequence and Structure Feature Extraction": {
+      "performed": "No"
+    }
+  },
+  "Data Retrieval": {
+    "performed": "Yes",
+    "Data Retrieval via Multi-Query Generation and Exploration": {
+      "performed": "No"
+    },
+    "Literature and Data Retrieval via APIs": {
+      "performed": "Yes",
+      "Method details": "Street view images retrieved via Google Street View API; crash and traffic data from NYC Open Data and NY State DOT.",
+      "Inputs": "Road network segment list for Manhattan.",
+      "Outputs": "Panoramic images, crash records, traffic volumes for each segment.",
+      "Example": "Images sampled every 15 meters along road centerlines using Google Street View API.",
+      "Role in workflow": "Provides the raw visual and tabular data for hypothesis testing and model training."
+    },
+    "Data Retrieval with Prioritization and Filtering Agents": {
+      "performed": "No"
+    },
+    "Domain-Specific Data Retrieval and Reasoning": {
+      "performed": "No"
+    },
+    "Code-Driven or Tool-Augmented Data Retrieval": {
+      "performed": "No"
+    },
+    "Literature data Retrieval Citation-Network–Based Expansion": {
+      "performed": "No"
+    },
+    "Literature data Retrieval via Semantic and Similarity-Based analysis": {
+      "performed": "No"
+    },
+    "Literature data Retrieval via Multi-Step Reference and Evidence Selection": {
+      "performed": "No"
+    },
+    "Domain-Specific Literature data Retrieval": {
+      "performed": "No"
+    },
+    "Manual and Semi-Automatic Curation of Literature data": {
+      "performed": "No"
+    },
+    "Structural or Similarity-Based Dataset Retrieval": {
+      "performed": "No"
+    },
+    "Data Retrieval via Domain-Specific Repository Querying": {
+      "performed": "Yes",
+      "Method details": "Crash and traffic data retrieved from NYC Open Data and NY State DOT repositories.",
+      "Inputs": "Road segment identifiers.",
+      "Outputs": "Crash rates, traffic volumes, segment lengths.",
+      "Example": "Crash records from NYC Open Data, traffic volume from NY State DOT.",
+      "Role in workflow": "Supplies ground-truth outcome variables for model evaluation."
+    },
+    "Library Assembly and Data Augmentation": {
+      "performed": "No"
+    }
+  },
+  "Knowledge Assembly": {
+    "performed": "No"
+  },
+  "Hypothesis/Idea Generation": {
+    "performed": "Yes",
+    "Idea/hypothesis generation without additional literature or dataset as context": {
+      "performed": "Yes",
+      "Method details": "LLM (GPT-4o) generates new hypotheses as natural-language questions about visual features, using only its internal knowledge and prior statistical feedback.",
+      "Inputs": "Research goal, prior hypothesis set, and p-values from regression.",
+      "Outputs": "List of new, interpretable hypotheses (questions) for MLLM evaluation.",
+      "Example": "Hypo_16: Are there any visible advertisements or billboards? 0: Yes, 1: No",
+      "Role in workflow": "Automates the proposal of candidate explanatory variables for empirical testing."
+    },
+    "LLM Agent Generate ideas/hypotheses via Task Decomposition": {
+      "performed": "No"
+    },
+    "Generate ideas/hypotheses using Domain-Specialized LLM Agent": {
+      "performed": "No"
+    },
+    "Literature data used during idea/hypothesis generation as context": {
+      "performed": "No"
+    },
+    "Summarization Literature data used during idea/hypothesis generation": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation via Facet Recombination": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation via contructed Reasoning-Chain from literature": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation via Knowledge Graph developed from literature": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation via Pattern Detection from dataset": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation via Few-Shot Data Seeding": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation using Observational data": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation via Feature-Driven Property Prediction": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation after Fine-Tuning the LLM model": {
+      "performed": "No"
+    }
+  },
+  "Hypothesis/Idea Prioritization": {
+    "performed": "Yes",
+    "LLM-based Hypothesis/Idea evaluation via Scientific Quality": {
+      "performed": "Yes",
+      "Method details": "LLM prompt includes reasoning about strengths and gaps of existing hypotheses, guiding generation of new, diverse, and relevant questions.",
+      "Inputs": "Prior hypothesis set and their statistical significance (p-values).",
+      "Outputs": "Refined set of hypotheses with improved relevance and diversity.",
+      "Example": "Prompt asks LLM to reflect on gaps and propose new directions for expansion.",
+      "Role in workflow": "Ensures generated hypotheses are interpretable, non-redundant, and empirically plausible."
+    },
+    "LLM-based Hypothesis/Idea evaluation via Domain-Specific Evaluation": {
+      "performed": "No"
+    },
+    "LLM-based Hypothesis/Idea evaluation via Contextual Evidence Scoring": {
+      "performed": "No"
+    },
+    "LLM-based Hypothesis/Idea evaluation via Interpretability or Success Metrics": {
+      "performed": "Yes",
+      "Method details": "LLM is instructed to generate hypotheses that are visually observable, unique, and interpretable, with explicit design guidelines in the prompt.",
+      "Inputs": "Prompt with design guidelines and prior hypotheses.",
+      "Outputs": "Hypotheses that are answerable from images and semantically clear.",
+      "Example": "Design guidelines: avoid vague, subjective, or ambiguous terms; focus on concrete visual concepts.",
+      "Role in workflow": "Promotes generation of hypotheses that are suitable for transparent, interpretable modeling."
+    },
+    "Hypothesis/Idea evaluation via Novelty Checking with Literature Comparison": {
+      "performed": "No"
+    },
+    "Hypothesis/Idea evaluation via Alignment with Literature Chains": {
+      "performed": "No"
+    },
+    "Hypothesis/Idea evaluation via Knowledge-Graph Grounded Similarity Metrics": {
+      "performed": "No"
+    },
+    "Hypothesis/Idea evaluation via Quantitative Assessment Using Domain Metrics": {
+      "performed": "Yes",
+      "Method details": "Statistical significance of each hypothesis is assessed via regression coefficients and p-values; SHAP values quantify predictive contribution.",
+      "Inputs": "Embedding matrix of hypothesis answers and crash rates.",
+      "Outputs": "p-values for each hypothesis, SHAP value rankings.",
+      "Example": "Hypotheses with p > 0.05 are pruned; SHAP summary plot ranks feature importance.",
+      "Role in workflow": "Filters and prioritizes hypotheses based on empirical evidence and predictive value."
+    },
+    "Hypothesis/Idea evaluation via Human/Expert": {
+      "performed": "Yes",
+      "Method details": "Manual audit of MLLM answers for a sample of hypotheses/images by a transportation expert.",
+      "Inputs": "MLLM-generated answers for hypotheses on sample images.",
+      "Outputs": "Labels: correct, partially correct, incorrect; error analysis.",
+      "Example": "Expert checks if MLLM correctly identifies lane markings, crosswalks, etc.",
+      "Role in workflow": "Validates reliability of automated feature extraction and identifies error sources."
+    }
+  },
+  "Test": {
+    "performed": "Yes",
+    "Experimental Design Generation via literature-Grounded Model/Protocol Selection": {
+      "performed": "No"
+    },
+    "Experimental Design Generation via Literature Synthesis for New Protocol Generation": {
+      "performed": "No"
+    },
+    "Experimental Design Generation via Few-Shot or Example-Based Prompting": {
+      "performed": "No"
+    },
+    "Experimental Design Generation via Executable Code Generation from Literature": {
+      "performed": "No"
+    },
+    "LLM-Based Experimental Design Generation via Agentic Exploration and Planning": {
+      "performed": "No"
+    },
+    "LLM-Based Experimental Design Generation via Code and Workflow Translation": {
+      "performed": "No"
+    },
+    "LLM-Based Experimental Design Generation via Multi-Agent Planning with Specialized Roles": {
+      "performed": "No"
+    },
+    "LLM-Based Experimental Design Generation via Domain-Specific Experimental Mapping": {
+      "performed": "No"
+    },
+    "Test Execution via Human-in-the-Loop": {
+      "performed": "No"
+    },
+    "Test Execution via Automated Wet-Lab Execution": {
+      "performed": "No"
+    },
+    "Test Execution via Computational or In-Silico": {
+      "performed": "Yes",
+      "Method details": "Linear regression and LightGBM models are trained and evaluated on hypothesis-derived embeddings to predict crash rates.",
+      "Inputs": "Embedding matrix (MLLM answers to hypotheses), crash rates.",
+      "Outputs": "Predicted crash rates, regression coefficients, p-values, SHAP values.",
+      "Example": "Model performance compared to ResNet and ViT baselines using RMSE, MAE, R2.",
+      "Role in workflow": "Empirically tests the explanatory power of generated hypotheses and validates the framework."
+    },
+    "Refinement via LLM Agent Feedback Loops": {
+      "performed": "No"
+    },
+    "Refinement via Automated Quality Evaluation using Model-Based Critics": {
+      "performed": "No"
+    },
+    "Refinement via Dynamic Agent Updating Based on Evolving Context or Data": {
+      "performed": "No"
+    },
+    "Refinement via guided by computational-data": {
+      "performed": "Yes",
+      "Method details": "Hypotheses with non-significant regression coefficients (p > 0.05) are pruned; new hypotheses are generated to replace them, guided by statistical feedback.",
+      "Inputs": "Regression p-values for each hypothesis.",
+      "Outputs": "Updated hypothesis set for next iteration.",
+      "Example": "Iterative loop: prune insignificant hypotheses, generate new ones, repeat until convergence.",
+      "Role in workflow": "Ensures only empirically supported hypotheses are retained, improving model interpretability and accuracy."
+    },
+    "Refinement via experimental validation": {
+      "performed": "No"
+    },
+    "Refinement via Performance-metric": {
+      "performed": "Yes",
+      "Method details": "Model performance (RMSE, MAE, R2) on validation set is used to decide whether to retain new hypotheses.",
+      "Inputs": "Predicted vs. actual crash rates on validation data.",
+      "Outputs": "Selection of hypothesis set that improves predictive performance.",
+      "Example": "New hypotheses are kept only if they improve validation performance.",
+      "Role in workflow": "Prevents overfitting and ensures practical utility of discovered variables."
+    },
+    "Refinement via Human–data integration": {
+      "performed": "No"
+    }
+  },
+  "paper_title": "From Street Views to Urban Science: Discovering Road Safety Factors with Multimodal Large Language Models",
+  "authors": [
+    "Yihong",
+    "Ao",
+    "Xujing",
+    "Weipeng",
+    "Jun",
+    "Jinhua",
+    "Lijun"
+  ],
+  "published": "2025-06-17",
+  "link": "http://arxiv.org/abs/2506.02242"
+}

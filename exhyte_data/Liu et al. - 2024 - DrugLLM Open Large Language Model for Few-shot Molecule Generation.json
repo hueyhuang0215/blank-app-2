@@ -1,0 +1,351 @@
+{
+  "Inputs to the workflow": {
+    "performed": "Yes",
+    "User provide high-level research direction or goal": {
+      "performed": "Yes",
+      "Format": "Research problem statement and motivation for few-shot molecule generation in drug design.",
+      "Example": "The paper aims to enable few-shot molecule optimization for drug discovery, addressing data scarcity and the need for efficient molecular design.",
+      "Role in workflow": "Defines the overall objective and scope for developing DrugLLM."
+    },
+    "User provide structured, domain-specific specifications": {
+      "performed": "Yes",
+      "Format": "Molecular properties or activities (e.g., LogP, solubility, TPSA, biological activity) as optimization targets.",
+      "Example": "Optimization tasks for LogP, solubility, synthetic accessibility, and biological activities are specified.",
+      "Role in workflow": "Guides the model to generate molecules with desired properties."
+    },
+    "User provide research papers": {
+      "performed": "No"
+    },
+    "User provide datasets other than research papers": {
+      "performed": "Yes",
+      "Format": "Tabular datasets from ZINC and ChEMBL containing molecules and their properties/activities.",
+      "Example": "Over 25 million modification paragraphs and 200 million molecules from ZINC and ChEMBL.",
+      "Role in workflow": "Provides training and evaluation data for DrugLLM."
+    },
+    "User provide representations or formal inputs": {
+      "performed": "Yes",
+      "Format": "SMILES strings and Group-based Molecular Representation (GMR) strings.",
+      "Example": "Molecules are encoded as GMR strings for model input.",
+      "Role in workflow": "Enables structured, model-friendly molecular input for training and generation."
+    }
+  },
+  "Query Structuring": {
+    "performed": "Yes",
+    "Query Decomposition": {
+      "performed": "No"
+    },
+    "Structural or Entity Decomposition": {
+      "performed": "Yes",
+      "Method details": "Molecules are decomposed into structural groups for GMR encoding, using ring extraction and C–C bond breaking.",
+      "Inputs": "SMILES strings of molecules.",
+      "Outputs": "List of structural groups and their connections (GMR encoding).",
+      "Example": "A molecule is split into ring and non-ring groups, each assigned a unique identifier.",
+      "Role in workflow": "Facilitates group-based molecular representation and downstream model processing."
+    },
+    "Workflow Decomposition": {
+      "performed": "No"
+    },
+    "Textual or Knowledge Embedding": {
+      "performed": "No"
+    },
+    "Molecular or Chemical Embedding": {
+      "performed": "No"
+    },
+    "Biological or Phenotypic Embedding": {
+      "performed": "No"
+    },
+    "Pattern and Feature Extraction": {
+      "performed": "Yes",
+      "Method details": "Extraction of molecular properties (e.g., LogP, solubility, TPSA) from datasets using Python scripts and clustering by scaffolds.",
+      "Inputs": "Tabular molecular datasets with properties.",
+      "Outputs": "Property values and clusters of similar molecules.",
+      "Example": "Clustering molecules by scaffold similarity (>0.6) and extracting property values for paragraph construction.",
+      "Role in workflow": "Enables construction of modification paragraphs and property-based training tasks."
+    },
+    "Biological Relationship Extraction": {
+      "performed": "No"
+    },
+    "Property and Annotation Extraction": {
+      "performed": "Yes",
+      "Method details": "Extraction of real-valued molecular properties and biological activities from ZINC and ChEMBL.",
+      "Inputs": "ZINC and ChEMBL datasets.",
+      "Outputs": "Annotated molecules with property/activity labels.",
+      "Example": "Assigning Ki values or LogP to molecules for use in training and evaluation.",
+      "Role in workflow": "Provides ground truth for model learning and evaluation."
+    },
+    "Sequence and Structure Feature Extraction": {
+      "performed": "No"
+    }
+  },
+  "Data Retrieval": {
+    "performed": "Yes",
+    "Data Retrieval via Multi-Query Generation and Exploration": {
+      "performed": "No"
+    },
+    "Literature and Data Retrieval via APIs": {
+      "performed": "Yes",
+      "Method details": "Bioactivity data from ChEMBL is gathered using the ChEMBL Web resource client.",
+      "Inputs": "ChEMBL API queries.",
+      "Outputs": "Bioactivity tables for molecules.",
+      "Example": "Fetching bioactivity data for molecules with N ≥800 samples from ChEMBL.",
+      "Role in workflow": "Automates acquisition of large-scale bioactivity data for model training."
+    },
+    "Data Retrieval with Prioritization and Filtering Agents": {
+      "performed": "No"
+    },
+    "Domain-Specific Data Retrieval and Reasoning": {
+      "performed": "Yes",
+      "Method details": "Filtering for drug-like molecules and clustering by scaffold similarity; property-based selection for paragraph construction.",
+      "Inputs": "Raw ZINC and ChEMBL datasets.",
+      "Outputs": "Filtered, clustered, and property-annotated molecule sets.",
+      "Example": "Filtering non-drug-like molecules and clustering by scaffold for paragraph generation.",
+      "Role in workflow": "Ensures relevant, high-quality data for model training."
+    },
+    "Code-Driven or Tool-Augmented Data Retrieval": {
+      "performed": "No"
+    },
+    "Literature data Retrieval Citation-Network–Based Expansion": {
+      "performed": "No"
+    },
+    "Literature data Retrieval via Semantic and Similarity-Based analysis": {
+      "performed": "No"
+    },
+    "Literature data Retrieval via Multi-Step Reference and Evidence Selection": {
+      "performed": "No"
+    },
+    "Domain-Specific Literature data Retrieval": {
+      "performed": "No"
+    },
+    "Manual and Semi-Automatic Curation of Literature data": {
+      "performed": "No"
+    },
+    "Structural or Similarity-Based Dataset Retrieval": {
+      "performed": "Yes",
+      "Method details": "Clustering molecules by scaffold similarity (>0.6) for paragraph construction.",
+      "Inputs": "Molecular datasets with structural information.",
+      "Outputs": "Groups of structurally similar molecules.",
+      "Example": "Grouping molecules for modification paragraphs based on scaffold similarity.",
+      "Role in workflow": "Supports construction of meaningful modification sequences for model input."
+    },
+    "Data Retrieval via Domain-Specific Repository Querying": {
+      "performed": "Yes",
+      "Method details": "Direct querying and download from ZINC and ChEMBL repositories.",
+      "Inputs": "ZINC and ChEMBL databases.",
+      "Outputs": "Large-scale molecular datasets.",
+      "Example": "Obtaining 4.5M molecules from ZINC and 180.2M from ChEMBL.",
+      "Role in workflow": "Provides foundational data for model training and evaluation."
+    },
+    "Library Assembly and Data Augmentation": {
+      "performed": "Yes",
+      "Method details": "Combining and augmenting datasets from ZINC and ChEMBL to create a diverse training corpus.",
+      "Inputs": "Multiple molecular datasets.",
+      "Outputs": "25M modification paragraphs, 200M molecules, 10,000+ properties.",
+      "Example": "Assembling a training set with millions of paragraphs and molecules.",
+      "Role in workflow": "Expands data diversity and supports generalization in model training."
+    }
+  },
+  "Knowledge Assembly": {
+    "performed": "No"
+  },
+  "Hypothesis/Idea Generation": {
+    "performed": "Yes",
+    "Idea/hypothesis generation without additional literature or dataset as context": {
+      "performed": "No"
+    },
+    "LLM Agent Generate ideas/hypotheses via Task Decomposition": {
+      "performed": "No"
+    },
+    "Generate ideas/hypotheses using Domain-Specialized LLM Agent": {
+      "performed": "Yes",
+      "Method details": "DrugLLM, a domain-specialized LLM, is trained to generate new molecules with desired properties based on molecular modification history.",
+      "Inputs": "Sequences of molecular modifications (paragraphs) and property descriptions.",
+      "Outputs": "Novel molecules predicted to have improved properties.",
+      "Example": "DrugLLM generates molecules with higher LogP or improved biological activity.",
+      "Role in workflow": "Synthesizes new molecular candidates tailored to specified optimization tasks."
+    },
+    "Literature data used during idea/hypothesis generation as context": {
+      "performed": "No"
+    },
+    "Summarization Literature data used during idea/hypothesis generation": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation via Facet Recombination": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation via contructed Reasoning-Chain from literature": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation via Knowledge Graph developed from literature": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation via Pattern Detection from dataset": {
+      "performed": "Yes",
+      "Method details": "DrugLLM learns modification patterns from sequences of molecular changes and applies them to generate new molecules.",
+      "Inputs": "Few-shot examples of molecular modifications.",
+      "Outputs": "Molecules with predicted improved properties.",
+      "Example": "Given K pairs of modifications, DrugLLM generates a molecule with higher solubility.",
+      "Role in workflow": "Transfers learned modification patterns to new molecular design tasks."
+    },
+    "Idea/hypothesis generation via Few-Shot Data Seeding": {
+      "performed": "Yes",
+      "Method details": "Few-shot prompting: DrugLLM receives K example modification pairs and a benchmark molecule to generate optimized molecules.",
+      "Inputs": "K example modification pairs, benchmark molecule.",
+      "Outputs": "Optimized molecule(s) with desired property change.",
+      "Example": "Providing 3 modification pairs to guide generation for a new molecule.",
+      "Role in workflow": "Enables few-shot learning and generalization to new optimization tasks."
+    },
+    "Idea/hypothesis generation using Observational data": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation via Feature-Driven Property Prediction": {
+      "performed": "Yes",
+      "Method details": "DrugLLM predicts molecular properties based on structural features and modification history.",
+      "Inputs": "Encoded molecular structures and property annotations.",
+      "Outputs": "Predicted molecules with improved properties.",
+      "Example": "Generating molecules with higher predicted Ki for a protein target.",
+      "Role in workflow": "Links structural features to property optimization in molecule generation."
+    },
+    "Idea/hypothesis generation after Fine-Tuning the LLM model": {
+      "performed": "Yes",
+      "Method details": "DrugLLM is pre-trained and fine-tuned on large-scale molecular modification data.",
+      "Inputs": "25M modification paragraphs, 200M molecules.",
+      "Outputs": "A fine-tuned LLM capable of few-shot and zero-shot molecule generation.",
+      "Example": "DrugLLM outperforms GPT-4 and other baselines after domain-specific training.",
+      "Role in workflow": "Specializes the LLM for drug design and property optimization."
+    }
+  },
+  "Hypothesis/Idea Prioritization": {
+    "performed": "Yes",
+    "LLM-based Hypothesis/Idea evaluation via Scientific Quality": {
+      "performed": "No"
+    },
+    "LLM-based Hypothesis/Idea evaluation via Domain-Specific Evaluation": {
+      "performed": "Yes",
+      "Method details": "Generated molecules are evaluated for success rate and similarity using domain-specific metrics (e.g., LogP, solubility, Ki).",
+      "Inputs": "Generated molecules, property prediction scripts, neural network predictors.",
+      "Outputs": "Success rates, property distributions, similarity scores.",
+      "Example": "DrugLLM achieves higher success rates in optimizing LogP and biological activities than baselines.",
+      "Role in workflow": "Assesses the domain relevance and effectiveness of generated molecules."
+    },
+    "LLM-based Hypothesis/Idea evaluation via Contextual Evidence Scoring": {
+      "performed": "No"
+    },
+    "LLM-based Hypothesis/Idea evaluation via Interpretability or Success Metrics": {
+      "performed": "Yes",
+      "Method details": "Success rate and similarity metrics are used to evaluate the quality of generated molecules.",
+      "Inputs": "Generated molecules, benchmark molecules, property values.",
+      "Outputs": "Quantitative evaluation results (e.g., 75% success rate for LogP optimization).",
+      "Example": "Reporting success rates and similarity distributions for generated molecules.",
+      "Role in workflow": "Provides objective measures of generation quality and optimization success."
+    },
+    "Hypothesis/Idea evaluation via Novelty Checking with Literature Comparison": {
+      "performed": "No"
+    },
+    "Hypothesis/Idea evaluation via Alignment with Literature Chains": {
+      "performed": "No"
+    },
+    "Hypothesis/Idea evaluation via Knowledge-Graph Grounded Similarity Metrics": {
+      "performed": "No"
+    },
+    "Hypothesis/Idea evaluation via Quantitative Assessment Using Domain Metrics": {
+      "performed": "Yes",
+      "Method details": "Evaluation uses domain-specific scripts (e.g., RDKit) and neural predictors for property assessment.",
+      "Inputs": "Generated molecules, property prediction tools.",
+      "Outputs": "Quantitative property values and success rates.",
+      "Example": "Using RDKit to evaluate LogP and TPSA of generated molecules.",
+      "Role in workflow": "Ensures generated molecules meet quantitative optimization targets."
+    },
+    "Hypothesis/Idea evaluation via Human/Expert": {
+      "performed": "No"
+    }
+  },
+  "Test": {
+    "performed": "Yes",
+    "Experimental Design Generation via literature-Grounded Model/Protocol Selection": {
+      "performed": "No"
+    },
+    "Experimental Design Generation via Literature Synthesis for New Protocol Generation": {
+      "performed": "No"
+    },
+    "Experimental Design Generation via Few-Shot or Example-Based Prompting": {
+      "performed": "Yes",
+      "Method details": "Few-shot molecule optimization tasks are constructed by providing K example modification pairs as prompts.",
+      "Inputs": "K example modification pairs, benchmark molecule.",
+      "Outputs": "Prompt for DrugLLM to generate optimized molecules.",
+      "Example": "Nine pairs of modifications used as input for few-shot generation.",
+      "Role in workflow": "Defines the experimental setup for in-silico molecule optimization."
+    },
+    "Experimental Design Generation via Executable Code Generation from Literature": {
+      "performed": "No"
+    },
+    "LLM-Based Experimental Design Generation via Agentic Exploration and Planning": {
+      "performed": "No"
+    },
+    "LLM-Based Experimental Design Generation via Code and Workflow Translation": {
+      "performed": "No"
+    },
+    "LLM-Based Experimental Design Generation via Multi-Agent Planning with Specialized Roles": {
+      "performed": "No"
+    },
+    "LLM-Based Experimental Design Generation via Domain-Specific Experimental Mapping": {
+      "performed": "No"
+    },
+    "Test Execution via Human-in-the-Loop": {
+      "performed": "No"
+    },
+    "Test Execution via Automated Wet-Lab Execution": {
+      "performed": "No"
+    },
+    "Test Execution via Computational or In-Silico": {
+      "performed": "Yes",
+      "Method details": "Generated molecules are evaluated using computational scripts (RDKit, neural predictors) for property assessment.",
+      "Inputs": "Generated molecules, property prediction tools.",
+      "Outputs": "Property values, success rates, similarity scores.",
+      "Example": "Evaluating LogP, solubility, and biological activity of generated molecules in silico.",
+      "Role in workflow": "Validates the effectiveness of generated molecules computationally."
+    },
+    "Refinement via LLM Agent Feedback Loops": {
+      "performed": "No"
+    },
+    "Refinement via Automated Quality Evaluation using Model-Based Critics": {
+      "performed": "No"
+    },
+    "Refinement via Dynamic Agent Updating Based on Evolving Context or Data": {
+      "performed": "No"
+    },
+    "Refinement via guided by computational-data": {
+      "performed": "Yes",
+      "Method details": "Performance metrics from computational evaluation (success rate, similarity) inform model improvement and future work.",
+      "Inputs": "Evaluation results from computational tests.",
+      "Outputs": "Insights for model refinement and limitations.",
+      "Example": "Identifying that DrugLLM supports up to 9 shots due to hardware limits, suggesting future improvements.",
+      "Role in workflow": "Guides iterative improvement of the model based on computational test outcomes."
+    },
+    "Refinement via experimental validation": {
+      "performed": "No"
+    },
+    "Refinement via Performance-metric": {
+      "performed": "Yes",
+      "Method details": "Refinement and future directions are based on observed performance metrics (e.g., success rate, similarity).",
+      "Inputs": "Quantitative evaluation metrics.",
+      "Outputs": "Recommendations for increasing input length and improving GMR.",
+      "Example": "Planning to increase input length for better few-shot learning.",
+      "Role in workflow": "Uses performance data to inform next steps in model development."
+    },
+    "Refinement via Human–data integration": {
+      "performed": "No"
+    }
+  },
+  "paper_title": "DrugLLM: Open Large Language Model for Few-shot Molecule Generation",
+  "authors": [
+    "Xianggen",
+    "Yan",
+    "Haoran",
+    "Jin",
+    "Shudong",
+    "Bowen",
+    "Jiancheng"
+  ],
+  "published": "2024-05-07",
+  "link": "http://arxiv.org/abs/2405.06690"
+}

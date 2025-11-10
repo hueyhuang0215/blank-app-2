@@ -1,0 +1,426 @@
+{
+  "Inputs to the workflow": {
+    "performed": "Yes",
+    "User provide high-level research direction or goal": {
+      "performed": "No"
+    },
+    "User provide structured, domain-specific specifications": {
+      "performed": "No"
+    },
+    "User provide research papers": {
+      "performed": "No"
+    },
+    "User provide datasets other than research papers": {
+      "performed": "Yes",
+      "Format": "Tabular omics data files (proteomics, transcriptomics, phosphoproteomics, genomic variants) and clinical metadata.",
+      "Example": "Protein.csv, Phospho.csv, Transcript.csv, Variant.csv, Clinic.csv for ccRCC dataset.",
+      "Role in workflow": "Serve as the primary input for automated hypothesis generation and analysis."
+    },
+    "User provide representations or formal inputs": {
+      "performed": "No"
+    }
+  },
+  "Query Structuring": {
+    "performed": "Yes",
+    "Query Decomposition": {
+      "performed": "Yes",
+      "Method details": "LLM-based modules (Explorer, Hypothesizer, Decomposer) iteratively break down research directions into specific hypotheses and sub-relationships.",
+      "Inputs": "Dataset description, relationship graph, previous analysis summaries.",
+      "Outputs": "Pairs of biological entities or specific hypotheses for further analysis.",
+      "Example": "Explorer selects (protein, clinic) as a direction; Hypothesizer narrows to (protein_STAT3, clinic_survival).",
+      "Role in workflow": "Focuses the system on tractable, biologically meaningful subproblems."
+    },
+    "Structural or Entity Decomposition": {
+      "performed": "Yes",
+      "Method details": "Decomposer module selects specific entity-entity relationships (edges) to investigate, possibly involving intermediate entities.",
+      "Inputs": "Research direction, relationship graph, context from conclusion graph.",
+      "Outputs": "List of specific relationships (edges) to validate.",
+      "Example": "Decomposing (protein_STAT3, clinic_survival) into (protein_STAT3-transcript), (transcript-clinic_survival).",
+      "Role in workflow": "Enables multi-step reasoning across omics layers."
+    },
+    "Workflow Decomposition": {
+      "performed": "Yes",
+      "Method details": "System orchestrates five LLM-driven modules (Explorer, Hypothesizer, Decomposer, Validator, Integrator) in a loop, each simulating a research stage.",
+      "Inputs": "Current research direction, previous outputs.",
+      "Outputs": "Sequenced tasks for data exploration, hypothesis generation, validation, and integration.",
+      "Example": "Each module output feeds into the next, forming an iterative workflow.",
+      "Role in workflow": "Automates the full research cycle from exploration to hypothesis integration."
+    },
+    "Textual or Knowledge Embedding": {
+      "performed": "No"
+    },
+    "Molecular or Chemical Embedding": {
+      "performed": "No"
+    },
+    "Biological or Phenotypic Embedding": {
+      "performed": "No"
+    },
+    "Pattern and Feature Extraction": {
+      "performed": "Yes",
+      "Method details": "Bioinformatics tools extract statistical features (e.g., differential expression, correlations, clustering) from omics data.",
+      "Inputs": "Omics matrices and clinical metadata.",
+      "Outputs": "Statistical results (e.g., significant proteins, pathways, correlations).",
+      "Example": "Differential analysis identifies proteins upregulated in tumor vs. normal samples.",
+      "Role in workflow": "Provides empirical basis for hypothesis generation and validation."
+    },
+    "Biological Relationship Extraction": {
+      "performed": "Yes",
+      "Method details": "System uses 41 bioinformatics tools to uncover relationships between biological entities (e.g., protein-protein, protein-clinic, variant-transcript).",
+      "Inputs": "Omics data, relationship graph.",
+      "Outputs": "Validated or candidate relationships among entities.",
+      "Example": "Correlation between protein expression and clinical outcome.",
+      "Role in workflow": "Forms the core evidence for mechanistic hypotheses."
+    },
+    "Property and Annotation Extraction": {
+      "performed": "No"
+    },
+    "Sequence and Structure Feature Extraction": {
+      "performed": "No"
+    }
+  },
+  "Data Retrieval": {
+    "performed": "Yes",
+    "Data Retrieval via Multi-Query Generation and Exploration": {
+      "performed": "No"
+    },
+    "Literature and Data Retrieval via APIs": {
+      "performed": "Yes",
+      "Method details": "LLM agent queries PubMed for relevant articles during hypothesis evaluation; STRING and KEA3 APIs used for protein interaction and kinase enrichment.",
+      "Inputs": "Hypothesis text, gene/protein sets.",
+      "Outputs": "Relevant literature abstracts, interaction scores, kinase enrichment results.",
+      "Example": "PubMed search for articles related to a generated hypothesis; STRING API for protein-protein interactions.",
+      "Role in workflow": "Supports hypothesis evaluation and biological relationship extraction."
+    },
+    "Data Retrieval with Prioritization and Filtering Agents": {
+      "performed": "No"
+    },
+    "Domain-Specific Data Retrieval and Reasoning": {
+      "performed": "Yes",
+      "Method details": "Bioinformatics tools and LLM modules retrieve and analyze omics data using domain-specific logic (e.g., survival analysis, clustering).",
+      "Inputs": "Omics datasets, clinical metadata.",
+      "Outputs": "Analysis results tailored to biological questions.",
+      "Example": "Survival analysis on proteomics data using lifelines package.",
+      "Role in workflow": "Enables biologically meaningful data interrogation."
+    },
+    "Code-Driven or Tool-Augmented Data Retrieval": {
+      "performed": "Yes",
+      "Method details": "LLM selects and configures Python-based bioinformatics tools for direct data analysis; code generation baseline also implemented.",
+      "Inputs": "Tool documentation, omics data, LLM-generated parameters.",
+      "Outputs": "Statistical analysis results.",
+      "Example": "LLM generates code to run t-tests or clustering on omics matrices.",
+      "Role in workflow": "Automates execution of complex analyses."
+    },
+    "Literature data Retrieval Citation-Network–Based Expansion": {
+      "performed": "No"
+    },
+    "Literature data Retrieval via Semantic and Similarity-Based analysis": {
+      "performed": "No"
+    },
+    "Literature data Retrieval via Multi-Step Reference and Evidence Selection": {
+      "performed": "No"
+    },
+    "Domain-Specific Literature data Retrieval": {
+      "performed": "Yes",
+      "Method details": "PubMed searches use domain-specific keywords for hypothesis evaluation.",
+      "Inputs": "Hypothesis text, biological entity names.",
+      "Outputs": "Relevant PubMed articles.",
+      "Example": "LLM retrieves literature on specific proteins or pathways implicated in a hypothesis.",
+      "Role in workflow": "Provides evidence for LLM-based hypothesis scoring."
+    },
+    "Manual and Semi-Automatic Curation of Literature data": {
+      "performed": "No"
+    },
+    "Structural or Similarity-Based Dataset Retrieval": {
+      "performed": "No"
+    },
+    "Data Retrieval via Domain-Specific Repository Querying": {
+      "performed": "Yes",
+      "Method details": "CPTAC datasets are accessed via the cptac Python package for external validation.",
+      "Inputs": "Cancer type, omics data type.",
+      "Outputs": "Cohort data for hypothesis testing.",
+      "Example": "Retrieving CPTAC BRCA cohort for validation of breast cancer hypotheses.",
+      "Role in workflow": "Enables independent statistical validation of generated hypotheses."
+    },
+    "Library Assembly and Data Augmentation": {
+      "performed": "No"
+    }
+  },
+  "Knowledge Assembly": {
+    "performed": "Yes",
+    "Standardized Section Extraction from Literature data": {
+      "performed": "No"
+    },
+    "Concise Synopsis and Summarization of Literature data": {
+      "performed": "Yes",
+      "Method details": "LLM summarizes PubMed articles during hypothesis evaluation for scoring.",
+      "Inputs": "PubMed titles and abstracts.",
+      "Outputs": "Key supporting/contradicting studies, general assessment.",
+      "Example": "LLM provides summary and score for literature alignment.",
+      "Role in workflow": "Supports structured, multi-metric hypothesis evaluation."
+    },
+    "Facet-Based or Field-Specific Extraction from Literature data": {
+      "performed": "No"
+    },
+    "Domain-Tailored Extraction from Literature data": {
+      "performed": "No"
+    },
+    "Task/Entity-Centric Knowledge Graphs": {
+      "performed": "Yes",
+      "Method details": "Static relationship graph encodes all supported biological entity types and their relationships.",
+      "Inputs": "Ontology of entity types and relationships.",
+      "Outputs": "Graph structure used for research direction planning and tool selection.",
+      "Example": "Nodes: protein, transcript, clinic; Edges: protein-clinic, protein-transcript.",
+      "Role in workflow": "Structures and constrains the exploration space."
+    },
+    "Causal or Relation-Specific Knowledge Graphs": {
+      "performed": "Yes",
+      "Method details": "Dynamic conclusion graph records specific validated relationships as analysis progresses.",
+      "Inputs": "Results from bioinformatics tools and LLM modules.",
+      "Outputs": "Graph of discovered relationships and conclusions.",
+      "Example": "Edge: protein_STAT3 → clinic_survival (validated by statistical analysis).",
+      "Role in workflow": "Tracks and organizes discovered knowledge for iterative reasoning."
+    },
+    "Biomedical or Domain-Specific Interaction Graphs": {
+      "performed": "Yes",
+      "Method details": "Graphs represent interactions among proteins, transcripts, variants, pathways, and clinical features.",
+      "Inputs": "Omics data, analysis results.",
+      "Outputs": "Interaction networks used for hypothesis generation.",
+      "Example": "Protein-protein interaction network from STRING API.",
+      "Role in workflow": "Enables mechanistic hypothesis formulation."
+    },
+    "Literature Database Construction": {
+      "performed": "No"
+    },
+    "Entity- or Co-Occurrence–Based Databases": {
+      "performed": "No"
+    },
+    "Reasoning-Chain or Temporal Databases for Literature": {
+      "performed": "No"
+    }
+  },
+  "Hypothesis/Idea Generation": {
+    "performed": "Yes",
+    "Idea/hypothesis generation without additional literature or dataset as context": {
+      "performed": "Yes",
+      "Method details": "LLM modules generate hypotheses based on internal knowledge and data analysis, without using external literature as context.",
+      "Inputs": "Omics data, relationship/conclusion graphs.",
+      "Outputs": "Novel biological hypotheses.",
+      "Example": "LLM proposes that HFM1 variants reduce PFDN6 protein levels, affecting DNA repair.",
+      "Role in workflow": "Drives autonomous discovery of new mechanisms."
+    },
+    "LLM Agent Generate ideas/hypotheses via Task Decomposition": {
+      "performed": "Yes",
+      "Method details": "Orchestrator divides research into subtasks (exploration, hypothesis, decomposition, validation, integration) handled by specialized LLM modules.",
+      "Inputs": "Research direction, prior results.",
+      "Outputs": "Refined, multi-step hypotheses.",
+      "Example": "Decomposer breaks down a hypothesis into testable relationships.",
+      "Role in workflow": "Enables systematic, multi-layered hypothesis generation."
+    },
+    "Generate ideas/hypotheses using Domain-Specialized LLM Agent": {
+      "performed": "Yes",
+      "Method details": "LLM modules are prompted as bioinformatics researchers, leveraging domain knowledge for hypothesis generation.",
+      "Inputs": "Omics data, relationship graphs.",
+      "Outputs": "Domain-relevant hypotheses.",
+      "Example": "LLM suggests pathway-level mechanisms in cancer datasets.",
+      "Role in workflow": "Ensures biological plausibility and relevance."
+    },
+    "Literature data used during idea/hypothesis generation as context": {
+      "performed": "No"
+    },
+    "Summarization Literature data used during idea/hypothesis generation": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation via Facet Recombination": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation via contructed Reasoning-Chain from literature": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation via Knowledge Graph developed from literature": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation via Pattern Detection from dataset": {
+      "performed": "Yes",
+      "Method details": "Bioinformatics tools extract empirical patterns (e.g., correlations, differential expression) which inform LLM-driven hypothesis generation.",
+      "Inputs": "Omics data matrices.",
+      "Outputs": "Pattern-driven hypotheses.",
+      "Example": "LLM observes correlation between HFM1 variant and HMGXB4 phosphorylation, proposes mechanistic link.",
+      "Role in workflow": "Anchors hypotheses in observed data trends."
+    },
+    "Idea/hypothesis generation via Few-Shot Data Seeding": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation using Observational data": {
+      "performed": "Yes",
+      "Method details": "LLM uses observed statistical relationships from data analysis as basis for hypothesis formulation.",
+      "Inputs": "Empirical results from omics analyses.",
+      "Outputs": "Hypotheses explaining observed associations.",
+      "Example": "Hypothesis links protein upregulation to clinical outcome based on observed data.",
+      "Role in workflow": "Ensures hypotheses are grounded in real data."
+    },
+    "Idea/hypothesis generation via Feature-Driven Property Prediction": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation after Fine-Tuning the LLM model": {
+      "performed": "No"
+    }
+  },
+  "Hypothesis/Idea Prioritization": {
+    "performed": "Yes",
+    "LLM-based Hypothesis/Idea evaluation via Scientific Quality": {
+      "performed": "Yes",
+      "Method details": "LLM scores each hypothesis on clarity, plausibility, and general quality using structured prompts.",
+      "Inputs": "Hypothesis text, PubMed articles.",
+      "Outputs": "Quality scores (0-5) and free-form assessments.",
+      "Example": "General Quality score assigned to each hypothesis.",
+      "Role in workflow": "Filters and ranks hypotheses for further consideration."
+    },
+    "LLM-based Hypothesis/Idea evaluation via Domain-Specific Evaluation": {
+      "performed": "Yes",
+      "Method details": "LLM evaluates hypotheses on biological significance and logical coherence using domain-specific criteria.",
+      "Inputs": "Hypothesis text, relevant literature.",
+      "Outputs": "Scores for Biological Significance, Logical Coherence.",
+      "Example": "Biological Significance score for a cancer mechanism hypothesis.",
+      "Role in workflow": "Assesses domain relevance and plausibility."
+    },
+    "LLM-based Hypothesis/Idea evaluation via Contextual Evidence Scoring": {
+      "performed": "Yes",
+      "Method details": "LLM integrates PubMed evidence to score hypotheses on literature alignment and novelty.",
+      "Inputs": "Hypothesis text, PubMed search results.",
+      "Outputs": "Literature Alignment and Scientific Novelty scores.",
+      "Example": "LLM assigns Literature Alignment score after reviewing PubMed abstracts.",
+      "Role in workflow": "Quantifies support and originality."
+    },
+    "LLM-based Hypothesis/Idea evaluation via Interpretability or Success Metrics": {
+      "performed": "No"
+    },
+    "Hypothesis/Idea evaluation via Novelty Checking with Literature Comparison": {
+      "performed": "Yes",
+      "Method details": "LLM compares hypotheses to existing literature to assess novelty.",
+      "Inputs": "Hypothesis text, PubMed articles.",
+      "Outputs": "Scientific Novelty score.",
+      "Example": "Score of 4 for a previously unreported trend.",
+      "Role in workflow": "Identifies novel contributions."
+    },
+    "Hypothesis/Idea evaluation via Alignment with Literature Chains": {
+      "performed": "No"
+    },
+    "Hypothesis/Idea evaluation via Knowledge-Graph Grounded Similarity Metrics": {
+      "performed": "No"
+    },
+    "Hypothesis/Idea evaluation via Quantitative Assessment Using Domain Metrics": {
+      "performed": "Yes",
+      "Method details": "Hypotheses are tested on external CPTAC cohorts using statistical analyses (e.g., t-test, survival analysis), and support status is assigned.",
+      "Inputs": "Hypothesis, CPTAC data.",
+      "Outputs": "Support/contradict status for each hypothesis.",
+      "Example": "Support assigned if CPTAC data statistically validates the hypothesis.",
+      "Role in workflow": "Provides objective, data-driven hypothesis validation."
+    },
+    "Hypothesis/Idea evaluation via Human/Expert": {
+      "performed": "No"
+    }
+  },
+  "Test": {
+    "performed": "Yes",
+    "Experimental Design Generation via literature-Grounded Model/Protocol Selection": {
+      "performed": "No"
+    },
+    "Experimental Design Generation via Literature Synthesis for New Protocol Generation": {
+      "performed": "No"
+    },
+    "Experimental Design Generation via Few-Shot or Example-Based Prompting": {
+      "performed": "No"
+    },
+    "Experimental Design Generation via Executable Code Generation from Literature": {
+      "performed": "No"
+    },
+    "LLM-Based Experimental Design Generation via Agentic Exploration and Planning": {
+      "performed": "No"
+    },
+    "LLM-Based Experimental Design Generation via Code and Workflow Translation": {
+      "performed": "Yes",
+      "Method details": "LLM generates and executes code to run statistical analyses (e.g., t-test, survival analysis) for hypothesis validation.",
+      "Inputs": "Hypothesis, CPTAC data, tool documentation.",
+      "Outputs": "Statistical test results.",
+      "Example": "LLM generates code to test correlation between protein and clinical outcome.",
+      "Role in workflow": "Automates in-silico testing of hypotheses."
+    },
+    "LLM-Based Experimental Design Generation via Multi-Agent Planning with Specialized Roles": {
+      "performed": "No"
+    },
+    "LLM-Based Experimental Design Generation via Domain-Specific Experimental Mapping": {
+      "performed": "No"
+    },
+    "Test Execution via Human-in-the-Loop": {
+      "performed": "No"
+    },
+    "Test Execution via Automated Wet-Lab Execution": {
+      "performed": "No"
+    },
+    "Test Execution via Computational or In-Silico": {
+      "performed": "Yes",
+      "Method details": "Hypotheses are tested using computational/statistical analyses on external omics datasets (CPTAC).",
+      "Inputs": "Hypotheses, CPTAC omics data.",
+      "Outputs": "Support/contradict status, statistical significance.",
+      "Example": "Survival analysis on CPTAC LUAD cohort for a generated hypothesis.",
+      "Role in workflow": "Provides empirical validation without human intervention."
+    },
+    "Refinement via LLM Agent Feedback Loops": {
+      "performed": "Yes",
+      "Method details": "Validator module retries tool execution with adjusted parameters based on previous results or errors.",
+      "Inputs": "Previous tool execution results, error messages.",
+      "Outputs": "Refined analysis parameters, improved success rates.",
+      "Example": "Validator adjusts p-value threshold after failed analysis.",
+      "Role in workflow": "Ensures robust and successful analysis execution."
+    },
+    "Refinement via Automated Quality Evaluation using Model-Based Critics": {
+      "performed": "No"
+    },
+    "Refinement via Dynamic Agent Updating Based on Evolving Context or Data": {
+      "performed": "Yes",
+      "Method details": "LLM modules update research directions and hypotheses based on new results in each iteration, using context from conclusion graph.",
+      "Inputs": "Latest analysis summaries, updated conclusion graph.",
+      "Outputs": "New or refined research directions and hypotheses.",
+      "Example": "Explorer selects new entity pairs based on prior findings.",
+      "Role in workflow": "Enables iterative, context-aware exploration."
+    },
+    "Refinement via guided by computational-data": {
+      "performed": "Yes",
+      "Method details": "Analysis results (e.g., statistical significance) guide which hypotheses are retained or further explored.",
+      "Inputs": "Statistical test outcomes.",
+      "Outputs": "Filtered/refined hypotheses.",
+      "Example": "Non-significant hypotheses are deprioritized in subsequent iterations.",
+      "Role in workflow": "Improves reliability and focus of discovery process."
+    },
+    "Refinement via experimental validation": {
+      "performed": "No"
+    },
+    "Refinement via Performance-metric": {
+      "performed": "No"
+    },
+    "Refinement via Human–data integration": {
+      "performed": "No"
+    }
+  },
+  "paper_title": "Automating Exploratory Multiomics Research via Language Models",
+  "authors": [
+    "Shang",
+    "Ning",
+    "Linhai",
+    "Yifei",
+    "Zaoqu",
+    "Kaiyan",
+    "Yibai",
+    "Yuxin",
+    "Zhangren",
+    "Ermo",
+    "Xingtai",
+    "Youbang",
+    "Yang",
+    "Dong",
+    "Fuchu",
+    "Bowen"
+  ],
+  "published": "2025-06-09",
+  "link": "http://arxiv.org/abs/2506.07591"
+}

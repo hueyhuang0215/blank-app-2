@@ -1,0 +1,581 @@
+{
+  "Inputs to the workflow": {
+    "performed": "Yes",
+    "User provide high-level research direction or goal": {
+      "performed": "Yes",
+      "Format": "Natural language research goals, preferences, constraints, and attributes specified by scientists via chat interface or input forms.",
+      "Example": "Scientist describes a research goal such as 'Propose a novel hypothesis about specific epigenetic alterations contributing to myofibroblast formation in liver fibrosis.'",
+      "Role in workflow": "Defines the scope and focus for the AI co-scientist system, guiding hypothesis generation and downstream reasoning."
+    },
+    "User provide structured, domain-specific specifications": {
+      "performed": "Yes",
+      "Format": "Constraints, experiment requirements, and preferences (e.g., drug lists, disease types, experimental feasibility).",
+      "Example": "Scientist specifies that only FDA-approved drugs should be considered for repurposing, or provides cell line constraints for IC50 assays.",
+      "Role in workflow": "Constrains and customizes the hypothesis search space and evaluation criteria."
+    },
+    "User provide research papers": {
+      "performed": "Yes",
+      "Format": "PDFs, references, or links to prior publications; can be uploaded or referenced in the research goal.",
+      "Example": "Scientist provides a set of prior publications for the AI to prioritize or synthesize.",
+      "Role in workflow": "Grounds hypothesis generation and review in existing literature; enables targeted literature synthesis."
+    },
+    "User provide datasets other than research papers": {
+      "performed": "Yes",
+      "Format": "Domain-specific datasets such as lists of approved drugs, cancer types, or omics data.",
+      "Example": "A curated list of 2300 approved drugs and 33 cancer types for drug repurposing.",
+      "Role in workflow": "Defines the candidate pool for hypothesis generation and constrains search."
+    },
+    "User provide representations or formal inputs": {
+      "performed": "Yes",
+      "Format": "Structured data such as gene/protein lists, experimental protocols, or database queries.",
+      "Example": "Providing DepMap dependency scores for gene essentiality in cancer cell lines.",
+      "Role in workflow": "Enables integration of structured biological or chemical knowledge for hypothesis evaluation."
+    }
+  },
+  "Query Structuring": {
+    "performed": "Yes",
+    "Query Decomposition": {
+      "performed": "Yes",
+      "Method details": "The system parses research goals into research plan configurations, breaking down objectives into preferences, attributes, and constraints.",
+      "Inputs": "Natural language research goals from scientists.",
+      "Outputs": "Structured research plan configurations for downstream agents.",
+      "Example": "Parsing a goal about ALS into preferences for novelty and feasibility, and constraints on correctness.",
+      "Role in workflow": "Enables targeted and structured hypothesis generation and evaluation."
+    },
+    "Structural or Entity Decomposition": {
+      "performed": "Yes",
+      "Method details": "Hypotheses are decomposed into constituent assumptions and sub-assumptions for deep verification.",
+      "Inputs": "Generated hypotheses.",
+      "Outputs": "Lists of assumptions and sub-assumptions for review.",
+      "Example": "Breaking down a hypothesis about Nup PTMs in ALS into specific molecular events.",
+      "Role in workflow": "Supports granular review and error detection in hypothesis reasoning."
+    },
+    "Workflow Decomposition": {
+      "performed": "Yes",
+      "Method details": "Multi-agent architecture assigns specialized agents (generation, reflection, ranking, evolution, etc.) to sub-tasks in an asynchronous framework.",
+      "Inputs": "Research plan configuration and current system state.",
+      "Outputs": "Parallel and sequential agent tasks (e.g., hypothesis generation, review, ranking).",
+      "Example": "Supervisor agent orchestrates tournament-based ranking and iterative improvement.",
+      "Role in workflow": "Enables scalable, modular, and iterative scientific reasoning."
+    },
+    "Textual or Knowledge Embedding": {
+      "performed": "Yes",
+      "Method details": "Long-context Gemini 2.0 models process large research goals and literature, enabling semantic retrieval and reasoning.",
+      "Inputs": "Research goals, literature, and prior outputs.",
+      "Outputs": "Contextual embeddings for agentic reasoning and retrieval.",
+      "Example": "Processing tens of thousands of tokens or hundreds of PDFs as context.",
+      "Role in workflow": "Supports semantic search, grounding, and memory for iterative reasoning."
+    },
+    "Molecular or Chemical Embedding": {
+      "performed": "No"
+    },
+    "Biological or Phenotypic Embedding": {
+      "performed": "No"
+    },
+    "Pattern and Feature Extraction": {
+      "performed": "Yes",
+      "Method details": "Extraction of features such as DepMap dependency scores and drug-disease associations from datasets.",
+      "Inputs": "Cancer Dependency Map, drug lists, experimental results.",
+      "Outputs": "Feature vectors or scores for hypothesis filtering and prioritization.",
+      "Example": "Using DepMap scores to filter drug-cancer pairs for repurposing.",
+      "Role in workflow": "Enables data-driven prioritization and validation of hypotheses."
+    },
+    "Biological Relationship Extraction": {
+      "performed": "No"
+    },
+    "Property and Annotation Extraction": {
+      "performed": "Yes",
+      "Method details": "Extraction of drug mechanisms, pathways, and approval status from literature and databases.",
+      "Inputs": "Literature, drug databases.",
+      "Outputs": "Annotations for use in hypothesis generation and review.",
+      "Example": "Identifying known mechanisms of action for candidate drugs.",
+      "Role in workflow": "Supports mechanistic reasoning and novelty assessment."
+    },
+    "Sequence and Structure Feature Extraction": {
+      "performed": "Yes",
+      "Method details": "Integration with AlphaFold and other tools to extract protein structure features for design tasks.",
+      "Inputs": "Protein sequences proposed by the system.",
+      "Outputs": "Predicted 3D structures and confidence metrics.",
+      "Example": "AlphaFold predicts structure of modified OCT4 protein.",
+      "Role in workflow": "Validates structural plausibility of protein design hypotheses."
+    }
+  },
+  "Data Retrieval": {
+    "performed": "Yes",
+    "Data Retrieval via Multi-Query Generation and Exploration": {
+      "performed": "Yes",
+      "Method details": "Generation agent issues multiple web search queries and literature retrievals to explore diverse research directions.",
+      "Inputs": "Parsed research goals and hypotheses.",
+      "Outputs": "Sets of relevant articles and data for grounding.",
+      "Example": "Iteratively searching for articles on Nup PTMs and ALS.",
+      "Role in workflow": "Ensures comprehensive literature coverage for hypothesis generation."
+    },
+    "Literature and Data Retrieval via APIs": {
+      "performed": "Yes",
+      "Method details": "Agents use web search APIs and can access domain-specific databases (e.g., Open Targets Platform, DepMap).",
+      "Inputs": "Search queries, database queries.",
+      "Outputs": "Relevant literature, drug lists, dependency scores.",
+      "Example": "Retrieving DepMap scores for drug-cancer pairs.",
+      "Role in workflow": "Provides up-to-date, domain-relevant evidence for reasoning."
+    },
+    "Data Retrieval with Prioritization and Filtering Agents": {
+      "performed": "Yes",
+      "Method details": "Ranking and proximity agents prioritize and cluster hypotheses and retrieved data for novelty and relevance.",
+      "Inputs": "Retrieved literature, hypotheses.",
+      "Outputs": "Ranked and clustered hypotheses/data.",
+      "Example": "Tournament-based ranking of hypotheses using Elo scores.",
+      "Role in workflow": "Focuses computational resources on promising ideas."
+    },
+    "Domain-Specific Data Retrieval and Reasoning": {
+      "performed": "Yes",
+      "Method details": "Agents query and reason over domain-specific datasets (e.g., drug lists, cancer types, DepMap).",
+      "Inputs": "Domain-specific queries.",
+      "Outputs": "Filtered candidate sets for hypothesis generation.",
+      "Example": "Restricting drug repurposing to FDA-approved drugs for specific cancers.",
+      "Role in workflow": "Constrains and grounds hypothesis search in domain knowledge."
+    },
+    "Code-Driven or Tool-Augmented Data Retrieval": {
+      "performed": "Yes",
+      "Method details": "Integration with tools like AlphaFold for protein structure prediction; can index and search private repositories.",
+      "Inputs": "Protein sequences, user-specified repositories.",
+      "Outputs": "Predicted structures, retrieved documents.",
+      "Example": "Using AlphaFold to validate protein design hypotheses.",
+      "Role in workflow": "Augments reasoning with specialized computational tools."
+    },
+    "Literature data Retrieval Citation-Network–Based Expansion": {
+      "performed": "No"
+    },
+    "Literature data Retrieval via Semantic and Similarity-Based analysis": {
+      "performed": "Yes",
+      "Method details": "Long-context LLMs and proximity agents compute similarity between hypotheses and literature.",
+      "Inputs": "Hypotheses, literature embeddings.",
+      "Outputs": "Proximity graphs, clusters of similar ideas.",
+      "Example": "Clustering hypotheses for tournament ranking.",
+      "Role in workflow": "Promotes diversity and avoids redundancy in hypothesis exploration."
+    },
+    "Literature data Retrieval via Multi-Step Reference and Evidence Selection": {
+      "performed": "Yes",
+      "Method details": "Reflection agent performs multi-step literature review and evidence selection for hypothesis critique.",
+      "Inputs": "Hypotheses, retrieved articles.",
+      "Outputs": "Curated evidence and reviews.",
+      "Example": "Full review of ALS hypothesis with supporting and contradicting articles.",
+      "Role in workflow": "Enables rigorous, evidence-based hypothesis evaluation."
+    },
+    "Domain-Specific Literature data Retrieval": {
+      "performed": "Yes",
+      "Method details": "Agents use domain-specific keywords and constraints for targeted literature retrieval.",
+      "Inputs": "Domain-specific queries (e.g., drug names, disease types).",
+      "Outputs": "Relevant literature for hypothesis generation.",
+      "Example": "Searching for literature on epigenetic targets in liver fibrosis.",
+      "Role in workflow": "Ensures retrieval is relevant to the scientific context."
+    },
+    "Manual and Semi-Automatic Curation of Literature data": {
+      "performed": "Yes",
+      "Method details": "Experts can provide curated literature or restrict the system to a private repository.",
+      "Inputs": "Expert-selected papers or datasets.",
+      "Outputs": "Curated evidence base for reasoning.",
+      "Example": "Scientists upload a set of relevant publications for focused exploration.",
+      "Role in workflow": "Improves quality and relevance of evidence used by the system."
+    },
+    "Structural or Similarity-Based Dataset Retrieval": {
+      "performed": "Yes",
+      "Method details": "DepMap scores and drug-disease similarity used to filter and prioritize candidates.",
+      "Inputs": "Drug and disease datasets, dependency scores.",
+      "Outputs": "Filtered candidate pairs for hypothesis generation.",
+      "Example": "Selecting drug-cancer pairs with high DepMap scores.",
+      "Role in workflow": "Focuses hypothesis generation on biologically plausible candidates."
+    },
+    "Data Retrieval via Domain-Specific Repository Querying": {
+      "performed": "Yes",
+      "Method details": "Direct queries to repositories like DepMap and Open Targets Platform.",
+      "Inputs": "Repository queries.",
+      "Outputs": "Domain-specific data (e.g., gene essentiality, drug approval status).",
+      "Example": "Querying DepMap for gene essentiality in AML cell lines.",
+      "Role in workflow": "Provides empirical data for hypothesis evaluation."
+    },
+    "Library Assembly and Data Augmentation": {
+      "performed": "Yes",
+      "Method details": "Construction of candidate libraries from multiple sources (e.g., drug lists, cancer types).",
+      "Inputs": "Curated drug and disease datasets.",
+      "Outputs": "Expanded candidate pools for hypothesis testing.",
+      "Example": "Assembling a library of 2300 drugs for repurposing.",
+      "Role in workflow": "Enables large-scale, systematic hypothesis exploration."
+    }
+  },
+  "Knowledge Assembly": {
+    "performed": "Yes",
+    "Standardized Section Extraction from Literature data": {
+      "performed": "No"
+    },
+    "Concise Synopsis and Summarization of Literature data": {
+      "performed": "Yes",
+      "Method details": "Agents summarize key findings from retrieved articles for use in hypothesis generation and review.",
+      "Inputs": "Retrieved literature.",
+      "Outputs": "Summaries of relevant articles.",
+      "Example": "Summarizing findings on TDP-43 pathology in ALS.",
+      "Role in workflow": "Provides concise, relevant context for hypothesis reasoning."
+    },
+    "Facet-Based or Field-Specific Extraction from Literature data": {
+      "performed": "Yes",
+      "Method details": "Extraction of mechanisms, pathways, and experimental evidence from literature for hypothesis annotation.",
+      "Inputs": "Literature, experimental protocols.",
+      "Outputs": "Structured facets (mechanism, evidence, novelty).",
+      "Example": "Extracting mechanism of action for a drug from literature.",
+      "Role in workflow": "Enables structured, mechanistic hypothesis generation."
+    },
+    "Domain-Tailored Extraction from Literature data": {
+      "performed": "Yes",
+      "Method details": "Extraction of domain-specific information such as drug approval status, gene targets, and experimental protocols.",
+      "Inputs": "Literature, databases.",
+      "Outputs": "Domain-specific annotations.",
+      "Example": "Identifying FDA approval status for candidate drugs.",
+      "Role in workflow": "Supports domain-relevant hypothesis evaluation."
+    },
+    "Task/Entity-Centric Knowledge Graphs": {
+      "performed": "No"
+    },
+    "Causal or Relation-Specific Knowledge Graphs": {
+      "performed": "No"
+    },
+    "Biomedical or Domain-Specific Interaction Graphs": {
+      "performed": "Yes",
+      "Method details": "Proximity agent builds similarity graphs among hypotheses based on research goal context.",
+      "Inputs": "Generated hypotheses, research goal.",
+      "Outputs": "Proximity graphs for clustering and ranking.",
+      "Example": "Clustering similar drug repurposing hypotheses.",
+      "Role in workflow": "Facilitates diversity and efficient tournament ranking."
+    },
+    "Literature Database Construction": {
+      "performed": "No"
+    },
+    "Entity- or Co-Occurrence–Based Databases": {
+      "performed": "No"
+    },
+    "Reasoning-Chain or Temporal Databases for Literature": {
+      "performed": "No"
+    }
+  },
+  "Hypothesis/Idea Generation": {
+    "performed": "Yes",
+    "Idea/hypothesis generation without additional literature or dataset as context": {
+      "performed": "Yes",
+      "Method details": "LLM agents can generate hypotheses using internal knowledge, especially in early rounds or when literature is sparse.",
+      "Inputs": "Research goals, agent prompts.",
+      "Outputs": "Initial hypotheses and proposals.",
+      "Example": "Proposing a novel mechanism for ALS without explicit literature context.",
+      "Role in workflow": "Kickstarts the hypothesis generation process."
+    },
+    "LLM Agent Generate ideas/hypotheses via Task Decomposition": {
+      "performed": "Yes",
+      "Method details": "Supervisor agent decomposes research goals into sub-tasks for specialized agents (generation, reflection, evolution, etc.).",
+      "Inputs": "Parsed research plan configuration.",
+      "Outputs": "Sub-tasked hypotheses and proposals.",
+      "Example": "Assigning hypothesis generation and review to different agents.",
+      "Role in workflow": "Enables parallel, specialized exploration of hypothesis space."
+    },
+    "Generate ideas/hypotheses using Domain-Specialized LLM Agent": {
+      "performed": "Yes",
+      "Method details": "Specialized agents (e.g., Generation, Reflection, Evolution) use domain-specific prompts and tools.",
+      "Inputs": "Research goals, literature, domain data.",
+      "Outputs": "Domain-relevant hypotheses and proposals.",
+      "Example": "Reflection agent reviews hypotheses using biomedical literature.",
+      "Role in workflow": "Ensures hypotheses are grounded in domain expertise."
+    },
+    "Literature data used during idea/hypothesis generation as context": {
+      "performed": "Yes",
+      "Method details": "Agents retrieve and synthesize literature to inform and ground hypothesis generation.",
+      "Inputs": "Relevant articles, reviews.",
+      "Outputs": "Literature-grounded hypotheses.",
+      "Example": "Using recent findings on liver fibrosis to propose new epigenetic targets.",
+      "Role in workflow": "Improves plausibility and novelty of generated ideas."
+    },
+    "Summarization Literature data used during idea/hypothesis generation": {
+      "performed": "Yes",
+      "Method details": "Summarized literature sections are used as context for hypothesis prompts.",
+      "Inputs": "Summaries of articles, extracted mechanisms.",
+      "Outputs": "Condensed context for LLM prompts.",
+      "Example": "Summarizing key findings on AML drug resistance for hypothesis generation.",
+      "Role in workflow": "Streamlines relevant evidence for efficient reasoning."
+    },
+    "Idea/hypothesis generation via Facet Recombination": {
+      "performed": "Yes",
+      "Method details": "Evolution agent combines aspects of top-ranked hypotheses to generate new ideas.",
+      "Inputs": "Top hypotheses, meta-review feedback.",
+      "Outputs": "Synthesized or improved hypotheses.",
+      "Example": "Combining mechanisms from two drug repurposing candidates.",
+      "Role in workflow": "Promotes creative, iterative improvement of ideas."
+    },
+    "Idea/hypothesis generation via contructed Reasoning-Chain from literature": {
+      "performed": "Yes",
+      "Method details": "Reflection agent builds and critiques reasoning chains from literature to support or refute hypotheses.",
+      "Inputs": "Literature, hypothesis assumptions.",
+      "Outputs": "Reasoning chains and critiques.",
+      "Example": "Tracing causal links from stress to TDP-43 pathology in ALS.",
+      "Role in workflow": "Supports evidence-based, logical hypothesis construction."
+    },
+    "Idea/hypothesis generation via Knowledge Graph developed from literature": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation via Pattern Detection from dataset": {
+      "performed": "Yes",
+      "Method details": "DepMap and other datasets are used to identify patterns (e.g., gene essentiality) for hypothesis generation.",
+      "Inputs": "Dependency scores, drug-disease associations.",
+      "Outputs": "Pattern-informed hypotheses.",
+      "Example": "Selecting drugs with high essentiality scores for repurposing.",
+      "Role in workflow": "Guides hypothesis generation toward empirically supported candidates."
+    },
+    "Idea/hypothesis generation via Few-Shot Data Seeding": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation using Observational data": {
+      "performed": "Yes",
+      "Method details": "Reflection agent reviews whether hypotheses explain observed experimental results.",
+      "Inputs": "Experimental observations, literature data.",
+      "Outputs": "Hypotheses aligned with or explaining observations.",
+      "Example": "Explaining cf-PICI transfer mechanisms based on observed gene transfer.",
+      "Role in workflow": "Aligns hypotheses with empirical findings."
+    },
+    "Idea/hypothesis generation via Feature-Driven Property Prediction": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation after Fine-Tuning the LLM model": {
+      "performed": "No"
+    }
+  },
+  "Hypothesis/Idea Prioritization": {
+    "performed": "Yes",
+    "LLM-based Hypothesis/Idea evaluation via Scientific Quality": {
+      "performed": "Yes",
+      "Method details": "Reflection agent reviews hypotheses for correctness, quality, novelty, and safety.",
+      "Inputs": "Generated hypotheses, literature, agent reviews.",
+      "Outputs": "Quality ratings and critiques.",
+      "Example": "Full review of ALS hypothesis for novelty and plausibility.",
+      "Role in workflow": "Filters and improves hypothesis quality."
+    },
+    "LLM-based Hypothesis/Idea evaluation via Domain-Specific Evaluation": {
+      "performed": "Yes",
+      "Method details": "Reflection and ranking agents evaluate hypotheses against domain-specific criteria (e.g., clinical plausibility, mechanism).",
+      "Inputs": "Domain knowledge, literature, hypotheses.",
+      "Outputs": "Domain-specific ratings and feedback.",
+      "Example": "Oncologists review drug repurposing hypotheses for clinical relevance.",
+      "Role in workflow": "Ensures hypotheses are actionable and relevant to the field."
+    },
+    "LLM-based Hypothesis/Idea evaluation via Contextual Evidence Scoring": {
+      "performed": "Yes",
+      "Method details": "Tournament-based ranking using Elo scores, integrating literature and agent feedback.",
+      "Inputs": "Hypotheses, reviews, literature.",
+      "Outputs": "Elo ratings and prioritized hypothesis lists.",
+      "Example": "Ranking drug repurposing candidates for AML.",
+      "Role in workflow": "Focuses resources on most promising ideas."
+    },
+    "LLM-based Hypothesis/Idea evaluation via Interpretability or Success Metrics": {
+      "performed": "Yes",
+      "Method details": "Meta-review agent synthesizes critiques and identifies recurring issues for interpretability.",
+      "Inputs": "Reviews, tournament debates.",
+      "Outputs": "Meta-review critiques and improvement suggestions.",
+      "Example": "Identifying common flaws in ALS mechanism hypotheses.",
+      "Role in workflow": "Improves clarity and interpretability of outputs."
+    },
+    "Hypothesis/Idea evaluation via Novelty Checking with Literature Comparison": {
+      "performed": "Yes",
+      "Method details": "Reflection agent compares hypotheses to prior literature to assess novelty.",
+      "Inputs": "Hypotheses, literature.",
+      "Outputs": "Novelty reviews and scores.",
+      "Example": "Assessing if a drug repurposing hypothesis is previously published.",
+      "Role in workflow": "Promotes generation of original, non-redundant ideas."
+    },
+    "Hypothesis/Idea evaluation via Alignment with Literature Chains": {
+      "performed": "Yes",
+      "Method details": "Reflection agent checks if hypotheses follow logical progression from literature.",
+      "Inputs": "Hypotheses, literature reasoning chains.",
+      "Outputs": "Alignment assessments.",
+      "Example": "Evaluating if a hypothesis on gene transfer matches known mechanisms.",
+      "Role in workflow": "Ensures logical consistency with established knowledge."
+    },
+    "Hypothesis/Idea evaluation via Knowledge-Graph Grounded Similarity Metrics": {
+      "performed": "No"
+    },
+    "Hypothesis/Idea evaluation via Quantitative Assessment Using Domain Metrics": {
+      "performed": "Yes",
+      "Method details": "Use of DepMap scores and expert rubric ratings for quantitative evaluation.",
+      "Inputs": "Dependency scores, expert ratings.",
+      "Outputs": "Quantitative scores for hypothesis prioritization.",
+      "Example": "Filtering drug-cancer pairs with high DepMap and review scores.",
+      "Role in workflow": "Objectively prioritizes hypotheses for testing."
+    },
+    "Hypothesis/Idea evaluation via Human/Expert": {
+      "performed": "Yes",
+      "Method details": "Experts review and rate hypotheses using structured rubrics and clinical judgment.",
+      "Inputs": "AI-generated hypotheses, expert knowledge.",
+      "Outputs": "Expert ratings, feedback, and selection for wet-lab validation.",
+      "Example": "Oncologists rate NIH Specific Aims proposals for drug repurposing.",
+      "Role in workflow": "Provides nuanced, domain-grounded evaluation beyond automation."
+    }
+  },
+  "Test": {
+    "performed": "Yes",
+    "Experimental Design Generation via literature-Grounded Model/Protocol Selection": {
+      "performed": "Yes",
+      "Method details": "Experimental protocols are generated based on literature and prior studies for in vitro validation.",
+      "Inputs": "Literature, experimental protocols, research goals.",
+      "Outputs": "Testable experimental designs (e.g., IC50 assays, organoid models).",
+      "Example": "Designing IC50 assays for AML drug candidates.",
+      "Role in workflow": "Enables empirical validation of hypotheses."
+    },
+    "Experimental Design Generation via Literature Synthesis for New Protocol Generation": {
+      "performed": "Yes",
+      "Method details": "Agents synthesize literature and experimental context to propose new protocols for hypothesis testing.",
+      "Inputs": "Literature, research goals, prior protocols.",
+      "Outputs": "Novel experimental designs.",
+      "Example": "Proposing organoid-based assays for liver fibrosis targets.",
+      "Role in workflow": "Adapts experimental plans to novel hypotheses."
+    },
+    "Experimental Design Generation via Few-Shot or Example-Based Prompting": {
+      "performed": "No"
+    },
+    "Experimental Design Generation via Executable Code Generation from Literature": {
+      "performed": "No"
+    },
+    "LLM-Based Experimental Design Generation via Agentic Exploration and Planning": {
+      "performed": "Yes",
+      "Method details": "Agents collaboratively plan and refine experimental designs through iterative debate and feedback.",
+      "Inputs": "Research goals, literature, agent feedback.",
+      "Outputs": "Refined experimental protocols.",
+      "Example": "Tournament and debate among agents to select best experimental plan.",
+      "Role in workflow": "Improves feasibility and rigor of experimental designs."
+    },
+    "LLM-Based Experimental Design Generation via Code and Workflow Translation": {
+      "performed": "No"
+    },
+    "LLM-Based Experimental Design Generation via Multi-Agent Planning with Specialized Roles": {
+      "performed": "Yes",
+      "Method details": "Supervisor agent coordinates specialized agents (generation, reflection, evolution) to iteratively refine experimental plans.",
+      "Inputs": "Research plan configuration, agent outputs.",
+      "Outputs": "Multi-agent–refined experimental protocols.",
+      "Example": "Evolution agent improves feasibility of proposed experiments.",
+      "Role in workflow": "Ensures robust, multi-perspective experimental planning."
+    },
+    "LLM-Based Experimental Design Generation via Domain-Specific Experimental Mapping": {
+      "performed": "Yes",
+      "Method details": "Agents map hypotheses to concrete laboratory techniques (e.g., cell line assays, organoid models).",
+      "Inputs": "Hypotheses, domain knowledge.",
+      "Outputs": "Mapped experimental protocols.",
+      "Example": "Mapping drug repurposing hypotheses to IC50 cell viability assays.",
+      "Role in workflow": "Bridges hypothesis and practical testing."
+    },
+    "Test Execution via Human-in-the-Loop": {
+      "performed": "Yes",
+      "Method details": "Human experts execute AI-generated experimental protocols in wet-lab settings.",
+      "Inputs": "Experimental designs, selected hypotheses.",
+      "Outputs": "Empirical results (e.g., cell viability, organoid response).",
+      "Example": "Oncologists test drug candidates in AML cell lines.",
+      "Role in workflow": "Validates AI-generated hypotheses with real-world data."
+    },
+    "Test Execution via Automated Wet-Lab Execution": {
+      "performed": "No"
+    },
+    "Test Execution via Computational or In-Silico": {
+      "performed": "Yes",
+      "Method details": "Integration with computational tools (e.g., AlphaFold) for in silico validation of protein design hypotheses.",
+      "Inputs": "Protein sequences, computational models.",
+      "Outputs": "Predicted structures, confidence metrics.",
+      "Example": "AlphaFold predicts structure of modified OCT4 protein.",
+      "Role in workflow": "Provides rapid, computational validation of design hypotheses."
+    },
+    "Refinement via LLM Agent Feedback Loops": {
+      "performed": "Yes",
+      "Method details": "Meta-review and evolution agents iteratively critique and refine hypotheses and experimental designs based on feedback.",
+      "Inputs": "Agent reviews, test outcomes, meta-review critiques.",
+      "Outputs": "Improved hypotheses and protocols.",
+      "Example": "Incorporating feedback from failed experiments into next hypothesis iteration.",
+      "Role in workflow": "Drives self-improvement and convergence on high-quality outputs."
+    },
+    "Refinement via Automated Quality Evaluation using Model-Based Critics": {
+      "performed": "Yes",
+      "Method details": "Meta-review agent synthesizes feedback and identifies recurring issues for targeted refinement.",
+      "Inputs": "Tournament debates, reviews.",
+      "Outputs": "Actionable critiques for agent prompts.",
+      "Example": "Meta-review highlights overlooked experimental flaws.",
+      "Role in workflow": "Systematically improves output quality."
+    },
+    "Refinement via Dynamic Agent Updating Based on Evolving Context or Data": {
+      "performed": "Yes",
+      "Method details": "Supervisor agent updates agent priorities and sampling based on system state and test outcomes.",
+      "Inputs": "Context memory, test results, agent statistics.",
+      "Outputs": "Updated agent task queue and resource allocation.",
+      "Example": "Increasing sampling of evolution agent after failed hypotheses.",
+      "Role in workflow": "Adapts workflow to new evidence and outcomes."
+    },
+    "Refinement via guided by computational-data": {
+      "performed": "Yes",
+      "Method details": "DepMap scores and in silico results guide refinement of candidate hypotheses.",
+      "Inputs": "Computational scores, test outcomes.",
+      "Outputs": "Filtered and improved candidate lists.",
+      "Example": "Filtering out drug candidates with low DepMap scores.",
+      "Role in workflow": "Ensures data-driven refinement of hypotheses."
+    },
+    "Refinement via experimental validation": {
+      "performed": "Yes",
+      "Method details": "Wet-lab results inform further hypothesis refinement and selection.",
+      "Inputs": "Experimental outcomes, expert feedback.",
+      "Outputs": "Refined hypotheses and experimental plans.",
+      "Example": "Iteratively improving drug repurposing hypotheses based on in vitro results.",
+      "Role in workflow": "Closes the loop between AI reasoning and empirical science."
+    },
+    "Refinement via Performance-metric": {
+      "performed": "Yes",
+      "Method details": "Elo ratings and expert rubric scores are used to guide iterative improvement.",
+      "Inputs": "Performance metrics from tournaments and expert reviews.",
+      "Outputs": "Prioritized and improved hypotheses.",
+      "Example": "Selecting top Elo-rated hypotheses for further testing.",
+      "Role in workflow": "Optimizes workflow toward high-performing outputs."
+    },
+    "Refinement via Human–data integration": {
+      "performed": "Yes",
+      "Method details": "Experts provide feedback and raw data from experiments, which are incorporated into subsequent reasoning cycles.",
+      "Inputs": "Human-generated data, feedback.",
+      "Outputs": "Updated hypotheses and experimental designs.",
+      "Example": "Oncologists provide lab results and feedback for next iteration.",
+      "Role in workflow": "Blends human insight with automated refinement."
+    }
+  },
+  "paper_title": "Towards an AI co-scientist",
+  "authors": [
+    "Juraj",
+    "Wei-Hung",
+    "Alexander",
+    "Tao",
+    "Anil",
+    "Petar",
+    "Artiom",
+    "Felix",
+    "Keran",
+    "Ryutaro",
+    "Khaled",
+    "Dan",
+    "Jacob",
+    "Fan",
+    "Katherine",
+    "Avinatan",
+    "Burak",
+    "Amin",
+    "Pushmeet",
+    "Yossi",
+    "Andrew",
+    "Kavita",
+    "Nenad",
+    "Yuan",
+    "Vikram",
+    "Eeshit Dhaval",
+    "Byron",
+    "Tiago R. D.",
+    "José R.",
+    "Gary",
+    "Yunhan",
+    "Annalisa",
+    "Alan",
+    "Vivek"
+  ],
+  "published": "2025-02-26",
+  "link": "http://arxiv.org/abs/2502.18864"
+}

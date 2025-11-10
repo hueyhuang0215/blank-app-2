@@ -1,0 +1,218 @@
+{
+  "Inputs to the workflow": {
+    "performed": "Yes",
+    "User provide high-level research direction or goal": {
+      "performed": "Yes",
+      "Format": "Natural language design problem statements",
+      "Example": "Generate 100 design solutions for a lightweight exercise device that can be used while traveling",
+      "Role in workflow": "Defines the design challenge for which solutions are to be generated and compared."
+    },
+    "User provide structured, domain-specific specifications": {
+      "performed": "No"
+    },
+    "User provide research papers": {
+      "performed": "No"
+    },
+    "User provide datasets other than research papers": {
+      "performed": "Yes",
+      "Format": "Crowdsourced design solution datasets from prior work",
+      "Example": "100 crowdsourced solutions per design prompt from Goucher-Lambert et al.",
+      "Role in workflow": "Serves as a baseline for comparison with LLM-generated solutions."
+    },
+    "User provide representations or formal inputs": {
+      "performed": "No"
+    }
+  },
+  "Query Structuring": {
+    "performed": "Yes",
+    "Query Decomposition": {
+      "performed": "No"
+    },
+    "Structural or Entity Decomposition": {
+      "performed": "No"
+    },
+    "Workflow Decomposition": {
+      "performed": "No"
+    },
+    "Textual or Knowledge Embedding": {
+      "performed": "Yes",
+      "Method details": "SentenceBERT (all-MiniLM-L6-v2) used to embed each design solution into a 384-dimensional vector for computational evaluation.",
+      "Inputs": "Textual design solutions (both LLM-generated and crowdsourced)",
+      "Outputs": "Semantic vector representations of each solution",
+      "Example": "Embedding solutions for similarity and novelty analysis using SentenceBERT.",
+      "Role in workflow": "Enables quantitative comparison of solution sets via similarity and convex hull metrics."
+    },
+    "Molecular or Chemical Embedding": {
+      "performed": "No"
+    },
+    "Biological or Phenotypic Embedding": {
+      "performed": "No"
+    },
+    "Pattern and Feature Extraction": {
+      "performed": "No"
+    },
+    "Biological Relationship Extraction": {
+      "performed": "No"
+    },
+    "Property and Annotation Extraction": {
+      "performed": "No"
+    },
+    "Sequence and Structure Feature Extraction": {
+      "performed": "No"
+    }
+  },
+  "Data Retrieval": {
+    "performed": "Yes",
+    "Data Retrieval via Multi-Query Generation and Exploration": {
+      "performed": "No"
+    },
+    "Literature and Data Retrieval via APIs": {
+      "performed": "No"
+    },
+    "Data Retrieval with Prioritization and Filtering Agents": {
+      "performed": "No"
+    },
+    "Domain-Specific Data Retrieval and Reasoning": {
+      "performed": "No"
+    },
+    "Code-Driven or Tool-Augmented Data Retrieval": {
+      "performed": "No"
+    },
+    "Literature data Retrieval Citation-Network–Based Expansion": {
+      "performed": "No"
+    },
+    "Literature data Retrieval via Semantic and Similarity-Based analysis": {
+      "performed": "No"
+    },
+    "Literature data Retrieval via Multi-Step Reference and Evidence Selection": {
+      "performed": "No"
+    },
+    "Domain-Specific Literature data Retrieval": {
+      "performed": "No"
+    },
+    "Manual and Semi-Automatic Curation of Literature data": {
+      "performed": "No"
+    },
+    "Structural or Similarity-Based Dataset Retrieval": {
+      "performed": "No"
+    },
+    "Data Retrieval via Domain-Specific Repository Querying": {
+      "performed": "No"
+    },
+    "Library Assembly and Data Augmentation": {
+      "performed": "Yes",
+      "Method details": "Combines LLM-generated and crowdsourced solution sets for each design prompt.",
+      "Inputs": "LLM-generated solutions, crowdsourced solutions",
+      "Outputs": "Aggregated datasets for evaluation",
+      "Example": "100 GPT-3 solutions and 100 crowdsourced solutions per prompt.",
+      "Role in workflow": "Provides comprehensive datasets for comparative analysis."
+    }
+  },
+  "Knowledge Assembly": {
+    "performed": "No"
+  },
+  "Hypothesis/Idea Generation": {
+    "performed": "Yes",
+    "Idea/hypothesis generation without additional literature or dataset as context": {
+      "performed": "Yes",
+      "Method details": "GPT-3 (davinci-003) generates design solutions from prompts without external literature or datasets.",
+      "Inputs": "Natural language design prompts",
+      "Outputs": "Textual design solutions",
+      "Example": "LLM generates 100 solutions for each design problem using only the prompt.",
+      "Role in workflow": "Produces candidate design ideas for evaluation."
+    },
+    "LLM Agent Generate ideas/hypotheses via Task Decomposition": {
+      "performed": "No"
+    },
+    "Generate ideas/hypotheses using Domain-Specialized LLM Agent": {
+      "performed": "No"
+    },
+    "Literature data used during idea/hypothesis generation as context": {
+      "performed": "No"
+    },
+    "Summarization Literature data used during idea/hypothesis generation": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation via Facet Recombination": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation via contructed Reasoning-Chain from literature": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation via Knowledge Graph developed from literature": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation via Pattern Detection from dataset": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation via Few-Shot Data Seeding": {
+      "performed": "Yes",
+      "Method details": "Few-shot prompting: 5 randomly sampled human solutions appended to the prompt to guide GPT-3 generation.",
+      "Inputs": "Design prompt plus few-shot examples from crowdsourced data",
+      "Outputs": "LLM-generated solutions more similar to human responses",
+      "Example": "Prompt includes 5 human solutions before requesting 100 new solutions.",
+      "Role in workflow": "Steers LLM outputs toward human-like solution characteristics."
+    },
+    "Idea/hypothesis generation using Observational data": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation via Feature-Driven Property Prediction": {
+      "performed": "No"
+    },
+    "Idea/hypothesis generation after Fine-Tuning the LLM model": {
+      "performed": "No"
+    }
+  },
+  "Hypothesis/Idea Prioritization": {
+    "performed": "Yes",
+    "LLM-based Hypothesis/Idea evaluation via Scientific Quality": {
+      "performed": "No"
+    },
+    "LLM-based Hypothesis/Idea evaluation via Domain-Specific Evaluation": {
+      "performed": "No"
+    },
+    "LLM-based Hypothesis/Idea evaluation via Contextual Evidence Scoring": {
+      "performed": "No"
+    },
+    "LLM-based Hypothesis/Idea evaluation via Interpretability or Success Metrics": {
+      "performed": "No"
+    },
+    "Hypothesis/Idea evaluation via Novelty Checking with Literature Comparison": {
+      "performed": "No"
+    },
+    "Hypothesis/Idea evaluation via Alignment with Literature Chains": {
+      "performed": "No"
+    },
+    "Hypothesis/Idea evaluation via Knowledge-Graph Grounded Similarity Metrics": {
+      "performed": "No"
+    },
+    "Hypothesis/Idea evaluation via Quantitative Assessment Using Domain Metrics": {
+      "performed": "Yes",
+      "Method details": "Computational metrics: cosine similarity (SentenceBERT embeddings) and convex hull volume to assess similarity and novelty.",
+      "Inputs": "Embedded solution vectors",
+      "Outputs": "Quantitative scores for similarity and novelty",
+      "Example": "Mean cosine similarity and convex hull volume reported for each solution set.",
+      "Role in workflow": "Objectively compares LLM and human solution sets."
+    },
+    "Hypothesis/Idea evaluation via Human/Expert": {
+      "performed": "Yes",
+      "Method details": "Two design experts rate feasibility, novelty, and usefulness on a 0–2 scale for a sample of solutions.",
+      "Inputs": "Textual solutions from both LLM and crowdsourced sets",
+      "Outputs": "Expert ratings for each solution",
+      "Example": "Experts rate 20 solutions per prompt per method for feasibility, novelty, usefulness.",
+      "Role in workflow": "Provides subjective, domain-informed evaluation of solution quality."
+    }
+  },
+  "Test": {
+    "performed": "No"
+  },
+  "paper_title": "Conceptual Design Generation Using Large Language Models",
+  "authors": [
+    "Kevin",
+    "Daniele",
+    "Christopher",
+    "Kosa"
+  ],
+  "published": "2023-05-30",
+  "link": "http://arxiv.org/abs/2306.01779"
+}

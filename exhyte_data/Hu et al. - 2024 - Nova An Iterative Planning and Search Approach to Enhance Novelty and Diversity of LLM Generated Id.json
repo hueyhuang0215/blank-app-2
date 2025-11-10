@@ -1,0 +1,652 @@
+{
+  "Inputs to the workflow": {
+    "performed": "Yes",
+    "User provide high-level research direction or goal": {
+      "performed": "Yes",
+      "Format": "User provides a target research paper or topic as the seed for idea generation.",
+      "Example": "Input paper from top conferences (e.g., ACL, ICLR, CVPR) is provided to the system.",
+      "Role in workflow": "Defines the starting point and focus for the automated idea generation process."
+    },
+    "User provide structured, domain-specific specifications": {
+      "performed": "No",
+      "Format": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "User provide research papers": {
+      "performed": "Yes",
+      "Format": "Full text, title, abstract, and references of research papers.",
+      "Example": "170 seed papers from top conferences are used as input for idea generation.",
+      "Role in workflow": "Serve as the primary evidence base and context for LLM-driven idea generation."
+    },
+    "User provide datasets other than research papers": {
+      "performed": "No",
+      "Format": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "User provide representations or formal inputs": {
+      "performed": "No",
+      "Format": "",
+      "Example": "",
+      "Role in workflow": ""
+    }
+  },
+  "Query Structuring": {
+    "performed": "Yes",
+    "Query Decomposition": {
+      "performed": "Yes",
+      "Method details": "LLMs are prompted to analyze the target paper and its references, identifying tasks, methods, innovations, and limitations before proposing new ideas.",
+      "Inputs": "Target paper and referenced papers.",
+      "Outputs": "Structured analysis (tasks, methods, limitations) and a set of new research ideas.",
+      "Example": "Prompt asks LLM to answer: What are the tasks, methods, and main innovations? What are the weaknesses and limitations?",
+      "Role in workflow": "Breaks down the research context to guide focused idea generation."
+    },
+    "Structural or Entity Decomposition": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "Workflow Decomposition": {
+      "performed": "Yes",
+      "Method details": "LLMs decompose the research idea into submodules for detailed proposal development.",
+      "Inputs": "Seed idea or initial proposal.",
+      "Outputs": "List of submodules with specific content, purpose, and keywords.",
+      "Example": "Method decomposition step in proposal generation (e.g., breaking down 'Adaptive Ethical Dialogue System' into modules).",
+      "Role in workflow": "Enables detailed, stepwise design of research proposals."
+    },
+    "Textual or Knowledge Embedding": {
+      "performed": "Yes",
+      "Method details": "Embeddings (e.g., all-MiniLM-L6-v2) are used for novelty and diversity measurement by computing similarity between generated ideas and existing literature.",
+      "Inputs": "Generated ideas and top-10 most relevant papers.",
+      "Outputs": "Cosine similarity scores for novelty/diversity assessment.",
+      "Example": "Cosine similarity threshold >0.3 for novelty, >0.8 for duplication.",
+      "Role in workflow": "Supports semantic comparison for novelty/diversity evaluation."
+    },
+    "Molecular or Chemical Embedding": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "Biological or Phenotypic Embedding": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "Pattern and Feature Extraction": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "Biological Relationship Extraction": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "Property and Annotation Extraction": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "Sequence and Structure Feature Extraction": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    }
+  },
+  "Data Retrieval": {
+    "performed": "Yes",
+    "Data Retrieval via Multi-Query Generation and Exploration": {
+      "performed": "Yes",
+      "Method details": "LLMs generate search plans to identify which fields and keywords to use for retrieving relevant papers in each iteration.",
+      "Inputs": "Seed ideas, target paper.",
+      "Outputs": "Search queries and plans for literature retrieval.",
+      "Example": "LLM plans which areas to search for new knowledge to enhance novelty/diversity.",
+      "Role in workflow": "Expands the scope of literature exploration iteratively."
+    },
+    "Literature and Data Retrieval via APIs": {
+      "performed": "Yes",
+      "Method details": "Retrieval of papers using APIs such as Semantic Scholar; also tracks recent influential papers via social media, forums, and GitHub.",
+      "Inputs": "Search queries, user engagement metrics.",
+      "Outputs": "Relevant papers and summaries of research trends.",
+      "Example": "Iterative retrieval of topic-relevant papers through Semantic Scholar API.",
+      "Role in workflow": "Provides up-to-date external knowledge for idea generation."
+    },
+    "Data Retrieval with Prioritization and Filtering Agents": {
+      "performed": "Yes",
+      "Method details": "LLMs use self-reflection to select the most promising ideas from those generated in each iteration.",
+      "Inputs": "Generated ideas per iteration.",
+      "Outputs": "Filtered set of top ideas (e.g., 3 per iteration).",
+      "Example": "Generate 10 new ideas, then use self-reflection to select 3.",
+      "Role in workflow": "Ensures only the most novel/diverse ideas are retained."
+    },
+    "Domain-Specific Data Retrieval and Reasoning": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "Code-Driven or Tool-Augmented Data Retrieval": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "Literature data Retrieval Citation-Network–Based Expansion": {
+      "performed": "Yes",
+      "Method details": "References of the input paper are used to expand the knowledge base for idea generation.",
+      "Inputs": "Input paper's reference list.",
+      "Outputs": "Set of related papers for context.",
+      "Example": "Seed idea generation uses both the target paper and its references.",
+      "Role in workflow": "Grounds idea generation in the broader citation network."
+    },
+    "Literature data Retrieval via Semantic and Similarity-Based analysis": {
+      "performed": "Yes",
+      "Method details": "Embeddings are used to retrieve the top-10 most relevant papers for novelty/diversity checks.",
+      "Inputs": "Generated ideas, literature corpus.",
+      "Outputs": "List of similar papers for comparison.",
+      "Example": "all-MiniLM-L6-v2 model for semantic similarity.",
+      "Role in workflow": "Supports novelty/diversity evaluation."
+    },
+    "Literature data Retrieval via Multi-Step Reference and Evidence Selection": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "Domain-Specific Literature data Retrieval": {
+      "performed": "Yes",
+      "Method details": "Retrieval is guided by domain-specific keywords and trending topics identified from recent high-quality papers.",
+      "Inputs": "Research trending info, high-quality paper list.",
+      "Outputs": "Domain-relevant papers for idea inspiration.",
+      "Example": "LLM analyzes trending topics to guide retrieval.",
+      "Role in workflow": "Ensures relevance to current research frontiers."
+    },
+    "Manual and Semi-Automatic Curation of Literature data": {
+      "performed": "Yes",
+      "Method details": "Manual selection of 170 high-quality seed papers from top conferences and user-rated sources.",
+      "Inputs": "Conference proceedings, user ratings.",
+      "Outputs": "Curated dataset of seed papers.",
+      "Example": "Filtering by citation count and user engagement.",
+      "Role in workflow": "Establishes a high-quality starting corpus."
+    },
+    "Structural or Similarity-Based Dataset Retrieval": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "Data Retrieval via Domain-Specific Repository Querying": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "Library Assembly and Data Augmentation": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    }
+  },
+  "Knowledge Assembly": {
+    "performed": "Yes",
+    "Standardized Section Extraction from Literature data": {
+      "performed": "Yes",
+      "Method details": "LLMs are prompted to extract tasks, methods, innovations, and limitations from papers.",
+      "Inputs": "Target and referenced papers.",
+      "Outputs": "Structured summaries of key sections.",
+      "Example": "Prompt step: 'What are the tasks, methods, and main innovations?'",
+      "Role in workflow": "Normalizes literature for downstream reasoning."
+    },
+    "Concise Synopsis and Summarization of Literature data": {
+      "performed": "Yes",
+      "Method details": "LLMs generate summaries of research trends and extract knowledge from recent papers.",
+      "Inputs": "Recent papers, trending topics.",
+      "Outputs": "Summaries of prevailing research trends.",
+      "Example": "LLM distills summaries from recent publications.",
+      "Role in workflow": "Provides concise context for idea generation."
+    },
+    "Facet-Based or Field-Specific Extraction from Literature data": {
+      "performed": "Yes",
+      "Method details": "LLMs extract specific facets such as problem, motivation, method, and experiment plan for proposal generation.",
+      "Inputs": "Seed ideas, target paper.",
+      "Outputs": "Field-specific proposal templates.",
+      "Example": "Initial proposal template includes problem, existing methods, motivation, method, experiment plan.",
+      "Role in workflow": "Structures proposals for detailed development."
+    },
+    "Domain-Tailored Extraction from Literature data": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "Task/Entity-Centric Knowledge Graphs": {
+      "performed": "Yes",
+      "Method details": "Baseline (Research-Agent) uses external knowledge graphs for co-occurrence entity search.",
+      "Inputs": "Entities from literature.",
+      "Outputs": "Knowledge graph for idea generation.",
+      "Example": "Research-Agent integrates retrieved entities into LLM prompts.",
+      "Role in workflow": "Supports structured idea generation in baseline comparison."
+    },
+    "Causal or Relation-Specific Knowledge Graphs": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "Biomedical or Domain-Specific Interaction Graphs": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "Literature Database Construction": {
+      "performed": "Yes",
+      "Method details": "Curated a dataset of 170 high-quality papers, segmented for use in idea generation and evaluation.",
+      "Inputs": "Conference papers, user ratings.",
+      "Outputs": "Structured database of seed papers.",
+      "Example": "Filtering by citation and user engagement.",
+      "Role in workflow": "Provides a structured corpus for retrieval and benchmarking."
+    },
+    "Entity- or Co-Occurrence–Based Databases": {
+      "performed": "Yes",
+      "Method details": "Baseline (Research-Agent) builds knowledge graphs based on entity co-occurrence.",
+      "Inputs": "Entities extracted from papers.",
+      "Outputs": "Entity co-occurrence database.",
+      "Example": "Knowledge graph construction for baseline agent.",
+      "Role in workflow": "Supports entity-based retrieval in baseline."
+    },
+    "Reasoning-Chain or Temporal Databases for Literature": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    }
+  },
+  "Hypothesis/Idea Generation": {
+    "performed": "Yes",
+    "Idea/hypothesis generation without additional literature or dataset as context": {
+      "performed": "Yes",
+      "Method details": "LLMs use internal knowledge to generate initial seed ideas, including self-check, self-critique, and reflection.",
+      "Inputs": "Target paper, LLM internal knowledge.",
+      "Outputs": "Initial set of seed ideas.",
+      "Example": "Prompted to generate ideas based on shortcomings of the input paper.",
+      "Role in workflow": "Kickstarts the ideation process with diverse, novel ideas."
+    },
+    "LLM Agent Generate ideas/hypotheses via Task Decomposition": {
+      "performed": "Yes",
+      "Method details": "LLMs decompose research ideas into submodules for detailed proposal development.",
+      "Inputs": "Seed idea or proposal.",
+      "Outputs": "List of submodules for further design.",
+      "Example": "Method decomposition step in proposal generation.",
+      "Role in workflow": "Enables detailed, modular proposal creation."
+    },
+    "Generate ideas/hypotheses using Domain-Specialized LLM Agent": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "Literature data used during idea/hypothesis generation as context": {
+      "performed": "Yes",
+      "Method details": "LLMs generate ideas using both the target paper and its references, as well as retrieved external papers.",
+      "Inputs": "Target paper, references, retrieved papers.",
+      "Outputs": "Context-aware research ideas.",
+      "Example": "Prompt combines target and referenced papers to propose new ideas.",
+      "Role in workflow": "Grounds idea generation in existing literature."
+    },
+    "Summarization Literature data used during idea/hypothesis generation": {
+      "performed": "Yes",
+      "Method details": "LLMs use summaries of research trends and recent papers to inspire new ideas.",
+      "Inputs": "Summarized research trends, recent papers.",
+      "Outputs": "Trend-informed research ideas.",
+      "Example": "LLM distills research trends for idea inspiration.",
+      "Role in workflow": "Aligns ideas with current research directions."
+    },
+    "Idea/hypothesis generation via Facet Recombination": {
+      "performed": "Yes",
+      "Method details": "LLMs use scientific discovery methods (e.g., Kuhn’s paradigm, anomaly analysis) to recombine facets and generate new problems.",
+      "Inputs": "Scientific discovery theories, literature facets.",
+      "Outputs": "Novel research ideas based on recombined facets.",
+      "Example": "Prompt uses 10 scientific discovery methods to guide ideation.",
+      "Role in workflow": "Promotes diversity and novelty in idea generation."
+    },
+    "Idea/hypothesis generation via contructed Reasoning-Chain from literature": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "Idea/hypothesis generation via Knowledge Graph developed from literature": {
+      "performed": "Yes",
+      "Method details": "Baseline (Research-Agent) uses knowledge graphs for entity-based idea generation.",
+      "Inputs": "Knowledge graph from literature.",
+      "Outputs": "Ideas based on graph structure.",
+      "Example": "Research-Agent integrates co-occurrence entities into LLM prompts.",
+      "Role in workflow": "Supports structured, entity-driven ideation in baseline."
+    },
+    "Idea/hypothesis generation via Pattern Detection from dataset": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "Idea/hypothesis generation via Few-Shot Data Seeding": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "Idea/hypothesis generation using Observational data": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "Idea/hypothesis generation via Feature-Driven Property Prediction": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "Idea/hypothesis generation after Fine-Tuning the LLM model": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    }
+  },
+  "Hypothesis/Idea Prioritization": {
+    "performed": "Yes",
+    "LLM-based Hypothesis/Idea evaluation via Scientific Quality": {
+      "performed": "Yes",
+      "Method details": "LLMs (e.g., Claude-3.5-Sonnet) perform pairwise comparisons of ideas for quality using the Swiss Tournament system.",
+      "Inputs": "Generated ideas.",
+      "Outputs": "Quality scores (0-5) per idea.",
+      "Example": "Swiss Tournament with 5 rounds of pairwise comparison per idea.",
+      "Role in workflow": "Ranks ideas by overall quality for selection."
+    },
+    "LLM-based Hypothesis/Idea evaluation via Domain-Specific Evaluation": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "LLM-based Hypothesis/Idea evaluation via Contextual Evidence Scoring": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "LLM-based Hypothesis/Idea evaluation via Interpretability or Success Metrics": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "Hypothesis/Idea evaluation via Novelty Checking with Literature Comparison": {
+      "performed": "Yes",
+      "Method details": "LLMs check if generated ideas are novel by comparing them to the top-10 most relevant papers using embedding similarity.",
+      "Inputs": "Generated ideas, retrieved papers.",
+      "Outputs": "Novelty labels per idea.",
+      "Example": "Cosine similarity threshold >0.3 for novelty.",
+      "Role in workflow": "Filters out non-novel ideas."
+    },
+    "Hypothesis/Idea evaluation via Alignment with Literature Chains": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "Hypothesis/Idea evaluation via Knowledge-Graph Grounded Similarity Metrics": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "Hypothesis/Idea evaluation via Quantitative Assessment Using Domain Metrics": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "Hypothesis/Idea evaluation via Human/Expert": {
+      "performed": "Yes",
+      "Method details": "Panel of 10 experts (PhDs/professors) evaluate ideas for novelty and quality, ranking best/worst ideas.",
+      "Inputs": "Sampled ideas from each agent.",
+      "Outputs": "Expert rankings and scores.",
+      "Example": "Experts annotate best/worst 4 ideas per group.",
+      "Role in workflow": "Validates automated evaluation and aligns with human judgment."
+    }
+  },
+  "Test": {
+    "performed": "Yes",
+    "Experimental Design Generation via literature-Grounded Model/Protocol Selection": {
+      "performed": "Yes",
+      "Method details": "LLMs generate experiment plans by referencing existing benchmarks, datasets, and evaluation metrics from literature.",
+      "Inputs": "Seed idea, literature context.",
+      "Outputs": "Experiment plan with steps, baselines, and metrics.",
+      "Example": "Proposal template includes experiment steps and baselines.",
+      "Role in workflow": "Guides empirical validation of generated ideas."
+    },
+    "Experimental Design Generation via Literature Synthesis for New Protocol Generation": {
+      "performed": "Yes",
+      "Method details": "LLMs synthesize methods and experiment plans by integrating context from target and referenced papers.",
+      "Inputs": "Target paper, references, seed idea.",
+      "Outputs": "Detailed experimental protocols.",
+      "Example": "Final proposal includes step-by-step experiment plan.",
+      "Role in workflow": "Enables actionable research proposals."
+    },
+    "Experimental Design Generation via Few-Shot or Example-Based Prompting": {
+      "performed": "Yes",
+      "Method details": "LLMs are provided with example prompts and proposal templates to guide experiment plan generation.",
+      "Inputs": "Example prompts, proposal templates.",
+      "Outputs": "Experiment plans following provided structure.",
+      "Example": "Prompt includes example proposals for LLM to follow.",
+      "Role in workflow": "Ensures consistency and quality in experiment design."
+    },
+    "Experimental Design Generation via Executable Code Generation from Literature": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "LLM-Based Experimental Design Generation via Agentic Exploration and Planning": {
+      "performed": "Yes",
+      "Method details": "LLMs iteratively plan and search for new knowledge, refining experiment plans and proposals at each step.",
+      "Inputs": "Seed ideas, retrieved knowledge.",
+      "Outputs": "Refined experiment plans and proposals.",
+      "Example": "Iterative planning framework for proposal refinement.",
+      "Role in workflow": "Improves quality and feasibility of research plans."
+    },
+    "LLM-Based Experimental Design Generation via Code and Workflow Translation": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "LLM-Based Experimental Design Generation via Multi-Agent Planning with Specialized Roles": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "LLM-Based Experimental Design Generation via Domain-Specific Experimental Mapping": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "Test Execution via Human-in-the-Loop": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "Test Execution via Automated Wet-Lab Execution": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "Test Execution via Computational or In-Silico": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "Refinement via LLM Agent Feedback Loops": {
+      "performed": "Yes",
+      "Method details": "LLMs use self-reflection and critique to iteratively refine ideas and proposals after each planning/search iteration.",
+      "Inputs": "Generated ideas, feedback from previous iteration.",
+      "Outputs": "Improved set of ideas and proposals.",
+      "Example": "Self-reflection reduces 10 generated ideas to 3 per iteration.",
+      "Role in workflow": "Enhances novelty and quality through iterative improvement."
+    },
+    "Refinement via Automated Quality Evaluation using Model-Based Critics": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "Refinement via Dynamic Agent Updating Based on Evolving Context or Data": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "Refinement via guided by computational-data": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "Refinement via experimental validation": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "Refinement via Performance-metric": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    },
+    "Refinement via Human–data integration": {
+      "performed": "No",
+      "Method details": "",
+      "Inputs": "",
+      "Outputs": "",
+      "Example": "",
+      "Role in workflow": ""
+    }
+  },
+  "paper_title": "Nova: An Iterative Planning and Search Approach to Enhance Novelty and Diversity of LLM Generated Ideas",
+  "authors": [
+    "Xiang",
+    "Hongyu",
+    "Jinge",
+    "Yifeng",
+    "Zhikun",
+    "Renjun",
+    "Yu",
+    "Yaochu",
+    "Lili",
+    "Zhenzhong"
+  ],
+  "published": "2024-10-27",
+  "link": "http://arxiv.org/abs/2410.14255"
+}
