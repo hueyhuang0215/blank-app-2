@@ -400,7 +400,7 @@ with tab_papers:
                 filtered_papers.append(p)
 
     with col_list:
-        st.markdown(f"### References & Papers ({len(filtered_papers)})")
+        st.markdown(f"### Papers ({len(filtered_papers)})")
         st.markdown("---")
         
         if not filtered_papers:
