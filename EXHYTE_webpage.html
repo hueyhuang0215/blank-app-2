@@ -1,0 +1,90 @@
+<p>
+    &nbsp;
+</p>
+<p>
+    <span style="font-size:22px;"><strong>The EXHYTE Cycle:A workflow for data-intensive scientific discovery</strong></span>
+</p>
+<p>
+    <br>
+    <a style="color:black;font-family:&quot;Times New Roman&quot;, serif;font-size:10pt;font-style:normal;font-weight:normal;text-decoration:none;" href="#bookmark2"><span style="font-family:'Times New Roman', Times, serif;font-size:18px;">We derived the EXHYTE cycle from two complementary sources: recent advances in the philosophy of scientific discovery [</span></a><span style="color:#00F;font-family:'Times New Roman', Times, serif;font-size:18px;"><span style="font-style:normal;font-weight:normal;text-decoration:none;">1</span></span><a style="color:black;font-family:&quot;Times New Roman&quot;, serif;font-size:10pt;font-style:normal;font-weight:normal;text-decoration:none;" href="#bookmark3"><span style="font-family:'Times New Roman', Times, serif;font-size:18px;">–</span></a><span style="color:#00F;font-family:'Times New Roman', Times, serif;font-size:18px;"><span style="font-style:normal;font-weight:normal;text-decoration:none;">3</span></span><span style="font-family:'Times New Roman', Times, serif;font-size:18px;">], which emphasizes iterative and exploratory models of inquiry, and a systematic review of workflows used in state-of-the-art AI–driven research systems. Across these works, we observed a shared structure in which exploration of large knowledge bases leads naturally to hypothesis generation and targeted testing, forming a self-sustaining loop that integrates human reasoning with computational and experimental processes. EXHYTE formalizes this pattern as an explicit, generalizable framework for data-intensive discovery.</span><br>
+    <span style="font-family:'Times New Roman', Times, serif;font-size:18px;">&nbsp; &nbsp; &nbsp; &nbsp;Research typically enters the EXHYTE cycle through a <i>trigger </i></span><a style="color:black;font-family:&quot;Times New Roman&quot;, serif;font-size:10pt;font-style:normal;font-weight:normal;text-decoration:none;" href="#bookmark1"><span style="font-family:'Times New Roman', Times, serif;font-size:18px;">(Fig. </span></a><span style="color:#00F;font-family:'Times New Roman', Times, serif;font-size:18px;"><span style="font-style:normal;font-weight:normal;text-decoration:none;">1</span></span><span style="font-family:'Times New Roman', Times, serif;font-size:18px;">), for example, an open question, an unexpected observation, an anomaly in data, or the introduction of a new measurement technology. Such triggers define a broad area of inquiry but rarely yield immediately testable predictions. The first stage, EXPLORE, therefore seeks to organize what is known and expose what remains uncertain.</span>
+</p>
+<p>
+    <span style="font-size:18px;"><strong>EXPLORE</strong> aims to assemble and structure knowledge so that knowledge gaps become explicit and actionable. This stage consists of three substages:</span>
+</p>
+<ul id="l1">
+    <li class="ck-list-marker-font-size" style="--ck-content-list-marker-font-size:18px;" data-list-item-id="e30e90f6129c326d3e569d809abd82c2b" data-list-text="•">
+        <span style="font-size:18px;"><strong>E1</strong>: Query structuring translates research questions into machine-actionable forms (e.g., keyphrases, controlled vocabularies, domain schemas) to guide retrieval.</span>
+    </li>
+    <li class="ck-list-marker-font-size" style="--ck-content-list-marker-font-size:18px;" data-list-item-id="e4d6d2dc066739b17636e24ddae550ff6" data-list-text="•">
+        <p>
+            <span style="font-size:18px;"><strong>E2</strong>: Data retrieval collects literature, code, and structured datasets from scientific</span>
+        </p>
+        <p style="line-height:11pt;padding-left:26pt;text-indent:0pt;">
+            <span style="font-size:18px;">repositories and APIs according to the structured query plan in E1.</span>
+        </p>
+    </li>
+    <li class="ck-list-marker-font-size" style="--ck-content-list-marker-font-size:18px;" data-list-item-id="e9c860bd94bf61ca86465b5ee757d1e02" data-list-text="•">
+        <span style="font-size:18px;"><strong>E3</strong>: Knowledge assembly normalizes and integrates retrieved data into represen- tations such as embeddings, graphs, or feature tables and summarizes evidence to surface explicit knowledge gaps.</span>
+    </li>
+</ul>
+<p>
+    <span style="font-size:18px;">The output of EXPLORE is a structured knowledge base and a set of defined knowledge gaps that motivate the next stage.</span>
+</p>
+<p>
+    <span style="font-size:18px;"><strong>HYPOTHESIZE</strong> transforms knowledge gaps into ideas or specific, testable claims through two substages:</span>
+</p>
+<ul id="l1">
+    <li class="ck-list-marker-font-size" style="--ck-content-list-marker-font-size:18px;" data-list-item-id="e9e2f3c9c8736c11b1588de0331c0063f" data-list-text="•">
+        <span style="font-size:18px;"><strong>H1: Hypothesis/idea generation </strong>formulates candidate mechanisms or inter- ventions using approaches such as literature-grounded reasoning or data-driven strategies.</span>
+    </li>
+    <li class="ck-list-marker-font-size" style="--ck-content-list-marker-font-size:18px;" data-list-item-id="e801dae787b4097eb47129bdbaf8518a6" data-list-text="•">
+        <span style="font-size:18px;"><strong>H2: Hypothesis/idea prioritization </strong>evaluates these candidates for novelty, plausibility, feasibility and expected impact using quantitative metrics or expert and LLM-based assessments.</span>
+    </li>
+</ul>
+<p>
+    <span style="font-size:18px;">The outcome of this stage is a prioritized list of hypotheses with clear rationales and success criteria, ready for empirical validation.</span>
+</p>
+<p>
+    <span style="font-size:18px;"><strong>TEST</strong> translates hypotheses into executable experiments and closes the feedback loop.</span>
+</p>
+<ul id="l1">
+    <li class="ck-list-marker-font-size" style="--ck-content-list-marker-font-size:18px;" data-list-item-id="ec4000771c1f9281f15e6ab93d2147c08" data-list-text="•">
+        <span style="font-size:18px;"><strong>T1: Experimental design </strong>specifies objectives, protocols, datasets/materials, and measurable outcomes, yielding executable experimental or computational plans.</span>
+    </li>
+    <li class="ck-list-marker-font-size" style="--ck-content-list-marker-font-size:18px;" data-list-item-id="e4b6abc523e8dc2d7cec2b22f6b5f5a65" data-list-text="•">
+        <span style="font-size:18px;">‌<strong>T2: Testing and refinement </strong>performs in silico, in vitro or in vivo experiments and analyzes the results to confirm, refine, or reject hypotheses.&nbsp;</span>
+    </li>
+</ul>
+<p>
+    <span style="font-size:18px;">Results from TEST feed back into the cycle through one of the three paths. When the findings generally support the hypothesis but leave important uncertainties, the process proceeds through refinement by adjusting parameters, recording additional variables, or refining the experimental design while maintaining the same mechanistic focus. When evidence contradicts the hypothesis, the cycle pivots, preserving the original knowledge gap but exploring alternative explanations or mechanisms in the next iteration. In contrast, when success criteria are fully met and the research question is resolved, the inquiry sunsets, concluding the current line of investigation rather than looping back to further exploration. Together, these outcomes ensure that EXHYTE functions as a self-correcting, evidence-driven process, capable of continuous adaptation while allowing closure when discovery goals are achieved.</span>
+</p>
+<figure class="image" style="text-align: center; margin-top: 20px; margin-bottom: 20px;">
+    <img src="image001_t2.jpg" width="550" height="550" style="max-width: 100%; height: auto;">
+</figure>
+<p class="s1" style="color:black;font-family:&quot;Times New Roman&quot;, serif;font-size:8pt;font-style:normal;margin:0pt;padding:6pt 0px 0px 40pt;text-align:center;text-decoration:none;text-indent:0pt;">
+    <a style="color:rgb(0, 0, 255);font-family:&quot;Times New Roman&quot;, serif;font-size:10pt;font-style:normal;font-weight:normal;margin:0px;padding:0px;text-decoration:none;text-indent:0px;" name="bookmark12"><span style="font-family:'Times New Roman', Times, serif;"><strong>‌</strong></span></a><span style="font-family:'Times New Roman', Times, serif;font-size:medium"><strong>Fig. 1 </strong></span><span style="color:black;font-family:'Times New Roman', Times, serif;font-size:8pt;"><span class="s2" style="font-style:normal;font-weight:normal;margin:0px;padding:0px;text-decoration:none;text-indent:0px;font-size:medium;">Overview of The EXHYTE Cycle for Iterative Scientific Discovery.</span></span>
+</p>
+<p>
+    &nbsp;
+</p>
+<h1 style="padding-left:16pt;padding-top:3pt;text-align:left;text-indent:0pt;">
+    <span style="font-size:22px;">References</span>
+</h1>
+<ol id="l3">
+    <li data-list-item-id="e08143880c3007b12c06cfbcae7453848" data-list-text="[1]">
+        <p style="padding-left:31pt;padding-top:8pt;text-align:justify;text-indent:-15pt;">
+            <a name="bookmark2">‌</a>Popper, K.: The Logic of Scientific Discovery, Routledge revised edn. Routledge, UK (2005)
+        </p>
+    </li>
+    <li data-list-item-id="e278b2245a6d12a1e7696f90ed7d82d31" data-list-text="[2]">
+        <p style="padding-left:31pt;padding-top:10pt;text-align:justify;text-indent:-15pt;">
+            Schickore, J.: Scientific Discovery. In: Zalta, E.N., Nodelman, U. (eds.) The Stanford Encyclopedia of Philosophy, Winter 2022 edn. Metaphysics Research Lab, Stanford University, California, CA (2025)
+        </p>
+    </li>
+    <li data-list-item-id="e81500d310911446df851b9b24bcfdcae" data-list-text="[3]">
+        <p style="padding-left:31pt;padding-top:10pt;text-align:justify;text-indent:-15pt;">
+            <a name="bookmark3">‌</a>Leonelli, S.: Scientific Research and Big Data. In: Zalta, E.N. (ed.) The Stanford Encyclopedia of Philosophy, Summer 2020 edn. Metaphysics Research Lab, Stanford University, California, CA (2020)
+        </p>
+    </li>
+</ol>

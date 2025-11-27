@@ -1,684 +1,568 @@
-import os
-import json
-import re
 import streamlit as st
-from openai import OpenAI
-from dateutil import parser
-from typing import Dict, Any, List
+import base64
+import re
+import json
+import os
+from pathlib import Path
+import streamlit.components.v1 as components
+from bs4 import BeautifulSoup
+from openai import OpenAI 
 
-# --------------------------
-# Page Configuration
-# --------------------------
+# ---------------------------------------------------------
+# Page setup
+# ---------------------------------------------------------
 st.set_page_config(
-    page_title="AI Scientific Discovery Dashboard",
-    layout="wide",
-    initial_sidebar_state="collapsed"
+    page_title="AI4Research — EXHYTE Dashboard",
+    layout="wide"
 )
 
-# --- Add an HTML anchor for the "Back to Top" link ---
-st.markdown("<a id='top'></a>", unsafe_allow_html=True)
+# ---------------------------------------------------------
+# HELPER: GENERATE STRUCTURED SUMMARY HTML
+# ---------------------------------------------------------
+def generate_summary_html(data):
+    """
+    Parses JSON with ROBUST handling for lists of dictionaries.
+    """
+    html_parts = []
+    
+    # --- HELPER: HEADER ---
+    def make_header(emoji, text):
+        return f"<div style='margin-top: 18px; margin-bottom: 8px; font-weight: bold; font-size: 1.1em; border-bottom: 1px solid #ddd; padding-bottom: 4px; color: #000; font-family: \"Times New Roman\", serif;'>{emoji} {text}</div>"
 
-st.title("AI Methods for Scientific Discovery: A Comprehensive Survey")
-st.caption("Based on 'AI Methods for Scientific Discovery: A Comprehensive Survey Organized by the EXHYTE Framework'")
+    # --- HELPER: EVIDENCE ---
+    def render_evidence(data_dict_or_str):
+        if isinstance(data_dict_or_str, dict) and "evidence" in data_dict_or_str and data_dict_or_str["evidence"]:
+            ev = data_dict_or_str["evidence"]
+            if isinstance(ev, list):
+                ev_text = "<br>• ".join(ev)
+                if len(ev) > 0: ev_text = "• " + ev_text
+            else:
+                ev_text = str(ev)
+            return f"<div style='margin-top: 4px; font-size: 0.9em; color: #555; background-color: #f4f4f4; padding: 6px; border-radius: 4px;'><em>📌 Evidence: {ev_text}</em></div>"
+        return ""
 
-# --------------------------
-# Define Tabs
-# --------------------------
-tab_sec2, tab_sec3_4, tab_sec5, tab_paper_list, tab_survey_gen = st.tabs([
-    "Section 2: EXHYTE Cycle", 
-    "Sections 3 & 4: AI Methods & Closed-Loop", 
-    "Section 5: Tools & Datasets", 
-    "Paper List Explorer", 
+    # --- HELPER: RENDER CONTENT ---
+    def render_content(content):
+        # CASE 1: List of items
+        if isinstance(content, list):
+            html = "<ul>"
+            for item in content:
+                html += "<li style='margin-bottom:8px;'>"
+                if isinstance(item, dict):
+                    label = item.get("label") or item.get("name") or item.get("step") or ""
+                    desc = item.get("explanation") or item.get("description") or item.get("answer") or ""
+                    
+                    text_part = ""
+                    if label:
+                        text_part += f"<strong>{label}</strong>"
+                        if desc: text_part += f": {desc}"
+                    elif desc:
+                        text_part += f"{desc}"
+                    
+                    html += f"<div>{text_part}</div>"
+                    html += render_evidence(item)
+                else:
+                    html += f"{item}"
+                html += "</li>"
+            html += "</ul>"
+            return html
+        # CASE 2: Single String
+        elif isinstance(content, str):
+            return f"<div>{content}</div>"
+        return ""
+
+    # SECTIONS
+    if "objective" in data and data["objective"]:
+        d = data["objective"]
+        html = make_header("🎯", "Objective")
+        html += "<div style='margin-left: 10px;'>" + render_content(d.get("answer", "")) + render_evidence(d) + "</div>"
+        html_parts.append(html)
+
+    if "knowledge_gap" in data and data["knowledge_gap"]:
+        d = data["knowledge_gap"]
+        html = make_header("🧩", "Knowledge Gap")
+        html += "<div style='margin-left: 10px;'>" + render_content(d.get("answer", "")) + render_evidence(d) + "</div>"
+        html_parts.append(html)
+
+    if "novelty" in data and data["novelty"]:
+        d = data["novelty"]
+        html = make_header("✨", "Novelty")
+        html += "<div style='margin-left: 10px;'>" + render_content(d.get("answer", "")) + render_evidence(d) + "</div>"
+        html_parts.append(html)
+
+    if "inspirational_papers" in data and data["inspirational_papers"]:
+        d = data["inspirational_papers"]
+        html = make_header("💡", "Inspirational Papers")
+        html += "<div style='margin-left: 10px;'>" + render_content(d.get("answer", "")) + render_evidence(d) + "</div>"
+        html_parts.append(html)
+
+    if "method" in data and data["method"]:
+        d = data["method"]
+        html = make_header("⚙️", "Method")
+        html += "<div style='margin-left: 10px;'>"
+        if "steps" in d and isinstance(d["steps"], list):
+            for step in d["steps"]:
+                step_name = step.get("step", "Step")
+                html += f"<div style='margin-top: 10px; background-color: #fff; border: 1px solid #e0e0e0; padding: 10px; border-radius: 5px; box-shadow: 0 1px 2px rgba(0,0,0,0.05);'>"
+                html += f"<div style='font-weight: bold; color: #333; margin-bottom: 4px;'>{step_name}</div>"
+                if "input" in step: html += f"<div style='font-size: 0.95em;'><strong>Input:</strong> {step['input']}</div>"
+                if "output" in step: html += f"<div style='font-size: 0.95em;'><strong>Output:</strong> {step['output']}</div>"
+                if "tools" in step:
+                    tools = step["tools"]
+                    if isinstance(tools, list): tools = ", ".join(tools)
+                    html += f"<div style='font-size: 0.95em; color: #0056b3;'><strong>Tools:</strong> {tools}</div>"
+                html += render_evidence(step)
+                html += "</div>"
+        if "tools" in d and isinstance(d["tools"], list):
+             html += f"<div style='margin-top: 12px;'><strong>Global Tools:</strong> {', '.join(d['tools'])}</div>"
+        html += render_evidence(d)
+        html += "</div>"
+        html_parts.append(html)
+
+    if "performance_summary" in data and data["performance_summary"]:
+        d = data["performance_summary"]
+        html = make_header("📊", "Performance")
+        html += "<div style='margin-left: 10px;'>"
+        if "performance_summary" in d: html += render_content(d["performance_summary"])
+        if "baselines" in d and d["baselines"]:
+             html += "<div style='margin-top: 8px;'><strong>Baselines:</strong></div>" + render_content(d["baselines"])
+        if "evaluation_metrics" in d and d["evaluation_metrics"]:
+             html += "<div style='margin-top: 8px;'><strong>Metrics:</strong></div>" + render_content(d["evaluation_metrics"])
+        html += render_evidence(d)
+        html += "</div>"
+        html_parts.append(html)
+
+    if "subject_area" in data and data["subject_area"]:
+        d = data["subject_area"]
+        html = make_header("📚", "Subject Area")
+        html += "<div style='margin-left: 10px;'>" + render_content(d.get("areas", [])) + render_evidence(d) + "</div>"
+        html_parts.append(html)
+
+    if "limitations" in data and data["limitations"]:
+        d = data["limitations"]
+        content_list = d.get("limitations", [])
+        if content_list:
+            html = make_header("⚠️", "Limitations")
+            html += "<div style='margin-left: 10px;'>" + render_content(content_list) + render_evidence(d) + "</div>"
+            html_parts.append(html)
+
+    if "future_directions" in data and data["future_directions"]:
+        d = data["future_directions"]
+        content_list = d.get("future_directions", [])
+        if content_list:
+            html = make_header("🔮", "Future Directions")
+            html += "<div style='margin-left: 10px;'>" + render_content(content_list) + render_evidence(d) + "</div>"
+            html_parts.append(html)
+
+    if "resource_link" in data and data["resource_link"]:
+        d = data["resource_link"]
+        url = d.get("answer", "")
+        if url and url.startswith("http"):
+            html = make_header("🔗", "Resource Link")
+            html += f"<div style='margin-left: 10px;'><a href='{url}' target='_blank' style='color:#0000EE; text-decoration:underline;'>{url}</a></div>"
+            html_parts.append(html)
+
+    if not html_parts:
+        return "<div style='color:#666; font-style:italic;'>No detailed summary data available.</div>"
+    
+    return "".join(html_parts)
+
+
+# ---------------------------------------------------------
+# DATA LOADING
+# ---------------------------------------------------------
+def load_papers_from_directory(directory_name="Papers"):
+    papers = []
+    
+    if not os.path.exists(directory_name):
+        return []
+
+    json_files = sorted([f for f in os.listdir(directory_name) if f.endswith(".json")])
+    
+    for filename in json_files:
+        file_path = os.path.join(directory_name, filename)
+        try:
+            with open(file_path, "r", encoding="utf-8") as f:
+                data = json.load(f)
+            
+            raw_authors = data.get("authors", [])
+            authors_str = ", ".join(raw_authors) if isinstance(raw_authors, list) else str(raw_authors)
+            
+            pub_date = data.get("published", "")
+            year_str = pub_date[:4] if len(pub_date) >= 4 else "N/A"
+            
+            topics = []
+            raw_areas = data.get("subject_area", {}).get("areas", [])
+            for area in raw_areas:
+                if isinstance(area, dict):
+                    topics.append(area.get("name", "Unknown"))
+                else:
+                    topics.append(str(area))
+            
+            papers.append({
+                "title": data.get("paper_title", "Untitled Paper"),
+                "authors": authors_str,
+                "year": year_str,
+                "venue": "arXiv" if "arxiv" in data.get("link", "").lower() else "Scientific Publication",
+                "url": data.get("link", "#"),
+                "topics": topics,
+                "filename": filename,
+                "full_data": data
+            })
+            
+        except Exception as e:
+            print(f"Error loading {filename}: {e}")
+            continue
+            
+    return papers
+
+PAPER_DATA = load_papers_from_directory("Papers")
+
+# ---------------------------------------------------------
+# Helpers
+# ---------------------------------------------------------
+def read_file(path):
+    try:
+        return Path(path).read_text(encoding="utf-8")
+    except FileNotFoundError:
+        st.error(f"Could not find file: {path}")
+        return ""
+
+def load_image_as_base64(path):
+    try:
+        with open(path, "rb") as f:
+            data = f.read()
+            return base64.b64encode(data).decode()
+    except FileNotFoundError:
+        return None
+
+def process_html_content(html_content, image_map):
+    soup = BeautifulSoup(html_content, 'html.parser')
+    for p in soup.find_all('p'):
+        if not p.get_text(strip=True) and p.find('br'):
+            p.decompose()
+    images = soup.find_all('img')
+    for img in images:
+        src = img.get('src', '')
+        filename = src.split('/')[-1] if '/' in src else src
+        if filename in image_map:
+            ext = filename.split('.')[-1].lower()
+            mime = "jpeg" if ext == "jpg" else ext
+            img['src'] = f"data:image/{mime};base64,{image_map[filename]}"
+            img['style'] = "max-width: 100%; height: auto;"
+    style_tag = soup.new_tag("style")
+    style_tag.string = """
+        p, h1, h2, h3, h4, h5, li, div {
+            margin-top: 5px !important; margin-bottom: 5px !important; 
+            padding-top: 0px !important; padding-bottom: 0px !important;
+            line-height: 1.4 !important;
+        }
+        li { margin-left: 20px !important; }
+        a { color: #0000EE; text-decoration: underline; }
+    """
+    if soup.head: soup.head.append(style_tag)
+    else: soup.append(style_tag)
+    return str(soup)
+
+# ---------------------------------------------------------
+# Load Files
+# ---------------------------------------------------------
+FILES = {
+    "tab1_html": "EXHYTE_webpage.html",
+    "tab2_html": "EXHYTE_webpage (1)-1.html",
+    "tab3_html": "EXHYTE_webpage (2).html",
+}
+
+IMAGE_FILES = ["image001.png", "image001_t2.jpg", "image002.jpg", "image003.jpg"]
+image_map = {}
+for img_name in IMAGE_FILES:
+    b64_data = load_image_as_base64(img_name)
+    if b64_data:
+        image_map[img_name] = b64_data
+    if b64_data and "image001.png" in img_name:
+         image_map["Image_001.png"] = b64_data
+
+html_tab1 = process_html_content(read_file(FILES["tab1_html"]), image_map)
+html_tab2 = process_html_content(read_file(FILES["tab2_html"]), image_map)
+html_tab3 = process_html_content(read_file(FILES["tab3_html"]), image_map)
+
+# ---------------------------------------------------------
+# CSS — Streamlit Tabs & UI Styling (GLOBAL FONTS)
+# ---------------------------------------------------------
+st.markdown("""
+<style>
+/* Global Font Setting */
+html, body, [class*="css"], .stTextInput input, .stMultiSelect, .stButton button {
+    font-family: 'Times New Roman', serif !important;
+}
+
+/* Tabs Styling */
+.stTabs [data-baseweb="tab-list"] { gap: 2px; width: 100%; }
+.stTabs [data-baseweb="tab"] {
+    height: 60px; white-space: pre-wrap; background-color: #f0f2f6;
+    border-radius: 4px 4px 0px 0px; gap: 1px; padding-top: 10px; padding-bottom: 10px;
+    flex-grow: 1; width: 100%;  
+}
+.stTabs [data-baseweb="tab"] p, .stTabs [data-baseweb="tab"] div {
+    font-family: "Times New Roman", Times, serif !important;
+    font-size: 24px !important; font-weight: 600 !important;
+}
+.stTabs [aria-selected="true"] { background-color: #ffffff !important; border-top: 3px solid #ff4b4b !important; }
+
+/* Paper List Numbering */
+.paper-number {
+    font-size: 18px; font-weight: bold; color: #555; text-align: right;
+    padding-right: 10px; font-family: 'Times New Roman', serif;
+    white-space: nowrap !important; width: 100%;
+}
+
+/* Custom Font for Dropdown Options */
+div[data-baseweb="select"] > div {
+    font-family: 'Times New Roman', serif !important;
+}
+div[data-baseweb="popover"] {
+    font-family: 'Times New Roman', serif !important;
+}
+</style>
+""", unsafe_allow_html=True)
+
+# ---------------------------------------------------------
+# HEADER
+# ---------------------------------------------------------
+st.markdown("""
+<h1 style="text-align:center; font-size:48px; margin-bottom:5px; font-family: 'Times New Roman', serif;">
+A Process-Centric Survey of AI for Scientific Discovery Through the EXHYTE Framework
+</h1>
+<p style="text-align:center; font-size:20px; margin-top:5px; margin-bottom:10px; font-family: 'Times New Roman', serif;">
+Md Musaddaqqul Hasib<sup>1,2</sup>, Sumin Jo<sup>3</sup>, Harsh Sinha<sup>1,4</sup>,
+Jifeng Song<sup>1,3</sup>, Huey Huang<sup>9</sup>, Arun Das<sup>1,2</sup>,
+Zhentao Liu<sup>1,4</sup>, Hugh Galloway<sup>1</sup>, Kexun Zhang<sup>8</sup>,
+Shou-Jiang Gao<sup>1,5</sup>, Yu-Chiao Chiu<sup>1,2,6,7</sup>, Lei Li<sup>8</sup>,
+Yufei Huang<sup>1*</sup>
+</p>
+<p style="text-align:center; font-size:16px; max-width:900px; margin:auto; line-height:1.4; font-family: 'Times New Roman', serif;">
+1 Cancer Virology Program, UPMC Hillman Cancer Center, Pittsburgh, PA, USA;
+2 Department of Medicine, University of Pittsburgh, Pittsburgh, PA, USA;
+3 Department of Electrical and Computer Engineering, University of Pittsburgh, Pittsburgh, PA, USA;
+4 Intelligent Systems Program, School of Computing & Information, University of Pittsburgh, Pittsburgh, PA, USA;
+5 Department of Microbiology and Molecular Genetics, University of Pittsburgh School of Medicine, Pittsburgh, PA, USA;
+6 Department of Computational and Systems Biology, University of Pittsburgh School of Medicine, Pittsburgh, PA, USA;
+7 Pittsburgh Liver Research Center, UPMC, Pittsburgh, PA, USA;
+8 Carnegie Mellon University, Pittsburgh, PA, USA;
+9 University of Texas at Austin, Austin, TX, USA.
+</p>
+<hr style="margin-top:20px; margin-bottom:20px;">
+""", unsafe_allow_html=True)
+
+# ---------------------------------------------------------
+# TABS & CONTENT
+# ---------------------------------------------------------
+tab_sec2, tab_sec34, tab_sec5, tab_papers, tab_survey = st.tabs([
+    "The EXHYTE Cycle",
+    "AI Methods for EXHYTE",
+    "Tools & Datasets",
+    "Paper List",
     "Survey Generator"
 ])
 
+with tab_sec2: components.html(html_tab1, height=1200, scrolling=True)
+with tab_sec34: components.html(html_tab2, height=1200, scrolling=True)
+with tab_sec5: components.html(html_tab3, height=1200, scrolling=True)
 
-# ----------------------------------------------------------------------
-# TAB 1: Section 2: The EXHYTE Cycle
-# (This tab is unchanged)
-# ----------------------------------------------------------------------
-with tab_sec2:
-    st.header("Section 2: The EXHYTE Cycle: A workflow for data-intensive scientific discovery")
-    with st.container(height=700):
-        st.markdown(r"""
-        *Content extracted word-for-word from Article\_Title\_\_1\_.pdf*
+# --- TAB 4: PAPER LIST ---
+with tab_papers:
+    col_filter, col_list = st.columns([1, 4])
+
+    with col_filter:
+        st.markdown("### Filters")
+        all_topics = set()
+        for p in PAPER_DATA:
+            if "topics" in p: all_topics.update(p["topics"])
         
-        We derived the EXHYTE cycle from two complementary sources: recent advances in the philosophy of scientific discovery [9-11], which emphasizes iterative and exploratory models of inquiry, and a systematic review of workflows used in state-of-the-art Al-driven research systems. Across these works, we observed a shared structure in which exploration of large knowledge bases leads naturally to hypothesis generation and targeted testing, forming a self-sustaining loop that integrates human reasoning with computational and experimental processes. EXHYTE formalizes this pattern as an explicit, generalizable framework for data-intensive discovery.
+        selected_topics = st.multiselect("Search by Topic", options=sorted(list(all_topics)))
+        search_keyword = st.text_input("Search by Keyword", placeholder="e.g. Creativity...")
 
-        Research typically enters the EXHYTE cycle through a trigger (Fig. 1), for example, an open question, an unexpected observation, an anomaly in data, or the introduction of a new measurement technology. Such triggers define a broad area of inquiry but rarely yield immediately testable predictions. The first stage, EXPLORE, therefore seeks to organize what is known and expose what remains uncertain.
-        
-        **(Fig. 1 The EXHYTE Cycle and substages)**
-
-        EXPLORE aims to assemble and structure knowledge so that knowledge gaps become explicit and actionable. This stage consists of three substages:
-        * • E1: Query structuring translates research questions into machine-actionable forms (e.g., keyphrases, controlled vocabularies, domain schemas) to guide retrieval.
-        * • E2: Data retrieval collects literature, code, and structured datasets from scientific repositories and APIs according to the structured query plan in E1.
-        * • E3: Knowledge assembly normalizes and integrates retrieved data into representations such as embeddings, graphs, or feature tables and summarizes evidence to surface explicit knowledge gaps.
-
-        The output of EXPLORE is a structured knowledge base and a set of defined knowledge gaps that motivate the next stage.
-
-        HYPOTHESIZE transforms knowledge gaps into ideas or specific, testable claims through two substages:
-        * • H1: Hypothesis/idea generation formulates candidate mechanisms or interventions using approaches such as literature-grounded reasoning or data-driven strategies.
-        * • H2: Hypothesis/idea prioritization evaluates these candidates for novelty, plausibility, feasibility and expected impact using quantitative metrics or expert and LLM-based assessments.
-        
-        The outcome of this stage is a prioritized list of hypotheses with clear rationales and success criteria, ready for empirical validation.
-
-        TEST translates hypotheses into executable experiments and closes the feedback loop.
-        * • T1: Experimental design specifies objectives, protocols, datasets/materials, and measurable outcomes, yielding executable experimental or computational plans.
-        * • T2: Testing and refinement performs in silico, in vitro or in vivo experiments and analyzes the results to confirm, refine, or reject hypotheses.
-
-        Results from TEST feed back into the cycle through one of the three paths. When the findings generally support the hypothesis but leave important uncertainties, the process proceeds through refinement by adjusting parameters, recording additional variables, or refining the experimental design while maintaining the same mechanistic focus. When evidence contradicts the hypothesis, the cycle pivots, preserving the original knowledge gap but exploring alternative explanations or mechanisms in the next iteration. In contrast, when success criteria are fully met and the research question is resolved, the inquiry sunsets, concluding the current line of investigation rather than looping back to further exploration. Together, these outcomes ensure that EXHYTE functions as a self-correcting, evidence-driven process, capable of continuous adaptation while allowing closure when discovery goals are achieved.
-        """)
-
-
-# ----------------------------------------------------------------------
-# TAB 2: Sections 3 & 4: AI Methods & Closed-Loop
-# (This tab is unchanged)
-# ----------------------------------------------------------------------
-with tab_sec3_4:
-    st.header("Sections 3 & 4: AI Methods and Closed-Loop Discovery")
-    with st.container(height=700):
-        # --- Section 3 ---
-        st.subheader("Section 3: AI Methods for the EXHYTE Cycle")
-        st.markdown(r"""
-        *Content extracted word-for-word from Article\_Title\_\_1\_.pdf*
-
-        To construct the survey corpus, we focused on the literature published between 2018 and July 2025 to capture recent advances in LLMs and agent systems for scientific discovery...
-
-        #### 3.1 Trigger: User Input
-        
-        In automated scientific discovery systems, user input ranges from natural language queries about research topics to domain-specific research papers or datasets, playing a central role in aligning system behavior with specific goals. High-level research directions, such as workshop themes, set the scope for the automated scientific workflow. For example, the ICLR 2025 workshop "I Can't Believe It's Not Better" (ICBINB) focused on real-world pitfalls, challenges, and negative or inconclusive results in deep learning, a perspective incorporated in AI-Scientist-v2 [12]. Similarly, focused problem statements, such as "How can we improve the energy efficiency of AI models?" (e.g., SCI-IDEA [13]), guide idea and hypothesis generation. Extending this idea, IRIS [14] formalizes user input as research goals that explicitly decompose into a problem and its motivation/context...
-
-        #### 3.2 The Explore Stage
-
-        **3.2.1 E1: Query Structuring**
-        
-        User query structuring is the first step in the Explore Stage, where it transforms raw, unstructured research inputs into actionable representations. This process employs complementary strategies including decomposition, vector representation, and information extraction from datasets to enable targeted exploration across literature and data.
-        
-        * **E1-S1: Decomposition.** Decomposition transforms complex research queries into tractable sub-queries/questions or tasks that enable focused literature/dataset retrieval, reasoning, and solution design using LLM. Different systems operationalize decomposition at various levels. Chain of Ideas [24] decomposes initial research topic into multiple sub-queries that capture diverse perspectives on the same problem., SCI-IDEA [13] extracts keyphrases...
-        * **E1-S2: Vector Representations.** Vector representations transform unstructured text queries, documents, or data entities into high-dimensional embeddings...
-        * **E1-S3: Information Extraction from Datasets.** Extracting key features and annotations from structured datasets enables automated systems to generate empirical inputs for downstream tasks such as model training, hypothesis formulation, and idea generation. AstroAgents [36], for instance, employs a Data Analyst Agent to identify polycyclic aromatic hydrocarbon (PAH) patterns...
-
-        **3.2.2 E2: Data Retrieval**
-
-        The data retrieval substage leverages structured queries from E1 to gather relevant information from diverse sources, including literature, databases, and code repositories.
-        
-        * **E2-S1: Literature Retrieval.** Literature retrieval methods gather scientific papers... AI-Scientist-v2 [12], retrieve literature via the Semantic Scholar API...
-        * **E2-S2: Related-Work Based Retrieval.** Citation networks and semantic similarity are widely used to link related works and surface new directions. ResearchAgent [18], SCIMON [35], HypER [20], and Chain of Ideas [24] expand from an anchor paper by retrieving both citing and cited works...
-        * **E2-S3: Dataset Retrieval from Scientific Repositories.** Datasets provide the empirical foundation for analysis, model training, and validation. In drug discovery, DrugMCTS [21] queries databases to retrieve molecules structurally similar to a query compound...
-
-        **3.2.3 E3: Knowledge Assembly**
-        
-        The knowledge-assembly stage transforms unstructured scientific text into structured, queryable representations that enable efficient reasoning during discovery. The existing literature typically employs three strategies: structured extraction and summarization from literature, knowledge-graph construction, and database construction...
-        
-        * **E3-S1: Structured extraction and summarization from literature.** To make literature readily usable for idea and hypothesis generation, systems extract and summarize standardized sections (e.g., titles, abstracts, methods, results). SciPIP [34], Chain of Ideas [24], SCI-IDEA [13], and Al-Researcher [28] use LLMs to generate summaries...
-        * **E3-S2: Knowledge Graph Construction.** Knowledge graphs (KGs) are frequently used to consolidate extracted entities and relationships into a structured, queryable format...
-        * **E3-S3: Database construction.** Some systems construct specialized databases to support large-scale retrieval and synthesis...
-
-        #### 3.3 The Hypothesize Stage
-
-        **3.3.1 H1: Hypothesis/Idea Generation**
-
-        This substage bridges structured knowledge from EXPLORE to new, testable claims, employing literature-based, data-driven, or multi-agent strategies.
-        
-        * **H1-S1: Literature-based Generation.** This strategy synthesizes information from existing literature to identify gaps, contradictions, or novel connections...
-        * **H1-S2: Data-driven Generation.** Data-driven methods identify patterns, correlations, or anomalies in empirical data to generate hypotheses...
-        * **H1-S3: Multi-agent Generation.** Multi-agent systems orchestrate specialized agents to manage complex, multi-step hypothesis-generation...
-
-        **3.3.2 H2: Hypothesis/Idea Prioritization**
-
-        This substage evaluates generated hypotheses to identify the most promising candidates for testing, often balancing novelty, plausibility, and feasibility.
-        
-        * **H2-S1: Literature-based Assessment.** This strategy assesses novelty and plausibility by cross-referencing hypotheses against the existing literature...
-        * **H2-S2: Quantitative Assessment Using Domain Metrics.** In domains with established benchmarks, quantitative metrics are used to rank hypotheses...
-        * **H2-S3: Human Evaluation.** Expert-feedback remains a crucial component for validating the real-world relevance and feasibility of generated hypotheses...
-
-        #### 3.4 The Test Stage
-
-        **3.4.1 T1: Experimental Design Generation**
-
-        This substage translates prioritized hypotheses into concrete, executable experimental plans, specifying protocols, materials, and measurement criteria.
-        
-        * **T1-S1: Literature-informed Experimental Design.** AI systems can retrieve and adapt established protocols from the literature...
-        * **T1-S2: LLM-based Experiment Design Generation.** LLMs are increasingly used to generate full experimental plans from scratch...
-
-        **3.4.2 T2: Testing and Refinement**
-
-        This substage involves executing the designed experiments, analyzing results, and refining hypotheses.
-        
-        * **T2-S1: Data-driven Testing.** This strategy relies on computational analysis or simulation to validate hypotheses...
-        * **T2-S2: LLM-based Evaluation.** LLMs are used to interpret experimental outputs, assess outcomes against success criteria, and propose refinements...
-        * **T2-S3: Human Feedback and Guided Refinement.** Human-in-the-loop refinement is essential for navigating ambiguous results...
-        * **T2-S4: Researcher-Guided Refinement.** In this mode, researchers actively steer the discovery process...
-        * **T2-S5: Agent Feedback Refinement.** Multi-agent systems use internal feedback loops...
-        """)
-
-        # --- Section 4 ---
-        st.subheader("Section 4: Closed-Loop Scientific Discovery")
-        st.markdown(r"""
-        *Content extracted from Article\_Title\_\_1\_.pdf*
-
-        While the EXHYTE cycle provides a modular framework for understanding AI contributions, the ultimate goal is to integrate these stages into "closed-loop" systems capable of autonomous discovery. Closed-loop systems connect exploration, hypothesis, and testing in a continuous feedback cycle, allowing the system to iteratively refine its understanding and actions based on new evidence.
-
-        #### 4.1 System-driven Closed-loop Discovery
-        In a system-driven loop, the AI orchestrates the entire process, often with a human "on-the-loop" for oversight.
-        * **T2 -> E1 (Refinement Loop):** This is the most common loop, where experimental results (T2) trigger a new round of exploration (E1).
-        * **T2 -> H1 (Pivot Loop):** When experiments (T2) invalidate a hypothesis, the system pivots.
-        
-        #### 4.2 Human-in-the-loop Closed-loop Discovery
-        Human-in-the-loop systems rely on researchers to bridge stages, particularly for complex reasoning or validation.
-        * **T2 -> Human -> E1 (Human-guided Exploration):** Researchers analyze test results (T2) and manually define the next exploration query (E1).
-        * **T2 -> Human -> H1 (Human-guided Hypothesis):** Test results (T2) are interpreted by researchers who then formulate the next hypothesis (H1).
-
-        #### 4.3 Human-out-of-the-loop Closed-loop Discovery
-        In this emerging paradigm, the AI system operates with full autonomy, executing the entire EXHYTE cycle without human intervention. ... These systems, such as AI-Scientist-v2 [12], demonstrate the potential for AI to independently navigate the scientific process, from identifying knowledge gaps in the literature (E1-E3) to generating novel hypotheses (H1), prioritizing them (H2), designing experiments (T1), and interpreting code execution results (T2) to confirm or reject its own ideas, thus concluding the discovery loop.
-        """)
-
-
-# ----------------------------------------------------------------------
-# TAB 3: Section 5: Tools and Datasets
-# (This tab is unchanged)
-# ----------------------------------------------------------------------
-with tab_sec5:
-    st.header("Section 5: Tools and Datasets for Building EXHYTE Workflows")
-    with st.container(height=700):
-        st.markdown(r"""
-        *Content extracted word-for-word from Article\_Title\_\_1\_.pdf*
-        
-        The preceding sections surveyed strategies for each EXHYTE stage. Here we complement that view with the practical tools, APIs, and datasets that enable those strategies to operate. We group resources by their role in the cycle and note where they most naturally plug into EXHYTE.
-
-        #### 5.1 Core tools and APIs
-        * **Literature & data access (E2).** OpenAlex and PubChem provide open, programmatic access to scholarly works and chemical records for large-scale querying, linking, and metadata integration [76, 77].
-        * **Text parsing & normalization (E3).** Scientific NLP pipelines commonly rely on scispaCy for sentence segmentation, lemmatization, and entity recognition [78].
-        * **Vector representations & retrieval (E2/E3).** Embedding stores and ANN indexes such as FAISS [79] and ChromaDB enable efficient similarity search over large document or embedding collections.
-        * **Molecular & crystal processing (E3/T1).** RDKit is standard for cheminformatics, offering tools for molecular representation, substructure analysis, and feature calculation [80]. Pymatgen is the materials science equivalent, used for structure analysis and database generation [81].
-        * **Workflow & agent orchestration (Full cycle).** LangChain, LlamaIndex, and AutoGen provide frameworks for building and coordinating multi-step workflows and agentic systems [82-84].
-
-        #### 5.2 Benchmark Datasets
-        Datasets are essential for training models (H1) and validating outcomes (T2).
-        
-        **Biology & medicine.**
-        * **MoleculeNet (H1/T2):** A collection of datasets for molecular property prediction [56].
-        * **Therapeutics Data Commons (TDC) (H1/T2):** A broader collection of datasets and tasks spanning drug discovery and development [85].
-        * **Protein Data Bank (PDB) (E2/H1):** The primary repository for 3D protein structures.
-        * **PubChem & ChEMBL (E2/H1):** Large-scale databases of chemical compounds, bioactivities, and genomic data.
-        * **ClinTox (T2):** A dataset for predicting clinical trial toxicity for drugs [56].
-        * **MIMIC-IV & UK Biobank (E2/T2):** Large-scale clinical and genomic databases used for data-driven hypothesis generation and testing.
-        
-        **Materials science & chemistry.**
-        * **Materials Project (E2/H1):** A core database of computed material properties [81].
-        * **Open Catalyst 2020 (OC20) (H1/T2):** A large-scale dataset for catalyst modeling [87].
-        * **JARVIS-DFT & Matbench (E2/H1/T2):** Collections of computed properties and benchmarks for materials-property prediction [86, 88].
-        
-        **Computer science.**
-        * **S2ORC (E2/E3):** A large corpus of scientific papers for literature analysis [90].
-        * **SciDocs (E3):** A multi-domain benchmark for scientific document processing [89].
-        * **SciFact (T2):** A dataset for verifying scientific claims.
-        """)
-
-
-# ----------------------------------------------------------------------
-# TAB 4: Paper List Explorer (NEW 2-ROW LAYOUT + CORRECTED)
-# ----------------------------------------------------------------------
-with tab_paper_list:
-
-    # --- Initialize Session State to hold the selected paper ---
-    if 'paper_to_view' not in st.session_state:
-        st.session_state.paper_to_view = None # This will store the data of the paper to show
-
-    # --- Main App Logic ---
+    # Filter Logic
+    filtered_papers = []
+    clean_keyword = search_keyword.strip().lower() if search_keyword else ""
     
-    # Automatically find the path
-    script_dir = os.path.dirname(__file__)
-    papers_folder = "Papers"
-    json_dir_papers = os.path.join(script_dir, papers_folder)
-
-    # Check if this automatic path exists
-    if not os.path.isdir(json_dir_papers):
-        st.error(f"Error: The folder '{papers_folder}' was not found.")
-        st.warning(f"Please create a folder named '{papers_folder}' in your project's main directory and upload your paper JSON files to it.")
+    if not selected_topics and not clean_keyword:
+        filtered_papers = PAPER_DATA 
     else:
-        # If the path exists, run the rest of the app
-        try:
-            # --- 1. Load all paper data ---
-            @st.cache_data
-            def load_all_papers(directory):
-                all_papers_data = []
-                all_subjects = set()
-                
-                json_files = sorted([f for f in os.listdir(directory) if f.endswith(".json")])
-                if not json_files:
-                    return [], []
+        for p in PAPER_DATA:
+            topic_match = not selected_topics or any(t in p.get("topics", []) for t in selected_topics)
+            keyword_match = True
+            if clean_keyword:
+                full_text_search = str(p['full_data']).lower()
+                if clean_keyword not in full_text_search:
+                    keyword_match = False
+            if topic_match and keyword_match:
+                filtered_papers.append(p)
 
-                for filename in json_files:
-                    file_path = os.path.join(directory, filename)
-                    try:
-                        with open(file_path, 'r', encoding='utf-8') as f:
-                            data = json.load(f)
-                        
-                        # Extract title (handles both 'paper_title' and 'title')
-                        title = data.get("paper_title") or data.get("title", filename)
-                        
-                        # Extract subject areas
-                        subjects = []
-                        subject_data = data.get("subject_area", {}).get("areas", ["Unknown"])
-                        if not subject_data:
-                            subjects = ["Unknown"]
-                        else:
-                            for area in subject_data:
-                                subject = str(area.get("name") if isinstance(area, dict) else area)
-                                subjects.append(subject)
-                                all_subjects.add(subject)
+    with col_list:
+        st.markdown(f"### References & Papers ({len(filtered_papers)})")
+        st.markdown("---")
+        
+        if not filtered_papers:
+            if not PAPER_DATA: st.warning("No JSON files found in 'Papers' folder.")
+            else: st.info("No papers found matching criteria.")
 
-                        # Create a searchable string
-                        search_text = json.dumps(data).lower()
-                        
-                        all_papers_data.append({
-                            "filename": filename,
-                            "title": title,
-                            "data": data,
-                            "subjects": subjects,
-                            "search_text": search_text
-                        })
-                    except Exception as e:
-                        st.error(f"Error loading {filename}: {e}")
-                
-                return all_papers_data, sorted(list(all_subjects))
-
-            all_papers, unique_subjects = load_all_papers(json_dir_papers)
-
-            if not all_papers:
-                st.warning(f"No JSON files found or loaded from '{json_dir_papers}'.")
-            else:
-                # --- TOP ROW: Filters and Paper List ---
-                col1, col2 = st.columns([3, 7]) 
-
-                # ------------- Column 1: Search & Filter (Unchanged) -------------
-                with col1:
-                    st.header("Search & Filter")
+        with st.container(height=1000, border=False):
+            for idx, paper in enumerate(filtered_papers):
+                with st.container():
+                    c_num, c_content, c_btns = st.columns([1, 14, 3])
                     
-                    # Feature 1: Search by Keyword
-                    st.markdown("#### Search by Keyword")
-                    search_query = st.text_input("Enter keywords to search all papers:", key="keyword_search")
+                    with c_num:
+                        st.markdown(f"<div class='paper-number'>{idx + 1}</div>", unsafe_allow_html=True)
                     
-                    st.markdown("---")
+                    with c_content:
+                        content_html = f"""
+                        <div style="font-family: 'Times New Roman', serif;">
+                            <div style="font-size: 18px; font-weight: bold; color: #000;">{paper['title']}</div>
+                            <div style="font-size: 15px; color: #333; font-style: italic;">{paper['authors']} ({paper['year']})</div>
+                            <div style="font-size: 14px; color: #666;">{paper['venue']}</div>
+                        </div>
+                        """
+                        st.markdown(content_html, unsafe_allow_html=True)
 
-                    # Feature 2: Search by Topic
-                    st.header("Browse by Topic")
-                    # Feature 3: "All Papers" is the default
-                    topic_list = ["All Papers"] + unique_subjects
-                    
-                    selected_topic = st.radio(
-                        "Filter by topic:", 
-                        topic_list, 
-                        key="topic_filter"
-                    )
+                    with c_btns:
+                        b1, b2 = st.columns([1, 1])
+                        with b1:
+                            if st.button("📄", key=f"sum_btn_{idx}", help="View Summary"):
+                                state_key = f"show_summary_{idx}"
+                                st.session_state[state_key] = not st.session_state.get(state_key, False)
+                        with b2:
+                            st.link_button("🔗", paper['url'], help="Go to Source")
 
-                # ------------- Column 2: Paper List (NEW LOGIC) -------------
-                with col2:
-                    st.header("Paper List")
-                    
-                    # 1. Filter by Topic
-                    if selected_topic == "All Papers":
-                        papers_to_show = all_papers
-                    else:
-                        papers_to_show = [
-                            p for p in all_papers if selected_topic in p["subjects"]
-                        ]
-                    
-                    # 2. Filter by Keyword Search
-                    if search_query:
-                        query = search_query.lower()
-                        papers_to_show = [
-                            p for p in papers_to_show if query in p["search_text"]
-                        ]
-                    
-                    papers_to_show.sort(key=lambda p: p["title"])
-                    
-                    st.markdown(f"**Showing {len(papers_to_show)} paper(s)**")
-                    st.info("Click a paper's [View Summary] button, then scroll down to see the summary.")
-                    st.markdown("---") # Add a separator
-
-                    if not papers_to_show:
-                        st.info("No papers match your filters.")
-                    else:
-                        # Loop to create list with buttons
-                        for paper in papers_to_show:
-                            
-                            # Layout: [Title] [Source] [Summary Button]
-                            col_title, col_source, col_summary = st.columns([6, 3, 3])
-
-                            with col_title:
-                                st.markdown(f"**{paper['title']}**")
-
-                            with col_source:
-                                with st.expander("View Source"):
-                                    paper_data = paper['data']
-                                    link = paper_data.get('link')
-                                    published = paper_data.get('published', 'No publication info available.')
-                                    authors = paper_data.get('authors', 'No authors listed.')
-
-                                    st.markdown(f"**Authors:** {authors}")
-                                    st.markdown(f"**Publication:** {published}")
-                                    if link:
-                                        st.markdown(f"**Link:** [{link}]({link})")
-                                    else:
-                                        st.markdown("**Link:** No link available.")
-                            
-                            with col_summary:
-                                # This button sets the session state, which updates the viewer below
-                                if st.button("View Summary", key=f"sum_{paper['filename']}", use_container_width=True):
-                                    st.session_state.paper_to_view = paper['data']
-                            
-                            st.markdown("---") # Add a small separator between papers
-
-                # --- BOTTOM ROW: Summary Viewer ---
-                st.markdown("---")
-                
-                # We use st.empty() to create a container we can "center"
-                viewer_container = st.empty()
-                
-                with viewer_container.container():
-                    st.header("📑 Summary Viewer")
-
-                    # Check if a paper has been selected
-                    if st.session_state.paper_to_view:
-                        paper_data = st.session_state.paper_to_view
+                    if st.session_state.get(f"show_summary_{idx}", False):
+                        rich_summary_html = generate_summary_html(paper['full_data'])
                         
-                        st.subheader(f"Displaying: {paper_data.get('paper_title') or paper_data.get('title', 'N/A')}")
-                        
-                        # --- <<< FIX: This logic loops through ALL keys >>> ---
-                        
-                        # --- Basic Info First ---
-                        authors = paper_data.get("authors", "")
-                        if authors:
-                            st.markdown(f"**Authors:** {authors}")
-                        
-                        published = paper_data.get("published", "")
-                        if published:
-                            st.markdown(f"**Published:** {published}")
+                        st.markdown(f"""
+                        <div style="
+                            background-color: #fcfcfc; 
+                            border: 1px solid #ddd;
+                            border-left: 5px solid #888; 
+                            padding: 15px; 
+                            margin-top: 10px; 
+                            margin-bottom: 15px; 
+                            font-family: 'Times New Roman', serif;
+                            color: #000;
+                            line-height: 1.5;">
+                            {rich_summary_html}
+                        </div>
+                        """, unsafe_allow_html=True)
+                    
+                    st.markdown("<hr style='margin-top: 5px; margin-bottom: 5px; border-top: 1px solid #eee;'>", unsafe_allow_html=True)
 
-                        link = paper_data.get("link", "")
-                        if link:
-                            st.markdown(f"🔗 [Paper Link]({link})")
-                            
-                        st.markdown("---")
+# --- TAB 5: SURVEY GENERATOR ---
+with tab_survey:
+    # SURVEY PROMPT TEMPLATE
+    survey_prompt_template = """
+    I want you to write a scientific survey that summarizes the provided JSON papers.
+    
+    The survey should have the following sections:
+    1. **Introduction**: Overview of the research themes.
+    2. **Methodological Approaches**: Synthesize the methods (e.g. tools, frameworks).
+    3. **Key Innovations**: Highlight novelty across papers.
+    4. **Limitations & Gaps**: Discuss common limitations or knowledge gaps.
+    5. **Future Directions**: Suggest future research paths based on the papers.
+    
+    Output the survey in well-formatted Markdown.
+    Use academic tone.
+    """
 
-                        # --- Loop through all other keys ---
-                        for section, content in paper_data.items():
+    st.markdown("### Scientific Survey Generator")
+    st.markdown("Generate a structured, scientific-style survey from selected papers.")
+    st.markdown("---")
+
+    col_left, col_right = st.columns([1, 2])
+
+    with col_left:
+        # 1. API KEY INPUT
+        st.markdown("**1. API Key**")
+        openai_api_key = st.text_input(
+            "Enter your OpenAI API Key:",
+            type="password",
+            placeholder="sk-..."
+        )
+
+        # 2. FILTER BY YEAR
+        st.markdown("**2. Filter Papers by Year**")
+        # Extract all unique years
+        all_years = sorted(list(set(p['year'] for p in PAPER_DATA if p['year'] != "N/A")), reverse=True)
+        selected_years = st.multiselect(
+            "Select Publication Years:",
+            options=all_years,
+            help="Filter the list of papers below by their publication year."
+        )
+
+        # 3. PAPER SELECTION (Filtered by year)
+        st.markdown("**3. Select Papers**")
+        
+        # Filter titles based on selected years
+        if selected_years:
+            filtered_paper_data = [p for p in PAPER_DATA if p['year'] in selected_years]
+        else:
+            filtered_paper_data = PAPER_DATA
             
-                            # --- Skip keys we already handled or don't want to show ---
-                            if section in ["paper_title", "title", "authors", "published", "link", "subject_area"]:
-                                continue
-                            
-                            if not content:
-                                continue # Skip empty fields
-
-                            # --- Format section title ---
-                            section_title = section.replace("_", " ").title()
-                            st.subheader(f"📌 {section_title}")
-
-                            # --- Handle different content types ---
-                            
-                            # Handle dictionary content (like 'summary' or 'resource_link')
-                            if isinstance(content, dict):
-                                if "answer" in content:
-                                    st.markdown(content.get("answer", "*No answer provided.*"))
-                                    evidence = content.get("evidence")
-                                    if evidence:
-                                        st.markdown(f"**Evidence:** {evidence}")
-                                else:
-                                    # Generic dictionary print
-                                    for key, value in content.items():
-                                        if value:
-                                            st.markdown(f"- **{key.replace('_', ' ').title()}**: {value}")
-
-                            # Handle list content (like 'method' or 'limitations')
-                            elif isinstance(content, list):
-                                for item in content:
-                                    if isinstance(item, dict):
-                                        # Nice print for lists of objects (e.g., methods)
-                                        name = item.get("name", "")
-                                        desc = item.get("description", "") or item.get("step", "")
-                                        if name or desc:
-                                            st.markdown(f"- **{name}**: {desc}")
-                                        else:
-                                            st.json(item) # fallback for unknown dicts
-                                    else:
-                                        st.markdown(f"- {item}")
-                            
-                            # Handle simple string content
-                            elif isinstance(content, str):
-                                st.markdown(content)
-                            
-                            # Fallback for other data types
-                            else:
-                                st.json(content)
-
-                        st.markdown("---")
-                        
-                        # --- "Done" button to clear selection and "Back to Top" link ---
-                        col_done, col_top = st.columns([2, 10])
-                        with col_done:
-                            # <<<--- FIX: Removed st.experimental_rerun() ---
-                            if st.button("Done (Clear Summary)"):
-                                st.session_state.paper_to_view = None
-                                # The app will rerun automatically when the state is cleared
-                                # To force a visual clear, we re-draw the "empty" state
-                                viewer_container.info("Click a 'View Summary' button from the list above to load a paper here.")
-                        
-                        with col_top:
-                            # This link scrolls the user back to the anchor at the top
-                            st.markdown("<a href='#top'>⬆️ Back to Top</a>", unsafe_allow_html=True)
-
-                    else:
-                        st.info("Click a 'View Summary' button from the list above to load a paper here.")
-
-
-        except Exception as e:
-            st.error(f"An error occurred: {e}")
-
-
-# ----------------------------------------------------------------------
-# TAB 5: Survey Generator
-# (This tab is unchanged)
-# ----------------------------------------------------------------------
-with tab_survey_gen:
-    st.header("🤖 Scientific Survey Generator")
-    st.write("Generate a structured, scientific-style survey from selected JSON paper files.")
-
-    # --- Configuration Inputs ---
-    
-    # Automatically find the path
-    script_dir = os.path.dirname(__file__)
-    survey_folder = "exhyte_data"
-    json_dir_survey = os.path.join(script_dir, survey_folder)
-
-    st.subheader("🔑 OpenAI API Key")
-    openai_api_key = st.text_input(
-        "Enter your OpenAI API Key:",
-        type="password",
-        placeholder="sk-...",
-        key="survey_gen_api_key"
-    )
-
-    if not os.path.isdir(json_dir_survey):
-        st.error(f"Error: The folder '{survey_folder}' was not found.")
-        st.warning(f"Please create a folder named '{survey_folder}' in your project's main directory and upload your survey JSON files to it.")
-    elif not openai_api_key:
-        st.warning("Please enter your OpenAI API key to generate surveys.")
-    else:
-        # If paths are valid, run the rest of the app
-        try:
-            # Initialize OpenAI client
-            client = OpenAI(api_key=openai_api_key)
-
-            # --- Load JSON files and extract titles + year ---
-            @st.cache_data
-            def load_survey_files(directory):
-                available_files = [f for f in os.listdir(directory) if f.endswith(".json")]
-                if not available_files:
-                    return None, None
-
-                paper_titles_map = {}  # title -> filename
-                paper_years_map = {}   # title -> year
-
-                for file_name in available_files:
-                    file_path = os.path.join(directory, file_name)
-                    try:
-                        with open(file_path, "r", encoding="utf-8") as f:
-                            data = json.load(f)
-                        
-                        # Extract title
-                        title = data.get("paper_title") or data.get("title", file_name)
-                        if title in paper_titles_map: # Handle duplicate titles
-                            title = f"{title} ({file_name})"
-                        
-                        # Extract year
-                        year_str = data.get("year") or data.get("published", "")
-                        year = "N/A"
-                        if year_str:
-                            try:
-                                year = parser.parse(str(year_str)).year
-                            except parser.ParserError:
-                                match = re.search(r'\b(19|20)\d{2}\b', str(year_str))
-                                if match:
-                                    year = match.group(0)
-                        
-                        paper_titles_map[title] = file_name
-                        paper_years_map[title] = year
-
-                    except Exception as e:
-                        st.error(f"Error loading {file_name}: {e}")
-                
-                return paper_titles_map, paper_years_map
-
-            paper_titles, paper_years = load_survey_files(json_dir_survey)
-
-            if not paper_titles:
-                st.warning(f"No JSON files found in '{json_dir_survey}' folder.")
-            else:
-                # --- Sidebar: Paper Selection ---
-                with st.expander("📂 Select Papers for Survey", expanded=True):
-                    # Sort papers by year (newest first), then title
-                    sorted_titles = sorted(
-                        paper_titles.keys(),
-                        key=lambda t: (
-                            paper_years.get(t) if isinstance(paper_years.get(t), (int, float)) else 0,
-                            t
-                        ),
-                        reverse=True
-                    )
-                    
-                    selected_titles = []
-                    for title in sorted_titles:
-                        year = paper_years[title]
-                        if st.checkbox(f"{title} ({year})", key=f"cb_survey_{title}"):
-                            selected_titles.append(title)
-                
-                st.info(f"{len(selected_titles)} paper(s) selected.")
-
-                # --- Survey Prompt Template (from survey_exhyte.py) ---
-                survey_prompt_template = """
-                You are a scientific writer tasked with summarizing multiple LLM-guided workflow papers based on structured JSON files.
-
-                Each JSON file contains information about a discovery workflow with the following standardized sections:
-                1. Inputs to the Workflow
-                2. E1: Query Structuring
-                3. E2: Data Retrieval
-                4. E3: Knowledge Assembly
-                5. H1: Hypothesis/Idea Generation
-                6. H2: Hypothesis or Idea Prioritization
-                7. T1: Experimental Design Generation
-                8. T2: Iterative Refinement
-                9. Publication Details (title, authors, publication date, and link)
-
-                ---
-
-                ### OBJECTIVE
-                Generate a *scientific survey-style summary* that compares and synthesizes the workflows from all provided JSON files.
-
-                ---
-
-                ### OUTPUT REQUIREMENTS
-                Your output **must follow the exact same section order and headings** as the input schema, formatted as follows:
-
-                **Inputs to the Workflow** [Write one or more formal paragraphs integrating all JSONs that describe what users provided — goals, datasets, research context, or formal specifications. Cite papers using author and year.]
-
-                **E1: Query Structuring** [Summarize how queries or tasks were structured, reformulated, or decomposed. Cite all relevant papers.]
-
-                **E2: Data Retrieval** [Describe how relevant data, literature, or other sources were gathered or filtered. Cite all relevant papers.]
-
-                **E3: Knowledge Assembly** [Explain how structured knowledge was constructed, encoded, or represented. Cite all relevant papers.]
-
-                **H1: Hypothesis/Idea Generation** [Describe how the systems generated hypotheses or ideas, including tools or reasoning strategies. Cite all relevant papers.]
-
-                **H2: Hypothesis or Idea Prioritization** [Describe how hypotheses were ranked, filtered, or evaluated. Cite all relevant papers.]
-
-                **T1: Experimental Design Generation** [SummarSizze how experiments were planned or designed to test generated hypotheses. Cite all relevant papers.]
-
-                **T2: Iterative Refinement** [Describe any feedback loops or iterative improvement mechanisms used in the workflow. Cite all relevant papers.]
-
-                **Conclusion** [Provide an integrative summary comparing how the workflows collectively advance automated scientific discovery.]
-
-                **References** [List all papers, formatted as: Authors (Year). Title. Publication Date. Link.]
-
-                ---
-
-                ### ADDITIONAL RULES
-                1. Every section heading (Inputs to theWorkflow, E1, E2, etc.) **must appear in the output** — even if only one paper contributes.
-                2. Each paragraph **must begin with a bolded heading**, as shown above.
-                3. Use **formal academic writing** — complete sentences, no bullet points.
-                4. Only use information contained in the JSON files.
-                5. Ensure in-text citations follow the form *(Author et al., Year)*.
-                6. Always include a final **References** section with full paper metadata.
-
-                ---
-
-                ### INPUT
-                Below are the JSON workflow descriptions:
-
-                ### OUTPUT
-                A structured, stage-preserving, multi-paragraph scientific survey comparing the workflows, formatted according to the stage order above.
-                """
-
-                # --- Survey Generation Button ---
-                if st.button("🚀 Generate Survey Summary"):
-                    if not selected_titles:
-                        st.warning("Please select at least one paper.")
-                    else:
-                        try:
-                            json_objects = []
-                            for title in selected_titles:
-                                file_name = paper_titles[title]
-                                file_path = os.path.join(json_dir_survey, file_name)
-                                with open(file_path, "r", encoding="utf-8") as f:
-                                    data = json.load(f)
-                                json_objects.append(data)
-
-                            user_content = f"Here are {len(json_objects)} JSON files representing selected papers:\n" + "\n\n".join(
-                                json.dumps(obj, indent=2) for obj in json_objects
-                            )
-
-                            messages = [
-                                {"role": "system", "content": "You are a helpful assistant for writing scientific surveys."},
-                                {"role": "user", "content": survey_prompt_template + "\n\n" + user_content},
-                            ]
-
-                            with st.spinner("Generating survey summary... this may take a minute ⏳"):
-                                response = client.chat.completions.create(
-                                    model="gpt-4-turbo", # Using a recommended model
-                                    messages=messages,
-                                    temperature=0.1,
-                                    max_tokens=4096, 
-                                )
-
-                            survey_text = response.choices[0].message.content.strip()
-
-                            st.subheader("📘 Generated Survey Summary")
-                            st.markdown(survey_text)
-
-                        except Exception as e:
-                            st.error(f"An error during API call: {e}")
+        # Map Title -> Full Data
+        paper_map = {p['title']: p['full_data'] for p in filtered_paper_data}
+        all_titles = sorted(list(paper_map.keys()))
         
-        except Exception as e:
-            st.error(f"An error occurred: {e}")
+        selected_titles = st.multiselect(
+            "Choose papers to include in the survey:",
+            options=all_titles,
+            help="Select multiple papers to synthesize into a survey."
+        )
+
+        # 4. GENERATE BUTTON
+        st.markdown("<br>", unsafe_allow_html=True)
+        generate_clicked = st.button("🚀 Generate Survey Summary")
+
+    with col_right:
+        st.markdown("**Survey Output**")
+        
+        if generate_clicked:
+            if not openai_api_key:
+                st.error("Please enter your OpenAI API key first.")
+            elif not selected_titles:
+                st.warning("Please select at least one paper.")
+            else:
+                try:
+                    client = OpenAI(api_key=openai_api_key)
+                    json_objects = [paper_map[title] for title in selected_titles]
+                    user_content = f"Here are {len(json_objects)} JSON files representing selected papers:\n" + "\n\n".join(
+                        json.dumps(obj, indent=2) for obj in json_objects
+                    )
+
+                    messages = [
+                        {"role": "system", "content": "You are a helpful assistant for writing scientific surveys."},
+                        {"role": "user", "content": survey_prompt_template + "\n\n" + user_content},
+                    ]
+
+                    with st.spinner("Generating survey summary... this may take a minute ⏳"):
+                        response = client.chat.completions.create(
+                            model="gpt-4o", 
+                            messages=messages,
+                            temperature=0.1,
+                            max_tokens=4000,
+                        )
+
+                    survey_text = response.choices[0].message.content.strip()
+
+                    st.success("Survey Generated Successfully!")
+                    st.markdown(f"""
+                    <div style="
+                        background-color: #fff; 
+                        padding: 20px; 
+                        border: 1px solid #ddd; 
+                        border-radius: 5px; 
+                        font-family: 'Times New Roman', serif; 
+                        color: #000; 
+                        line-height: 1.6;">
+                        {survey_text}
+                    </div>
+                    """, unsafe_allow_html=True)
+
+                except Exception as e:
+                    st.error(f"An error occurred: {e}")
