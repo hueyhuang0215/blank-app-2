@@ -338,7 +338,7 @@ Md Musaddaqqul Hasib<sup>1,2</sup>, Sumin Jo<sup>3</sup>, Harsh Sinha<sup>1,4</s
 Jifeng Song<sup>1,3</sup>, Huey Huang<sup>9</sup>, Arun Das<sup>1,2</sup>,
 Zhentao Liu<sup>1,4</sup>, Hugh Galloway<sup>1</sup>, Kexun Zhang<sup>8</sup>,
 Shou-Jiang Gao<sup>1,5</sup>, Yu-Chiao Chiu<sup>1,2,6,7</sup>, Lei Li<sup>8</sup>,
-Yufei Huang<sup>1*</sup>
+Yufei Huang<sup>1,2,3*</sup>
 </p>
 <p style="text-align:center; font-size:16px; max-width:900px; margin:auto; line-height:1.4; font-family: 'Times New Roman', serif;">
 1 Cancer Virology Program, UPMC Hillman Cancer Center, Pittsburgh, PA, USA;
@@ -351,6 +351,32 @@ Yufei Huang<sup>1*</sup>
 8 Carnegie Mellon University, Pittsburgh, PA, USA;
 9 University of Texas at Austin, Austin, TX, USA.
 </p>
+
+<div style="max-width:900px; margin:auto; margin-top:25px; margin-bottom:20px; font-family: 'Times New Roman', serif;">
+    <h3 style="text-align:center; font-size:24px; font-weight:bold; margin-bottom:10px; font-family: 'Times New Roman', serif;">Abstract</h3>
+    <p style="font-size:18px; line-height:1.5; text-align:justify; margin-bottom:15px;">
+    Large language models (LLMs) and agent systems are increasingly transforming
+    scientific discovery, driving progress across chemistry, biology, materials science,
+    and physics. Yet most existing work and surveys remain fragmented, focusing on
+    isolated tasks such as idea generation or experiment design without addressing
+    how these components fit within the broader discovery process. To bridge this gap,
+    we introduce the EXHYTE cycle, an iterative framework that formalizes scientific
+    discovery as a sequence of Exploration, Hypothesis generation, and Testing. We
+    assembled a corpus of recent studies, distilled recurring strategies that characterize
+    how AI methods contribute to each EXHYTE substage, and organized the
+    literature accordingly to representative strategies and domain-specific advances.
+    This process-centric perspective unifies diverse methodologies under a single
+    structured workflow, identifies substages that are mature versus underexplored,
+    and reveals complementarities that enable closed-loop discovery systems. It also
+    clarifies the evolving division of labor between human researchers and AI systems,
+    offering a roadmap for developing adaptive, autonomous frameworks for AI-driven
+    scientific discovery.
+    </p>
+    <p style="font-size:18px; text-align:justify;">
+    <strong>Keywords:</strong> Large language models, Scientific discovery, Hypothesis generation, Idea generation
+    </p>
+</div>
+
 <hr style="margin-top:20px; margin-bottom:20px;">
 """, unsafe_allow_html=True)
 
@@ -358,9 +384,9 @@ Yufei Huang<sup>1*</sup>
 # TABS & CONTENT
 # ---------------------------------------------------------
 tab_sec2, tab_sec34, tab_sec5, tab_papers, tab_survey = st.tabs([
-    "The EXHYTE Cycle",
-    "AI Methods for EXHYTE",
-    "Tools & Datasets",
+    "Section 2: EXHYTE Cycle",
+    "Sections 3 & 4: Methods",
+    "Section 5: Tools & Datasets",
     "Paper List",
     "Survey Generator"
 ])
@@ -400,7 +426,7 @@ with tab_papers:
                 filtered_papers.append(p)
 
     with col_list:
-        st.markdown(f"### Papers ({len(filtered_papers)})")
+        st.markdown(f"### References & Papers ({len(filtered_papers)})")
         st.markdown("---")
         
         if not filtered_papers:
@@ -445,7 +471,7 @@ with tab_papers:
                             padding: 15px; 
                             margin-top: 10px; 
                             margin-bottom: 15px; 
-                            font-family: 'Times New Roman', serif;
+                            font-family: 'Times New Roman', serif; 
                             color: #000;
                             line-height: 1.5;">
                             {rich_summary_html}
