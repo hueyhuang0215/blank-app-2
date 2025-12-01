@@ -384,9 +384,9 @@ Yufei Huang<sup>1,2,3*</sup>
 # TABS & CONTENT
 # ---------------------------------------------------------
 tab_sec2, tab_sec34, tab_sec5, tab_papers, tab_survey = st.tabs([
-    "Section 2: EXHYTE Cycle",
-    "Sections 3 & 4: Methods",
-    "Section 5: Tools & Datasets",
+    "The EXHYTE Cycle",
+    "AI Methods for EXHYTE",
+    "Tools & Datasets",
     "Paper List",
     "Survey Generator"
 ])
