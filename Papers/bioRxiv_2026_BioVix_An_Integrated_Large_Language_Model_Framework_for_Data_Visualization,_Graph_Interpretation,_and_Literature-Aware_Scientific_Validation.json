@@ -1,0 +1,279 @@
+{
+  "source": "bioRxiv",
+  "source_id": "PPR1225174",
+  "title": "BioVix: An Integrated Large Language Model Framework for Data Visualization, Graph Interpretation, and Literature-Aware Scientific Validation",
+  "abstract": "The application of Large Language Models (LLMs) for generating data visualizations through natural language interaction represents a promising advance in AI-assisted scientific analysis. However, existing LLM-based tools largely emphasize graph generation, while research workflows require not only visualization but also rigorous interpretation and validation against established scholarly evidence. Despite advances in visualization technologies, no single tool currently integrates literature references with visualization while also generating insights from graphical data. To address this gap, we present BioVix, a web-based LLM-driven framework that integrates interactive data visualization, natural-language querying, and automated retrieval of relevant academic literature. BioVix enables users to upload datasets, generate complex visualizations, interpret graphical patterns, and contextualize findings through literature references within a unified workflow. The system employs a multi-model architecture combining DeepSeek V3.1 for code and logic generation, Qwen2.5-VL-32B-Instruct for multimodal interpretation, and GPT-OSS-20B for conversational reasoning, coordinated through structured prompt engineering. BioVix was evaluated across diverse biological domains, including proteomic expression profiling, epigenomic peak annotation, and clinical diabetes data, demonstrating its flexibility in handling heterogeneous datasets and supporting exploratory, literature-aware analysis. While BioVix substantially streamlines exploratory research workflows, its LLM-generated outputs are intended to support, not replace, expert judgment, and users should independently verify results before scientific reporting. BioVix is openly available via public deployment on Hugging Face ( https://huggingface.co/spaces/MuhammadZain10/BioVix ), with source code provided through GitHub ( https://github.com/MuhammadZain-Butt/BioVix ).",
+  "published": "2026-02-05",
+  "authors": [
+    "Butt MZ",
+    "Ahmad RS",
+    "Fatima E",
+    "Tahir ul Qamar M."
+  ],
+  "link": "https://doi.org/10.64898/2026.02.03.703467",
+  "doi": "10.64898/2026.02.03.703467",
+  "pdf_url": "",
+  "ai_for_science_score": 0.9,
+  "confidence_score": 0.95,
+  "implementation_score": 0.8,
+  "review_score": 0.7,
+  "benchmark_score": 0.6,
+  "hypothesis_generation_score": 0.5,
+  "scientific_discovery_score": 0.8,
+  "experiment_design_score": 0.4,
+  "material_discovery_score": 0.3,
+  "molecular_design_score": 0.3,
+  "drug_discovery_score": 0.3,
+  "causal_discovery_score": 0.4,
+  "biomedical_discovery_score": 0.7,
+  "idea_development_score": 0.6,
+  "ai_for_science_label": "accept",
+  "ai_for_science_reason": "The paper presents an AI framework integrating LLMs for scientific data visualization and literature-aware validation in biological domains.",
+  "implementation_justification": "The framework is implemented and available on public platforms.",
+  "review_justification": "The paper provides a detailed description of the framework's capabilities and evaluation.",
+  "benchmark_justification": "The evaluation is described but lacks detailed benchmarking against other tools.",
+  "hypothesis_generation_justification": "The tool supports exploratory analysis but does not explicitly focus on hypothesis generation.",
+  "scientific_discovery_justification": "The framework aids in scientific discovery by integrating data visualization with literature validation.",
+  "experiment_design_justification": "The focus is on data visualization and interpretation rather than direct experiment design.",
+  "material_discovery_justification": "The paper does not specifically address material discovery.",
+  "molecular_design_justification": "The framework is not directly aimed at molecular design.",
+  "drug_discovery_justification": "The paper does not specifically target drug discovery.",
+  "causal_discovery_justification": "The tool may aid in causal discovery through data interpretation but is not its primary focus.",
+  "biomedical_discovery_justification": "The framework is applied to biological and clinical data, supporting biomedical discovery.",
+  "idea_development_justification": "The tool facilitates idea development through exploratory data analysis and literature integration.",
+  "science_domains": [
+    "biology",
+    "medicine"
+  ],
+  "ai_methods": [
+    "Large Language Models",
+    "multimodal interpretation",
+    "automated reasoning"
+  ],
+  "exhyte_stages": [
+    "Exploration"
+  ],
+  "needs_pdf_review": false,
+  "auto_decision": "accept",
+  "auto_selected": true,
+  "selection_source": "llm_auto",
+  "local_pdf_path": "downloaded_pdfs/bioRxiv_MZ_et_al._2026_BioVix_An_Integrated_Large_Language_Model_Framework_for_Data_Visualization,_Graph_Interpretation,_and_Literature-Aware_Scientific_Validation.pdf",
+  "pdf_download_status": "manual_pdf",
+  "pdf_download_method": "manual_pdf",
+  "pdf_download_url": "manual_pdfs/bioRxiv_MZ_et_al._2026_BioVix_An_Integrated_Large_Language_Model_Framework_for_Data_Visualization,_Graph_Interpretation,_and_Literature-Aware_Scientific_Validation.pdf",
+  "pdf_download_attempted_at": "2026-06-30T17:54:09",
+  "paper_title": "BioVix: An Integrated Large Language Model Framework for Data Visualization, Graph Interpretation, and Literature-Aware Scientific Validation",
+  "summary_extraction_status": "extracted",
+  "summary_json_path": "review_outputs/gpt_paper_items/bioRxiv_MZ_et_al._2026_BioVix_An_Integrated_Large_Language_Model_Framework_for_Data_Visualization__Graph_Interpretation__and_Literature-Aware_Scientific_Validation.json",
+  "objective": {
+    "answer": "The primary objective of the paper is to present BioVix, a web-based LLM-driven framework that integrates interactive data visualization, natural-language querying, and automated retrieval of relevant academic literature to streamline exploratory research workflows.",
+    "evidence": "To address this gap, we present BioVix, a web-based LLM-driven framework that integrates interactive data visualization, natural-language querying, and automated retrieval of relevant academic literature."
+  },
+  "knowledge_gap": {
+    "answer": "Existing LLM-based tools largely emphasize graph generation, while research workflows require not only visualization but also rigorous interpretation and validation against established scholarly evidence.",
+    "evidence": "However, existing LLM-based tools largely emphasize graph generation, while research workflows require not only visualization but also rigorous interpretation and validation against established scholarly evidence."
+  },
+  "novelty": {
+    "answer": [
+      "BioVix integrates data visualization with academic literature search, allowing users to generate visualizations and retrieve relevant literature within a unified workflow.",
+      "The system employs a multi-model architecture combining DeepSeek V3.1, Qwen2.5-VL-32B-Instruct, and GPT-OSS-20B for different tasks.",
+      "BioVix provides automated visualization code generation and AI-based chart interpretation."
+    ],
+    "evidence": [
+      "BioVix allows users to generate IVs, obtain AI-assisted interpretations, formulate research queries, and retrieve the most relevant literature articles to analyze data trends observed in visualizations.",
+      "The system employs a multi-model architecture combining DeepSeek V3.1 for code and logic generation, Qwen2.5-VL-32B-Instruct for multimodal interpretation, and GPT-OSS-20B for conversational reasoning.",
+      "A key feature of BioVix is automated visualization code generation, which allows users to create interactive charts without writing any code."
+    ]
+  },
+  "inspirational_papers": {
+    "answer": "- Maddigan et al. (2023) Chat2VIS represents one of the first LLM-based visualization tools that uses this paradigm, generating executable code to create IVs. (Methodological precursors)",
+    "evidence": "Chat2VIS represents one of the first LLM-based visualization tools that uses this paradigm, generating executable code to create IVs."
+  },
+  "method": {
+    "steps": [
+      {
+        "step": "Code generation and correction",
+        "input": "Natural Language Queries (NLQs), metadata from the uploaded dataset",
+        "output": "Executable Python script for chart generation",
+        "evidence": "A function named 'generate_chart_code' was developed to process NLQs into an executable Python script for chart generation."
+      },
+      {
+        "step": "Generated chart interpretation",
+        "input": "User query, generated code, metadata, statistical summaries of the uploaded data",
+        "output": "Logical NL summary expressing key insights of the generated chart",
+        "evidence": "The function 'generate_explanation()' converts the visualization into a logical NL summary that expresses key insights of the generated chart."
+      },
+      {
+        "step": "Search query formulation and semantic scholar integration",
+        "input": "User query, metadata from the uploaded data, chart explanation",
+        "output": "Relevant academic search query and retrieval of articles",
+        "evidence": "The function 'analyze_explanation_for_query()' was developed to convert a visualization explanation into a relevant academic search query tailored to the specific context."
+      }
+    ],
+    "tools": [
+      {
+        "name": "DeepSeek V3.1",
+        "description": "Used for code and logic generation",
+        "evidence": "The system employs a multi-model architecture combining DeepSeek V3.1 for code and logic generation."
+      },
+      {
+        "name": "Qwen2.5-VL-32B-Instruct",
+        "description": "Used for multimodal interpretation",
+        "evidence": "Qwen2.5-VL-32B-Instruct for multimodal interpretation."
+      },
+      {
+        "name": "GPT-OSS-20B",
+        "description": "Used for conversational reasoning",
+        "evidence": "GPT-OSS-20B for conversational reasoning."
+      }
+    ],
+    "benchmark_datasets": [
+      {
+        "name": "Pima Indians Diabetes Database",
+        "data_description": "Diagnostic variable values from adult female patients of Pima Indian heritage",
+        "usage": "Used for evaluation of BioVix",
+        "evidence": "The Pima Indians diabetes database is a publicly available dataset that consists of diagnostic variable values from adult female patients of Pima Indian heritage."
+      },
+      {
+        "name": "Human Peripheral Blood Mononuclear Cells (PBMCs)",
+        "data_description": "Single-cell epigenomics dataset generated using the 10x Genomics Chromium X platform",
+        "usage": "Used for evaluation of BioVix",
+        "evidence": "The 10k Human PBMCs ATAC v1.1 dataset contains data from approximately 10,000 human PBMCs."
+      },
+      {
+        "name": "Human Proteome Map",
+        "data_description": "Large-scale protein expression abundance profiles across human tissues and cell types",
+        "usage": "Used for evaluation of BioVix",
+        "evidence": "Proteomics datasets processed by GeneRanger were retrieved from the Human Proteome Map database."
+      }
+    ],
+    "evaluation_metrics": [
+      {
+        "name": "Interpretive accuracy",
+        "purpose": "Measures the accuracy of AI-generated textual interpretations",
+        "application": "Used to evaluate the effectiveness of BioVix",
+        "evidence": "The evaluation focused on three core aspects of the BioVix workflow: code generation success, interpretive accuracy, and literature retrieval relevancy."
+      },
+      {
+        "name": "Literature retrieval relevancy",
+        "purpose": "Measures the relevancy of retrieved literature articles",
+        "application": "Used to evaluate the effectiveness of BioVix",
+        "evidence": "The evaluation focused on three core aspects of the BioVix workflow: code generation success, interpretive accuracy, and literature retrieval relevancy."
+      }
+    ]
+  },
+  "method_type": {
+    "methods": [
+      {
+        "name": "Transformation/structurization of user input",
+        "description": "The system transforms natural language queries into executable Python scripts for chart generation.",
+        "evidence": "A function named 'generate_chart_code' was developed to process NLQs into an executable Python script for chart generation."
+      },
+      {
+        "name": "Knowledge Extraction and Structurization",
+        "description": "The system extracts insights from visualizations and structures them into logical NL summaries.",
+        "evidence": "The function 'generate_explanation()' converts the visualization into a logical NL summary that expresses key insights of the generated chart."
+      },
+      {
+        "name": "Literature or Dataset Retrieval",
+        "description": "The system retrieves relevant academic literature articles based on generated search queries.",
+        "evidence": "The function 'search_semantic_scholar()' was developed to send the formulated query to the Semantic Scholar API."
+      }
+    ]
+  },
+  "subject_area": {
+    "areas": [
+      {
+        "name": "Biological Sciences",
+        "description": "The paper evaluates BioVix on biological datasets such as human proteome abundance profiling and epigenomic peak annotation.",
+        "evidence": "We evaluated BioVix on three diverse biological datasets: human proteome abundance profiling, epigenomic peak annotation (ATAC-seq), and clinical diabetes diagnosis."
+      },
+      {
+        "name": "Health Sciences",
+        "description": "The paper evaluates BioVix on a clinical diabetes dataset.",
+        "evidence": "We evaluated BioVix on three diverse biological datasets: human proteome abundance profiling, epigenomic peak annotation (ATAC-seq), and clinical diabetes diagnosis."
+      }
+    ]
+  },
+  "performance_summary": {
+    "performance_summary": [
+      {
+        "summary": "BioVix demonstrated robust alignment between visualization-derived trends, AI-generated textual interpretations, and findings reported in current scholarly literature.",
+        "evidence": "Across evaluations, BioVix consistently demonstrated robust alignment between visualization-derived trends, AI-generated textual interpretations, and findings reported in current scholarly literature."
+      }
+    ],
+    "baselines": "Not reported in the paper",
+    "benchmark_datasets": [
+      {
+        "name": "Pima Indians Diabetes Database",
+        "data_description": "Diagnostic variable values from adult female patients of Pima Indian heritage",
+        "usage": "Used for evaluation of BioVix",
+        "evidence": "The Pima Indians diabetes database is a publicly available dataset that consists of diagnostic variable values from adult female patients of Pima Indian heritage."
+      },
+      {
+        "name": "Human Peripheral Blood Mononuclear Cells (PBMCs)",
+        "data_description": "Single-cell epigenomics dataset generated using the 10x Genomics Chromium X platform",
+        "usage": "Used for evaluation of BioVix",
+        "evidence": "The 10k Human PBMCs ATAC v1.1 dataset contains data from approximately 10,000 human PBMCs."
+      },
+      {
+        "name": "Human Proteome Map",
+        "data_description": "Large-scale protein expression abundance profiles across human tissues and cell types",
+        "usage": "Used for evaluation of BioVix",
+        "evidence": "Proteomics datasets processed by GeneRanger were retrieved from the Human Proteome Map database."
+      }
+    ],
+    "evaluation_metrics": [
+      {
+        "name": "Interpretive accuracy",
+        "purpose": "Measures the accuracy of AI-generated textual interpretations",
+        "application": "Used to evaluate the effectiveness of BioVix",
+        "evidence": "The evaluation focused on three core aspects of the BioVix workflow: code generation success, interpretive accuracy, and literature retrieval relevancy."
+      },
+      {
+        "name": "Literature retrieval relevancy",
+        "purpose": "Measures the relevancy of retrieved literature articles",
+        "application": "Used to evaluate the effectiveness of BioVix",
+        "evidence": "The evaluation focused on three core aspects of the BioVix workflow: code generation success, interpretive accuracy, and literature retrieval relevancy."
+      }
+    ]
+  },
+  "benchmark_dataset": {
+    "name": "Pima Indians Diabetes Database",
+    "data_description": "Diagnostic variable values from adult female patients of Pima Indian heritage",
+    "usage": "Used for evaluation of BioVix",
+    "evidence": "The Pima Indians diabetes database is a publicly available dataset that consists of diagnostic variable values from adult female patients of Pima Indian heritage."
+  },
+  "limitations": {
+    "limitations": [
+      {
+        "name": "LLM-generated outputs require verification",
+        "description": "BioVix's LLM-generated outputs are intended to support, not replace, expert judgment, and users should independently verify results before scientific reporting.",
+        "evidence": "BioVix substantially streamlines exploratory research workflows, its LLM-generated outputs are intended to support, not replace, expert judgment, and users should independently verify results before scientific reporting."
+      }
+    ]
+  },
+  "future_directions": {
+    "future_directions": [
+      {
+        "name": "Expand supported visualization libraries",
+        "description": "Future improvements should prioritize expanding the range of supported visualization libraries by incorporating packages such as Matplotlib and Seaborn.",
+        "evidence": "Future improvements should prioritize expanding the range of supported visualization libraries by incorporating packages such as Matplotlib and Seaborn."
+      },
+      {
+        "name": "Enhance dynamic exploration",
+        "description": "Automatically refining generated graphs in response to follow-up user queries for dynamic exploration.",
+        "evidence": "Additional improvements include automatically refining generated graphs in response to follow-up user queries for dynamic exploration."
+      },
+      {
+        "name": "Improve literature validation",
+        "description": "Granting access to a greater number of academic repositories to enable more comprehensive literature validation.",
+        "evidence": "Granting access to a greater number of academic repositories to enable more comprehensive literature validation."
+      }
+    ]
+  },
+  "resource_link": {
+    "answer": "https://github.com/MuhammadZain-Butt/BioVix",
+    "evidence": "BioVix is openly available via public deployment on Hugging Face (https://huggingface.co/spaces/MuhammadZain10/BioVix), with source code provided through GitHub (https://github.com/MuhammadZain-Butt/BioVix)."
+  }
+}

@@ -1,0 +1,203 @@
+{
+  "source": "bioRxiv",
+  "source_id": "PPR1249771",
+  "title": "Research Process Graph: LLM-Driven Extraction and Hierarchical Organization of Research Logic",
+  "abstract": "Plant biology now publishes thousands of experimental research articles each year, but their core research logic, namely what questions are being asked, with what methods, and what is being found, remains locked inside free text and invisible to systematic analysis. Here we present a structured, 20-year atlas of The Plant Cell in which every paper is converted into a typed, directed Research Process Graph (RPG) of Question (Q), Method (M) and Finding (F) nodes connected by Q→M and M→F edges. A benchmarked large language model pipeline applied to 2,633 Plant Cell research articles published 2005-2026 recovered >110,000 Q/M/F nodes and >126,000 directed Q→M→F chains with>98% precision. A second LLM pass generalises each node into a paper-independent canonical form and assigns it to one of 10 top-level (L1) and ∼90 sub-level (L2) categories for each node type, producing the first comprehensive map of plant-biology research logic at the resolution of individual research questions. The atlas reveals that Plant Cell papers fall into seven canonical paper recipes with characteristic Q→M→F sub-structures, that peripheral experimental techniques have largely turned over while a stable methodological core persisted, and that the strongest correlate of per-PI citation impact is methodological breadth, not productivity or topical breadth. We release the atlas as a public, browsable database with five complementary interfaces: paper views, an LLM-powered research assistant, expert profiles, a taxonomy browser, and a method explorer. The database, available at https://rpg.connectome.tools/ , turns the literature into a queryable community resource.",
+  "published": "2026-06-10",
+  "authors": [
+    "Yang J",
+    "Itharajula M",
+    "Mutwil M."
+  ],
+  "link": "https://doi.org/10.64898/2026.06.09.731113",
+  "doi": "10.64898/2026.06.09.731113",
+  "pdf_url": "",
+  "ai_for_science_score": 0.9,
+  "confidence_score": 0.95,
+  "implementation_score": 0.8,
+  "review_score": 0.85,
+  "benchmark_score": 0.9,
+  "hypothesis_generation_score": 0.9,
+  "scientific_discovery_score": 0.9,
+  "experiment_design_score": 0.7,
+  "material_discovery_score": 0.0,
+  "molecular_design_score": 0.0,
+  "drug_discovery_score": 0.0,
+  "causal_discovery_score": 0.6,
+  "biomedical_discovery_score": 0.0,
+  "idea_development_score": 0.8,
+  "ai_for_science_label": "accept",
+  "ai_for_science_reason": "The paper uses LLMs to extract and organize research logic in plant biology, contributing to scientific discovery by creating a structured atlas of research questions, methods, and findings.",
+  "implementation_justification": "The paper presents a comprehensive implementation of LLMs for extracting research logic from a large corpus.",
+  "review_justification": "The paper provides a detailed review of the research logic in plant biology using LLMs.",
+  "benchmark_justification": "The LLM pipeline is benchmarked with high precision in extracting research logic.",
+  "hypothesis_generation_justification": "The structured atlas aids in generating new hypotheses by revealing research patterns.",
+  "scientific_discovery_justification": "The atlas facilitates scientific discovery by organizing research logic into a queryable format.",
+  "experiment_design_justification": "While not directly focused on experiment design, the atlas provides insights that could inform future experiments.",
+  "material_discovery_justification": "The paper does not focus on material discovery.",
+  "molecular_design_justification": "The paper does not address molecular design.",
+  "drug_discovery_justification": "The paper does not pertain to drug discovery.",
+  "causal_discovery_justification": "The organization of research logic may aid in identifying causal relationships in plant biology.",
+  "biomedical_discovery_justification": "The focus is on plant biology, not directly on biomedical discovery.",
+  "idea_development_justification": "The atlas supports idea development by providing a comprehensive view of research logic.",
+  "science_domains": [
+    "biology",
+    "plant biology"
+  ],
+  "ai_methods": [
+    "large language models",
+    "knowledge graphs"
+  ],
+  "exhyte_stages": [
+    "Exploration",
+    "Hypothesis generation"
+  ],
+  "needs_pdf_review": false,
+  "auto_decision": "accept",
+  "auto_selected": true,
+  "selection_source": "llm_auto",
+  "local_pdf_path": "downloaded_pdfs/bioRxiv_J_et_al._2026_Research_Process_Graph_LLM-Driven_Extraction_and_Hierarchical_Organization_of_Research_Logic.pdf",
+  "pdf_download_status": "manual_pdf",
+  "pdf_download_method": "manual_pdf",
+  "pdf_download_url": "manual_pdfs/bioRxiv_J_et_al._2026_Research_Process_Graph_LLM-Driven_Extraction_and_Hierarchical_Organization_of_Research_Logic.pdf",
+  "pdf_download_attempted_at": "2026-06-30T17:54:09",
+  "paper_title": "Research Process Graph: LLM-Driven Extraction and Hierarchical Organization of Research Logic",
+  "summary_extraction_status": "extracted",
+  "summary_json_path": "review_outputs/gpt_paper_items/bioRxiv_J_et_al._2026_Research_Process_Graph_LLM-Driven_Extraction_and_Hierarchical_Organization_of_Research_Logic.json",
+  "objective": {
+    "answer": "The primary objective of the paper is to create a structured, machine-readable atlas of plant biology research logic by converting research articles into Research Process Graphs (RPGs) composed of Question, Method, and Finding nodes.",
+    "evidence": "Here we present a structured, 20-year atlas of The Plant Cell in which every paper is converted into a typed, directed Research Process Graph (RPG) of Question (Q), Method (M) and Finding (F) nodes connected by Q→M and M→F edges."
+  },
+  "knowledge_gap": {
+    "answer": "The paper addresses the gap of lacking a structured, machine-readable view of research logic in plant biology literature, which is currently locked inside free-text articles.",
+    "evidence": "This experimental logic, the directed Q → M → F chain that defines each piece of work, is currently locked inside free-text articles and unavailable for systematic analysis."
+  },
+  "novelty": {
+    "answer": [
+      "The development of a Research Process Graph (RPG) framework to map research logic in plant biology.",
+      "The use of large language models to extract structured Q/M/F nodes and edges from scientific articles with high precision.",
+      "The creation of a public, browsable database that allows exploration of plant biology research logic."
+    ],
+    "evidence": [
+      "Here, we use LLMs to extract a more demanding object: the Research Process Graph (RPG) for each paper, composed of typed Question (Q), Method (M), and Finding (F) nodes connected by directed Q→M and M→F edges.",
+      "An LLM pipeline extracts Question/Method/Finding knowledge graphs from 2,633 Plant Cell papers with >98% precision.",
+      "We release the atlas as a public, browsable database with five complementary interfaces: paper views, an LLM-powered research assistant, expert profiles, a taxonomy browser, and a method explorer."
+    ]
+  },
+  "inspirational_papers": {
+    "answer": "- Lim et al. (2025) PlantConnectome used large language models to mine over 71,000 plant articles into a knowledge graph of nearly 5 million functional relationships between genes, metabolites, tissues and other entities. (Methodological precursors)",
+    "evidence": "Plant biology has begun to adopt the same tools: PlantConnectome used large language models to mine over 71,000 plant articles into a knowledge graph of nearly 5 million functional relationships between genes, metabolites, tissues and other entities (Lim et al., 2025)."
+  },
+  "method": {
+    "steps": [
+      {
+        "step": "Filter and process full-text articles to retain experimental research papers.",
+        "input": "Full-text Plant Cell articles (2005–2026) scraped as html files.",
+        "output": "Filtered set of 2,633 experimental Plant Cell papers.",
+        "evidence": "Full-text Plant Cell articles (2005–2026) were scraped as html files... Articles whose publication-type (PT) lines included Review, Editorial, Comment, Letter, News, Biography, Case Reports, Historical Article, Congresses, or Consensus Development Conference were excluded, retaining 2,301 experimental papers."
+      },
+      {
+        "step": "Extract Q/M/F nodes and edges using GPT-5.",
+        "input": "Filtered experimental research papers.",
+        "output": "Structured JSON record per paper containing typed nodes and Q→M and M→F edges.",
+        "evidence": "Each paper is sent through GPT-5 via the OpenAI Batch API together with an extraction prompt (step 3) that asks the model to identify the paper's Research Questions (Q), Methods (M) and Findings (F) and the directed edges between them (step 4)."
+      },
+      {
+        "step": "Generalize extracted nodes into a hierarchical taxonomy.",
+        "input": "Extracted Q/M/F nodes.",
+        "output": "Generalized nodes organized into a hierarchical Q/M/F taxonomy.",
+        "evidence": "To uncover the categories of questions, methods and findings recurring across papers, we developed a second pipeline that converts each Q/M/F text into a generalised form."
+      }
+    ],
+    "tools": [
+      {
+        "name": "GPT-5",
+        "description": "Used for extracting Q/M/F nodes and edges from research papers.",
+        "evidence": "Each paper is sent through GPT-5 via the OpenAI Batch API together with an extraction prompt."
+      },
+      {
+        "name": "GPT-5-mini",
+        "description": "Used for generalizing extracted Q/M/F nodes.",
+        "evidence": "Because this task is simpler than constructing the RPG itself, we used the less expensive GPT-5-mini with a normalisation prompt."
+      }
+    ],
+    "benchmark_datasets": [],
+    "evaluation_metrics": [
+      {
+        "name": "Precision",
+        "purpose": "Measures the accuracy of extracted Q/M/F nodes and edges.",
+        "application": "Used to evaluate the performance of the LLM pipeline against a manually annotated gold standard.",
+        "evidence": "An LLM pipeline extracts Question/Method/Finding knowledge graphs from 2,633 Plant Cell papers with >98% precision."
+      }
+    ]
+  },
+  "method_type": {
+    "methods": [
+      {
+        "name": "Knowledge Extraction and Structurization",
+        "description": "The process of extracting structured Q/M/F nodes and edges from scientific articles.",
+        "evidence": "An LLM pipeline extracts Question/Method/Finding knowledge graphs from 2,633 Plant Cell papers with >98% precision."
+      },
+      {
+        "name": "Transformation/structurization of user input",
+        "description": "Generalizing extracted nodes into a hierarchical taxonomy.",
+        "evidence": "To uncover the categories of questions, methods and findings recurring across papers, we developed a second pipeline that converts each Q/M/F text into a generalised form."
+      }
+    ]
+  },
+  "subject_area": {
+    "areas": [
+      {
+        "name": "Biological Sciences",
+        "description": "The paper focuses on mapping research logic in plant biology.",
+        "evidence": "The resulting atlas, to our knowledge the first structured map of research logic, lets us characterise the field on its own terms: which types of questions are asked, how they couple to the methods used and the findings produced."
+      }
+    ]
+  },
+  "performance_summary": {
+    "performance_summary": [
+      {
+        "summary": "The LLM pipeline achieved over 98% precision in extracting Q/M/F nodes and edges from 2,633 Plant Cell papers.",
+        "evidence": "An LLM pipeline extracts Question/Method/Finding knowledge graphs from 2,633 Plant Cell papers with >98% precision."
+      }
+    ],
+    "baselines": [],
+    "benchmark_datasets": [],
+    "evaluation_metrics": [
+      {
+        "name": "Precision",
+        "purpose": "Measures the accuracy of extracted Q/M/F nodes and edges.",
+        "application": "Used to evaluate the performance of the LLM pipeline against a manually annotated gold standard.",
+        "evidence": "An LLM pipeline extracts Question/Method/Finding knowledge graphs from 2,633 Plant Cell papers with >98% precision."
+      }
+    ]
+  },
+  "benchmark_dataset": null,
+  "limitations": {
+    "limitations": [
+      {
+        "name": "Scope Limitation",
+        "description": "The atlas is based on a single journal and may not represent plant science as a whole.",
+        "evidence": "Our atlas rests on a single journal, thus reflects Plant Cell´s editorial focus, model-organism emphasis and methodological culture."
+      },
+      {
+        "name": "Extraction Errors",
+        "description": "The pipeline can occasionally misunderstand a node or attach an edge between unrelated QMF nodes.",
+        "evidence": "The pipeline can occasionally misunderstand a node or attach an edge between unrelated QMF nodes."
+      }
+    ]
+  },
+  "future_directions": {
+    "future_directions": [
+      {
+        "name": "Expand to All Plant Science Papers",
+        "description": "Extend the pipeline to all plant science papers to build a comprehensive, cross-journal atlas.",
+        "evidence": "By extending the pipeline to all plant science papers, drawing on other plant journals, and by incorporating full-text articles rather than abstracts alone, we aim to build a comprehensive, cross-journal atlas of plant biology."
+      }
+    ]
+  },
+  "resource_link": {
+    "answer": "https://rpg.connectome.tools/",
+    "evidence": "The database, available at https://rpg.connectome.tools/, turns the literature into a queryable community resource."
+  }
+}

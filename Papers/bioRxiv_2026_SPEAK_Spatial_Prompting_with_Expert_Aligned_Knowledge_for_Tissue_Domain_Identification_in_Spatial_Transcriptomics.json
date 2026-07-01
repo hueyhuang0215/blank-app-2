@@ -1,0 +1,304 @@
+{
+  "source": "bioRxiv",
+  "source_id": "PPR1260675",
+  "title": "SPEAK: Spatial Prompting with Expert Aligned Knowledge for Tissue Domain Identification in Spatial Transcriptomics",
+  "abstract": "Spatially resolved transcriptomic (SRT) data requires spatial domain identification to enable tissue microenvironment-specific downstream analyses. Here we present SPEAK (Spatial Prompting with Expert-Aligned Knowledge), a large language model (LLM) -based method to identify spatial domains from SRT data by taking advantage of the prior knowledge from both LLM and human experts. SPEAK constructs a spatial context prompt for each cell/spot based on cell types and marker genes of its neighboring cells, enabling zero-shot inference, expert-guided fine-tuning, and prototype updating through two-stage prompting. Applications to STARmap, Visium, MERFISH and Xenium datasets showed advantages of SPEAK over existing spatial domain identification methods in domain prediction accuracy, robustness to limited prior knowledge, biological interpretability, and capacity for efficient expert-guided fine-tuning with generalizability to other tissue sections.",
+  "published": "2026-06-26",
+  "authors": [
+    "Wei H",
+    "Luo X",
+    "Yu H",
+    "Liang J",
+    "Yang L",
+    "Sauler M",
+    "Kaminski N",
+    "Popa A",
+    "Yan X."
+  ],
+  "link": "https://doi.org/10.64898/2026.06.22.733750",
+  "doi": "10.64898/2026.06.22.733750",
+  "pdf_url": "",
+  "ai_for_science_score": 0.9,
+  "confidence_score": 0.95,
+  "implementation_score": 0.8,
+  "review_score": 0.85,
+  "benchmark_score": 0.9,
+  "hypothesis_generation_score": 0.7,
+  "scientific_discovery_score": 0.9,
+  "experiment_design_score": 0.6,
+  "material_discovery_score": 0.0,
+  "molecular_design_score": 0.0,
+  "drug_discovery_score": 0.0,
+  "causal_discovery_score": 0.5,
+  "biomedical_discovery_score": 0.9,
+  "idea_development_score": 0.7,
+  "ai_for_science_label": "accept",
+  "ai_for_science_reason": "The paper uses a large language model for spatial domain identification in spatial transcriptomics, contributing to scientific discovery in biology and medicine.",
+  "implementation_justification": "The method is applied to multiple datasets showing practical implementation.",
+  "review_justification": "The paper demonstrates advantages over existing methods in accuracy and robustness.",
+  "benchmark_justification": "The method is compared against existing methods and shows superior performance.",
+  "hypothesis_generation_justification": "The method aids in identifying spatial domains which can lead to new hypotheses.",
+  "scientific_discovery_justification": "The method directly contributes to understanding tissue microenvironments.",
+  "experiment_design_justification": "While not directly focused on experiment design, it aids in setting up analyses.",
+  "material_discovery_justification": "The paper does not focus on material discovery.",
+  "molecular_design_justification": "The paper does not involve molecular design.",
+  "drug_discovery_justification": "The paper does not address drug discovery.",
+  "causal_discovery_justification": "The method may indirectly support causal discovery through spatial domain identification.",
+  "biomedical_discovery_justification": "The method enhances understanding of spatial transcriptomics in biomedical research.",
+  "idea_development_justification": "The approach encourages new ways of analyzing spatial transcriptomics data.",
+  "science_domains": [
+    "biology",
+    "medicine"
+  ],
+  "ai_methods": [
+    "large language models",
+    "zero-shot inference",
+    "expert-guided fine-tuning"
+  ],
+  "exhyte_stages": [
+    "Exploration",
+    "Testing"
+  ],
+  "needs_pdf_review": false,
+  "auto_decision": "accept",
+  "auto_selected": true,
+  "selection_source": "llm_auto",
+  "local_pdf_path": "downloaded_pdfs/bioRxiv_H_et_al._2026_SPEAK_Spatial_Prompting_with_Expert_Aligned_Knowledge_for_Tissue_Domain_Identification_in_Spatial_Transcriptomics.pdf",
+  "pdf_download_status": "manual_pdf",
+  "pdf_download_method": "manual_pdf",
+  "pdf_download_url": "manual_pdfs/bioRxiv_H_et_al._2026_SPEAK_Spatial_Prompting_with_Expert_Aligned_Knowledge_for_Tissue_Domain_Identification_in_Spatial_Transcriptomics.pdf",
+  "pdf_download_attempted_at": "2026-06-30T17:54:09",
+  "paper_title": "SPEAK: Spatial Prompting with Expert Aligned Knowledge for Tissue Domain Identification in Spatial Transcriptomics",
+  "summary_extraction_status": "extracted",
+  "summary_json_path": "review_outputs/gpt_paper_items/bioRxiv_H_et_al._2026_SPEAK_Spatial_Prompting_with_Expert_Aligned_Knowledge_for_Tissue_Domain_Identification_in_Spatial_Transcriptomics.json",
+  "objective": {
+    "answer": "The primary objective of the paper is to present SPEAK (Spatial Prompting with Expert-Aligned Knowledge), a large language model-based method for identifying spatial domains from spatially resolved transcriptomic (SRT) data by leveraging prior knowledge from both large language models and human experts.",
+    "evidence": "Here we present SPEAK (Spatial Prompting with Expert-Aligned Knowledge), a large language model (LLM) -based method to identify spatial domains from SRT data by taking advantage of the prior knowledge from both LLM and human experts."
+  },
+  "knowledge_gap": {
+    "answer": "Existing methods for spatial domain identification in SRT data are limited by their inability to incorporate prior biological knowledge or expert guidance, and they often require de novo training for each dataset, which hinders model transferability.",
+    "evidence": "First, they are unable to incorporate prior biological knowledge or expert guidance. Second, most methods conduct de novo training for each dataset, hindering transfer of the trained models to subjects unseen in the training dataset."
+  },
+  "novelty": {
+    "answer": [
+      "SPEAK leverages large language models to incorporate prior biological knowledge and expert guidance for spatial domain identification.",
+      "The method includes a two-stage prompting strategy for zero-shot inference and expert-guided fine-tuning.",
+      "SPEAK provides biologically meaningful domain names, enhancing interpretability and cross-sample comparisons."
+    ],
+    "evidence": [
+      "To address these challenges, we developed a large language model-based method named SPEAK (Spatial Prompting with Expert-Aligned Knowledge), that leverages large language models (LLMs) to identify spatial domains from SRT data by incorporating prior biological knowledge about tissue organization from both existing scientific literatures and human experts like pathologists.",
+      "A two-stage prompting strategy was designed to query the fine-tuned model for accurate spatial domain prediction on any given tissue section by updating domain prototypes from high-confidence predictions.",
+      "In addition to superior accuracy in grouping cells into domains, SPEAK also automatically generates meaningful labels for each identified spatial domain rather than providing abstract cluster tags with no practical meaning like non-LLM based methods."
+    ]
+  },
+  "inspirational_papers": {
+    "answer": "- Wang et al. (2018) The STARmap dataset from this study was used for benchmarking SPEAK. (Experimental baselines)\n- Maynard et al. (2021) The Visium dataset from this study was used for benchmarking SPEAK. (Experimental baselines)\n- Moffitt et al. (2018) The MERFISH dataset from this study was used for benchmarking SPEAK. (Experimental baselines)",
+    "evidence": "The STARmap dataset6 profiles the mouse visual cortex at single-cell resolution. It comprises three subjects with one tissue section each, profiling a total of 3,268 cells. The cell type annotations and the ground-truth domain annotation for the 4 cortical-layer domains (Layer 1, Layer 2/3, Layer 5 and Layer 6) were taken from the original publication.\nThe Visium dataset33 profiles the human dorsolateral prefrontal cortex (DLPFC) at spot resolution with a spot size of ~55 . It comprises three subjects with four tissue sections each, providing 12 tissue sections and 47,681 spots in total.\nThe MERFISH dataset34 profiles the mouse hypothalamic preoptic region at single-cell resolution. It comprises one subject with five tissue sections, profiling 28,317 cells in total."
+  },
+  "method": {
+    "steps": [
+      {
+        "step": "Transform SRT data into spatial context prompts for each cell.",
+        "input": "SRT data, cell type compositions, marker genes.",
+        "output": "Spatial context prompts for each cell.",
+        "evidence": "SPEAK transforms SRT data into a spatial context prompt for each cell that characterizes its neighborhood with a given size."
+      },
+      {
+        "step": "Apply zero-shot approach by feeding spatial context prompts into a pre-trained LLM.",
+        "input": "Spatial context prompts, pre-trained LLM.",
+        "output": "Initial spatial domain predictions.",
+        "evidence": "The zero-shot approach directly feeds the spatial context prompt into a pre-trained LLM for spatial domain identification."
+      },
+      {
+        "step": "Fine-tune the LLM using feedback from human experts.",
+        "input": "Spatial context prompts, domain labels from human experts.",
+        "output": "Fine-tuned LLM.",
+        "evidence": "The fine-tuning approach incorporates feedback from human experts on the zero-shot results to fine-tune the LLM for knowledge alignment."
+      },
+      {
+        "step": "Use two-stage prompting strategy to update domain prototypes and refine predictions.",
+        "input": "Fine-tuned LLM, high-confidence predictions.",
+        "output": "Final spatial domain predictions.",
+        "evidence": "The fine-tuned LLM agent is used to predict the final spatial domain identification results using a two-stage prompting strategy, which augmented the spatial context prompt with domain prototypes summarized from cells with high-confidence predictions."
+      }
+    ],
+    "tools": [
+      {
+        "name": "Large Language Models (LLMs)",
+        "description": "Used for spatial domain identification by incorporating prior biological knowledge.",
+        "evidence": "Different LLMs were used in SPEAK, including both closed-source LLMs (GPT-4o mini29, GPT-4o29, and Gemini 1.5 Pro30) and open-source LLMs (Llama-3.1-8B, Qwen3-30B, and Llama-3.1-70B)."
+      }
+    ],
+    "benchmark_datasets": [
+      {
+        "name": "STARmap",
+        "data_description": "Mouse visual cortex data with single-cell resolution.",
+        "usage": "Used for benchmarking SPEAK.",
+        "evidence": "The STARmap dataset6 profiles the mouse visual cortex at single-cell resolution."
+      },
+      {
+        "name": "Visium",
+        "data_description": "Human dorsolateral prefrontal cortex data at spot resolution.",
+        "usage": "Used for benchmarking SPEAK.",
+        "evidence": "The Visium dataset33 profiles the human dorsolateral prefrontal cortex (DLPFC) at spot resolution."
+      },
+      {
+        "name": "MERFISH",
+        "data_description": "Mouse hypothalamic preoptic region data with single-cell resolution.",
+        "usage": "Used for benchmarking SPEAK.",
+        "evidence": "The MERFISH dataset34 profiles the mouse hypothalamic preoptic region at single-cell resolution."
+      }
+    ],
+    "evaluation_metrics": [
+      {
+        "name": "Normalized Mutual Information (NMI)",
+        "purpose": "Measures agreement between predicted and true cluster assignments.",
+        "application": "Used to evaluate method performance against ground truth.",
+        "evidence": "The method performance was evaluated by comparing results to ground truth in the benchmarking datasets (STARmap, MERFISH and Visium) using three metrics: Normalized Mutual Information (NMI), Homogeneity score (HOM), and Completeness score (COM)."
+      },
+      {
+        "name": "Homogeneity score (HOM)",
+        "purpose": "Measures how well each cluster contains only members of a single class.",
+        "application": "Used to evaluate method performance against ground truth.",
+        "evidence": "The method performance was evaluated by comparing results to ground truth in the benchmarking datasets (STARmap, MERFISH and Visium) using three metrics: Normalized Mutual Information (NMI), Homogeneity score (HOM), and Completeness score (COM)."
+      },
+      {
+        "name": "Completeness score (COM)",
+        "purpose": "Measures how well all members of a given class are assigned to the same cluster.",
+        "application": "Used to evaluate method performance against ground truth.",
+        "evidence": "The method performance was evaluated by comparing results to ground truth in the benchmarking datasets (STARmap, MERFISH and Visium) using three metrics: Normalized Mutual Information (NMI), Homogeneity score (HOM), and Completeness score (COM)."
+      }
+    ]
+  },
+  "method_type": {
+    "methods": [
+      {
+        "name": "Knowledge Extraction and Structurization",
+        "description": "The method extracts and structures knowledge from spatial transcriptomic data using LLMs.",
+        "evidence": "SPEAK transforms SRT data into a spatial context prompt for each cell that characterizes its neighborhood with a given size."
+      },
+      {
+        "name": "Iterative refinement of Ideas, Hypothesis and Experiment design",
+        "description": "The method iteratively refines spatial domain predictions through expert-guided fine-tuning and two-stage prompting.",
+        "evidence": "The fine-tuning approach incorporates feedback from human experts on the zero-shot results to fine-tune the LLM for knowledge alignment."
+      }
+    ]
+  },
+  "subject_area": {
+    "areas": [
+      {
+        "name": "Biological Sciences",
+        "description": "The paper focuses on identifying spatial domains in spatial transcriptomic data, which is crucial for understanding tissue organization and disease-associated alterations.",
+        "evidence": "Spatially resolved transcriptomic (SRT) data requires spatial domain identification to enable tissue microenvironment-specific downstream analyses."
+      },
+      {
+        "name": "Health Sciences",
+        "description": "The method is applied to datasets from human tissues, including the human dorsolateral prefrontal cortex and COPD lung, highlighting its relevance to health sciences.",
+        "evidence": "The Visium dataset profiles the human dorsolateral prefrontal cortex (DLPFC) at spot resolution."
+      }
+    ]
+  },
+  "performance_summary": {
+    "performance_summary": [
+      {
+        "summary": "SPEAK outperformed existing spatial domain identification methods in domain prediction accuracy, robustness to limited prior knowledge, biological interpretability, and capacity for efficient expert-guided fine-tuning.",
+        "evidence": "Applications to STARmap, Visium, MERFISH and Xenium datasets showed advantages of SPEAK over existing spatial domain identification methods in domain prediction accuracy, robustness to limited prior knowledge, biological interpretability, and capacity for efficient expert-guided fine-tuning with generalizability to other tissue sections."
+      }
+    ],
+    "baselines": [
+      {
+        "name": "Seurat",
+        "description": "A non-LLM based method for spatial domain identification.",
+        "evidence": "Seurat had worse performance than SPEAK-Z but achieved the highest accuracy among the non-LLM based methods."
+      },
+      {
+        "name": "BASS",
+        "description": "A non-LLM based method used for comparison due to its superior performance among non-LLM methods.",
+        "evidence": "Among the non-LLM based methods, we chose BASS for comparison due to its superior performance among the non-LLM based methods."
+      }
+    ],
+    "benchmark_datasets": [
+      {
+        "name": "STARmap",
+        "data_description": "Mouse visual cortex data with single-cell resolution.",
+        "usage": "Used for benchmarking SPEAK.",
+        "evidence": "The STARmap dataset6 profiles the mouse visual cortex at single-cell resolution."
+      },
+      {
+        "name": "Visium",
+        "data_description": "Human dorsolateral prefrontal cortex data at spot resolution.",
+        "usage": "Used for benchmarking SPEAK.",
+        "evidence": "The Visium dataset33 profiles the human dorsolateral prefrontal cortex (DLPFC) at spot resolution."
+      },
+      {
+        "name": "MERFISH",
+        "data_description": "Mouse hypothalamic preoptic region data with single-cell resolution.",
+        "usage": "Used for benchmarking SPEAK.",
+        "evidence": "The MERFISH dataset34 profiles the mouse hypothalamic preoptic region at single-cell resolution."
+      }
+    ],
+    "evaluation_metrics": [
+      {
+        "name": "Normalized Mutual Information (NMI)",
+        "purpose": "Measures agreement between predicted and true cluster assignments.",
+        "application": "Used to evaluate method performance against ground truth.",
+        "evidence": "The method performance was evaluated by comparing results to ground truth in the benchmarking datasets (STARmap, MERFISH and Visium) using three metrics: Normalized Mutual Information (NMI), Homogeneity score (HOM), and Completeness score (COM)."
+      },
+      {
+        "name": "Homogeneity score (HOM)",
+        "purpose": "Measures how well each cluster contains only members of a single class.",
+        "application": "Used to evaluate method performance against ground truth.",
+        "evidence": "The method performance was evaluated by comparing results to ground truth in the benchmarking datasets (STARmap, MERFISH and Visium) using three metrics: Normalized Mutual Information (NMI), Homogeneity score (HOM), and Completeness score (COM)."
+      },
+      {
+        "name": "Completeness score (COM)",
+        "purpose": "Measures how well all members of a given class are assigned to the same cluster.",
+        "application": "Used to evaluate method performance against ground truth.",
+        "evidence": "The method performance was evaluated by comparing results to ground truth in the benchmarking datasets (STARmap, MERFISH and Visium) using three metrics: Normalized Mutual Information (NMI), Homogeneity score (HOM), and Completeness score (COM)."
+      }
+    ]
+  },
+  "benchmark_dataset": {
+    "name": "STARmap",
+    "description": "Mouse visual cortex data with single-cell resolution.",
+    "usage": "Used for benchmarking SPEAK.",
+    "evidence": "The STARmap dataset6 profiles the mouse visual cortex at single-cell resolution."
+  },
+  "limitations": {
+    "limitations": [
+      {
+        "name": "Reliance on Previous Knowledge",
+        "description": "SPEAK strongly relies on the previous knowledge encoded in the large language model, which can limit performance for understudied tissues and conditions.",
+        "evidence": "SPEAK has a few limitations that need future work. First, it strongly relies on the previous knowledge encoded in the large language model. For tissues and conditions that are understudied, the performance can be limited."
+      },
+      {
+        "name": "Need for Potential Domain List",
+        "description": "SPEAK requires a list of potential domains existing in the data, necessitating prior knowledge about the tissue section.",
+        "evidence": "Second, a list of potential domains existing in the data is needed and important to SPEAK, requiring prior knowledge about the tissue section."
+      }
+    ]
+  },
+  "future_directions": {
+    "future_directions": [
+      {
+        "name": "Generate Domain List from LLMs",
+        "description": "Future work can assist in generating the list of potential domains directly from pre-trained LLMs.",
+        "evidence": "Future work can assist in generating this list directly from pre-trained LLMs."
+      },
+      {
+        "name": "Optimize Neighborhood Size",
+        "description": "Future work can focus on automatically identifying the optimal neighborhood size for different tissues, domains, or cell types.",
+        "evidence": "The size of cell neighborhood is currently pre-defined in SPEAK, which may have different optimal settings for different tissues, domains, or cell types. Future work can focus on automatically identifying the optimal neighborhood size."
+      },
+      {
+        "name": "Knowledge Distillation to Smaller Models",
+        "description": "Future development can pursue knowledge distillation to smaller, open-source architectures, enabling deployment in resource-constrained environments.",
+        "evidence": "Future development can pursue knowledge distillation to smaller, open-source architectures, enabling deployment in resource-constrained environments."
+      }
+    ]
+  },
+  "resource_link": {
+    "answer": "https://github.com/wJDKnight/SPEAK",
+    "evidence": "SPEAK is freely available under the MIT license at GitHub (https://github.com/wJDKnight/SPEAK)."
+  }
+}

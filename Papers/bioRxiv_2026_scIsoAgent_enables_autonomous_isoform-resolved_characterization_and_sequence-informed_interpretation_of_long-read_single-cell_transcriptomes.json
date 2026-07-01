@@ -1,0 +1,229 @@
+{
+  "source": "bioRxiv",
+  "source_id": "PPR1253310",
+  "title": "scIsoAgent enables autonomous isoform-resolved characterization and sequence-informed interpretation of long-read single-cell transcriptomes",
+  "abstract": "Alternative isoform usage can alter gene function independently of total gene expression, creating a need to resolve transcript isoforms at single-cell resolution. Long-read single-cell RNA sequencing meets this need by linking cellular identity to transcript isoforms and sequence-level features. Realizing its full biological value requires reproducible workflows that connect specialized long-read analysis with biological interpretation. Existing large language model (LLM)-based biomedical agents support general omics analysis, but are not designed for isoform-resolved long-read single-cell workflows. Here, we present scIsoAgent, an autonomous LLM-powered scientific agent for long-read single-cell RNA-seq analysis. scIsoAgent turns heterogeneous long-read single-cell inputs into traceable isoform-resolved workflows, using stage-aware planning and persistent computational context to support both execution and interpretation. Across complementary evaluations, this design improved the continuity from analysis planning to executable, interactive workflows compared with general-purpose LLM baselines. In real-data reanalysis, scIsoAgent recovered major findings from published long-read single-cell resources and extended a representative differential transcript usage event into a sequence-informed functional hypothesis. By linking full-length isoform sequences with model-inferred transcript properties, scIsoAgent connects observed isoform usage with potential sequence-level functional consequences. These results demonstrate that autonomous scientific agents can transform fragmented long-read single-cell analysis into coherent, reproducible workflows for isoform-resolved discovery and biological interpretation.",
+  "published": "2026-06-16",
+  "authors": [
+    "Zhao C",
+    "Liu M",
+    "Li X",
+    "Li D",
+    "Xu Y",
+    "Wang Z."
+  ],
+  "link": "https://doi.org/10.64898/2026.06.11.731519",
+  "doi": "10.64898/2026.06.11.731519",
+  "pdf_url": "",
+  "ai_for_science_score": 0.9,
+  "confidence_score": 0.95,
+  "implementation_score": 0.8,
+  "review_score": 0.85,
+  "benchmark_score": 0.75,
+  "hypothesis_generation_score": 0.9,
+  "scientific_discovery_score": 0.9,
+  "experiment_design_score": 0.7,
+  "material_discovery_score": 0.0,
+  "molecular_design_score": 0.0,
+  "drug_discovery_score": 0.0,
+  "causal_discovery_score": 0.0,
+  "biomedical_discovery_score": 0.9,
+  "idea_development_score": 0.8,
+  "ai_for_science_label": "accept",
+  "ai_for_science_reason": "The paper presents scIsoAgent, an LLM-powered agent for isoform-resolved long-read single-cell RNA-seq analysis, contributing to scientific discovery in biology.",
+  "implementation_justification": "The paper describes a novel implementation of an LLM-powered agent for RNA-seq analysis.",
+  "review_justification": "The paper provides a comprehensive evaluation of the agent's performance.",
+  "benchmark_justification": "The agent's performance is compared against general-purpose LLM baselines.",
+  "hypothesis_generation_justification": "The agent extends findings into sequence-informed functional hypotheses.",
+  "scientific_discovery_justification": "The agent facilitates isoform-resolved discovery and biological interpretation.",
+  "experiment_design_justification": "The agent supports planning and execution of RNA-seq analysis workflows.",
+  "material_discovery_justification": "The paper does not focus on material discovery.",
+  "molecular_design_justification": "The paper does not address molecular design.",
+  "drug_discovery_justification": "The paper does not involve drug discovery.",
+  "causal_discovery_justification": "The paper does not focus on causal discovery.",
+  "biomedical_discovery_justification": "The agent aids in the discovery of transcript isoforms and their functional implications.",
+  "idea_development_justification": "The paper introduces a novel approach to RNA-seq analysis using AI.",
+  "science_domains": [
+    "biology",
+    "genomics"
+  ],
+  "ai_methods": [
+    "LLM",
+    "scientific agents"
+  ],
+  "exhyte_stages": [
+    "Exploration",
+    "Hypothesis generation",
+    "Testing"
+  ],
+  "needs_pdf_review": false,
+  "auto_decision": "accept",
+  "auto_selected": true,
+  "selection_source": "llm_auto",
+  "local_pdf_path": "downloaded_pdfs/bioRxiv_C_et_al._2026_scIsoAgent_enables_autonomous_isoform-resolved_characterization_and_sequence-informed_interpretation_of_long-read_single-cell_transcriptomes.pdf",
+  "pdf_download_status": "manual_pdf",
+  "pdf_download_method": "manual_pdf",
+  "pdf_download_url": "manual_pdfs/bioRxiv_C_et_al._2026_scIsoAgent_enables_autonomous_isoform-resolved_characterization_and_sequence-informed_interpretation_of_long-read_single-cell_transcriptomes.pdf",
+  "pdf_download_attempted_at": "2026-06-30T17:54:09",
+  "paper_title": "scIsoAgent enables autonomous isoform-resolved characterization and sequence-informed interpretation of long-read single-cell transcriptomes",
+  "summary_extraction_status": "extracted",
+  "summary_json_path": "review_outputs/gpt_paper_items/bioRxiv_C_et_al._2026_scIsoAgent_enables_autonomous_isoform-resolved_characterization_and_sequence-informed_interpretation_of_long-read_single-cell_transcriptomes.json",
+  "objective": {
+    "answer": "The primary objective of the paper is to develop scIsoAgent, an autonomous LLM-powered scientific agent for long-read single-cell RNA-seq analysis, aimed at creating traceable isoform-resolved workflows that connect specialized long-read analysis with biological interpretation.",
+    "evidence": "Here, we present scIsoAgent, an autonomous LLM-powered scientific agent for long-read single-cell RNA-seq analysis. scIsoAgent turns heterogeneous long-read single-cell inputs into traceable isoform-resolved workflows, using stage-aware planning and persistent computational context to support both execution and interpretation."
+  },
+  "knowledge_gap": {
+    "answer": "Existing large language model (LLM)-based biomedical agents support general omics analysis but are not designed for isoform-resolved long-read single-cell workflows, which limits their applicability in this specific domain.",
+    "evidence": "Existing large language model (LLM)-based biomedical agents support general omics analysis, but are not designed for isoform-resolved long-read single-cell workflows."
+  },
+  "novelty": {
+    "answer": [
+      "scIsoAgent provides an adaptive workflow framework for ONT and PacBio-based data, connecting heterogeneous long-read single-cell inputs with isoform-level analysis and sequence-informed biological interpretation.",
+      "The design of scIsoAgent includes stage-aware planning, traceable script-based execution, and persistent computational context, which supports reproducible analysis across interactive workflow steps.",
+      "scIsoAgent extends isoform-resolved analysis toward sequence-informed interpretation by linking transcript-level analysis results with predictions from RNA sequence models."
+    ],
+    "evidence": [
+      "scIsoAgent provides an adaptive workflow framework for ONT and PacBio-based data, connecting heterogeneous long-read single-cell inputs with isoform-level analysis and sequence-informed biological interpretation.",
+      "By combining stage-aware planning, traceable script-based execution, and persistent computational context, scIsoAgent supports reproducible analysis across interactive workflow steps.",
+      "scIsoAgent further extends isoform-resolved analysis toward sequence-informed interpretation. In this component, scIsoAgent links transcript-level analysis results, including isoform expression, isoform classification, and differential transcript usage, with predictions from RNA sequence models."
+    ]
+  },
+  "inspirational_papers": {
+    "answer": "- Sahlin and Mäkinen (2021) Accurate spliced alignment of long RNA sequencing reads. (Methodological precursors)\n- Kovaka et al. (2019) Transcriptome assembly from long-read RNA-seq alignments with StringTie2. (Experimental baselines)",
+    "evidence": "Representative tools support splice-aware alignment with uLTRA [16], isoform quantification with StringTie2 [17], Mandalorion [18], TALON [19], FLAMES [14], IsoTools [20], and LIQA [21], as well as downstream interpretation and visualization with Swan [22]."
+  },
+  "method": {
+    "steps": [
+      {
+        "step": "Construct scIsoAgent as an interactive LLM agent for isoform-resolved long-read single-cell RNA-seq analysis.",
+        "input": "Heterogeneous project entry points, ranging from raw long-read data to intermediate analysis results.",
+        "output": "Executable and traceable workflow steps through four operational layers: request interpretation, skill selection, execution control, and interactive session management.",
+        "evidence": "We first constructed scIsoAgent as an interactive LLM agent for isoform-resolved long-read single-cell RNA-seq analysis. The framework was designed to support heterogeneous project entry points, ranging from raw long-read data to intermediate analysis results."
+      },
+      {
+        "step": "Define the workflow coverage of scIsoAgent across major stages of isoform-resolved long-read single-cell analysis.",
+        "input": "Platform-specific long-read processing, transcript-resolved single-cell analysis, and sequence-informed interpretation.",
+        "output": "A unified agent-guided framework that links platform-specific long-read processing to transcript-resolved single-cell analysis and sequence-informed interpretation.",
+        "evidence": "We next defined the workflow coverage of scIsoAgent across the major stages of isoform-resolved long-read single-cell analysis."
+      }
+    ],
+    "tools": [
+      {
+        "name": "BLAZE",
+        "description": "Barcode and UMI recovery for ONT data.",
+        "evidence": "For ONT data, scIsoAgent supports barcode and UMI recovery with BLAZE."
+      },
+      {
+        "name": "minimap2",
+        "description": "Genome alignment for ONT data.",
+        "evidence": "For ONT data, scIsoAgent supports barcode and UMI recovery with BLAZE, followed by genome alignment using minimap2."
+      }
+    ],
+    "benchmark_datasets": [],
+    "evaluation_metrics": [
+      {
+        "name": "LLM-based scoring",
+        "purpose": "To assess the quality of generated analysis plans.",
+        "application": "Used in the automated planning evaluation to score plans generated by different LLMs.",
+        "evidence": "The generated plans were assessed by LLM-based scoring and by specialists in computational biology."
+      }
+    ]
+  },
+  "method_type": {
+    "methods": [
+      {
+        "name": "Experimental design generation",
+        "description": "The approach includes producing experimental protocols, configurations, or evaluation strategies.",
+        "evidence": "We next defined the workflow coverage of scIsoAgent across the major stages of isoform-resolved long-read single-cell analysis."
+      },
+      {
+        "name": "Iterative refinement of Ideas, Hypothesis and Experiment design",
+        "description": "The system refines experimental designs or hypotheses based on iterative feedback or new data.",
+        "evidence": "The session management layer preserves computational context across iterative requests, enabling reuse of active sessions and loaded analysis objects."
+      }
+    ]
+  },
+  "subject_area": {
+    "areas": [
+      {
+        "name": "Health Sciences",
+        "description": "The paper focuses on single-cell RNA-seq analysis, which is relevant to understanding cellular heterogeneity in health and disease.",
+        "evidence": "To evaluate whether scIsoAgent can support biologically meaningful analysis in a real study setting, we applied it to a published long-read single-cell study of the adult human heart and heart failure."
+      },
+      {
+        "name": "Applied Sciences & Engineering",
+        "description": "The development of scIsoAgent involves engineering a computational framework for RNA-seq analysis.",
+        "evidence": "scIsoAgent provides an adaptive workflow framework for ONT and PacBio-based data, connecting heterogeneous long-read single-cell inputs with isoform-level analysis and sequence-informed biological interpretation."
+      }
+    ]
+  },
+  "performance_summary": {
+    "performance_summary": [
+      {
+        "summary": "scIsoAgent variants achieved higher overall scores than general-purpose LLMs across three independent LLM-based evaluators, with scIsoAgent-GPT5.4 ranking highest.",
+        "evidence": "In the automated planning evaluation, scIsoAgent variants achieved higher overall scores than general-purpose LLMs across three independent LLM-based evaluators, with scIsoAgent-GPT5.4 ranking highest."
+      }
+    ],
+    "baselines": [
+      {
+        "name": "General-purpose LLMs",
+        "description": "Used as a baseline for comparison in planning and execution evaluations.",
+        "evidence": "We compared general-purpose LLM baselines with scIsoAgent variants built on different backbone models using the same long-read single-cell transcriptomic analysis prompt."
+      }
+    ],
+    "benchmark_datasets": [
+      {
+        "name": "GSE288222",
+        "data_description": "A published long-read single-cell RNA-seq dataset from the adult human heart and heart failure.",
+        "usage": "Used for real-data application and reanalysis to evaluate scIsoAgent's performance.",
+        "evidence": "We evaluated scIsoAgent on a published long-read single-cell RNA-seq dataset from the Gene Expression Omnibus under accession number GSE288222."
+      }
+    ],
+    "evaluation_metrics": [
+      {
+        "name": "LLM-based scoring",
+        "purpose": "To assess the quality of generated analysis plans.",
+        "application": "Used in the automated planning evaluation to score plans generated by different LLMs.",
+        "evidence": "The generated plans were assessed by LLM-based scoring and by specialists in computational biology."
+      }
+    ]
+  },
+  "benchmark_dataset": {
+    "name": "GSE288222",
+    "data_description": "A published long-read single-cell RNA-seq dataset from the adult human heart and heart failure.",
+    "usage": "Used for real-data application and reanalysis to evaluate scIsoAgent's performance.",
+    "evidence": "We evaluated scIsoAgent on a published long-read single-cell RNA-seq dataset from the Gene Expression Omnibus under accession number GSE288222."
+  },
+  "limitations": {
+    "limitations": [
+      {
+        "name": "Execution Benchmarks",
+        "description": "The execution benchmarks cover representative tasks rather than the full diversity of long-read single-cell workflows.",
+        "evidence": "Our execution benchmarks cover representative tasks rather than the full diversity of long-read single-cell workflows, and future evaluations should include broader input types, platforms, and biological use cases."
+      },
+      {
+        "name": "Planning Assessments",
+        "description": "Automated and specialist-based planning assessments may be influenced by selected prompts, scoring rubrics, and evaluator backgrounds.",
+        "evidence": "Both automated and specialist-based planning assessments may be influenced by the selected prompts, scoring rubrics, and evaluator backgrounds."
+      }
+    ]
+  },
+  "future_directions": {
+    "future_directions": [
+      {
+        "name": "Broader Input Types",
+        "description": "Future evaluations should include broader input types, platforms, and biological use cases.",
+        "evidence": "Our execution benchmarks cover representative tasks rather than the full diversity of long-read single-cell workflows, and future evaluations should include broader input types, platforms, and biological use cases."
+      },
+      {
+        "name": "Experimental Validation",
+        "description": "Sequence-derived predictions should be interpreted as hypothesis-generating evidence rather than direct functional validation.",
+        "evidence": "Such predictions require experimental validation, but they offer a principled way to prioritize isoforms for downstream functional studies."
+      }
+    ]
+  },
+  "resource_link": {
+    "answer": "https://github.com/zczali4403/scIsoAgent",
+    "evidence": "The codebase for scIsoAgent is publicly available at https://github.com/zczali4403/scIsoAgent."
+  }
+}

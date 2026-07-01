@@ -1,0 +1,132 @@
+{
+  "source": "arXiv",
+  "source_id": "2508.03278v1",
+  "title": "Artificial Intelligence and Generative Models for Materials Discovery -- A Review",
+  "abstract": "High throughput experimentation tools, machine learning (ML) methods, and open material databases are radically changing the way new materials are discovered. From the experimentally driven approach in the past, we are moving quickly towards the artificial intelligence (AI) driven approach, realizing the 'inverse design' capabilities that allow the discovery of new materials given the desired properties. This review aims to discuss different principles of AI-driven generative models that are applicable for materials discovery, including different materials representations available for this purpose. We will also highlight specific applications of generative models in designing new catalysts, semiconductors, polymers, or crystals while addressing challenges such as data scarcity, computational cost, interpretability, synthesizability, and dataset biases. Emerging approaches to overcome limitations and integrate AI with experimental workflows will be discussed, including multimodal models, physics informed architectures, and closed-loop discovery systems. This review aims to provide insights for researchers aiming to harness AI's transformative potential in accelerating materials discovery for sustainability, healthcare, and energy innovation.",
+  "published": "2025-08-05T09:56:27Z",
+  "authors": [
+    "Albertus Denny Handoko",
+    "Riko I Made"
+  ],
+  "link": "https://arxiv.org/abs/2508.03278v1",
+  "doi": "",
+  "pdf_url": "https://arxiv.org/pdf/2508.03278v1.pdf",
+  "ai_for_science_score": 0.95,
+  "confidence_score": 0.9,
+  "implementation_score": 0.8,
+  "review_score": 0.9,
+  "benchmark_score": 0.7,
+  "hypothesis_generation_score": 0.85,
+  "scientific_discovery_score": 0.95,
+  "experiment_design_score": 0.8,
+  "material_discovery_score": 0.95,
+  "molecular_design_score": 0.7,
+  "drug_discovery_score": 0.0,
+  "causal_discovery_score": 0.0,
+  "biomedical_discovery_score": 0.0,
+  "idea_development_score": 0.8,
+  "ai_for_science_label": "accept",
+  "ai_for_science_reason": "The paper discusses AI-driven generative models for materials discovery, which is a clear application of AI in a scientific domain.",
+  "implementation_justification": "The paper reviews the implementation of AI methods in materials discovery.",
+  "review_justification": "The paper provides a comprehensive review of AI applications in materials science.",
+  "benchmark_justification": "The paper discusses challenges and emerging approaches but does not focus on benchmarking.",
+  "hypothesis_generation_justification": "AI methods are used for generating hypotheses in materials design.",
+  "scientific_discovery_justification": "The paper focuses on AI's role in accelerating scientific discovery in materials science.",
+  "experiment_design_justification": "The integration of AI with experimental workflows is discussed.",
+  "material_discovery_justification": "The primary focus is on AI-driven materials discovery.",
+  "molecular_design_justification": "The paper touches on designing new materials, which includes molecular design.",
+  "drug_discovery_justification": "The paper does not focus on drug discovery.",
+  "causal_discovery_justification": "Causal discovery is not addressed in the paper.",
+  "biomedical_discovery_justification": "The paper does not focus on biomedical discovery.",
+  "idea_development_justification": "The paper provides insights for researchers to develop new ideas in AI-driven materials discovery.",
+  "science_domains": [
+    "materials science"
+  ],
+  "ai_methods": [
+    "generative models",
+    "machine learning"
+  ],
+  "exhyte_stages": [
+    "Exploration",
+    "Hypothesis generation",
+    "Testing"
+  ],
+  "needs_pdf_review": false,
+  "auto_decision": "accept",
+  "auto_selected": true,
+  "selection_source": "llm_auto",
+  "pdf_download_attempted_at": "2026-06-30T06:24:59",
+  "local_pdf_path": "downloaded_pdfs/arXiv_Handoko_et_al._2025_Artificial_Intelligence_and_Generative_Models_for_Materials_Discovery_--_A_Review.pdf",
+  "pdf_download_status": "already_exists",
+  "pdf_download_method": "direct pdf_url",
+  "pdf_download_url": "https://arxiv.org/pdf/2508.03278v1",
+  "extraction_source_type": "pdf",
+  "paper_title": "Artificial Intelligence and Generative Models for Materials Discovery -- A Review",
+  "summary_extraction_status": "extracted",
+  "summary_json_path": "review_outputs/gpt_paper_items/arXiv_Handoko_et_al._2025_Artificial_Intelligence_and_Generative_Models_for_Materials_Discovery_--_A_Review.json",
+  "objective": {
+    "answer": "The paper aims to discuss the principles of AI-driven generative models applicable for materials discovery, highlighting specific applications and addressing challenges such as data scarcity and computational cost.",
+    "evidence": "This review aims to discuss different principles of AI-driven generative models that are applicable for materials discovery, including different materials representations available for this purpose."
+  },
+  "knowledge_gap": {
+    "answer": "The paper addresses the gap in understanding how generative models can be effectively applied to materials discovery, particularly in overcoming the limitations of traditional experiment-driven approaches.",
+    "evidence": "Recognising the limitations of the blackbox approaches to discover truly new materials that can display groundbreaking properties, multi-disciplinary scientists started to apply generative models for materials discovery."
+  },
+  "novelty": {
+    "answer": [
+      "The paper provides a comprehensive review of AI-driven generative models for materials discovery, focusing on their principles and applications.",
+      "It highlights emerging approaches to integrate AI with experimental workflows, such as multimodal models and physics-informed architectures.",
+      "The review discusses the potential of generative models in designing new catalysts, semiconductors, polymers, or crystals."
+    ],
+    "evidence": [
+      "This review aims to discuss different principles of AI-driven generative models that are applicable for materials discovery.",
+      "Emerging approaches to overcome limitations and integrate AI with experimental workflows will be discussed, including multimodal models, physics-informed architectures, and closed-loop discovery systems.",
+      "We will also highlight specific applications of generative models in designing new catalysts, semiconductors, polymers, or crystals."
+    ]
+  },
+  "inspirational_papers": {
+    "answer": "- G´omez-Bombarelli et al. (2018) Automatic Chemical Design Using a Data-Driven Continuous Representation of Molecules. (Methodological precursors)",
+    "evidence": "For example, G´omez-Bombarelli et al. reported the use of VAEs to generate predictions of organic molecules that can be applicable as active pharmaceutical ingredients."
+  },
+  "method": {
+    "steps": [],
+    "tools": [],
+    "benchmark_datasets": [],
+    "evaluation_metrics": []
+  },
+  "method_type": {
+    "methods": []
+  },
+  "subject_area": {
+    "areas": [
+      {
+        "name": "Applied Sciences & Engineering",
+        "description": "The paper discusses AI-driven generative models for materials discovery, which is a key area in engineering.",
+        "evidence": "This review aims to provide insights for researchers aiming to harness AI’s transformative potential in accelerating materials discovery for sustainability, healthcare, and energy innovation."
+      }
+    ]
+  },
+  "performance_summary": {
+    "performance_summary": "Not reported in the paper",
+    "baselines": "Not reported in the paper",
+    "benchmark_datasets": "Not reported in the paper",
+    "evaluation_metrics": "Not reported in the paper"
+  },
+  "benchmark_dataset": null,
+  "limitations": {
+    "limitations": []
+  },
+  "future_directions": {
+    "future_directions": [
+      {
+        "name": "Integration with Experimental Workflows",
+        "description": "The paper suggests further integration of AI with experimental workflows to enhance materials discovery.",
+        "evidence": "Emerging approaches to overcome limitations and integrate AI with experimental workflows will be discussed, including multimodal models, physics-informed architectures, and closed-loop discovery systems."
+      }
+    ]
+  },
+  "resource_link": {
+    "answer": "",
+    "evidence": ""
+  }
+}

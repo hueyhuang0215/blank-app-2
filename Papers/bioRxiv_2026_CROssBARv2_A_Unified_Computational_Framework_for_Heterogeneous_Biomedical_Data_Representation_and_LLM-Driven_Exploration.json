@@ -1,0 +1,294 @@
+{
+  "source": "bioRxiv",
+  "source_id": "PPR1214848",
+  "title": "CROssBARv2: A Unified Computational Framework for Heterogeneous Biomedical Data Representation and LLM-Driven Exploration",
+  "abstract": "Biomedical discovery is hindered by fragmented, modality-specific repositories and uneven metadata, limiting integrative analysis, accessibility, and reproducibility. To address these challenges, we present CROssBARv2, a provenance-rich biomedical data-and-knowledge integration platform that unifies heterogeneous sources into a maintainable, scalable system. By consolidating diverse data types into an extensive knowledge graph enriched with standardised ontologies, rich metadata, and deep learning–based vector embeddings, CROssBARv2 alleviates the need for researchers to navigate multiple siloed databases and can facilitate downstream tasks, including predictive modelling and mechanistic reasoning, enabling applications such as drug repurposing and protein function prediction. The platform offers interactive graph exploration and embedding-based semantic search with CROssBAR-LLM, an intuitive natural language question-answering system that grounds large language model (LLM) outputs in the underlying knowledge graph to mitigate hallucinations. We assess CROssBARv2 through (i) multiple use-case analyses to test biological coherence and relational validity; (ii) knowledge-augmented biomedical question-answering benchmarks comparing CROssBAR-LLM against generalist LLMs; and (iii) a deep learning–based predictive modelling experiment for protein function prediction leveraging the heterogeneous structure of CROssBARv2. Collectively, CROssBARv2 provides a scalable, AI-ready, and user-friendly foundation that facilitates hypothesis generation, knowledge discovery, and translational research.",
+  "published": "2026-04-15",
+  "authors": [
+    "Şen B",
+    "Ulusoy E",
+    "Darcan M",
+    "Ergün M",
+    "Lobentanzer S",
+    "Rifaioglu AS",
+    "Türei D",
+    "Saez-Rodriguez J",
+    "Doğan T."
+  ],
+  "link": "https://doi.org/10.64898/2026.04.12.718028",
+  "doi": "10.64898/2026.04.12.718028",
+  "pdf_url": "",
+  "ai_for_science_score": 0.95,
+  "confidence_score": 0.9,
+  "implementation_score": 0.9,
+  "review_score": 0.85,
+  "benchmark_score": 0.8,
+  "hypothesis_generation_score": 0.9,
+  "scientific_discovery_score": 0.95,
+  "experiment_design_score": 0.7,
+  "material_discovery_score": 0.0,
+  "molecular_design_score": 0.7,
+  "drug_discovery_score": 0.8,
+  "causal_discovery_score": 0.6,
+  "biomedical_discovery_score": 0.95,
+  "idea_development_score": 0.85,
+  "ai_for_science_label": "accept",
+  "ai_for_science_reason": "The paper presents a platform that uses AI methods like LLMs and deep learning for scientific discovery in biomedical domains, facilitating hypothesis generation and knowledge discovery.",
+  "implementation_justification": "The platform is described as scalable and user-friendly, indicating a strong implementation.",
+  "review_justification": "The paper includes multiple use-case analyses and benchmarks, suggesting thorough evaluation.",
+  "benchmark_justification": "The platform is compared against generalist LLMs in biomedical question-answering benchmarks.",
+  "hypothesis_generation_justification": "The platform facilitates hypothesis generation through integrative data analysis.",
+  "scientific_discovery_justification": "The platform supports knowledge discovery and translational research in biomedical fields.",
+  "experiment_design_justification": "While not the primary focus, the platform aids in predictive modeling experiments.",
+  "material_discovery_justification": "The paper does not address material discovery.",
+  "molecular_design_justification": "The platform supports protein function prediction, relevant to molecular design.",
+  "drug_discovery_justification": "The platform enables applications such as drug repurposing.",
+  "causal_discovery_justification": "Mechanistic reasoning is mentioned, but causal discovery is not the main focus.",
+  "biomedical_discovery_justification": "The platform is specifically designed for biomedical data integration and discovery.",
+  "idea_development_justification": "The platform supports idea development through interactive exploration and semantic search.",
+  "science_domains": [
+    "biology",
+    "medicine"
+  ],
+  "ai_methods": [
+    "LLMs",
+    "deep learning",
+    "knowledge graphs"
+  ],
+  "exhyte_stages": [
+    "Exploration",
+    "Hypothesis generation",
+    "Testing"
+  ],
+  "needs_pdf_review": false,
+  "auto_decision": "accept",
+  "auto_selected": true,
+  "selection_source": "llm_auto",
+  "local_pdf_path": "downloaded_pdfs/bioRxiv_B_et_al._2026_CROssBARv2_A_Unified_Computational_Framework_for_Heterogeneous_Biomedical_Data_Representation_and_LLM-Driven_Exploration.pdf",
+  "pdf_download_status": "manual_pdf",
+  "pdf_download_method": "manual_pdf",
+  "pdf_download_url": "manual_pdfs/bioRxiv_B_et_al._2026_CROssBARv2_A_Unified_Computational_Framework_for_Heterogeneous_Biomedical_Data_Representation_and_LLM-Driven_Exploration.pdf",
+  "pdf_download_attempted_at": "2026-06-30T17:54:09",
+  "paper_title": "CROssBARv2: A Unified Computational Framework for Heterogeneous Biomedical Data Representation and LLM-Driven Exploration",
+  "summary_extraction_status": "extracted",
+  "summary_json_path": "review_outputs/gpt_paper_items/bioRxiv_B_et_al._2026_CROssBARv2_A_Unified_Computational_Framework_for_Heterogeneous_Biomedical_Data_Representation_and_LLM-Driven_Exploration.json",
+  "objective": {
+    "answer": "The primary objective of the paper is to present CROssBARv2, a computational framework designed to integrate large-scale, heterogeneous biological and biomedical data into a unified knowledge graph. The authors aim to address the challenges of fragmented biomedical data repositories by providing a scalable, maintainable system that facilitates integrative analysis and supports applications such as drug repurposing and protein function prediction.",
+    "evidence": "To address these challenges, we present CROssBARv2, a provenance-rich biomedical data-and-knowledge integration platform that unifies heterogeneous sources into a maintainable, scalable system."
+  },
+  "knowledge_gap": {
+    "answer": "The paper addresses the gap of fragmented, modality-specific biomedical data repositories that hinder integrative analysis, accessibility, and reproducibility. Existing knowledge graphs often lack comprehensive metadata and usability, limiting their flexibility and utility for broader research applications.",
+    "evidence": "Biomedical discovery is hindered by fragmented, modality-specific repositories and uneven metadata, limiting integrative analysis, accessibility, and reproducibility."
+  },
+  "novelty": {
+    "answer": [
+      "CROssBARv2 integrates 34 diverse data sources into a unified knowledge graph, enhancing metadata with provenance, evidence, and confidence scores.",
+      "The platform includes automated and maintainable data integration pipelines for periodic updates and seamless incorporation of new data sources.",
+      "CROssBARv2 offers accessible interfaces for both non-programmatic and programmatic users, including a natural language interaction tool.",
+      "The system supports semantic similarity search using integrated node embeddings, enabling exploration beyond topological connections.",
+      "CROssBARv2 combines graph traversal and vector search for multifaceted queries, allowing for the identification of novel targets or repurposable drugs."
+    ],
+    "evidence": [
+      "Our key contributions include: (i) a provenance-rich, general-purpose KG enhanced with comprehensive metadata (provenance, evidence, confidence scores) to support reliable, filterable analyses across diverse biomedical applications.",
+      "automated and maintainable data integration pipelines that ensure periodic updates and seamless incorporation of new data sources.",
+      "an intuitive online platform that enables natural language interaction and exploration of the KG.",
+      "semantic similarity search functionality using integrated node embeddings that not only enable exploration beyond topological connections, but also provide machine learning-ready feature representations for downstream models.",
+      "The synergistic combination of graph traversal and vector search – a hybrid search approach – provides a particularly powerful toolset, allowing for multifaceted queries that leverage both explicit graph connections and implicit semantic similarities."
+    ]
+  },
+  "inspirational_papers": {
+    "answer": "- Doğan et al. (2021) CROssBARv1, the precursor to this study, integrates large-scale biomedical data from 14 databases together with machine learning-based predictions into a KG with a graphical web interface for intuitive data exploration and interpretation, focusing on drug discovery. (Methodological precursors)\n- Himmelstein et al. (2017) Hetionet interlinks several biological entities to prioritise drug-repurposing candidates. (Methodological precursors)\n- Morris et al. (2023) SPOKE bridges molecular findings and clinical concepts, facilitating translational inference. (Methodological precursors)",
+    "evidence": "Several efforts exemplify current practice: Hetionet interlinks several biological entities to prioritise drug-repurposing candidates; SPOKE bridges molecular findings and clinical concepts, facilitating translational inference; CROssBARv1, the precursor to this study, integrates large-scale biomedical data from 14 databases together with machine learning-based predictions into a KG with a graphical web interface for intuitive data exploration and interpretation, focusing on drug discovery."
+  },
+  "method": {
+    "steps": [
+      {
+        "step": "Integrate biological data from 34 sources into a unified framework.",
+        "input": "Data from 34 biological data sources.",
+        "output": "A single, unified knowledge graph.",
+        "evidence": "CROssBARv2 integrates biological data from 34 biological data sources into a single, unified framework."
+      },
+      {
+        "step": "Automate retrieval, standardisation, and integration of data using adapter scripts.",
+        "input": "Source databases.",
+        "output": "Standardised and integrated data.",
+        "evidence": "The system employs configurable and reusable adapter scripts to automate the retrieval, standardisation, and integration of data from source databases."
+      },
+      {
+        "step": "Store data in Neo4j graph database with rich metadata and node embeddings.",
+        "input": "Processed data from adapter scripts.",
+        "output": "Data stored in Neo4j graph database.",
+        "evidence": "The data processed by the adapter scripts is stored in the Neo4j graph database to facilitate efficient querying, knowledge discovery, and in-depth analysis of complex biological relationships."
+      },
+      {
+        "step": "Enhance semantic depth by generating and storing embeddings for biological entities.",
+        "input": "Biological entities in the knowledge graph.",
+        "output": "Embeddings for biological entities.",
+        "evidence": "We further enhanced the semantic depth of CROssBARv2 by leveraging the vector index feature of the Neo4j graph database via generating and storing embeddings for biological entities in the KG."
+      },
+      {
+        "step": "Provide database dumps and build customised databases for large-scale data access.",
+        "input": "Entire KG or specific subsets.",
+        "output": "Database dumps and customised databases.",
+        "evidence": "The CROssBARv2 platform also offers database dumps and the ability to build customised databases with configurable and reproducible adapter scripts."
+      }
+    ],
+    "tools": [
+      {
+        "name": "Neo4j",
+        "description": "Used for storing the knowledge graph and facilitating efficient querying and analysis.",
+        "evidence": "The data processed by the adapter scripts is stored in the Neo4j graph database to facilitate efficient querying, knowledge discovery, and in-depth analysis of complex biological relationships."
+      },
+      {
+        "name": "metapath2vec",
+        "description": "Used to learn node embeddings within heterogeneous graphs for assessing relational patterns.",
+        "evidence": "We applied metapath2vec in three exploratory use-cases focusing on protein, drug-disease, and pathway relationships, and analysed the resulting embedding spaces to evaluate whether biologically related or functionally similar nodes were positioned closer together."
+      },
+      {
+        "name": "SELFormer",
+        "description": "Used for generating embeddings for compound nodes.",
+        "evidence": "For each query molecule, we performed a vector-similarity search over the KG using SELFormer-derived embeddings, which are already integrated into CROssBARv2 for compound nodes."
+      }
+    ],
+    "benchmark_datasets": [
+      {
+        "name": "GeneTuring",
+        "data_description": "Binary choice questions for transcription factor regulation.",
+        "usage": "Used to measure the impact of coupling LLMs with the CROssBARv2 KG.",
+        "evidence": "Performance trends persisted on the GeneTuring set (e.g., “Does transcription factor MSC activate or repress gene CDC6?”)."
+      }
+    ],
+    "evaluation_metrics": [
+      {
+        "name": "Hit Rate at K (HR@K)",
+        "purpose": "Measures the proportion of ground-truth relations recovered within the top-K ranked predictions.",
+        "application": "Used to assess the strength of relationships captured in the embeddings.",
+        "evidence": "We used hit ratio at 1 (HR@1) to measure how often a node’s closest neighbour in the embedding space is linked by a true KG edge, treating nearest-neighbour retrieval as edge prediction."
+      },
+      {
+        "name": "Fmax",
+        "purpose": "Represents the maximum F1-score achieved across all thresholds.",
+        "application": "Used to evaluate prediction performance in protein function prediction models.",
+        "evidence": "In the DeepHGAT benchmark, ProtHGT achieved the highest Fmax across all three sub-ontologies."
+      }
+    ]
+  },
+  "method_type": {
+    "methods": [
+      {
+        "name": "Knowledge Extraction and Structurization",
+        "description": "The system extracts and structures knowledge from diverse biomedical data sources into a unified knowledge graph.",
+        "evidence": "CROssBARv2 integrates biological data from 34 biological data sources into a single, unified framework that establishes biologically relevant relationships."
+      },
+      {
+        "name": "Hypothesis or Idea Generation",
+        "description": "The system facilitates hypothesis generation by enabling exploration of complex biomedical relationships.",
+        "evidence": "CROssBARv2 provides a scalable, AI-ready, and user-friendly foundation that facilitates hypothesis generation, knowledge discovery, and translational research."
+      }
+    ]
+  },
+  "subject_area": {
+    "areas": [
+      {
+        "name": "Health Sciences",
+        "description": "The paper develops a framework for integrating biomedical data to support applications like drug repurposing and protein function prediction.",
+        "evidence": "CROssBARv2 alleviates the need for researchers to navigate multiple siloed databases and can facilitate downstream tasks, including predictive modelling and mechanistic reasoning, enabling applications such as drug repurposing and protein function prediction."
+      },
+      {
+        "name": "Applied Sciences & Engineering",
+        "description": "The proposed system provides a scalable and maintainable platform for biomedical data integration and analysis.",
+        "evidence": "CROssBARv2 provides a scalable, AI-ready, and user-friendly foundation that facilitates hypothesis generation, knowledge discovery, and translational research."
+      }
+    ]
+  },
+  "performance_summary": {
+    "performance_summary": [
+      {
+        "summary": "CROssBARv2 demonstrated strong proficiency in natural language understanding and precise translation into Cypher queries, even for complex multi-hop graph traversals. It consistently outperformed both standalone and web search-augmented LLMs in biomedical question answering.",
+        "evidence": "CROssBAR-LLM, which leverages our systematically organized KG, consistently outperformed both standalone and web search-augmented LLMs in biomedical question answering, underscoring the importance of structured biomedical knowledge in improving LLM performance in specialised domains."
+      }
+    ],
+    "baselines": [
+      {
+        "name": "DeepHGAT",
+        "description": "A heterogeneous-graph competitor for protein function prediction.",
+        "evidence": "In the DeepHGAT benchmark, ProtHGT achieved the highest Fmax across all three sub-ontologies, outperforming heterogeneous-graph competitor DeepHGAT."
+      },
+      {
+        "name": "PSPGO",
+        "description": "A PPI-based model for protein function prediction.",
+        "evidence": "ProtHGT achieved the highest Fmax across all three sub-ontologies, outperforming heterogeneous-graph competitor DeepHGAT, PPI-based PSPGO, and state-of-the-art sequence models."
+      }
+    ],
+    "benchmark_datasets": [
+      {
+        "name": "GeneTuring",
+        "data_description": "Binary choice questions for transcription factor regulation.",
+        "usage": "Used to measure the impact of coupling LLMs with the CROssBARv2 KG.",
+        "evidence": "Performance trends persisted on the GeneTuring set (e.g., “Does transcription factor MSC activate or repress gene CDC6?”)."
+      }
+    ],
+    "evaluation_metrics": [
+      {
+        "name": "Hit Rate at K (HR@K)",
+        "purpose": "Measures the proportion of ground-truth relations recovered within the top-K ranked predictions.",
+        "application": "Used to assess the strength of relationships captured in the embeddings.",
+        "evidence": "We used hit ratio at 1 (HR@1) to measure how often a node’s closest neighbour in the embedding space is linked by a true KG edge, treating nearest-neighbour retrieval as edge prediction."
+      },
+      {
+        "name": "Fmax",
+        "purpose": "Represents the maximum F1-score achieved across all thresholds.",
+        "application": "Used to evaluate prediction performance in protein function prediction models.",
+        "evidence": "In the DeepHGAT benchmark, ProtHGT achieved the highest Fmax across all three sub-ontologies."
+      }
+    ]
+  },
+  "benchmark_dataset": {
+    "name": null,
+    "data_description": "No traditional benchmark dataset was used.",
+    "usage": "The study primarily used internally curated datasets and the GeneTuring benchmark.",
+    "evidence": "The paper does not mention the use of any traditional benchmark datasets like ImageNet or MIMIC-CXR."
+  },
+  "limitations": {
+    "limitations": [
+      {
+        "name": "Limited Generalizability",
+        "description": "The system's performance and applicability may be limited by the specific data sources and ontologies integrated into the knowledge graph.",
+        "evidence": "While progress has been made in unifying fragmented data within integrated platforms, significant limitations remain in functionality, maintainability, reproducibility, and accessibility."
+      },
+      {
+        "name": "Usability Constraints",
+        "description": "The system may require programming skills for data extraction and analysis, restricting usability for non-programmers.",
+        "evidence": "Usability is another key issue. Many KGs are distributed in formats that require programming skills for data extraction and analysis, restricting usability for non-programmers."
+      }
+    ]
+  },
+  "future_directions": {
+    "future_directions": [
+      {
+        "name": "Expand on Multi-Omics",
+        "description": "Future releases of CROssBAR will expand on multi-omics to support cross-scale reasoning from genotype to phenotype.",
+        "evidence": "Future releases of CROssBAR will first expand on multi-omics—transcriptomics, proteomics, metabolomics, epigenomics, single-cell omics, and microbiomics/metagenomics—to support cross-scale reasoning from genotype to phenotype."
+      },
+      {
+        "name": "Tighter Integration with OmniPath",
+        "description": "Develop a tighter integration of database building pipelines for improved reproducibility and the incorporation of more resources in CROssBAR.",
+        "evidence": "In parallel, building on the existing shared components between CROssBARv2 and OmniPath, we will develop a tighter integration of database building pipelines for improved reproducibility and the incorporation of more resources in CROssBAR."
+      },
+      {
+        "name": "Enhance Semantic Depth",
+        "description": "Strengthen semantic depth with embeddings from state-of-the-art representation models and forthcoming structure-aware multi-modal chemical and biological representation learning models.",
+        "evidence": "Semantic depth will be strengthened with embeddings from state-of-the-art representation models such as ESM3, Evo 2, and Uni-Mol models, and forthcoming structure-aware multi-modal chemical and biological representation learning models."
+      },
+      {
+        "name": "Evolve CROssBAR-LLM",
+        "description": "Explore the evolution of CROssBAR-LLM toward a multi-agentic system that maintains conversational context and autonomously refines query generation.",
+        "evidence": "On the CROssBAR-LLM front, we are exploring the evolution of CROssBAR-LLM toward a multi-agentic system that maintains conversational context and autonomously refines query generation."
+      }
+    ]
+  },
+  "resource_link": {
+    "answer": "https://github.com/HUBioDataLab/CROssBARv2",
+    "evidence": "The source code for KG construction adapters, GraphQL API, CROssBAR-LLM, and Docker Compose deployment scripts is openly available at https://github.com/HUBioDataLab/CROssBARv2 organized as subrepositories."
+  }
+}

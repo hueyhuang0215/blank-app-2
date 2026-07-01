@@ -1,0 +1,205 @@
+{
+  "source": "bioRxiv",
+  "source_id": "PPR1224091",
+  "title": "GeneReL: A Large Language Model-Powered Platform for Gene Regulatory Relationship Extraction with Community Curation",
+  "abstract": "<h4>Motivation</h4> Gene regulatory networks provide fundamental insights into plant biology, yet extracting structured interaction data from scientific literature remains a significant bottleneck. Traditional manual curation cannot scale to meet the demands of modern research, while automated text mining approaches struggle with the complexity of gene nomenclature and relationship classification. Large language models offer promising capabilities for information extraction, but integrated platforms combining LLM extraction with community validation for plant regulatory databases remain scarce. <h4>Results</h4> We developed GeneReL, an integrated platform combining LLM-based extraction with community-driven curation for gene regulatory networks in Arabidopsis thaliana . The system employs a tiered pipeline using Claude Haiku 4.5 for screening, Claude Sonnet 4 for extraction, and Claude Opus 4 for verification, along with a novel five-step gene normalization pipeline incorporating paper-text search and LLM-based disambiguation with UniProt annotations. The database contains 13,710 curated interactions across 51 relationship types, with 90.2% classified as high confidence based on linguistic certainty markers in source text. Comparison with IntAct reveals 86.8% of interactions are unique to our literature-derived database, demonstrating complementary coverage to existing resources. The web platform provides card-based browsing with voting capabilities, interactive network visualization using Cytoscape.js with locus-ID-based node consolidation, and administrative interfaces for curator review of ambiguous gene mappings. <h4>Availability and Implementation</h4> GeneReL is freely accessible at https://generel.newgenes.me . <h4>Contact</h4> kangyangjae@gnu.ac.kr",
+  "published": "2026-02-11",
+  "authors": [
+    "Park J",
+    "Ha S",
+    "Lee Y",
+    "Kang YJ."
+  ],
+  "link": "https://doi.org/10.64898/2026.02.10.705020",
+  "doi": "10.64898/2026.02.10.705020",
+  "pdf_url": "",
+  "ai_for_science_score": 0.9,
+  "confidence_score": 0.95,
+  "implementation_score": 0.85,
+  "review_score": 0.8,
+  "benchmark_score": 0.75,
+  "hypothesis_generation_score": 0.8,
+  "scientific_discovery_score": 0.85,
+  "experiment_design_score": 0.6,
+  "material_discovery_score": 0.0,
+  "molecular_design_score": 0.0,
+  "drug_discovery_score": 0.0,
+  "causal_discovery_score": 0.7,
+  "biomedical_discovery_score": 0.6,
+  "idea_development_score": 0.7,
+  "ai_for_science_label": "accept",
+  "ai_for_science_reason": "The paper uses large language models for extracting gene regulatory relationships, contributing to scientific discovery in plant biology.",
+  "implementation_justification": "The platform is implemented with a tiered pipeline and community curation, showing robust integration.",
+  "review_justification": "The paper provides a detailed comparison with existing databases, indicating thorough validation.",
+  "benchmark_justification": "The platform's unique interactions compared to IntAct demonstrate its complementary value.",
+  "hypothesis_generation_justification": "The extraction of unique gene interactions supports hypothesis generation in regulatory networks.",
+  "scientific_discovery_justification": "The platform aids in discovering new gene regulatory relationships in Arabidopsis thaliana.",
+  "experiment_design_justification": "While not directly focused on experiment design, the extracted data can inform future experiments.",
+  "material_discovery_justification": "The paper does not address material discovery.",
+  "molecular_design_justification": "The focus is on gene regulatory networks, not molecular design.",
+  "drug_discovery_justification": "The paper does not pertain to drug discovery.",
+  "causal_discovery_justification": "The extraction of gene interactions can contribute to understanding causal relationships in biology.",
+  "biomedical_discovery_justification": "The work is relevant to plant biology, which can have indirect biomedical implications.",
+  "idea_development_justification": "The integration of LLMs and community curation is innovative for gene regulatory network extraction.",
+  "science_domains": [
+    "biology",
+    "plant biology"
+  ],
+  "ai_methods": [
+    "Large Language Models",
+    "text mining"
+  ],
+  "exhyte_stages": [
+    "Exploration",
+    "Hypothesis generation"
+  ],
+  "needs_pdf_review": false,
+  "auto_decision": "accept",
+  "auto_selected": true,
+  "selection_source": "llm_auto",
+  "local_pdf_path": "downloaded_pdfs/bioRxiv_J_et_al._2026_GeneReL_A_Large_Language_Model-Powered_Platform_for_Gene_Regulatory_Relationship_Extraction_with_Community_Curation.pdf",
+  "pdf_download_status": "manual_pdf",
+  "pdf_download_method": "manual_pdf",
+  "pdf_download_url": "manual_pdfs/bioRxiv_J_et_al._2026_GeneReL_A_Large_Language_Model-Powered_Platform_for_Gene_Regulatory_Relationship_Extraction_with_Community_Curation.pdf",
+  "pdf_download_attempted_at": "2026-06-30T17:54:09",
+  "paper_title": "GeneReL: A Large Language Model-Powered Platform for Gene Regulatory Relationship Extraction with Community Curation",
+  "summary_extraction_status": "extracted",
+  "summary_json_path": "review_outputs/gpt_paper_items/bioRxiv_J_et_al._2026_GeneReL_A_Large_Language_Model-Powered_Platform_for_Gene_Regulatory_Relationship_Extraction_with_Community_Curation.json",
+  "objective": {
+    "answer": "The primary objective of the paper is to develop an integrated platform, GeneReL, that combines large language model (LLM)-based extraction with community-driven curation for gene regulatory networks in Arabidopsis thaliana. The authors aim to automate the extraction of structured regulatory relationships and establish a web-based platform for browsing, filtering, and visualizing interactions.",
+    "evidence": "This study presents a platform integrating LLM-based extraction with community-driven curation for gene-gene interaction discovery. We address three objectives: (1) develop an automated pipeline leveraging the Claude API to extract structured regulatory relationships with gene identifier normalization; (2) implement a web-based platform for browsing, filtering, and visualizing interactions; and (3) establish community curation through voting mechanisms."
+  },
+  "knowledge_gap": {
+    "answer": "The paper addresses the gap in scalable extraction of structured interaction data from scientific literature for plant regulatory databases, which traditional manual curation and automated text mining approaches struggle to meet.",
+    "evidence": "Traditional manual curation cannot scale to meet the demands of modern research, while automated text mining approaches struggle with the complexity of gene nomenclature and relationship classification. Large language models offer promising capabilities for information extraction, but integrated platforms combining LLM extraction with community validation for plant regulatory databases remain scarce."
+  },
+  "novelty": {
+    "answer": [
+      "The integration of LLM-based extraction with community-driven curation for gene regulatory networks in Arabidopsis thaliana.",
+      "A novel five-step gene normalization pipeline incorporating paper-text search and LLM-based disambiguation with UniProt annotations.",
+      "The platform provides card-based browsing with voting capabilities and interactive network visualization using Cytoscape.js."
+    ],
+    "evidence": [
+      "We developed GeneReL, an integrated platform combining LLM-based extraction with community-driven curation for gene regulatory networks in Arabidopsis thaliana.",
+      "The system employs a tiered pipeline using Claude Haiku 4.5 for screening, Claude Sonnet 4 for extraction, and Claude Opus 4 for verification, along with a novel five-step gene normalization pipeline incorporating paper-text search and LLM-based disambiguation with UniProt annotations.",
+      "The web platform provides card-based browsing with voting capabilities, interactive network visualization using Cytoscape.js with locus-ID-based node consolidation, and administrative interfaces for curator review of ambiguous gene mappings."
+    ]
+  },
+  "inspirational_papers": {
+    "answer": "- Gill et al. (2024) Large language model based framework for automated extraction of genetic interactions from unstructured data. (Methodological precursors)\n- Han et al. (2018) TRRUST v2: an expanded reference database of human and mouse transcriptional regulatory interactions. (Experimental baselines)",
+    "evidence": "The GIX framework demonstrated a three-stage approach for automated extraction of genetic interactions from literature using language models [12], while TRRUST pioneered sentence-based text mining for TF-target interaction curation in human and mouse [13]."
+  },
+  "method": {
+    "steps": [
+      {
+        "step": "Data source management and retrieval of full-text articles.",
+        "input": "PubMed Central using the BioPython Entrez module.",
+        "output": "Full-text articles in JATS XML format.",
+        "evidence": "Full-text articles were retrieved from PubMed Central using the BioPython Entrez module."
+      },
+      {
+        "step": "Automated extraction pipeline using a tiered multi-model approach.",
+        "input": "Claude models for screening, extraction, and verification.",
+        "output": "Structured regulatory relationships with gene identifier normalization.",
+        "evidence": "The extraction pipeline employs a tiered multi-model approach optimizing for both accuracy and cost-efficiency."
+      },
+      {
+        "step": "Gene normalization using a five-step hierarchical pipeline.",
+        "input": "Gene mentions from scientific literature.",
+        "output": "Gene mentions converted to AGI locus format.",
+        "evidence": "We developed a five-step hierarchical normalization pipeline to convert gene mentions to AGI locus format."
+      },
+      {
+        "step": "Web platform implementation for visualization and community curation.",
+        "input": "Normalized locus IDs and extracted interactions.",
+        "output": "Interactive network visualization and community curation through voting.",
+        "evidence": "The web application was developed using React 18.2 with TypeScript and Tailwind CSS."
+      }
+    ],
+    "tools": [
+      {
+        "name": "Claude Haiku 4.5",
+        "description": "Used for abstract screening to filter irrelevant papers.",
+        "evidence": "Abstract screening uses Claude Haiku 4.5 (claude-haiku-4-5-20251001) to filter irrelevant papers before full extraction."
+      },
+      {
+        "name": "Claude Sonnet 4",
+        "description": "Used for primary extraction of structured regulatory relationships.",
+        "evidence": "Primary extraction uses Claude Sonnet 4 (claude-sonnet-4-20250514) based on its 200K token context window and strong performance on scientific text comprehension benchmarks."
+      },
+      {
+        "name": "Claude Opus 4",
+        "description": "Used for verification of extracted interactions.",
+        "evidence": "Verification uses Claude Opus 4 (claude-opus-4-20250514) to validate extracted interactions."
+      }
+    ],
+    "benchmark_datasets": [],
+    "evaluation_metrics": []
+  },
+  "method_type": {
+    "methods": [
+      {
+        "name": "Literature or Dataset Retrieval",
+        "evidence": "Full-text articles were retrieved from PubMed Central using the BioPython Entrez module."
+      },
+      {
+        "name": "Knowledge Extraction and Structurization",
+        "evidence": "The extraction pipeline employs a tiered multi-model approach optimizing for both accuracy and cost-efficiency."
+      }
+    ]
+  },
+  "subject_area": {
+    "areas": [
+      {
+        "name": "Biological Sciences",
+        "description": "The paper focuses on gene regulatory networks in Arabidopsis thaliana.",
+        "evidence": "Gene regulatory networks provide fundamental insights into plant biology, yet extracting structured interaction data from scientific literature remains a significant bottleneck."
+      }
+    ]
+  },
+  "performance_summary": {
+    "performance_summary": [
+      {
+        "summary": "GeneReL contains 13,710 curated interactions with 90.2% classified as high confidence, and 86.8% of interactions are unique to the literature-derived database.",
+        "evidence": "The database contains 13,710 curated interactions across 51 relationship types, with 90.2% classified as high confidence based on linguistic certainty markers in source text. Comparison with IntAct reveals 86.8% of interactions are unique to our literature-derived database."
+      }
+    ],
+    "baselines": [
+      {
+        "name": "IntAct",
+        "description": "A primary reference for protein interaction validation.",
+        "evidence": "IntAct provides expertly curated molecular interaction data derived from literature curation and high-throughput experiments, serving as a primary reference for protein interaction validation."
+      }
+    ],
+    "benchmark_datasets": [],
+    "evaluation_metrics": []
+  },
+  "benchmark_dataset": null,
+  "limitations": {
+    "limitations": [
+      {
+        "name": "Limited Integration of Evidence",
+        "description": "The extraction operates on individual passages independently, lacking mechanisms to integrate evidence across papers or resolve conflicting claims.",
+        "evidence": "The extraction operates on individual passages independently, lacking mechanisms to integrate evidence across papers or resolve conflicting claims."
+      },
+      {
+        "name": "Imperfect Gene Normalization",
+        "description": "Gene normalization remains imperfect for recently characterized genes lacking UniProt entries.",
+        "evidence": "Gene normalization remains imperfect for recently characterized genes lacking UniProt entries."
+      }
+    ]
+  },
+  "future_directions": {
+    "future_directions": [
+      {
+        "name": "Expand to Other Plant Species",
+        "description": "The authors plan to extend the platform to include other plant species beyond Arabidopsis thaliana.",
+        "evidence": "In future work, we plan to expand the platform to include other plant species beyond Arabidopsis thaliana."
+      }
+    ]
+  },
+  "resource_link": {
+    "answer": "https://generel.newgenes.me",
+    "evidence": "GeneReL is freely accessible at https://generel.newgenes.me."
+  }
+}

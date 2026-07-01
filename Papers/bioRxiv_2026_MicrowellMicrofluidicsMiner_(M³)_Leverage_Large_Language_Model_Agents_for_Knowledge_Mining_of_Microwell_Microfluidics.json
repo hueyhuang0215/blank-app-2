@@ -1,0 +1,248 @@
+{
+  "source": "bioRxiv",
+  "source_id": "PPR1223540",
+  "title": "MicrowellMicrofluidicsMiner (M³): Leverage Large Language Model Agents for Knowledge Mining of Microwell Microfluidics",
+  "abstract": "Microwell microfluidics has emerged as powerful platforms for high-precision biological and chemical investigations, bridging microscale fluid handling with compartmentalized reaction environments. Achieving robust and reproducible performance in such studies requires substantial effort to optimize microwell array design. This burden could be markedly alleviated by the availability of a curated database of microwell array parameters. Such a resource would enable the application of machine-learning models for performance prediction and automated design, leveraging knowledge accumulated from prior microfluidics research. However, constructing such a database entails a considerable investment of time and extensive manual curation, as microwell performance is governed by numerous critical design parameters that are reported inconsistently across a broad and largely unstructured body of literature. In this study, we introduce MicrowellMicrofluidicsMiner (M³), a framework that employs large language model (LLM) agents for autonomous knowledge extraction in microwell microfluidics. To evaluate its performance, we curate a ground-truth database and establish an LLM-driven assessment approach. Our results demonstrate that M³ achieves a peak accuracy of approximately 78%, representing more than a twofold improvement over the lowest observed accuracy (32%) obtained using a standalone LLM model (LLAMA 3.1). This study provides a foundational reference for researchers seeking to apply LLM agents to data-driven microfluidics research. The insights presented have the potential to substantially improve how scientists across microfluidics-related disciplines access, interpret, and leverage scientific information, thereby accelerating the development of innovative microfluidic devices and associated discoveries.",
+  "published": "2026-02-17",
+  "authors": [
+    "Nguyen D",
+    "Shakil S",
+    "Tong RK",
+    "Dinh N."
+  ],
+  "link": "https://doi.org/10.64898/2026.02.14.705953",
+  "doi": "10.64898/2026.02.14.705953",
+  "pdf_url": "",
+  "ai_for_science_score": 0.9,
+  "confidence_score": 0.85,
+  "implementation_score": 0.8,
+  "review_score": 0.7,
+  "benchmark_score": 0.75,
+  "hypothesis_generation_score": 0.85,
+  "scientific_discovery_score": 0.9,
+  "experiment_design_score": 0.8,
+  "material_discovery_score": 0.6,
+  "molecular_design_score": 0.5,
+  "drug_discovery_score": 0.4,
+  "causal_discovery_score": 0.5,
+  "biomedical_discovery_score": 0.7,
+  "idea_development_score": 0.8,
+  "ai_for_science_label": "accept",
+  "ai_for_science_reason": "The paper uses LLM agents for knowledge extraction in microfluidics, contributing to scientific discovery in biology and chemistry.",
+  "implementation_justification": "The framework is implemented and evaluated with a curated database.",
+  "review_justification": "The paper provides a foundational reference for applying LLM agents in microfluidics.",
+  "benchmark_justification": "The study demonstrates a significant accuracy improvement over a baseline model.",
+  "hypothesis_generation_justification": "The framework aids in generating hypotheses by extracting knowledge from literature.",
+  "scientific_discovery_justification": "The insights have the potential to accelerate microfluidic device development and discoveries.",
+  "experiment_design_justification": "The framework supports automated design by leveraging extracted knowledge.",
+  "material_discovery_justification": "While not directly focused on material discovery, it aids in microfluidic device design.",
+  "molecular_design_justification": "The focus is more on device design rather than molecular design.",
+  "drug_discovery_justification": "The paper does not directly address drug discovery.",
+  "causal_discovery_justification": "The framework may indirectly support causal discovery through improved data interpretation.",
+  "biomedical_discovery_justification": "The application in microfluidics can contribute to biomedical research advancements.",
+  "idea_development_justification": "The framework facilitates idea development by improving access to scientific information.",
+  "science_domains": [
+    "biology",
+    "chemistry"
+  ],
+  "ai_methods": [
+    "large language models",
+    "knowledge extraction"
+  ],
+  "exhyte_stages": [
+    "Exploration",
+    "Hypothesis generation"
+  ],
+  "needs_pdf_review": false,
+  "auto_decision": "accept",
+  "auto_selected": true,
+  "selection_source": "llm_auto",
+  "local_pdf_path": "downloaded_pdfs/bioRxiv_D_et_al._2026_MicrowellMicrofluidicsMiner_(M³)_Leverage_Large_Language_Model_Agents_for_Knowledge_Mining_of_Microwell_Microfluidics.pdf",
+  "pdf_download_status": "manual_pdf",
+  "pdf_download_method": "manual_pdf",
+  "pdf_download_url": "manual_pdfs/bioRxiv_D_et_al._2026_MicrowellMicrofluidicsMiner_(M³)_Leverage_Large_Language_Model_Agents_for_Knowledge_Mining_of_Microwell_Microfluidics.pdf",
+  "pdf_download_attempted_at": "2026-06-30T17:54:09",
+  "paper_title": "MicrowellMicrofluidicsMiner (M³): Leverage Large Language Model Agents for Knowledge Mining of Microwell Microfluidics",
+  "summary_extraction_status": "extracted",
+  "summary_json_path": "review_outputs/gpt_paper_items/bioRxiv_D_et_al._2026_MicrowellMicrofluidicsMiner__M³__Leverage_Large_Language_Model_Agents_for_Knowledge_Mining_of_Microwell_Microfluidics.json",
+  "objective": {
+    "answer": "The primary objective of the paper is to introduce MicrowellMicrofluidicsMiner (M³), a framework that employs large language model agents for autonomous knowledge extraction in microwell microfluidics.",
+    "evidence": "In this study, we introduce MicrowellMicrofluidicsMiner (M³), a framework that employs large language model (LLM) agents for autonomous knowledge extraction in microwell microfluidics."
+  },
+  "knowledge_gap": {
+    "answer": "The paper addresses the gap in the availability of a curated database of microwell array parameters, which is essential for applying machine-learning models for performance prediction and automated design in microwell microfluidics.",
+    "evidence": "However, constructing such a database entails a considerable investment of time and extensive manual curation, as microwell performance is governed by numerous critical design parameters that are reported inconsistently across a broad and largely unstructured body of literature."
+  },
+  "novelty": {
+    "answer": [
+      "Introduction of a framework using LLM agents for autonomous knowledge extraction in microwell microfluidics.",
+      "Integration of a retrieval-augmented generation (RAG) module to reduce hallucinations in LLM outputs.",
+      "Use of a mixture-of-agents (MoA) ensemble to incorporate diverse model capabilities and reduce biases.",
+      "Development of an LLM-driven assessment framework to alleviate human workload in high-throughput settings."
+    ],
+    "evidence": [
+      "In this study, we propose MicrowellMicrofluidicsMiner (M³), an LLM agent-driven framework for autonomous knowledge extraction in microwell microfluidics.",
+      "The framework integrates three core components: a retrieval-augmented generation (RAG) module, a mixture-of-agents (MoA) ensemble, and an LLM extractor.",
+      "The RAG module ensures retrieval of relevant information to reduce hallucinations, whereas the MoA ensemble incorporates diverse model capabilities and learned linguistic patterns.",
+      "We introduce an LLM-driven assessment framework that alleviates human workload across high-throughput settings such as iterative model development, large-scale data extraction, and ongoing system monitoring."
+    ]
+  },
+  "inspirational_papers": {
+    "answer": "- Dagdelen et al. (2024) Their work on using LLMs for named-entity recognition and relation extraction in materials science inspired our approach to building databases. (Methodological precursors)\n- Gupta et al. (2024) Their use of LLMs for extracting polymer-property records influenced our data extraction methods. (Methodological precursors)",
+    "evidence": "For example, Dagdelen et al.28 show that a fine-tuned LLM (GPT-3 or LLAMA-2) can jointly perform named-entity recognition and relation extraction to build materials-science databases. Similarly, Gupta et al.29 used GPT-3.5 and LLAMA-2 together with a MaterialsBERT named-entity-recognition model to extract over one million polymer-property records."
+  },
+  "method": {
+    "steps": [
+      {
+        "step": "User-defined query is encoded and routed through an RAG module.",
+        "input": "User-defined query specifying parameters of interest.",
+        "output": "Semantically relevant documents based on high-dimensional embeddings.",
+        "evidence": "The process of M³ framework begins with a user-defined query specifying the parameters of interest, which is encoded and routed through an RAG module that interfaces with a domain-specific vector database."
+      },
+      {
+        "step": "Retrieved passages undergo a reranking stage.",
+        "input": "Retrieved text segments.",
+        "output": "Prioritized sources with the strongest evidence for the queried parameter.",
+        "evidence": "To improve precision, the retrieved passages undergo a reranking stage, which prioritizes sources with the strongest evidence for the queried parameter."
+      },
+      {
+        "step": "Summarization of highest-ranking passages.",
+        "input": "Highest-ranking passages.",
+        "output": "Concise, context-optimized representation.",
+        "evidence": "The highest-ranking passages are then summarized to remove redundancy, harmonize terminology, and produce a concise, context-optimized representation."
+      },
+      {
+        "step": "Evaluation by a mixture of independent LLM agents.",
+        "input": "Refined context.",
+        "output": "Model-diverse answer set.",
+        "evidence": "This refined context is subsequently evaluated by a mixture of independent LLM agents, including LLAMA3.1, MISTRAL, DEEPSEEK-R1, and GEMMA2."
+      },
+      {
+        "step": "Cross-model arbitration by QWEN3-based extractor.",
+        "input": "Model-diverse answer set.",
+        "output": "Selected or synthesized response that aligns with retrieved evidence.",
+        "evidence": "The resulting model-diverse answer set is forwarded to a QWEN3-based extractor, which performs cross-model arbitration by selecting or synthesizing the response that most closely aligns with the retrieved evidence."
+      }
+    ],
+    "tools": [
+      {
+        "name": "RAG module",
+        "description": "Used for retrieval of relevant information to reduce hallucinations.",
+        "evidence": "The RAG module ensures retrieval of relevant information to reduce hallucinations."
+      },
+      {
+        "name": "MoA ensemble",
+        "description": "Incorporates diverse model capabilities and learned linguistic patterns.",
+        "evidence": "The MoA ensemble incorporates diverse model capabilities and learned linguistic patterns."
+      },
+      {
+        "name": "QWEN3-based extractor",
+        "description": "Performs cross-model arbitration by selecting or synthesizing the response.",
+        "evidence": "The resulting model-diverse answer set is forwarded to a QWEN3-based extractor, which performs cross-model arbitration."
+      }
+    ],
+    "benchmark_datasets": [
+      {
+        "name": "Ground-truth dataset",
+        "data_description": "Captures six key parameters relevant to microwell experiments.",
+        "usage": "Used to evaluate the performance of the M³ framework.",
+        "evidence": "In this study, we compiled a ground-truth dataset informed by a previous investigation. The dataset was derived from 39 peer-reviewed publications and captures six key parameters relevant to microwell experiments."
+      }
+    ],
+    "evaluation_metrics": [
+      {
+        "name": "Accuracy",
+        "purpose": "Measures the correctness of parameter extraction.",
+        "application": "Used to evaluate the performance of the M³ framework.",
+        "evidence": "Our results demonstrate that M³ achieves a peak accuracy of approximately 78%."
+      }
+    ]
+  },
+  "method_type": {
+    "methods": [
+      {
+        "name": "Knowledge Extraction and Structurization",
+        "description": "The system extracts and structures knowledge from unstructured text.",
+        "evidence": "In this study, we propose MicrowellMicrofluidicsMiner (M³), an LLM agent-driven framework for autonomous knowledge extraction in microwell microfluidics."
+      },
+      {
+        "name": "Experimental design generation",
+        "description": "The approach includes producing experimental protocols, configurations, or evaluation strategies.",
+        "evidence": "We introduce an LLM-driven assessment framework that alleviates human workload across high-throughput settings such as iterative model development, large-scale data extraction, and ongoing system monitoring."
+      }
+    ]
+  },
+  "subject_area": {
+    "areas": [
+      {
+        "name": "Applied Sciences & Engineering",
+        "description": "The paper develops a framework for knowledge extraction in microwell microfluidics, a field within engineering.",
+        "evidence": "Microwell microfluidics has emerged as powerful platforms for high‐precision biological and chemical investigations, bridging microscale fluid handling with compartmentalized reaction environments."
+      },
+      {
+        "name": "Biological Sciences",
+        "description": "The framework is applied to extract knowledge relevant to biological experiments using microwell microfluidics.",
+        "evidence": "Microwell microfluidics is increasingly used for comprehensive single-cell investigations, spanning omics analyses and the assessment of cell–cell interactions."
+      }
+    ]
+  },
+  "performance_summary": {
+    "performance_summary": [
+      {
+        "summary": "The M³ framework achieves a peak extraction accuracy of approximately 78%, representing more than a twofold improvement over the lowest observed accuracy using a standalone LLM.",
+        "evidence": "Our results demonstrate that M³ achieves a peak accuracy of approximately 78%, representing more than a twofold improvement over the lowest observed accuracy (32%) obtained using a standalone LLM model (LLAMA 3.1)."
+      }
+    ],
+    "baselines": [
+      {
+        "name": "LLAMA 3.1",
+        "description": "A standalone LLM model used for comparison.",
+        "evidence": "Our results demonstrate that M³ achieves a peak accuracy of approximately 78%, representing more than a twofold improvement over the lowest observed accuracy (32%) obtained using a standalone LLM model (LLAMA 3.1)."
+      }
+    ],
+    "benchmark_datasets": [
+      {
+        "name": "Ground-truth dataset",
+        "data_description": "Captures six key parameters relevant to microwell experiments.",
+        "usage": "Used to evaluate the performance of the M³ framework.",
+        "evidence": "In this study, we compiled a ground-truth dataset informed by a previous investigation. The dataset was derived from 39 peer-reviewed publications and captures six key parameters relevant to microwell experiments."
+      }
+    ],
+    "evaluation_metrics": [
+      {
+        "name": "Accuracy",
+        "purpose": "Measures the correctness of parameter extraction.",
+        "application": "Used to evaluate the performance of the M³ framework.",
+        "evidence": "Our results demonstrate that M³ achieves a peak accuracy of approximately 78%."
+      }
+    ]
+  },
+  "benchmark_dataset": {
+    "name": "Ground-truth dataset",
+    "data_description": "Captures six key parameters relevant to microwell experiments.",
+    "usage": "Used to evaluate the performance of the M³ framework.",
+    "evidence": "In this study, we compiled a ground-truth dataset informed by a previous investigation. The dataset was derived from 39 peer-reviewed publications and captures six key parameters relevant to microwell experiments."
+  },
+  "limitations": {
+    "limitations": [
+      {
+        "name": "Limited Generalizability",
+        "description": "The framework's performance is evaluated on a specific ground-truth dataset, which may not cover all possible variations in microwell microfluidics literature.",
+        "evidence": "In this study, we compiled a ground-truth dataset informed by a previous investigation. The dataset was derived from 39 peer-reviewed publications and captures six key parameters relevant to microwell experiments."
+      }
+    ]
+  },
+  "future_directions": {
+    "future_directions": [
+      {
+        "name": "Expand Dataset Coverage",
+        "description": "Increase the diversity and size of the ground-truth dataset to improve the generalizability of the framework.",
+        "evidence": "Future work will focus on expanding the dataset to include a broader range of microwell microfluidics studies."
+      }
+    ]
+  },
+  "resource_link": {
+    "answer": "https://github.com/duydinhlab/MicrowellMicrofluidicsMiner",
+    "evidence": "The datasets and code for the analyses and figure generations in this work are publicly available on GitHub at url: https://github.com/duydinhlab/MicrowellMicrofluidicsMiner"
+  }
+}

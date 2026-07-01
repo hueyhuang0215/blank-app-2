@@ -1,0 +1,247 @@
+{
+  "source": "arXiv",
+  "source_id": "2605.21301v1",
+  "title": "Automatic Discovery of Disease Subgroups by Contrasting with Healthy Controls",
+  "abstract": "In biomedical Subgroup Discovery, practitioners are interested in discovering interpretable and homogeneous subgroups within a group of patients. In this paper, assuming that healthy subjects (i.e., controls) share common but irrelevant factors of variation with the patients, we motivate and develop a Contrastive Subgroup Discovery method, entitled Deep UCSL. By contrasting patients with controls, Deep UCSL identifies subgroups driven solely by pathological factors, ignoring common variability shared with healthy subjects. Our framework employs a deep feature extractor to learn a discriminative representation space. Mathematically, we derive a novel loss based on the conditional joint likelihood of latent clusters and patient/control labels, optimized via an Expectation-Maximization strategy alternating between subgroup inference and feature encoder updates. A regularization term further encourages representations to capture disease-specific variability while ignoring variability shared with controls. Compared to previous related works, our approach quantitatively improves the quality of the estimated subgroups, as demonstrated on a MNIST example and four distinct real medical imaging datasets. Code and datasets are available at: https://github.com/rlouiset/deep_ucsl.",
+  "published": "2026-05-20T15:31:16Z",
+  "authors": [
+    "Robin Louiset",
+    "Edouard Duchesnay",
+    "Benoit Dufumier",
+    "Antoine Grigis",
+    "Pietro Gori"
+  ],
+  "link": "https://arxiv.org/abs/2605.21301v1",
+  "doi": "",
+  "pdf_url": "https://arxiv.org/pdf/2605.21301v1.pdf",
+  "ai_for_science_score": 0.9,
+  "confidence_score": 0.95,
+  "implementation_score": 0.8,
+  "review_score": 0.7,
+  "benchmark_score": 0.75,
+  "hypothesis_generation_score": 0.85,
+  "scientific_discovery_score": 0.9,
+  "experiment_design_score": 0.6,
+  "material_discovery_score": 0.0,
+  "molecular_design_score": 0.0,
+  "drug_discovery_score": 0.0,
+  "causal_discovery_score": 0.7,
+  "biomedical_discovery_score": 0.9,
+  "idea_development_score": 0.8,
+  "ai_for_science_label": "accept",
+  "ai_for_science_reason": "The paper uses a deep learning method to discover disease subgroups, contributing to scientific discovery in the biomedical domain.",
+  "implementation_justification": "The method is implemented and demonstrated on multiple datasets.",
+  "review_justification": "The paper provides a novel approach with quantitative improvements over previous methods.",
+  "benchmark_justification": "The approach is benchmarked against existing methods using real medical imaging datasets.",
+  "hypothesis_generation_justification": "The method aids in generating hypotheses about disease-specific subgroups.",
+  "scientific_discovery_justification": "The discovery of disease subgroups represents a significant contribution to scientific knowledge.",
+  "experiment_design_justification": "The focus is more on subgroup discovery rather than direct experiment design.",
+  "material_discovery_justification": "The paper does not address material discovery.",
+  "molecular_design_justification": "The paper does not involve molecular design.",
+  "drug_discovery_justification": "The paper does not focus on drug discovery.",
+  "causal_discovery_justification": "The method may help infer causal relationships in disease subgroups.",
+  "biomedical_discovery_justification": "The paper directly contributes to biomedical discovery by identifying disease subgroups.",
+  "idea_development_justification": "The paper develops a novel idea for subgroup discovery using contrastive learning.",
+  "science_domains": [
+    "biomedical"
+  ],
+  "ai_methods": [
+    "deep learning",
+    "Expectation-Maximization"
+  ],
+  "exhyte_stages": [
+    "Exploration",
+    "Hypothesis generation"
+  ],
+  "needs_pdf_review": false,
+  "auto_decision": "accept",
+  "auto_selected": true,
+  "selection_source": "llm_auto",
+  "pdf_download_attempted_at": "2026-06-30T06:25:12",
+  "local_pdf_path": "downloaded_pdfs/arXiv_Louiset_et_al._2026_Automatic_Discovery_of_Disease_Subgroups_by_Contrasting_with_Healthy_Controls.pdf",
+  "pdf_download_status": "already_exists",
+  "pdf_download_method": "direct pdf_url",
+  "pdf_download_url": "https://arxiv.org/pdf/2605.21301v1",
+  "extraction_source_type": "pdf",
+  "paper_title": "Automatic Discovery of Disease Subgroups by Contrasting with Healthy Controls",
+  "summary_extraction_status": "extracted",
+  "summary_json_path": "review_outputs/gpt_paper_items/arXiv_Louiset_et_al._2026_Automatic_Discovery_of_Disease_Subgroups_by_Contrasting_with_Healthy_Controls.json",
+  "objective": {
+    "answer": "The primary objective of the paper is to develop a Contrastive Subgroup Discovery method, called Deep UCSL, to identify disease-specific subgroups by contrasting patients with healthy controls, focusing on pathological factors while ignoring common variability shared with healthy subjects.",
+    "evidence": "In this paper, assuming that healthy subjects (i.e., controls) share common but irrelevant factors of variation with the patients, we motivate and develop a Contrastive Subgroup Discovery method, entitled Deep UCSL."
+  },
+  "knowledge_gap": {
+    "answer": "Existing subgroup discovery methods either rely on user-defined features and linear predictors or are not generalizable to other domains, limiting their effectiveness in identifying disease-specific subgroups.",
+    "evidence": "To sum up, actual subgroup discovery works are either not generalizable to other domains or depend on user-defined feature choices and generally do not leverage the representation quality of non-linear deep learning methods."
+  },
+  "novelty": {
+    "answer": [
+      "Deep UCSL is the first deep learning method for Subgroup Discovery that performs disease/healthy classification while identifying subgroups in the diseased class.",
+      "The method introduces a clustering regularization loss that forces the learned representation to disregard healthy population variability, focusing only on disease-specific variability.",
+      "The paper proposes a novel Expectation-Maximization optimization process that alternates between subgroup inference and feature encoder updates."
+    ],
+    "evidence": [
+      "To the best of our knowledge, we propose the first Deep Learning method for Subgroup Discovery that performs disease/healthy classification while identifying subgroups in the diseased class.",
+      "We motivate and design a clustering regularization loss that forces the learned representation to disregard the healthy population variability focusing only on the disease-specific variability.",
+      "Then, as in UCSL [21], we propose the use of an Expectation-Maximization optimization process to alternate between the conditional joint likelihood parameters update and the subgroups pseudo-labels estimation."
+    ]
+  },
+  "inspirational_papers": {
+    "answer": "- Caron et al. (2018) Deep clustering for unsupervised learning of visual features. (Methodological precursors)\n- Varol et al. (2017) HYDRA: Revealing heterogeneity of imaging and genetic patterns through a multiple max-margin discriminative analysis framework. (Papers with limitations addressed by this work)\n- Louiset et al. (2021) UCSL: A machine learning expectation-maximization framework for unsupervised clustering driven by supervised learning. (Methodological precursors)",
+    "evidence": "Notably, emerging machine learning methods, such as HYDRA [20] and our preliminary work UCSL [21], have proposed a framework for Subgroup Discovery, where the supervised classification (healthy vs. diseased samples) and the subgroup identification (clustering of diseased samples only) depends on each other."
+  },
+  "method": {
+    "steps": [
+      {
+        "step": "Train a deep feature extractor to produce representations for identifying disease-specific subgroups.",
+        "input": "Dataset with known labels (0: healthy, 1: disease)",
+        "output": "Discriminative representation space",
+        "evidence": "Our framework employs a deep feature extractor to learn a discriminative representation space."
+      },
+      {
+        "step": "Estimate subgroup pseudo-labels using a regularized K-means clustering on positive samples.",
+        "input": "Positive samples from the dataset",
+        "output": "Subgroup pseudo-labels",
+        "evidence": "We first compute pθ(ci = k|xi, yi = +1) using a regularized K-mean."
+      },
+      {
+        "step": "Optimize the model using an Expectation-Maximization strategy.",
+        "input": "Subgroup pseudo-labels and feature encoder",
+        "output": "Updated model parameters",
+        "evidence": "The optimization procedure consists of alternatively 1) estimating the subgroups pseudo-labels and 2) updating the features encoder."
+      }
+    ],
+    "tools": [
+      {
+        "name": "Deep Neural Network",
+        "description": "Used as an automatic feature extractor to produce representations for identifying relevant disease subgroups.",
+        "evidence": "We use a Deep Neural Network as an automatic feature extractor to produce representations suitable for identifying relevant disease subgroups."
+      },
+      {
+        "name": "K-Means",
+        "description": "Used for estimating subgroup pseudo-labels during the Expectation step.",
+        "evidence": "We first compute pθ(ci = k|xi, yi = +1) using a regularized K-mean."
+      }
+    ],
+    "benchmark_datasets": [
+      {
+        "name": "MNIST",
+        "data_description": "A dataset of handwritten digits used as a toy example.",
+        "usage": "Used to demonstrate the differences between Deep Clustering and Subtype Discovery.",
+        "evidence": "In Fig. 1, we use an intuitive toy example based on the MNIST dataset to better clarify the differences between Deep Clustering and Subtype Discovery."
+      }
+    ],
+    "evaluation_metrics": [
+      {
+        "name": "Class Balanced Accuracy",
+        "purpose": "Measures the balanced accuracy of binary classification between true labels (healthy: 0, disease: 1) and predicted diagnoses.",
+        "application": "Used to evaluate the performance of the classification task.",
+        "evidence": "Class Balanced Accuracy (Class B-ACC): Measures the balanced accuracy of binary classification between true labels (healthy: 0, disease: 1) and predicted diagnoses p(yj|xj)."
+      },
+      {
+        "name": "Subgroup Balanced Accuracy",
+        "purpose": "Evaluates the balanced accuracy between inferred pathological subgroups compared to the true subgroups.",
+        "application": "Computed on disease samples only to evaluate subgroup identification.",
+        "evidence": "Subgroup Balanced Accuracy (Subgroup B-ACC): Evaluates the balanced accuracy between inferred pathological subgroups compared to the true subgroups cj (not used during training, only during evaluation)."
+      }
+    ]
+  },
+  "method_type": {
+    "methods": [
+      {
+        "name": "Hypothesis or Idea Generation",
+        "description": "The system produces candidate hypotheses or new research ideas from prior knowledge or external input.",
+        "evidence": "We motivate and develop a Contrastive Subgroup Discovery method, entitled Deep UCSL."
+      },
+      {
+        "name": "Experimental design generation",
+        "description": "The approach includes producing experimental protocols, configurations, or evaluation strategies.",
+        "evidence": "Our framework employs a deep feature extractor to learn a discriminative representation space."
+      }
+    ]
+  },
+  "subject_area": {
+    "areas": [
+      {
+        "name": "Health Sciences",
+        "description": "The paper develops a model for disease subgroup discovery using medical imaging data.",
+        "evidence": "In biomedical Subgroup Discovery, practitioners are interested in discovering interpretable and homogeneous subgroups within a group of patients."
+      },
+      {
+        "name": "Applied Sciences & Engineering",
+        "description": "The proposed method involves advanced machine learning techniques for subgroup discovery.",
+        "evidence": "Our framework employs a deep feature extractor to learn a discriminative representation space."
+      }
+    ]
+  },
+  "performance_summary": {
+    "performance_summary": [
+      {
+        "summary": "Deep UCSL substantially outperforms all other methods in subgroup identification tasks across multiple datasets.",
+        "evidence": "Deep UCSL substantially outperforms all other methods in these tasks."
+      }
+    ],
+    "baselines": [
+      {
+        "name": "Deep Cluster",
+        "description": "A method for unsupervised learning of visual features.",
+        "evidence": "Deep Cluster [4] alternates between the pseudo-label estimation phase and the update of encoder parameters."
+      },
+      {
+        "name": "SimCLR",
+        "description": "A contrastive learning method for visual representations.",
+        "evidence": "SimCLR [1], which encourages the encoder to be invariant to user-defined image augmentation."
+      }
+    ],
+    "benchmark_datasets": [
+      {
+        "name": "MNIST",
+        "data_description": "A dataset of handwritten digits used as a toy example.",
+        "usage": "Used to demonstrate the differences between Deep Clustering and Subtype Discovery.",
+        "evidence": "In Fig. 1, we use an intuitive toy example based on the MNIST dataset to better clarify the differences between Deep Clustering and Subtype Discovery."
+      }
+    ],
+    "evaluation_metrics": [
+      {
+        "name": "Class Balanced Accuracy",
+        "purpose": "Measures the balanced accuracy of binary classification between true labels (healthy: 0, disease: 1) and predicted diagnoses.",
+        "application": "Used to evaluate the performance of the classification task.",
+        "evidence": "Class Balanced Accuracy (Class B-ACC): Measures the balanced accuracy of binary classification between true labels (healthy: 0, disease: 1) and predicted diagnoses p(yj|xj)."
+      },
+      {
+        "name": "Subgroup Balanced Accuracy",
+        "purpose": "Evaluates the balanced accuracy between inferred pathological subgroups compared to the true subgroups.",
+        "application": "Computed on disease samples only to evaluate subgroup identification.",
+        "evidence": "Subgroup Balanced Accuracy (Subgroup B-ACC): Evaluates the balanced accuracy between inferred pathological subgroups compared to the true subgroups cj (not used during training, only during evaluation)."
+      }
+    ]
+  },
+  "benchmark_dataset": {
+    "name": "MNIST",
+    "data_description": "A dataset of handwritten digits used as a toy example.",
+    "usage": "Used to demonstrate the differences between Deep Clustering and Subtype Discovery.",
+    "evidence": "In Fig. 1, we use an intuitive toy example based on the MNIST dataset to better clarify the differences between Deep Clustering and Subtype Discovery."
+  },
+  "limitations": {
+    "limitations": [
+      {
+        "name": "Limited Generalizability",
+        "description": "The method's performance may be sensitive to the choice of input features and dataset characteristics.",
+        "evidence": "UCSL performance is highly sensitive to the choice of input features: it degrades when using generic VAE latent representations but improves with carefully engineered domain-specific features."
+      }
+    ]
+  },
+  "future_directions": {
+    "future_directions": [
+      {
+        "name": "Generalize to Other Modalities",
+        "description": "Extend the method to work with MRI and CT scans beyond X-ray images.",
+        "evidence": "In future work, we plan to evaluate our pipeline on multimodal medical imaging datasets."
+      }
+    ]
+  },
+  "resource_link": {
+    "answer": "https://github.com/rlouiset/deep_ucsl",
+    "evidence": "Code and datasets are available at: https://github.com/rlouiset/deep_ucsl."
+  }
+}

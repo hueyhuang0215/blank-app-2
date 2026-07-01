@@ -1,0 +1,244 @@
+{
+  "source": "Semantic Scholar",
+  "source_id": "4569a7768d7f7442edac868664c9146d8adc4193",
+  "title": "A predictive precision farming platform with online and offline weather-based advice for Nigerian farmers",
+  "abstract": "Smallholder farmers make more than 90% of Nigeria's food supply but are largely excluded from AI-powered precision farming tools because of the low penetration of smartphones (less than 22%) and poor rural internet connectivity (less than 25%). This paper presents AgroCast, a dual-channel precision farming advisory platform that delivers weather-sensitive, crop-specific recommendations to Nigerian smallholder farmers regardless of their device type or connectivity status. The platform combines a web dashboard for internet-connected users with an Unstructured Supplementary Service Data (USSD) interface for basic feature phones and provides recommendations through Short Message Service (SMS). A total of 41,298 records were used to train crop yield prediction models for maize, rice, and soybean, using five machine learning algorithms using climate variables such as temperature, precipitation, and relative humidity as model inputs. The highest coefficient of determination (R²) was obtained for XGBoost with 0.972, 0.963 and 0.960 for maize, rice and soybean, respectively, thus indicating that the climate-yield relationship in Nigerian agriculture is best captured by gradient-boosted ensemble methods. Google's Gemini Large Language Model (LLM) was used to generate contextualised farming advice, with a deterministic rule-based fallback mechanism to ensure uninterrupted output in the case of API unavailability. All the user journeys were evaluated, and both interfaces were able to provide weather-based recommendations. AgroCast proves that AI-powered yield forecasting, LLM-driven advisory content, and the dual-channel access can help overcome the digital divide in agricultural extension services and provide a scalable solution for AI-driven food security interventions in low-connectivity developing areas.",
+  "published": "2026-06-30",
+  "authors": [
+    "A. Udosen",
+    "B. Akins",
+    "Hajarat Opemipo Ogunnoiki",
+    "Jamiu Olufemi Odunlami",
+    "Christiana Jumoke Daramola"
+  ],
+  "link": "https://www.semanticscholar.org/paper/4569a7768d7f7442edac868664c9146d8adc4193",
+  "doi": "10.30574/ijsra.2026.19.3.1214",
+  "pdf_url": "",
+  "ai_for_science_score": 0.9,
+  "confidence_score": 0.95,
+  "implementation_score": 0.8,
+  "review_score": 0.7,
+  "benchmark_score": 0.6,
+  "hypothesis_generation_score": 0.4,
+  "scientific_discovery_score": 0.7,
+  "experiment_design_score": 0.5,
+  "material_discovery_score": 0.0,
+  "molecular_design_score": 0.0,
+  "drug_discovery_score": 0.0,
+  "causal_discovery_score": 0.5,
+  "biomedical_discovery_score": 0.0,
+  "idea_development_score": 0.6,
+  "ai_for_science_label": "accept",
+  "ai_for_science_reason": "The paper uses machine learning and LLMs for crop yield prediction and advisory in agriculture, a scientific domain.",
+  "implementation_justification": "The platform is implemented with dual-channel access and tested with real data.",
+  "review_justification": "The paper provides a detailed description of the AI methods and their application.",
+  "benchmark_justification": "The paper reports performance metrics for the models used.",
+  "hypothesis_generation_justification": "The focus is more on testing and implementation rather than generating new hypotheses.",
+  "scientific_discovery_justification": "The work contributes to understanding the climate-yield relationship in agriculture.",
+  "experiment_design_justification": "The paper involves designing a system for testing AI methods in agriculture.",
+  "material_discovery_justification": "The paper does not involve material discovery.",
+  "molecular_design_justification": "The paper does not involve molecular design.",
+  "drug_discovery_justification": "The paper does not involve drug discovery.",
+  "causal_discovery_justification": "The AI models help in understanding causal relationships between climate variables and crop yield.",
+  "biomedical_discovery_justification": "The paper does not involve biomedical discovery.",
+  "idea_development_justification": "The paper develops the idea of using AI to bridge the digital divide in agriculture.",
+  "science_domains": [
+    "agriculture"
+  ],
+  "ai_methods": [
+    "machine learning",
+    "LLM",
+    "gradient-boosted ensemble methods"
+  ],
+  "exhyte_stages": [
+    "Testing"
+  ],
+  "needs_pdf_review": false,
+  "auto_decision": "accept",
+  "auto_selected": true,
+  "selection_source": "llm_auto",
+  "local_pdf_path": "downloaded_pdfs/Semantic_Scholar_Udosen_et_al._2026_A_predictive_precision_farming_platform_with_online_and_offline_weather-based_advice_for_Nigerian_farmers.pdf",
+  "pdf_download_status": "manual_pdf",
+  "pdf_download_method": "manual_pdf",
+  "pdf_download_url": "manual_pdfs/Semantic_Scholar_Udosen_et_al._2026_A_predictive_precision_farming_platform_with_online_and_offline_weather-based_advice_for_Nigerian_farmers.pdf",
+  "pdf_download_attempted_at": "2026-06-30T17:54:09",
+  "paper_title": "A predictive precision farming platform with online and offline weather-based advice for Nigerian farmers",
+  "summary_extraction_status": "extracted",
+  "summary_json_path": "review_outputs/gpt_paper_items/Semantic_Scholar_Udosen_et_al._2026_A_predictive_precision_farming_platform_with_online_and_offline_weather-based_advice_for_Nigerian_farmers.json",
+  "objective": {
+    "answer": "The primary objective of the paper is to develop AgroCast, a dual-channel precision farming advisory platform that provides weather-sensitive, crop-specific recommendations to Nigerian smallholder farmers, regardless of their device type or connectivity status.",
+    "evidence": "This paper presents AgroCast, a dual-channel precision farming advisory platform that delivers weather-sensitive, crop-specific recommendations to Nigerian smallholder farmers regardless of their device type or connectivity status."
+  },
+  "knowledge_gap": {
+    "answer": "The knowledge gap addressed by the paper is the exclusion of Nigerian smallholder farmers from AI-powered precision farming tools due to low smartphone penetration and poor rural internet connectivity.",
+    "evidence": "Smallholder farmers make more than 90% of Nigeria's food supply but are largely excluded from AI-powered precision farming tools because of the low penetration of smartphones (less than 22%) and poor rural internet connectivity (less than 25%)."
+  },
+  "novelty": {
+    "answer": [
+      "AgroCast provides a dual-channel access system, combining a web dashboard for internet-connected users with a USSD interface for basic feature phones.",
+      "The platform integrates AI-powered yield forecasting and LLM-driven advisory content to overcome the digital divide in agricultural extension services.",
+      "AgroCast includes a deterministic rule-based fallback mechanism to ensure uninterrupted output in case of API unavailability."
+    ],
+    "evidence": [
+      "The platform combines a web dashboard for internet-connected users with an Unstructured Supplementary Service Data (USSD) interface for basic feature phones.",
+      "AgroCast proves that AI-powered yield forecasting, LLM-driven advisory content, and the dual-channel access can help overcome the digital divide in agricultural extension services.",
+      "Google's Gemini Large Language Model (LLM) was used to generate contextualised farming advice, with a deterministic rule-based fallback mechanism to ensure uninterrupted output in the case of API unavailability."
+    ]
+  },
+  "inspirational_papers": {
+    "answer": "- Nyengere et al. (2026) Their systematic review of ML-based prediction models inspired the use of Random Forest and XGBoost for crop yield prediction. (Methodological precursors)",
+    "evidence": "In Nigeria, Machine Learning (ML) based prediction models are reviewed systematically by [13] and in all the regional agronomic studies Random Forest and eXtreme Gradient Boosting (XGBoost) ensemble learning models were applied."
+  },
+  "method": {
+    "steps": [
+      {
+        "step": "System architecture design",
+        "input": "User interface requirements, application logic, data storage needs",
+        "output": "A three-layer architecture consisting of user interface, application, and data layers",
+        "evidence": "The architecture consists of three layers: user interface layer (frontend), application layer (backend), and data layer (database)."
+      },
+      {
+        "step": "Data collection and preprocessing",
+        "input": "Crop yield data, climate variables",
+        "output": "A cleaned and integrated dataset for model training",
+        "evidence": "The final modelling dataset consisted of 41,298 records for three crops after integration and cleaning."
+      },
+      {
+        "step": "Model training and evaluation",
+        "input": "Preprocessed dataset, machine learning algorithms",
+        "output": "Trained models with evaluated performance metrics",
+        "evidence": "Five algorithms were trained and compared for each crop selected to represent a range of complexity from linear baselines to advanced gradient-boosted ensembles."
+      },
+      {
+        "step": "LLM integration for advisory content",
+        "input": "Weather conditions, yield predictions, crop-specific parameters",
+        "output": "Contextualised farming advice",
+        "evidence": "The recommendations are generated based on a structured prompt that includes four inputs: current weather conditions, yield predicted by the ML, crop-specific agronomic parameters for Nigerian conditions, and farm size."
+      },
+      {
+        "step": "USSD interface design",
+        "input": "USSD protocol constraints, user interaction flows",
+        "output": "A stateful, menu-driven USSD application",
+        "evidence": "The USSD interface was built as a stateful, menu-driven application within the Spring Boot backend using Africa's Talking API."
+      }
+    ],
+    "tools": [
+      {
+        "name": "XGBoost",
+        "description": "Used for crop yield prediction due to its high performance in capturing non-linear relationships.",
+        "evidence": "XGBoost achieving the highest scores across all crops: 0.972, 0.963, and 0.960 for maize, rice, and soybean, respectively."
+      },
+      {
+        "name": "Google's Gemini Large Language Model (LLM)",
+        "description": "Used to generate contextualised farming advice.",
+        "evidence": "Google's Gemini Large Language Model (LLM) was used to generate contextualised farming advice."
+      }
+    ],
+    "benchmark_datasets": [
+      {
+        "name": "Data Integration and Analysis System (DIAS)",
+        "data_description": "Crop yield data for maize, rice, soybean, and wheat from 1981 to 2016.",
+        "usage": "Used for training crop yield prediction models.",
+        "evidence": "Crop yield data for maize, rice, soybean, and wheat were obtained from the Data Integration and Analysis System (DIAS) in NetCDF format."
+      }
+    ],
+    "evaluation_metrics": [
+      {
+        "name": "Coefficient of determination (R²)",
+        "purpose": "Measures the proportion of variance in crop yield explained by the model.",
+        "application": "Used to evaluate the model performance.",
+        "evidence": "The coefficient of determination (R²) was used to evaluate the model performance."
+      }
+    ]
+  },
+  "method_type": {
+    "methods": [
+      {
+        "name": "Transformation/structurization of user input",
+        "evidence": "The USSD interface was built as a stateful, menu-driven application within the Spring Boot backend using Africa's Talking API."
+      },
+      {
+        "name": "Knowledge Extraction and Structurization",
+        "evidence": "The recommendations are generated based on a structured prompt that includes four inputs: current weather conditions, yield predicted by the ML, crop-specific agronomic parameters for Nigerian conditions, and farm size."
+      }
+    ]
+  },
+  "subject_area": {
+    "areas": [
+      {
+        "name": "Applied Sciences & Engineering",
+        "description": "The paper develops a precision farming platform using AI and machine learning techniques.",
+        "evidence": "AgroCast proves that AI-powered yield forecasting, LLM-driven advisory content, and the dual-channel access can help overcome the digital divide in agricultural extension services."
+      }
+    ]
+  },
+  "performance_summary": {
+    "performance_summary": [
+      {
+        "summary": "XGBoost achieved the highest R² scores for maize, rice, and soybean, indicating its suitability for capturing the climate-yield relationship in Nigerian agriculture.",
+        "evidence": "XGBoost achieving the highest scores across all crops: 0.972, 0.963, and 0.960 for maize, rice, and soybean, respectively."
+      }
+    ],
+    "baselines": [
+      {
+        "name": "Linear Regression",
+        "description": "A baseline capturing only linear relationships between climate variables and yield.",
+        "evidence": "Linear regression produced the weakest results across all three crops, with R² scores of 0.446, 0.258, and 0.320, respectively."
+      }
+    ],
+    "benchmark_datasets": [
+      {
+        "name": "Data Integration and Analysis System (DIAS)",
+        "data_description": "Crop yield data for maize, rice, soybean, and wheat from 1981 to 2016.",
+        "usage": "Used for training crop yield prediction models.",
+        "evidence": "Crop yield data for maize, rice, soybean, and wheat were obtained from the Data Integration and Analysis System (DIAS) in NetCDF format."
+      }
+    ],
+    "evaluation_metrics": [
+      {
+        "name": "Coefficient of determination (R²)",
+        "purpose": "Measures the proportion of variance in crop yield explained by the model.",
+        "application": "Used to evaluate the model performance.",
+        "evidence": "The coefficient of determination (R²) was used to evaluate the model performance."
+      }
+    ]
+  },
+  "benchmark_dataset": {
+    "name": "Data Integration and Analysis System (DIAS)",
+    "data_description": "Crop yield data for maize, rice, soybean, and wheat from 1981 to 2016.",
+    "usage": "Used for training crop yield prediction models.",
+    "evidence": "Crop yield data for maize, rice, soybean, and wheat were obtained from the Data Integration and Analysis System (DIAS) in NetCDF format."
+  },
+  "limitations": {
+    "limitations": [
+      {
+        "name": "Lack of real-time data",
+        "description": "The study used historical climatic data and did not include real-time input from soil sensors.",
+        "evidence": "The study used historical climatic data from 1981 to 2016 and did not currently include real-time input from soil sensors in the IoT network."
+      },
+      {
+        "name": "Scarcity of localised datasets",
+        "description": "Finding highly accurate, historically consistent agricultural and weather datasets specific to deep rural Nigerian zones was difficult.",
+        "evidence": "Finding highly accurate, historically consistent agricultural and weather datasets specific to deep rural Nigerian zones proved incredibly difficult."
+      }
+    ]
+  },
+  "future_directions": {
+    "future_directions": [
+      {
+        "name": "Integrate IoT soil monitoring",
+        "description": "Enhance the platform with soil monitoring capabilities using IoT.",
+        "evidence": "Further enhancements could include soil monitoring with IoT."
+      },
+      {
+        "name": "Add multilingual support",
+        "description": "Implement translation capabilities using local dialects.",
+        "evidence": "Further enhancements could include translation capabilities using local dialects."
+      }
+    ]
+  },
+  "resource_link": {
+    "answer": "",
+    "evidence": ""
+  }
+}

@@ -1,0 +1,266 @@
+{
+  "source": "bioRxiv",
+  "source_id": "PPR1224020",
+  "title": "ChatDIA: A zero-shot large language model workflow for targeted analysis of data-independent acquisition mass spectrometry data",
+  "abstract": "Data-independent acquisition (DIA) proteomics enables reproducible, large-scale protein identification and quantification but remains challenging to analyze due to highly complex MS/MS spectra and chromatographic interference, particularly in low signal-to-noise single-cell proteomics. Here, we introduce ChatDIA, a zero-shot large language model (LLM)-based workflow for targeted DIA analysis that operates through an explicit reasoning-based decision framework. ChatDIA performs automated peptide identification and supports natural-language interaction with DIA data. Unlike purpose-built DIA software that relies on domain-specific models, ChatDIA employs general-purpose LLMs in a zero-shot setting to reason directly over extracted ion chromatograms and generate human-interpretable rationales for each decision. On an expert-annotated Streptococcus pyogenes DIA benchmark dataset, ChatDIA achieved 96.9% accuracy, matching the domain-specific state-of-the-art software DIA-NN (95.5%). In a challenging single-cell HEK-293T DIA proteomics dataset, ChatDIA further demonstrated excellent performance, achieving a lower risk-coverage area under the curve than DIA-NN (0.06 vs. 0.12) and identifying 38.75% and 46.25% of library peptides at 1% and 5% false discovery rate, respectively, compared with 16.25% and 48% for DIA-NN. Together, these results demonstrate that zero-shot LLM reasoning can competitively automate core targeted DIA decision-making while providing transparent, inspectable rationales that enable conversational, interactive validation and data exploration in noisy proteomics applications. More broadly, ChatDIA illustrates how reasoning-based AI systems can move beyond prediction to generate evidence-based decisions, offering a foundation for more general and interpretable computational analysis in proteomics.",
+  "published": "2026-02-13",
+  "authors": [
+    "Li J",
+    "Charkow J",
+    "Gao M",
+    "Li J",
+    "Röst H."
+  ],
+  "link": "https://doi.org/10.64898/2026.02.11.705360",
+  "doi": "10.64898/2026.02.11.705360",
+  "pdf_url": "",
+  "ai_for_science_score": 0.9,
+  "confidence_score": 0.95,
+  "implementation_score": 0.85,
+  "review_score": 0.8,
+  "benchmark_score": 0.9,
+  "hypothesis_generation_score": 0.6,
+  "scientific_discovery_score": 0.85,
+  "experiment_design_score": 0.7,
+  "material_discovery_score": 0.0,
+  "molecular_design_score": 0.0,
+  "drug_discovery_score": 0.0,
+  "causal_discovery_score": 0.0,
+  "biomedical_discovery_score": 0.8,
+  "idea_development_score": 0.7,
+  "ai_for_science_label": "accept",
+  "ai_for_science_reason": "The paper uses a large language model for automated reasoning in proteomics, a scientific domain, demonstrating AI's role in scientific discovery.",
+  "implementation_justification": "The workflow is implemented and tested on benchmark datasets, showing competitive performance.",
+  "review_justification": "The paper provides a detailed comparison with existing methods, supporting its claims.",
+  "benchmark_justification": "The method is evaluated against state-of-the-art software, demonstrating high accuracy.",
+  "hypothesis_generation_justification": "While the focus is on analysis, the method could aid in hypothesis generation through data exploration.",
+  "scientific_discovery_justification": "The AI method aids in the discovery process by automating complex data analysis tasks.",
+  "experiment_design_justification": "The tool supports interactive validation, which can inform experiment design.",
+  "material_discovery_justification": "The paper does not address material discovery.",
+  "molecular_design_justification": "The paper does not focus on molecular design.",
+  "drug_discovery_justification": "The paper does not involve drug discovery.",
+  "causal_discovery_justification": "The paper does not address causal discovery.",
+  "biomedical_discovery_justification": "The method enhances data analysis in proteomics, contributing to biomedical discovery.",
+  "idea_development_justification": "The interactive nature of the tool supports idea development through data exploration.",
+  "science_domains": [
+    "proteomics",
+    "biology"
+  ],
+  "ai_methods": [
+    "large language models",
+    "automated reasoning"
+  ],
+  "exhyte_stages": [
+    "Exploration",
+    "Testing"
+  ],
+  "needs_pdf_review": false,
+  "auto_decision": "accept",
+  "auto_selected": true,
+  "selection_source": "llm_auto",
+  "local_pdf_path": "downloaded_pdfs/bioRxiv_J_et_al._2026_ChatDIA_A_zero-shot_large_language_model_workflow_for_targeted_analysis_of_data-independent_acquisition_mass_spectrometry_data.pdf",
+  "pdf_download_status": "manual_pdf",
+  "pdf_download_method": "manual_pdf",
+  "pdf_download_url": "manual_pdfs/bioRxiv_J_et_al._2026_ChatDIA_A_zero-shot_large_language_model_workflow_for_targeted_analysis_of_data-independent_acquisition_mass_spectrometry_data.pdf",
+  "pdf_download_attempted_at": "2026-06-30T17:54:09",
+  "paper_title": "ChatDIA: A zero-shot large language model workflow for targeted analysis of data-independent acquisition mass spectrometry data",
+  "summary_extraction_status": "extracted",
+  "summary_json_path": "review_outputs/gpt_paper_items/bioRxiv_J_et_al._2026_ChatDIA_A_zero-shot_large_language_model_workflow_for_targeted_analysis_of_data-independent_acquisition_mass_spectrometry_data.json",
+  "objective": {
+    "answer": "The primary objective of the paper is to introduce ChatDIA, a zero-shot large language model-based workflow for targeted analysis of data-independent acquisition (DIA) mass spectrometry data, aiming to automate peptide identification and provide human-interpretable rationales for each decision.",
+    "evidence": "Here, we introduce ChatDIA, a zero-shot large language model (LLM)-based workflow for targeted DIA analysis that operates through an explicit reasoning-based decision framework."
+  },
+  "knowledge_gap": {
+    "answer": "The paper addresses the gap of using general-purpose large language models for core analytical decision-making in quantitative data analysis pipelines, particularly in proteomics, where existing approaches rely on task-specific models trained on mass spectrometry data.",
+    "evidence": "To date, applications of pre-trained LLMs in scientific domains have largely focused on text-centric tasks such as literature mining, code generation, and hypothesis summarization. Their potential role in core analytical decision-making, particularly within quantitative data analysis pipelines, remains largely unexplored."
+  },
+  "novelty": {
+    "answer": [
+      "ChatDIA employs general-purpose LLMs in a zero-shot setting to reason directly over extracted ion chromatograms.",
+      "ChatDIA provides human-interpretable rationales for each peptide-level decision, enabling conversational, interactive validation.",
+      "ChatDIA operates in two complementary modes: an API-based mode for automated decision-making and an interactive mode for human-in-the-loop inspection.",
+      "ChatDIA demonstrates that zero-shot LLM reasoning can competitively automate core targeted DIA decision-making."
+    ],
+    "evidence": [
+      "Unlike purpose-built DIA software that relies on domain-specific models, ChatDIA employs general-purpose LLMs in a zero-shot setting to reason directly over extracted ion chromatograms.",
+      "ChatDIA performs automated peptide identification and supports natural-language interaction with DIA data.",
+      "ChatDIA operates in two complementary modes: an API-based mode for fully automated peptide-level decision-making, and an interactive mode that enables natural language-based interaction for human-in-the-loop inspection, validation, and data exploration.",
+      "Together, these results demonstrate that zero-shot LLM reasoning can competitively automate core targeted DIA decision-making while providing transparent, inspectable rationales that enable conversational, interactive validation and data exploration in noisy proteomics applications."
+    ]
+  },
+  "inspirational_papers": {
+    "answer": "- Röst et al. (2014) OpenSWATH enables automated, targeted analysis of data-independent acquisition MS data. (Methodological precursors)\n- Demichev et al. (2020) DIA-NN: neural networks and interference correction enable deep proteome coverage in high throughput. (Experimental baselines)",
+    "evidence": "For comparative analysis, DIA-NN (v1.8) was run on the full S. pyogenes dataset as described previously (34)."
+  },
+  "method": {
+    "steps": [
+      {
+        "step": "Extract DIA ion chromatograms using OpenSWATH.",
+        "input": "DIA data",
+        "output": "Extracted ion chromatograms (XICs)",
+        "evidence": "DIA ion chromatograms were extracted, picked and scored by OpenSWATH using the default parameters."
+      },
+      {
+        "step": "Process XICs into numerical retention time-intensity pair arrays, XIC images, and ion trace images.",
+        "input": "OpenSWATH-generated XICs",
+        "output": "Three alternative data representations",
+        "evidence": "For each transition group, OpenSWATH-generated extracted ion chromatograms (XICs) were further processed by the ChatDIA workflow into three alternative data representations: numerical retention time-intensity pair arrays, XIC images, and ion trace images."
+      },
+      {
+        "step": "Operate ChatDIA in two settings for peptide identification.",
+        "input": "Raw XICs and assay library metadata",
+        "output": "Peptide identification decisions",
+        "evidence": "ChatDIA was operated in two different settings. In the first setting, the model was provided only with raw extracted ion chromatograms (XICs), together with assay library metadata as reference information, for direct peptide identification."
+      },
+      {
+        "step": "Evaluate model performance using accuracy and risk-coverage analysis.",
+        "input": "Annotated datasets",
+        "output": "Performance metrics",
+        "evidence": "For the Streptococcus pyogenes dataset, where most annotated precursors were expected to be present, peak group selection performance was primarily evaluated using accuracy."
+      }
+    ],
+    "tools": [
+      {
+        "name": "OpenSWATH",
+        "description": "Used for chromatogram extraction and peak group candidate proposal.",
+        "evidence": "DIA ion chromatograms were extracted, picked and scored by OpenSWATH using the default parameters."
+      },
+      {
+        "name": "ChatDIA",
+        "description": "Used for automated peptide identification and reasoning over chromatographic data.",
+        "evidence": "ChatDIA was implemented using OpenAI large language models GPT-5-mini, GPT-5.1, GPT-5.2, and GPT-5.4."
+      }
+    ],
+    "benchmark_datasets": [
+      {
+        "name": "Streptococcus pyogenes dataset",
+        "data_description": "16 SWATH DIA runs acquired from the Streptococcus pyogenes bacterial strain SF370.",
+        "usage": "Used for benchmarking and evaluating ChatDIA performance.",
+        "evidence": "The first dataset (12, 31) consists of 16 SWATH DIA runs acquired from the Streptococcus pyogenes bacterial strain SF370 and is available via PeptideAtlas (PASS00788)."
+      },
+      {
+        "name": "Single-cell HEK-293T dataset",
+        "data_description": "Single-cell proteomics data acquired on a Bruker timsTOF SCP instrument.",
+        "usage": "Used for evaluating ChatDIA performance in challenging conditions.",
+        "evidence": "The second dataset (23) is a single-cell HEK-293T proteomics dataset available from the MassIVE database (MSV000093867)."
+      }
+    ],
+    "evaluation_metrics": [
+      {
+        "name": "Accuracy",
+        "purpose": "Measures the correctness of peak group selection.",
+        "application": "Used to evaluate performance on the Streptococcus pyogenes dataset.",
+        "evidence": "For the Streptococcus pyogenes dataset, where most annotated precursors were expected to be present, peak group selection performance was primarily evaluated using accuracy."
+      },
+      {
+        "name": "Risk-coverage analysis",
+        "purpose": "Assesses decision reliability using FDR-coverage curves.",
+        "application": "Used to evaluate confidence-aware decision reliability.",
+        "evidence": "For both the Streptococcus pyogenes and single-cell HEK-293T datasets, confidence-aware decision reliability was assessed using risk-coverage (FDR-coverage) analysis."
+      }
+    ]
+  },
+  "method_type": {
+    "methods": [
+      {
+        "name": "Transformation/structurization of user input",
+        "description": "The system processes raw chromatographic data into structured formats for analysis.",
+        "evidence": "For each transition group, OpenSWATH-generated extracted ion chromatograms (XICs) were further processed by the ChatDIA workflow into three alternative data representations: numerical retention time-intensity pair arrays, XIC images, and ion trace images."
+      },
+      {
+        "name": "Knowledge Extraction and Structurization",
+        "description": "The system extracts and structures knowledge from chromatographic data for reasoning.",
+        "evidence": "ChatDIA employs general-purpose LLMs in a zero-shot setting to reason directly over extracted ion chromatograms."
+      }
+    ]
+  },
+  "subject_area": {
+    "areas": [
+      {
+        "name": "Biological Sciences",
+        "description": "The paper focuses on proteomics, which is a key area in biological sciences.",
+        "evidence": "Proteomics aims to comprehensively characterize the proteome and has become increasingly important for understanding cellular behavior, identifying therapeutic targets, and advancing personalized medicine."
+      },
+      {
+        "name": "Applied Sciences & Engineering",
+        "description": "The paper develops a computational workflow for analyzing mass spectrometry data.",
+        "evidence": "ChatDIA illustrates how reasoning-based AI systems can move beyond prediction to generate evidence-based decisions, offering a foundation for more general and interpretable computational analysis in proteomics."
+      }
+    ]
+  },
+  "performance_summary": {
+    "performance_summary": [
+      {
+        "summary": "ChatDIA achieved 96.9% accuracy on the Streptococcus pyogenes dataset, matching the performance of state-of-the-art software DIA-NN.",
+        "evidence": "On an expert-annotated Streptococcus pyogenes DIA benchmark dataset, ChatDIA achieved 96.9% accuracy, matching the domain-specific state-of-the-art software DIA-NN (95.5%)."
+      }
+    ],
+    "baselines": [
+      {
+        "name": "DIA-NN",
+        "description": "A state-of-the-art software for DIA analysis used as a baseline.",
+        "evidence": "On an expert-annotated Streptococcus pyogenes DIA benchmark dataset, ChatDIA achieved 96.9% accuracy, matching the domain-specific state-of-the-art software DIA-NN (95.5%)."
+      }
+    ],
+    "benchmark_datasets": [
+      {
+        "name": "Streptococcus pyogenes dataset",
+        "data_description": "16 SWATH DIA runs acquired from the Streptococcus pyogenes bacterial strain SF370.",
+        "usage": "Used for benchmarking and evaluating ChatDIA performance.",
+        "evidence": "The first dataset (12, 31) consists of 16 SWATH DIA runs acquired from the Streptococcus pyogenes bacterial strain SF370 and is available via PeptideAtlas (PASS00788)."
+      }
+    ],
+    "evaluation_metrics": [
+      {
+        "name": "Accuracy",
+        "purpose": "Measures the correctness of peak group selection.",
+        "application": "Used to evaluate performance on the Streptococcus pyogenes dataset.",
+        "evidence": "For the Streptococcus pyogenes dataset, where most annotated precursors were expected to be present, peak group selection performance was primarily evaluated using accuracy."
+      },
+      {
+        "name": "Risk-coverage analysis",
+        "purpose": "Assesses decision reliability using FDR-coverage curves.",
+        "application": "Used to evaluate confidence-aware decision reliability.",
+        "evidence": "For both the Streptococcus pyogenes and single-cell HEK-293T datasets, confidence-aware decision reliability was assessed using risk-coverage (FDR-coverage) analysis."
+      }
+    ]
+  },
+  "benchmark_dataset": {
+    "name": "Streptococcus pyogenes dataset",
+    "data_description": "16 SWATH DIA runs acquired from the Streptococcus pyogenes bacterial strain SF370.",
+    "usage": "Used for benchmarking and evaluating ChatDIA performance.",
+    "evidence": "The first dataset (12, 31) consists of 16 SWATH DIA runs acquired from the Streptococcus pyogenes bacterial strain SF370 and is available via PeptideAtlas (PASS00788)."
+  },
+  "limitations": {
+    "limitations": [
+      {
+        "name": "High computational cost",
+        "description": "Representing high-resolution chromatographic data as numerical arrays incurs substantial token usage, leading to increased computational cost and latency during inference.",
+        "evidence": "First, representing high-resolution chromatographic data as numerical arrays incurs substantial token usage, leading to increased computational cost and latency during inference."
+      },
+      {
+        "name": "Dependence on prompt structure",
+        "description": "Model performance depends on prompt structure and the clarity with which domain knowledge is encoded.",
+        "evidence": "Second, model performance depends in part on prompt structure and the clarity with which domain knowledge is encoded, highlighting the need for standardized prompting strategies or systematic prompt optimization."
+      }
+    ]
+  },
+  "future_directions": {
+    "future_directions": [
+      {
+        "name": "Domain-specific fine-tuning",
+        "description": "Further improvements may be achieved through domain-specific fine-tuning or hybrid approaches that combine learned representations with reasoning-based inference.",
+        "evidence": "Although zero-shot reasoning enables broad applicability, further improvements may be achieved through domain-specific fine-tuning or hybrid approaches that combine learned representations with reasoning-based inference."
+      },
+      {
+        "name": "Extend to other mass spectrometry tasks",
+        "description": "The approach could be extended to a wide range of mass spectrometry-related tasks, including quality control, interference detection, retention time alignment, and method optimization.",
+        "evidence": "Beyond DIA peak group selection, the presented approach could be extended to a wide range of mass spectrometry-related tasks, including quality control, interference detection, retention time alignment, and method optimization."
+      }
+    ]
+  },
+  "resource_link": {
+    "answer": "",
+    "evidence": ""
+  }
+}

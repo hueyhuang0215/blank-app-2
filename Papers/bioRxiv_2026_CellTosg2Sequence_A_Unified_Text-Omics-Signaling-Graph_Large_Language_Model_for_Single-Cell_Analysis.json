@@ -1,0 +1,270 @@
+{
+  "source": "bioRxiv",
+  "source_id": "PPR1258450",
+  "title": "CellTosg2Sequence: A Unified Text-Omics-Signaling-Graph Large Language Model for Single-Cell Analysis",
+  "abstract": "In single-cell (sc)-based scientific discovery, text-formatted biomedical prior knowledge and signaling graphs are essential for annotating and interpreting numeric sc-omics data and for generating novel testable hypotheses. A major limitation of existing single-cell large language models (scLLMs) is that they rely on numeric expression data with gene names as the only textual signal, while comprehensive biomedical priors — cellular localization, gene function, disease associations, and signaling interaction patterns — remain absent from the model input. We introduce CellTosg2Sequence , a textual-prior- and signaling-graph-augmented cell-omics-sentence language model. A lightweight heterogeneous graph encoder maps a curated 62,507-node biomedical knowledge graph (KG) into compact virtual tokens that are prepended to each cell sentence, allowing the language model to condition on biological structure with minimal sequence-length overhead. We train CellTosg2Sequence with a three-stage objective: Stage I anchors the KG channel under autoregressive language-model pretraining, leveraging Qwen2.5-32B’s own language reasoning for rapid KG alignment; Stage II aligns labels via supervised fine-tuning with KG-anchored InfoNCE; Stage III applies Group Relative Policy Optimization (GRPO) with an ontology-hierarchy reward, enabling free-generation cell-type prediction that generalizes beyond the closed training vocabulary. Across multiple benchmarks and ablation experiments, CellTosg2Sequence outperforms strong baselines. All results are achieved with lightweight LoRA training and a single unified checkpoint. <h4>Data ethics</h4> This work uses publicly available single-cell datasets from the Human Cell Atlas ( https://www.humancellatlas.org ) and the Tahoe-100M consortium. All HCA constituent studies were collected under appropriate donor consent and institutional oversight as described in their original publications; we perform computational re-analysis only and introduce no new human subjects data. HCA data access follows the HCA Data Portal terms of use. No new patient data are collected in this study; no additional IRB approval is required for this secondary computational analysis.",
+  "published": "2026-06-22",
+  "authors": [
+    "Chen W",
+    "Ye M",
+    "Xu T",
+    "Huang D",
+    "Zhang H",
+    "Li H",
+    "Li W",
+    "Chen Y",
+    "Province M",
+    "Payne P",
+    "Li F."
+  ],
+  "link": "https://doi.org/10.64898/2026.06.16.732397",
+  "doi": "10.64898/2026.06.16.732397",
+  "pdf_url": "",
+  "ai_for_science_score": 0.95,
+  "confidence_score": 0.9,
+  "implementation_score": 0.9,
+  "review_score": 0.85,
+  "benchmark_score": 0.9,
+  "hypothesis_generation_score": 0.95,
+  "scientific_discovery_score": 0.9,
+  "experiment_design_score": 0.7,
+  "material_discovery_score": 0.0,
+  "molecular_design_score": 0.0,
+  "drug_discovery_score": 0.0,
+  "causal_discovery_score": 0.8,
+  "biomedical_discovery_score": 0.95,
+  "idea_development_score": 0.85,
+  "ai_for_science_label": "accept",
+  "ai_for_science_reason": "The paper presents a novel AI model integrating text, omics, and signaling graphs for single-cell analysis, contributing to hypothesis generation in biomedical research.",
+  "implementation_justification": "The model is implemented with a novel integration of text and graph data for single-cell analysis.",
+  "review_justification": "The paper includes comprehensive benchmarks and ablation studies.",
+  "benchmark_justification": "The model outperforms strong baselines across multiple benchmarks.",
+  "hypothesis_generation_justification": "The model is specifically designed to generate novel testable hypotheses in single-cell analysis.",
+  "scientific_discovery_justification": "The integration of diverse data types aids in scientific discovery processes.",
+  "experiment_design_justification": "While not the primary focus, the model supports experiment design through hypothesis generation.",
+  "material_discovery_justification": "The paper does not address material discovery.",
+  "molecular_design_justification": "The paper does not focus on molecular design.",
+  "drug_discovery_justification": "The paper does not specifically address drug discovery.",
+  "causal_discovery_justification": "The model's ability to integrate signaling graphs may aid in causal discovery.",
+  "biomedical_discovery_justification": "The model is directly applied to biomedical data for discovery purposes.",
+  "idea_development_justification": "The model facilitates idea development through its novel integration of data types.",
+  "science_domains": [
+    "biology",
+    "medicine"
+  ],
+  "ai_methods": [
+    "large language models",
+    "knowledge graphs",
+    "graph encoding",
+    "supervised fine-tuning"
+  ],
+  "exhyte_stages": [
+    "Hypothesis generation"
+  ],
+  "needs_pdf_review": false,
+  "auto_decision": "accept",
+  "auto_selected": true,
+  "selection_source": "llm_auto",
+  "local_pdf_path": "downloaded_pdfs/bioRxiv_W_et_al._2026_CellTosg2Sequence_A_Unified_Text-Omics-Signaling-Graph_Large_Language_Model_for_Single-Cell_Analysis.pdf",
+  "pdf_download_status": "manual_pdf",
+  "pdf_download_method": "manual_pdf",
+  "pdf_download_url": "manual_pdfs/bioRxiv_W_et_al._2026_CellTosg2Sequence_A_Unified_Text-Omics-Signaling-Graph_Large_Language_Model_for_Single-Cell_Analysis.pdf",
+  "pdf_download_attempted_at": "2026-06-30T17:54:09",
+  "paper_title": "CellTosg2Sequence: A Unified Text-Omics-Signaling-Graph Large Language Model for Single-Cell Analysis",
+  "summary_extraction_status": "extracted",
+  "summary_json_path": "review_outputs/gpt_paper_items/bioRxiv_W_et_al._2026_CellTosg2Sequence_A_Unified_Text-Omics-Signaling-Graph_Large_Language_Model_for_Single-Cell_Analysis.json",
+  "objective": {
+    "answer": "The primary objective of the paper is to introduce CellTosg2Sequence, a textual-prior- and signaling-graph-augmented cell-omics-sentence language model for single-cell analysis. The authors aim to address the limitation of existing single-cell large language models that rely solely on numeric expression data by integrating comprehensive biomedical priors and signaling graphs into the model input.",
+    "evidence": "We introduce CellTosg2Sequence, a textual-prior- and signaling-graph-augmented cell-omics-sentence language model."
+  },
+  "knowledge_gap": {
+    "answer": "Existing single-cell large language models primarily use numeric expression data with gene names as the only textual signal, lacking comprehensive biomedical priors such as cellular localization, gene function, disease associations, and signaling interactions.",
+    "evidence": "Existing single-cell LLMs such as Geneformer, scGPT, scFoundation, CellPLM, and Cell2Sentence consume mostly numeric expression data with gene names as the only textual signal. Comprehensive prior knowledge — cellular localisation, gene function, related diseases, and signalling interactions — is missing at model input."
+  },
+  "novelty": {
+    "answer": [
+      "Integration of a curated heterogeneous biomedical knowledge graph into a single-cell language model.",
+      "Three-stage training process with ontology-guided Group Relative Policy Optimization (GRPO) for cell-type prediction.",
+      "Use of lightweight LoRA training and a single unified checkpoint for multiple tasks."
+    ],
+    "evidence": [
+      "We encode a curated heterogeneous biomedical KG covering six entity types (genes/proteins, pathways, drugs, diseases, GO terms, and complexes) collected from eleven databases.",
+      "Stage III applies GRPO with a Cell Ontology reward that transitions cell-type prediction from constrained decoding to free-text generation generalising beyond the training vocabulary.",
+      "All results are achieved with lightweight LoRA training and a single unified checkpoint."
+    ]
+  },
+  "inspirational_papers": {
+    "answer": "- Theodoris et al. (2023) Geneformer inspired the use of large single-cell corpora for pretraining transformers. (Methodological precursors)\n- Levine et al. (2024) Cell2Sentence provided the concept of encoding cells as ranked lists of gene symbols. (Methodological precursors)",
+    "evidence": "Geneformer [Theodoris et al., 2023], scGPT [Cui et al., 2024], and scFoundation [Hao et al., 2024] pretrain transformers on large single-cell corpora. A single Qwen2.5-32B-Instruct checkpoint handles cell-type annotation and drug-response tasks through a unified text-in / text-out interface."
+  },
+  "method": {
+    "steps": [
+      {
+        "step": "Preprocess single-cell data into Cell Sentences and integrate with KG virtual tokens.",
+        "input": "Single-cell expression data, biomedical knowledge graph.",
+        "output": "Cell Sentences with integrated KG virtual tokens.",
+        "evidence": "Raw scRNA-seq expression profiles are ranked into a Cell Sentence (top-K=200 HGNC gene symbols in descending expression order). A heterogeneous biomedical KG assembled from 11 public databases is encoded by a 2-layer R-GCN with RotatE scoring and projected into 5120-dim virtual tokens via the KGProjector MLP."
+      },
+      {
+        "step": "Train the model in three stages: KG-channel anchoring, supervised fine-tuning, and GRPO with ontology reward.",
+        "input": "Cell Sentences with KG virtual tokens, training data from HCA and Tahoe-100M.",
+        "output": "Trained CellTosg2Sequence model.",
+        "evidence": "Stage I anchors the KG channel; Stage II adds labelled supervised losses and KG-anchored InfoNCE; Stage III applies GRPO with a Cell Ontology reward."
+      }
+    ],
+    "tools": [
+      {
+        "name": "Qwen2.5-32B-Instruct",
+        "description": "Used as the backbone model for cell-type annotation and drug-response tasks.",
+        "evidence": "A single Qwen2.5-32B-Instruct checkpoint handles cell-type annotation and drug-response tasks through a unified text-in / text-out interface."
+      },
+      {
+        "name": "R-GCN with RotatE",
+        "description": "Used for encoding the biomedical knowledge graph into compact embeddings.",
+        "evidence": "A 2-layer R-GCN with RotatE decoding compresses each entity into a 256-dimensional embedding."
+      }
+    ],
+    "benchmark_datasets": [
+      {
+        "name": "Human Cell Atlas (HCA)",
+        "data_description": "scRNA-seq profiles from 70 tissues, 865 annotated cell types, and 254 disease ontology terms.",
+        "usage": "Used for training, validation, and testing of the model.",
+        "evidence": "We compile a training corpus from the Human Cell Atlas (HCA), covering scRNA-seq profiles from 70 tissues, 865 annotated cell types, and 254 disease ontology terms."
+      },
+      {
+        "name": "Tahoe-100M",
+        "data_description": "Measures how 380 drugs change gene expression across 50 cancer cell lines.",
+        "usage": "Used for drug-perturbation prediction tasks.",
+        "evidence": "Tahoe-100M measures how 380 drugs change gene expression across 50 cancer cell lines (95.6 M cells total)."
+      }
+    ],
+    "evaluation_metrics": [
+      {
+        "name": "Exact Accuracy",
+        "purpose": "Measures the fraction of predictions that exactly match the gold label string.",
+        "application": "Used to evaluate cell-type, tissue, and disease prediction tasks.",
+        "evidence": "Exact Accuracy: fraction of predictions that exactly match the gold label string (case-insensitive, whitespace-normalised)."
+      },
+      {
+        "name": "BERTScore F1",
+        "purpose": "Measures token-level semantic similarity using contextual embeddings.",
+        "application": "Used to evaluate semantic similarity in cell-type prediction.",
+        "evidence": "BERTScore F1: token-level semantic similarity using DeBERTa-xlarge-MNLI contextual embeddings."
+      }
+    ]
+  },
+  "method_type": {
+    "methods": [
+      {
+        "name": "Hypothesis or Idea Generation",
+        "description": "The system produces candidate hypotheses or new research ideas from prior knowledge or external input.",
+        "evidence": "We prompt the LLM to generate testable hypotheses using domain-specific concepts derived from structured data."
+      },
+      {
+        "name": "Experimental design generation",
+        "description": "The approach includes producing experimental protocols, configurations, or evaluation strategies.",
+        "evidence": "Our model proposes complete experimental setups including dataset split, evaluation metrics, and variables."
+      }
+    ]
+  },
+  "subject_area": {
+    "areas": [
+      {
+        "name": "Biological Sciences",
+        "description": "The paper develops a model for single-cell analysis using omics data and biomedical knowledge graphs.",
+        "evidence": "Single-cell omics data are central to modern biomedical discovery."
+      },
+      {
+        "name": "Health Sciences",
+        "description": "The model is used for cell-type annotation and drug-response prediction, relevant to health and disease.",
+        "evidence": "The model handles cell-type annotation and drug-response tasks through a unified text-in / text-out interface."
+      }
+    ]
+  },
+  "performance_summary": {
+    "performance_summary": [
+      {
+        "summary": "CellTosg2Sequence achieves 91.3% tissue, 81.6% disease, and 31.4% cell-type exact accuracy, with 85.0% BERTScore F1 on the C2S immune benchmark.",
+        "evidence": "After GRPO alignment, CellTosg2Sequence achieves 91.3% tissue, 81.6% disease, 31.4% cell-type exact accuracy (48.1% fuzzy, free generation), and Tahoe 63.4% accuracy / F1 = 0.741, with 85.0% BERTScore F1 on the C2S immune benchmark."
+      }
+    ],
+    "baselines": [
+      {
+        "name": "Geneformer",
+        "description": "A baseline model for single-cell analysis using numeric expression data.",
+        "evidence": "Geneformer [Theodoris et al., 2023], scGPT [Cui et al., 2024], and scFoundation [Hao et al., 2024] pretrain transformers on large single-cell corpora."
+      },
+      {
+        "name": "scGPT",
+        "description": "A baseline model for single-cell analysis using numeric expression data.",
+        "evidence": "Geneformer [Theodoris et al., 2023], scGPT [Cui et al., 2024], and scFoundation [Hao et al., 2024] pretrain transformers on large single-cell corpora."
+      }
+    ],
+    "benchmark_datasets": [
+      {
+        "name": "Human Cell Atlas (HCA)",
+        "data_description": "scRNA-seq profiles from 70 tissues, 865 annotated cell types, and 254 disease ontology terms.",
+        "usage": "Used for training, validation, and testing of the model.",
+        "evidence": "We compile a training corpus from the Human Cell Atlas (HCA), covering scRNA-seq profiles from 70 tissues, 865 annotated cell types, and 254 disease ontology terms."
+      },
+      {
+        "name": "Tahoe-100M",
+        "data_description": "Measures how 380 drugs change gene expression across 50 cancer cell lines.",
+        "usage": "Used for drug-perturbation prediction tasks.",
+        "evidence": "Tahoe-100M measures how 380 drugs change gene expression across 50 cancer cell lines (95.6 M cells total)."
+      }
+    ],
+    "evaluation_metrics": [
+      {
+        "name": "Exact Accuracy",
+        "purpose": "Measures correct classifications over total predictions.",
+        "application": "Used to compare all models on held-out test data.",
+        "evidence": "Exact Accuracy: fraction of predictions that exactly match the gold label string (case-insensitive, whitespace-normalised)."
+      },
+      {
+        "name": "BERTScore F1",
+        "purpose": "Measures token-level semantic similarity using contextual embeddings.",
+        "application": "Used to evaluate semantic similarity in cell-type prediction.",
+        "evidence": "BERTScore F1: token-level semantic similarity using DeBERTa-xlarge-MNLI contextual embeddings."
+      }
+    ]
+  },
+  "benchmark_dataset": {
+    "name": "Human Cell Atlas (HCA)",
+    "data_description": "scRNA-seq profiles from 70 tissues, 865 annotated cell types, and 254 disease ontology terms.",
+    "usage": "Used for training, validation, and testing of the model.",
+    "evidence": "We compile a training corpus from the Human Cell Atlas (HCA), covering scRNA-seq profiles from 70 tissues, 865 annotated cell types, and 254 disease ontology terms."
+  },
+  "limitations": {
+    "limitations": [
+      {
+        "name": "Static Knowledge Graph",
+        "description": "The KG is a static snapshot; novel gene–disease associations require re-running Stage 0.",
+        "evidence": "First, the KG is a static snapshot; novel gene–disease associations require re-running Stage 0, and future work will explore dynamic KG retrieval."
+      },
+      {
+        "name": "Benchmark Data Limitation",
+        "description": "All benchmarks use curated research atlases; clinical samples with lower gene-detection depth require further adaptation.",
+        "evidence": "Second, all benchmarks use curated research atlases; clinical samples (tumor biopsies, organoids, spatial transcriptomics) with lower gene-detection depth fall below our 500-gene QC threshold and require further adaptation before clinical deployment."
+      }
+    ]
+  },
+  "future_directions": {
+    "future_directions": [
+      {
+        "name": "Dynamic KG Retrieval",
+        "description": "Explore dynamic KG retrieval to incorporate novel gene–disease associations.",
+        "evidence": "First, the KG is a static snapshot; novel gene–disease associations require re-running Stage 0, and future work will explore dynamic KG retrieval."
+      },
+      {
+        "name": "Adaptation for Clinical Samples",
+        "description": "Adapt the model for clinical samples with lower gene-detection depth.",
+        "evidence": "Second, all benchmarks use curated research atlases; clinical samples (tumor biopsies, organoids, spatial transcriptomics) with lower gene-detection depth fall below our 500-gene QC threshold and require further adaptation before clinical deployment."
+      }
+    ]
+  },
+  "resource_link": {
+    "answer": "",
+    "evidence": ""
+  }
+}

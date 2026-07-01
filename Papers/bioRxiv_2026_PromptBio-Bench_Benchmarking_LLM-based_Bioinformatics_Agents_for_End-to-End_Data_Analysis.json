@@ -1,0 +1,248 @@
+{
+  "source": "bioRxiv",
+  "source_id": "PPR1211042",
+  "title": "PromptBio-Bench: Benchmarking LLM-based Bioinformatics Agents for End-to-End Data Analysis",
+  "abstract": "Large language model (LLM)-based agents hold transformative potential for automating bioinformatics workflows; however, systematic evaluations of their capabilities remain limited, hindering a clear assessment of their readiness for real-world application. We introduce PromptBio-Bench, a comprehensive evaluation suite of 244 expert-curated tasks spanning bioinformatics and data science at varied difficulty levels, and an evaluation framework for structured file comparison and scoring against expert reference answer files. Evaluation of three state-of-the-art bioinformatics agents revealed comparable performance between Biomni and ToolsGenie, with all agents showing a marked decline in accuracy as task difficulty increased. As foundation models and agent frameworks continue to evolve, PromptBio-Bench provides a valuable benchmark infrastructure for systematically tracking progress in agentic bioinformatics.",
+  "published": "2026-05-08",
+  "authors": [
+    "Guo W",
+    "Zhang M",
+    "Han B",
+    "Ma Y",
+    "Leng Y",
+    "Hebbar S",
+    "Zhou X",
+    "Gu W",
+    "Yang X",
+    "Dhar S."
+  ],
+  "link": "https://doi.org/10.64898/2026.05.05.723092",
+  "doi": "10.64898/2026.05.05.723092",
+  "pdf_url": "",
+  "ai_for_science_score": 0.8,
+  "confidence_score": 0.9,
+  "implementation_score": 0.7,
+  "review_score": 0.8,
+  "benchmark_score": 0.9,
+  "hypothesis_generation_score": 0.4,
+  "scientific_discovery_score": 0.7,
+  "experiment_design_score": 0.5,
+  "material_discovery_score": 0.2,
+  "molecular_design_score": 0.3,
+  "drug_discovery_score": 0.3,
+  "causal_discovery_score": 0.2,
+  "biomedical_discovery_score": 0.6,
+  "idea_development_score": 0.5,
+  "ai_for_science_label": "accept",
+  "ai_for_science_reason": "The paper presents an AI-based benchmark for bioinformatics, which is a scientific domain, using LLMs to automate workflows.",
+  "implementation_justification": "The paper implements a benchmark suite for evaluating AI agents in bioinformatics.",
+  "review_justification": "The paper provides a comprehensive evaluation of AI agents in a scientific context.",
+  "benchmark_justification": "The paper introduces a detailed benchmark for assessing AI capabilities in bioinformatics.",
+  "hypothesis_generation_justification": "The focus is more on testing AI capabilities rather than generating new hypotheses.",
+  "scientific_discovery_justification": "The benchmark aids in the discovery process by evaluating AI tools for bioinformatics.",
+  "experiment_design_justification": "The paper indirectly supports experiment design by evaluating AI tools that could be used in such processes.",
+  "material_discovery_justification": "The paper does not directly address material discovery.",
+  "molecular_design_justification": "The paper does not focus on molecular design but could indirectly support it through bioinformatics.",
+  "drug_discovery_justification": "While not directly addressed, the bioinformatics focus could support drug discovery indirectly.",
+  "causal_discovery_justification": "The paper does not focus on causal discovery.",
+  "biomedical_discovery_justification": "The benchmark is relevant to biomedical discovery through bioinformatics applications.",
+  "idea_development_justification": "The paper supports idea development by providing a framework to evaluate AI tools in bioinformatics.",
+  "science_domains": [
+    "bioinformatics",
+    "data science"
+  ],
+  "ai_methods": [
+    "LLMs",
+    "agents"
+  ],
+  "exhyte_stages": [
+    "Testing"
+  ],
+  "needs_pdf_review": false,
+  "auto_decision": "accept",
+  "auto_selected": true,
+  "selection_source": "llm_auto",
+  "local_pdf_path": "downloaded_pdfs/bioRxiv_W_et_al._2026_PromptBio-Bench_Benchmarking_LLM-based_Bioinformatics_Agents_for_End-to-End_Data_Analysis.pdf",
+  "pdf_download_status": "manual_pdf",
+  "pdf_download_method": "manual_pdf",
+  "pdf_download_url": "manual_pdfs/bioRxiv_W_et_al._2026_PromptBio-Bench_Benchmarking_LLM-based_Bioinformatics_Agents_for_End-to-End_Data_Analysis.pdf",
+  "pdf_download_attempted_at": "2026-06-30T17:54:09",
+  "paper_title": "PromptBio-Bench: Benchmarking LLM-based Bioinformatics Agents for End-to-End Data Analysis",
+  "summary_extraction_status": "extracted",
+  "summary_json_path": "review_outputs/gpt_paper_items/bioRxiv_W_et_al._2026_PromptBio-Bench_Benchmarking_LLM-based_Bioinformatics_Agents_for_End-to-End_Data_Analysis.json",
+  "objective": {
+    "answer": "The primary objective of the paper is to introduce PromptBio-Bench, a comprehensive benchmarking suite for evaluating LLM-based bioinformatics agents across a wide range of tasks in bioinformatics and data science.",
+    "evidence": "We introduce PromptBio-Bench, a comprehensive evaluation suite of 244 expert-curated tasks spanning bioinformatics and data science at varied difficulty levels, and an evaluation framework for structured file comparison and scoring against expert reference answer files."
+  },
+  "knowledge_gap": {
+    "answer": "The paper addresses the gap in systematic evaluation of LLM-based bioinformatics agents, which is necessary to assess their readiness for real-world applications.",
+    "evidence": "Despite rapid progress in bioinformatics agents, their evaluation in practical analytical workflows remains limited. Existing benchmarks capture important but partial dimensions of agent capability."
+  },
+  "novelty": {
+    "answer": [
+      "Introduction of a comprehensive benchmarking suite, PromptBio-Bench, for LLM-based bioinformatics agents.",
+      "Inclusion of 244 expert-curated tasks spanning diverse areas of bioinformatics and data science.",
+      "Development of a hybrid evaluation framework integrating format-specific file comparison, quantitative similarity metrics, and LLM-as-judge assessment."
+    ],
+    "evidence": [
+      "We introduce PromptBio-Bench, a comprehensive evaluation suite of 244 expert-curated tasks spanning bioinformatics and data science at varied difficulty levels.",
+      "PromptBio-Bench includes 244 tasks designed to reflect the breadth and analytical diversity of bioinformatics and data science.",
+      "Coupled with a hybrid evaluation framework that integrates format-specific file comparison, quantitative similarity metrics, and LLM-as-judge assessment, PromptBio-Bench enables rigorous end-to-end evaluation of agent performance across heterogeneous analytical outputs."
+    ]
+  },
+  "inspirational_papers": {
+    "answer": "- Zhou et al. (2025) Streamline automated biomedical discoveries with agentic bioinformatics. (Methodological precursors)\n- Laurent et al. (2024) LAB-Bench: Measuring Capabilities of Language Models for Biology Research. (Experimental baselines)\n- Mitchener et al. (2025) BixBench: a Comprehensive Benchmark for LLM-based Agents in Computational Biology. (Papers with limitations addressed by this work)",
+    "evidence": "Existing benchmarks capture important but partial dimensions of agent capability. LAB-Bench primarily evaluates biological knowledge and research reasoning, while BixBench moves closer to practical bioinformatics by introducing expert-curated analytical questions involving biological datasets."
+  },
+  "method": {
+    "steps": [
+      {
+        "step": "Develop PromptBio-Bench, a benchmark suite with standardized task capsules and a structured evaluation framework.",
+        "input": "Natural-language task descriptions, input data files, and human expert-generated reference answers.",
+        "output": "A comprehensive benchmarking suite for evaluating LLM-based bioinformatics agents.",
+        "evidence": "To assess the ability of LLM-based agents to perform real-world computational biology tasks, we developed PromptBio-Bench, a benchmark suite built around standardized task capsules and a structured evaluation framework."
+      },
+      {
+        "step": "Evaluate bioinformatics agents using PromptBio-Bench.",
+        "input": "Three representative bioinformatics agents: Biomni, STELLA, and ToolsGenie.",
+        "output": "Assessment of agent performance across end-to-end task completion, analytical accuracy, computational runtime, and token consumption.",
+        "evidence": "Using PromptBio-Bench, we evaluated three representative general-purpose bioinformatics agents, Biomni, STELLA, and ToolsGenie, across end-to-end task completion, analytical accuracy, computational runtime, and token consumption."
+      }
+    ],
+    "tools": [
+      {
+        "name": "Biomni",
+        "description": "Evaluated for end-to-end task completion, analytical accuracy, computational runtime, and token consumption.",
+        "evidence": "Using PromptBio-Bench, we evaluated three representative general-purpose bioinformatics agents, Biomni, STELLA, and ToolsGenie."
+      },
+      {
+        "name": "STELLA",
+        "description": "Evaluated for end-to-end task completion, analytical accuracy, computational runtime, and token consumption.",
+        "evidence": "Using PromptBio-Bench, we evaluated three representative general-purpose bioinformatics agents, Biomni, STELLA, and ToolsGenie."
+      },
+      {
+        "name": "ToolsGenie",
+        "description": "Evaluated for end-to-end task completion, analytical accuracy, computational runtime, and token consumption.",
+        "evidence": "Using PromptBio-Bench, we evaluated three representative general-purpose bioinformatics agents, Biomni, STELLA, and ToolsGenie."
+      }
+    ],
+    "benchmark_datasets": [],
+    "evaluation_metrics": [
+      {
+        "name": "End-to-End Task Completion Rate",
+        "purpose": "Measures execution robustness across the full task lifecycle.",
+        "application": "Assessed each agent’s ability to complete realistic analytical workflows.",
+        "evidence": "We first assessed each agent’s ability to complete realistic analytical workflows using the end-to-end task completion rate, defined as the proportion of tasks for which an agent produced a valid, non-empty output file within the allotted time."
+      },
+      {
+        "name": "Output Accuracy",
+        "purpose": "Captures the analytical consistency between agent-generated outputs and expert reference answers.",
+        "application": "Evaluated by computing similarity scores between each agent-generated output and the corresponding human expert reference answer.",
+        "evidence": "Beyond task completion, we also evaluated the output accuracy by computing similarity scores between each agent-generated output and the corresponding human expert reference answer."
+      },
+      {
+        "name": "Computational Cost",
+        "purpose": "Assesses the efficiency of agent execution in terms of runtime and token consumption.",
+        "application": "Compared the computational cost of each agent in terms of wall-clock runtime and token consumption.",
+        "evidence": "We next compared the computational cost of each agent in terms of wall-clock runtime and token consumption."
+      }
+    ]
+  },
+  "method_type": {
+    "methods": [
+      {
+        "name": "Experimental design generation",
+        "description": "The approach includes producing experimental protocols, configurations, or evaluation strategies.",
+        "evidence": "PromptBio-Bench comprises 244 tasks curated to reflect the breadth and analytical complexity of real-world bioinformatics analysis."
+      }
+    ]
+  },
+  "subject_area": {
+    "areas": [
+      {
+        "name": "Biological Sciences",
+        "description": "The paper develops a benchmark for bioinformatics agents, which are used in biological research.",
+        "evidence": "PromptBio-Bench includes 244 tasks designed to reflect the breadth and analytical diversity of bioinformatics and data science."
+      },
+      {
+        "name": "Applied Sciences & Engineering",
+        "description": "The benchmark evaluates LLM-based agents, which are a form of applied AI technology.",
+        "evidence": "The emergence of agentic bioinformatics, powered by large language model (LLM)-based agents, offers a transformative path toward more accessible, scalable, and reproducible bioinformatics analysis."
+      }
+    ]
+  },
+  "performance_summary": {
+    "performance_summary": [
+      {
+        "summary": "Biomni and ToolsGenie achieved near-ceiling task completion rates of 0.99 and 0.98, respectively, with moderate accuracy scores of 0.76.",
+        "evidence": "Overall, Biomni and ToolsGenie emerged as comparably strong performers, achieving near-ceiling task completion rates of 0.99 and 0.98, respectively, and the same overall accuracy score of 0.76."
+      }
+    ],
+    "baselines": [
+      {
+        "name": "LAB-Bench",
+        "description": "Evaluates biological knowledge and research reasoning.",
+        "evidence": "LAB-Bench primarily evaluates biological knowledge and research reasoning."
+      },
+      {
+        "name": "BixBench",
+        "description": "Introduces expert-curated analytical questions involving biological datasets.",
+        "evidence": "BixBench moves closer to practical bioinformatics by introducing expert-curated analytical questions involving biological datasets."
+      }
+    ],
+    "benchmark_datasets": "Not reported in the paper",
+    "evaluation_metrics": [
+      {
+        "name": "End-to-End Task Completion Rate",
+        "purpose": "Measures execution robustness across the full task lifecycle.",
+        "application": "Assessed each agent’s ability to complete realistic analytical workflows.",
+        "evidence": "We first assessed each agent’s ability to complete realistic analytical workflows using the end-to-end task completion rate, defined as the proportion of tasks for which an agent produced a valid, non-empty output file within the allotted time."
+      },
+      {
+        "name": "Output Accuracy",
+        "purpose": "Captures the analytical consistency between agent-generated outputs and expert reference answers.",
+        "application": "Evaluated by computing similarity scores between each agent-generated output and the corresponding human expert reference answer.",
+        "evidence": "Beyond task completion, we also evaluated the output accuracy by computing similarity scores between each agent-generated output and the corresponding human expert reference answer."
+      },
+      {
+        "name": "Computational Cost",
+        "purpose": "Assesses the efficiency of agent execution in terms of runtime and token consumption.",
+        "application": "Compared the computational cost of each agent in terms of wall-clock runtime and token consumption.",
+        "evidence": "We next compared the computational cost of each agent in terms of wall-clock runtime and token consumption."
+      }
+    ]
+  },
+  "benchmark_dataset": null,
+  "limitations": {
+    "limitations": [
+      {
+        "name": "Limited Task Representation",
+        "description": "PromptBio-Bench includes 244 tasks, which may not fully capture the breadth of modern computational biology.",
+        "evidence": "Although PromptBio-Bench includes 244 tasks spanning bioinformatics and data science, it remains modest relative to the breadth of modern computational biology, and some task types, data modalities, or analytical scenarios may be underrepresented."
+      },
+      {
+        "name": "Single Reference Path",
+        "description": "Expert reference answers capture one valid analytical path rather than the full range of scientifically acceptable solutions.",
+        "evidence": "Expert reference answers capture one valid analytical path rather than the full range of scientifically acceptable solutions."
+      }
+    ]
+  },
+  "future_directions": {
+    "future_directions": [
+      {
+        "name": "Incorporate Multiple Reference Answers",
+        "description": "Future versions could mitigate limitations by incorporating multiple reference answers and more flexible equivalence rubrics.",
+        "evidence": "Future versions could mitigate this limitation by incorporating multiple reference answers, more flexible equivalence rubrics, and expanded human review for ambiguous cases."
+      },
+      {
+        "name": "Include Native LLM Coding Harnesses",
+        "description": "Comparing domain-oriented agentic frameworks with native LLM coding harnesses would help clarify the relative strengths of bioinformatics-specific agents.",
+        "evidence": "We also did not include native LLM coding harnesses, such as Codex and Claude Code; comparing these systems with domain-oriented agentic frameworks would help clarify the relative strengths of bioinformatics-specific agents over general-purpose coding environments."
+      }
+    ]
+  },
+  "resource_link": {
+    "answer": "https://github.com/PromptBio/promptbio-bench",
+    "evidence": "The benchmark evaluation code is available on GitHub at: https://github.com/PromptBio/promptbio-bench."
+  }
+}

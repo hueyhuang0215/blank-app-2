@@ -1,0 +1,279 @@
+{
+  "source": "bioRxiv",
+  "source_id": "PPR1222118",
+  "title": "PantheonOS: An Evolvable Multi-Agent Framework for Automatic Genomics Discovery",
+  "abstract": "The convergence of large language model-powered autonomous agent systems and single-cell biology promises a paradigm shift in biomedical discovery. However, existing biological agent systems, building upon single-agent architectures, are narrowly specialized or overly general, limiting applications to routine analyses. We introduce PantheonOS ( https://PantheonOS.stanford.edu ), an evolvable, privacy-preserving multi-agent framework designed to reconcile generality with domain specificity. Critically, PantheonOS enables agentic code evolution, allowing evolving state-of-the-art batch correction and our reinforcement-learning augmented gene panel selection algorithms to achieve super-human performance. PantheonOS drives biological discoveries across systems: uncovering asymmetric paracrine Cer1–Nodal inhibition in proximal–distal axis formation of novel early mouse embryo 3D data; integrating human fetal heart multi-omics with whole-heart data to reveal molecular programs underpin heart diseases; and adaptively selecting virtual cell models to predict cardiac regulatory and perturbation effects. Together, PantheonOS points towards a future where scientific discoveries are increasingly driven by self-evolving AI systems across biology and beyond. <h4>Website</h4> https://pantheonos.stanford.edu <h4>Ecosystem</h4> https://github.com/aristoteleo <h4>Summary</h4> Large language model–powered agent systems are driving a paradigm shift in scientific discovery by automating, scaling, and accelerating data analysis. This transformation is particularly profound in biology, where the rapid expansion of single-cell and spatial genomics has effectively reshaped the field into a data-intensive science. However, existing biological agent systems are typically constrained to single-agent designs, are narrowly specialized, or are overly general without sufficient domain expertise, limiting their applicability to routine or shallow analyses. Here, we introduce PantheonOS ( https://pantheonos.stanford.edu ), an evolvable, privacy-preserving, and general-purpose multi-agent framework designed to reconcile generality with deep domain specificity. PantheonOS provides an abstract, extensible architecture that enables customized agent composition and supports end-to-end single-cell and multi-omics analysis, spanning reinforcement-learning–augmented gene panel design, raw FASTQ processing, multimodal data integration, and three-dimensional spatial genomics reconstruction. Central to this framework, Pantheon-Evolve enables agentic code evolution, allowing the system to autonomously improve state-of-the-art batch-correction algorithms and new reinforcement-learning based gene panel design algorithms, achieving performance beyond manually designed baselines. We demonstrate the power of PantheonOS across multiple biological domains. In early mouse embryogenesis, PantheonOS automatically reconstructs three-dimensional spatial gene expression landscapes and resolves asymmetric Cer1 expression and paracrine Cer1–Nodal inhibition, revealing a robust proximal–distal axis at embryonic day six (E6.0). In human development, PantheonOS integrates fetal heart single-cell multi-omics with whole-heart 3D MERFISH+ data at post-conception week 12, uncovering spatially resolved molecular programs underlying heart disease ontogeny. Finally, an intelligent model-routing mechanism enables PantheonOS to adaptively select optimal virtual cell models across heterogeneous tasks, revealing minimal regulatory networks of cardiogenesis and predicting spatially resolved perturbation effects in the developing heart. Together, PantheonOS establishes a foundation for fully automated, evolvable, and domain-aware agentic analysis in genomics, and points toward a future in which scientific discovery is increasingly driven by self-improving AI systems across biology and beyond.",
+  "published": "2026-02-27",
+  "authors": [
+    "Xu W",
+    "Poussi E",
+    "Zhong Q",
+    "Zeng Z",
+    "Zou C",
+    "Wang X",
+    "Lu Y",
+    "Cui M",
+    "Okamura D",
+    "Huang C",
+    "Ding J",
+    "Zhao Z",
+    "Yang Y",
+    "Pan X",
+    "Vijay V",
+    "Konno N",
+    "Liu N",
+    "Li L",
+    "Ma XR",
+    "Conley SD",
+    "Kern C",
+    "Goodyer WR",
+    "Bintu B",
+    "Zhu Q",
+    "Chi NC",
+    "He J",
+    "Rognoni L",
+    "Zhang X",
+    "Wu J",
+    "Ellison D",
+    "Rabinovitch M",
+    "Engreitz JM",
+    "Qiu X."
+  ],
+  "link": "https://doi.org/10.64898/2026.02.26.707870",
+  "doi": "10.64898/2026.02.26.707870",
+  "pdf_url": "",
+  "ai_for_science_score": 0.95,
+  "confidence_score": 0.9,
+  "implementation_score": 0.9,
+  "review_score": 0.85,
+  "benchmark_score": 0.8,
+  "hypothesis_generation_score": 0.9,
+  "scientific_discovery_score": 0.95,
+  "experiment_design_score": 0.85,
+  "material_discovery_score": 0.0,
+  "molecular_design_score": 0.8,
+  "drug_discovery_score": 0.0,
+  "causal_discovery_score": 0.85,
+  "biomedical_discovery_score": 0.95,
+  "idea_development_score": 0.9,
+  "ai_for_science_label": "accept",
+  "ai_for_science_reason": "The paper presents a multi-agent AI framework for genomics discovery, demonstrating AI-driven scientific discovery in biology.",
+  "implementation_justification": "The framework is described as evolvable and privacy-preserving, indicating a robust implementation.",
+  "review_justification": "The paper provides detailed examples of the framework's application in genomics.",
+  "benchmark_justification": "The framework achieves super-human performance in specific tasks, suggesting strong benchmarking.",
+  "hypothesis_generation_justification": "The system autonomously generates hypotheses about gene expression and disease mechanisms.",
+  "scientific_discovery_justification": "The framework facilitates new discoveries in embryogenesis and heart disease.",
+  "experiment_design_justification": "The system includes adaptive model selection for experimental predictions.",
+  "material_discovery_justification": "The paper does not focus on material discovery.",
+  "molecular_design_justification": "The framework aids in understanding molecular programs in heart disease.",
+  "drug_discovery_justification": "The paper does not address drug discovery.",
+  "causal_discovery_justification": "The system reveals causal relationships in gene expression and disease mechanisms.",
+  "biomedical_discovery_justification": "The framework significantly advances biomedical discovery in genomics.",
+  "idea_development_justification": "The paper introduces a novel AI framework that evolves and improves over time.",
+  "science_domains": [
+    "biology",
+    "genomics"
+  ],
+  "ai_methods": [
+    "multi-agent systems",
+    "reinforcement learning",
+    "large language models"
+  ],
+  "exhyte_stages": [
+    "Exploration",
+    "Hypothesis generation",
+    "Testing"
+  ],
+  "needs_pdf_review": false,
+  "auto_decision": "accept",
+  "auto_selected": true,
+  "selection_source": "llm_auto",
+  "local_pdf_path": "downloaded_pdfs/bioRxiv_W_et_al._2026_PantheonOS_An_Evolvable_Multi-Agent_Framework_for_Automatic_Genomics_Discovery.pdf",
+  "pdf_download_status": "manual_pdf",
+  "pdf_download_method": "manual_pdf",
+  "pdf_download_url": "manual_pdfs/bioRxiv_W_et_al._2026_PantheonOS_An_Evolvable_Multi-Agent_Framework_for_Automatic_Genomics_Discovery.pdf",
+  "pdf_download_attempted_at": "2026-06-30T17:54:09",
+  "paper_title": "PantheonOS: An Evolvable Multi-Agent Framework for Automatic Genomics Discovery",
+  "summary_extraction_status": "extracted",
+  "summary_json_path": "review_outputs/gpt_paper_items/bioRxiv_W_et_al._2026_PantheonOS_An_Evolvable_Multi-Agent_Framework_for_Automatic_Genomics_Discovery.json",
+  "objective": {
+    "answer": "The primary objective of the paper is to introduce PantheonOS, an evolvable, privacy-preserving multi-agent framework designed to reconcile generality with domain specificity in biological data analysis. The authors aim to enable agentic code evolution and achieve super-human performance in tasks such as batch correction and gene panel selection, driving biological discoveries across various systems.",
+    "evidence": "We introduce PantheonOS, an evolvable, privacy-preserving multi-agent framework designed to reconcile generality with domain specificity. Critically, PantheonOS enables agentic code evolution, allowing evolving state-of-the-art batch correction and our reinforcement-learning augmented gene panel selection algorithms to achieve super-human performance."
+  },
+  "knowledge_gap": {
+    "answer": "Existing biological agent systems are typically constrained to single-agent designs, are narrowly specialized, or are overly general without sufficient domain expertise, limiting their applicability to routine or shallow analyses.",
+    "evidence": "However, existing biological agent systems are typically constrained to single-agent designs, are narrowly specialized, or are overly general without sufficient domain expertise, limiting their applicability to routine or shallow analyses."
+  },
+  "novelty": {
+    "answer": [
+      "PantheonOS introduces an evolvable, privacy-preserving multi-agent framework that reconciles generality with domain specificity.",
+      "The framework enables agentic code evolution, allowing for the autonomous improvement of state-of-the-art algorithms.",
+      "PantheonOS supports end-to-end single-cell and multi-omics analysis, including reinforcement-learning–augmented gene panel design and multimodal data integration.",
+      "The system features a distributed architecture design for privacy protection and community-driven extension through the Pantheon Store."
+    ],
+    "evidence": [
+      "We introduce PantheonOS, an evolvable, privacy-preserving multi-agent framework designed to reconcile generality with domain specificity.",
+      "PantheonOS enables agentic code evolution, allowing the system to autonomously improve state-of-the-art batch-correction algorithms and new reinforcement-learning based gene panel design algorithms.",
+      "PantheonOS provides an abstract, extensible architecture that enables customized agent composition and supports end-to-end single-cell and multi-omics analysis.",
+      "PantheonOS adopts a distributed architecture design to meet privacy protection needs, and introduces the Pantheon Store as a mechanism for community-driven extension."
+    ]
+  },
+  "inspirational_papers": {
+    "answer": "- Korsunsky et al. (2019) Fast, sensitive and accurate integration of single-cell data with Harmony. (Methodological precursors)\n- Hie et al. (2019) Efficient integration of heterogeneous single-cell transcriptomes using Scanorama. (Methodological precursors)\n- Polański et al. (2020) BBKNN: fast batch alignment of single cell transcriptomes. (Methodological precursors)",
+    "evidence": "Critically, we develop Pantheon-Evolve, an automated framework for recursive algorithmic evolution that surpasses human-designed baselines, achieving super-human performance on evolved versions of Harmony7, Scanorama8, and BBKNN9."
+  },
+  "method": {
+    "steps": [
+      {
+        "step": "Introduce PantheonOS framework",
+        "input": "Existing limitations of single-agent systems in biological data analysis",
+        "output": "PantheonOS, a multi-agent framework for biological data analysis",
+        "evidence": "We introduce PantheonOS, an evolvable, privacy-preserving multi-agent framework designed to reconcile generality with domain specificity."
+      },
+      {
+        "step": "Enable agentic code evolution",
+        "input": "State-of-the-art batch correction and gene panel selection algorithms",
+        "output": "Autonomously improved algorithms with super-human performance",
+        "evidence": "PantheonOS enables agentic code evolution, allowing the system to autonomously improve state-of-the-art batch-correction algorithms and new reinforcement-learning based gene panel design algorithms."
+      },
+      {
+        "step": "Support end-to-end single-cell and multi-omics analysis",
+        "input": "Single-cell and multi-omics data",
+        "output": "Integrated analysis including gene panel design and data integration",
+        "evidence": "PantheonOS provides an abstract, extensible architecture that enables customized agent composition and supports end-to-end single-cell and multi-omics analysis."
+      }
+    ],
+    "tools": [
+      {
+        "name": "Pantheon-Evolve",
+        "description": "Used for recursive algorithmic evolution to improve computational methods",
+        "evidence": "Critically, we develop Pantheon-Evolve, an automated framework for recursive algorithmic evolution that surpasses human-designed baselines."
+      }
+    ],
+    "benchmark_datasets": [
+      {
+        "name": "CELLxGENE",
+        "data_description": "Single-cell RNA-seq data",
+        "usage": "Used for batch correction evolution due to its consistency with benchmark datasets",
+        "evidence": "We applied Pantheon-Evolve to Harmony7, a well-known batch correction algorithm that uses cycles of soft clustering and centroid-based correction in PCA space. To conduct evolution and validation, we chose a specific subset of the CELLxGENE dataset."
+      }
+    ],
+    "evaluation_metrics": [
+      {
+        "name": "Adjusted Rand Index (ARI)",
+        "purpose": "Measures clustering agreement with ground-truth cell-type labels",
+        "application": "Used to evaluate gene panel design and clustering performance",
+        "evidence": "Clustering agreement with ground-truth annotations, quantified by ARI, serves as the reward signal, allowing the agent to directly optimize biologically meaningful cell-type separability."
+      },
+      {
+        "name": "Normalized Mutual Information (NMI)",
+        "purpose": "Measures information-theoretic clustering quality",
+        "application": "Used to evaluate clustering performance of gene panels",
+        "evidence": "On the kidney dataset, the agent-generated RL seed panel overall outperforms conventional methods across ARI and normalized mutual information (NMI)."
+      }
+    ]
+  },
+  "method_type": {
+    "methods": [
+      {
+        "name": "Hypothesis or Idea Generation",
+        "description": "The system produces candidate hypotheses or new research ideas from prior knowledge or external input.",
+        "evidence": "PantheonOS provides an abstract, extensible architecture that enables customized agent composition and supports end-to-end single-cell and multi-omics analysis."
+      },
+      {
+        "name": "Experimental design generation",
+        "description": "The approach includes producing experimental protocols, configurations, or evaluation strategies.",
+        "evidence": "PantheonOS provides an adaptive orchestration layer that evaluates the dataset-specific performance of existing methods, arbitrates between their complementary strengths, and refines candidate panels under explicit biological constraints."
+      }
+    ]
+  },
+  "subject_area": {
+    "areas": [
+      {
+        "name": "Biological Sciences",
+        "description": "The paper focuses on biological data analysis and genomics.",
+        "evidence": "PantheonOS drives biological discoveries across systems: uncovering asymmetric paracrine Cer1–Nodal inhibition in proximal–distal axis formation of novel early mouse embryo 3D data."
+      },
+      {
+        "name": "Applied Sciences & Engineering",
+        "description": "The framework is designed for data science and computational analysis.",
+        "evidence": "PantheonOS is built on an abstract, domain-agnostic foundation while simultaneously deploying a purpose-built multi-agent team for genomics research."
+      }
+    ]
+  },
+  "performance_summary": {
+    "performance_summary": [
+      {
+        "summary": "PantheonOS achieves super-human performance on evolved versions of Harmony, Scanorama, and BBKNN, surpassing human-designed baselines.",
+        "evidence": "Critically, we develop Pantheon-Evolve, an automated framework for recursive algorithmic evolution that surpasses human-designed baselines, achieving super-human performance on evolved versions of Harmony7, Scanorama8, and BBKNN9."
+      }
+    ],
+    "baselines": [
+      {
+        "name": "Harmony",
+        "description": "A batch correction algorithm for single-cell data integration.",
+        "evidence": "We applied Pantheon-Evolve to Harmony7, a well-known batch correction algorithm that uses cycles of soft clustering and centroid-based correction in PCA space."
+      },
+      {
+        "name": "Scanorama",
+        "description": "An algorithm for integrating heterogeneous single-cell transcriptomes.",
+        "evidence": "Critically, we develop Pantheon-Evolve, an automated framework for recursive algorithmic evolution that surpasses human-designed baselines, achieving super-human performance on evolved versions of Harmony7, Scanorama8, and BBKNN9."
+      }
+    ],
+    "benchmark_datasets": [
+      {
+        "name": "CELLxGENE",
+        "data_description": "Single-cell RNA-seq data",
+        "usage": "Used for batch correction evolution due to its consistency with benchmark datasets",
+        "evidence": "We applied Pantheon-Evolve to Harmony7, a well-known batch correction algorithm that uses cycles of soft clustering and centroid-based correction in PCA space. To conduct evolution and validation, we chose a specific subset of the CELLxGENE dataset."
+      }
+    ],
+    "evaluation_metrics": [
+      {
+        "name": "Adjusted Rand Index (ARI)",
+        "purpose": "Measures clustering agreement with ground-truth cell-type labels",
+        "application": "Used to evaluate gene panel design and clustering performance",
+        "evidence": "Clustering agreement with ground-truth annotations, quantified by ARI, serves as the reward signal, allowing the agent to directly optimize biologically meaningful cell-type separability."
+      },
+      {
+        "name": "Normalized Mutual Information (NMI)",
+        "purpose": "Measures information-theoretic clustering quality",
+        "application": "Used to evaluate clustering performance of gene panels",
+        "evidence": "On the kidney dataset, the agent-generated RL seed panel overall outperforms conventional methods across ARI and normalized mutual information (NMI)."
+      }
+    ]
+  },
+  "benchmark_dataset": {
+    "name": "CELLxGENE",
+    "description": "Single-cell RNA-seq data",
+    "usage": "Used for batch correction evolution due to its consistency with benchmark datasets",
+    "evidence": "We applied Pantheon-Evolve to Harmony7, a well-known batch correction algorithm that uses cycles of soft clustering and centroid-based correction in PCA space. To conduct evolution and validation, we chose a specific subset of the CELLxGENE dataset."
+  },
+  "limitations": {
+    "limitations": [
+      {
+        "name": "Limited Generalizability",
+        "description": "The framework's performance is demonstrated primarily on specific datasets and tasks, which may not generalize to all biological data analysis scenarios.",
+        "evidence": "Critically, we develop Pantheon-Evolve, an automated framework for recursive algorithmic evolution that surpasses human-designed baselines, achieving super-human performance on evolved versions of Harmony7, Scanorama8, and BBKNN9."
+      }
+    ]
+  },
+  "future_directions": {
+    "future_directions": [
+      {
+        "name": "Expand to Other Domains",
+        "description": "Extend the framework to support additional scientific domains beyond genomics.",
+        "evidence": "PantheonOS is built on an abstract, domain-agnostic foundation while simultaneously deploying a purpose-built multi-agent team for genomics research."
+      },
+      {
+        "name": "Enhance Community Collaboration",
+        "description": "Encourage community-driven extension and contribution through the Pantheon Store.",
+        "evidence": "PantheonOS adopts a distributed architecture design to meet privacy protection needs, and introduces the Pantheon Store as a mechanism for community-driven extension."
+      }
+    ]
+  },
+  "resource_link": {
+    "answer": "https://github.com/aristoteleo/pantheon-agents",
+    "evidence": "The Pantheon framework is available as open-source software at https://github.com/aristoteleo/pantheon-agents."
+  }
+}

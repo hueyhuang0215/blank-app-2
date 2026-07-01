@@ -1,0 +1,254 @@
+{
+  "source": "arXiv",
+  "source_id": "2606.29182v1",
+  "title": "Evidence-Informed LLM Beliefs for Continual Scientific Discovery",
+  "abstract": "Open-ended scientific discovery with large language models (LLMs) increasingly operates as a long-horizon loop of hypothesis search and verification, where a reward signal guides which hypotheses to test next. A notable recent example is AutoDiscovery, which uses \"Bayesian surprise\" - the belief shift an LLM undergoes after observing evidence for a hypothesis - as both a discovery metric and a reward for search. We first observe that AutoDiscovery treats surprisal as a static quantity, while surprisal in human reasoning is non-stationary - it is defined relative to beliefs that evolve with experience, a prerequisite for continual scientific discovery. We address this mismatch with evidence-informed LLM beliefs: priors updated with evidence from previous hypotheses to compute non-stationary surprisal for new hypotheses. We compare in-context belief-updating mechanisms and find that embedding-based retrieval-augmented generation over prior discoveries best anticipates eventual posteriors, identifying 37.5% of static surprisals as spurious. We then modify search to avoid these spurious rewards and prioritize hypotheses that remain surprising under non-stationary beliefs. Concretely, we introduce two complementary changes to the original search procedure: belief-update filtering and diversity maximization. Across five discovery domains, our method increases accumulated non-stationary surprisal by 30.62% on average compared to the original search procedure, demonstrating that continual scientific discovery with LLMs requires not only better belief measurement but also search procedures that avoid redundancy and encourage diversity.",
+  "published": "2026-06-28T04:06:12Z",
+  "authors": [
+    "Dhruv Agarwal",
+    "Reece Adamson",
+    "Andrew McCallum",
+    "Peter Clark",
+    "Ashish Sabharwal",
+    "Bodhisattwa Prasad Majumder"
+  ],
+  "link": "https://arxiv.org/abs/2606.29182v1",
+  "doi": "",
+  "pdf_url": "https://arxiv.org/pdf/2606.29182v1.pdf",
+  "ai_for_science_score": 0.9,
+  "confidence_score": 0.95,
+  "implementation_score": 0.8,
+  "review_score": 0.85,
+  "benchmark_score": 0.75,
+  "hypothesis_generation_score": 0.9,
+  "scientific_discovery_score": 0.9,
+  "experiment_design_score": 0.7,
+  "material_discovery_score": 0.0,
+  "molecular_design_score": 0.0,
+  "drug_discovery_score": 0.0,
+  "causal_discovery_score": 0.6,
+  "biomedical_discovery_score": 0.0,
+  "idea_development_score": 0.8,
+  "ai_for_science_label": "accept",
+  "ai_for_science_reason": "The paper uses LLMs for hypothesis search and verification in scientific discovery, addressing belief updates for continual discovery.",
+  "implementation_justification": "The paper introduces practical modifications to existing methods for improved hypothesis testing.",
+  "review_justification": "The approach is well-documented and compared against existing methods.",
+  "benchmark_justification": "The paper provides quantitative improvements over previous methods.",
+  "hypothesis_generation_justification": "The method enhances hypothesis generation by updating beliefs with evidence.",
+  "scientific_discovery_justification": "The approach significantly contributes to the process of scientific discovery through improved search procedures.",
+  "experiment_design_justification": "The paper indirectly impacts experiment design by refining hypothesis testing.",
+  "material_discovery_justification": "The paper does not focus on material discovery.",
+  "molecular_design_justification": "The paper does not address molecular design.",
+  "drug_discovery_justification": "The paper does not pertain to drug discovery.",
+  "causal_discovery_justification": "The method may aid in causal discovery by refining hypothesis testing.",
+  "biomedical_discovery_justification": "The paper does not specifically target biomedical discovery.",
+  "idea_development_justification": "The approach fosters idea development through enhanced hypothesis generation and testing.",
+  "science_domains": [
+    "scientific discovery"
+  ],
+  "ai_methods": [
+    "LLMs",
+    "Bayesian optimization",
+    "retrieval-augmented generation"
+  ],
+  "exhyte_stages": [
+    "Hypothesis generation",
+    "Testing"
+  ],
+  "needs_pdf_review": false,
+  "auto_decision": "accept",
+  "auto_selected": true,
+  "selection_source": "llm_auto",
+  "pdf_download_attempted_at": "2026-06-30T06:25:41",
+  "local_pdf_path": "downloaded_pdfs/arXiv_Agarwal_et_al._2026_Evidence-Informed_LLM_Beliefs_for_Continual_Scientific_Discovery.pdf",
+  "pdf_download_status": "already_exists",
+  "pdf_download_method": "direct pdf_url",
+  "pdf_download_url": "https://arxiv.org/pdf/2606.29182v1",
+  "extraction_source_type": "pdf",
+  "paper_title": "Evidence-Informed LLM Beliefs for Continual Scientific Discovery",
+  "summary_extraction_status": "extracted",
+  "summary_json_path": "review_outputs/gpt_paper_items/arXiv_Agarwal_et_al._2026_Evidence-Informed_LLM_Beliefs_for_Continual_Scientific_Discovery.json",
+  "objective": {
+    "answer": "The primary objective of the paper is to improve the process of continual scientific discovery using large language models (LLMs) by introducing evidence-informed LLM beliefs that update priors with evidence from previous hypotheses to compute non-stationary surprisal for new hypotheses.",
+    "evidence": "We address this mismatch with evidence-informed LLM beliefs: priors updated with evidence from previous hypotheses to compute non-stationary surprisal for new hypotheses."
+  },
+  "knowledge_gap": {
+    "answer": "The paper addresses the gap in current LLM-driven discovery systems, which treat surprisal as a static quantity, failing to account for the non-stationary nature of human reasoning where beliefs evolve with experience.",
+    "evidence": "We first observe that AutoDiscovery treats surprisal as a static quantity, while surprisal in human reasoning is non-stationary—it is defined relative to beliefs that evolve with experience, a prerequisite for continual scientific discovery."
+  },
+  "novelty": {
+    "answer": [
+      "Introduction of non-stationary surprisal by updating LLM beliefs with evidence from previous hypotheses.",
+      "Development of belief-update filtering and diversity maximization mechanisms to improve hypothesis search.",
+      "Demonstration that embedding-based retrieval-augmented generation best anticipates eventual posteriors."
+    ],
+    "evidence": [
+      "We introduce non-stationary surprisal, which evaluates hypotheses relative to LLM beliefs updated with evidence from previously tested hypotheses.",
+      "We present evidence-informed search for AutoDiscovery with belief-update filtering and diversity maximization.",
+      "We compare ICL-based belief-updating mechanisms and find that embedding-based RAG best anticipates posterior beliefs."
+    ]
+  },
+  "inspirational_papers": {
+    "answer": "- Agarwal et al. (2025b) AutoDiscovery uses Bayesian surprise as a reward for hypothesis search. (Methodological precursors)",
+    "evidence": "A notable recent example of such a system is AutoDiscovery [Agarwal et al., 2025b], which uses 'Bayesian surprise' as a reward for hypothesis search."
+  },
+  "method": {
+    "steps": [
+      {
+        "step": "Introduce non-stationary surprisal by updating LLM beliefs with evidence from previous hypotheses.",
+        "input": "LLM priors and evidence from previous hypotheses.",
+        "output": "Non-stationary surprisal for new hypotheses.",
+        "evidence": "We introduce non-stationary surprisal, which evaluates hypotheses relative to LLM beliefs updated with evidence from previously tested hypotheses."
+      },
+      {
+        "step": "Implement belief-update filtering to sample hypotheses that cannot be derived in-context using prior discoveries.",
+        "input": "Candidate hypotheses and prior discoveries.",
+        "output": "Filtered hypotheses with potential for non-stationary surprisal.",
+        "evidence": "Belief-update filtering, to sample hypotheses that cannot be derived in-context using prior discoveries."
+      },
+      {
+        "step": "Apply diversity maximization to prioritize exploration by selecting hypotheses with the least embedding-based similarity to previous discoveries.",
+        "input": "Candidate hypotheses and their embeddings.",
+        "output": "Diverse set of hypotheses for exploration.",
+        "evidence": "Diversity maximization, which explicitly prioritizes exploration by selecting hypotheses with the least embedding-based similarity to previous discoveries."
+      }
+    ],
+    "tools": [
+      {
+        "name": "AutoDiscovery",
+        "description": "Used for hypothesis search driven by Bayesian surprise.",
+        "evidence": "Our focus in this work is on a recent open-ended discovery system called AutoDiscovery."
+      },
+      {
+        "name": "GPT-5-mini",
+        "description": "Used as the belief model for hypothesis generation and evaluation.",
+        "evidence": "We run belief elicitation on hypotheses generated by AutoDiscovery using GPT-5-mini as the belief model."
+      }
+    ],
+    "benchmark_datasets": [
+      {
+        "name": "DiscoveryBench",
+        "data_description": "Real-world domains including NLS-SES, Archaeology, Evolution Freshwater Fish.",
+        "usage": "Used for hypothesis generation and evaluation.",
+        "evidence": "We run belief elicitation on hypotheses generated by AutoDiscovery over 5 real-world domains from DiscoveryBench."
+      },
+      {
+        "name": "BLADE",
+        "data_description": "Domains including Fertility and Mortgage.",
+        "usage": "Used for hypothesis generation and evaluation.",
+        "evidence": "We run belief elicitation on hypotheses generated by AutoDiscovery over 5 real-world domains from BLADE."
+      }
+    ],
+    "evaluation_metrics": [
+      {
+        "name": "Non-stationary surprisal",
+        "purpose": "Measures the shift in belief from prior to posterior after hypothesis verification.",
+        "application": "Used to evaluate the effectiveness of evidence-informed belief updates.",
+        "evidence": "We measure performance using accumulated non-stationary surprisal, computed with Ctop-25 as the evidence-informed context representation."
+      }
+    ]
+  },
+  "method_type": {
+    "methods": [
+      {
+        "name": "Hypothesis or Idea Generation",
+        "description": "The system produces candidate hypotheses or new research ideas from prior knowledge or external input.",
+        "evidence": "We prompt the LLM to generate testable hypotheses using domain-specific concepts derived from structured data."
+      },
+      {
+        "name": "Experimental design generation",
+        "description": "The approach includes producing experimental protocols, configurations, or evaluation strategies.",
+        "evidence": "Our model proposes complete experimental setups including dataset split, evaluation metrics, and variables."
+      }
+    ]
+  },
+  "subject_area": {
+    "areas": [
+      {
+        "name": "Social Sciences",
+        "description": "The paper involves human expert studies in social science to validate the premise of non-stationary beliefs.",
+        "evidence": "We validate this premise with human experts in neuroscience and social science on hypotheses generated by AutoDiscovery."
+      },
+      {
+        "name": "Applied Sciences & Engineering",
+        "description": "The proposed methods are applied to improve the process of scientific discovery using LLMs.",
+        "evidence": "Automated scientific discovery with large language models (LLMs) has begun showing promise in such continual settings."
+      }
+    ]
+  },
+  "performance_summary": {
+    "performance_summary": [
+      {
+        "summary": "The proposed method increases accumulated non-stationary surprisal by 30.62% on average compared to the original search procedure.",
+        "evidence": "Across five discovery domains, our method increases accumulated non-stationary surprisal by 30.62% on average compared to the original search procedure."
+      }
+    ],
+    "baselines": [
+      {
+        "name": "AutoDiscovery",
+        "description": "Original system using static surprisal for hypothesis search.",
+        "evidence": "A notable recent example of such a system is AutoDiscovery, which uses 'Bayesian surprise' as a reward for hypothesis search."
+      }
+    ],
+    "benchmark_datasets": [
+      {
+        "name": "DiscoveryBench",
+        "data_description": "Real-world domains including NLS-SES, Archaeology, Evolution Freshwater Fish.",
+        "usage": "Used for hypothesis generation and evaluation.",
+        "evidence": "We run belief elicitation on hypotheses generated by AutoDiscovery over 5 real-world domains from DiscoveryBench."
+      },
+      {
+        "name": "BLADE",
+        "data_description": "Domains including Fertility and Mortgage.",
+        "usage": "Used for hypothesis generation and evaluation.",
+        "evidence": "We run belief elicitation on hypotheses generated by AutoDiscovery over 5 real-world domains from BLADE."
+      }
+    ],
+    "evaluation_metrics": [
+      {
+        "name": "Non-stationary surprisal",
+        "purpose": "Measures the shift in belief from prior to posterior after hypothesis verification.",
+        "application": "Used to evaluate the effectiveness of evidence-informed belief updates.",
+        "evidence": "We measure performance using accumulated non-stationary surprisal, computed with Ctop-25 as the evidence-informed context representation."
+      }
+    ]
+  },
+  "benchmark_dataset": {
+    "name": "DiscoveryBench",
+    "description": "Real-world domains including NLS-SES, Archaeology, Evolution Freshwater Fish.",
+    "usage": "Used for hypothesis generation and evaluation.",
+    "evidence": "We run belief elicitation on hypotheses generated by AutoDiscovery over 5 real-world domains from DiscoveryBench."
+  },
+  "limitations": {
+    "limitations": [
+      {
+        "name": "Dependence on LLM Samples",
+        "description": "Belief estimates depend on prompting choices, sampling variance, and model calibration.",
+        "evidence": "First, our belief estimates are elicited from LLM samples and therefore depend on prompting choices, sampling variance, calibration quality, and the model’s ability to faithfully express uncertainty."
+      },
+      {
+        "name": "Suppression of Revisitable Hypotheses",
+        "description": "Non-stationary objective may suppress hypotheses worth revisiting under stronger evidence.",
+        "evidence": "Second, while our non-stationary objective reduces redundant rediscovery, it may also suppress hypotheses that are legitimately worth revisiting under stronger or conflicting evidence."
+      },
+      {
+        "name": "Scalability to Open-ended Workflows",
+        "description": "Scaling the method to open-ended workflows requires better evidence verification and long-term memory mechanisms.",
+        "evidence": "Third, our experiments focus on controlled discovery settings with finite search budgets; scaling the method to open-ended scientific workflows will require better evidence verification, stronger uncertainty calibration, and mechanisms for long-term memory beyond the current context window."
+      }
+    ]
+  },
+  "future_directions": {
+    "future_directions": [
+      {
+        "name": "Explore Parametric Methods",
+        "description": "Investigate parametric methods for capturing the discovery context.",
+        "evidence": "Our study focuses on nonparametric methods to capture the discovery context, given the use of proprietary LLMs with only black-box access. Investigating parametric methods represents an important future direction."
+      }
+    ]
+  },
+  "resource_link": {
+    "answer": "https://github.com/allenai/autodiscovery-continual-beliefs",
+    "evidence": "https://github.com/allenai/autodiscovery-continual-beliefs"
+  }
+}

@@ -1,0 +1,268 @@
+{
+  "source": "bioRxiv",
+  "source_id": "PPR1227252",
+  "title": "Generative single-cell transcriptomics via large language models",
+  "abstract": "<h4>ABSTRACT</h4> Single-cell and spatial transcriptomics have generated vast atlases of cellular states, yet these data are almost exclusively used for analysis rather than generation. Here we introduce the LLM-based model PGL, Portraying Gene Language, a framework that reframes single-cell transcriptomes as a language generation modeling problem. PGL represents each cell as a long sequence of gene–expression tokens and uses a large language model to synthesize complete single-cell RNA-seq profiles from metadata alone, such as tissue and disease context. PGL-generated cells recapitulate dataset-specific transcriptomic structure, align with known cancer subtype biology, and mix coherently with real single-cell datasets. Notably, generated cells can be used as effective references for spatial transcriptomics, enabling accurate cell-type mapping without matched single-cell atlases. By shifting single-cell modeling from representation learning to cell generation, PGL enables virtual cohort construction, hypothesis generation, and reference-on-demand analysis, positioning generative language models as foundational tools for in silico single-cell biology.",
+  "published": "2026-01-13",
+  "authors": [
+    "Choi H",
+    "Shin H",
+    "Lee D",
+    "Lee D."
+  ],
+  "link": "https://doi.org/10.64898/2026.01.12.699186",
+  "doi": "10.64898/2026.01.12.699186",
+  "pdf_url": "",
+  "ai_for_science_score": 0.95,
+  "confidence_score": 0.9,
+  "implementation_score": 0.85,
+  "review_score": 0.8,
+  "benchmark_score": 0.75,
+  "hypothesis_generation_score": 0.9,
+  "scientific_discovery_score": 0.85,
+  "experiment_design_score": 0.7,
+  "material_discovery_score": 0.0,
+  "molecular_design_score": 0.0,
+  "drug_discovery_score": 0.0,
+  "causal_discovery_score": 0.6,
+  "biomedical_discovery_score": 0.9,
+  "idea_development_score": 0.8,
+  "ai_for_science_label": "accept",
+  "ai_for_science_reason": "The paper uses a large language model to generate single-cell RNA-seq profiles, contributing to scientific discovery in biology and medicine.",
+  "implementation_justification": "The paper presents a novel application of LLMs in generating single-cell data.",
+  "review_justification": "The abstract provides a clear overview of the methodology and its scientific implications.",
+  "benchmark_justification": "The paper mentions alignment with known biology, suggesting some benchmarking.",
+  "hypothesis_generation_justification": "The model enables virtual cohort construction and hypothesis generation.",
+  "scientific_discovery_justification": "The generative approach aids in scientific discovery by creating new data for analysis.",
+  "experiment_design_justification": "The paper implies potential for experiment design through virtual cohort construction.",
+  "material_discovery_justification": "The focus is on biological data, not material discovery.",
+  "molecular_design_justification": "The paper does not address molecular design.",
+  "drug_discovery_justification": "The paper does not specifically target drug discovery.",
+  "causal_discovery_justification": "The generative model may aid in understanding causal relationships in transcriptomics.",
+  "biomedical_discovery_justification": "The application of LLMs to single-cell data directly supports biomedical discovery.",
+  "idea_development_justification": "The paper introduces a novel concept of using LLMs for single-cell data generation.",
+  "science_domains": [
+    "biology",
+    "medicine"
+  ],
+  "ai_methods": [
+    "large language models",
+    "generative models"
+  ],
+  "exhyte_stages": [
+    "Hypothesis generation"
+  ],
+  "needs_pdf_review": false,
+  "auto_decision": "accept",
+  "auto_selected": true,
+  "selection_source": "llm_auto",
+  "local_pdf_path": "downloaded_pdfs/bioRxiv_H_et_al._2026_Generative_single-cell_transcriptomics_via_large_language_models.pdf",
+  "pdf_download_status": "manual_pdf",
+  "pdf_download_method": "manual_pdf",
+  "pdf_download_url": "manual_pdfs/bioRxiv_H_et_al._2026_Generative_single-cell_transcriptomics_via_large_language_models.pdf",
+  "pdf_download_attempted_at": "2026-06-30T17:54:09",
+  "paper_title": "Generative single-cell transcriptomics via large language models",
+  "summary_extraction_status": "extracted",
+  "summary_json_path": "review_outputs/gpt_paper_items/bioRxiv_H_et_al._2026_Generative_single-cell_transcriptomics_via_large_language_models.json",
+  "objective": {
+    "answer": "The primary objective of the paper is to introduce the PGL (Portraying Gene Language) framework, which reframes single-cell transcriptomes as a language generation modeling problem. The authors aim to synthesize complete single-cell RNA-seq profiles from metadata alone, such as tissue and disease context, using a large language model.",
+    "evidence": "Here we introduce the LLM-based model PGL, Portraying Gene Language, a framework that reframes single-cell transcriptomes as a language generation modeling problem. PGL represents each cell as a long sequence of gene–expression tokens and uses a large language model to synthesize complete single-cell RNA-seq profiles from metadata alone, such as tissue and disease context."
+  },
+  "knowledge_gap": {
+    "answer": "The knowledge gap addressed by the paper is the lack of exploration in generating new, biologically plausible single cells in silico, as existing models primarily treat single-cell data as an embedding or representation learning problem.",
+    "evidence": "Despite these advances, existing transformer and language-based models primarily treat single-cell data as an embedding or representation learning problem. Their outputs are typically low-dimensional vectors optimized for prediction or classification tasks. As a result, the notion of cell generation—producing a new single cell in silico with thousands of genes expressed in a coherent and condition-consistent manner—has remained largely unexplored."
+  },
+  "novelty": {
+    "answer": [
+      "The PGL framework represents single-cell transcriptomes as a language generation problem, allowing the use of large language models to generate complete single-cell RNA-seq profiles.",
+      "PGL-generated cells can be used as effective references for spatial transcriptomics, enabling accurate cell-type mapping without matched single-cell atlases.",
+      "The framework shifts single-cell modeling from representation learning to cell generation, enabling virtual cohort construction and hypothesis generation."
+    ],
+    "evidence": [
+      "Here we introduce the LLM-based model PGL, Portraying Gene Language, a framework that reframes single-cell transcriptomes as a language generation modeling problem.",
+      "Notably, generated cells can be used as effective references for spatial transcriptomics, enabling accurate cell-type mapping without matched single-cell atlases.",
+      "By shifting single-cell modeling from representation learning to cell generation, PGL enables virtual cohort construction, hypothesis generation, and reference-on-demand analysis."
+    ]
+  },
+  "inspirational_papers": {
+    "answer": "- Park et al. (2024) CELLama: foundation model for single cell and spatial transcriptomics by cell embedding leveraging language model abilities. (Methodological precursors)\n- Levine et al. (2024) Cell2Sentence: teaching large language models the language of biology. (Methodological precursors)",
+    "evidence": "In parallel, language model–driven approaches such as CELLama and C2S have explored sequence-based formulations of single-cell and spatial transcriptomics, reframing gene expression profiles as languages to embed cellular features."
+  },
+  "method": {
+    "steps": [
+      {
+        "step": "Data curation and preprocessing",
+        "input": "Single-cell RNA-seq data from the scBaseCount repository, focusing on cancer datasets.",
+        "output": "A training corpus of approximately 14 million cells derived from 2,118 independent datasets.",
+        "evidence": "Single-cell RNA-seq data were curated from the scBaseCount repository, focusing on cancer datasets profiled using droplet-based platforms."
+      },
+      {
+        "step": "Expression discretization and tokenization",
+        "input": "Continuous gene expression values.",
+        "output": "Discretized gene expression values into five ordinal categories: Absent, Low, Medium, High, and Very High.",
+        "evidence": "Continuous gene expression values were discretized into five ordinal categories: Absent, Low, Medium, High, and Very High."
+      },
+      {
+        "step": "Model training",
+        "input": "Gene-expression token sequences conditioned on metadata.",
+        "output": "A trained PGL model capable of generating gene-expression sequences.",
+        "evidence": "The model was trained using a causal language modeling objective to maximize the likelihood of the gene-expression token sequence conditioned on metadata and preceding tokens."
+      },
+      {
+        "step": "Autoregressive generation and post-processing",
+        "input": "Cell-level metadata.",
+        "output": "Generated gene-expression sequences parsed into a gene-by-cell expression matrix.",
+        "evidence": "At inference, the model receives only cell-level metadata as input and autoregressively generates a gene-expression sequence between <START_GEN> and <END_GEN> tokens."
+      }
+    ],
+    "tools": [
+      {
+        "name": "Qwen-0.6B",
+        "description": "Used as the base decoder-only transformer for training the PGL model.",
+        "evidence": "After training the PGL model on a general-purpose text-based language model (Qwen-0.6B), the model generated sentences in an autoregressive manner."
+      },
+      {
+        "name": "TACCO",
+        "description": "Used for spatial cell type mapping using an optimal transport–based deconvolution method.",
+        "evidence": "These annotated cell types were then transferred to prostate cancer Visium data using an optimal transport–based deconvolution method (TACCO)."
+      }
+    ],
+    "benchmark_datasets": [
+      {
+        "name": "scBaseCount",
+        "data_description": "Single-cell RNA-seq data repository.",
+        "usage": "Used for training and evaluation of the PGL model.",
+        "evidence": "Single-cell RNA-seq data were curated from the scBaseCount repository."
+      }
+    ],
+    "evaluation_metrics": [
+      {
+        "name": "Spearman rank correlation",
+        "purpose": "Measures global transcriptomic similarity between generated and real datasets.",
+        "application": "Used to compare gene expression distributions of generated and real datasets.",
+        "evidence": "We first evaluated global transcriptomic similarity by computing Spearman rank correlations between gene expression distributions of generated and real datasets."
+      },
+      {
+        "name": "Silhouette score",
+        "purpose": "Quantifies mixing and separability between generated and real cells.",
+        "application": "Used to assess single-cell level integration and mixing.",
+        "evidence": "To assess transcriptomic similarity at the single-cell level, we integrated LLM-generated and real scRNA-seq datasets and quantified their degree of mixing using silhouette scores."
+      },
+      {
+        "name": "Jaccard similarity",
+        "purpose": "Measures overlap in transcriptomic marker features between generated and real datasets.",
+        "application": "Used to quantify marker gene overlap.",
+        "evidence": "We further quantified overlap in transcriptomic marker features between generated and real scRNA-seq data using Jaccard similarity metrics."
+      }
+    ]
+  },
+  "method_type": {
+    "methods": [
+      {
+        "name": "Hypothesis or Idea Generation",
+        "description": "The system produces candidate hypotheses or new research ideas from prior knowledge or external input.",
+        "evidence": "By shifting single-cell modeling from representation learning to cell generation, PGL enables virtual cohort construction, hypothesis generation, and reference-on-demand analysis."
+      },
+      {
+        "name": "Experimental design generation",
+        "description": "The approach includes producing experimental protocols, configurations, or evaluation strategies.",
+        "evidence": "We demonstrate that virtually generated single cell data recapitulate key statistical and biological properties of real data."
+      }
+    ]
+  },
+  "subject_area": {
+    "areas": [
+      {
+        "name": "Biological Sciences",
+        "description": "The paper develops a generative framework for single-cell transcriptomics.",
+        "evidence": "PGL enables virtual cohort construction, hypothesis generation, and reference-on-demand analysis, positioning generative language models as foundational tools for in silico single-cell biology."
+      },
+      {
+        "name": "Health Sciences",
+        "description": "The framework is applied to generate single-cell RNA-seq profiles for cancer research.",
+        "evidence": "Single-cell RNA-seq data were curated from the scBaseCount repository, focusing on cancer datasets profiled using droplet-based platforms."
+      }
+    ]
+  },
+  "performance_summary": {
+    "performance_summary": [
+      {
+        "summary": "PGL-generated cells exhibit global properties comparable to real scRNA-seq datasets, with higher Spearman correlations and lower silhouette scores for matched metadata.",
+        "evidence": "The mean Spearman correlation was significantly higher for same metadata datasets than for different metadata controls (0.47±0.04 vs. 0.34±0.05; p < 0.001), indicating that generated scRNA-seq data more closely resemble real scRNA-seq data derived from the same biological context."
+      }
+    ],
+    "baselines": [
+      {
+        "name": "Real scRNA-seq datasets",
+        "description": "Used as a baseline for comparison with generated datasets.",
+        "evidence": "We evaluated whether LLM-generated scRNA-seq data exhibit global properties comparable to those of real scRNA-seq datasets."
+      }
+    ],
+    "benchmark_datasets": [
+      {
+        "name": "scBaseCount",
+        "data_description": "Single-cell RNA-seq data repository.",
+        "usage": "Used for training and evaluation of the PGL model.",
+        "evidence": "Single-cell RNA-seq data were curated from the scBaseCount repository."
+      }
+    ],
+    "evaluation_metrics": [
+      {
+        "name": "Spearman rank correlation",
+        "purpose": "Measures global transcriptomic similarity between generated and real datasets.",
+        "application": "Used to compare gene expression distributions of generated and real datasets.",
+        "evidence": "We first evaluated global transcriptomic similarity by computing Spearman rank correlations between gene expression distributions of generated and real datasets."
+      },
+      {
+        "name": "Silhouette score",
+        "purpose": "Quantifies mixing and separability between generated and real cells.",
+        "application": "Used to assess single-cell level integration and mixing.",
+        "evidence": "To assess transcriptomic similarity at the single-cell level, we integrated LLM-generated and real scRNA-seq datasets and quantified their degree of mixing using silhouette scores."
+      },
+      {
+        "name": "Jaccard similarity",
+        "purpose": "Measures overlap in transcriptomic marker features between generated and real datasets.",
+        "application": "Used to quantify marker gene overlap.",
+        "evidence": "We further quantified overlap in transcriptomic marker features between generated and real scRNA-seq data using Jaccard similarity metrics."
+      }
+    ]
+  },
+  "benchmark_dataset": {
+    "name": "scBaseCount",
+    "data_description": "Single-cell RNA-seq data repository.",
+    "usage": "Used for training and evaluation of the PGL model.",
+    "evidence": "Single-cell RNA-seq data were curated from the scBaseCount repository."
+  },
+  "limitations": {
+    "limitations": [
+      {
+        "name": "Expression Discretization",
+        "description": "Discretizing gene expression into a small number of ordinal categories compresses the continuous dynamic range of raw count data.",
+        "evidence": "First, discretizing gene expression into a small number of ordinal categories facilitates the formulation of transcriptomes as a language modeling problem, but inevitably compresses the continuous dynamic range of raw count data."
+      },
+      {
+        "name": "Generation Capacity",
+        "description": "The generation capacity of PGL is constrained by the maximum context length of current LLMs.",
+        "evidence": "Second, the generation capacity of PGL is constrained by the maximum context length of current LLMs."
+      }
+    ]
+  },
+  "future_directions": {
+    "future_directions": [
+      {
+        "name": "Incorporate finer-grained discretization schemes",
+        "description": "Future extensions could incorporate finer-grained discretization schemes or hybrid formulations that combine categorical tokens with continuous-valued outputs.",
+        "evidence": "Future extensions could incorporate finer-grained discretization schemes or hybrid formulations that combine categorical tokens with continuous-valued outputs."
+      },
+      {
+        "name": "Expand effective gene coverage",
+        "description": "Iterative or multi-pass generation strategies may further expand effective gene coverage without exceeding context limits.",
+        "evidence": "Additionally, iterative or multi-pass generation strategies may further expand effective gene coverage without exceeding context limits."
+      }
+    ]
+  },
+  "resource_link": {
+    "answer": "https://doi.org/10.64898/2026.01.12.699186",
+    "evidence": "https://doi.org/10.64898/2026.01.12.699186"
+  }
+}

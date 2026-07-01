@@ -1,0 +1,261 @@
+{
+  "source": "bioRxiv",
+  "source_id": "PPR1239237",
+  "title": "IID-KG: An ontology-aligned literature-derived knowledge graph for infectious and immune-mediated diseases",
+  "abstract": "Infectious and immune-mediated diseases (IIDs) represent a broad and rapidly expanding biomedical literature domain in which scalable evidence extraction, disease ontology refinement, and interpretable knowledge integration are essential for biomedical discovery. We constructed an IID-specific biomedical knowledge graph (IID KG) from PubMed abstracts and PMC full-text articles by integrating nested named entity recognition, ontology-guided identifier assignment, full-text relation extraction, and relation-resolution strategies. A gold-standard corpus of 500 PubMed abstracts and 8 PMC full-text articles was manually annotated for nested biomedical entities across six entity types. The resulting models were applied to 30,128,068 PubMed abstracts and 1,385,500 IID-related PMC full-text articles. A unified IID ontology was developed from 411,341 disease terms using hierarchical text classification, large language model-based refinement, ontology cross-referencing, and expert review, yielding 179,657 confirmed MeSH mappings. The final IID KG contains approximately 1,837,513 unique entities and 16,295,390 unique relations across eight relation types. The resource was released publicly together with repurposing workflows, supporting ontology-aligned literature mining, disease mechanism analysis, and drug-repurposing hypothesis generation for IID research.",
+  "published": "2026-05-26",
+  "authors": [
+    "Pan F",
+    "Zhang Y",
+    "Wang J",
+    "Liu M",
+    "Sui X",
+    "Yue H",
+    "Zhang J."
+  ],
+  "link": "https://doi.org/10.64898/2026.05.21.727015",
+  "doi": "10.64898/2026.05.21.727015",
+  "pdf_url": "",
+  "ai_for_science_score": 0.9,
+  "confidence_score": 0.95,
+  "implementation_score": 0.8,
+  "review_score": 0.7,
+  "benchmark_score": 0.6,
+  "hypothesis_generation_score": 0.9,
+  "scientific_discovery_score": 0.85,
+  "experiment_design_score": 0.5,
+  "material_discovery_score": 0.0,
+  "molecular_design_score": 0.0,
+  "drug_discovery_score": 0.8,
+  "causal_discovery_score": 0.7,
+  "biomedical_discovery_score": 0.9,
+  "idea_development_score": 0.6,
+  "ai_for_science_label": "accept",
+  "ai_for_science_reason": "The paper uses AI methods like large language models and ontology-guided identifier assignment to construct a knowledge graph for biomedical discovery in infectious and immune-mediated diseases.",
+  "implementation_justification": "The paper describes a comprehensive implementation of a knowledge graph using AI methods.",
+  "review_justification": "The paper provides a detailed review of the methods used for constructing the knowledge graph.",
+  "benchmark_justification": "The paper does not explicitly mention benchmarking against other methods.",
+  "hypothesis_generation_justification": "The knowledge graph supports drug-repurposing hypothesis generation.",
+  "scientific_discovery_justification": "The paper contributes to scientific discovery by enabling disease mechanism analysis and hypothesis generation.",
+  "experiment_design_justification": "The paper does not focus on experiment design.",
+  "material_discovery_justification": "The paper does not address material discovery.",
+  "molecular_design_justification": "The paper does not involve molecular design.",
+  "drug_discovery_justification": "The knowledge graph aids in drug-repurposing for infectious and immune-mediated diseases.",
+  "causal_discovery_justification": "The paper supports causal discovery through disease mechanism analysis.",
+  "biomedical_discovery_justification": "The paper significantly contributes to biomedical discovery by integrating AI methods for knowledge extraction.",
+  "idea_development_justification": "The paper provides a foundation for further research and idea development in the field of IIDs.",
+  "science_domains": [
+    "biology",
+    "medicine"
+  ],
+  "ai_methods": [
+    "large language models",
+    "ontology-guided identifier assignment",
+    "relation extraction"
+  ],
+  "exhyte_stages": [
+    "Exploration",
+    "Hypothesis generation"
+  ],
+  "needs_pdf_review": false,
+  "auto_decision": "accept",
+  "auto_selected": true,
+  "selection_source": "llm_auto",
+  "local_pdf_path": "downloaded_pdfs/bioRxiv_F_et_al._2026_IID-KG_An_ontology-aligned_literature-derived_knowledge_graph_for_infectious_and_immune-mediated_diseases.pdf",
+  "pdf_download_status": "manual_pdf",
+  "pdf_download_method": "manual_pdf",
+  "pdf_download_url": "manual_pdfs/bioRxiv_F_et_al._2026_IID-KG_An_ontology-aligned_literature-derived_knowledge_graph_for_infectious_and_immune-mediated_diseases.pdf",
+  "pdf_download_attempted_at": "2026-06-30T17:54:09",
+  "paper_title": "IID-KG: An ontology-aligned literature-derived knowledge graph for infectious and immune-mediated diseases",
+  "summary_extraction_status": "extracted",
+  "summary_json_path": "review_outputs/gpt_paper_items/bioRxiv_F_et_al._2026_IID-KG_An_ontology-aligned_literature-derived_knowledge_graph_for_infectious_and_immune-mediated_diseases.json",
+  "objective": {
+    "answer": "The primary objective of the paper is to construct an IID-specific biomedical knowledge graph from PubMed abstracts and PMC full-text articles, integrating nested named entity recognition, ontology-guided identifier assignment, full-text relation extraction, and relation-resolution strategies.",
+    "evidence": "We constructed an IID-specific biomedical knowledge graph (IID KG) from PubMed abstracts and PMC full-text articles by integrating nested named entity recognition, ontology-guided identifier assignment, full-text relation extraction, and relation-resolution strategies."
+  },
+  "knowledge_gap": {
+    "answer": "The paper addresses the challenge of integrating heterogeneous disease names and synonyms in biomedical literature, which complicates the identification of structured evidence and the generation of testable hypotheses for disease mechanisms and drug repurposing.",
+    "evidence": "For infectious and immune-mediated diseases (IIDs), this growth creates a particularly acute information-integration problem: relevant observations are distributed across millions of PubMed abstracts and full-text articles, use heterogeneous disease names and synonyms, and often describe relationships among diseases, genes, chemicals, variants, species, and cell lines in unstructured language."
+  },
+  "novelty": {
+    "answer": [
+      "Development of a dedicated IID-specific knowledge graph rather than a generic enhancement of an existing graph.",
+      "Creation of a unified IID ontology using hierarchical text classification, LLM-based refinement, ontology cross-referencing, and expert review.",
+      "Integration of ontology-aligned literature mining, disease mechanism analysis, and drug-repurposing hypothesis generation for IID research."
+    ],
+    "evidence": [
+      "The central deliverable of the present work is a dedicated IID-specific KG rather than a generic enhancement of an existing graph.",
+      "A unified IID ontology was developed from 411,341 disease terms using hierarchical text classification, large language model-based refinement, ontology cross-referencing, and expert review.",
+      "The resource was released publicly together with repurposing workflows, supporting ontology-aligned literature mining, disease mechanism analysis, and drug-repurposing hypothesis generation for IID research."
+    ]
+  },
+  "inspirational_papers": {
+    "answer": "- Jin et al. (2024) PubMed and beyond: biomedical literature search in the age of artificial intelligence. (Methodological precursors)\n- Zhang et al. (2025) A comprehensive large-scale biomedical knowledge graph for AI-powered data-driven biomedical research. (Experimental baselines)\n- Luo et al. (2022) BioRED: a rich biomedical relation extraction dataset. (Papers with limitations addressed by this work)",
+    "evidence": "Recent community challenges and biomedical NLP benchmarks have accelerated the development of methods for NER, relation extraction, entity normalization, and end-to-end KG construction. The LitCoin NLP Challenge and BioCreative BioRED tasks established annotation schemas that include common biomedical entity types and relation categories relevant to translational research."
+  },
+  "method": {
+    "steps": [
+      {
+        "step": "Data acquisition and corpus preparation",
+        "input": "PubMed abstracts and PMC full-text articles",
+        "output": "IID-related PubMed abstracts and PMC full-text articles",
+        "evidence": "All available PubMed abstracts up to April 14, 2025 were retrieved, yielding 30,128,068 records. These abstracts were processed using the finalized PubMed NER pipeline and filtered for infectious and immune-mediated disease mentions using the unified IID ontology."
+      },
+      {
+        "step": "Gold-standard nested entity annotation",
+        "input": "500 PubMed abstracts and 8 PMC full-text articles",
+        "output": "Annotated corpus for six biomedical entity types",
+        "evidence": "A gold-standard nested entity corpus was created to support model training, cross-domain evaluation, and full-text adaptation."
+      },
+      {
+        "step": "Nested NER model development and evaluation",
+        "input": "Annotated corpus",
+        "output": "NER models for abstract-level and full-text processing",
+        "evidence": "Two NER configurations were evaluated. The abstract-level model was trained exclusively on the 500 annotated PubMed abstracts to assess in-domain performance and cross-domain transfer to PMC full texts."
+      },
+      {
+        "step": "Relation extraction and relation resolution",
+        "input": "Sentence pairs co-mentioning the same entity pair",
+        "output": "Ontology-aligned relation triples",
+        "evidence": "Relation extraction was performed on sentence pairs co-mentioning the same entity pair. Sentence-level predictions were aggregated for each entity pair, and retained non-NOT relations were prepared for novelty prediction."
+      },
+      {
+        "step": "IID ontology development and disease identifier assignment",
+        "input": "Disease terms from IKraph, PubMed, and PMC NER outputs",
+        "output": "Unified IID ontology with MeSH ID mappings",
+        "evidence": "A unified IID ontology was developed to normalize disease mentions and support consistent integration into the newly constructed IID KG."
+      },
+      {
+        "step": "Knowledge graph construction and downstream demonstration",
+        "input": "Ontology-aligned entities and relation triples",
+        "output": "Standalone IID-specific knowledge graph",
+        "evidence": "Ontology-aligned entities and relation triples extracted from PubMed abstracts and PMC full texts were integrated into a standalone IID-specific knowledge graph."
+      }
+    ],
+    "tools": [
+      {
+        "name": "Insilicom's Text Annotation and Modeling (ITAM) platform",
+        "description": "Used for text navigation, span selection, schema-driven entity type assignment, and visualization of nested or overlapping spans.",
+        "evidence": "Annotation was performed by trained biomedical annotators using Insilicom's Text Annotation and Modeling (ITAM) platform, which supports text navigation, span selection, schema-driven entity type assignment, and visualization of nested or overlapping spans."
+      },
+      {
+        "name": "Hierarchical Text Classification (HTC) model HiDEC",
+        "description": "Used for candidate MeSH identifier assignment.",
+        "evidence": "Candidate MeSH identifiers were assigned using a Hierarchical Text Classification (HTC) model HiDEC trained on MeSH tree nodes."
+      }
+    ],
+    "benchmark_datasets": [
+      {
+        "name": "Europe PMC annotated corpus",
+        "data_description": "Annotated corpus for Disease and Gene entity types",
+        "usage": "Used for external robustness evaluation of NER models",
+        "evidence": "External evaluation on the Europe PMC annotated corpus confirmed robust recognition of Disease and Gene entities across biomedical full-text sections."
+      }
+    ],
+    "evaluation_metrics": [
+      {
+        "name": "F1 score",
+        "purpose": "Measures the balance between precision and recall",
+        "application": "Used to evaluate NER model performance",
+        "evidence": "Performance was measured using true positives, false positives, false negatives, precision, recall, and F1 score."
+      }
+    ]
+  },
+  "method_type": {
+    "methods": [
+      {
+        "name": "Knowledge Extraction and Structurization",
+        "description": "The process of extracting structured knowledge from unstructured text.",
+        "evidence": "Knowledge graphs (KGs) offer a practical framework for converting unstructured biomedical text into computable evidence."
+      },
+      {
+        "name": "Hypothesis or Idea Generation",
+        "description": "Generating testable hypotheses for disease mechanisms, drug repurposing, or target discovery.",
+        "evidence": "The resource was released publicly together with repurposing workflows, supporting ontology-aligned literature mining, disease mechanism analysis, and drug-repurposing hypothesis generation for IID research."
+      }
+    ]
+  },
+  "subject_area": {
+    "areas": [
+      {
+        "name": "Health Sciences",
+        "description": "The paper focuses on infectious and immune-mediated diseases, which are central to health sciences.",
+        "evidence": "Infectious and immune-mediated diseases (IIDs) represent a broad and rapidly expanding biomedical literature domain."
+      },
+      {
+        "name": "Applied Sciences & Engineering",
+        "description": "The development of a knowledge graph involves computational techniques and engineering.",
+        "evidence": "Knowledge graphs (KGs) offer a practical framework for converting unstructured biomedical text into computable evidence."
+      }
+    ]
+  },
+  "performance_summary": {
+    "performance_summary": [
+      {
+        "summary": "The abstract-level NER model achieved an F1 score of 0.8669 on PubMed abstracts and 0.8223 on PMC full-text articles.",
+        "evidence": "The abstract-level model showed strong in-domain performance on PubMed abstracts, with an F1 score of 0.8669. When applied to PMC full-text articles, performance decreased to 0.8223."
+      }
+    ],
+    "baselines": [
+      {
+        "name": "Abstract-level NER model",
+        "description": "Baseline model trained exclusively on PubMed abstracts.",
+        "evidence": "The abstract-level model was trained exclusively on the 500 annotated PubMed abstracts to assess in-domain performance and cross-domain transfer to PMC full texts."
+      }
+    ],
+    "benchmark_datasets": [
+      {
+        "name": "Europe PMC annotated corpus",
+        "data_description": "Annotated corpus for Disease and Gene entity types",
+        "usage": "Used for external robustness evaluation of NER models",
+        "evidence": "External evaluation on the Europe PMC annotated corpus confirmed robust recognition of Disease and Gene entities across biomedical full-text sections."
+      }
+    ],
+    "evaluation_metrics": [
+      {
+        "name": "F1 score",
+        "purpose": "Measures the balance between precision and recall",
+        "application": "Used to evaluate NER model performance",
+        "evidence": "Performance was measured using true positives, false positives, false negatives, precision, recall, and F1 score."
+      }
+    ]
+  },
+  "benchmark_dataset": {
+    "name": "Europe PMC annotated corpus",
+    "description": "Annotated corpus for Disease and Gene entity types",
+    "usage": "Used for external robustness evaluation of NER models",
+    "evidence": "External evaluation on the Europe PMC annotated corpus confirmed robust recognition of Disease and Gene entities across biomedical full-text sections."
+  },
+  "limitations": {
+    "limitations": [
+      {
+        "name": "Limited Full-text Annotation Set",
+        "description": "The gold-standard full-text annotation set was small, consisting of only eight PMC articles, limiting the diversity of full-text structures represented during model adaptation.",
+        "evidence": "The gold-standard full-text annotation set was intentionally high quality but small, consisting of eight PMC articles, which limits the diversity of full-text structures represented during model adaptation."
+      },
+      {
+        "name": "Dependency on Sentence-level Evidence",
+        "description": "Relation extraction remains dependent on sentence-level or sentence-pair evidence, potentially missing relations that require broader discourse-level inference.",
+        "evidence": "Relation extraction remains dependent on sentence-level or sentence-pair evidence, and relations that require broader discourse-level inference may still be missed."
+      }
+    ]
+  },
+  "future_directions": {
+    "future_directions": [
+      {
+        "name": "Expand Full-text Annotation Set",
+        "description": "Future work should expand the full-text annotation set to improve model adaptation and diversity.",
+        "evidence": "Future work should expand the full-text annotation set, improve section-aware modeling, incorporate additional relation types such as hierarchical is_a relations where appropriate, and strengthen continuous update workflows for the released IID KG."
+      },
+      {
+        "name": "Improve Section-aware Modeling",
+        "description": "Enhance the modeling to better handle different sections of full-text articles.",
+        "evidence": "Future work should expand the full-text annotation set, improve section-aware modeling, incorporate additional relation types such as hierarchical is_a relations where appropriate, and strengthen continuous update workflows for the released IID KG."
+      }
+    ]
+  },
+  "resource_link": {
+    "answer": "https://github.com/myinsilicom/IKraph/tree/main/repurposing",
+    "evidence": "The disease-drug repurposing code, including the PSR implementation and example workflows, is available in the IKraph GitHub repository at https://github.com/myinsilicom/IKraph/tree/main/repurposing."
+  }
+}

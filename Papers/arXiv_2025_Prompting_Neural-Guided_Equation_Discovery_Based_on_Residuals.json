@@ -1,0 +1,240 @@
+{
+  "source": "arXiv",
+  "source_id": "2511.05586v1",
+  "title": "Prompting Neural-Guided Equation Discovery Based on Residuals",
+  "abstract": "Neural-guided equation discovery systems use a data set as prompt and predict an equation that describes the data set without extensive search. However, if the equation does not meet the user's expectations, there are few options for getting other equation suggestions without intensive work with the system. To fill this gap, we propose Residuals for Equation Discovery (RED), a post-processing method that improves a given equation in a targeted manner, based on its residuals. By parsing the initial equation to a syntax tree, we can use node-based calculation rules to compute the residual for each subequation of the initial equation. It is then possible to use this residual as new target variable in the original data set and generate a new prompt. If, with the new prompt, the equation discovery system suggests a subequation better than the old subequation on a validation set, we replace the latter by the former. RED is usable with any equation discovery system, is fast to calculate, and is easy to extend for new mathematical operations. In experiments on 53 equations from the Feynman benchmark, we show that it not only helps to improve all tested neural-guided systems, but also all tested classical genetic programming systems.",
+  "published": "2025-11-05T10:24:21Z",
+  "authors": [
+    "Jannis Brugger",
+    "Viktor Pfanschilling",
+    "David Richter",
+    "Mira Mezini",
+    "Stefan Kramer"
+  ],
+  "link": "https://arxiv.org/abs/2511.05586v1",
+  "doi": "",
+  "pdf_url": "https://arxiv.org/pdf/2511.05586v1.pdf",
+  "ai_for_science_score": 0.9,
+  "confidence_score": 0.95,
+  "implementation_score": 0.8,
+  "review_score": 0.85,
+  "benchmark_score": 0.9,
+  "hypothesis_generation_score": 0.9,
+  "scientific_discovery_score": 0.85,
+  "experiment_design_score": 0.7,
+  "material_discovery_score": 0.0,
+  "molecular_design_score": 0.0,
+  "drug_discovery_score": 0.0,
+  "causal_discovery_score": 0.75,
+  "biomedical_discovery_score": 0.0,
+  "idea_development_score": 0.8,
+  "ai_for_science_label": "accept",
+  "ai_for_science_reason": "The paper presents a method that uses AI for equation discovery, which is a scientific discovery process.",
+  "implementation_justification": "The method is described as fast and easy to extend, indicating a practical implementation.",
+  "review_justification": "The paper includes experiments on a well-known benchmark, suggesting thorough evaluation.",
+  "benchmark_justification": "The method was tested on 53 equations from the Feynman benchmark.",
+  "hypothesis_generation_justification": "The method aids in generating new equations based on residuals.",
+  "scientific_discovery_justification": "The approach enhances equation discovery, a key part of scientific discovery.",
+  "experiment_design_justification": "The method indirectly supports experiment design by improving equation suggestions.",
+  "material_discovery_justification": "The paper does not focus on material discovery.",
+  "molecular_design_justification": "The paper does not address molecular design.",
+  "drug_discovery_justification": "The paper does not pertain to drug discovery.",
+  "causal_discovery_justification": "Improving equations can aid in understanding causal relationships.",
+  "biomedical_discovery_justification": "The paper does not relate to biomedical discovery.",
+  "idea_development_justification": "The method supports the development of new ideas by refining equations.",
+  "science_domains": [
+    "physics",
+    "mathematics"
+  ],
+  "ai_methods": [
+    "neural-guided systems",
+    "genetic programming"
+  ],
+  "exhyte_stages": [
+    "Hypothesis generation",
+    "Testing"
+  ],
+  "needs_pdf_review": false,
+  "auto_decision": "accept",
+  "auto_selected": true,
+  "selection_source": "llm_auto",
+  "pdf_download_attempted_at": "2026-06-30T06:25:05",
+  "local_pdf_path": "downloaded_pdfs/arXiv_Brugger_et_al._2025_Prompting_Neural-Guided_Equation_Discovery_Based_on_Residuals.pdf",
+  "pdf_download_status": "already_exists",
+  "pdf_download_method": "direct pdf_url",
+  "pdf_download_url": "https://arxiv.org/pdf/2511.05586v1",
+  "extraction_source_type": "pdf",
+  "paper_title": "Prompting Neural-Guided Equation Discovery Based on Residuals",
+  "summary_extraction_status": "extracted",
+  "summary_json_path": "review_outputs/gpt_paper_items/arXiv_Brugger_et_al._2025_Prompting_Neural-Guided_Equation_Discovery_Based_on_Residuals.json",
+  "objective": {
+    "answer": "The primary objective of the paper is to propose Residuals for Equation Discovery (RED), a post-processing method that improves a given equation in a targeted manner based on its residuals. The authors aim to enhance neural-guided equation discovery systems by calculating and optimizing residuals to refine initial equations.",
+    "evidence": "To fill this gap, we propose Residuals for Equation Discovery (RED), a post-processing method that improves a given equation in a targeted manner, based on its residuals."
+  },
+  "knowledge_gap": {
+    "answer": "There is a lack of efficient methods to refine equations suggested by neural-guided equation discovery systems when the initial equation does not meet user expectations.",
+    "evidence": "However, if the equation does not meet the user’s expectations, there are few options for getting other equation suggestions without intensive work with the system."
+  },
+  "novelty": {
+    "answer": [
+      "RED introduces a method to calculate and optimize residuals for subequations of an initial equation, allowing for targeted improvements.",
+      "The method is applicable to any equation discovery system and is designed to be fast and extendable for new mathematical operations."
+    ],
+    "evidence": [
+      "By parsing the initial equation to a syntax tree, we can use node-based calculation rules to compute the residual for each subequation of the initial equation.",
+      "RED is usable with any equation discovery system, is fast to calculate, and is easy to extend for new mathematical operations."
+    ]
+  },
+  "inspirational_papers": {
+    "answer": "- Udrescu and Tegmark (2020) AI Feynman: A physics-inspired method for symbolic regression. (Experimental baselines)",
+    "evidence": "We compare RED for five EDSs with six other post-processing methods on the Feynman benchmark [21] as reported in SRBench [4]."
+  },
+  "method": {
+    "steps": [
+      {
+        "step": "Parse the initial equation into a syntax tree.",
+        "input": "Initial equation",
+        "output": "Syntax tree representation of the equation",
+        "evidence": "To explain how RED works, we first introduce the concept of syntax trees to represent an equation f."
+      },
+      {
+        "step": "Calculate residuals for each node in the syntax tree.",
+        "input": "Syntax tree",
+        "output": "Residuals for each subequation",
+        "evidence": "We can use the idea of an equation system to calculate the residuals for any node in the syntax tree."
+      },
+      {
+        "step": "Use residuals to generate a new prompt for the equation discovery system.",
+        "input": "Residuals",
+        "output": "New prompt for EDS",
+        "evidence": "RED uses residuals to generate a new prompt for an EDS and recursively improve an initial equation."
+      },
+      {
+        "step": "Evaluate the new subequation on a validation set and replace if it improves the initial equation.",
+        "input": "New subequation, validation set",
+        "output": "Updated equation if improvement is found",
+        "evidence": "If the new solution’s error is lower than that of the old solution, the new solution can replace X in the original equation."
+      }
+    ],
+    "tools": [
+      {
+        "name": "Equation Discovery System (EDS)",
+        "description": "Used to predict equations based on data and residuals.",
+        "evidence": "RED can be combined with every Equation Discovery System (EDS)."
+      }
+    ],
+    "benchmark_datasets": [
+      {
+        "name": "Feynman benchmark",
+        "data_description": "A set of equations used for testing symbolic regression methods.",
+        "usage": "Used to evaluate the performance of RED and other post-processing methods.",
+        "evidence": "We compare RED for five EDSs with six other post-processing methods on the Feynman benchmark [21] as reported in SRBench [4]."
+      }
+    ],
+    "evaluation_metrics": [
+      {
+        "name": "Mean Squared Error (MSE)",
+        "purpose": "Measures the average squared difference between estimated and actual values.",
+        "application": "Used to evaluate the accuracy of equations predicted by post-processing methods.",
+        "evidence": "We use the MSE as the test metric."
+      }
+    ]
+  },
+  "method_type": {
+    "methods": [
+      {
+        "name": "Transformation/structurization of user input",
+        "description": "The method involves transforming the initial equation into a syntax tree for further processing.",
+        "evidence": "To explain how RED works, we first introduce the concept of syntax trees to represent an equation f."
+      },
+      {
+        "name": "Iterative refinement of Ideas, Hypothesis and Experiment design",
+        "description": "The method iteratively refines the initial equation using residuals to improve its accuracy.",
+        "evidence": "RED uses residuals to generate a new prompt for an EDS and recursively improve an initial equation."
+      }
+    ]
+  },
+  "subject_area": {
+    "areas": [
+      {
+        "name": "Applied Sciences & Engineering",
+        "description": "The paper focuses on improving equation discovery systems, which are applicable in various engineering and applied science domains.",
+        "evidence": "Neural-guided equation discovery systems use a data set as prompt and predict an equation that describes the data set without extensive search."
+      }
+    ]
+  },
+  "performance_summary": {
+    "performance_summary": [
+      {
+        "summary": "RED improves the performance of all tested equation discovery systems, showing significant improvements in accuracy.",
+        "evidence": "In experiments with two benchmarks, we demonstrated that RED improves all equation discovery systems that we tested (R2)."
+      }
+    ],
+    "baselines": [
+      {
+        "name": "Classic",
+        "description": "The EDS is applied once with the default parameter on the data set.",
+        "evidence": "Classic: The EDS is applied once with the default parameter on the data set."
+      },
+      {
+        "name": "Permute",
+        "description": "The EDS is applied multiple times on permuted data sets.",
+        "evidence": "Permute: The EDS is applied n-times on the permuted data set."
+      }
+    ],
+    "benchmark_datasets": [
+      {
+        "name": "Feynman benchmark",
+        "data_description": "A set of equations used for testing symbolic regression methods.",
+        "usage": "Used to evaluate the performance of RED and other post-processing methods.",
+        "evidence": "We compare RED for five EDSs with six other post-processing methods on the Feynman benchmark [21] as reported in SRBench [4]."
+      }
+    ],
+    "evaluation_metrics": [
+      {
+        "name": "Mean Squared Error (MSE)",
+        "purpose": "Measures the average squared difference between estimated and actual values.",
+        "application": "Used to evaluate the accuracy of equations predicted by post-processing methods.",
+        "evidence": "We use the MSE as the test metric."
+      }
+    ]
+  },
+  "benchmark_dataset": {
+    "name": "Feynman benchmark",
+    "description": "A set of equations used for testing symbolic regression methods.",
+    "usage": "Used to evaluate the performance of RED and other post-processing methods.",
+    "evidence": "We compare RED for five EDSs with six other post-processing methods on the Feynman benchmark [21] as reported in SRBench [4]."
+  },
+  "limitations": {
+    "limitations": [
+      {
+        "name": "Dependency on Initial Solution",
+        "description": "RED depends on an initial solution that enables disentanglement, which may limit its effectiveness if the initial solution is poor.",
+        "evidence": "While RED is independent of the functionality of the pretrained EDS, it depends on an initial solution, which has to enable the disentanglement."
+      },
+      {
+        "name": "Increased Equation Complexity",
+        "description": "RED tends to produce longer and more complex equations, which may not always be desirable.",
+        "evidence": "The second challenge is that RED leads to longer and thus more complex equations."
+      }
+    ]
+  },
+  "future_directions": {
+    "future_directions": [
+      {
+        "name": "Improve Search Strategy",
+        "description": "Develop an optimized search strategy to reduce the complexity of equations generated by RED.",
+        "evidence": "We want to improve the search in future research to tackle this issue."
+      },
+      {
+        "name": "Parallel Search and Dynamic Ranking",
+        "description": "Implement parallel search and dynamic ranking to achieve improvements within the same running time.",
+        "evidence": "A parallel search combined with a dynamic ranking will achieve improvements within the same running time."
+      }
+    ]
+  },
+  "resource_link": {
+    "answer": "https://anonymous.4open.science/r/RED-Residuals-for-Equation-Discovery-02C3/",
+    "evidence": "Code is available: https://anonymous.4open.science/r/RED-Residuals-for-Equation-Discovery-02C3/"
+  }
+}

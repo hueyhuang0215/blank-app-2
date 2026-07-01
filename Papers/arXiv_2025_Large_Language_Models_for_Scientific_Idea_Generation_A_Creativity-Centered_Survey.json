@@ -1,0 +1,196 @@
+{
+  "source": "arXiv",
+  "source_id": "2511.07448v2",
+  "title": "Large Language Models for Scientific Idea Generation: A Creativity-Centered Survey",
+  "abstract": "Scientific idea generation is central to discovery, requiring the joint satisfaction of novelty and scientific soundness. Unlike standard reasoning or general creative generation, scientific ideation is inherently open-ended and multi-objective, making its automation particularly challenging. Recent advances in large language models (LLMs) have enabled the generation of coherent and plausible scientific ideas, yet the nature and limits of their creative capabilities remain poorly understood. This survey provides a structured synthesis of methods for LLM-driven scientific ideation, focusing on how different approaches trade off novelty and scientific validity. We organize existing methods into five complementary families: External knowledge augmentation, Prompt-based distributional steering, Inference-time scaling, Multi-agent collaboration, and Parameter-level adaptation. To interpret their contributions, we adopt two complementary creativity frameworks: Boden taxonomy to characterize the expected level of creative novelty, and Rhodes 4Ps framework to analyze the aspects or sources of creativity emphasized by each method. By aligning methodological developments with cognitive creativity frameworks, this survey clarifies the evaluation landscape and identifies key challenges and directions for reliable and systematic LLM-based scientific discovery.",
+  "published": "2025-11-05T07:50:43Z",
+  "authors": [
+    "Fatemeh Shahhosseini",
+    "Arash Marioriyad",
+    "Ali Momen",
+    "Mahdieh Soleymani Baghshah",
+    "Mohammad Hossein Rohban",
+    "Shaghayegh Haghjooy Javanmard"
+  ],
+  "link": "https://arxiv.org/abs/2511.07448v2",
+  "doi": "",
+  "pdf_url": "https://arxiv.org/pdf/2511.07448v2.pdf",
+  "ai_for_science_score": 0.8,
+  "confidence_score": 0.9,
+  "implementation_score": 0.5,
+  "review_score": 0.9,
+  "benchmark_score": 0.4,
+  "hypothesis_generation_score": 0.8,
+  "scientific_discovery_score": 0.7,
+  "experiment_design_score": 0.3,
+  "material_discovery_score": 0.2,
+  "molecular_design_score": 0.2,
+  "drug_discovery_score": 0.2,
+  "causal_discovery_score": 0.3,
+  "biomedical_discovery_score": 0.3,
+  "idea_development_score": 0.9,
+  "ai_for_science_label": "accept",
+  "ai_for_science_reason": "The paper discusses the use of LLMs for scientific idea generation, which is a key part of scientific discovery.",
+  "implementation_justification": "The paper is a survey and does not focus on implementation details.",
+  "review_justification": "The paper provides a comprehensive review of LLM methods for scientific ideation.",
+  "benchmark_justification": "The paper does not provide specific benchmarks but discusses evaluation frameworks.",
+  "hypothesis_generation_justification": "The focus is on generating scientific ideas, which aligns with hypothesis generation.",
+  "scientific_discovery_justification": "The paper contributes to understanding how LLMs can aid in scientific discovery.",
+  "experiment_design_justification": "The paper does not directly address experiment design.",
+  "material_discovery_justification": "Material discovery is not a focus of this paper.",
+  "molecular_design_justification": "Molecular design is not specifically addressed in the paper.",
+  "drug_discovery_justification": "Drug discovery is not a focus of this paper.",
+  "causal_discovery_justification": "Causal discovery is not directly addressed but could be an indirect benefit.",
+  "biomedical_discovery_justification": "Biomedical discovery is not specifically addressed in the paper.",
+  "idea_development_justification": "The paper focuses on the development of scientific ideas using LLMs.",
+  "science_domains": [
+    "scientific discovery"
+  ],
+  "ai_methods": [
+    "Large Language Models",
+    "Multi-agent collaboration",
+    "Parameter-level adaptation"
+  ],
+  "exhyte_stages": [
+    "Hypothesis generation"
+  ],
+  "needs_pdf_review": false,
+  "auto_decision": "accept",
+  "auto_selected": true,
+  "selection_source": "llm_auto",
+  "pdf_download_attempted_at": "2026-06-30T06:25:09",
+  "local_pdf_path": "downloaded_pdfs/arXiv_Shahhosseini_et_al._2025_Large_Language_Models_for_Scientific_Idea_Generation_A_Creativity-Centered_Survey.pdf",
+  "pdf_download_status": "already_exists",
+  "pdf_download_method": "direct pdf_url",
+  "pdf_download_url": "https://arxiv.org/pdf/2511.07448v2",
+  "extraction_source_type": "pdf",
+  "paper_title": "Large Language Models for Scientific Idea Generation: A Creativity-Centered Survey",
+  "summary_extraction_status": "extracted",
+  "summary_json_path": "review_outputs/gpt_paper_items/arXiv_Shahhosseini_et_al._2025_Large_Language_Models_for_Scientific_Idea_Generation_A_Creativity-Centered_Survey.json",
+  "objective": {
+    "answer": "The primary objective of the paper is to provide a structured synthesis of methods for large language model (LLM)-driven scientific ideation, focusing on how different approaches trade off novelty and scientific validity.",
+    "evidence": "This survey provides a structured synthesis of methods for LLM-driven scientific ideation, focusing on how different approaches trade off novelty and scientific validity."
+  },
+  "knowledge_gap": {
+    "answer": "The paper addresses the gap in understanding the creative capabilities of large language models (LLMs) in scientific idea generation, particularly the balance between novelty and scientific soundness.",
+    "evidence": "Recent advances in large language models (LLMs) have enabled the generation of coherent and plausible scientific ideas, yet the nature and limits of their creative capabilities remain poorly understood."
+  },
+  "novelty": {
+    "answer": [
+      "The paper organizes existing methods into five complementary families for LLM-driven scientific ideation.",
+      "It adopts two complementary creativity frameworks: Boden’s taxonomy and Rhodes’ 4Ps framework, to interpret contributions.",
+      "The survey clarifies the evaluation landscape and identifies key challenges and directions for reliable and systematic LLM-based scientific discovery."
+    ],
+    "evidence": [
+      "We organize existing methods into five complementary families: External knowledge augmentation, Prompt-based distributional steering, Inference-time scaling, Multi-agent collaboration, and Parameter-level adaptation.",
+      "To interpret their contributions, we adopt two complementary creativity frameworks: Boden’s taxonomy to characterize the expected level of creative novelty, and Rhodes’ 4Ps framework to analyze the aspects or sources of creativity emphasized by each method.",
+      "By aligning methodological developments with cognitive creativity frameworks, this survey clarifies the evaluation landscape and identifies key challenges and directions for reliable and systematic LLM-based scientific discovery."
+    ]
+  },
+  "inspirational_papers": {
+    "answer": "- Wei et al. (2022) Techniques such as Chain-of-Thought prompting inspired structured reasoning methods. (Methodological precursors)\n- Wang et al. (2023c) Self-Consistency decoding methods were used to enhance structured reasoning. (Methodological precursors)\n- Yao et al. (2023) Tree-of-Thoughts methods were used to enhance structured reasoning. (Methodological precursors)\n- Madaan et al. (2023) Iterative refinement methods like Self-Refine were used to enhance structured reasoning. (Methodological precursors)",
+    "evidence": "Techniques such as Chain-of-Thought prompting (Wei et al., 2022), Self-Consistency decoding (Wang et al., 2023c), Tree-of-Thoughts (Yao et al., 2023), and iterative refinement methods like Self-Refine (Madaan et al., 2023) enhance structured reasoning."
+  },
+  "method": {
+    "steps": [
+      {
+        "step": "Organize existing methods into five complementary families.",
+        "input": "Existing methods for LLM-driven scientific ideation.",
+        "output": "Five complementary families: External knowledge augmentation, Prompt-based distributional steering, Inference-time scaling, Multi-agent collaboration, and Parameter-level adaptation.",
+        "evidence": "We organize existing methods into five complementary families: External knowledge augmentation, Prompt-based distributional steering, Inference-time scaling, Multi-agent collaboration, and Parameter-level adaptation."
+      },
+      {
+        "step": "Adopt creativity frameworks to interpret contributions.",
+        "input": "Boden’s taxonomy and Rhodes’ 4Ps framework.",
+        "output": "Interpretation of contributions in terms of creative novelty and creativity sources.",
+        "evidence": "To interpret their contributions, we adopt two complementary creativity frameworks: Boden’s taxonomy to characterize the expected level of creative novelty, and Rhodes’ 4Ps framework to analyze the aspects or sources of creativity emphasized by each method."
+      }
+    ],
+    "tools": [
+      {
+        "name": "Chain-of-Thought prompting",
+        "description": "Used to enhance structured reasoning in LLMs.",
+        "evidence": "Techniques such as Chain-of-Thought prompting (Wei et al., 2022) enhance structured reasoning."
+      },
+      {
+        "name": "Self-Consistency decoding",
+        "description": "Used to enhance structured reasoning in LLMs.",
+        "evidence": "Self-Consistency decoding (Wang et al., 2023c) enhances structured reasoning."
+      }
+    ],
+    "benchmark_datasets": [],
+    "evaluation_metrics": []
+  },
+  "method_type": {
+    "methods": [
+      {
+        "name": "Hypothesis or Idea Generation",
+        "description": "The system produces candidate hypotheses or new research ideas from prior knowledge or external input.",
+        "evidence": "Scientific idea generation is central to discovery, requiring the joint satisfaction of novelty and scientific soundness."
+      },
+      {
+        "name": "Experimental design generation",
+        "description": "The approach includes producing experimental protocols, configurations, or evaluation strategies.",
+        "evidence": "We outline open directions in Section 9. Current methods tend to remain at the combinatorial or exploratory level, with transformational creativity still elusive."
+      }
+    ]
+  },
+  "subject_area": {
+    "areas": [
+      {
+        "name": "Applied Sciences & Engineering",
+        "description": "The paper discusses methods for LLM-driven scientific ideation, which can be applied to engineering and technology fields.",
+        "evidence": "Recent advances in large language models (LLMs) offer an unprecedented opportunity to augment this process."
+      },
+      {
+        "name": "Social Sciences",
+        "description": "The paper explores creativity frameworks and cognitive dimensions, relevant to social sciences.",
+        "evidence": "In cognitive science, this ability is captured by creativity, which defines as requiring two jointly necessary components: novelty and valueness."
+      }
+    ]
+  },
+  "performance_summary": {
+    "performance_summary": [
+      {
+        "summary": "The survey identifies key challenges and directions for reliable and systematic LLM-based scientific discovery.",
+        "evidence": "By aligning methodological developments with cognitive creativity frameworks, this survey clarifies the evaluation landscape and identifies key challenges and directions for reliable and systematic LLM-based scientific discovery."
+      }
+    ],
+    "baselines": [],
+    "benchmark_datasets": [],
+    "evaluation_metrics": []
+  },
+  "benchmark_dataset": null,
+  "limitations": {
+    "limitations": [
+      {
+        "name": "Limited Novelty Exploration",
+        "description": "Efforts explicitly targeting novelty remain more limited and domain-dependent.",
+        "evidence": "In contrast, efforts explicitly targeting novelty remain more limited and domain-dependent."
+      },
+      {
+        "name": "Reliance on Retrieved Content",
+        "description": "Heavy reliance on retrieved content can bias ideas toward well-represented clusters.",
+        "evidence": "Despite these advances, heavy reliance on retrieved content can bias ideas toward well-represented clusters, reinforcing conservative or incremental thinking rather than encouraging novelty."
+      }
+    ]
+  },
+  "future_directions": {
+    "future_directions": [
+      {
+        "name": "Explore Transformational Creativity",
+        "description": "Current methods tend to remain at the combinatorial or exploratory level, with transformational creativity still elusive.",
+        "evidence": "Current methods tend to remain at the combinatorial or exploratory level, with transformational creativity still elusive."
+      },
+      {
+        "name": "Develop Standardized Metrics",
+        "description": "Address the lack of standardized metrics and benchmarks for evaluating generated scientific ideas.",
+        "evidence": "On the product side, the lack of standardized metrics and benchmarks for evaluating generated scientific ideas leaves creativity assessment vague and subjective."
+      }
+    ]
+  },
+  "resource_link": {
+    "answer": "https://openreview.net/forum?id=9lWojZKMjt",
+    "evidence": "Reviewed on OpenReview: https://openreview.net/forum?id=9lWojZKMjt"
+  }
+}

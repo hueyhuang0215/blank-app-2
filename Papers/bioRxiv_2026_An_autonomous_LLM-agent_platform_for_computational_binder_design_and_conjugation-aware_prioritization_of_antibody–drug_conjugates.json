@@ -1,0 +1,254 @@
+{
+  "source": "bioRxiv",
+  "source_id": "PPR1213526",
+  "title": "An autonomous LLM-agent platform for computational binder design and conjugation-aware prioritization of antibody–drug conjugates",
+  "abstract": "Large language model (LLM) agents have automated tool use in chemistry, but orchestrating multi-step computational biology workflows—spanning structure prediction, protein design, and covalent conjugation—remains manually intensive. Here we present Open Intelligence Hub (OIH), an autonomous LLM-agent platform that dynamically plans and executes 32 containerised tools for protein binder design and antibody–drug conjugate (ADC) prioritization. OIH introduces tier-based decision routing, ipSAE-guided interface filtering, and failure-to-knowledge distillation from 265 curated cases. Across five oncology targets, the agent correctly classified all five evaluated targets and required human correction for hotspot selection in only one case, producing binders ranked by ipSAE (Nectin-4 ipTM = 0.87, HER2 ipTM = 0.85). A controlled ablation suggests that the agent’s PPI-informed routing yields improved downstream ipTM and ipSAE scores than epitope-guided alternatives. The LLM-agnostic architecture enables deployment with local or commercial models without pipeline changes. All results are computational predictions awaiting experimental validation.",
+  "published": "2026-04-23",
+  "authors": [
+    "Liu G",
+    "He M",
+    "Sun L",
+    "Chen F",
+    "Zhang Y."
+  ],
+  "link": "https://doi.org/10.64898/2026.04.21.719907",
+  "doi": "10.64898/2026.04.21.719907",
+  "pdf_url": "",
+  "ai_for_science_score": 0.95,
+  "confidence_score": 0.9,
+  "implementation_score": 0.9,
+  "review_score": 0.85,
+  "benchmark_score": 0.8,
+  "hypothesis_generation_score": 0.9,
+  "scientific_discovery_score": 0.95,
+  "experiment_design_score": 0.85,
+  "material_discovery_score": 0.7,
+  "molecular_design_score": 0.95,
+  "drug_discovery_score": 0.9,
+  "causal_discovery_score": 0.6,
+  "biomedical_discovery_score": 0.9,
+  "idea_development_score": 0.8,
+  "ai_for_science_label": "accept",
+  "ai_for_science_reason": "The paper presents an AI-driven platform for protein binder design and ADC prioritization, directly contributing to scientific discovery in computational biology and chemistry.",
+  "implementation_justification": "The platform effectively integrates multiple AI tools for a complex scientific workflow.",
+  "review_justification": "The paper provides detailed results and a controlled ablation study.",
+  "benchmark_justification": "The platform's performance is compared against alternative methods, showing improved scores.",
+  "hypothesis_generation_justification": "The platform aids in generating hypotheses for ADC prioritization.",
+  "scientific_discovery_justification": "The AI platform actively contributes to the discovery process in oncology targets.",
+  "experiment_design_justification": "The platform automates multi-step workflows, enhancing experiment design.",
+  "material_discovery_justification": "While not the primary focus, the platform's design capabilities may aid material discovery.",
+  "molecular_design_justification": "The platform is specifically designed for protein binder and ADC molecular design.",
+  "drug_discovery_justification": "The platform prioritizes antibody-drug conjugates, directly impacting drug discovery.",
+  "causal_discovery_justification": "Causal discovery is not a primary focus but may be indirectly supported through hypothesis testing.",
+  "biomedical_discovery_justification": "The platform's application to oncology targets supports biomedical discovery.",
+  "idea_development_justification": "The platform facilitates idea development through automated reasoning and workflow execution.",
+  "science_domains": [
+    "biology",
+    "chemistry",
+    "medicine"
+  ],
+  "ai_methods": [
+    "LLM agents",
+    "automated reasoning",
+    "scientific workflow automation"
+  ],
+  "exhyte_stages": [
+    "Exploration",
+    "Hypothesis generation",
+    "Testing"
+  ],
+  "needs_pdf_review": false,
+  "auto_decision": "accept",
+  "auto_selected": true,
+  "selection_source": "llm_auto",
+  "local_pdf_path": "downloaded_pdfs/bioRxiv_G_et_al._2026_An_autonomous_LLM-agent_platform_for_computational_binder_design_and_conjugation-aware_prioritization_of_antibody–drug_conjugates.pdf",
+  "pdf_download_status": "manual_pdf",
+  "pdf_download_method": "manual_pdf",
+  "pdf_download_url": "manual_pdfs/bioRxiv_G_et_al._2026_An_autonomous_LLM-agent_platform_for_computational_binder_design_and_conjugation-aware_prioritization_of_antibody–drug_conjugates.pdf",
+  "pdf_download_attempted_at": "2026-06-30T17:54:09",
+  "paper_title": "An autonomous LLM-agent platform for computational binder design and conjugation-aware prioritization of antibody–drug conjugates",
+  "summary_extraction_status": "extracted",
+  "summary_json_path": "review_outputs/gpt_paper_items/bioRxiv_G_et_al._2026_An_autonomous_LLM-agent_platform_for_computational_binder_design_and_conjugation-aware_prioritization_of_antibody_drug_conjugates.json",
+  "objective": {
+    "answer": "The primary objective of the paper is to present Open Intelligence Hub (OIH), an autonomous LLM-agent platform that dynamically plans and executes containerized tools for protein binder design and antibody-drug conjugate prioritization.",
+    "evidence": "Here we present Open Intelligence Hub (OIH), an autonomous LLM-agent platform that dynamically plans and executes 32 containerised tools for protein binder design and antibody–drug conjugate (ADC) prioritization."
+  },
+  "knowledge_gap": {
+    "answer": "The paper addresses the gap in automating multi-step computational biology workflows, which remain manually intensive, especially in the context of protein binder design and covalent conjugation.",
+    "evidence": "Large language model (LLM) agents have automated tool use in chemistry, but orchestrating multi-step computational biology workflows—spanning structure prediction, protein design, and covalent conjugation—remains manually intensive."
+  },
+  "novelty": {
+    "answer": [
+      "Introduction of a tier-based decision routing framework for selecting hotspot prediction methods based on structural priors.",
+      "Development of a failure-to-knowledge distillation mechanism that converts execution failures into reusable agent context without model retraining.",
+      "Implementation of an empirical evaluation quantifying how agent-level upstream decisions propagate to downstream design quality."
+    ],
+    "evidence": [
+      "We make three methodological contributions: (1) a tier-based decision routing framework that selects hotspot prediction methods based on structural priors; (2) a failure-to-knowledge distillation mechanism that converts execution failures into reusable agent context without model retraining; and (3) an empirical evaluation quantifying how agent-level upstream decisions propagate to downstream design quality."
+    ]
+  },
+  "inspirational_papers": {
+    "answer": "- Bran et al. (2024) Augmenting large language models with chemistry tools. (Methodological precursors)\n- Ye et al. (2025) LIDDiA: language-based intelligent drug discovery agent. (Methodological precursors)\n- Huang et al. (2025) DrugAgent: automating AI-aided drug discovery programming through LLM multi-agent collaboration. (Methodological precursors)",
+    "evidence": "In chemistry, ChemCrow12 demonstrated that GPT-4 with 18 tools could plan small-molecule synthesis; LIDDiA13 and DrugAgent14 extended this to ligand-based drug discovery."
+  },
+  "method": {
+    "steps": [
+      {
+        "step": "Dynamic orchestration of tools for protein binder design and ADC prioritization.",
+        "input": "Target protein name in natural language.",
+        "output": "Execution of the full binder design and conjugation-aware prioritization pipeline.",
+        "evidence": "Here we present OIH, an autonomous agent platform that accepts a target protein name in natural language and dynamically orchestrates 32 containerised tools across 15 Docker containers to execute the full binder design and conjugation-aware prioritization pipeline."
+      },
+      {
+        "step": "Tier-based decision routing for hotspot selection.",
+        "input": "Target classification by structural information.",
+        "output": "Selection of hotspot prediction methods.",
+        "evidence": "We implemented a two-tier routing system (Fig. 2a). Tier 1 (structure-guided): targets with co-crystal structures; Tier 2 (prediction-guided): targets without co-crystal data."
+      },
+      {
+        "step": "Failure-to-knowledge distillation.",
+        "input": "265 execution failures.",
+        "output": "Reusable agent context.",
+        "evidence": "A failure-to-knowledge distillation scheme that converts 265 execution failures into reusable agent context."
+      }
+    ],
+    "tools": [
+      {
+        "name": "AlphaFold 3",
+        "description": "Used for structural validation.",
+        "evidence": "AlphaFold 323 validates complexes with num_seeds = 3, num_recycles = 3."
+      },
+      {
+        "name": "RFdiffusion",
+        "description": "Generates backbone scaffolds conditioned on hotspot residues.",
+        "evidence": "RFdiffusion v16 generates backbone scaffolds (70–120 residues) conditioned on hotspot residues."
+      },
+      {
+        "name": "ProteinMPNN",
+        "description": "Designs sequences for the binder chain.",
+        "evidence": "ProteinMPNN7 designs sequences for the binder chain."
+      }
+    ],
+    "benchmark_datasets": [],
+    "evaluation_metrics": [
+      {
+        "name": "ipTM",
+        "purpose": "Measures the interface prediction score.",
+        "application": "Used to evaluate the quality of binder designs.",
+        "evidence": "The strongest result was Nectin-4 (Tier 2): ipTM = 0.87, ipSAE = 0.68, pDockQ2 = 0.76 for a 99-amino-acid binder."
+      },
+      {
+        "name": "ipSAE",
+        "purpose": "Detects designs lacking genuine interface contacts.",
+        "application": "Used as an automated quality gate.",
+        "evidence": "We further introduce ipSAE, a recently proposed interface metric, as an automated quality gate that detects designs lacking genuine interface contacts—a failure mode invisible to the standard ipTM score."
+      }
+    ]
+  },
+  "method_type": {
+    "methods": [
+      {
+        "name": "Experimental design generation",
+        "description": "The approach includes producing experimental protocols, configurations, or evaluation strategies.",
+        "evidence": "The experimental design—target selection, tier logic, thresholds, and ablation design—was performed by the researchers."
+      },
+      {
+        "name": "Iterative refinement of Ideas, Hypothesis and Experiment design",
+        "description": "The system iteratively refines its approach based on feedback or results.",
+        "evidence": "A failure-to-knowledge distillation scheme that converts 265 execution failures into reusable agent context."
+      }
+    ]
+  },
+  "subject_area": {
+    "areas": [
+      {
+        "name": "Biological Sciences",
+        "description": "The paper focuses on protein binder design and antibody-drug conjugate prioritization.",
+        "evidence": "Here we present Open Intelligence Hub (OIH), an autonomous LLM-agent platform that dynamically plans and executes 32 containerised tools for protein binder design and antibody–drug conjugate (ADC) prioritization."
+      },
+      {
+        "name": "Applied Sciences & Engineering",
+        "description": "The paper develops an autonomous platform for orchestrating computational biology workflows.",
+        "evidence": "OIH suggests that an LLM agent can orchestrate complex, multi-tool computational biology workflows that previously required days of expert intervention per target."
+      }
+    ]
+  },
+  "performance_summary": {
+    "performance_summary": [
+      {
+        "summary": "The agent correctly classified all five evaluated targets and required human correction for hotspot selection in only one case, producing binders ranked by ipSAE.",
+        "evidence": "Across five oncology targets, the agent correctly classified all five evaluated targets and required human correction for hotspot selection in only one case, producing binders ranked by ipSAE (Nectin-4 ipTM = 0.87, HER2 ipTM = 0.85)."
+      }
+    ],
+    "baselines": [
+      {
+        "name": "AlphaFold 3",
+        "description": "Used for structural validation and comparison.",
+        "evidence": "AlphaFold 323 validates complexes with num_seeds = 3, num_recycles = 3."
+      }
+    ],
+    "benchmark_datasets": "Not reported in the paper",
+    "evaluation_metrics": [
+      {
+        "name": "ipTM",
+        "purpose": "Measures the interface prediction score.",
+        "application": "Used to evaluate the quality of binder designs.",
+        "evidence": "The strongest result was Nectin-4 (Tier 2): ipTM = 0.87, ipSAE = 0.68, pDockQ2 = 0.76 for a 99-amino-acid binder."
+      },
+      {
+        "name": "ipSAE",
+        "purpose": "Detects designs lacking genuine interface contacts.",
+        "application": "Used as an automated quality gate.",
+        "evidence": "We further introduce ipSAE, a recently proposed interface metric, as an automated quality gate that detects designs lacking genuine interface contacts—a failure mode invisible to the standard ipTM score."
+      }
+    ]
+  },
+  "benchmark_dataset": null,
+  "limitations": {
+    "limitations": [
+      {
+        "name": "Computational Predictions Only",
+        "description": "All results are computational predictions and require biophysical validation.",
+        "evidence": "All results are computational predictions; biophysical validation (SPR, BLI) is required."
+      },
+      {
+        "name": "Limited Reasoning Capability",
+        "description": "The use of Qwen3-14B limits reasoning compared to larger models.",
+        "evidence": "We use Qwen3-14B as a deliberate trade-off: local execution ensures data privacy but limits reasoning compared to larger models."
+      },
+      {
+        "name": "Sample Size Limitation",
+        "description": "Sample sizes per target are small, precluding statistical testing.",
+        "evidence": "Sample sizes (5–8 per target) preclude statistical testing."
+      }
+    ]
+  },
+  "future_directions": {
+    "future_directions": [
+      {
+        "name": "Migration to RFdiffusion321 and BindCraft8",
+        "description": "The authors plan to migrate to RFdiffusion321 and BindCraft8 for improved performance.",
+        "evidence": "Future directions include migration to RFdiffusion321 and BindCraft8."
+      },
+      {
+        "name": "Experimental Validation",
+        "description": "The authors plan to conduct experimental validation of top designs.",
+        "evidence": "Future directions include experimental validation of top designs."
+      },
+      {
+        "name": "Multi-GPU Deployment",
+        "description": "The authors plan to deploy the platform on multiple GPUs for increased throughput.",
+        "evidence": "Future directions include multi-GPU deployment."
+      },
+      {
+        "name": "LLM Fine-Tuning",
+        "description": "The authors plan to fine-tune the LLM on accumulated distillation data.",
+        "evidence": "Future directions include LLM fine-tuning on accumulated distillation data."
+      }
+    ]
+  },
+  "resource_link": {
+    "answer": "https://github.com/liugangg/oih-platform",
+    "evidence": "The OIH platform source code, including the LLM-agnostic backend abstraction, all 19 skill files, tool definitions, Docker configurations, and pipeline scripts, is available at https://github.com/liugangg/oih-platform."
+  }
+}

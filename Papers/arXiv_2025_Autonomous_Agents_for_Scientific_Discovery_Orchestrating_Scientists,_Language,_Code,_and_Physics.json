@@ -1,0 +1,176 @@
+{
+  "source": "arXiv",
+  "source_id": "2510.09901v2",
+  "title": "Autonomous Agents for Scientific Discovery: Orchestrating Scientists, Language, Code, and Physics",
+  "abstract": "Computing has long served as a cornerstone of scientific discovery. Recently, a paradigm shift has emerged with the rise of large language models (LLMs), introducing autonomous systems, referred to as agents, that accelerate discovery across varying levels of autonomy. These language agents provide a flexible and versatile framework that orchestrates interactions with human scientists, natural language, computer language and code, and physics. This paper presents our view and vision of LLM-based scientific agents and their growing role in transforming the scientific discovery lifecycle, from hypothesis discovery, experimental design and execution, to result analysis and refinement. We critically examine current methodologies, emphasizing key innovations, practical achievements, and outstanding limitations. Additionally, we identify open research challenges and outline promising directions for building more robust, generalizable, and adaptive scientific agents. Our analysis highlights the transformative potential of autonomous agents to accelerate scientific discovery across diverse domains.",
+  "published": "2025-10-10T22:26:26Z",
+  "authors": [
+    "Lianhao Zhou",
+    "Hongyi Ling",
+    "Cong Fu",
+    "Yepeng Huang",
+    "Michael Sun",
+    "Wendi Yu",
+    "Xiaoxuan Wang",
+    "Xiner Li",
+    "Xingyu Su",
+    "Junkai Zhang",
+    "Xiusi Chen",
+    "Chenxing Liang",
+    "Xiaofeng Qian",
+    "Heng Ji",
+    "Wei Wang",
+    "Marinka Zitnik",
+    "Shuiwang Ji"
+  ],
+  "link": "https://arxiv.org/abs/2510.09901v2",
+  "doi": "",
+  "pdf_url": "https://arxiv.org/pdf/2510.09901v2.pdf",
+  "ai_for_science_score": 0.9,
+  "confidence_score": 0.95,
+  "implementation_score": 0.8,
+  "review_score": 0.7,
+  "benchmark_score": 0.6,
+  "hypothesis_generation_score": 0.9,
+  "scientific_discovery_score": 0.9,
+  "experiment_design_score": 0.8,
+  "material_discovery_score": 0.5,
+  "molecular_design_score": 0.5,
+  "drug_discovery_score": 0.5,
+  "causal_discovery_score": 0.7,
+  "biomedical_discovery_score": 0.5,
+  "idea_development_score": 0.8,
+  "ai_for_science_label": "accept",
+  "ai_for_science_reason": "The paper discusses the use of LLM-based autonomous agents in scientific discovery processes, including hypothesis discovery and experimental design.",
+  "implementation_justification": "The paper outlines practical achievements and innovations in using autonomous agents.",
+  "review_justification": "The paper critically examines current methodologies and identifies open research challenges.",
+  "benchmark_justification": "The paper does not focus on benchmarking but discusses transformative potential.",
+  "hypothesis_generation_justification": "The paper emphasizes hypothesis discovery as a key component of the scientific lifecycle.",
+  "scientific_discovery_justification": "The focus is on accelerating scientific discovery using AI agents.",
+  "experiment_design_justification": "The paper includes experimental design as part of the scientific discovery process.",
+  "material_discovery_justification": "Material discovery is not specifically addressed in the paper.",
+  "molecular_design_justification": "Molecular design is not specifically addressed in the paper.",
+  "drug_discovery_justification": "Drug discovery is not specifically addressed in the paper.",
+  "causal_discovery_justification": "The paper discusses the potential for causal discovery through autonomous agents.",
+  "biomedical_discovery_justification": "Biomedical discovery is not specifically addressed in the paper.",
+  "idea_development_justification": "The paper outlines promising directions for developing more robust scientific agents.",
+  "science_domains": [
+    "Physics",
+    "General Scientific Discovery"
+  ],
+  "ai_methods": [
+    "LLMs",
+    "Autonomous Agents"
+  ],
+  "exhyte_stages": [
+    "Hypothesis generation",
+    "Testing"
+  ],
+  "needs_pdf_review": false,
+  "auto_decision": "accept",
+  "auto_selected": true,
+  "selection_source": "llm_auto",
+  "pdf_download_attempted_at": "2026-06-30T06:25:13",
+  "local_pdf_path": "downloaded_pdfs/arXiv_Zhou_et_al._2025_Autonomous_Agents_for_Scientific_Discovery_Orchestrating_Scientists,_Language,_Code,_and_Physics.pdf",
+  "pdf_download_status": "already_exists",
+  "pdf_download_method": "direct pdf_url",
+  "pdf_download_url": "https://arxiv.org/pdf/2510.09901v2",
+  "extraction_source_type": "pdf",
+  "paper_title": "Autonomous Agents for Scientific Discovery: Orchestrating Scientists, Language, Code, and Physics",
+  "summary_extraction_status": "extracted",
+  "summary_json_path": "review_outputs/gpt_paper_items/arXiv_Zhou_et_al._2025_Autonomous_Agents_for_Scientific_Discovery_Orchestrating_Scientists__Language__Code__and_Physics.json",
+  "objective": {
+    "answer": "The paper aims to explore the transformative potential of large language model (LLM)-based scientific agents in accelerating scientific discovery across various domains. It seeks to systematically examine how these agents operate across key stages of scientific discovery, including hypothesis discovery, experimental design and execution, and result analysis and refinement.",
+    "evidence": "This paper presents our view and vision of LLM-based scientific agents and their growing role in transforming the scientific discovery lifecycle, from hypothesis discovery, experimental design and execution, to result analysis and refinement."
+  },
+  "knowledge_gap": {
+    "answer": "The paper addresses the gap in developing integrated systems capable of supporting the full autonomous scientific discovery cycle, as current LLMs excel at specific scientific tasks but lack comprehensive support for the entire process.",
+    "evidence": "Reddy and Shojaee [2025] argues that, while LLMs excel at specific scientific tasks, integrated systems capable of supporting the full autonomous scientific discovery cycle are still lacking."
+  },
+  "novelty": {
+    "answer": [
+      "The paper introduces a taxonomy of methods used by scientific agents in each phase of scientific discovery.",
+      "It highlights the unique strengths of LLMs in enabling more adaptive, flexible, and capable scientific agents compared to traditional computational approaches.",
+      "The paper identifies open challenges and outlines future research directions to advance the development of robust, generalizable, and highly adaptive LLM-driven scientific agents."
+    ],
+    "evidence": [
+      "We develop a taxonomy of the methods used by scientific agents in each phase of scientific discovery.",
+      "We highlight the unique strengths of LLMs in enabling more adaptive, flexible, and capable scientific agents compared to traditional computational approaches.",
+      "Finally, we identify open challenges and outline future research directions to advance the development of robust, generalizable, and highly adaptive LLM-driven scientific agents."
+    ]
+  },
+  "inspirational_papers": {
+    "answer": "- Zhang et al. (2024a) systematically reviews more than 260 scientific LLMs across general science, mathematics, physics, chemistry, materials science, biology, medicine, and geoscience. (Methodological precursors)\n- Reddy and Shojaee (2025) argues that, while LLMs excel at specific scientific tasks, integrated systems capable of supporting the full autonomous scientific discovery cycle are still lacking. (Papers with limitations addressed by this work)",
+    "evidence": "Zhang et al. [2024a] systematically reviews more than 260 scientific LLMs across general science, mathematics, physics, chemistry, materials science, biology, medicine, and geoscience. Reddy and Shojaee [2025] argues that, while LLMs excel at specific scientific tasks, integrated systems capable of supporting the full autonomous scientific discovery cycle are still lacking."
+  },
+  "method": {
+    "steps": [
+      {
+        "step": "Examine how LLM-based agents operate across key stages of scientific discovery.",
+        "input": "LLM-based agents, scientific discovery stages",
+        "output": "Systematic examination of LLM-based agents' operations",
+        "evidence": "Here, our work systematically examines how LLM-based agents operate across key stages of scientific discovery, including hypothesis discovery, experimental design and execution, and result analysis and refinement."
+      }
+    ],
+    "tools": [],
+    "benchmark_datasets": [],
+    "evaluation_metrics": []
+  },
+  "method_type": {
+    "methods": [
+      {
+        "name": "Hypothesis or Idea Generation",
+        "description": "The system produces candidate hypotheses or new research ideas from prior knowledge or external input.",
+        "evidence": "Hypothesis generation is the core of hypothesis discovery, aiming to formulate plausible and testable statements that explain observed phenomena or predict outcomes under certain conditions."
+      },
+      {
+        "name": "Experimental design generation",
+        "description": "The approach includes producing experimental protocols, configurations, or evaluation strategies.",
+        "evidence": "A critical step in scientific discovery, following hypothesis generation, is experimental design. This involves creating a structured plan to systematically test ideas and achieve research objectives."
+      }
+    ]
+  },
+  "subject_area": {
+    "areas": [
+      {
+        "name": "Applied Sciences & Engineering",
+        "description": "The paper discusses the application of LLM-based agents in scientific discovery, which is relevant to engineering and applied sciences.",
+        "evidence": "Our analysis highlights the transformative potential of autonomous agents to accelerate scientific discovery across diverse domains."
+      },
+      {
+        "name": "Social Sciences",
+        "description": "The paper addresses the role of LLMs in transforming scientific processes, which can impact social sciences.",
+        "evidence": "Scientific discovery is fundamental to advancing human knowledge, driving innovations across diverse fields such as biology, chemistry, physics, and materials science, etc."
+      }
+    ]
+  },
+  "performance_summary": {
+    "performance_summary": "Not reported in the paper",
+    "baselines": "Not reported in the paper",
+    "benchmark_datasets": "Not reported in the paper",
+    "evaluation_metrics": "Not reported in the paper"
+  },
+  "benchmark_dataset": null,
+  "limitations": {
+    "limitations": [
+      {
+        "name": "Limited Generalizability",
+        "description": "Early computational scientific agents were often designed for specific, narrowly focused tasks, lacking the adaptability required to generalize across varying research areas.",
+        "evidence": "Early computational scientific agents were often designed for specific, narrowly focused tasks, lacking the adaptability required to generalize across varying research areas or to handle unforeseen challenges."
+      }
+    ]
+  },
+  "future_directions": {
+    "future_directions": [
+      {
+        "name": "Develop more robust, generalizable, and adaptive scientific agents",
+        "description": "The authors plan to advance the development of LLM-driven scientific agents to make them more robust, generalizable, and adaptive.",
+        "evidence": "Finally, we identify open challenges and outline future research directions to advance the development of robust, generalizable, and highly adaptive LLM-driven scientific agents."
+      }
+    ]
+  },
+  "resource_link": {
+    "answer": "",
+    "evidence": ""
+  }
+}

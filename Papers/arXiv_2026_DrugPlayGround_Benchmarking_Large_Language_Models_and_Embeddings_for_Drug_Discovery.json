@@ -1,0 +1,232 @@
+{
+  "source": "arXiv",
+  "source_id": "2604.02346v1",
+  "title": "DrugPlayGround: Benchmarking Large Language Models and Embeddings for Drug Discovery",
+  "abstract": "Large language models (LLMs) are in the ascendancy for research in drug discovery, offering unprecedented opportunities to reshape drug research by accelerating hypothesis generation, optimizing candidate prioritization, and enabling more scalable and cost-effective drug discovery pipelines. However there is currently a lack of objective assessments of LLM performance to ascertain their advantages and limitations over traditional drug discovery platforms. To tackle this emergent problem, we have developed DrugPlayGround, a framework to evaluate and benchmark LLM performance for generating meaningful text-based descriptions of physiochemical drug characteristics, drug synergism, drug-protein interactions, and the physiological response to perturbations introduced by drug molecules. Moreover, DrugPlayGround is designed to work with domain experts to provide detailed explanations for justifying the predictions of LLMs, thereby testing LLMs for chemical and biological reasoning capabilities to push their greater use at the frontier of drug discovery at all of its stages.",
+  "published": "2026-02-11T19:16:33Z",
+  "authors": [
+    "Tianyu Liu",
+    "Sihan Jiang",
+    "Fan Zhang",
+    "Kunyang Sun",
+    "Teresa Head-Gordon",
+    "Hongyu Zhao"
+  ],
+  "link": "https://arxiv.org/abs/2604.02346v1",
+  "doi": "",
+  "pdf_url": "https://arxiv.org/pdf/2604.02346v1.pdf",
+  "ai_for_science_score": 0.9,
+  "confidence_score": 0.95,
+  "implementation_score": 0.8,
+  "review_score": 0.85,
+  "benchmark_score": 0.9,
+  "hypothesis_generation_score": 0.9,
+  "scientific_discovery_score": 0.9,
+  "experiment_design_score": 0.7,
+  "material_discovery_score": 0.6,
+  "molecular_design_score": 0.8,
+  "drug_discovery_score": 0.95,
+  "causal_discovery_score": 0.7,
+  "biomedical_discovery_score": 0.85,
+  "idea_development_score": 0.8,
+  "ai_for_science_label": "accept",
+  "ai_for_science_reason": "The paper uses LLMs for drug discovery, focusing on hypothesis generation and testing in a scientific domain.",
+  "implementation_justification": "The framework is implemented to benchmark LLMs in drug discovery.",
+  "review_justification": "The paper provides a comprehensive review of LLM applications in drug discovery.",
+  "benchmark_justification": "The paper introduces a framework specifically for benchmarking LLMs in drug discovery.",
+  "hypothesis_generation_justification": "LLMs are used to generate hypotheses in drug discovery.",
+  "scientific_discovery_justification": "The paper focuses on using AI for scientific discovery in drug research.",
+  "experiment_design_justification": "The framework aids in optimizing candidate prioritization, which is part of experiment design.",
+  "material_discovery_justification": "While not the main focus, the framework could indirectly aid material discovery through drug characteristics analysis.",
+  "molecular_design_justification": "The framework evaluates LLMs for generating descriptions of physiochemical drug characteristics.",
+  "drug_discovery_justification": "The primary focus of the paper is on drug discovery using LLMs.",
+  "causal_discovery_justification": "The framework tests LLMs for reasoning capabilities, which can aid causal discovery.",
+  "biomedical_discovery_justification": "The paper targets biomedical discovery through drug-protein interaction analysis.",
+  "idea_development_justification": "The framework supports idea development by providing explanations for LLM predictions.",
+  "science_domains": [
+    "medicine",
+    "chemistry"
+  ],
+  "ai_methods": [
+    "LLMs",
+    "machine learning"
+  ],
+  "exhyte_stages": [
+    "Hypothesis generation",
+    "Testing"
+  ],
+  "needs_pdf_review": false,
+  "auto_decision": "accept",
+  "auto_selected": true,
+  "selection_source": "llm_auto",
+  "pdf_download_attempted_at": "2026-06-30T06:25:11",
+  "local_pdf_path": "downloaded_pdfs/arXiv_Liu_et_al._2026_DrugPlayGround_Benchmarking_Large_Language_Models_and_Embeddings_for_Drug_Discovery.pdf",
+  "pdf_download_status": "already_exists",
+  "pdf_download_method": "direct pdf_url",
+  "pdf_download_url": "https://arxiv.org/pdf/2604.02346v1",
+  "extraction_source_type": "pdf",
+  "paper_title": "DrugPlayGround: Benchmarking Large Language Models and Embeddings for Drug Discovery",
+  "summary_extraction_status": "extracted",
+  "summary_json_path": "review_outputs/gpt_paper_items/arXiv_Liu_et_al._2026_DrugPlayGround_Benchmarking_Large_Language_Models_and_Embeddings_for_Drug_Discovery.json",
+  "objective": {
+    "answer": "The primary objective of the paper is to develop DrugPlayGround, a framework to evaluate and benchmark the performance of large language models (LLMs) in drug discovery tasks, including generating text-based descriptions of drug characteristics, drug synergism, drug-protein interactions, and physiological responses to drug perturbations.",
+    "evidence": "To tackle this emergent problem, we have developed DrugPlayGround, a framework to evaluate and benchmark LLM performance for generating meaningful text-based descriptions of physiochemical drug characteristics, drug synergism, drug-protein interactions, and the physiological response to perturbations introduced by drug molecules."
+  },
+  "knowledge_gap": {
+    "answer": "There is currently a lack of objective assessments of LLM performance in drug discovery to ascertain their advantages and limitations over traditional platforms.",
+    "evidence": "However there is currently a lack of objective assessments of LLM performance to ascertain their advantages and limitations over traditional drug discovery platforms."
+  },
+  "novelty": {
+    "answer": [
+      "Development of DrugPlayGround, a unified benchmarking platform for evaluating LLMs in drug discovery.",
+      "Introduction of a framework that assesses LLM capabilities across drug function analysis, drug-target interaction prediction, drug synergy prediction, and drug perturbation prediction.",
+      "Inclusion of chemist-involved description analysis to provide feedback on LLM-generated content."
+    ],
+    "evidence": [
+      "Here, we introduce DrugPlayground, a unified benchmarking platform designed to systematically evaluate the utility of LLMs for drug discovery and related applications across four representative tasks.",
+      "Leveraging these benchmarks, we comprehensively assess the capacity of LLMs to learn meaningful drug representations and to generalize knowledge across diverse compounds and biological contexts.",
+      "Our evaluation and quantitative analysis not only includes numerical metrics, but also feedback from chemists."
+    ]
+  },
+  "inspirational_papers": {
+    "answer": "- Murakumo et al. (2023) LLM drug discovery challenge: A contest as a feasibility study on the utilization of large language models in medicinal chemistry. (Papers with limitations addressed by this work)",
+    "evidence": "Murakumo and co-workers have pointed out that LLM-assisted drug design can only handle molecules with a relatively simple chemical structure, or hallucinate unrealistic chemistry, and thus cannot be generalized to meaningfully broaden the chemical space exploration for novel and viable drug candidates."
+  },
+  "method": {
+    "steps": [
+      {
+        "step": "Develop DrugPlayGround to evaluate LLMs in drug discovery tasks.",
+        "input": "LLMs and drug-related datasets.",
+        "output": "Benchmarking results for LLM performance in drug discovery.",
+        "evidence": "Here, we introduce DrugPlayground, a unified benchmarking platform designed to systematically evaluate the utility of LLMs for drug discovery and related applications across four representative tasks."
+      },
+      {
+        "step": "Evaluate LLM-generated text for drug properties.",
+        "input": "Drug names and textual descriptions from MolTextNet.",
+        "output": "Comparison of LLM-generated descriptions against ground-truth descriptions.",
+        "evidence": "We first examine whether LLM-generated content is sufficiently precise to accurately summarize established properties of selected drugs."
+      },
+      {
+        "step": "Evaluate LLM-generated embeddings for drug synergy prediction.",
+        "input": "Drug embeddings from LLMs and synergy annotations.",
+        "output": "Benchmarking analysis of drug synergy prediction based on LLM embeddings.",
+        "evidence": "We next evaluate the use of drug embeddings for predicting drug synergy."
+      }
+    ],
+    "tools": [
+      {
+        "name": "GPT-4o",
+        "description": "Used for generating text descriptions of drugs.",
+        "evidence": "The five LLMs tested are Claude-sonnet-20250514 (Claude-sonnet4) [28], DeepSeek-v3 [29], GPT-4o [30], Gemini-1.5-pro (Gemini-1.5P) [31], and Mistral-large-2411 (Mistral-large) [32]."
+      }
+    ],
+    "benchmark_datasets": [
+      {
+        "name": "MolTextNet",
+        "data_description": "A large-scale molecular–text database.",
+        "usage": "Serves as the ground-truth reference for evaluating LLM-generated drug descriptions.",
+        "evidence": "To this end, we collect drug names and their corresponding textual descriptions from the large-scale molecular–text database MolTextNet [27], which serves as the ground-truth reference."
+      }
+    ],
+    "evaluation_metrics": [
+      {
+        "name": "BERT Score",
+        "purpose": "Measures semantic similarity between generated and ground-truth descriptions.",
+        "application": "Used to evaluate the quality of LLM-generated drug descriptions.",
+        "evidence": "We then compute both schema-driven and structure-driven metrics to quantitatively compare LLM-generated descriptions, produced under different prompt settings, against the ground-truth descriptions."
+      }
+    ]
+  },
+  "method_type": {
+    "methods": [
+      {
+        "name": "Experimental design generation",
+        "description": "The approach includes producing experimental protocols, configurations, or evaluation strategies.",
+        "evidence": "Our evaluation and quantitative analysis not only includes numerical metrics, but also feedback from chemists."
+      }
+    ]
+  },
+  "subject_area": {
+    "areas": [
+      {
+        "name": "Health Sciences",
+        "description": "The paper develops a framework for evaluating LLMs in drug discovery, which is a key area in health sciences.",
+        "evidence": "Large language models (LLMs) are in the ascendancy for research in drug discovery, offering unprecedented opportunities to reshape drug research."
+      },
+      {
+        "name": "Applied Sciences & Engineering",
+        "description": "The development of DrugPlayGround involves engineering a benchmarking platform for LLMs.",
+        "evidence": "Here, we introduce DrugPlayground, a unified benchmarking platform designed to systematically evaluate the utility of LLMs for drug discovery and related applications."
+      }
+    ]
+  },
+  "performance_summary": {
+    "performance_summary": [
+      {
+        "summary": "GPT-4o consistently demonstrates the strongest overall performance, achieving the highest aggregated scores across all five evaluation metrics.",
+        "evidence": "Across all evaluated LLMs and temperature settings, GPT-4o consistently demonstrates the strongest overall performance, achieving the highest aggregated scores across all five evaluation metrics with a standardized prompt."
+      }
+    ],
+    "baselines": [
+      {
+        "name": "UniMol",
+        "description": "A molecular foundation model used for comparison in drug synergy prediction.",
+        "evidence": "We compare this approach against molecular foundation model (MFM) embeddings derived from UniMol [39]."
+      }
+    ],
+    "benchmark_datasets": [
+      {
+        "name": "MolTextNet",
+        "data_description": "A large-scale molecular–text database.",
+        "usage": "Serves as the ground-truth reference for evaluating LLM-generated drug descriptions.",
+        "evidence": "To this end, we collect drug names and their corresponding textual descriptions from the large-scale molecular–text database MolTextNet [27], which serves as the ground-truth reference."
+      }
+    ],
+    "evaluation_metrics": [
+      {
+        "name": "BERT Score",
+        "purpose": "Measures semantic similarity between generated and ground-truth descriptions.",
+        "application": "Used to evaluate the quality of LLM-generated drug descriptions.",
+        "evidence": "We then compute both schema-driven and structure-driven metrics to quantitatively compare LLM-generated descriptions, produced under different prompt settings, against the ground-truth descriptions."
+      }
+    ]
+  },
+  "benchmark_dataset": {
+    "name": "MolTextNet",
+    "description": "A large-scale molecular–text database.",
+    "usage": "Serves as the ground-truth reference for evaluating LLM-generated drug descriptions.",
+    "evidence": "To this end, we collect drug names and their corresponding textual descriptions from the large-scale molecular–text database MolTextNet [27], which serves as the ground-truth reference."
+  },
+  "limitations": {
+    "limitations": [
+      {
+        "name": "Factually Incorrect Descriptions",
+        "description": "LLMs may generate factually incorrect descriptions, such as specific molecular weights.",
+        "evidence": "First, LLMs may generate factually incorrect descriptions, such as specific molecular weights."
+      },
+      {
+        "name": "Inaccurate Chemical Structural Information",
+        "description": "LLMs struggle to accurately generate chemical structural information, such as two-dimensional molecular structures.",
+        "evidence": "Second, we found that LLMs struggle to accurately generate chemical structural information, such as two-dimensional molecular structures."
+      }
+    ]
+  },
+  "future_directions": {
+    "future_directions": [
+      {
+        "name": "Incorporate Structural Information",
+        "description": "Future efforts should incorporate structural information into model training to unify the structure-function-property framework.",
+        "evidence": "Therefore, future efforts should incorporate structural information into model training to unify the structure-function-property framework."
+      },
+      {
+        "name": "Integrate LLMs for Unified Pipeline",
+        "description": "Integrating LLMs for generating drug descriptions with drug representations into a unified pipeline may represent a promising future direction for AI-accelerated drug discovery.",
+        "evidence": "Therefore, integrating LLMs for generating drug descriptions with drug representations into a unified pipeline may represent a promising future direction for AI-accelerated drug discovery."
+      }
+    ]
+  },
+  "resource_link": {
+    "answer": "https://github.com/HelloWorldLTY/drugplayground",
+    "evidence": "The codes of DrugPlayground can be found in https://github.com/HelloWorldLTY/drugplayground with MIT license."
+  }
+}

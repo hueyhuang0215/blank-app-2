@@ -1,0 +1,266 @@
+{
+  "source": "bioRxiv",
+  "source_id": "PPR1212957",
+  "title": "Deterministic retrieval recovers biomedical associations lost by language models",
+  "abstract": "<h4>ABSTRACT</h4> Large language model (LLM)-based retrieval systems miss biomedical associations through output truncation, synonym mismatch and run-to-run variability, but the magnitude of this loss remains unclear. We present BioChirp, an open-source framework that uses LLMs for query interpretation and candidate filtering, combining multi-source consensus entity resolution with deterministic graph-based retrieval. Across four major biomedical databases, BioChirp recovered more associations with higher reproducibility than conventional LLM-based retrieval approaches.",
+  "published": "2026-04-29",
+  "authors": [
+    "Halder A",
+    "Singh M",
+    "Kesarwani R",
+    "Mathew B",
+    "Bhattacharya N",
+    "Chikhaliya O",
+    "Motwani D",
+    "Peela SCM",
+    "Samanta S",
+    "Muddemmanavar P",
+    "Farooq M",
+    "Ahuja G",
+    "Sengupta D."
+  ],
+  "link": "https://doi.org/10.64898/2026.04.25.720782",
+  "doi": "10.64898/2026.04.25.720782",
+  "pdf_url": "",
+  "ai_for_science_score": 0.9,
+  "confidence_score": 0.95,
+  "implementation_score": 0.8,
+  "review_score": 0.7,
+  "benchmark_score": 0.75,
+  "hypothesis_generation_score": 0.6,
+  "scientific_discovery_score": 0.85,
+  "experiment_design_score": 0.5,
+  "material_discovery_score": 0.0,
+  "molecular_design_score": 0.0,
+  "drug_discovery_score": 0.0,
+  "causal_discovery_score": 0.4,
+  "biomedical_discovery_score": 0.9,
+  "idea_development_score": 0.6,
+  "ai_for_science_label": "accept",
+  "ai_for_science_reason": "The paper uses AI methods for improving retrieval in biomedical databases, contributing to scientific discovery in the biomedical domain.",
+  "implementation_justification": "The framework is open-source and demonstrates improved retrieval performance.",
+  "review_justification": "The paper provides a clear comparison with conventional methods.",
+  "benchmark_justification": "The framework is tested across four major biomedical databases.",
+  "hypothesis_generation_justification": "The framework aids in identifying associations that could lead to hypothesis generation.",
+  "scientific_discovery_justification": "The method enhances retrieval of biomedical associations, aiding scientific discovery.",
+  "experiment_design_justification": "The focus is on retrieval rather than direct experiment design.",
+  "material_discovery_justification": "The paper does not address material discovery.",
+  "molecular_design_justification": "The paper does not focus on molecular design.",
+  "drug_discovery_justification": "The paper does not directly address drug discovery.",
+  "causal_discovery_justification": "The retrieval of associations may indirectly support causal discovery.",
+  "biomedical_discovery_justification": "The framework significantly improves retrieval of biomedical associations.",
+  "idea_development_justification": "The improved retrieval can foster new ideas in biomedical research.",
+  "science_domains": [
+    "biomedical"
+  ],
+  "ai_methods": [
+    "LLMs",
+    "graph-based retrieval"
+  ],
+  "exhyte_stages": [
+    "Exploration",
+    "Testing"
+  ],
+  "needs_pdf_review": false,
+  "auto_decision": "accept",
+  "auto_selected": true,
+  "selection_source": "llm_auto",
+  "local_pdf_path": "downloaded_pdfs/bioRxiv_A_et_al._2026_Deterministic_retrieval_recovers_biomedical_associations_lost_by_language_models.pdf",
+  "pdf_download_status": "manual_pdf",
+  "pdf_download_method": "manual_pdf",
+  "pdf_download_url": "manual_pdfs/bioRxiv_A_et_al._2026_Deterministic_retrieval_recovers_biomedical_associations_lost_by_language_models.pdf",
+  "pdf_download_attempted_at": "2026-06-30T17:54:09",
+  "paper_title": "Deterministic retrieval recovers biomedical associations lost by language models",
+  "summary_extraction_status": "extracted",
+  "summary_json_path": "review_outputs/gpt_paper_items/bioRxiv_A_et_al._2026_Deterministic_retrieval_recovers_biomedical_associations_lost_by_language_models.json",
+  "objective": {
+    "answer": "The primary objective of the paper is to present BioChirp, an open-source framework that uses language models for query interpretation and deterministic graph-based retrieval to recover biomedical associations that are often missed by conventional language model-based retrieval systems.",
+    "evidence": "We present BioChirp, an open-source framework that uses LLMs for query interpretation and candidate filtering, combining multi-source consensus entity resolution with deterministic graph-based retrieval."
+  },
+  "knowledge_gap": {
+    "answer": "The knowledge gap addressed by the paper is the unquantified extent of biomedical associations missed by large language model-based retrieval systems due to output truncation, synonym mismatch, and run-to-run variability.",
+    "evidence": "The question matters because missing associations can compromise downstream analyses in drug discovery and translational research, yet the extent of this loss has not been systematically quantified."
+  },
+  "novelty": {
+    "answer": [
+      "BioChirp uses a deterministic graph-based retrieval approach instead of relying on language models for retrieval execution.",
+      "The framework incorporates a multi-source consensus entity-resolution module to improve accuracy in mapping entity mentions to canonical database identifiers.",
+      "BioChirp separates language model-based query interpretation from deterministic retrieval, ensuring reproducibility and completeness of results."
+    ],
+    "evidence": [
+      "After candidate filtering and entity resolution, no language model participates in retrieval planning or execution.",
+      "A central technical component is a multi-source consensus entity-resolution module that maps entity mentions to canonical database identifiers through fuzzy lexical matching, semantic vector retrieval and curated synonym expansion.",
+      "Because the planner is deterministic, identical queries always produce identical structured outputs."
+    ]
+  },
+  "inspirational_papers": {
+    "answer": "- Buniello et al. (2025) Open targets platform: facilitating therapeutic hypotheses building in drug discovery. (Methodological precursors)\n- Davis et al. (2025) Comparative toxicogenomics database’s 20th anniversary: update 2025. (Experimental baselines)\n- Liu et al. (2025) Hcdt 2.0: A highly confident drug-target database for experimentally validated genes, rnas, and pathways. (Experimental baselines)\n- Zhou et al. (2024) Ttd: Therapeutic target database describing target druggability information. (Experimental baselines)",
+    "evidence": "BioChirp currently supports four major biomedical databases: Open Targets, Comparative Toxicogenomics Database (CTD), Highly Confident Drug-Target Database (HCDT) and Therapeutic Target Database (TTD)."
+  },
+  "method": {
+    "steps": [
+      {
+        "step": "Interpret user query using language models",
+        "input": "User query",
+        "output": "Inferred intent and structured entity mentions",
+        "evidence": "At runtime, each user query was first routed to the interpretation module, which returned inferred intent and structured entity mentions."
+      },
+      {
+        "step": "Expand entities through synonym and resolution modules",
+        "input": "Structured entity mentions",
+        "output": "Expanded entities",
+        "evidence": "These entities were then expanded through synonym and resolution modules."
+      },
+      {
+        "step": "Generate a source-specific retrieval strategy",
+        "input": "Expanded entities",
+        "output": "Retrieval strategy",
+        "evidence": "The planner generated a source-specific retrieval strategy."
+      },
+      {
+        "step": "Apply retrieval strategy to data sources",
+        "input": "Retrieval strategy",
+        "output": "Complete result set",
+        "evidence": "Each retrieval module applied this plan to the corresponding data source."
+      },
+      {
+        "step": "Return result set as a downloadable CSV file",
+        "input": "Complete result set",
+        "output": "Downloadable CSV file",
+        "evidence": "The complete result set was returned as a downloadable CSV file."
+      }
+    ],
+    "tools": [
+      {
+        "name": "Open Targets GraphQL API",
+        "description": "Used for querying Open Targets at runtime",
+        "evidence": "Open Targets was queried at runtime through a live GraphQL API."
+      },
+      {
+        "name": "RapidFuzz",
+        "description": "Used for fuzzy lexical matching in entity resolution",
+        "evidence": "For each constrained field, the user-provided term is compared against the field-specific vocabulary of the target database using the Python library RapidFuzz."
+      }
+    ],
+    "benchmark_datasets": [
+      {
+        "name": "MedQA",
+        "data_description": "A standardized set of medical reasoning questions",
+        "usage": "Used to evaluate the quality of the language-model layer in BioChirp",
+        "evidence": "We used the MedQA benchmark, a standardized set of medical reasoning questions, as a proxy for this capability."
+      }
+    ],
+    "evaluation_metrics": [
+      {
+        "name": "Recall",
+        "purpose": "Measures the ability to retrieve all relevant instances",
+        "application": "Used to evaluate entity-resolution module",
+        "evidence": "BioChirp configurations combining fuzzy, semantic and curated matching achieved the highest recall."
+      },
+      {
+        "name": "F1 Score",
+        "purpose": "Measures the balance between precision and recall",
+        "application": "Used to evaluate entity-resolution module",
+        "evidence": "Performance was quantified using recall and F1 score, computed separately for diseases, drugs and genes."
+      }
+    ]
+  },
+  "method_type": {
+    "methods": [
+      {
+        "name": "Knowledge Extraction and Structurization",
+        "description": "Extracts and structures knowledge from user queries and databases.",
+        "evidence": "BioChirp uses a two-stage reasoning workflow to convert free-text questions into inputs suitable for deterministic retrieval."
+      },
+      {
+        "name": "Experimental design generation",
+        "description": "Generates retrieval strategies and execution plans.",
+        "evidence": "The planner generated a source-specific retrieval strategy."
+      }
+    ]
+  },
+  "subject_area": {
+    "areas": [
+      {
+        "name": "Health Sciences",
+        "description": "The paper focuses on retrieving biomedical associations relevant to drug discovery and translational research.",
+        "evidence": "The question matters because missing associations can compromise downstream analyses in drug discovery and translational research."
+      },
+      {
+        "name": "Applied Sciences & Engineering",
+        "description": "The paper develops a deterministic retrieval framework for biomedical databases.",
+        "evidence": "We present BioChirp, an open-source framework that uses LLMs for query interpretation and candidate filtering, combining multi-source consensus entity resolution with deterministic graph-based retrieval."
+      }
+    ]
+  },
+  "performance_summary": {
+    "performance_summary": [
+      {
+        "summary": "BioChirp retrieved complete results for all six queries, whereas MCP-based systems frequently failed.",
+        "evidence": "No MCP-based system returned a complete result set for any exhaustive query, whereas BioChirp retrieved complete results for all six queries."
+      }
+    ],
+    "baselines": [
+      {
+        "name": "MCP-based systems",
+        "description": "Used as a baseline for retrieval completeness comparison.",
+        "evidence": "We next benchmarked retrieval completeness against MCP-based systems using the official Open Targets MCP server."
+      }
+    ],
+    "benchmark_datasets": [
+      {
+        "name": "MedQA",
+        "data_description": "A standardized set of medical reasoning questions",
+        "usage": "Used to evaluate the quality of the language-model layer in BioChirp",
+        "evidence": "We used the MedQA benchmark, a standardized set of medical reasoning questions, as a proxy for this capability."
+      }
+    ],
+    "evaluation_metrics": [
+      {
+        "name": "Recall",
+        "purpose": "Measures the ability to retrieve all relevant instances",
+        "application": "Used to evaluate entity-resolution module",
+        "evidence": "BioChirp configurations combining fuzzy, semantic and curated matching achieved the highest recall."
+      },
+      {
+        "name": "F1 Score",
+        "purpose": "Measures the balance between precision and recall",
+        "application": "Used to evaluate entity-resolution module",
+        "evidence": "Performance was quantified using recall and F1 score, computed separately for diseases, drugs and genes."
+      }
+    ]
+  },
+  "benchmark_dataset": {
+    "name": null,
+    "description": "No traditional benchmark dataset was used.",
+    "usage": "The study used author-collected datasets and domain-specific resources.",
+    "evidence": "BioChirp currently supports four major biomedical databases: Open Targets, Comparative Toxicogenomics Database (CTD), Highly Confident Drug-Target Database (HCDT) and Therapeutic Target Database (TTD)."
+  },
+  "limitations": {
+    "limitations": [
+      {
+        "name": "Limited Database Coverage",
+        "description": "BioChirp's completeness is bounded by the coverage of its underlying databases.",
+        "evidence": "BioChirp’s completeness is bounded by the coverage of its underlying databases, and its deterministic results apply to a fixed database state that may change as upstream resources are updated."
+      },
+      {
+        "name": "Ambiguous Names and Abbreviations",
+        "description": "Ambiguous names and abbreviations can still challenge entity resolution.",
+        "evidence": "Ambiguous names and abbreviations can still challenge entity resolution when multiple valid identifiers are plausible."
+      }
+    ]
+  },
+  "future_directions": {
+    "future_directions": [
+      {
+        "name": "Extend Framework to Other Databases",
+        "description": "Extend the framework to another structured biomedical database by defining schema, identifier mappings, and adapted prompts.",
+        "evidence": "Because language interpretation is separated from schema-defined retrieval, extending the framework to another structured biomedical database requires a schema definition, identifier mappings and adapted prompts."
+      }
+    ]
+  },
+  "resource_link": {
+    "answer": "https://github.com/abhi1238/biochirp",
+    "evidence": "BioChirp source code is available at GitHub (github.com/abhi1238/biochirp)."
+  }
+}

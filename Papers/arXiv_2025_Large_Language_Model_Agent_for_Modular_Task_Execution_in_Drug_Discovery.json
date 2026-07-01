@@ -1,0 +1,289 @@
+{
+  "source": "arXiv",
+  "source_id": "2507.02925v3",
+  "title": "Large Language Model Agent for Modular Task Execution in Drug Discovery",
+  "abstract": "We present a modular framework powered by large language models (LLMs) that automates and streamlines key tasks across the early-stage computational drug discovery pipeline. By combining LLM reasoning with domain-specific tools, the framework performs biomedical data retrieval, literature-grounded question answering via retrieval-augmented generation, molecular generation, multi-property prediction, property-aware molecular refinement, and 3D protein-ligand structure generation. The agent autonomously retrieved relevant biomolecular information, including FASTA sequences, SMILES representations, and literature, and answered mechanistic questions with improved contextual accuracy compared to standard LLMs. It then generated chemically diverse seed molecules and predicted 75 properties, including ADMET-related and general physicochemical descriptors, which guided iterative molecular refinement. Across two refinement rounds, the number of molecules with QED > 0.6 increased from 34 to 55. The number of molecules satisfying empirical drug-likeness filters also rose; for example, compliance with the Ghose filter increased from 32 to 55 within a pool of 100 molecules. The framework also employed Boltz-2 to generate 3D protein-ligand complexes and provide rapid binding affinity estimates for candidate compounds. These results demonstrate that the approach effectively supports molecular screening, prioritization, and structure evaluation. Its modular design enables flexible integration of evolving tools and models, providing a scalable foundation for AI-assisted therapeutic discovery.",
+  "published": "2025-06-26T00:19:01Z",
+  "authors": [
+    "Janghoon Ock",
+    "Radheesh Sharma Meda",
+    "Srivathsan Badrinarayanan",
+    "Neha S. Aluru",
+    "Achuth Chandrasekhar",
+    "Amir Barati Farimani"
+  ],
+  "link": "https://arxiv.org/abs/2507.02925v3",
+  "doi": "",
+  "pdf_url": "https://arxiv.org/pdf/2507.02925v3.pdf",
+  "ai_for_science_score": 0.95,
+  "confidence_score": 0.9,
+  "implementation_score": 0.9,
+  "review_score": 0.85,
+  "benchmark_score": 0.8,
+  "hypothesis_generation_score": 0.85,
+  "scientific_discovery_score": 0.9,
+  "experiment_design_score": 0.8,
+  "material_discovery_score": 0.75,
+  "molecular_design_score": 0.95,
+  "drug_discovery_score": 0.95,
+  "causal_discovery_score": 0.7,
+  "biomedical_discovery_score": 0.9,
+  "idea_development_score": 0.85,
+  "ai_for_science_label": "accept",
+  "ai_for_science_reason": "The paper uses LLMs and other AI methods for drug discovery, a scientific domain, by automating tasks like molecular generation and property prediction.",
+  "implementation_justification": "The framework is modular and integrates multiple AI methods effectively.",
+  "review_justification": "The paper provides detailed results and improvements in drug discovery tasks.",
+  "benchmark_justification": "The framework shows quantitative improvements in molecular properties.",
+  "hypothesis_generation_justification": "The system generates hypotheses through molecular generation and refinement.",
+  "scientific_discovery_justification": "The framework aids in the discovery of new drug candidates.",
+  "experiment_design_justification": "The framework supports iterative refinement and evaluation of molecules.",
+  "material_discovery_justification": "The focus is on drug molecules rather than general materials.",
+  "molecular_design_justification": "The framework excels in generating and refining molecular structures.",
+  "drug_discovery_justification": "The primary application is in drug discovery, with significant improvements shown.",
+  "causal_discovery_justification": "Causal discovery is not the main focus, but some mechanistic insights are provided.",
+  "biomedical_discovery_justification": "The framework contributes to biomedical discovery through drug candidate evaluation.",
+  "idea_development_justification": "The modular design allows for the development and integration of new ideas and tools.",
+  "science_domains": [
+    "medicine",
+    "chemistry",
+    "drug discovery"
+  ],
+  "ai_methods": [
+    "large language models",
+    "retrieval-augmented generation",
+    "molecular generation",
+    "multi-property prediction"
+  ],
+  "exhyte_stages": [
+    "Exploration",
+    "Hypothesis generation",
+    "Testing"
+  ],
+  "needs_pdf_review": false,
+  "auto_decision": "accept",
+  "auto_selected": true,
+  "selection_source": "llm_auto",
+  "pdf_download_attempted_at": "2026-06-30T06:25:40",
+  "local_pdf_path": "downloaded_pdfs/arXiv_Ock_et_al._2025_Large_Language_Model_Agent_for_Modular_Task_Execution_in_Drug_Discovery.pdf",
+  "pdf_download_status": "already_exists",
+  "pdf_download_method": "direct pdf_url",
+  "pdf_download_url": "https://arxiv.org/pdf/2507.02925v3",
+  "extraction_source_type": "pdf",
+  "paper_title": "Large Language Model Agent for Modular Task Execution in Drug Discovery",
+  "summary_extraction_status": "extracted",
+  "summary_json_path": "review_outputs/gpt_paper_items/arXiv_Ock_et_al._2025_Large_Language_Model_Agent_for_Modular_Task_Execution_in_Drug_Discovery.json",
+  "objective": {
+    "answer": "The primary objective of the paper is to introduce AgentD, a modular framework powered by large language models (LLMs) to automate and streamline key tasks in the early-stage computational drug discovery pipeline.",
+    "evidence": "We present a modular framework powered by large language models (LLMs) that automates and streamlines key tasks across the early-stage computational drug discovery pipeline."
+  },
+  "knowledge_gap": {
+    "answer": "The paper addresses the gap of fragmented implementation in drug discovery pipelines, which limits scalability and efficiency due to the need for seamless integration across diverse tasks.",
+    "evidence": "Despite this progress, most computational methods remain task-specific and require manual orchestration by domain experts. Drug discovery is inherently a multi-step, interdependent process that requires seamless integration across diverse tasks."
+  },
+  "novelty": {
+    "answer": [
+      "AgentD integrates LLMs with domain-specific tools to perform a wide range of tasks in drug discovery.",
+      "The framework autonomously retrieves relevant biomolecular information and answers mechanistic questions with improved contextual accuracy.",
+      "AgentD generates chemically diverse seed molecules and predicts a broad spectrum of drug-relevant properties.",
+      "The framework employs Boltz-2 to generate 3D protein–ligand complexes and provide rapid binding affinity estimates.",
+      "AgentD's modular design allows for flexible integration of evolving tools and models."
+    ],
+    "evidence": [
+      "By combining LLM reasoning with domain-specific tools, the framework performs biomedical data retrieval, literature-grounded question answering via retrieval-augmented generation, molecular generation, multi-property prediction, property-aware molecular refinement, and 3D protein–ligand structure generation.",
+      "The agent autonomously retrieved relevant biomolecular information, including FASTA sequences, SMILES representations, and literature, and answered mechanistic questions with improved contextual accuracy compared to standard LLMs.",
+      "It then generated chemically diverse seed molecules and predicted 75 properties, including ADMET-related and general physicochemical descriptors, which guided iterative molecular refinement.",
+      "The framework also employed Boltz-2 to generate 3D protein–ligand complexes and provide rapid binding affinity estimates for candidate compounds.",
+      "Its modular design enables flexible integration of evolving tools and models, providing a scalable foundation for AI-assisted therapeutic discovery."
+    ]
+  },
+  "inspirational_papers": {
+    "answer": "- dZiner framework leverages LLM agents for molecular design through iterative reasoning and structure-based optimization. (Methodological precursors)\n- CACTUS demonstrated the use of an LLM to wrap cheminformatics utilities for evaluating properties such as Mwt, LogP, TPSA, and drug-likeness filters. (Experimental baselines)\n- SciToolAgent introduced a knowledge-graph–driven orchestration layer that allows an LLM to select from hundreds of scientific tools across domains. (Papers with limitations addressed by this work)",
+    "evidence": "For instance, the dZiner framework leverages LLM agents for molecular design through iterative reasoning and structure-based optimization. CACTUS demonstrated the use of an LLM to wrap cheminformatics utilities for evaluating properties such as Mwt, LogP, TPSA, and drug-likeness filters, providing a practical but narrowly scoped toolset. In contrast, SciToolAgent introduced a knowledge-graph–driven orchestration layer that allows an LLM to select from hundreds of scientific tools across domains ranging from biological to materials, illustrating scalability but lacking a dedicated workflow for therapeutic design."
+  },
+  "method": {
+    "steps": [
+      {
+        "step": "Data extraction from structured and unstructured sources.",
+        "input": "User query specifying a target protein and associated disease.",
+        "output": "Protein FASTA sequence, known drug names, SMILES representations, and relevant scientific literature.",
+        "evidence": "AgentD is capable of retrieving biomedical information from both structured and unstructured sources. Given a query, such as identifying known drugs associated with a specific protein–disease context, the agent retrieves the protein’s FASTA sequence from UniProt, searches for relevant drug names on the web, and extracts corresponding SMILES representations from ChEMBL."
+      },
+      {
+        "step": "Question answering using retrieval-augmented generation (RAG).",
+        "input": "Domain-specific scientific queries.",
+        "output": "Context-aware and evidence-based answers.",
+        "evidence": "To handle domain-specific scientific queries, AgentD employs a retrieval-augmented generation (RAG) strategy. By grounding its responses in literature obtained during the data extraction phase, the agent provides context-aware and evidence-based answers."
+      },
+      {
+        "step": "SMILES generation for seed molecule library.",
+        "input": "Existing drug SMILES or no input for de novo generation.",
+        "output": "Chemically diverse seed molecules in SMILES format.",
+        "evidence": "AgentD generates seed molecules in SMILES format using external generative models. In this study, we incorporate two such models: REINVENT, which supports de novo molecule generation without requiring input SMILES, and Mol2Mol, which performs conditional generation to produce molecules structurally similar to a given input SMILES."
+      },
+      {
+        "step": "Property prediction for candidate molecules.",
+        "input": "Candidate molecule SMILES and protein FASTA sequence.",
+        "output": "Predicted pharmacologically relevant properties including ADMET profiles and binding affinity.",
+        "evidence": "For each candidate molecule, AgentD predicts key pharmacologically relevant properties, including ADMET (absorption, distribution, metabolism, excretion, and toxicity) profiles and binding affinity (e.g., pKd)."
+      },
+      {
+        "step": "Molecule refinement based on predicted properties.",
+        "input": "Predicted properties of candidate molecules.",
+        "output": "Refined SMILES with improved attributes like solubility and metabolic stability.",
+        "evidence": "Based on the predicted properties, AgentD can identify molecular shortcomings such as toxicity or poor permeability, and propose targeted structural modifications to improve attributes like solubility and metabolic stability."
+      },
+      {
+        "step": "3D structure generation of protein–ligand complexes.",
+        "input": "Ligand SMILES and target protein sequence.",
+        "output": "3D protein–ligand complex structures and binding metrics.",
+        "evidence": "AgentD can generate 3D structures of protein–ligand complexes using Boltz-2 as an external tool. This process produces candidate complex structures along with associated binding metrics such as IC50 values and inhibitor probability."
+      }
+    ],
+    "tools": [
+      {
+        "name": "UniProt",
+        "description": "Used for retrieving protein FASTA sequences.",
+        "evidence": "AgentD retrieves the protein’s FASTA sequence from UniProt."
+      },
+      {
+        "name": "ChEMBL",
+        "description": "Used for extracting SMILES representations of known drugs.",
+        "evidence": "AgentD extracts corresponding SMILES representations from ChEMBL."
+      },
+      {
+        "name": "REINVENT",
+        "description": "Used for de novo molecule generation.",
+        "evidence": "In this study, we incorporate two such models: REINVENT, which supports de novo molecule generation without requiring input SMILES."
+      },
+      {
+        "name": "Mol2Mol",
+        "description": "Used for conditional generation of molecules structurally similar to a given input SMILES.",
+        "evidence": "Mol2Mol, which performs conditional generation to produce molecules structurally similar to a given input SMILES."
+      },
+      {
+        "name": "Deep-PK API",
+        "description": "Used for ADMET prediction.",
+        "evidence": "ADMET prediction is performed using the Deep-PK API, which accepts SMILES strings as input."
+      },
+      {
+        "name": "BAPULM",
+        "description": "Used for binding affinity estimation.",
+        "evidence": "For binding affinity estimation, the BAPULM model is used, which operates on both the SMILES and the protein’s FASTA sequence."
+      },
+      {
+        "name": "Boltz-2",
+        "description": "Used for generating 3D protein–ligand complexes.",
+        "evidence": "AgentD can generate 3D structures of protein–ligand complexes using Boltz-2 as an external tool."
+      }
+    ],
+    "benchmark_datasets": [],
+    "evaluation_metrics": [
+      {
+        "name": "BERTScore",
+        "purpose": "Measures semantic similarity between model-generated and reference texts.",
+        "application": "Used to assess the contextual similarity of responses generated with and without RAG.",
+        "evidence": "To quantitatively assess these observed differences, we measured the semantic similarity between responses generated with and without RAG and human-annotated reference answers derived from the literature using BERTScore."
+      }
+    ]
+  },
+  "method_type": {
+    "methods": [
+      {
+        "name": "Knowledge Extraction and Structurization",
+        "description": "The system retrieves and organizes relevant biomolecular information from structured and unstructured sources.",
+        "evidence": "AgentD is capable of retrieving biomedical information from both structured and unstructured sources."
+      },
+      {
+        "name": "Hypothesis or Idea Generation",
+        "description": "The system generates candidate molecules and proposes structural modifications based on predicted properties.",
+        "evidence": "AgentD generates seed molecules in SMILES format using external generative models."
+      },
+      {
+        "name": "Experimental design generation",
+        "description": "The approach includes producing experimental protocols, configurations, or evaluation strategies.",
+        "evidence": "The agent performs a wide range of important tasks, including biomedical data retrieval from structured databases and unstructured web sources, answering domain-specific scientific queries, generating seed molecule libraries via SMILES-based generative models, predicting a broad spectrum of drug-relevant properties, refining molecular representations to improve drug-likeness, and generating 3D molecular structures for downstream analysis."
+      }
+    ]
+  },
+  "subject_area": {
+    "areas": [
+      {
+        "name": "Chemical Sciences",
+        "description": "The paper focuses on molecular generation, property prediction, and refinement in drug discovery.",
+        "evidence": "The framework performs biomedical data retrieval, literature-grounded question answering via retrieval-augmented generation, molecular generation, multi-property prediction, property-aware molecular refinement, and 3D protein–ligand structure generation."
+      },
+      {
+        "name": "Health Sciences",
+        "description": "The paper develops a framework for early-stage computational drug discovery.",
+        "evidence": "We present a modular framework powered by large language models (LLMs) that automates and streamlines key tasks across the early-stage computational drug discovery pipeline."
+      },
+      {
+        "name": "Applied Sciences & Engineering",
+        "description": "The framework integrates LLMs with domain-specific tools for scalable AI-assisted therapeutic discovery.",
+        "evidence": "Its modular design enables flexible integration of evolving tools and models, providing a scalable foundation for AI-assisted therapeutic discovery."
+      }
+    ]
+  },
+  "performance_summary": {
+    "performance_summary": [
+      {
+        "summary": "AgentD consistently generates more detailed and mechanistically accurate responses compared to vanilla GPT-4o.",
+        "evidence": "AgentD consistently generates more detailed and mechanistically accurate responses. For example, when asked about the synergy mechanism between venetoclax and proteasome inhibitors, the RAG-augmented answer includes key elements such as ISR activation, ATF3/ATF4-mediated transcription of NOXA, and downstream effects involving BIM, BAX/BAK activation, and mitochondrial membrane permeabilization, closely aligning with the mechanistic explanation presented in the source paper."
+      }
+    ],
+    "baselines": [
+      {
+        "name": "Vanilla GPT-4o",
+        "description": "Standard language model baseline without retrieval-augmented generation.",
+        "evidence": "We evaluated this capability using a representative study by Weller et al., which describes how venetoclax activates the integrated stress response (ISR), leading to NOXA upregulation and MCL-1 inhibition. Based on this paper, we formulated domain-specific questions and compared the responses generated by AgentD with RAG to those from the vanilla GPT-4o model."
+      }
+    ],
+    "benchmark_datasets": [],
+    "evaluation_metrics": [
+      {
+        "name": "BERTScore",
+        "purpose": "Measures semantic similarity between model-generated and reference texts.",
+        "application": "Used to assess the contextual similarity of responses generated with and without RAG.",
+        "evidence": "To quantitatively assess these observed differences, we measured the semantic similarity between responses generated with and without RAG and human-annotated reference answers derived from the literature using BERTScore."
+      }
+    ]
+  },
+  "benchmark_dataset": null,
+  "limitations": {
+    "limitations": [
+      {
+        "name": "Tool Dependency",
+        "description": "The framework relies on external predictive tools, each carrying its own error profile and uncertainties.",
+        "evidence": "The workflow relies on external predictive tools such as Deep-PK, BAPULM, and Boltz-2, each of which carries its own error profile and uncertainties."
+      },
+      {
+        "name": "Non-deterministic Reproducibility",
+        "description": "The inherently non-deterministic nature of weakness property identification during refinement makes exact reproduction challenging.",
+        "evidence": "Another source of variability arises from the inherently non-deterministic nature of weakness property identification during refinement. Because the agent may select different properties as optimization targets across runs, exact reproduction of a single refinement is challenging."
+      }
+    ]
+  },
+  "future_directions": {
+    "future_directions": [
+      {
+        "name": "Incorporate Multi-objective Optimization",
+        "description": "Future iterations should incorporate multi-objective optimization to better balance competing pharmacological goals.",
+        "evidence": "These trade-offs highlight the fundamental challenge of multi-property optimization in drug design. These findings highlight the importance of incorporating multi-objective optimization in future iterations to better balance competing pharmacological goals."
+      },
+      {
+        "name": "Enhance Literature Grounding",
+        "description": "Integrate more sophisticated retrieval strategies to strengthen literature grounding.",
+        "evidence": "More sophisticated retrieval strategies, such as relevance ranking or knowledge graph integration, would strengthen literature grounding."
+      },
+      {
+        "name": "Integrate Uncertainty-aware Prediction",
+        "description": "Future iterations could integrate uncertainty-aware property prediction to reduce sensitivity to individual tool errors.",
+        "evidence": "Future iterations of AgentD could address these limitations by integrating uncertainty-aware property prediction, ensemble scoring, and confidence-weighted refinement to reduce sensitivity to individual tool errors."
+      }
+    ]
+  },
+  "resource_link": {
+    "answer": "https://github.com/hoon-ock/AgentD",
+    "evidence": "The code that supports this study’s findings can be found in the following publicly available GitHub repository: https://github.com/hoon-ock/AgentD."
+  }
+}

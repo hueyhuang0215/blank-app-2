@@ -1,0 +1,282 @@
+{
+  "source": "bioRxiv",
+  "source_id": "PPR1254073",
+  "title": "Incorporation of single-neuron projectome-based connectivity motifs enhances the cortex-specific performance of artificial neural networks",
+  "abstract": "The organizational principles of natural neural networks could inspire the new architecture design of artificial neural networks (ANNs). Analysis of single-neuron connectomes of mouse brains revealed distinct profiles of three-node connectivity motifs in various cortical areas and hippocampal formation. A connectome-informed neural network algorithm (“CINA”) was developed to incorporate natural connectivity motifs into ANN algorithms represented by recurrent neural network (RNN) and transformer-based large language model (LLM). We found that incorporation of the average profile of cortical motifs improved the RNN’s performance in noise-resistant categorization and motor learning benchmark tasks, as compared with RNNs with random connectivity. Notably, incorporating cortex-specific motifs further elevated the RNN’s performance in tasks related to the cortical function, and this effect was enhanced by artificially increasing the bias in the motif profile. Similar experimental results were verified on an LLM using Motif-Transformer for natural language question answering and brain-signal decoding tasks. Graph-theoretic analyses showed that incorporating natural motifs drove the emergence of modular and small-world properties in ANNs. Together, we demonstrated not only connectome-inspired optimization of ANN architecture but also functional significance of specific motif profiles in various cortices.",
+  "published": "2026-06-17",
+  "authors": [
+    "Sun Y",
+    "Yao W",
+    "Zhang J",
+    "Song W",
+    "Zhao X",
+    "Hao C",
+    "Chen X",
+    "Zeng S",
+    "Jia S",
+    "Yang Y",
+    "Chen X",
+    "Xiao X",
+    "Poo M",
+    "Sun Y",
+    "Xu B",
+    "Zhang T."
+  ],
+  "link": "https://doi.org/10.64898/2026.06.12.732007",
+  "doi": "10.64898/2026.06.12.732007",
+  "pdf_url": "",
+  "ai_for_science_score": 0.9,
+  "confidence_score": 0.95,
+  "implementation_score": 0.8,
+  "review_score": 0.7,
+  "benchmark_score": 0.85,
+  "hypothesis_generation_score": 0.75,
+  "scientific_discovery_score": 0.8,
+  "experiment_design_score": 0.7,
+  "material_discovery_score": 0.0,
+  "molecular_design_score": 0.0,
+  "drug_discovery_score": 0.0,
+  "causal_discovery_score": 0.6,
+  "biomedical_discovery_score": 0.7,
+  "idea_development_score": 0.8,
+  "ai_for_science_label": "accept",
+  "ai_for_science_reason": "The paper uses AI methods to enhance neural network architectures based on biological connectomes, targeting neuroscience and cognitive science.",
+  "implementation_justification": "The paper implements a novel algorithm incorporating biological motifs into ANNs.",
+  "review_justification": "The paper provides a detailed analysis of the impact of biological motifs on ANN performance.",
+  "benchmark_justification": "The study includes benchmark tasks for noise-resistant categorization and motor learning.",
+  "hypothesis_generation_justification": "The work suggests new hypotheses about the role of connectivity motifs in neural processing.",
+  "scientific_discovery_justification": "The research contributes to understanding the functional significance of neural motifs.",
+  "experiment_design_justification": "The study designs experiments to test the impact of motif incorporation on ANN performance.",
+  "material_discovery_justification": "The paper does not focus on material discovery.",
+  "molecular_design_justification": "The paper does not involve molecular design.",
+  "drug_discovery_justification": "The paper does not address drug discovery.",
+  "causal_discovery_justification": "The study explores causal relationships between connectivity motifs and ANN performance.",
+  "biomedical_discovery_justification": "The research has implications for understanding brain function and structure.",
+  "idea_development_justification": "The paper develops the idea of using biological motifs to enhance ANN architectures.",
+  "science_domains": [
+    "neuroscience",
+    "cognitive science"
+  ],
+  "ai_methods": [
+    "recurrent neural networks",
+    "transformer-based large language models",
+    "graph-theoretic analyses"
+  ],
+  "exhyte_stages": [
+    "Exploration",
+    "Hypothesis generation",
+    "Testing"
+  ],
+  "needs_pdf_review": false,
+  "auto_decision": "accept",
+  "auto_selected": true,
+  "selection_source": "llm_auto",
+  "local_pdf_path": "downloaded_pdfs/bioRxiv_Y_et_al._2026_Incorporation_of_single-neuron_projectome-based_connectivity_motifs_enhances_the_cortex-specific_performance_of_artificial_neural_networks.pdf",
+  "pdf_download_status": "manual_pdf",
+  "pdf_download_method": "manual_pdf",
+  "pdf_download_url": "manual_pdfs/bioRxiv_Y_et_al._2026_Incorporation_of_single-neuron_projectome-based_connectivity_motifs_enhances_the_cortex-specific_performance_of_artificial_neural_networks.pdf",
+  "pdf_download_attempted_at": "2026-06-30T17:54:09",
+  "paper_title": "Incorporation of single-neuron projectome-based connectivity motifs enhances the cortex-specific performance of artificial neural networks",
+  "summary_extraction_status": "extracted",
+  "summary_json_path": "review_outputs/gpt_paper_items/bioRxiv_Y_et_al._2026_Incorporation_of_single-neuron_projectome-based_connectivity_motifs_enhances_the_cortex-specific_performance_of_artificial_neural_networks.json",
+  "objective": {
+    "answer": "The primary objective of the paper is to enhance the performance of artificial neural networks (ANNs) by incorporating single-neuron projectome-based connectivity motifs from mouse brains. The authors aim to improve the cortex-specific performance of ANNs by integrating natural connectivity motifs into recurrent neural networks (RNNs) and transformer-based large language models (LLMs).",
+    "evidence": "A connectome-informed neural network algorithm ('CINA') was developed to incorporate natural connectivity motifs into ANN algorithms represented by recurrent neural network (RNN) and transformer-based large language model (LLM)."
+  },
+  "knowledge_gap": {
+    "answer": "The paper addresses the gap in artificial neural network designs that have not considered the incorporation of specialized connectivity patterns of the brain, such as connectivity motifs.",
+    "evidence": "However, most artificial network designs have not considered the incorporation of specialized connectivity patterns of the brain, including, but not limited to, recurrent neural networks (RNNs) and the Transformer that serves as the key module in large language models (LLMs)."
+  },
+  "novelty": {
+    "answer": [
+      "Development of a connectome-informed neural network algorithm (CINA) that incorporates natural connectivity motifs into ANNs.",
+      "Introduction of a motif loss function that enforces biological plausibility in network structure during learning.",
+      "Demonstration of enhanced performance in RNNs and Transformers by incorporating cortex-specific motifs.",
+      "Application of graph-theoretic analyses to show modular and small-world properties in ANNs with natural motifs."
+    ],
+    "evidence": [
+      "A connectome-informed neural network algorithm ('CINA') was developed to incorporate natural connectivity motifs into ANN algorithms.",
+      "This newly added loss function serves as a structural constraint that complements the traditional error loss.",
+      "Notably, incorporating cortex-specific motifs further elevated the RNN’s performance in tasks related to the cortical function.",
+      "Graph-theoretic analyses showed that incorporating natural motifs drove the emergence of modular and small-world properties in ANNs."
+    ]
+  },
+  "inspirational_papers": {
+    "answer": "- Milo et al. (2002) Network motifs: simple building blocks of complex networks. (Methodological precursors)\n- Sporns and Kötter (2004) Motifs in brain networks. (Methodological precursors)",
+    "evidence": "Selective connectivity among a small group of neurons, known as 'motifs'5, have been identified and characterized in various brain regions6."
+  },
+  "method": {
+    "steps": [
+      {
+        "step": "Analyze single-neuron connectome data for motif distribution.",
+        "input": "Single-neuron whole-brain connectome dataset from mouse brains.",
+        "output": "Frequency distribution of 3-node motifs in 50 brain regions.",
+        "evidence": "We first analyzed recently collected connectome data on the mouse brain for the distribution of 3-node motifs in 50 brain regions."
+      },
+      {
+        "step": "Develop CINA algorithm to incorporate motif distributions into ANNs.",
+        "input": "Motif frequency distributions and ANN architectures.",
+        "output": "ANNs with integrated motif distributions.",
+        "evidence": "We developed a connectome-informed neural network algorithm (termed 'CINA')."
+      },
+      {
+        "step": "Evaluate performance of CINA-endowed ANNs on machine learning tasks.",
+        "input": "CINA-endowed ANNs and various machine learning tasks.",
+        "output": "Performance metrics for noise-resistant categorization and motor learning tasks.",
+        "evidence": "We then examined the benefits of CINA-endowed motif distributions in both RNN and Transformer algorithms for a variety of machine learning tasks."
+      },
+      {
+        "step": "Apply graph-theoretic analysis to assess network properties.",
+        "input": "ANNs with motif distributions.",
+        "output": "Modular and small-world network properties.",
+        "evidence": "Finally, we applied graph-theoretic analysis to ANNs endowed with cortical motif distributions."
+      }
+    ],
+    "tools": [
+      {
+        "name": "CINA",
+        "description": "Used to incorporate natural connectivity motifs into ANN algorithms.",
+        "evidence": "A connectome-informed neural network algorithm ('CINA') was developed."
+      }
+    ],
+    "benchmark_datasets": [
+      {
+        "name": "N-MNIST",
+        "data_description": "Static image dataset for image recognition.",
+        "usage": "Used for static image recognition task.",
+        "evidence": "static image recognition using N-MNIST dataset"
+      },
+      {
+        "name": "DVS-Gesture",
+        "data_description": "Dynamic video dataset for gesture recognition.",
+        "usage": "Used for dynamic video recognition task.",
+        "evidence": "dynamic video recognition using DVS-Gesture dataset"
+      },
+      {
+        "name": "TIDIGITS",
+        "data_description": "Spoken audio dataset for digit recognition.",
+        "usage": "Used for spoken audio recognition task.",
+        "evidence": "spoken audio recognition using TIDIGITS dataset"
+      }
+    ],
+    "evaluation_metrics": [
+      {
+        "name": "Accuracy",
+        "purpose": "Measures the correctness of predictions.",
+        "application": "Used to evaluate performance on categorization tasks.",
+        "evidence": "mean accuracy (across all input noise levels) for RNNs"
+      },
+      {
+        "name": "Reinforcement reward scores",
+        "purpose": "Measures task performance in reinforcement learning.",
+        "application": "Used to evaluate motor learning tasks.",
+        "evidence": "accuracies of task performance (as reflected by reinforcement reward scores)"
+      }
+    ]
+  },
+  "method_type": {
+    "methods": [
+      {
+        "name": "Hypothesis or Idea Generation",
+        "description": "The system produces candidate hypotheses or new research ideas from prior knowledge or external input.",
+        "evidence": "We inquired whether incorporating distinct distributions of various connectivity motifs derived from different mouse brain regions could improve the performance of RNN and Transformer in machine learning tasks."
+      },
+      {
+        "name": "Experimental design generation",
+        "description": "The approach includes producing experimental protocols, configurations, or evaluation strategies.",
+        "evidence": "We then examined the benefits of CINA-endowed motif distributions in both RNN and Transformer algorithms for a variety of machine learning tasks."
+      }
+    ]
+  },
+  "subject_area": {
+    "areas": [
+      {
+        "name": "Biological Sciences",
+        "description": "The paper uses single-neuron connectome data from mouse brains to inform ANN design.",
+        "evidence": "Analysis of single-neuron connectomes of mouse brains revealed distinct profiles of three-node connectivity motifs."
+      },
+      {
+        "name": "Applied Sciences & Engineering",
+        "description": "The paper develops a neural network algorithm inspired by biological connectivity motifs.",
+        "evidence": "A connectome-informed neural network algorithm ('CINA') was developed to incorporate natural connectivity motifs into ANN algorithms."
+      }
+    ]
+  },
+  "performance_summary": {
+    "performance_summary": [
+      {
+        "summary": "CINA-endowed RNNs showed enhanced performance in noise-resistant categorization and motor learning tasks compared to vanilla RNNs.",
+        "evidence": "The performance of RNNs was enhanced by incorporating an average motif distribution found in the frontal pole cortex (FRP) and primary motor cortex (MOp), as compared to that of RNNs with random connectivity."
+      }
+    ],
+    "baselines": [
+      {
+        "name": "Vanilla RNN",
+        "description": "RNN with random connectivity used as a baseline.",
+        "evidence": "We found that the performance of RNNs was enhanced by incorporating an average motif distribution found in the frontal pole cortex (FRP) and primary motor cortex (MOp), as compared to that of RNNs with random connectivity."
+      }
+    ],
+    "benchmark_datasets": [
+      {
+        "name": "N-MNIST",
+        "data_description": "Static image dataset for image recognition.",
+        "usage": "Used for static image recognition task.",
+        "evidence": "static image recognition using N-MNIST dataset"
+      },
+      {
+        "name": "DVS-Gesture",
+        "data_description": "Dynamic video dataset for gesture recognition.",
+        "usage": "Used for dynamic video recognition task.",
+        "evidence": "dynamic video recognition using DVS-Gesture dataset"
+      },
+      {
+        "name": "TIDIGITS",
+        "data_description": "Spoken audio dataset for digit recognition.",
+        "usage": "Used for spoken audio recognition task.",
+        "evidence": "spoken audio recognition using TIDIGITS dataset"
+      }
+    ],
+    "evaluation_metrics": [
+      {
+        "name": "Accuracy",
+        "purpose": "Measures the correctness of predictions.",
+        "application": "Used to evaluate performance on categorization tasks.",
+        "evidence": "mean accuracy (across all input noise levels) for RNNs"
+      },
+      {
+        "name": "Reinforcement reward scores",
+        "purpose": "Measures task performance in reinforcement learning.",
+        "application": "Used to evaluate motor learning tasks.",
+        "evidence": "accuracies of task performance (as reflected by reinforcement reward scores)"
+      }
+    ]
+  },
+  "benchmark_dataset": {
+    "name": "N-MNIST",
+    "data_description": "Static image dataset for image recognition.",
+    "usage": "Used for static image recognition task.",
+    "evidence": "static image recognition using N-MNIST dataset"
+  },
+  "limitations": {
+    "limitations": [
+      {
+        "name": "Limited Generalizability",
+        "description": "The study is based on mouse brain data, which may not fully generalize to human brain structures.",
+        "evidence": "Using the available mouse intracortical connectome data, we identified the frequency distributions for all 13 possible 3-node connectivity motifs across 50 brain regions."
+      }
+    ]
+  },
+  "future_directions": {
+    "future_directions": [
+      {
+        "name": "Explore Other Brain Regions",
+        "description": "Investigate the motif distributions in additional brain regions to further enhance ANN performance.",
+        "evidence": "These findings highlight the potential of connectome-inspired network design for improving artificial neural systems while providing new insights into the functional significance of specific motif profiles in various brain regions."
+      }
+    ]
+  },
+  "resource_link": {
+    "answer": "https://github.com/I4m4I/motif",
+    "evidence": "All source codes can be downloaded from https://github.com/I4m4I/motif."
+  }
+}

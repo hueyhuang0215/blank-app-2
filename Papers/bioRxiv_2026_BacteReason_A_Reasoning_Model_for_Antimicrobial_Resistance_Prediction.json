@@ -1,0 +1,240 @@
+{
+  "source": "bioRxiv",
+  "source_id": "PPR1247504",
+  "title": "BacteReason: A Reasoning Model for Antimicrobial Resistance Prediction",
+  "abstract": "The rapid global spread of antimicrobial resistance (AMR) has placed unprecedented pressure on clinical decision-making. Machine learning predictors of antibiotic susceptibility exist, but their lack of mechanistic grounding limits credibility. We present B acte R eason , a reasoning large language model (LLM) that predicts bacterial susceptibility to a target antibiotic, together with a mechanistic rationale. BacteReason is obtained by fine-tuning an open-weight LLM on clinical susceptibility data augmented with rationales that explain the molecular mechanisms. These rationales are produced by a proprietary teacher LLM prompted to explain known susceptibility outcomes. The teacher is interfaced via TogoMCP with a collection of biomedical knowledge-graph databases, grounding each reasoning step in retrieved evidence. On an extrapolation benchmark, B acte R eason achieves a relative improvement of 43% over the untuned baseline and 38% over the same base LLM fine-tuned without rationales, demonstrating that reasoning supervision improves prediction accuracy.",
+  "published": "2026-06-07",
+  "authors": [
+    "Oikawa Y",
+    "Kawashima S",
+    "Kinjo AR",
+    "Demizu Y",
+    "Tamura R",
+    "Tsuda K."
+  ],
+  "link": "https://doi.org/10.64898/2026.06.04.730229",
+  "doi": "10.64898/2026.06.04.730229",
+  "pdf_url": "",
+  "ai_for_science_score": 0.9,
+  "confidence_score": 0.95,
+  "implementation_score": 0.8,
+  "review_score": 0.85,
+  "benchmark_score": 0.9,
+  "hypothesis_generation_score": 0.8,
+  "scientific_discovery_score": 0.9,
+  "experiment_design_score": 0.7,
+  "material_discovery_score": 0.0,
+  "molecular_design_score": 0.6,
+  "drug_discovery_score": 0.7,
+  "causal_discovery_score": 0.8,
+  "biomedical_discovery_score": 0.9,
+  "idea_development_score": 0.75,
+  "ai_for_science_label": "accept",
+  "ai_for_science_reason": "The paper uses a reasoning LLM to predict antimicrobial resistance, contributing to scientific discovery in medicine.",
+  "implementation_justification": "The model is fine-tuned on clinical data with mechanistic rationales.",
+  "review_justification": "The paper demonstrates significant improvement over baseline models.",
+  "benchmark_justification": "The model shows a 43% improvement on an extrapolation benchmark.",
+  "hypothesis_generation_justification": "The model generates mechanistic rationales for predictions.",
+  "scientific_discovery_justification": "The model aids in understanding and predicting antimicrobial resistance.",
+  "experiment_design_justification": "The model's predictions can inform experimental validation.",
+  "material_discovery_justification": "The paper does not focus on material discovery.",
+  "molecular_design_justification": "The model provides insights into molecular mechanisms of resistance.",
+  "drug_discovery_justification": "The model's predictions can guide antibiotic development.",
+  "causal_discovery_justification": "The model explains causal mechanisms of resistance.",
+  "biomedical_discovery_justification": "The model contributes to biomedical understanding of AMR.",
+  "idea_development_justification": "The approach integrates reasoning with predictive modeling.",
+  "science_domains": [
+    "medicine",
+    "biology"
+  ],
+  "ai_methods": [
+    "large language models",
+    "knowledge graphs",
+    "machine learning"
+  ],
+  "exhyte_stages": [
+    "Hypothesis generation",
+    "Testing"
+  ],
+  "needs_pdf_review": false,
+  "auto_decision": "accept",
+  "auto_selected": true,
+  "selection_source": "llm_auto",
+  "local_pdf_path": "downloaded_pdfs/bioRxiv_Y_et_al._2026_BacteReason_A_Reasoning_Model_for_Antimicrobial_Resistance_Prediction.pdf",
+  "pdf_download_status": "manual_pdf",
+  "pdf_download_method": "manual_pdf",
+  "pdf_download_url": "manual_pdfs/bioRxiv_Y_et_al._2026_BacteReason_A_Reasoning_Model_for_Antimicrobial_Resistance_Prediction.pdf",
+  "pdf_download_attempted_at": "2026-06-30T17:54:09",
+  "paper_title": "BacteReason: A Reasoning Model for Antimicrobial Resistance Prediction",
+  "summary_extraction_status": "extracted",
+  "summary_json_path": "review_outputs/gpt_paper_items/bioRxiv_Y_et_al._2026_BacteReason_A_Reasoning_Model_for_Antimicrobial_Resistance_Prediction.json",
+  "objective": {
+    "answer": "The primary objective of the paper is to develop BacteReason, a reasoning large language model (LLM) that predicts bacterial susceptibility to antibiotics with a mechanistic rationale, addressing the lack of mechanistic grounding in existing machine learning predictors of antibiotic susceptibility.",
+    "evidence": "We present BacteReason, a reasoning large language model (LLM) that predicts bacterial susceptibility to a target antibiotic, together with a mechanistic rationale."
+  },
+  "knowledge_gap": {
+    "answer": "Existing machine learning approaches to antimicrobial resistance prediction lack grounding in molecular mechanisms, which limits their credibility and trustworthiness.",
+    "evidence": "Machine learning approaches to AMR prediction have shown promise, but such predictions are not grounded in molecular mechanism. This is a fundamental limitation: resistance and susceptibility arise from cascades of molecular interactions."
+  },
+  "novelty": {
+    "answer": [
+      "BacteReason integrates mechanistic reasoning into antimicrobial resistance prediction by fine-tuning a large language model with rationales explaining molecular mechanisms.",
+      "The model uses a proprietary teacher LLM interfaced with biomedical knowledge-graph databases to generate high-quality rationales.",
+      "BacteReason demonstrates improved prediction accuracy by grounding reasoning in biological knowledge bases."
+    ],
+    "evidence": [
+      "BacteReason is obtained by fine-tuning an open-weight LLM on clinical susceptibility data augmented with rationales that explain the molecular mechanisms.",
+      "The teacher is interfaced via TogoMCP with a collection of biomedical knowledge-graph databases, grounding each reasoning step in retrieved evidence.",
+      "These findings show that grounding agentic LLMs in biological knowledge bases improves their reasoning, and the approach should generalise to other biological prediction tasks."
+    ]
+  },
+  "inspirational_papers": {
+    "answer": "- Wei et al. (2023) Chain-of-Thought Prompting Elicits Reasoning in Large Language Models. (Methodological precursors)\n- Doumith et al. (2009) Molecular mechanisms disrupting porin expression in ertapenem-resistant Klebsiella and Enterobacter spp. clinical isolates from the UK. (Papers with limitations addressed by this work)\n- Tuckman et al. (2007) Occurrence of Tetracycline Resistance Genes among Escherichia coli Isolates from the Phase 3 Clinical Trials for Tigecycline. (Papers with limitations addressed by this work)",
+    "evidence": "LLMs have been shown to provide rationales in biological domains such as medical question answering, disease diagnosis, and genomics, and here we apply the same idea to AMR prediction. Doumith et al. lend support to this, having demonstrated that restoring functional porins in porin-deficient clinical isolates decreased MICs of all carbapenems. This is consistent with Tuckman et al., who attribute 93% of tetracycline resistance in E. coli clinical isolates to identifiable resistance genes."
+  },
+  "method": {
+    "steps": [
+      {
+        "step": "Synthesize question–answer pairs from clinical biosample antibiograms.",
+        "input": "Clinical susceptibility records from the AMR Portal database.",
+        "output": "Question–answer pairs.",
+        "evidence": "In Step 1, 1,875 question–answer pairs are systematically synthesized from randomly selected clinical biosample antibiograms."
+      },
+      {
+        "step": "Generate rationales using a teacher LLM interfaced with biomedical databases.",
+        "input": "Question–answer pairs and access to biomedical knowledge graphs via TogoMCP.",
+        "output": "Question–rationale–answer triplets.",
+        "evidence": "In Step 2, each pair is reformatted as an instruction prompting the teacher LLM to generate a rationale linking the question to its answer."
+      },
+      {
+        "step": "Fine-tune an open-weight LLM using the generated triplets.",
+        "input": "Question–rationale–answer triplets.",
+        "output": "Fine-tuned BacteReason model.",
+        "evidence": "In Step 3, the 1,875 triplets are used to fine-tune QwQ-32B, an open-weight LLM, with the loss computed on the rationale and answer tokens."
+      }
+    ],
+    "tools": [
+      {
+        "name": "TogoMCP",
+        "description": "Used to interface the teacher LLM with biomedical knowledge-graph databases.",
+        "evidence": "We employed TogoMCP, a Model Context Protocol server to interface the teacher LLM with a collection of biomedical databases."
+      },
+      {
+        "name": "QwQ-32B",
+        "description": "The open-weight LLM fine-tuned to create BacteReason.",
+        "evidence": "In Step 3, the 1,875 triplets are used to fine-tune QwQ-32B, an open-weight LLM."
+      }
+    ],
+    "benchmark_datasets": [
+      {
+        "name": "AMR Portal database",
+        "data_description": "Clinical susceptibility records.",
+        "usage": "Used for synthesizing question–answer pairs and testing.",
+        "evidence": "The training dataset is generated from 1,875 clinical susceptibility records systematically derived from the AMR Portal database."
+      }
+    ],
+    "evaluation_metrics": [
+      {
+        "name": "Error rate",
+        "purpose": "Measures the accuracy of susceptibility predictions.",
+        "application": "Used to evaluate BacteReason's performance against baselines.",
+        "evidence": "The primary evaluation criterion for an LLM-based predictor such as BacteReason is the error rate (accuracy)."
+      }
+    ]
+  },
+  "method_type": {
+    "methods": [
+      {
+        "name": "Knowledge Extraction and Structurization",
+        "evidence": "The teacher LLM is granted access to biomedical knowledge graphs through TogoMCP."
+      },
+      {
+        "name": "Hypothesis or Idea Generation",
+        "evidence": "The teacher LLM generates a rationale linking the question to its answer."
+      }
+    ]
+  },
+  "subject_area": {
+    "areas": [
+      {
+        "name": "Health Sciences",
+        "description": "The paper focuses on predicting bacterial susceptibility to antibiotics, a key issue in healthcare.",
+        "evidence": "The rapid global spread of antimicrobial resistance (AMR) has placed unprecedented pressure on clinical decision-making."
+      },
+      {
+        "name": "Applied Sciences & Engineering",
+        "description": "The development of a reasoning model for AMR prediction involves engineering aspects of LLMs.",
+        "evidence": "We present BacteReason, a reasoning large language model (LLM) that predicts bacterial susceptibility to a target antibiotic."
+      }
+    ]
+  },
+  "performance_summary": {
+    "performance_summary": [
+      {
+        "summary": "BacteReason achieved an error rate of 18% in susceptibility prediction, a relative improvement of 43% over the untuned baseline.",
+        "evidence": "On a benchmark of 200 clinical isolates, BacteReason achieved an error rate of 18% in susceptibility prediction, a relative improvement of 43% over the untuned baseline."
+      }
+    ],
+    "baselines": [
+      {
+        "name": "Untuned baseline",
+        "description": "The base open-weight LLM with no fine-tuning.",
+        "evidence": "The untuned baseline, BacteReasonw/o-Finetuning, achieves an error rate of 32%."
+      },
+      {
+        "name": "BacteReasonw/o-Reasoning",
+        "description": "The same base LLM fine-tuned on question–answer pairs only, with rationales removed from the training data.",
+        "evidence": "BacteReasonw/o-Reasoning: the same base LLM fine-tuned on question–answer pairs only, with rationales removed from the training data."
+      }
+    ],
+    "benchmark_datasets": [
+      {
+        "name": "AMR Portal database",
+        "data_description": "Clinical susceptibility records.",
+        "usage": "Used for synthesizing question–answer pairs and testing.",
+        "evidence": "The training dataset is generated from 1,875 clinical susceptibility records systematically derived from the AMR Portal database."
+      }
+    ],
+    "evaluation_metrics": [
+      {
+        "name": "Error rate",
+        "purpose": "Measures the accuracy of susceptibility predictions.",
+        "application": "Used to evaluate BacteReason's performance against baselines.",
+        "evidence": "The primary evaluation criterion for an LLM-based predictor such as BacteReason is the error rate (accuracy)."
+      }
+    ]
+  },
+  "benchmark_dataset": {
+    "name": "AMR Portal database",
+    "data_description": "Clinical susceptibility records.",
+    "usage": "Used for synthesizing question–answer pairs and testing.",
+    "evidence": "The training dataset is generated from 1,875 clinical susceptibility records systematically derived from the AMR Portal database."
+  },
+  "limitations": {
+    "limitations": [
+      {
+        "name": "Temporal Dynamics",
+        "description": "BacteReason does not account for the temporal dynamics by which clinical isolates gain or lose resistance determinants under selective pressure.",
+        "evidence": "A key limitation of this study is that BacteReason predicts susceptibility from existing antibiogram patterns rather than anticipating future resistance acquisition."
+      }
+    ]
+  },
+  "future_directions": {
+    "future_directions": [
+      {
+        "name": "Expand Rationale Dataset",
+        "description": "Expanding the rationale dataset could directly improve performance.",
+        "evidence": "The data scaling curve has not saturated, suggesting that expanding the rationale dataset would directly improve performance."
+      },
+      {
+        "name": "Incorporate Genomic Features",
+        "description": "Augmenting the input with genomic features would address BacteReason’s weakness on single-determinant phenotypes.",
+        "evidence": "Augmenting the input with genomic features would address BacteReason’s weakness on single-determinant phenotypes."
+      }
+    ]
+  },
+  "resource_link": {
+    "answer": "https://huggingface.co/Playingyoyo/BacteReason",
+    "evidence": "The fine-tuned BacteReason model weights are available on Hugging Face at https://huggingface.co/Playingyoyo/BacteReason."
+  }
+}

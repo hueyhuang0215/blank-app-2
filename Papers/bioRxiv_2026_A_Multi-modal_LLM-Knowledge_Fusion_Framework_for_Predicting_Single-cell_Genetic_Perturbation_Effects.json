@@ -1,0 +1,294 @@
+{
+  "source": "bioRxiv",
+  "source_id": "PPR1213018",
+  "title": "A Multi-modal LLM-Knowledge Fusion Framework for Predicting Single-cell Genetic Perturbation Effects",
+  "abstract": "<h4>ABSTRACT</h4> Understanding cellular responses to genetic perturbations is fundamental for drug discovery, yet experimental approaches face significant limitations in coverage and cost that prevent comprehensive mapping of cellular behavior. This has motivated the development of virtual cells—computational models that learn the relationship between cell state and function to predict the consequences of perturbations across diverse contexts. However, current computational methods suffer from limited accuracy in complex genetic interactions, poor biological interpretability, and inadequate generalization to unseen genes, severely constraining virtual cell capabilities. We present scPert, a multi-modal framework based on Transformer architecture that integrates large language model embeddings with structured biological knowledge to predict single-cell transcriptomic responses to genetic perturbations. Through hierarchical fusion of knowledge graph representations, contextual embeddings from foundation models, and gene-specific encodings, scPert achieves significant performance improvements in both single-gene and combinatorial perturbations over existing methods. In cancer-relevant applications, scPert demonstrates the capability to reveal p53 pathway dynamics and immune checkpoint regulatory mechanisms. Systematic evaluation on 42 cancer dependency genes demonstrates scPert’s ability to identify critical potential therapeutic targets. Our framework establishes a powerful computational foundation for virtual cell construction and accelerates drug target discovery.",
+  "published": "2026-04-28",
+  "authors": [
+    "Lu M",
+    "You N",
+    "Zhang H",
+    "Zheng L",
+    "Li B",
+    "Jiang W",
+    "Zhang Y",
+    "Sun H",
+    "Zhou Y."
+  ],
+  "link": "https://doi.org/10.64898/2026.04.24.720560",
+  "doi": "10.64898/2026.04.24.720560",
+  "pdf_url": "",
+  "ai_for_science_score": 0.95,
+  "confidence_score": 0.9,
+  "implementation_score": 0.9,
+  "review_score": 0.85,
+  "benchmark_score": 0.9,
+  "hypothesis_generation_score": 0.9,
+  "scientific_discovery_score": 0.95,
+  "experiment_design_score": 0.85,
+  "material_discovery_score": 0.0,
+  "molecular_design_score": 0.8,
+  "drug_discovery_score": 0.95,
+  "causal_discovery_score": 0.85,
+  "biomedical_discovery_score": 0.95,
+  "idea_development_score": 0.8,
+  "ai_for_science_label": "accept",
+  "ai_for_science_reason": "The paper uses a multi-modal AI framework to predict genetic perturbation effects, directly contributing to scientific discovery in biology and drug discovery.",
+  "implementation_justification": "The framework is well-defined and shows significant performance improvements.",
+  "review_justification": "The paper provides a comprehensive evaluation on cancer dependency genes.",
+  "benchmark_justification": "The framework outperforms existing methods in predicting genetic perturbations.",
+  "hypothesis_generation_justification": "The framework aids in identifying potential therapeutic targets, supporting hypothesis generation.",
+  "scientific_discovery_justification": "The framework accelerates drug target discovery and reveals biological mechanisms.",
+  "experiment_design_justification": "The framework supports virtual cell construction, aiding in experiment design.",
+  "material_discovery_justification": "The paper does not focus on material discovery.",
+  "molecular_design_justification": "The framework contributes to understanding molecular interactions in genetic perturbations.",
+  "drug_discovery_justification": "The framework is directly applied to drug target discovery in cancer research.",
+  "causal_discovery_justification": "The framework helps reveal causal relationships in genetic perturbations.",
+  "biomedical_discovery_justification": "The framework significantly contributes to biomedical discovery by predicting cellular responses.",
+  "idea_development_justification": "The paper presents a novel integration of AI methods for biological applications.",
+  "science_domains": [
+    "biology",
+    "drug discovery"
+  ],
+  "ai_methods": [
+    "Transformer architecture",
+    "large language model embeddings",
+    "knowledge graphs"
+  ],
+  "exhyte_stages": [
+    "Exploration",
+    "Hypothesis generation",
+    "Testing"
+  ],
+  "needs_pdf_review": false,
+  "auto_decision": "accept",
+  "auto_selected": true,
+  "selection_source": "llm_auto",
+  "local_pdf_path": "downloaded_pdfs/bioRxiv_M_et_al._2026_A_Multi-modal_LLM-Knowledge_Fusion_Framework_for_Predicting_Single-cell_Genetic_Perturbation_Effects.pdf",
+  "pdf_download_status": "manual_pdf",
+  "pdf_download_method": "manual_pdf",
+  "pdf_download_url": "manual_pdfs/bioRxiv_M_et_al._2026_A_Multi-modal_LLM-Knowledge_Fusion_Framework_for_Predicting_Single-cell_Genetic_Perturbation_Effects.pdf",
+  "pdf_download_attempted_at": "2026-06-30T17:54:09",
+  "paper_title": "A Multi-modal LLM-Knowledge Fusion Framework for Predicting Single-cell Genetic Perturbation Effects",
+  "summary_extraction_status": "extracted",
+  "summary_json_path": "review_outputs/gpt_paper_items/bioRxiv_M_et_al._2026_A_Multi-modal_LLM-Knowledge_Fusion_Framework_for_Predicting_Single-cell_Genetic_Perturbation_Effects.json",
+  "objective": {
+    "answer": "The primary objective of the paper is to develop scPert, a multi-modal framework that integrates large language model embeddings with structured biological knowledge to predict single-cell transcriptomic responses to genetic perturbations.",
+    "evidence": "We present scPert, a multi-modal framework based on Transformer architecture that integrates large language model embeddings with structured biological knowledge to predict single-cell transcriptomic responses to genetic perturbations."
+  },
+  "knowledge_gap": {
+    "answer": "Current computational methods for predicting cellular responses to genetic perturbations suffer from limited accuracy in complex genetic interactions, poor biological interpretability, and inadequate generalization to unseen genes.",
+    "evidence": "However, current computational methods suffer from limited accuracy in complex genetic interactions, poor biological interpretability, and inadequate generalization to unseen genes, severely constraining virtual cell capabilities."
+  },
+  "novelty": {
+    "answer": [
+      "Integration of large language model embeddings with structured biological knowledge for predicting single-cell transcriptomic responses.",
+      "Development of a hierarchical embedding fusion strategy combining knowledge graph-based gene structural information with functional representations from pre-trained models.",
+      "Introduction of specialized gene interaction layers and self-attention mechanisms to capture complex regulatory relationships.",
+      "Implementation of a novel composite loss function optimizing for both expression magnitude and directionality."
+    ],
+    "evidence": [
+      "Our method employs a hierarchical embedding fusion strategy that integrating knowledge graph-based gene structural information from knowledge graphs with scGPT-derived functional representations from scGPT pre-trained models.",
+      "We design specialized gene interaction layers and self-attention mechanisms to capture complex regulatory relationships and long-range dependencies in gene networks.",
+      "Additionally, we develop a novel composite loss function that optimizes for both expression magnitude and directionality."
+    ]
+  },
+  "inspirational_papers": {
+    "answer": "- Norman et al. (2019) Exploring genetic interaction manifolds constructed from rich single-cell phenotypes. (Experimental baselines)\n- Roohani et al. (2024) Predicting transcriptional outcomes of novel multigene perturbations with GEARS. (Papers with limitations addressed by this work)",
+    "evidence": "We compared scPert against five established baseline methods (Note S2): GEARS, a knowledge graph-enhanced approach that represents the current state-of-the-art in perturbation prediction; scGPT, a foundation model specifically designed for single-cell genomics."
+  },
+  "method": {
+    "steps": [
+      {
+        "step": "Integrate multi-modal embeddings combining structured biological knowledge with data-driven representations.",
+        "input": "Structured biological knowledge from knowledge graphs and data-driven representations from foundation models.",
+        "output": "Multi-modal embeddings for gene and perturbation representation.",
+        "evidence": "We integrate multi-modal embeddings that combine structured biological knowledge from knowledge graphs with data-driven representations from foundation models."
+      },
+      {
+        "step": "Implement a memory-efficient transformer architecture for modeling gene-perturbation interactions.",
+        "input": "Gene and perturbation embeddings.",
+        "output": "Contextual relationships between genes and perturbations.",
+        "evidence": "We implement a memory-efficient transformer architecture that can handle the computational demands of modeling interactions between thousands of genes and perturbations."
+      },
+      {
+        "step": "Design specialized mechanisms for handling combinatorial perturbations.",
+        "input": "Combinatorial perturbation data.",
+        "output": "Modeling of non-additive effects in biological systems.",
+        "evidence": "We design specialized mechanisms for handling combinatorial perturbations, explicitly modeling the non-additive effects that are common in biological systems."
+      },
+      {
+        "step": "Incorporate hierarchical gene interaction modeling.",
+        "input": "Baseline co-expression patterns and perturbation-specific effects.",
+        "output": "Integrated gene interaction model capturing both steady-state and dynamic responses.",
+        "evidence": "We incorporate hierarchical gene interaction modeling that first captures baseline co-expression patterns before integrating perturbation-specific effects."
+      }
+    ],
+    "tools": [
+      {
+        "name": "scGPT",
+        "description": "Used for pre-trained embeddings capturing context-dependent expression patterns.",
+        "evidence": "We incorporate pre-trained embeddings from scGPT, a foundation model trained on extensive single-cell genomics datasets."
+      },
+      {
+        "name": "CompGCN",
+        "description": "Used for learning gene embeddings that preserve both structural and semantic relationships.",
+        "evidence": "We employ Composition-based Graph Convolutional Networks (CompGCN) to learn gene embeddings that preserve both structural and semantic relationship."
+      }
+    ],
+    "benchmark_datasets": [
+      {
+        "name": "Norman et al.",
+        "data_description": "Single-cell perturbation dataset.",
+        "usage": "Used for evaluating combinatorial perturbation prediction performance.",
+        "evidence": "To evaluate scPert's capability for predicting these complex genetic interactions, we assessed its performance on two-gene combinatorial perturbations using the Norman dataset containing 131 gene pairs."
+      },
+      {
+        "name": "Replogle et al.",
+        "data_description": "Genome-wide single-cell perturbation dataset.",
+        "usage": "Used for evaluating generalization capability across large-scale studies.",
+        "evidence": "Our evaluation encompassed datasets ranging from smaller focused screens to large-scale genome-wide screens (up to 1,543 perturbations; over 162,751 cells)."
+      }
+    ],
+    "evaluation_metrics": [
+      {
+        "name": "Mean Squared Error (MSE)",
+        "purpose": "Measures prediction accuracy for differentially expressed genes.",
+        "application": "Used to evaluate prediction errors across benchmark datasets.",
+        "evidence": "Our evaluation focused on three complementary metrics: MSE for differentially expressed genes (MSE_DE)."
+      },
+      {
+        "name": "Pearson Correlation",
+        "purpose": "Assesses how well the model captures overall patterns of gene co-expression.",
+        "application": "Used to evaluate correlation performance across datasets.",
+        "evidence": "Pearson correlation for differentially expressed genes (Pearson_DE)."
+      },
+      {
+        "name": "Centroid Accuracy",
+        "purpose": "Measures whether predicted profiles are closer to their correct perturbation centroid.",
+        "application": "Used to evaluate prediction accuracy in single-gene perturbation datasets.",
+        "evidence": "Centroid accuracy measures whether predicted post-perturbation profiles are closer to their correct ground-truth centroid than to centroids of other perturbations."
+      }
+    ]
+  },
+  "method_type": {
+    "methods": [
+      {
+        "name": "Hypothesis or Idea Generation",
+        "description": "The system produces candidate hypotheses or new research ideas from prior knowledge or external input.",
+        "evidence": "Our method employs a hierarchical embedding fusion strategy that integrating knowledge graph-based gene structural information from knowledge graphs with scGPT-derived functional representations from scGPT pre-trained models."
+      },
+      {
+        "name": "Experimental design generation",
+        "description": "The approach includes producing experimental protocols, configurations, or evaluation strategies.",
+        "evidence": "To evaluate scPert's capability for predicting these complex genetic interactions, we assessed its performance on two-gene combinatorial perturbations using the Norman dataset containing 131 gene pairs."
+      }
+    ]
+  },
+  "subject_area": {
+    "areas": [
+      {
+        "name": "Biological Sciences",
+        "description": "The paper focuses on predicting single-cell transcriptomic responses to genetic perturbations.",
+        "evidence": "We present scPert, a multi-modal framework based on Transformer architecture that integrates large language model embeddings with structured biological knowledge to predict single-cell transcriptomic responses to genetic perturbations."
+      },
+      {
+        "name": "Health Sciences",
+        "description": "The framework is applied to cancer-relevant applications, revealing p53 pathway dynamics and immune checkpoint regulatory mechanisms.",
+        "evidence": "In cancer-relevant applications, scPert demonstrates the capability to reveal p53 pathway dynamics and immune checkpoint regulatory mechanisms."
+      }
+    ]
+  },
+  "performance_summary": {
+    "performance_summary": [
+      {
+        "summary": "scPert consistently demonstrated competitive or superior performance compared with five state-of-the-art baseline models across diverse single-gene perturbation datasets.",
+        "evidence": "Based on the latest comprehensive benchmarking, scPert consistently demonstrated competitive or superior performance compared with five state-of-the-art baseline models across diverse single-gene perturbation datasets."
+      }
+    ],
+    "baselines": [
+      {
+        "name": "GEARS",
+        "description": "A knowledge graph-enhanced approach for perturbation prediction.",
+        "evidence": "We compared scPert against five established baseline methods: GEARS, a knowledge graph-enhanced approach that represents the current state-of-the-art in perturbation prediction."
+      },
+      {
+        "name": "scGPT",
+        "description": "A foundation model specifically designed for single-cell genomics.",
+        "evidence": "We compared scPert against five established baseline methods: scGPT, a foundation model specifically designed for single-cell genomics."
+      }
+    ],
+    "benchmark_datasets": [
+      {
+        "name": "Norman et al.",
+        "data_description": "Single-cell perturbation dataset.",
+        "usage": "Used for evaluating combinatorial perturbation prediction performance.",
+        "evidence": "To evaluate scPert's capability for predicting these complex genetic interactions, we assessed its performance on two-gene combinatorial perturbations using the Norman dataset containing 131 gene pairs."
+      },
+      {
+        "name": "Replogle et al.",
+        "data_description": "Genome-wide single-cell perturbation dataset.",
+        "usage": "Used for evaluating generalization capability across large-scale studies.",
+        "evidence": "Our evaluation encompassed datasets ranging from smaller focused screens to large-scale genome-wide screens (up to 1,543 perturbations; over 162,751 cells)."
+      }
+    ],
+    "evaluation_metrics": [
+      {
+        "name": "Mean Squared Error (MSE)",
+        "purpose": "Measures prediction accuracy for differentially expressed genes.",
+        "application": "Used to evaluate prediction errors across benchmark datasets.",
+        "evidence": "Our evaluation focused on three complementary metrics: MSE for differentially expressed genes (MSE_DE)."
+      },
+      {
+        "name": "Pearson Correlation",
+        "purpose": "Assesses how well the model captures overall patterns of gene co-expression.",
+        "application": "Used to evaluate correlation performance across datasets.",
+        "evidence": "Pearson correlation for differentially expressed genes (Pearson_DE)."
+      },
+      {
+        "name": "Centroid Accuracy",
+        "purpose": "Measures whether predicted profiles are closer to their correct perturbation centroid.",
+        "application": "Used to evaluate prediction accuracy in single-gene perturbation datasets.",
+        "evidence": "Centroid accuracy measures whether predicted post-perturbation profiles are closer to their correct ground-truth centroid than to centroids of other perturbations."
+      }
+    ]
+  },
+  "benchmark_dataset": {
+    "name": "Norman et al.",
+    "data_description": "Single-cell perturbation dataset.",
+    "usage": "Used for evaluating combinatorial perturbation prediction performance.",
+    "evidence": "To evaluate scPert's capability for predicting these complex genetic interactions, we assessed its performance on two-gene combinatorial perturbations using the Norman dataset containing 131 gene pairs."
+  },
+  "limitations": {
+    "limitations": [
+      {
+        "name": "Limited Dataset Generalization",
+        "description": "scPert requires dataset-specific training and does not yet achieve cross-dataset generalization without retraining.",
+        "evidence": "Second, like current perturbation prediction methods, scPert requires dataset-specific training and does not yet achieve cross-dataset generalization without retraining."
+      },
+      {
+        "name": "Knowledge Graph Completeness",
+        "description": "scPert's reliance on existing knowledge graph completeness may limit its ability to predict entirely novel biological relationships.",
+        "evidence": "Third, scPert's reliance on existing knowledge graph completeness may limit its ability to predict entirely novel biological relationships."
+      }
+    ]
+  },
+  "future_directions": {
+    "future_directions": [
+      {
+        "name": "Cross-Omics Integration",
+        "description": "Future frameworks should incorporate diverse information beyond structured biological knowledge, including protein-level representations and unstructured textual information.",
+        "evidence": "Future frameworks should incorporate diverse information beyond structured biological knowledge, including protein-level representations, unstructured textual information from scientific literature, and other complementary modalities."
+      },
+      {
+        "name": "Multi-Scale Modeling",
+        "description": "Develop multi-scale modeling that integrates molecular, cellular, tissue, and organismal predictions for comprehensive virtual cell systems.",
+        "evidence": "Multi-scale modeling that integrates molecular, cellular, tissue, and organismal predictions will be essential for comprehensive virtual cell systems."
+      }
+    ]
+  },
+  "resource_link": {
+    "answer": "https://github.com/AI4VirtualCell/scPert",
+    "evidence": "scPert is available on GitHub (https://github.com/AI4VirtualCell/scPert) with usage documentation and comprehensive example testing datasets."
+  }
+}

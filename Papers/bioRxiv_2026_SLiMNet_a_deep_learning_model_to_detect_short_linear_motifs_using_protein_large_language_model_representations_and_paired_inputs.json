@@ -1,0 +1,250 @@
+{
+  "source": "bioRxiv",
+  "source_id": "PPR1211446",
+  "title": "SLiMNet: a deep learning model to detect short linear motifs using protein large language model representations and paired inputs",
+  "abstract": "Short linear motifs (SLiMs) are short (3-15 amino acids in length) segments within intrinsically disordered regions (IDRs) that mediate transient protein–protein interactions as well as other functions such as stability and subcellular localization. Only a few thousand out of likely hundreds of thousands have been experimentally validated. SLiMs can be detected as conserved regions inside of IDRs using local alignments, though current approaches have limited sensitivity and specificity and are unable to functionally annotate their hits. Assigning function is hence a major outstanding issue in SLiM biology. Here we present SLiMNet, a deep learning model inspired by siamese networks and contrastive learning that predicts functional similarity in pairs of SLiMs. SLiMNet uses uses protein large language model embeddings and is trained on annotated sets of SLiMs. We show that it detects shared function in unseen, non-redundant motif pairs, and its scores correlate with experimental binding strengths from deep mutational scanning of cyclin-binding motifs. Using SLiMNet we provide repositories of putative SLiM pairs derived from annotated IDR regions for to help with hypothesis generation for the functional annotation of SLiMs. This includes an atlas generated from all-by-all scoring 16-mers from tiled IDRs from the DisProt database. We show that it captures a new nuclear localization motif recently added to MoMaP and a PRMT1 methylation motif in the literature. We also provided a repository of all IDRs scored with SLiMNet against against all MoMaP instances, and an atlas of potential functional pairs for 256 known orphan motifs (motifs with only a single known instance with essential function). Collectively, these atlases are useful resources for the SLiM biology community.",
+  "published": "2026-05-07",
+  "authors": [
+    "McFee MC",
+    "Kim PM."
+  ],
+  "link": "https://doi.org/10.64898/2026.05.04.722713",
+  "doi": "10.64898/2026.05.04.722713",
+  "pdf_url": "",
+  "ai_for_science_score": 0.9,
+  "confidence_score": 0.95,
+  "implementation_score": 0.8,
+  "review_score": 0.7,
+  "benchmark_score": 0.6,
+  "hypothesis_generation_score": 0.9,
+  "scientific_discovery_score": 0.8,
+  "experiment_design_score": 0.5,
+  "material_discovery_score": 0.0,
+  "molecular_design_score": 0.0,
+  "drug_discovery_score": 0.0,
+  "causal_discovery_score": 0.0,
+  "biomedical_discovery_score": 0.8,
+  "idea_development_score": 0.7,
+  "ai_for_science_label": "accept",
+  "ai_for_science_reason": "The paper uses a deep learning model with protein large language model embeddings to predict functional similarity in SLiMs, contributing to hypothesis generation in biology.",
+  "implementation_justification": "The model is implemented and tested on annotated sets of SLiMs.",
+  "review_justification": "The paper provides a detailed description of the model and its application.",
+  "benchmark_justification": "The model's performance is compared with experimental binding strengths.",
+  "hypothesis_generation_justification": "The model aids in generating hypotheses for functional annotation of SLiMs.",
+  "scientific_discovery_justification": "The model contributes to discovering new motifs and functional pairs.",
+  "experiment_design_justification": "The paper does not focus on experiment design but provides resources for future experiments.",
+  "material_discovery_justification": "The paper does not address material discovery.",
+  "molecular_design_justification": "The paper does not focus on molecular design.",
+  "drug_discovery_justification": "The paper does not address drug discovery.",
+  "causal_discovery_justification": "The paper does not focus on causal discovery.",
+  "biomedical_discovery_justification": "The model aids in understanding protein interactions, relevant to biomedical research.",
+  "idea_development_justification": "The paper presents a novel approach to SLiM functional annotation.",
+  "science_domains": [
+    "biology"
+  ],
+  "ai_methods": [
+    "deep learning",
+    "large language models",
+    "contrastive learning"
+  ],
+  "exhyte_stages": [
+    "Hypothesis generation"
+  ],
+  "needs_pdf_review": false,
+  "auto_decision": "accept",
+  "auto_selected": true,
+  "selection_source": "llm_auto",
+  "local_pdf_path": "downloaded_pdfs/bioRxiv_MC_et_al._2026_SLiMNet_a_deep_learning_model_to_detect_short_linear_motifs_using_protein_large_language_model_representations_and_paired_inputs.pdf",
+  "pdf_download_status": "manual_pdf",
+  "pdf_download_method": "manual_pdf",
+  "pdf_download_url": "manual_pdfs/bioRxiv_MC_et_al._2026_SLiMNet_a_deep_learning_model_to_detect_short_linear_motifs_using_protein_large_language_model_representations_and_paired_inputs.pdf",
+  "pdf_download_attempted_at": "2026-06-30T17:54:09",
+  "paper_title": "SLiMNet: a deep learning model to detect short linear motifs using protein large language model representations and paired inputs",
+  "summary_extraction_status": "extracted",
+  "summary_json_path": "review_outputs/gpt_paper_items/bioRxiv_MC_et_al._2026_SLiMNet_a_deep_learning_model_to_detect_short_linear_motifs_using_protein_large_language_model_representations_and_paired_inputs.json",
+  "objective": {
+    "answer": "The primary objective of the paper is to present SLiMNet, a deep learning model inspired by siamese networks and contrastive learning, to predict functional similarity in pairs of short linear motifs (SLiMs) using protein large language model embeddings.",
+    "evidence": "Here we present SLiMNet, a deep learning model inspired by siamese networks and contrastive learning that predicts functional similarity in pairs of SLiMs."
+  },
+  "knowledge_gap": {
+    "answer": "Current approaches for detecting SLiMs have limited sensitivity and specificity and are unable to functionally annotate their hits, which is a major outstanding issue in SLiM biology.",
+    "evidence": "SLiMs can be detected as conserved regions inside of IDRs using local alignments, though current approaches have limited sensitivity and specificity and are unable to functionally annotate their hits. Assigning function is hence a major outstanding issue in SLiM biology."
+  },
+  "novelty": {
+    "answer": [
+      "SLiMNet uses protein large language model embeddings to predict functional similarity in SLiM pairs.",
+      "The model is inspired by siamese networks and contrastive learning techniques.",
+      "SLiMNet expands upon existing models by using a learned function via deep learning instead of just alignment and conservation of residues.",
+      "The model uses the InfoNCE loss to score related data points highest, helping to alleviate the noisiness associated with SLiMs and IDRs."
+    ],
+    "evidence": [
+      "SLiMNet uses uses protein large language model embeddings and is trained on annotated sets of SLiMs.",
+      "SLiMNet is a multi-layer perceptron (MLP), inspired by siamese neural networks and contrastive learning techniques.",
+      "Our model expands upon these models by allowing the similarity metric to be a learned function via deep learning instead of just alignment and conservation of residues.",
+      "Finally, our network is novel in that we use the InfoNCE (defined in the Methods section) which trains the model to score related data points highest when considering a pool of possible matching candidates helping to alleviate against the inherent noisiness associated with SLiMs and IDRs."
+    ]
+  },
+  "inspirational_papers": {
+    "answer": "- Riley et al. (2023) Methods for the computational detection of SLiMs have included developing local alignment algorithms to bypass the challenges of intrinsically disorder protein alignment. (Methodological precursors)\n- Kotb and Davey (2024) FaSTPACE performs pair-wise alignment of peptides to generated position-specific scoring matrices (PSSMs) and associated motifs. (Methodological precursors)\n- Halpin and Keating (2024) The PairK method performs the alignment of k-mers extracted from an IDR believed to contain functional motif and aligns them with k-mers extracted from protein homologs. (Methodological precursors)",
+    "evidence": "Methods for the computational detection of SLiMs has included developing local alignment algorithms to bypass the challenges of intrinsically disorder protein alignment (e.g. poor conservation) [Riley et al., 2023]. For example, FaSTPACE [Kotb and Davey, 2024] performs pair-wise alignment of peptides to generated position-specific scoring matrices (PSSMs) and associated motifs. Similarly, the PairK [Halpin and Keating, 2024] method performs the alignment of k-mers extracted from an IDR believed to contain functional motif and aligns them with k-mers extracted from protein homologs."
+  },
+  "method": {
+    "steps": [
+      {
+        "step": "Input protein sequences into the ESM2 protein language model to generate embeddings.",
+        "input": "Protein sequences containing potential regions of interest.",
+        "output": "k-mer/motif level embeddings.",
+        "evidence": "The proteins containing the potential regions of interest, which may or may not contain a shared SLiM, are input into the ESM2 protein language model [Lin et al., 2022] (specifically the 650M parameter variant esm2 t33 650M UR50D), and then the residues corresponding to the region of interest features are extracted from the final layer of the model and averaged to create a k-mer/motif level embedding."
+      },
+      {
+        "step": "Pass k-mer embeddings into SLiMNet to predict functional similarity.",
+        "input": "k-mer/motif level embeddings.",
+        "output": "Similarity score predicting shared function between k-mers.",
+        "evidence": "Any two k-mers of interest are then passed into the model and a similarity score, predicting whether or not there is a shared function between the k-mers (i.e. they are SLiMs of the same function) is returned."
+      },
+      {
+        "step": "Train SLiMNet using InfoNCE loss.",
+        "input": "Pairs of functionally related and unrelated SLiMs.",
+        "output": "Trained model capable of scoring functional similarity.",
+        "evidence": "The model was trained until convergence using the InfoNCE loss and the AdamW optimizer with a learning rate of 1e −5, with a batch size of 64, and a dropout rate of 0.25."
+      }
+    ],
+    "tools": [
+      {
+        "name": "ESM2",
+        "description": "Used to generate embeddings from protein sequences.",
+        "evidence": "The proteins containing the potential regions of interest, which may or may not contain a shared SLiM, are input into the ESM2 protein language model [Lin et al., 2022] (specifically the 650M parameter variant esm2 t33 650M UR50D)."
+      },
+      {
+        "name": "SLiMNet",
+        "description": "Predicts functional similarity between k-mers.",
+        "evidence": "SLiMNet is a multi-layer perceptron (MLP), inspired by siamese neural networks and contrastive learning techniques."
+      }
+    ],
+    "benchmark_datasets": [
+      {
+        "name": "MoMaP",
+        "data_description": "A curated set of functionally annotated SLiMs.",
+        "usage": "Used for training and testing SLiMNet.",
+        "evidence": "These sequences are all sourced from MoMaP (as of December 2024), a curated set of functionally annotated SLiMs maintained by Norman Davey’s group at the Institute of Cancer Research."
+      }
+    ],
+    "evaluation_metrics": [
+      {
+        "name": "AUCROC",
+        "purpose": "Measures the area under the receiver operating characteristic curve.",
+        "application": "Used to quantify model performance on unseen SLiMs.",
+        "evidence": "When extracting the area under the receiver operating characteristic curve and the precision of the Precision-recall curve on the pairs constructed from these unseen SLiMs, SLiMNet generalizes well with an AUCROC (area under the curve of the receiver operating characteristic) and average precision of the Precision-recall curve of 0.81 and 0.71 respectively."
+      },
+      {
+        "name": "Average Precision",
+        "purpose": "Measures the precision-recall curve.",
+        "application": "Used to evaluate model precision on unseen SLiMs.",
+        "evidence": "When extracting the area under the receiver operating characteristic curve and the precision of the Precision-recall curve on the pairs constructed from these unseen SLiMs, SLiMNet generalizes well with an AUCROC (area under the curve of the receiver operating characteristic) and average precision of the Precision-recall curve of 0.81 and 0.71 respectively."
+      }
+    ]
+  },
+  "method_type": {
+    "methods": [
+      {
+        "name": "Hypothesis or Idea Generation",
+        "description": "The system produces candidate hypotheses or new research ideas from prior knowledge or external input.",
+        "evidence": "Using SLiMNet we provide repositories of putative SLiM pairs derived from annotated IDR regions for to help with hypothesis generation for the functional annotation of SLiMs."
+      },
+      {
+        "name": "Experimental design generation",
+        "description": "The approach includes producing experimental protocols, configurations, or evaluation strategies.",
+        "evidence": "SLiMNet was initially tested on hold-out motifs with non-redundant functions (as annotated as specificity name in MoMaP), in non-redundant sequences as determined by sequence similarity and clustering (consult Methods for clustering details)."
+      }
+    ]
+  },
+  "subject_area": {
+    "areas": [
+      {
+        "name": "Biological Sciences",
+        "description": "The paper focuses on detecting functional relationships between short linear motifs in proteins.",
+        "evidence": "Short linear motifs (SLiMs) are short (3-15 amino acids in length) segments within intrinsically disordered regions (IDRs) that mediate transient protein–protein interactions as well as other functions such as stability and subcellular localization."
+      },
+      {
+        "name": "Applied Sciences & Engineering",
+        "description": "The paper develops a deep learning model for predicting functional similarity in protein motifs.",
+        "evidence": "Here we present SLiMNet, a deep learning model inspired by siamese networks and contrastive learning that predicts functional similarity in pairs of SLiMs."
+      }
+    ]
+  },
+  "performance_summary": {
+    "performance_summary": [
+      {
+        "summary": "SLiMNet generalizes well with an AUCROC of 0.81 and average precision of 0.71 on unseen SLiMs.",
+        "evidence": "When extracting the area under the receiver operating characteristic curve and the precision of the Precision-recall curve on the pairs constructed from these unseen SLiMs, SLiMNet generalizes well with an AUCROC (area under the curve of the receiver operating characteristic) and average precision of the Precision-recall curve of 0.81 and 0.71 respectively."
+      }
+    ],
+    "baselines": [
+      {
+        "name": "FaSTPACE",
+        "description": "Performs pair-wise alignment of peptides to generated position-specific scoring matrices.",
+        "evidence": "For example, FaSTPACE [Kotb and Davey, 2024] performs pair-wise alignment of peptides to generated position-specific scoring matrices (PSSMs) and associated motifs."
+      },
+      {
+        "name": "PairK",
+        "description": "Aligns k-mers extracted from an IDR believed to contain functional motif with k-mers extracted from protein homologs.",
+        "evidence": "Similarly, the PairK [Halpin and Keating, 2024] method performs the alignment of k-mers extracted from an IDR believed to contain functional motif and aligns them with k-mers extracted from protein homologs."
+      }
+    ],
+    "benchmark_datasets": [
+      {
+        "name": "MoMaP",
+        "data_description": "A curated set of functionally annotated SLiMs.",
+        "usage": "Used for training and testing SLiMNet.",
+        "evidence": "These sequences are all sourced from MoMaP (as of December 2024), a curated set of functionally annotated SLiMs maintained by Norman Davey’s group at the Institute of Cancer Research."
+      }
+    ],
+    "evaluation_metrics": [
+      {
+        "name": "AUCROC",
+        "purpose": "Measures the area under the receiver operating characteristic curve.",
+        "application": "Used to quantify model performance on unseen SLiMs.",
+        "evidence": "When extracting the area under the receiver operating characteristic curve and the precision of the Precision-recall curve on the pairs constructed from these unseen SLiMs, SLiMNet generalizes well with an AUCROC (area under the curve of the receiver operating characteristic) and average precision of the Precision-recall curve of 0.81 and 0.71 respectively."
+      },
+      {
+        "name": "Average Precision",
+        "purpose": "Measures the precision-recall curve.",
+        "application": "Used to evaluate model precision on unseen SLiMs.",
+        "evidence": "When extracting the area under the receiver operating characteristic curve and the precision of the Precision-recall curve on the pairs constructed from these unseen SLiMs, SLiMNet generalizes well with an AUCROC (area under the curve of the receiver operating characteristic) and average precision of the Precision-recall curve of 0.81 and 0.71 respectively."
+      }
+    ]
+  },
+  "benchmark_dataset": {
+    "name": "MoMaP",
+    "data_description": "A curated set of functionally annotated SLiMs.",
+    "usage": "Used for training and testing SLiMNet.",
+    "evidence": "These sequences are all sourced from MoMaP (as of December 2024), a curated set of functionally annotated SLiMs maintained by Norman Davey’s group at the Institute of Cancer Research."
+  },
+  "limitations": {
+    "limitations": [
+      {
+        "name": "Limited Generalizability",
+        "description": "The model does not classify well positive pairs consisting of k-mers that participate in interactions from different proteins.",
+        "evidence": "However, it is important to note that the model does not classify well positive pairs consisting of k-mers that participate in interactions from different proteins."
+      }
+    ]
+  },
+  "future_directions": {
+    "future_directions": [
+      {
+        "name": "Experimental Validation",
+        "description": "Promising pairs from the atlas should be further analyzed by biologists with the most promising instances to be validated experimentally.",
+        "evidence": "First and foremost, promising pairs from the atlas should be further analyzed by biologists with the most promising instances to be validated experimentally."
+      },
+      {
+        "name": "Benchmarking on New Motif Instances",
+        "description": "It would be valuable to benchmark the model on new motif instances as they become available.",
+        "evidence": "It would also be valuable to benchmark the model on new motif instances as they become available."
+      }
+    ]
+  },
+  "resource_link": {
+    "answer": "",
+    "evidence": "All code and data (including all raw data and the entire top 100000 selections for Top 100K libraries) are available upon request to the corresponding author."
+  }
+}

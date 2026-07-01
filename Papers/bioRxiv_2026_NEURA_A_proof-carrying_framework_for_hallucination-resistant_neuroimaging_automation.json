@@ -1,0 +1,269 @@
+{
+  "source": "bioRxiv",
+  "source_id": "PPR1213011",
+  "title": "NEURA: A proof-carrying framework for hallucination-resistant neuroimaging automation",
+  "abstract": "Neuroimaging research depends on heterogeneous software, multimodal data and multistage statistical workflows. Large language model (LLM)-based agents offer a route to automate these workflows, but their susceptibility to hallucination limits their credibility in scientific use. Here we introduce NEURA, a proof-carrying framework for hallucination-resistant neuroimaging automation. NEURA converts free-text research questions and neuroimaging datasets into executable analysis plans, validated outputs and structured reports. The system combines disease- and tool-aware planning with a deterministic verification layer inspired by formal proof: before any claim is retained for reporting, it must be checked against tool-derived evidence and domain axioms. On NeuroEval, an expert-curated benchmark of 110 neuroimaging tasks, NEURA achieved 89.5% planning accuracy, a 30.5% improvement over direct LLM queries. In a controlled hallucination-injection experiment, the verification layer detected all the injected error classes under the specified axiom bank and trust assumptions, with no false positives. In case studies of spinocerebellar ataxia type 3, NEURA reproduced cerebellar atrophy and abnormal diffusion patterns consistent with established pathology and independent expert analyses. Together, these findings show that coupling domain-grounded agency with proof-carrying verification can turn LLM-driven workflow automation from probabilistic self-checking into auditable scientific computation.",
+  "published": "2026-04-30",
+  "authors": [
+    "Xie J",
+    "Wang J",
+    "Wu X",
+    "Liu X",
+    "Mi Y",
+    "Liu Q",
+    "Xu T",
+    "Liu C",
+    "Chen H",
+    "Guo J."
+  ],
+  "link": "https://doi.org/10.64898/2026.04.27.721217",
+  "doi": "10.64898/2026.04.27.721217",
+  "pdf_url": "",
+  "ai_for_science_score": 0.95,
+  "confidence_score": 0.9,
+  "implementation_score": 0.9,
+  "review_score": 0.85,
+  "benchmark_score": 0.9,
+  "hypothesis_generation_score": 0.7,
+  "scientific_discovery_score": 0.95,
+  "experiment_design_score": 0.8,
+  "material_discovery_score": 0.0,
+  "molecular_design_score": 0.0,
+  "drug_discovery_score": 0.0,
+  "causal_discovery_score": 0.75,
+  "biomedical_discovery_score": 0.9,
+  "idea_development_score": 0.8,
+  "ai_for_science_label": "accept",
+  "ai_for_science_reason": "The paper presents an AI framework for automating neuroimaging workflows, enhancing scientific discovery in neuroscience with a proof-carrying verification layer.",
+  "implementation_justification": "The framework is implemented with a verification layer that significantly improves planning accuracy.",
+  "review_justification": "The paper includes a benchmark and case studies demonstrating the framework's effectiveness.",
+  "benchmark_justification": "NEURA was evaluated on a curated benchmark, showing substantial improvement over baseline methods.",
+  "hypothesis_generation_justification": "While the framework aids in hypothesis testing, its primary focus is on workflow automation and verification.",
+  "scientific_discovery_justification": "The framework directly contributes to scientific discovery by automating and verifying neuroimaging analyses.",
+  "experiment_design_justification": "NEURA aids in designing executable analysis plans from research questions.",
+  "material_discovery_justification": "The paper does not address material discovery.",
+  "molecular_design_justification": "The paper does not involve molecular design.",
+  "drug_discovery_justification": "The paper does not focus on drug discovery.",
+  "causal_discovery_justification": "The framework's verification layer helps identify causal patterns in neuroimaging data.",
+  "biomedical_discovery_justification": "The framework is applied to neuroimaging, a key area of biomedical research.",
+  "idea_development_justification": "The framework supports the development of new ideas by converting research questions into validated analysis plans.",
+  "science_domains": [
+    "neuroscience"
+  ],
+  "ai_methods": [
+    "large language models",
+    "automated reasoning",
+    "scientific workflow automation"
+  ],
+  "exhyte_stages": [
+    "Exploration",
+    "Testing"
+  ],
+  "needs_pdf_review": false,
+  "auto_decision": "accept",
+  "auto_selected": true,
+  "selection_source": "llm_auto",
+  "local_pdf_path": "downloaded_pdfs/bioRxiv_J_et_al._2026_NEURA_A_proof-carrying_framework_for_hallucination-resistant_neuroimaging_automation.pdf",
+  "pdf_download_status": "manual_pdf",
+  "pdf_download_method": "manual_pdf",
+  "pdf_download_url": "manual_pdfs/bioRxiv_J_et_al._2026_NEURA_A_proof-carrying_framework_for_hallucination-resistant_neuroimaging_automation.pdf",
+  "pdf_download_attempted_at": "2026-06-30T17:54:09",
+  "paper_title": "NEURA: A proof-carrying framework for hallucination-resistant neuroimaging automation",
+  "summary_extraction_status": "extracted",
+  "summary_json_path": "review_outputs/gpt_paper_items/bioRxiv_J_et_al._2026_NEURA_A_proof-carrying_framework_for_hallucination-resistant_neuroimaging_automation.json",
+  "objective": {
+    "answer": "The primary objective of the paper is to introduce NEURA, a proof-carrying framework designed to automate neuroimaging workflows while being resistant to hallucinations. The authors aim to convert free-text research questions and neuroimaging datasets into executable analysis plans, validated outputs, and structured reports.",
+    "evidence": "we introduce NEURA, a proof-carrying framework for hallucination-resistant neuroimaging automation. NEURA converts free-text research questions and neuroimaging datasets into executable analysis plans, validated outputs and structured reports."
+  },
+  "knowledge_gap": {
+    "answer": "The paper addresses the gap in neuroimaging research automation where existing systems struggle with reproducibility, scalability, and clinical translation due to the complexity of coordinating heterogeneous software ecosystems and the risk of hallucinations in LLM-based agents.",
+    "evidence": "These challenges highlight the urgent need for analysis systems that can convert large-scale imaging resources into traceable and biologically meaningful evidence—an area where recent advances in multiagent systems offer transformative potential."
+  },
+  "novelty": {
+    "answer": [
+      "NEURA introduces a proof-carrying framework that ensures hallucination-resistant neuroimaging automation.",
+      "The system uses a dual knowledge graph framework to ground automated reasoning in disease-region and tool knowledge.",
+      "NEURA incorporates a deterministic verification layer inspired by formal proof to validate claims against tool-derived evidence and domain axioms.",
+      "The framework includes a mixture-of-experts review mechanism for intermediate outputs, providing soft guidance on parameter legality and methodological quality."
+    ],
+    "evidence": [
+      "we introduce NEURA, a proof-carrying framework for hallucination-resistant neuroimaging automation.",
+      "First, a dual knowledge graph framework grounds automated reasoning: a disease–region knowledge graph (DiseaseKG) encodes pathological associations between neurological conditions and brain structures, whereas a tool knowledge graph (ToolKG) maps functional dependencies, input/output formats, and usage constraints.",
+      "Fourth, a Curry-Howard-inspired proof kernel provides a deterministic verification layer that operates independently of any LLM.",
+      "Third, a mixture-of-experts review (MoER) mechanism routes intermediate outputs to domain-specific reviewers that evaluate against expert-curated normative specifications."
+    ]
+  },
+  "inspirational_papers": {
+    "answer": "- Renton et al. (2024) Neurodesk: an accessible, flexible and portable data analysis environment for reproducible neuroimaging. (Experimental baselines)\n- Zhao et al. (2026) An agentic system for rare disease diagnosis with traceable reasoning. (Methodological precursors)",
+    "evidence": "However, even with mature toolchains8 such as SPM9, FSL10,11, FreeSurfer12, and AFNI13 and workflow engines such as Nipype14, researchers must coordinate heterogeneous software ecosystems, file formats, parameters and intermediate outputs."
+  },
+  "method": {
+    "steps": [
+      {
+        "step": "Understanding and planning phase",
+        "input": "Natural-language query and local neuroimaging datasets",
+        "output": "Biologically informed analysis plans and proof skeletons",
+        "evidence": "In the understanding and planning phase, NEURA aims to transform a research request into a tractable and scientifically defensible analysis strategy."
+      },
+      {
+        "step": "Execution phase",
+        "input": "High-level analysis plan",
+        "output": "Ordered sequence of computational tasks and proof certificates",
+        "evidence": "During the execution phase, the system queries a specialized ToolKG to translate the high-level plan into a precise and ordered sequence of computational tasks."
+      },
+      {
+        "step": "Verification phase",
+        "input": "Intermediate decisions and final outputs",
+        "output": "Methodologically and factually verified claims",
+        "evidence": "In the verification phase, NEURA subjects both intermediate decisions and final outputs to methodological and factual checks through two complementary layers."
+      }
+    ],
+    "tools": [
+      {
+        "name": "SPM with DARTEL",
+        "description": "Used for high-dimensional normalization in structural MRI analysis",
+        "evidence": "The system combined voxelwise and surface-based analyses, using SPM with DARTEL for high-dimensional normalization."
+      },
+      {
+        "name": "FreeSurfer",
+        "description": "Used for complementary cortical and subcortical morphometry",
+        "evidence": "NEURA combined voxelwise and surface-based analyses, using FreeSurfer for complementary cortical and subcortical morphometry."
+      }
+    ],
+    "benchmark_datasets": [
+      {
+        "name": "NeuroEval",
+        "data_description": "A comprehensive neuroimaging tool evaluation dataset featuring 110 varied analysis tasks",
+        "usage": "Used to quantitatively evaluate the performance of NEURA",
+        "evidence": "To quantitatively evaluate the performance of NEURA, we curated NeuroEval, which is a comprehensive neuroimaging tool evaluation dataset that features 110 varied analysis tasks."
+      }
+    ],
+    "evaluation_metrics": [
+      {
+        "name": "Planning accuracy",
+        "purpose": "Quantifies overall tool planning quality",
+        "application": "Used to assess the effectiveness of NEURA's planning phase",
+        "evidence": "Evaluation Metrics: To rigorously assess the effectiveness of NEURA, we used three distinct evaluation metrics: (1) planning accuracy, which is a composite metric that quantifies overall tool planning quality."
+      },
+      {
+        "name": "Tool selection score",
+        "purpose": "Measures the alignment between the predicted tool set and reference tools verified by human experts",
+        "application": "Used to evaluate the correctness of tool selection",
+        "evidence": "Evaluation Metrics: (2) a tool selection score that measures the alignment between the predicted tool set and reference tools verified by human experts."
+      },
+      {
+        "name": "Tool order score",
+        "purpose": "Evaluates the correctness of the tool execution sequence",
+        "application": "Used to assess the robustness of pipeline construction",
+        "evidence": "Evaluation Metrics: (3) a tool order score that evaluates the correctness of the tool execution sequence using longest common subsequence matching."
+      }
+    ]
+  },
+  "method_type": {
+    "methods": [
+      {
+        "name": "Hypothesis or Idea Generation",
+        "evidence": "NEURA aims to transform a research request into a tractable and scientifically defensible analysis strategy."
+      },
+      {
+        "name": "Experimental design generation",
+        "evidence": "NEURA combines a dual-layer retrieval-augmented generation (RAG) system with a disease-brain region knowledge graph (KG) to assemble domain-specific evidence."
+      }
+    ]
+  },
+  "subject_area": {
+    "areas": [
+      {
+        "name": "Health Sciences",
+        "description": "The paper develops a framework for automating neuroimaging analysis, which is crucial for understanding neurological and psychiatric disorders.",
+        "evidence": "Neuroimaging is now widely recognized as a core experimental paradigm for investigating the structural and functional architecture of the human brain."
+      },
+      {
+        "name": "Applied Sciences & Engineering",
+        "description": "The proposed framework integrates advanced computational techniques for neuroimaging workflow automation.",
+        "evidence": "NEURA is an LLM-powered agent designed to reduce the complexity of neuroimaging analysis."
+      }
+    ]
+  },
+  "performance_summary": {
+    "performance_summary": [
+      {
+        "summary": "NEURA achieved 89.5% planning accuracy, a 30.5% improvement over direct LLM queries, and detected all injected error classes with no false positives.",
+        "evidence": "On NeuroEval, NEURA achieved 89.5% planning accuracy, a 30.5% improvement over direct LLM queries."
+      }
+    ],
+    "baselines": [
+      {
+        "name": "Direct LLM query",
+        "description": "Baseline for comparison with NEURA's agentic architecture",
+        "evidence": "We benchmarked NEURA against a “direct LLM query” baseline."
+      }
+    ],
+    "benchmark_datasets": [
+      {
+        "name": "NeuroEval",
+        "data_description": "A comprehensive neuroimaging tool evaluation dataset featuring 110 varied analysis tasks",
+        "usage": "Used to quantitatively evaluate the performance of NEURA",
+        "evidence": "To quantitatively evaluate the performance of NEURA, we curated NeuroEval, which is a comprehensive neuroimaging tool evaluation dataset that features 110 varied analysis tasks."
+      }
+    ],
+    "evaluation_metrics": [
+      {
+        "name": "Planning accuracy",
+        "purpose": "Quantifies overall tool planning quality",
+        "application": "Used to assess the effectiveness of NEURA's planning phase",
+        "evidence": "Evaluation Metrics: To rigorously assess the effectiveness of NEURA, we used three distinct evaluation metrics: (1) planning accuracy, which is a composite metric that quantifies overall tool planning quality."
+      },
+      {
+        "name": "Tool selection score",
+        "purpose": "Measures the alignment between the predicted tool set and reference tools verified by human experts",
+        "application": "Used to evaluate the correctness of tool selection",
+        "evidence": "Evaluation Metrics: (2) a tool selection score that measures the alignment between the predicted tool set and reference tools verified by human experts."
+      },
+      {
+        "name": "Tool order score",
+        "purpose": "Evaluates the correctness of the tool execution sequence",
+        "application": "Used to assess the robustness of pipeline construction",
+        "evidence": "Evaluation Metrics: (3) a tool order score that evaluates the correctness of the tool execution sequence using longest common subsequence matching."
+      }
+    ]
+  },
+  "benchmark_dataset": {
+    "name": "NeuroEval",
+    "data_description": "A comprehensive neuroimaging tool evaluation dataset featuring 110 varied analysis tasks",
+    "usage": "Used to quantitatively evaluate the performance of NEURA",
+    "evidence": "To quantitatively evaluate the performance of NEURA, we curated NeuroEval, which is a comprehensive neuroimaging tool evaluation dataset that features 110 varied analysis tasks."
+  },
+  "limitations": {
+    "limitations": [
+      {
+        "name": "Limited Axiom Coverage",
+        "description": "NEURA's guarantees are bounded by the coverage and quality of its curated knowledge resources.",
+        "evidence": "First, NEURA’s guarantees are bounded by the coverage and quality of its curated knowledge resources."
+      },
+      {
+        "name": "Tool Output Reliability",
+        "description": "The kernel verifies consistency between claims and trusted tool outputs but does not prove the internal correctness of external software.",
+        "evidence": "The kernel verifies consistency between claims, axioms and trusted tool outputs, but it does not prove the internal correctness of external software or the validity of the acquired data."
+      }
+    ]
+  },
+  "future_directions": {
+    "future_directions": [
+      {
+        "name": "Expand Axiom Bank",
+        "description": "Expert-reviewed expansion of the axiom bank is essential for broader use.",
+        "evidence": "Claims outside this coverage are qualified or stripped rather than certified, making expert-reviewed expansion of the axiom bank essential for broader use."
+      },
+      {
+        "name": "Larger External Evaluations",
+        "description": "Validation across population-scale cohorts, sites, modalities, and disease spectra remains necessary.",
+        "evidence": "Future work should expand and version the axiom bank, validate reasoning chains with experts, perform module-wise ablation and failure-mode analyses, and develop stronger formal back ends for machine-checked verification."
+      }
+    ]
+  },
+  "resource_link": {
+    "answer": "https://github.com/NeuroScienceLab/NEURA",
+    "evidence": "NeuroEval and the formal verification resources generated for this study, including the domain axiom bank, hallucination-injection specifications and evaluation metadata, are publicly available in the NEURA GitHub repository at https://github.com/NeuroScienceLab/NEURA."
+  }
+}

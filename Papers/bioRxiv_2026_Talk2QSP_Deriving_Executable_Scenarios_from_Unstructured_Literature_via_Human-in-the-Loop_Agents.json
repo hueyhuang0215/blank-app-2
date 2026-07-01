@@ -1,0 +1,212 @@
+{
+  "source": "bioRxiv",
+  "source_id": "PPR1209291",
+  "title": "Talk2QSP: Deriving Executable Scenarios from Unstructured Literature via Human-in-the-Loop Agents",
+  "abstract": "Quantitative Systems Pharmacology (QSP) models play an inherently interventional role in pharmaceutical research and development, functioning as executable causal systems for designing, evaluating, and replacing clinical trials. However, deploying QSP as an experimental planning engine remains constrained by the difficulty of translating unstructured literature descriptions of clinical or preclinical scenarios into reproducible, simulation-ready model interventions. Motivated by this issue, we propose an agent-based framework that operationalizes QSP models as intervention-ready experimental systems by automatically extracting and executing literature-derived scenarios. The framework combines semantic grounding of model entities with a large language model (LLM)-driven Scenario Extractor and a dual-agent Scenario Mapper . Rather than relying on opaque, single-shot reasoning, our pipeline converts free-text interventions into precise parameter configurations through discrete, verifiable work orders. Moreover, our dynamic Human-in-the-Loop (HITL) strategy empowers modelers to resolve biological ambiguities interactively. Across four diverse kinetic ordinary differential equation (ODE)/QSP models and seven Subject Matter Expert (SME)-curated literature scenarios, our model resolved all selected scenarios into correct executable parameter changes, including multi-dose interventions, unit conversions, no-op scenarios, and ambiguity-triggered HITL cases, demonstrating that structured collaboration between experts and agentic systems can resolve scenarios that standalone Systems Biology Markup Language (SBML) reasoning LLM calls or prior agentic efforts operating on processed SBML data handle unreliably.",
+  "published": "2026-05-11",
+  "authors": [
+    "Kazemeini A",
+    "Prieto J",
+    "Balaji Kuttae S",
+    "Siokis A",
+    "Singh G",
+    "Passban P",
+    "Andreani T."
+  ],
+  "link": "https://doi.org/10.64898/2026.05.06.723244",
+  "doi": "10.64898/2026.05.06.723244",
+  "pdf_url": "",
+  "ai_for_science_score": 0.9,
+  "confidence_score": 0.95,
+  "implementation_score": 0.8,
+  "review_score": 0.7,
+  "benchmark_score": 0.6,
+  "hypothesis_generation_score": 0.5,
+  "scientific_discovery_score": 0.9,
+  "experiment_design_score": 0.9,
+  "material_discovery_score": 0.0,
+  "molecular_design_score": 0.0,
+  "drug_discovery_score": 0.8,
+  "causal_discovery_score": 0.7,
+  "biomedical_discovery_score": 0.9,
+  "idea_development_score": 0.6,
+  "ai_for_science_label": "accept",
+  "ai_for_science_reason": "The paper uses AI methods to enhance the scientific discovery process in pharmacology by translating literature into executable QSP model scenarios.",
+  "implementation_justification": "The framework is demonstrated across multiple models and scenarios, showing practical application.",
+  "review_justification": "The paper provides a detailed description of the framework and its components.",
+  "benchmark_justification": "The paper compares its approach to existing methods, but lacks extensive benchmarking data.",
+  "hypothesis_generation_justification": "The framework aids in scenario extraction but does not directly generate new hypotheses.",
+  "scientific_discovery_justification": "The approach significantly contributes to the discovery process by enabling new experimental designs.",
+  "experiment_design_justification": "The framework directly supports the design of experiments by converting literature into model interventions.",
+  "material_discovery_justification": "The paper does not address material discovery.",
+  "molecular_design_justification": "The paper does not focus on molecular design.",
+  "drug_discovery_justification": "The framework aids in drug discovery by improving the planning of pharmacological experiments.",
+  "causal_discovery_justification": "The use of QSP models supports causal inference in pharmacological research.",
+  "biomedical_discovery_justification": "The paper enhances biomedical discovery by operationalizing QSP models for experimental planning.",
+  "idea_development_justification": "The framework supports idea development through interactive scenario resolution.",
+  "science_domains": [
+    "pharmacology",
+    "medicine"
+  ],
+  "ai_methods": [
+    "large language models",
+    "agents",
+    "human-in-the-loop"
+  ],
+  "exhyte_stages": [
+    "Exploration",
+    "Testing"
+  ],
+  "needs_pdf_review": false,
+  "auto_decision": "accept",
+  "auto_selected": true,
+  "selection_source": "llm_auto",
+  "local_pdf_path": "downloaded_pdfs/bioRxiv_A_et_al._2026_Talk2QSP_Deriving_Executable_Scenarios_from_Unstructured_Literature_via_Human-in-the-Loop_Agents.pdf",
+  "pdf_download_status": "manual_pdf",
+  "pdf_download_method": "manual_pdf",
+  "pdf_download_url": "manual_pdfs/bioRxiv_A_et_al._2026_Talk2QSP_Deriving_Executable_Scenarios_from_Unstructured_Literature_via_Human-in-the-Loop_Agents.pdf",
+  "pdf_download_attempted_at": "2026-06-30T17:54:09",
+  "paper_title": "Talk2QSP: Deriving Executable Scenarios from Unstructured Literature via Human-in-the-Loop Agents",
+  "summary_extraction_status": "extracted",
+  "summary_json_path": "review_outputs/gpt_paper_items/bioRxiv_A_et_al._2026_Talk2QSP_Deriving_Executable_Scenarios_from_Unstructured_Literature_via_Human-in-the-Loop_Agents.json",
+  "objective": {
+    "answer": "The primary objective of the paper is to propose an agent-based framework, Talk2QSP, that translates unstructured literature-derived scenarios into reproducible, simulation-ready Quantitative Systems Pharmacology (QSP) interventions.",
+    "evidence": "Motivated by this issue, we propose an agent-based framework that operationalizes QSP models as intervention-ready experimental systems by automatically extracting and executing literature-derived scenarios."
+  },
+  "knowledge_gap": {
+    "answer": "The paper addresses the gap in translating unstructured literature descriptions of clinical or preclinical scenarios into reproducible, simulation-ready model interventions, which is a significant barrier to deploying QSP as an experimental planning engine.",
+    "evidence": "However, deploying QSP as an experimental planning engine remains constrained by the difficulty of translating unstructured literature descriptions of clinical or preclinical scenarios into reproducible, simulation-ready model interventions."
+  },
+  "novelty": {
+    "answer": [
+      "Introduction of an agent-based framework that operationalizes QSP models as intervention-ready experimental systems.",
+      "Development of a semantic parsing component, Entity Definer, that translates complex QSP model parameters into human-readable definitions.",
+      "Creation of a Scenario Extractor that automatically parses QSP literature to identify and extract specific experimental scenarios.",
+      "Design of a Scenario Mapper that aligns extracted text scenarios with defined model entities to replicate published experimental results."
+    ],
+    "evidence": [
+      "We propose an agent-based framework that operationalizes QSP models as intervention-ready experimental systems.",
+      "Entity Definer: A semantic parsing component that translates complex QSP model parameters and biological species into human-readable, context-aware definitions.",
+      "Scenario Extractor: An automated module that parses QSP literature to identify and extract the specific experimental scenarios evaluated within a given model.",
+      "Scenario Mapper: An alignment framework that bridges the extracted text scenarios with the defined model entities, calculating the parameter adjustments required to computationally replicate published experimental results."
+    ]
+  },
+  "inspirational_papers": {
+    "answer": "- Wehling et al. (2025) Talk2BioModels inspired the annotation retrieval tool used in the Entity Definer. (Methodological precursors)\n- Singh et al. (2025) Talk2KnowledgeGraph influenced the multi-step reasoning capabilities of the agentic system. (Methodological precursors)",
+    "evidence": "Agentic systems such as Talk2BioModels (Wehling et al., 2025), Talk2KnowledgeGraph (Singh et al., 2025)... demonstrate capabilities including mechanistic model interrogation, hypothesis generation, multi-step reasoning."
+  },
+  "method": {
+    "steps": [
+      {
+        "step": "Entity Definer processes SBML model to produce semantic artifacts.",
+        "input": "Computational QSP SBML model",
+        "output": "Entity Definitions Dictionary and Minified Semantic Index",
+        "evidence": "The Entity Definer first ingests a published SBML model and produces structured semantic artifacts."
+      },
+      {
+        "step": "Scenario Extractor identifies and structures experimental scenarios from literature.",
+        "input": "Biomedical modeling paper in PDF format",
+        "output": "Structured list of scenarios",
+        "evidence": "The Scenario Extractor processes the associated publication alongside the semantic index to identify and structure the experimental scenarios described in the paper."
+      },
+      {
+        "step": "Scenario Mapper resolves extracted scenarios into simulation-ready parameter values.",
+        "input": "Free-text clinical pharmacology scenarios and Minified Semantic Index",
+        "output": "Structured JSON array of model-ready parameter configurations",
+        "evidence": "The Scenario Mapper then resolves each extracted scenario into simulation-ready parameter values by jointly leveraging both Entity Definer artifacts through an agentic workflow."
+      }
+    ],
+    "tools": [
+      {
+        "name": "BASICO",
+        "description": "Used to parse computational QSP SBML models.",
+        "evidence": "Taking a computational QSP SBML model as input (parsed via the BASICO (Bergmann, 2023) Python interface)."
+      },
+      {
+        "name": "OpenAI GPT-4.1-mini",
+        "description": "Used for semantic synthesis and scenario extraction.",
+        "evidence": "The Entity Definer’s Describer stage, the Scenario Extractor (Blocks 1–3), and the Scenario Mapper’s Orchestrator and Solver agents all use OpenAI GPT-4.1-mini."
+      }
+    ],
+    "benchmark_datasets": [],
+    "evaluation_metrics": []
+  },
+  "method_type": {
+    "methods": [
+      {
+        "name": "Knowledge Extraction and Structurization",
+        "description": "The system extracts and structures knowledge from unstructured literature into simulation-ready scenarios.",
+        "evidence": "The Scenario Extractor processes the associated publication alongside the semantic index to identify and structure the experimental scenarios described in the paper."
+      },
+      {
+        "name": "Iterative refinement of Ideas, Hypothesis and Experiment design",
+        "description": "The system iteratively refines extracted scenarios and parameter mappings through a multi-step process.",
+        "evidence": "The Describer is configured with up to eight refinement passes and up to ten concurrent LLM calls per pass for processing the interconnected reactions."
+      }
+    ]
+  },
+  "subject_area": {
+    "areas": [
+      {
+        "name": "Health Sciences",
+        "description": "The paper focuses on translating literature-derived scenarios into QSP interventions for pharmaceutical research.",
+        "evidence": "QSP models play an inherently interventional role in pharmaceutical research and development."
+      },
+      {
+        "name": "Applied Sciences & Engineering",
+        "description": "The framework involves computational modeling and simulation techniques.",
+        "evidence": "Our pipeline transforms static publications into interactive, simulation-ready systems."
+      }
+    ]
+  },
+  "performance_summary": {
+    "performance_summary": [
+      {
+        "summary": "The pipeline resolved all seven end-to-end tests, demonstrating consistent alignment of extracted scenarios with correct entities and target values.",
+        "evidence": "As reported in Table 1, the pipeline passed all seven end-to-end tests, with at most one HITL clarification per parameter."
+      }
+    ],
+    "baselines": [
+      {
+        "name": "OpenAI o3",
+        "description": "A reasoning model used as a baseline for comparison.",
+        "evidence": "To probe whether a strong off-the-shelf reasoning LLM can substitute for the structured agentic workflow, we benchmarked OpenAI o3."
+      },
+      {
+        "name": "Talk2Biomodels",
+        "description": "An agentic system used as a baseline for comparison.",
+        "evidence": "We further benchmarked Talk2Biomodels on the same seven scenarios with GPT-4.1-mini as the underlying LLM."
+      }
+    ],
+    "benchmark_datasets": "Not reported in the paper",
+    "evaluation_metrics": "Not reported in the paper"
+  },
+  "benchmark_dataset": null,
+  "limitations": {
+    "limitations": [
+      {
+        "name": "Reliance on Textual Data",
+        "description": "The current pipeline relies exclusively on textual data, missing critical experimental conditions embedded in visual modalities.",
+        "evidence": "Currently, the Scenario Extractor and Mapper rely exclusively on textual data. However, critical experimental conditions are frequently embedded within complex visual modalities."
+      }
+    ]
+  },
+  "future_directions": {
+    "future_directions": [
+      {
+        "name": "Integrate Multimodal Capabilities",
+        "description": "Future iterations will integrate multimodal vision-language capabilities to process figure captions and graphical data directly.",
+        "evidence": "Future iterations will integrate multimodal vision-language capabilities to process figure captions and graphical data directly."
+      },
+      {
+        "name": "Expand Entity Definer Coverage",
+        "description": "Broaden coverage to include complementary intra-model signals and document-level evidence.",
+        "evidence": "Future iterations will broaden this coverage to include complementary intra-model signals such as SBML events, assignment rules, and parameter-level notes."
+      }
+    ]
+  },
+  "resource_link": {
+    "answer": "",
+    "evidence": ""
+  }
+}

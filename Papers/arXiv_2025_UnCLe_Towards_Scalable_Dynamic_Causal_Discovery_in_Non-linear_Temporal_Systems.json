@@ -1,0 +1,244 @@
+{
+  "source": "arXiv",
+  "source_id": "2511.03168v1",
+  "title": "UnCLe: Towards Scalable Dynamic Causal Discovery in Non-linear Temporal Systems",
+  "abstract": "Uncovering cause-effect relationships from observational time series is fundamental to understanding complex systems. While many methods infer static causal graphs, real-world systems often exhibit dynamic causality-where relationships evolve over time. Accurately capturing these temporal dynamics requires time-resolved causal graphs. We propose UnCLe, a novel deep learning method for scalable dynamic causal discovery. UnCLe employs a pair of Uncoupler and Recoupler networks to disentangle input time series into semantic representations and learns inter-variable dependencies via auto-regressive Dependency Matrices. It estimates dynamic causal influences by analyzing datapoint-wise prediction errors induced by temporal perturbations. Extensive experiments demonstrate that UnCLe not only outperforms state-of-the-art baselines on static causal discovery benchmarks but, more importantly, exhibits a unique capability to accurately capture and represent evolving temporal causality in both synthetic and real-world dynamic systems (e.g., human motion). UnCLe offers a promising approach for revealing the underlying, time-varying mechanisms of complex phenomena.",
+  "published": "2025-11-05T04:34:31Z",
+  "authors": [
+    "Tingzhu Bi",
+    "Yicheng Pan",
+    "Xinrui Jiang",
+    "Huize Sun",
+    "Meng Ma",
+    "Ping Wang"
+  ],
+  "link": "https://arxiv.org/abs/2511.03168v1",
+  "doi": "",
+  "pdf_url": "https://arxiv.org/pdf/2511.03168v1.pdf",
+  "ai_for_science_score": 0.9,
+  "confidence_score": 0.95,
+  "implementation_score": 0.8,
+  "review_score": 0.85,
+  "benchmark_score": 0.9,
+  "hypothesis_generation_score": 0.8,
+  "scientific_discovery_score": 0.85,
+  "experiment_design_score": 0.7,
+  "material_discovery_score": 0.0,
+  "molecular_design_score": 0.0,
+  "drug_discovery_score": 0.0,
+  "causal_discovery_score": 0.95,
+  "biomedical_discovery_score": 0.0,
+  "idea_development_score": 0.75,
+  "ai_for_science_label": "accept",
+  "ai_for_science_reason": "The paper presents a novel AI method for dynamic causal discovery in scientific domains, specifically targeting complex temporal systems.",
+  "implementation_justification": "The method is implemented and tested on both synthetic and real-world data.",
+  "review_justification": "The paper includes extensive experiments demonstrating the method's capabilities.",
+  "benchmark_justification": "UnCLe outperforms state-of-the-art baselines on static causal discovery benchmarks.",
+  "hypothesis_generation_justification": "The method aids in generating hypotheses about dynamic causal relationships.",
+  "scientific_discovery_justification": "The approach reveals underlying time-varying mechanisms in complex phenomena.",
+  "experiment_design_justification": "The method supports experiment design by identifying dynamic causal influences.",
+  "material_discovery_justification": "The paper does not focus on material discovery.",
+  "molecular_design_justification": "The paper does not address molecular design.",
+  "drug_discovery_justification": "The paper does not pertain to drug discovery.",
+  "causal_discovery_justification": "The primary focus is on dynamic causal discovery in temporal systems.",
+  "biomedical_discovery_justification": "The paper does not specifically address biomedical discovery.",
+  "idea_development_justification": "The novel approach contributes to the development of ideas in dynamic causal analysis.",
+  "science_domains": [
+    "complex systems",
+    "human motion"
+  ],
+  "ai_methods": [
+    "deep learning",
+    "auto-regressive Dependency Matrices"
+  ],
+  "exhyte_stages": [
+    "Exploration",
+    "Hypothesis generation"
+  ],
+  "needs_pdf_review": false,
+  "auto_decision": "accept",
+  "auto_selected": true,
+  "selection_source": "llm_auto",
+  "pdf_download_attempted_at": "2026-06-30T06:25:10",
+  "local_pdf_path": "downloaded_pdfs/arXiv_Bi_et_al._2025_UnCLe_Towards_Scalable_Dynamic_Causal_Discovery_in_Non-linear_Temporal_Systems.pdf",
+  "pdf_download_status": "already_exists",
+  "pdf_download_method": "direct pdf_url",
+  "pdf_download_url": "https://arxiv.org/pdf/2511.03168v1",
+  "extraction_source_type": "pdf",
+  "paper_title": "UnCLe: Towards Scalable Dynamic Causal Discovery in Non-linear Temporal Systems",
+  "summary_extraction_status": "extracted",
+  "summary_json_path": "review_outputs/gpt_paper_items/arXiv_Bi_et_al._2025_UnCLe_Towards_Scalable_Dynamic_Causal_Discovery_in_Non-linear_Temporal_Systems.json",
+  "objective": {
+    "answer": "The primary objective of the paper is to propose UnCLe, a novel deep learning method for scalable dynamic causal discovery in non-linear temporal systems. The authors aim to accurately capture and represent evolving temporal causality in both synthetic and real-world dynamic systems.",
+    "evidence": "We propose UnCLe, a novel deep learning method for scalable dynamic causal discovery. UnCLe employs a pair of Uncoupler and Recoupler networks to disentangle input time series into semantic representations and learns inter-variable dependencies via auto-regressive Dependency Matrices."
+  },
+  "knowledge_gap": {
+    "answer": "The paper addresses the gap in accurately capturing dynamic causal structures through time-resolved causal graphs, which is essential for understanding complex systems where causal influences evolve over time.",
+    "evidence": "The predominant paradigm in temporal causal discovery has largely focused on inferring static causal graphs, which represent an aggregated or time-averaged view of dependencies, thereby obscuring the rich, evolving nature of causality in many real-world phenomena."
+  },
+  "novelty": {
+    "answer": [
+      "UnCLe introduces a novel deep learning framework specifically engineered for scalable discovery and representation of dynamic causal graphs.",
+      "The method combines semantic disentanglement of time series with perturbation-based, datapoint-wise error analysis to identify and quantify dynamic causal influences.",
+      "UnCLe demonstrates superior ability to uncover and track evolving causal structures through extensive experiments on synthetic datasets and real-world systems."
+    ],
+    "evidence": [
+      "UnCLe’s core innovation lies in its ability to first disentangle complex, multivariate time series into meaningful semantic channels using a pair of parameter-sharing Uncoupler and Recoupler networks.",
+      "UnCLe infers time-resolved causal influences by meticulously analyzing datapoint-wise prediction errors that are induced by targeted temporal perturbations of individual series.",
+      "We demonstrate UnCLe’s superior ability to uncover and track evolving causal structures through extensive experiments on synthetic datasets with known dynamic ground truths."
+    ]
+  },
+  "inspirational_papers": {
+    "answer": "- Granger (1969) Investigating causal relations by econometric models and cross-spectral methods. (Methodological precursors)\n- Runge et al. (2019) Detecting and quantifying causal associations in large nonlinear time series datasets. (Experimental baselines)\n- Tank et al. (2021) Neural Granger causality. (Papers with limitations addressed by this work)",
+    "evidence": "While foundational approaches to temporal causal discovery, such as Granger causality [7] and its various linear (e.g., VAR-based) and nonlinear extensions (e.g., constraint-based methods like PCMCI [22], or early neural network adaptations [27, 17]), have laid crucial groundwork for inferring causal links from time series data."
+  },
+  "method": {
+    "steps": [
+      {
+        "step": "Training Phase",
+        "input": "Input multivariate time series dataset x ∈RN×T",
+        "output": "Trained UnCLe model with learned semantic representations and Dependency Matrices",
+        "evidence": "Given an input multivariate time series dataset x ∈RN×T, UnCLe first trains its core architecture. This architecture consists of a pair of parameter-sharing Uncoupler and Recoupler networks, along with a set of auto-regressive Dependency Matrices (Ψ)."
+      },
+      {
+        "step": "Post-hoc Analysis Phase",
+        "input": "Trained UnCLe model and input dataset",
+        "output": "Dynamic causal graph ˆGPert and static causal graph ˆGAgg",
+        "evidence": "Subsequent to training, UnCLe infers causal relationships. For dynamic causal discovery, individual time series xi within the input dataset are chronologically perturbed to disrupt their temporal structure."
+      }
+    ],
+    "tools": [
+      {
+        "name": "Uncoupler and Recoupler Networks",
+        "description": "Used for disentangling input time series into semantic representations",
+        "evidence": "The Uncoupler and Recoupler form the backbone of UnCLe’s representation learning, functioning akin to a parameter-sharing Temporal Convolutional Network (TCN) autoencoder."
+      },
+      {
+        "name": "Auto-regressive Dependency Matrices",
+        "description": "Used to model inter-variable dependencies",
+        "evidence": "To model inter-variable dependencies, UnCLe introduces a set of C lightweight Dependency Matrices, Ψ = {Ψ1, . . . , ΨC}."
+      }
+    ],
+    "benchmark_datasets": [
+      {
+        "name": "Lorenz96",
+        "data_description": "ODE model to simulate climate dynamics",
+        "usage": "Used for evaluating static causal discovery performance",
+        "evidence": "Lorenz96 [14] is a ODE model to simulate climate dynamics used by [16, 27, 10, 29, 5]."
+      },
+      {
+        "name": "MoCap",
+        "data_description": "Sensor observations reflecting biomechanics of human body",
+        "usage": "Used for evaluating dynamic causal discovery performance",
+        "evidence": "The Motion Capture (MoCap) dataset contains sensor observations reflecting the sophisticated biomechanics of the human body."
+      }
+    ],
+    "evaluation_metrics": [
+      {
+        "name": "AUROC",
+        "purpose": "Measures the area under the receiver operating characteristic curve",
+        "application": "Used to evaluate causal discovery accuracy on static graphs",
+        "evidence": "On all Lorenz datasets, UnCLe(P) perturbation consistently achieves the highest AUROC and AUPRC scores."
+      },
+      {
+        "name": "AUPRC",
+        "purpose": "Measures the area under the precision-recall curve",
+        "application": "Used to evaluate causal discovery accuracy on static graphs",
+        "evidence": "On all Lorenz datasets, UnCLe(P) perturbation consistently achieves the highest AUROC and AUPRC scores."
+      }
+    ]
+  },
+  "method_type": {
+    "methods": [
+      {
+        "name": "Hypothesis or Idea Generation",
+        "description": "The system produces candidate hypotheses or new research ideas from prior knowledge or external input.",
+        "evidence": "We propose UnCLe, a novel deep learning method for scalable dynamic causal discovery."
+      },
+      {
+        "name": "Experimental design generation",
+        "description": "The approach includes producing experimental protocols, configurations, or evaluation strategies.",
+        "evidence": "We evaluate UnCLe using various synthetic / real-world datasets from a great variety domains."
+      }
+    ]
+  },
+  "subject_area": {
+    "areas": [
+      {
+        "name": "Applied Sciences & Engineering",
+        "description": "The proposed method is aimed at improving understanding of dynamic causal relationships in complex systems.",
+        "evidence": "UnCLe offers a promising approach for revealing the underlying, time-varying mechanisms of complex phenomena."
+      }
+    ]
+  },
+  "performance_summary": {
+    "performance_summary": [
+      {
+        "summary": "UnCLe outperforms state-of-the-art baselines on static causal discovery benchmarks and accurately captures evolving temporal causality.",
+        "evidence": "Extensive experiments demonstrate that UnCLe not only outperforms state-of-the-art baselines on static causal discovery benchmarks but, more importantly, exhibits a unique capability to accurately capture and represent evolving temporal causality."
+      }
+    ],
+    "baselines": [
+      {
+        "name": "VAR",
+        "description": "Classic Granger causality method based on pairwise VAR F-tests.",
+        "evidence": "We compare UnCLe against nine baseline methods spanning a range of categories, including constraint-based, score-based, and cutting-edge neural Granger approaches: (i) VAR, the classic Granger causality method [7] based on pairwise VAR F-tests."
+      },
+      {
+        "name": "PCMCI",
+        "description": "Constraint-based approach that uses partial correlation for independence tests.",
+        "evidence": "We compare UnCLe against nine baseline methods spanning a range of categories, including constraint-based, score-based, and cutting-edge neural Granger approaches: (ii) PCMCI, a constraint-based approach [22] that uses partial correlation for independence tests."
+      }
+    ],
+    "benchmark_datasets": [
+      {
+        "name": "Lorenz96",
+        "data_description": "ODE model to simulate climate dynamics",
+        "usage": "Used for evaluating static causal discovery performance",
+        "evidence": "Lorenz96 [14] is a ODE model to simulate climate dynamics used by [16, 27, 10, 29, 5]."
+      }
+    ],
+    "evaluation_metrics": [
+      {
+        "name": "AUROC",
+        "purpose": "Measures the area under the receiver operating characteristic curve",
+        "application": "Used to evaluate causal discovery accuracy on static graphs",
+        "evidence": "On all Lorenz datasets, UnCLe(P) perturbation consistently achieves the highest AUROC and AUPRC scores."
+      },
+      {
+        "name": "AUPRC",
+        "purpose": "Measures the area under the precision-recall curve",
+        "application": "Used to evaluate causal discovery accuracy on static graphs",
+        "evidence": "On all Lorenz datasets, UnCLe(P) perturbation consistently achieves the highest AUROC and AUPRC scores."
+      }
+    ]
+  },
+  "benchmark_dataset": {
+    "name": "Lorenz96",
+    "data_description": "ODE model to simulate climate dynamics",
+    "usage": "Used for evaluating static causal discovery performance",
+    "evidence": "Lorenz96 [14] is a ODE model to simulate climate dynamics used by [16, 27, 10, 29, 5]."
+  },
+  "limitations": {
+    "limitations": [
+      {
+        "name": "Lack of Formal Identifiability Guarantees",
+        "description": "The paper does not provide a theoretical proof under which conditions UnCLe is guaranteed to recover the true dynamic causal graph.",
+        "evidence": "The primary limitation of our work, which also defines a critical direction for future research, is the lack of formal identifiability guarantees."
+      }
+    ]
+  },
+  "future_directions": {
+    "future_directions": [
+      {
+        "name": "Establish Theoretical Conditions",
+        "description": "Focus on bridging the gap by exploring connections to causal representation learning and imposing further structural constraints on the model.",
+        "evidence": "Our future work will focus on bridging this gap, potentially by exploring connections to causal representation learning and imposing further structural constraints on the model."
+      }
+    ]
+  },
+  "resource_link": {
+    "answer": "https://github.com/etigerstudio/uncle-causal-discovery",
+    "evidence": "Code & Datasets: https://github.com/etigerstudio/uncle-causal-discovery"
+  }
+}

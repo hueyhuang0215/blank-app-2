@@ -1,0 +1,247 @@
+{
+  "source": "arXiv",
+  "source_id": "2606.18074v2",
+  "title": "Tensor-based second-order causal discovery",
+  "abstract": "Causal discovery seeks to uncover the causal dependencies among variables. For this purpose, we propose an algorithm called Tensor-based Second-order Causal Discovery (TSCD). Its input is a tensor obtained from the covariance matrices of observational and interventional data. Assuming the causal dependencies follow a linear structural equation model on a directed acyclic graph (DAG), TSCD outputs the DAG and the functions on its edges, requiring only that the noise variables are uncorrelated. We also implement a version of the approach for nonlinear models. Our focus on second-order statistics (via the covariance matrices) is motivated by their statistical and computational efficiency relative to higher-order moments, their identifiability relative to first-order statistics, and that they work regardless of whether the variables are Gaussian. We show that TSCD has identifiable causal order and parameters from a number of interventions that is logarithmic in the number of variables. Experiments show that TSCD is robust to noise, competitive with existing methods, and scales to hundreds of variables.",
+  "published": "2026-06-16T15:43:44Z",
+  "authors": [
+    "Nathan Ouyang",
+    "Kexin Wang",
+    "Anna Seigal"
+  ],
+  "link": "https://arxiv.org/abs/2606.18074v2",
+  "doi": "",
+  "pdf_url": "https://arxiv.org/pdf/2606.18074v2.pdf",
+  "ai_for_science_score": 0.9,
+  "confidence_score": 0.85,
+  "implementation_score": 0.8,
+  "review_score": 0.75,
+  "benchmark_score": 0.7,
+  "hypothesis_generation_score": 0.85,
+  "scientific_discovery_score": 0.9,
+  "experiment_design_score": 0.6,
+  "material_discovery_score": 0.0,
+  "molecular_design_score": 0.0,
+  "drug_discovery_score": 0.0,
+  "causal_discovery_score": 0.95,
+  "biomedical_discovery_score": 0.0,
+  "idea_development_score": 0.7,
+  "ai_for_science_label": "accept",
+  "ai_for_science_reason": "The paper presents a novel AI method for causal discovery, which is a key process in scientific discovery, using tensor-based second-order statistics.",
+  "implementation_justification": "The method is implemented and tested on various datasets, showing robustness and scalability.",
+  "review_justification": "The paper provides a detailed explanation of the method and compares it with existing approaches.",
+  "benchmark_justification": "The method is competitive with existing methods and scales well to large datasets.",
+  "hypothesis_generation_justification": "The method aids in generating hypotheses by uncovering causal dependencies.",
+  "scientific_discovery_justification": "The approach directly contributes to scientific discovery by identifying causal structures.",
+  "experiment_design_justification": "While not the primary focus, the method can inform experiment design through causal insights.",
+  "material_discovery_justification": "The paper does not address material discovery.",
+  "molecular_design_justification": "The paper does not involve molecular design.",
+  "drug_discovery_justification": "The paper does not pertain to drug discovery.",
+  "causal_discovery_justification": "The paper's primary contribution is in the field of causal discovery, offering a novel and efficient method.",
+  "biomedical_discovery_justification": "The paper does not specifically address biomedical discovery.",
+  "idea_development_justification": "The method provides a new approach to causal discovery, contributing to idea development in the field.",
+  "science_domains": [
+    "scientific discovery",
+    "causal discovery"
+  ],
+  "ai_methods": [
+    "machine learning",
+    "causal discovery",
+    "tensor-based methods"
+  ],
+  "exhyte_stages": [
+    "Hypothesis generation",
+    "Testing"
+  ],
+  "needs_pdf_review": false,
+  "auto_decision": "accept",
+  "auto_selected": true,
+  "selection_source": "llm_auto",
+  "pdf_download_attempted_at": "2026-06-30T06:25:05",
+  "local_pdf_path": "downloaded_pdfs/arXiv_Ouyang_et_al._2026_Tensor-based_second-order_causal_discovery.pdf",
+  "pdf_download_status": "already_exists",
+  "pdf_download_method": "direct pdf_url",
+  "pdf_download_url": "https://arxiv.org/pdf/2606.18074v2",
+  "extraction_source_type": "pdf",
+  "paper_title": "Tensor-based second-order causal discovery",
+  "summary_extraction_status": "extracted",
+  "summary_json_path": "review_outputs/gpt_paper_items/arXiv_Ouyang_et_al._2026_Tensor-based_second-order_causal_discovery.json",
+  "objective": {
+    "answer": "The primary objective of the paper is to propose an algorithm called Tensor-based Second-order Causal Discovery (TSCD) to uncover causal dependencies among variables using covariance matrices from observational and interventional data.",
+    "evidence": "For this purpose, we propose an algorithm called Tensor-based Second-order Causal Discovery (TSCD). Its input is a tensor obtained from the covariance matrices of observational and interventional data."
+  },
+  "knowledge_gap": {
+    "answer": "Existing methods for causal discovery often rely on higher-order statistics or make assumptions about noise variables that limit their applicability. There is a need for methods that can efficiently use second-order statistics to identify causal structures.",
+    "evidence": "Second-order statistics are practical in applications where per-context sample sizes are too small to reliably estimate full distributions. We see that such scenarios limit the accuracy of approaches that use non-Gaussianity assumptions, such as Linear Non-Gaussian Acyclic Model (LiNGAM)."
+  },
+  "novelty": {
+    "answer": [
+      "TSCD uses only second-order statistics, which are more efficient and applicable in scenarios with Gaussian noise variables.",
+      "The method constructs a tensor from covariance matrices, whose decomposition encodes causal relationships and intervention patterns.",
+      "TSCD provides identifiability guarantees with a logarithmic number of interventions relative to the number of variables."
+    ],
+    "evidence": [
+      "TSCD is second-order because it takes as input only the covariance matrices of the data.",
+      "TSCD is tensor-based because it works by constructing a tensor from the covariance matrices, whose decomposition encodes the causal relationships and intervention patterns.",
+      "We show that TSCD has identifiable causal order and parameters from a number of interventions that is logarithmic in the number of variables."
+    ]
+  },
+  "inspirational_papers": {
+    "answer": "- Shimizu et al. (2006) A linear non-Gaussian acyclic model for causal discovery. (Methodological precursors)\n- Peters et al. (2017) Elements of causal inference: foundations and learning algorithms. (Experimental baselines)",
+    "evidence": "Second-order statistics are practical in applications where per-context sample sizes are too small to reliably estimate full distributions. We see that such scenarios limit the accuracy of approaches that use non-Gaussianity assumptions, such as Linear Non-Gaussian Acyclic Model (LiNGAM) [SHHK06]."
+  },
+  "method": {
+    "steps": [
+      {
+        "step": "Construct a tensor from covariance matrices across contexts.",
+        "input": "Covariance matrices from observational and interventional data.",
+        "output": "A tensor that encodes causal relationships and intervention patterns.",
+        "evidence": "We construct the tensor that is the core of our identifiability proof and algorithm. It is obtained by combining precision matrices across contexts."
+      },
+      {
+        "step": "Perform tensor decomposition to identify causal order and parameters.",
+        "input": "The constructed tensor from covariance matrices.",
+        "output": "Identified causal order and model parameters.",
+        "evidence": "The decomposition of the precision tensor T is a CP decomposition: it writes a tensor as a sum of outer products."
+      },
+      {
+        "step": "Use subspace-proximity score to identify root nodes.",
+        "input": "Tensor slices and subspace A.",
+        "output": "Root nodes of the causal graph.",
+        "evidence": "We use a greedy procedure to identify root nodes from the precision tensor. Recall that root nodes are those satisfying ei ⊗bi ∈A."
+      }
+    ],
+    "tools": [
+      {
+        "name": "Tensor Decomposition",
+        "description": "Used to decompose the tensor constructed from covariance matrices to identify causal relationships.",
+        "evidence": "The decomposition of the precision tensor T is a CP decomposition: it writes a tensor as a sum of outer products."
+      }
+    ],
+    "benchmark_datasets": [
+      {
+        "name": "Flow-cytometry Dataset",
+        "data_description": "Single-cell protein phosphorylation data across experimental conditions.",
+        "usage": "Used to evaluate the graph recovered by the method.",
+        "evidence": "We evaluate our method on the flow-cytometry dataset [SPP+05], which records single-cell protein phosphorylation."
+      }
+    ],
+    "evaluation_metrics": [
+      {
+        "name": "F1 Score",
+        "purpose": "Measures the accuracy of edge recovery in the causal graph.",
+        "application": "Used to evaluate the performance of the method in recovering the causal graph.",
+        "evidence": "Performance is evaluated using the relative Frobenius error, for methods estimating Λ, the F1 score for edge recovery."
+      },
+      {
+        "name": "Relative Frobenius Error",
+        "purpose": "Measures the error in estimating the adjacency matrix.",
+        "application": "Used to compare the accuracy of the estimated adjacency matrix to the true matrix.",
+        "evidence": "Performance is evaluated using the relative Frobenius error, for methods estimating Λ."
+      }
+    ]
+  },
+  "method_type": {
+    "methods": [
+      {
+        "name": "Hypothesis or Idea Generation",
+        "description": "The system produces candidate hypotheses or new research ideas from prior knowledge or external input.",
+        "evidence": "We propose a new algorithm for causal discovery, which we call Tensor-based Second-order Causal Discovery (TSCD)."
+      },
+      {
+        "name": "Experimental design generation",
+        "description": "The approach includes producing experimental protocols, configurations, or evaluation strategies.",
+        "evidence": "We evaluate TSCD on synthetic linear and nonlinear structural equation models, comparing against causal discovery baselines."
+      }
+    ]
+  },
+  "subject_area": {
+    "areas": [
+      {
+        "name": "Applied Sciences & Engineering",
+        "description": "The paper develops a method for causal discovery applicable to various scientific fields.",
+        "evidence": "Causal discovery is a fundamental problem in biology, neuroscience, economics, public health and machine learning."
+      }
+    ]
+  },
+  "performance_summary": {
+    "performance_summary": [
+      {
+        "summary": "TSCD achieves high accuracy and computational efficiency, performing comparably to LiNGAM in non-Gaussian settings and outperforming baselines when there is Gaussian noise.",
+        "evidence": "Our method achieves high accuracy and computational efficiency, performing comparably to LiNGAM in non-Gaussian settings and outperforming baselines when there is Gaussian noise."
+      }
+    ],
+    "baselines": [
+      {
+        "name": "LiNGAM",
+        "description": "A method for causal discovery assuming non-Gaussian noise.",
+        "evidence": "Our method achieves high accuracy and computational efficiency, performing comparably to LiNGAM in non-Gaussian settings."
+      },
+      {
+        "name": "GES",
+        "description": "A score-based method for learning a DAG.",
+        "evidence": "We compare three classes of methods: Interventional methods (ours, GIES, IGSP), Observational methods with adjacency matrix output (LiNGAM, SortRegress, NOTEARS), Observational methods with graph output (GES, PC)."
+      }
+    ],
+    "benchmark_datasets": [
+      {
+        "name": "Flow-cytometry Dataset",
+        "data_description": "Single-cell protein phosphorylation data across experimental conditions.",
+        "usage": "Used to evaluate the graph recovered by the method.",
+        "evidence": "We evaluate our method on the flow-cytometry dataset [SPP+05], which records single-cell protein phosphorylation."
+      }
+    ],
+    "evaluation_metrics": [
+      {
+        "name": "F1 Score",
+        "purpose": "Measures the accuracy of edge recovery in the causal graph.",
+        "application": "Used to evaluate the performance of the method in recovering the causal graph.",
+        "evidence": "Performance is evaluated using the relative Frobenius error, for methods estimating Λ, the F1 score for edge recovery."
+      },
+      {
+        "name": "Relative Frobenius Error",
+        "purpose": "Measures the error in estimating the adjacency matrix.",
+        "application": "Used to compare the accuracy of the estimated adjacency matrix to the true matrix.",
+        "evidence": "Performance is evaluated using the relative Frobenius error, for methods estimating Λ."
+      }
+    ]
+  },
+  "benchmark_dataset": {
+    "name": "Flow-cytometry Dataset",
+    "data_description": "Single-cell protein phosphorylation data across experimental conditions.",
+    "usage": "Used to evaluate the graph recovered by the method.",
+    "evidence": "We evaluate our method on the flow-cytometry dataset [SPP+05], which records single-cell protein phosphorylation."
+  },
+  "limitations": {
+    "limitations": [
+      {
+        "name": "Assumption of Perfect Interventions",
+        "description": "The method assumes perfect interventions, which may not hold in real-world data.",
+        "evidence": "Our method relies on assumptions such as perfect interventions and uncorrelated noise, which may be violated in real-world data."
+      },
+      {
+        "name": "Uncorrelated Noise Assumption",
+        "description": "The method assumes noise variables are uncorrelated, which may not be true in practice.",
+        "evidence": "Our method relies on assumptions such as perfect interventions and uncorrelated noise, which may be violated in real-world data."
+      }
+    ]
+  },
+  "future_directions": {
+    "future_directions": [
+      {
+        "name": "Handle Other Types of Interventions",
+        "description": "Extend the framework to handle noise-shift and soft interventions.",
+        "evidence": "Future directions include extending the framework to handle other types of interventions and latent confounding."
+      },
+      {
+        "name": "Incorporate Higher-order Statistics",
+        "description": "Explore the use of first or higher-order statistics in the method.",
+        "evidence": "Incorporating first or higher-order statistics is another interesting direction for future work."
+      }
+    ]
+  },
+  "resource_link": {
+    "answer": "https://github.com/TSCD-repo",
+    "evidence": "See this repository for the code."
+  }
+}

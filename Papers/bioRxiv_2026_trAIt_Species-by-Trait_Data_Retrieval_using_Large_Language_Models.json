@@ -1,0 +1,248 @@
+{
+  "source": "bioRxiv",
+  "source_id": "PPR1258939",
+  "title": "trAIt: Species-by-Trait Data Retrieval using Large Language Models",
+  "abstract": "Biological research often requires information about species’ traits. Manual literature collation can be time-consuming and miss parts of the literature. To address this gap, we developed trAIt , a publicly available software for the retrieval of characteristics of species from scientific literature catalogued in the Europe PubMed Central (PubMed) database. trAIt provides a graphical user interface (GUI) in which users specify species and characteristics of interest. Leveraging a large language model (LLM), trAIt retrieves relevant papers, combines their content through a consensus-based summarization model, and outputs a species-by-characteristic table. For a case study involving frog species, trAIt recovered 47.1% of trait-species combinations in 2.75 hours, while an expert curator independently recovered 62.4% over months. The consensus-based summarization substantially aids accuracy compared to single-source extraction. Across three case studies of vertebrate taxa, an expert confirmed the accuracy of 70.9% of trait-species entries recovered by trAIt . We observed considerable variation across taxa in trAIt ’s accuracy, which is possibly due to heterogeneity in open-access literature availability and inconsistencies in species and trait terminology. In sum, our analysis suggests that LLM-based tools can accelerate biological data synthesis but should be used to support domain experts’ research, rather than replace their judgment.",
+  "published": "2026-06-24",
+  "authors": [
+    "Balaji S",
+    "Martinson KA",
+    "Schellenberger JS",
+    "Koley J",
+    "Inman CM",
+    "Hofmann HA",
+    "Young RL",
+    "Harpak A."
+  ],
+  "link": "https://doi.org/10.64898/2026.06.19.732660",
+  "doi": "10.64898/2026.06.19.732660",
+  "pdf_url": "",
+  "ai_for_science_score": 0.85,
+  "confidence_score": 0.9,
+  "implementation_score": 0.8,
+  "review_score": 0.7,
+  "benchmark_score": 0.6,
+  "hypothesis_generation_score": 0.5,
+  "scientific_discovery_score": 0.8,
+  "experiment_design_score": 0.4,
+  "material_discovery_score": 0.0,
+  "molecular_design_score": 0.0,
+  "drug_discovery_score": 0.0,
+  "causal_discovery_score": 0.3,
+  "biomedical_discovery_score": 0.7,
+  "idea_development_score": 0.6,
+  "ai_for_science_label": "accept",
+  "ai_for_science_reason": "The paper uses a large language model to automate the retrieval and synthesis of biological data, aiding scientific discovery in biology.",
+  "implementation_justification": "The tool is implemented and tested with case studies, showing practical application.",
+  "review_justification": "The paper includes expert validation of the tool's outputs.",
+  "benchmark_justification": "The tool's performance is compared to human experts, but lacks extensive benchmarking against other AI tools.",
+  "hypothesis_generation_justification": "The tool aids in data retrieval but does not directly generate new hypotheses.",
+  "scientific_discovery_justification": "The tool accelerates data synthesis, contributing to scientific discovery in biology.",
+  "experiment_design_justification": "The tool supports data retrieval but does not directly design experiments.",
+  "material_discovery_justification": "The paper does not address material discovery.",
+  "molecular_design_justification": "The paper does not involve molecular design.",
+  "drug_discovery_justification": "The paper does not focus on drug discovery.",
+  "causal_discovery_justification": "The tool may indirectly support causal discovery by providing comprehensive data, but this is not its primary focus.",
+  "biomedical_discovery_justification": "The tool aids in the discovery of biological traits, relevant to biomedical research.",
+  "idea_development_justification": "The tool supports idea development by providing synthesized data for further exploration.",
+  "science_domains": [
+    "biology"
+  ],
+  "ai_methods": [
+    "large language model",
+    "consensus-based summarization"
+  ],
+  "exhyte_stages": [
+    "Exploration"
+  ],
+  "needs_pdf_review": false,
+  "auto_decision": "accept",
+  "auto_selected": true,
+  "selection_source": "llm_auto",
+  "local_pdf_path": "downloaded_pdfs/bioRxiv_S_et_al._2026_trAIt_Species-by-Trait_Data_Retrieval_using_Large_Language_Models.pdf",
+  "pdf_download_status": "manual_pdf",
+  "pdf_download_method": "manual_pdf",
+  "pdf_download_url": "manual_pdfs/bioRxiv_S_et_al._2026_trAIt_Species-by-Trait_Data_Retrieval_using_Large_Language_Models.pdf",
+  "pdf_download_attempted_at": "2026-06-30T17:54:09",
+  "paper_title": "trAIt: Species-by-Trait Data Retrieval using Large Language Models",
+  "summary_extraction_status": "extracted",
+  "summary_json_path": "review_outputs/gpt_paper_items/bioRxiv_S_et_al._2026_trAIt_Species-by-Trait_Data_Retrieval_using_Large_Language_Models.json",
+  "objective": {
+    "answer": "The primary objective of the paper is to develop trAIt, a software tool for the retrieval of species-by-trait data from scientific literature using large language models, aiming to streamline the process of data collection in biological research.",
+    "evidence": "To address this gap, we developed trAIt, a publicly available software for the retrieval of characteristics of species from scientific literature catalogued in the Europe PubMed Central (PubMed) database."
+  },
+  "knowledge_gap": {
+    "answer": "The paper addresses the gap in efficient retrieval of species trait data from scientific literature, which is often time-consuming and prone to missing parts of the literature.",
+    "evidence": "Biological research often requires information about species’ traits. Manual literature collation can be time-consuming and miss parts of the literature."
+  },
+  "novelty": {
+    "answer": [
+      "Development of trAIt, a tool that uses large language models to retrieve and summarize species-by-trait data from scientific literature.",
+      "Implementation of a consensus-based summarization model to improve accuracy over single-source extraction.",
+      "Integration of a graphical user interface for user-friendly interaction with the tool."
+    ],
+    "evidence": [
+      "We developed trAIt, a trait-by-species data retrieval software. trAIt queries scientific literature and leverages a large language model (LLM) to extract concise information from large bodies of text.",
+      "The consensus-based summarization substantially aids accuracy compared to single-source extraction.",
+      "trAIt provides a graphical user interface (GUI) in which users specify species and characteristics of interest."
+    ]
+  },
+  "inspirational_papers": {
+    "answer": "- The Europe PMC Consortium (2015) Europe PMC: a full-text literature database for the life sciences and platform for innovation. (Methodological precursors)",
+    "evidence": "trAIt retrieves relevant papers for that species and trait through PubMed’s open-access API."
+  },
+  "method": {
+    "steps": [
+      {
+        "step": "User uploads species and trait data.",
+        "input": "Spreadsheet with species names and traits, text file with trait descriptions.",
+        "output": "Prepared input files for trAIt processing.",
+        "evidence": "The user uploads a spreadsheet listing species names and traits of interest, along with a text file describing each trait in plain language."
+      },
+      {
+        "step": "Retrieve relevant literature.",
+        "input": "Species-trait pairs from user input.",
+        "output": "Relevant papers retrieved from PubMed.",
+        "evidence": "For each species-trait pair, trAIt retrieves relevant papers for that species and trait through PubMed’s open-access API."
+      },
+      {
+        "step": "Process and filter text from retrieved papers.",
+        "input": "Retrieved papers in PDF format.",
+        "output": "Clean text for LLM analysis.",
+        "evidence": "trAIt downloads retrieved papers in PDF format and converts them to raw text."
+      },
+      {
+        "step": "Query LLM for trait extraction.",
+        "input": "Cleaned text and trait definitions.",
+        "output": "Extracted trait values.",
+        "evidence": "For each retrieved paper, trAIt applies a standardized extraction prompt to the LLM, supplying the paper text and trait definition."
+      },
+      {
+        "step": "Summarize results using consensus model.",
+        "input": "Extracted trait values from multiple papers.",
+        "output": "Unified trait value output.",
+        "evidence": "If a query returns multiple candidate values from multiple papers, trAIt reconciles and standardizes the results into a single, unified output."
+      },
+      {
+        "step": "Compile results into structured output.",
+        "input": "Summarized trait values.",
+        "output": "Structured CSV file with trait data.",
+        "evidence": "The aggregated results are written to a structured CSV file."
+      }
+    ],
+    "tools": [
+      {
+        "name": "Large Language Model (LLM)",
+        "description": "Used for extracting trait information from text.",
+        "evidence": "trAIt queries scientific literature and leverages a large language model (LLM) to extract concise information from large bodies of text."
+      },
+      {
+        "name": "PubMed API",
+        "description": "Used to retrieve scientific papers.",
+        "evidence": "trAIt retrieves relevant papers for that species and trait through PubMed’s open-access API."
+      }
+    ],
+    "benchmark_datasets": [],
+    "evaluation_metrics": [
+      {
+        "name": "Completeness",
+        "purpose": "Measures the fraction of species-trait answers retrieved.",
+        "application": "Used to evaluate the retrieval performance of trAIt.",
+        "evidence": "Completeness varied considerably across inputs—50.6%, 60.1%, and 26.6% for Mixed Vertebrates, Birds and Frogs, respectively."
+      },
+      {
+        "name": "Accuracy",
+        "purpose": "Measures the correctness of retrieved trait values.",
+        "application": "Used to assess the accuracy of trAIt's output compared to manually curated reference values.",
+        "evidence": "Accuracy showed similar distributions across traits within each input."
+      }
+    ]
+  },
+  "method_type": {
+    "methods": [
+      {
+        "name": "Input and Data Collection from the User",
+        "evidence": "The user uploads a spreadsheet listing species names and traits of interest, along with a text file describing each trait in plain language."
+      },
+      {
+        "name": "Literature or Dataset Retrieval",
+        "evidence": "For each species-trait pair, trAIt retrieves relevant papers for that species and trait through PubMed’s open-access API."
+      },
+      {
+        "name": "Knowledge Extraction and Structurization",
+        "evidence": "trAIt applies a standardized extraction prompt to the LLM, supplying the paper text and trait definition, and receiving the model’s response corresponding to the requested trait."
+      }
+    ]
+  },
+  "subject_area": {
+    "areas": [
+      {
+        "name": "Biological Sciences",
+        "description": "The paper focuses on retrieving species trait data, which is central to biological research.",
+        "evidence": "Biological research often requires information about species’ traits."
+      },
+      {
+        "name": "Applied Sciences & Engineering",
+        "description": "The development of trAIt involves engineering a software tool for data retrieval.",
+        "evidence": "We developed trAIt, a trait-by-species data retrieval software."
+      }
+    ]
+  },
+  "performance_summary": {
+    "performance_summary": [
+      {
+        "summary": "trAIt achieved an accuracy of 71.6% on the Mixed Vertebrate input, 57.0% on the Bird input, and 84.0% on the Frog input.",
+        "evidence": "Among the three inputs, trAIt achieved an accuracy of 71.6% on the Mixed Vertebrate input, 57.0% on the Bird input, and 84.0% on the Frog input."
+      }
+    ],
+    "baselines": [],
+    "benchmark_datasets": [],
+    "evaluation_metrics": [
+      {
+        "name": "Completeness",
+        "purpose": "Measures the fraction of species-trait answers retrieved.",
+        "application": "Used to evaluate the retrieval performance of trAIt.",
+        "evidence": "Completeness varied considerably across inputs—50.6%, 60.1%, and 26.6% for Mixed Vertebrates, Birds and Frogs, respectively."
+      },
+      {
+        "name": "Accuracy",
+        "purpose": "Measures the correctness of retrieved trait values.",
+        "application": "Used to assess the accuracy of trAIt's output compared to manually curated reference values.",
+        "evidence": "Accuracy showed similar distributions across traits within each input."
+      }
+    ]
+  },
+  "benchmark_dataset": null,
+  "limitations": {
+    "limitations": [
+      {
+        "name": "Limited Literature Availability",
+        "description": "trAIt's performance is constrained by the availability of open-access literature, affecting completeness and accuracy.",
+        "evidence": "We hypothesized that this is a result of the limited availability of open-access papers on many of the species in the Frog input."
+      },
+      {
+        "name": "Text-Only Extraction",
+        "description": "trAIt cannot extract data from figures or supplementary materials, which limits its ability to retrieve complete information.",
+        "evidence": "trAIt relies on data being mineable as text rather than in figures, files or other supplementary materials."
+      }
+    ]
+  },
+  "future_directions": {
+    "future_directions": [
+      {
+        "name": "Integration of Taxon-Specific Databases",
+        "description": "Explore the integration of databases and primary literature in parallel to gather trait data.",
+        "evidence": "Ideally, trAIt would integrate databases and primary literature in parallel to gather trait data."
+      },
+      {
+        "name": "Improving Literature Access",
+        "description": "Implement an authentication system to allow access to subscription-based papers.",
+        "evidence": "To improve literature availability, implementing an authentication system would allow a user with institutional access to retrieve access-restricted papers."
+      }
+    ]
+  },
+  "resource_link": {
+    "answer": "https://github.com/harpak-lab/trAIt",
+    "evidence": "Our code base is publicly available at: https://github.com/harpak-lab/trAIt"
+  }
+}

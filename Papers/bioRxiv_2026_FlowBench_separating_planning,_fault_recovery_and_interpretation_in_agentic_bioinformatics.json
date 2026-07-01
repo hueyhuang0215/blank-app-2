@@ -1,0 +1,238 @@
+{
+  "source": "bioRxiv",
+  "source_id": "PPR1253264",
+  "title": "FlowBench: separating planning, fault recovery and interpretation in agentic bioinformatics",
+  "abstract": "<h4> A bstract </h4> Agentic large language model (LLM) systems are being deployed in bioinformatics faster than they are understood, and single-metric evaluations conflate capabilities that fail independently. We introduce FlowBench, a benchmark that decomposes agentic bioinformatics performance into planning, fault recovery, biological interpretation, and end-to-end output-fidelity. Existing systems achieve high plan completeness, but their closed, single-provider designs prevent attribution of performance to scaffolding versus the underlying model. We therefore built FlowAgent, a modular, provider-agnostic framework whose components can be selectively disabled and whose backbone model can be swapped across providers on a shared harness, and used it to evaluate 23 models from three main providers. Three findings emerge. First, generating a valid workflow plan from a named toolchain is largely solved, whereas inferring an appropriate toolchain from biological intent alone is uniformly difficult regardless of model tier, compressing all models into a narrow 44–57% pass-rate band. Second, ablation shows that the dependency-structured plan and a completeness-reflection step drive performance, while adding a same-context validator-driven retry makes structural quality worse. Third, fault recovery and data-grounded interpretation remain unsolved. Models frequently propose fixes that force a clean exit while leaving the underlying data invalid, and data-grounded interpretation lags internal-knowledge recall by a consistent margin. Safety does not emerge from capability, and reasoning-tier models were among the least reliable at recognising unrecoverable faults. Once planning saturates, agent architecture and refusal calibration, not model scale, are the productive frontier. <h4>Availability and implementation</h4> FlowAgent and FlowBench are available under a GPLv3 licence at https://github.com/EnteloBio/flowagent <h4>Contact</h4> adam@entelo.bio",
+  "published": "2026-06-16",
+  "authors": [
+    "Kurjan A",
+    "Cribbs AP."
+  ],
+  "link": "https://doi.org/10.64898/2026.06.12.731844",
+  "doi": "10.64898/2026.06.12.731844",
+  "pdf_url": "",
+  "ai_for_science_score": 0.8,
+  "confidence_score": 0.9,
+  "implementation_score": 0.7,
+  "review_score": 0.8,
+  "benchmark_score": 0.9,
+  "hypothesis_generation_score": 0.6,
+  "scientific_discovery_score": 0.8,
+  "experiment_design_score": 0.7,
+  "material_discovery_score": 0.0,
+  "molecular_design_score": 0.0,
+  "drug_discovery_score": 0.0,
+  "causal_discovery_score": 0.0,
+  "biomedical_discovery_score": 0.7,
+  "idea_development_score": 0.6,
+  "ai_for_science_label": "accept",
+  "ai_for_science_reason": "The paper introduces a benchmark and framework for evaluating AI models in bioinformatics, focusing on planning, fault recovery, and interpretation, which are crucial for scientific discovery.",
+  "implementation_justification": "The paper provides a modular framework and benchmark for evaluating AI models in bioinformatics.",
+  "review_justification": "The paper thoroughly evaluates 23 models and provides insights into their performance in bioinformatics tasks.",
+  "benchmark_justification": "FlowBench is a comprehensive benchmark that decomposes agentic bioinformatics performance into key components.",
+  "hypothesis_generation_justification": "The framework aids in understanding model capabilities, which can inform hypothesis generation.",
+  "scientific_discovery_justification": "The paper contributes to scientific discovery by improving AI model evaluation in bioinformatics.",
+  "experiment_design_justification": "The framework helps design experiments to test AI models' capabilities in bioinformatics.",
+  "material_discovery_justification": "The paper does not focus on material discovery.",
+  "molecular_design_justification": "The paper does not address molecular design.",
+  "drug_discovery_justification": "The paper does not focus on drug discovery.",
+  "causal_discovery_justification": "The paper does not address causal discovery.",
+  "biomedical_discovery_justification": "The framework and benchmark are relevant to biomedical discovery in bioinformatics.",
+  "idea_development_justification": "The insights from the benchmark can aid in developing new ideas for AI applications in bioinformatics.",
+  "science_domains": [
+    "bioinformatics"
+  ],
+  "ai_methods": [
+    "large language models",
+    "agentic systems"
+  ],
+  "exhyte_stages": [
+    "Exploration",
+    "Testing"
+  ],
+  "needs_pdf_review": false,
+  "auto_decision": "accept",
+  "auto_selected": true,
+  "selection_source": "llm_auto",
+  "local_pdf_path": "downloaded_pdfs/bioRxiv_A_et_al._2026_FlowBench_separating_planning,_fault_recovery_and_interpretation_in_agentic_bioinformatics.pdf",
+  "pdf_download_status": "manual_pdf",
+  "pdf_download_method": "manual_pdf",
+  "pdf_download_url": "manual_pdfs/bioRxiv_A_et_al._2026_FlowBench_separating_planning,_fault_recovery_and_interpretation_in_agentic_bioinformatics.pdf",
+  "pdf_download_attempted_at": "2026-06-30T17:54:09",
+  "paper_title": "FlowBench: separating planning, fault recovery and interpretation in agentic bioinformatics",
+  "summary_extraction_status": "extracted",
+  "summary_json_path": "review_outputs/gpt_paper_items/bioRxiv_A_et_al._2026_FlowBench_separating_planning__fault_recovery_and_interpretation_in_agentic_bioinformatics.json",
+  "objective": {
+    "answer": "The primary objective of the paper is to introduce FlowBench, a benchmark that decomposes agentic bioinformatics performance into planning, fault recovery, biological interpretation, and end-to-end output-fidelity. The authors aim to address the limitations of existing systems that are evaluated in isolation and lack the ability to attribute performance to specific components.",
+    "evidence": "We introduce FlowBench, a benchmark that decomposes agentic bioinformatics performance into planning, fault recovery, biological interpretation, and end-to-end output-fidelity."
+  },
+  "knowledge_gap": {
+    "answer": "The paper addresses the gap in understanding the specific contributions of different components in agentic bioinformatics systems, which are typically evaluated in isolation with different metrics, preventing a clear understanding of when and why these systems succeed or fail.",
+    "evidence": "Because each system has been evaluated in isolation, with different metrics, prompt sets and model backends, the field lacks answers to basic questions about when and why these systems succeed or fail."
+  },
+  "novelty": {
+    "answer": [
+      "FlowBench decomposes agentic bioinformatics into distinct layers, allowing for a detailed evaluation of planning, fault recovery, and biological interpretation.",
+      "FlowAgent is a modular, provider-agnostic framework that allows components to be selectively disabled and models to be swapped across providers.",
+      "The benchmark provides a reproducible framework that separates the contributions of model and scaffolding through controlled ablation."
+    ],
+    "evidence": [
+      "We introduce FlowBench, a benchmark that decomposes agentic bioinformatics performance into planning, fault recovery, biological interpretation, and end-to-end output-fidelity.",
+      "We therefore built FlowAgent, a modular, provider-agnostic framework whose components can be selectively disabled and whose backbone model can be swapped across providers on a shared harness.",
+      "Controlled ablation shows that enforced dependency structure and a completeness-reflection step, not model scale, drive plan quality."
+    ]
+  },
+  "inspirational_papers": {
+    "answer": "- Philpott et al. (2025) FlowAgent: A Modular Agent-Based System for Automated Workflow Management and Data Interpretation. (Methodological precursors)",
+    "evidence": "We built FlowAgent for this purpose philpott2025flowagent, a modular, provider-agnostic framework in which the backbone model and each evaluated planner component can be toggled independently."
+  },
+  "method": {
+    "steps": [
+      {
+        "step": "Develop FlowBench to evaluate agentic bioinformatics systems.",
+        "input": "Existing agentic bioinformatics systems and their evaluation metrics.",
+        "output": "A benchmark that decomposes performance into planning, fault recovery, biological interpretation, and output-fidelity.",
+        "evidence": "We introduce FlowBench, a benchmark that decomposes agentic bioinformatics performance into planning, fault recovery, biological interpretation, and end-to-end output-fidelity."
+      },
+      {
+        "step": "Implement FlowAgent as a modular framework.",
+        "input": "Modular framework design principles and existing bioinformatics models.",
+        "output": "FlowAgent, a provider-agnostic framework with interchangeable components.",
+        "evidence": "We therefore built FlowAgent, a modular, provider-agnostic framework whose components can be selectively disabled and whose backbone model can be swapped across providers on a shared harness."
+      },
+      {
+        "step": "Evaluate models using FlowBench.",
+        "input": "23 models from three main providers.",
+        "output": "Evaluation results showing model performance across different layers of bioinformatics tasks.",
+        "evidence": "We used it to evaluate 23 models from three main providers."
+      }
+    ],
+    "tools": [
+      {
+        "name": "FlowAgent",
+        "description": "Used as a modular, provider-agnostic framework for evaluating bioinformatics models.",
+        "evidence": "We therefore built FlowAgent, a modular, provider-agnostic framework whose components can be selectively disabled and whose backbone model can be swapped across providers on a shared harness."
+      }
+    ],
+    "benchmark_datasets": [
+      {
+        "name": "GEO-derived datasets",
+        "data_description": "Public datasets used for biological interpretation tasks.",
+        "usage": "Used to assess interpretation on questions anchored to public datasets.",
+        "evidence": "Interpretation on questions anchored to public datasets and stratified by the kind of evidence each requires."
+      }
+    ],
+    "evaluation_metrics": [
+      {
+        "name": "Plan correctness",
+        "purpose": "Measures the fraction of prompts whose generated plan passes the full rubric.",
+        "application": "Used to evaluate planning quality of bioinformatics agents.",
+        "evidence": "We first benchmarked the existing agentic systems on two complementary measures of planning quality: plan correctness, the fraction of prompts whose generated plan passes the full rubric."
+      },
+      {
+        "name": "Tool-completeness",
+        "purpose": "Measures the fraction of rubric-required tools each system places correctly.",
+        "application": "Used to evaluate the completeness of tool placement in generated plans.",
+        "evidence": "Tool-completeness (i.e. the fraction of rubric-required tools each system places correctly)."
+      }
+    ]
+  },
+  "method_type": {
+    "methods": [
+      {
+        "name": "Experimental design generation",
+        "description": "The approach includes producing experimental protocols, configurations, or evaluation strategies.",
+        "evidence": "FlowBench separates the distinct abilities that a single end-to-end score conflates, and that separation reorders what the field should prioritise."
+      }
+    ]
+  },
+  "subject_area": {
+    "areas": [
+      {
+        "name": "Biological Sciences",
+        "description": "The paper focuses on bioinformatics systems that translate natural-language requests into executable bioinformatics pipelines.",
+        "evidence": "Agentic large language model (LLM) systems that translate natural-language requests into executable bioinformatics pipelines are rapidly moving from proof-of-concept to deployment."
+      },
+      {
+        "name": "Applied Sciences & Engineering",
+        "description": "The paper develops a modular framework for evaluating bioinformatics models, which is an engineering task.",
+        "evidence": "We therefore built FlowAgent, a modular, provider-agnostic framework whose components can be selectively disabled and whose backbone model can be swapped across providers on a shared harness."
+      }
+    ]
+  },
+  "performance_summary": {
+    "performance_summary": [
+      {
+        "summary": "FlowAgent matched Claude Code on both measures (100% completeness and near-perfect plan correctness).",
+        "evidence": "As a baseline, FlowAgent matched Claude Code on both measures (100% completeness and near-perfect plan correctness; Figure 2A–C)."
+      }
+    ],
+    "baselines": [
+      {
+        "name": "Claude Code",
+        "description": "A general-purpose agentic coding tool with no bioinformatics-specific design.",
+        "evidence": "Claude Code, a general-purpose agentic coding tool with no bioinformatics-specific design, outperformed all three dedicated agents on both measures."
+      }
+    ],
+    "benchmark_datasets": [
+      {
+        "name": "GEO-derived datasets",
+        "data_description": "Public datasets used for biological interpretation tasks.",
+        "usage": "Used to assess interpretation on questions anchored to public datasets.",
+        "evidence": "Interpretation on questions anchored to public datasets and stratified by the kind of evidence each requires."
+      }
+    ],
+    "evaluation_metrics": [
+      {
+        "name": "Plan correctness",
+        "purpose": "Measures the fraction of prompts whose generated plan passes the full rubric.",
+        "application": "Used to evaluate planning quality of bioinformatics agents.",
+        "evidence": "We first benchmarked the existing agentic systems on two complementary measures of planning quality: plan correctness, the fraction of prompts whose generated plan passes the full rubric."
+      },
+      {
+        "name": "Tool-completeness",
+        "purpose": "Measures the fraction of rubric-required tools each system places correctly.",
+        "application": "Used to evaluate the completeness of tool placement in generated plans.",
+        "evidence": "Tool-completeness (i.e. the fraction of rubric-required tools each system places correctly)."
+      }
+    ]
+  },
+  "benchmark_dataset": {
+    "name": "GEO-derived datasets",
+    "data_description": "Public datasets used for biological interpretation tasks.",
+    "usage": "Used to assess interpretation on questions anchored to public datasets.",
+    "evidence": "Interpretation on questions anchored to public datasets and stratified by the kind of evidence each requires."
+  },
+  "limitations": {
+    "limitations": [
+      {
+        "name": "Limited Fault Recovery",
+        "description": "Fault recovery and data-grounded interpretation remain unsolved, with models frequently proposing fixes that leave the underlying data invalid.",
+        "evidence": "Fault recovery and data-grounded interpretation remain unsolved. Models frequently propose fixes that force a clean exit while leaving the underlying data invalid."
+      },
+      {
+        "name": "Toolchain Selection Difficulty",
+        "description": "Selecting a toolchain from biological intent alone is uniformly difficult, compressing all models into a narrow pass-rate band.",
+        "evidence": "Inferring an appropriate toolchain from biological intent alone is uniformly difficult regardless of model tier, compressing all models into a narrow 44–57% pass-rate band."
+      }
+    ]
+  },
+  "future_directions": {
+    "future_directions": [
+      {
+        "name": "Improve Fault Recovery",
+        "description": "Focus on developing methods to enhance fault recovery and data-grounded interpretation.",
+        "evidence": "Fault recovery and data-grounded interpretation remain the genuine open problems."
+      },
+      {
+        "name": "Enhance Toolchain Inference",
+        "description": "Work on improving the ability to select appropriate toolchains from biological intent.",
+        "evidence": "Selecting a toolchain from biological intent alone is not solved."
+      }
+    ]
+  },
+  "resource_link": {
+    "answer": "https://github.com/EnteloBio/flowagent",
+    "evidence": "Availability and implementation: FlowAgent and FlowBench are available under a GPLv3 licence at https://github.com/EnteloBio/flowagent"
+  }
+}

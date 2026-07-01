@@ -1,0 +1,337 @@
+{
+  "source": "arXiv",
+  "source_id": "2507.00964v1",
+  "title": "Benchmarking the Discovery Engine",
+  "abstract": "The Discovery Engine is a general purpose automated system for scientific discovery, which combines machine learning with state-of-the-art ML interpretability to enable rapid and robust scientific insight across diverse datasets. In this paper, we benchmark the Discovery Engine against five recent peer-reviewed scientific publications applying machine learning across medicine, materials science, social science, and environmental science. In each case, the Discovery Engine matches or exceeds prior predictive performance while also generating deeper, more actionable insights through rich interpretability artefacts. These results demonstrate its potential as a new standard for automated, interpretable scientific modelling that enables complex knowledge discovery from data.",
+  "published": "2025-07-01T17:13:31Z",
+  "authors": [
+    "Jack Foxabbott",
+    "Arush Tagade",
+    "Andrew Cusick",
+    "Robbie McCorkell",
+    "Leo McKee-Reid",
+    "Jugal Patel",
+    "Jamie Rumbelow",
+    "Jessica Rumbelow",
+    "Zohreh Shams"
+  ],
+  "link": "https://arxiv.org/abs/2507.00964v1",
+  "doi": "",
+  "pdf_url": "https://arxiv.org/pdf/2507.00964v1.pdf",
+  "ai_for_science_score": 0.9,
+  "confidence_score": 0.95,
+  "implementation_score": 0.85,
+  "review_score": 0.8,
+  "benchmark_score": 0.9,
+  "hypothesis_generation_score": 0.85,
+  "scientific_discovery_score": 0.9,
+  "experiment_design_score": 0.75,
+  "material_discovery_score": 0.8,
+  "molecular_design_score": 0.0,
+  "drug_discovery_score": 0.0,
+  "causal_discovery_score": 0.7,
+  "biomedical_discovery_score": 0.8,
+  "idea_development_score": 0.75,
+  "ai_for_science_label": "accept",
+  "ai_for_science_reason": "The paper describes an AI system that actively contributes to scientific discovery across multiple domains using machine learning and interpretability.",
+  "implementation_justification": "The system is benchmarked against recent scientific publications, indicating robust implementation.",
+  "review_justification": "The paper provides a comparative analysis with peer-reviewed publications.",
+  "benchmark_justification": "The Discovery Engine is benchmarked against five recent scientific publications.",
+  "hypothesis_generation_justification": "The system generates deeper insights, suggesting its role in hypothesis generation.",
+  "scientific_discovery_justification": "The system is designed for automated scientific discovery across various domains.",
+  "experiment_design_justification": "While not explicitly mentioned, the system's insights could inform experiment design.",
+  "material_discovery_justification": "Materials science is one of the domains where the system is applied.",
+  "molecular_design_justification": "The paper does not specifically address molecular design.",
+  "drug_discovery_justification": "The paper does not specifically address drug discovery.",
+  "causal_discovery_justification": "The interpretability artefacts suggest potential for causal discovery.",
+  "biomedical_discovery_justification": "The system is applied in the medical domain, contributing to biomedical discovery.",
+  "idea_development_justification": "The system's insights can aid in developing new scientific ideas.",
+  "science_domains": [
+    "medicine",
+    "materials science",
+    "environmental science"
+  ],
+  "ai_methods": [
+    "machine learning",
+    "ML interpretability"
+  ],
+  "exhyte_stages": [
+    "Exploration",
+    "Hypothesis generation",
+    "Testing"
+  ],
+  "needs_pdf_review": false,
+  "auto_decision": "accept",
+  "auto_selected": true,
+  "selection_source": "llm_auto",
+  "pdf_download_attempted_at": "2026-06-30T06:24:58",
+  "local_pdf_path": "downloaded_pdfs/arXiv_Foxabbott_et_al._2025_Benchmarking_the_Discovery_Engine.pdf",
+  "pdf_download_status": "already_exists",
+  "pdf_download_method": "direct pdf_url",
+  "pdf_download_url": "https://arxiv.org/pdf/2507.00964v1",
+  "extraction_source_type": "pdf",
+  "paper_title": "Benchmarking the Discovery Engine",
+  "summary_extraction_status": "extracted",
+  "summary_json_path": "review_outputs/gpt_paper_items/arXiv_Foxabbott_et_al._2025_Benchmarking_the_Discovery_Engine.json",
+  "objective": {
+    "answer": "The primary objective of the paper is to benchmark the Discovery Engine, an automated system for scientific discovery, against recent peer-reviewed scientific publications across various domains to demonstrate its potential as a new standard for automated, interpretable scientific modeling.",
+    "evidence": "In this paper, we benchmark the Discovery Engine against five recent peer-reviewed scientific publications applying machine learning across medicine, materials science, social science, and environmental science."
+  },
+  "knowledge_gap": {
+    "answer": "The paper addresses the gap in existing automated machine learning systems that often lack interpretability and rely on pre-trained models, which can obscure novel findings and limit their usefulness in scientific workflows.",
+    "evidence": "Recent developments in automated machine learning (AutoML) have sought to lower the barrier for effective modelling by non-experts. However, many existing systems fall short for scientific applications, in which the objective is to make novel discoveries. They often rely on pre-trained foundation models, which may come with inductive biases that obscure novel findings."
+  },
+  "novelty": {
+    "answer": [
+      "The Discovery Engine combines machine learning with novel interpretability techniques to model and explain high-dimensional, non-linear patterns.",
+      "It operates efficiently even on small datasets, making it applicable in low-data regimes common across many scientific fields.",
+      "The system automates data preprocessing, model training, interpretability, and structured output generation, reducing the time and expertise required for scientific investigation."
+    ],
+    "evidence": [
+      "What distinguishes the Discovery Engine from other AutoML platforms is the combination of machine learning and novel interpretability techniques, to both model and explain high-dimensional, non-linear patterns.",
+      "Unlike traditional statistical methods or pre-trained foundation models (which often require large sample sizes or transfer assumptions from unrelated domains) the Discovery Engine operates efficiently even on small datasets (on the order of hundreds of samples), making it applicable in low-data regimes common across many scientific fields.",
+      "The Discovery Engine automates this process entirely by performing intelligent scaling, encoding, imputation, deduplication, and outlier removal based on heuristics derived from the data’s statistical profile."
+    ]
+  },
+  "inspirational_papers": {
+    "answer": "- Fan et al. (2023) Their interpretable hepatitis C prediction system inspired our interpretability analysis. (Experimental baselines)\n- Zhang et al. (2024) Their framework for predicting concrete compressive strength inspired our model evaluation. (Experimental baselines)\n- Todorova et al. (2025) Their study on climate change beliefs inspired our feature importance analysis. (Experimental baselines)\n- Betancourt et al. (2021) Their ozone air quality prediction benchmarks inspired our performance comparison. (Experimental baselines)\n- Mi and Sun (2025) Their hearing loss prediction study inspired our model replication. (Experimental baselines)",
+    "evidence": "In this paper, we assess the Discovery Engine’s performance on five diverse datasets drawn from published scientific papers. These datasets span medicine, materials science, environmental science, and social science."
+  },
+  "method": {
+    "steps": [
+      {
+        "step": "Data preprocessing",
+        "input": "Raw scientific datasets",
+        "output": "Analysis-ready inputs",
+        "evidence": "The Discovery Engine automates this process entirely by performing intelligent scaling, encoding, imputation, deduplication, and outlier removal based on heuristics derived from the data’s statistical profile."
+      },
+      {
+        "step": "Automated model training",
+        "input": "Preprocessed data",
+        "output": "Best-performing model",
+        "evidence": "The Discovery Engine’s custom AutoML engine explores and automatically selects from a wide range of model architectures, including gradient boosting, neural networks, and ensembles."
+      },
+      {
+        "step": "Interpretability and pattern extraction",
+        "input": "Best-performing model",
+        "output": "Interpretable patterns and insights",
+        "evidence": "Once the best-performing model is selected, the system automatically extracts interpretable patterns."
+      },
+      {
+        "step": "Report generation and scientific outputs",
+        "input": "Interpretable patterns",
+        "output": "PDF report, interactive dashboard, exported code, and LLM-generated summaries",
+        "evidence": "The Discovery Engine produces a comprehensive suite of outputs designed for use by scientists."
+      }
+    ],
+    "tools": [
+      {
+        "name": "XGBoost",
+        "description": "Used for model training and evaluation",
+        "evidence": "Our XGBoost classifier exceeds the paper’s random forest model across all reported metrics except AUC."
+      },
+      {
+        "name": "Neural Network",
+        "description": "Used for model training and evaluation",
+        "evidence": "The Discovery Engine’s neural network model significantly improves upon the RMSE and MAE reported in the original study."
+      }
+    ],
+    "benchmark_datasets": [
+      {
+        "name": "Hepatitis C Virus (HCV) Prediction",
+        "data_description": "Serological blood test data",
+        "usage": "Used for model evaluation and interpretability analysis",
+        "evidence": "Fan et al. [2023] introduces interpretable hepatitis C prediction (IHCP), an interpretable system for hepatitis C virus (HCV) diagnostic prediction based on black-box machine learning models."
+      },
+      {
+        "name": "Concrete Compressive Strength",
+        "data_description": "Data on compressive strength of high-performance concrete",
+        "usage": "Used for model evaluation and interpretability analysis",
+        "evidence": "The Nature paper Zhang et al. [2024] presents an interpretable framework for predicting the compressive strength of high-performance concrete (HPC) using machine learning."
+      },
+      {
+        "name": "Climate Change Beliefs",
+        "data_description": "Responses from participants on climate-related beliefs and behaviors",
+        "usage": "Used for model evaluation and interpretability analysis",
+        "evidence": "A recent paper [Todorova et al., 2025] applies interpretable machine learning to investigate which individual- and nation-level factors best predict climate-related beliefs and behaviours across a globally diverse sample."
+      },
+      {
+        "name": "Ozone Air Quality Prediction",
+        "data_description": "Ozone metrics and station-level metadata",
+        "usage": "Used for model evaluation and interpretability analysis",
+        "evidence": "The AQ-Bench dataset [Betancourt et al., 2021] provides a globally harmonised benchmark for machine learning on tropospheric ozone."
+      },
+      {
+        "name": "Hearing Loss Prediction (NHANES)",
+        "data_description": "Demographic, clinical, and laboratory data",
+        "usage": "Used for model evaluation and interpretability analysis",
+        "evidence": "The NHANES dataset [Eke et al., 2012], contains demographic, clinical, and laboratory data from 2003 to 2018, and has been used to investigate factors associated with hearing loss."
+      }
+    ],
+    "evaluation_metrics": [
+      {
+        "name": "Accuracy",
+        "purpose": "Measures correct classifications over total predictions",
+        "application": "Used to compare model performance on classification tasks",
+        "evidence": "As shown in Appendix A, our XGBoost classifier exceeds the paper’s random forest model across all reported metrics except AUC."
+      },
+      {
+        "name": "RMSE",
+        "purpose": "Measures the root mean square error of predictions",
+        "application": "Used to evaluate model performance on regression tasks",
+        "evidence": "The Nature paper Zhang et al. [2024] presents an interpretable framework for predicting the compressive strength of high-performance concrete (HPC) using machine learning."
+      },
+      {
+        "name": "R2",
+        "purpose": "Measures the proportion of variance explained by the model",
+        "application": "Used to evaluate model performance on regression tasks",
+        "evidence": "The Discovery Engine’s random forest models surpass the performance of the paper’s GBDT baselines on average, as shown in Figure 1."
+      }
+    ]
+  },
+  "method_type": {
+    "methods": [
+      {
+        "name": "Transformation/structurization of user input",
+        "evidence": "The Discovery Engine automates this process entirely by performing intelligent scaling, encoding, imputation, deduplication, and outlier removal based on heuristics derived from the data’s statistical profile."
+      },
+      {
+        "name": "Knowledge Extraction and Structurization",
+        "evidence": "Once the best-performing model is selected, the system automatically extracts interpretable patterns."
+      },
+      {
+        "name": "Experimental design generation",
+        "evidence": "Each dataset was automatically preprocessed to match the experimental design of the original paper making performance metrics (e.g., AUC, R2, RMSE) directly comparable."
+      }
+    ]
+  },
+  "subject_area": {
+    "areas": [
+      {
+        "name": "Health Sciences",
+        "description": "The paper evaluates the Discovery Engine on datasets related to hepatitis C virus prediction and hearing loss prediction.",
+        "evidence": "Fan et al. [2023] introduces interpretable hepatitis C prediction (IHCP), an interpretable system for hepatitis C virus (HCV) diagnostic prediction based on black-box machine learning models."
+      },
+      {
+        "name": "Applied Sciences & Engineering",
+        "description": "The paper evaluates the Discovery Engine on datasets related to concrete compressive strength prediction.",
+        "evidence": "The Nature paper Zhang et al. [2024] presents an interpretable framework for predicting the compressive strength of high-performance concrete (HPC) using machine learning."
+      },
+      {
+        "name": "Earth & Environmental Sciences",
+        "description": "The paper evaluates the Discovery Engine on datasets related to ozone air quality prediction.",
+        "evidence": "The AQ-Bench dataset [Betancourt et al., 2021] provides a globally harmonised benchmark for machine learning on tropospheric ozone."
+      },
+      {
+        "name": "Social Sciences",
+        "description": "The paper evaluates the Discovery Engine on datasets related to climate change beliefs.",
+        "evidence": "A recent paper [Todorova et al., 2025] applies interpretable machine learning to investigate which individual- and nation-level factors best predict climate-related beliefs and behaviours across a globally diverse sample."
+      }
+    ]
+  },
+  "performance_summary": {
+    "performance_summary": [
+      {
+        "summary": "The Discovery Engine consistently matches or surpasses benchmarked models from five peer-reviewed scientific studies, while providing more interpretable results.",
+        "evidence": "Our results confirm that the Discovery Engine offers a robust, general-purpose solution to automated scientific modelling. It consistently matches or surpasses benchmarked models from five peer-reviewed scientific studies, while providing more interpretable results."
+      }
+    ],
+    "baselines": [
+      {
+        "name": "Random Forest",
+        "description": "Used as a baseline model for comparison in multiple studies.",
+        "evidence": "Fan et al. [2023] introduces interpretable hepatitis C prediction (IHCP), an interpretable system for hepatitis C virus (HCV) diagnostic prediction based on black-box machine learning models."
+      },
+      {
+        "name": "LightGBM",
+        "description": "Used as a baseline model for comparison in concrete compressive strength prediction.",
+        "evidence": "The Nature paper Zhang et al. [2024] presents an interpretable framework for predicting the compressive strength of high-performance concrete (HPC) using machine learning."
+      },
+      {
+        "name": "GBDT",
+        "description": "Used as a baseline model for comparison in climate change beliefs prediction.",
+        "evidence": "A recent paper [Todorova et al., 2025] applies interpretable machine learning to investigate which individual- and nation-level factors best predict climate-related beliefs and behaviours across a globally diverse sample."
+      }
+    ],
+    "benchmark_datasets": [
+      {
+        "name": "Hepatitis C Virus (HCV) Prediction",
+        "data_description": "Serological blood test data",
+        "usage": "Used for model evaluation and interpretability analysis",
+        "evidence": "Fan et al. [2023] introduces interpretable hepatitis C prediction (IHCP), an interpretable system for hepatitis C virus (HCV) diagnostic prediction based on black-box machine learning models."
+      },
+      {
+        "name": "Concrete Compressive Strength",
+        "data_description": "Data on compressive strength of high-performance concrete",
+        "usage": "Used for model evaluation and interpretability analysis",
+        "evidence": "The Nature paper Zhang et al. [2024] presents an interpretable framework for predicting the compressive strength of high-performance concrete (HPC) using machine learning."
+      },
+      {
+        "name": "Climate Change Beliefs",
+        "data_description": "Responses from participants on climate-related beliefs and behaviors",
+        "usage": "Used for model evaluation and interpretability analysis",
+        "evidence": "A recent paper [Todorova et al., 2025] applies interpretable machine learning to investigate which individual- and nation-level factors best predict climate-related beliefs and behaviours across a globally diverse sample."
+      },
+      {
+        "name": "Ozone Air Quality Prediction",
+        "data_description": "Ozone metrics and station-level metadata",
+        "usage": "Used for model evaluation and interpretability analysis",
+        "evidence": "The AQ-Bench dataset [Betancourt et al., 2021] provides a globally harmonised benchmark for machine learning on tropospheric ozone."
+      },
+      {
+        "name": "Hearing Loss Prediction (NHANES)",
+        "data_description": "Demographic, clinical, and laboratory data",
+        "usage": "Used for model evaluation and interpretability analysis",
+        "evidence": "The NHANES dataset [Eke et al., 2012], contains demographic, clinical, and laboratory data from 2003 to 2018, and has been used to investigate factors associated with hearing loss."
+      }
+    ],
+    "evaluation_metrics": [
+      {
+        "name": "Accuracy",
+        "purpose": "Measures correct classifications over total predictions",
+        "application": "Used to compare model performance on classification tasks",
+        "evidence": "As shown in Appendix A, our XGBoost classifier exceeds the paper’s random forest model across all reported metrics except AUC."
+      },
+      {
+        "name": "RMSE",
+        "purpose": "Measures the root mean square error of predictions",
+        "application": "Used to evaluate model performance on regression tasks",
+        "evidence": "The Nature paper Zhang et al. [2024] presents an interpretable framework for predicting the compressive strength of high-performance concrete (HPC) using machine learning."
+      },
+      {
+        "name": "R2",
+        "purpose": "Measures the proportion of variance explained by the model",
+        "application": "Used to evaluate model performance on regression tasks",
+        "evidence": "The Discovery Engine’s random forest models surpass the performance of the paper’s GBDT baselines on average, as shown in Figure 1."
+      }
+    ]
+  },
+  "benchmark_dataset": {
+    "name": "NHANES",
+    "data_description": "Demographic, clinical, and laboratory data from 2003 to 2018",
+    "usage": "Used for model evaluation and interpretability analysis in hearing loss prediction",
+    "evidence": "The NHANES dataset [Eke et al., 2012], contains demographic, clinical, and laboratory data from 2003 to 2018, and has been used to investigate factors associated with hearing loss."
+  },
+  "limitations": {
+    "limitations": [
+      {
+        "name": "Limited Generalizability",
+        "description": "The Discovery Engine's performance is evaluated on a limited number of datasets, which may not generalize to all scientific domains.",
+        "evidence": "Our results confirm that the Discovery Engine offers a robust, general-purpose solution to automated scientific modelling. It consistently matches or surpasses benchmarked models from five peer-reviewed scientific studies."
+      }
+    ]
+  },
+  "future_directions": {
+    "future_directions": [
+      {
+        "name": "Expand Dataset Coverage",
+        "description": "Evaluate the Discovery Engine on a broader range of datasets to assess its generalizability across different scientific domains.",
+        "evidence": "Our results confirm that the Discovery Engine offers a robust, general-purpose solution to automated scientific modelling. It consistently matches or surpasses benchmarked models from five peer-reviewed scientific studies."
+      }
+    ]
+  },
+  "resource_link": {
+    "answer": "https://doi.org/10.5281/zenodo.15693353",
+    "evidence": "The Discovery Engine [Rumbelow et al., 2025] is a general-purpose automated system for scientific discovery developed at Leap Laboratories for accelerating scientific discovery."
+  }
+}

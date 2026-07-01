@@ -1,0 +1,241 @@
+{
+  "source": "bioRxiv",
+  "source_id": "PPR1209567",
+  "title": "Evaluating open LLMs for agentic analysis orchestration in a typical biomedical lab",
+  "abstract": "Agentic tools — software environments where a large language model plans, calls external tools, executes code, and iterates with minimal human intervention — will run a substantial share of routine biomedical data analysis within the next few years. However, per-call inference cost on frontier models is the bottleneck and can add up quickly. Here, we tested whether a free, locally-runnable open-weight model could take over the repetitive execution steps at frontier accuracy. We used Claude’s Opus to author plans of increasing detail for per-sample variant calling, and ran six 2026-release open-weight implementer LLMs against those plans on a set of desktop GPUs. qwen3.6:27b reproduced frontier accuracy on every plan and matched Opus cell-for-cell on a 36-cell error-injection matrix. A sub-$2,000 Jetson or Apple Mac Mini sufficed for the implementer side. The open-weight model landscape evolves on the order of months, so the specific implementer recommended here will be superseded; we provide the plans, harness, scoring code, and per-cell artifacts at https://github.com/nekrut/LLM-eval-paper as a framework for re-evaluating future models.",
+  "published": "2026-05-18",
+  "authors": [
+    "Nekrutenko A."
+  ],
+  "link": "https://doi.org/10.64898/2026.05.13.724985",
+  "doi": "10.64898/2026.05.13.724985",
+  "pdf_url": "",
+  "ai_for_science_score": 0.9,
+  "confidence_score": 0.85,
+  "implementation_score": 0.8,
+  "review_score": 0.7,
+  "benchmark_score": 0.9,
+  "hypothesis_generation_score": 0.4,
+  "scientific_discovery_score": 0.85,
+  "experiment_design_score": 0.6,
+  "material_discovery_score": 0.0,
+  "molecular_design_score": 0.0,
+  "drug_discovery_score": 0.0,
+  "causal_discovery_score": 0.0,
+  "biomedical_discovery_score": 0.9,
+  "idea_development_score": 0.5,
+  "ai_for_science_label": "accept",
+  "ai_for_science_reason": "The paper uses LLMs for orchestrating biomedical data analysis, which is a scientific discovery process.",
+  "implementation_justification": "The paper demonstrates practical implementation of LLMs in a biomedical lab setting.",
+  "review_justification": "The paper provides a detailed evaluation of LLMs for specific tasks.",
+  "benchmark_justification": "The study benchmarks multiple LLMs against a standard for accuracy.",
+  "hypothesis_generation_justification": "The focus is more on execution and testing rather than generating new hypotheses.",
+  "scientific_discovery_justification": "The use of LLMs aids in the discovery process by automating data analysis.",
+  "experiment_design_justification": "The paper outlines plans for variant calling but focuses more on execution.",
+  "material_discovery_justification": "The paper does not address material discovery.",
+  "molecular_design_justification": "The paper does not involve molecular design.",
+  "drug_discovery_justification": "The paper does not focus on drug discovery.",
+  "causal_discovery_justification": "The paper does not address causal discovery.",
+  "biomedical_discovery_justification": "The paper directly contributes to biomedical discovery through AI-driven data analysis.",
+  "idea_development_justification": "The paper provides a framework for future model evaluation, contributing to idea development.",
+  "science_domains": [
+    "biomedical"
+  ],
+  "ai_methods": [
+    "LLMs",
+    "agentic tools"
+  ],
+  "exhyte_stages": [
+    "Testing"
+  ],
+  "needs_pdf_review": false,
+  "auto_decision": "accept",
+  "auto_selected": true,
+  "selection_source": "llm_auto",
+  "local_pdf_path": "downloaded_pdfs/bioRxiv_A._et_al._2026_Evaluating_open_LLMs_for_agentic_analysis_orchestration_in_a_typical_biomedical_lab.pdf",
+  "pdf_download_status": "manual_pdf",
+  "pdf_download_method": "manual_pdf",
+  "pdf_download_url": "manual_pdfs/bioRxiv_A._et_al._2026_Evaluating_open_LLMs_for_agentic_analysis_orchestration_in_a_typical_biomedical_lab.pdf",
+  "pdf_download_attempted_at": "2026-06-30T17:54:09",
+  "paper_title": "Evaluating open LLMs for agentic analysis orchestration in a typical biomedical lab",
+  "summary_extraction_status": "extracted",
+  "summary_json_path": "review_outputs/gpt_paper_items/bioRxiv_A._et_al._2026_Evaluating_open_LLMs_for_agentic_analysis_orchestration_in_a_typical_biomedical_lab.json",
+  "objective": {
+    "answer": "The primary objective of the paper is to evaluate whether a free, locally-runnable open-weight model can execute repetitive biomedical data analysis tasks at frontier accuracy, specifically focusing on per-sample variant calling in a typical biomedical lab setting.",
+    "evidence": "Here, we tested whether a free, locally-runnable open-weight model could take over the repetitive execution steps at frontier accuracy."
+  },
+  "knowledge_gap": {
+    "answer": "The paper addresses the gap in cost-effective execution of repetitive biomedical data analysis tasks using open-weight models, as current frontier models incur high per-call inference costs.",
+    "evidence": "Frontier models from Anthropic, OpenAI, and Google write quality working code for data analysis tasks, but they cost cents to dollars per call, resulting in rapidly ballooning bills."
+  },
+  "novelty": {
+    "answer": [
+      "The use of a free, locally-runnable open-weight model to execute detailed plans authored by a frontier model.",
+      "The evaluation of open-weight models on lab-scale hardware for executing bioinformatics tasks.",
+      "The introduction of a recipe-implementer split for cost-effective data analysis."
+    ],
+    "evidence": [
+      "We test whether a recipe authored once by a frontier model can be executed end-to-end by a free, locally-runnable open-weight implementer at frontier accuracy.",
+      "Our goal is to characterize the recipe-implementer split on a real bioinformatics task — per-sample mtDNA variant calling on four paired-end Illumina samples — across the lab-scale hardware tier."
+    ]
+  },
+  "inspirational_papers": {
+    "answer": "- GeneGPT (2024) Their clustering pipeline inspired our filtering model. (Methodological precursors)\n- BioCoder (2024) Provided a benchmark for bioinformatics code generation. (Experimental baselines)\n- BioLLMBench (2023) Highlighted limitations in LLMs for bioinformatics tasks. (Papers with limitations addressed by this work)",
+    "evidence": "Prior LLM-in-bioinformatics evaluations fall into three categories. The earliest measured factual recall on genomics question-and-answer benchmarks: GeneGPT [1]... BioCoder [3] graded 2,269 short bioinformatics functions against unit tests... BioLLMBench [4] scored GPT-4, Gemini, and LLaMA on 24 tasks and found LLaMA frequently failed to emit runnable code."
+  },
+  "method": {
+    "steps": [
+      {
+        "step": "Assemble lab-scale hardware for testing.",
+        "input": "Five computers spanning the lab-scale hardware tier.",
+        "output": "A setup for testing open-weight models on various hardware configurations.",
+        "evidence": "We assembled five computers spanning the lab-scale hardware tier (Table 3)."
+      },
+      {
+        "step": "Select and prepare dataset for variant calling.",
+        "input": "A small dataset derived from previous work on mutational patterns in human mitochondria.",
+        "output": "Four deeply downsized paired-end Illumina samples.",
+        "evidence": "We selected a small dataset [27] derived from our previous work on the analysis of mutational patterns in human mitochondria."
+      },
+      {
+        "step": "Develop and execute variant-calling workflow.",
+        "input": "Plans authored by claude-opus-4-7.",
+        "output": "Execution of variant-calling workflow on open-weight models.",
+        "evidence": "We developed a simplified version of a haploid variant-calling workflow... Each model is run under one of two conditions, which we call tracks."
+      },
+      {
+        "step": "Evaluate model performance and error handling.",
+        "input": "Error-injection matrix and scoring metrics.",
+        "output": "Performance metrics and error-handling capabilities of models.",
+        "evidence": "To test how each model handles tool failures, we wrapped bwa and lofreq in short shell scripts (“shims”) that imitate the real binaries on disk."
+      }
+    ],
+    "tools": [
+      {
+        "name": "Claude-opus-4-7",
+        "description": "Used to author plans for variant calling.",
+        "evidence": "Every plan was authored by claude-opus-4-7 in the planner role of the recipe-implementer split."
+      },
+      {
+        "name": "Qwen3.6:27b",
+        "description": "Used as the strongest implementer model for executing plans.",
+        "evidence": "The strongest implementer (qwen3.6:27b, 17 GB at 4-bit) is then cross-platform validated."
+      }
+    ],
+    "benchmark_datasets": [
+      {
+        "name": "Human mitochondria dataset",
+        "data_description": "Four deeply downsized paired-end Illumina samples derived from blood and cheek tissues.",
+        "usage": "Used for evaluating variant-calling workflow.",
+        "evidence": "It contains four deeply downsized paired-end Illumina samples derived from blood and cheek tissues of a mother–child pair."
+      }
+    ],
+    "evaluation_metrics": [
+      {
+        "name": "Variant-overlap (Jaccard) score",
+        "purpose": "Measures the per-sample Jaccard overlap of called variants.",
+        "application": "Used to score every run on the primary metric.",
+        "evidence": "We score every run on a single primary metric — the variant-overlap (Jaccard) score."
+      },
+      {
+        "name": "Error-handling metrics",
+        "purpose": "Classifies the script’s overall response to errors.",
+        "application": "Used to evaluate error-handling capabilities of models.",
+        "evidence": "We score each error-matrix cell on three error-handling metrics — referred to here as the handle category, recover, and diagnose."
+      }
+    ]
+  },
+  "method_type": {
+    "methods": [
+      {
+        "name": "Experimental design generation",
+        "description": "The approach includes producing experimental protocols, configurations, or evaluation strategies.",
+        "evidence": "We developed a simplified version of a haploid variant-calling workflow."
+      }
+    ]
+  },
+  "subject_area": {
+    "areas": [
+      {
+        "name": "Biological Sciences",
+        "description": "The paper focuses on variant calling in mitochondrial DNA, a biological problem.",
+        "evidence": "Our goal is to characterize the recipe-implementer split on a real bioinformatics task — per-sample mtDNA variant calling."
+      },
+      {
+        "name": "Applied Sciences & Engineering",
+        "description": "The study involves the application of computational models and hardware for bioinformatics tasks.",
+        "evidence": "We assembled five computers spanning the lab-scale hardware tier."
+      }
+    ]
+  },
+  "performance_summary": {
+    "performance_summary": [
+      {
+        "summary": "Five of six 2026-release open-weight implementers reach mean score 1.000 on the v2 plan.",
+        "evidence": "Five of six 2026-release open-weight implementers reach mean score 1.000 on the v2 plan."
+      }
+    ],
+    "baselines": [
+      {
+        "name": "Claude-opus-4-7",
+        "description": "Used as a baseline for plan authoring.",
+        "evidence": "Every plan was authored by claude-opus-4-7 in the planner role of the recipe-implementer split."
+      }
+    ],
+    "benchmark_datasets": [
+      {
+        "name": "Human mitochondria dataset",
+        "data_description": "Four deeply downsized paired-end Illumina samples derived from blood and cheek tissues.",
+        "usage": "Used for evaluating variant-calling workflow.",
+        "evidence": "It contains four deeply downsized paired-end Illumina samples derived from blood and cheek tissues of a mother–child pair."
+      }
+    ],
+    "evaluation_metrics": [
+      {
+        "name": "Variant-overlap (Jaccard) score",
+        "purpose": "Measures the per-sample Jaccard overlap of called variants.",
+        "application": "Used to score every run on the primary metric.",
+        "evidence": "We score every run on a single primary metric — the variant-overlap (Jaccard) score."
+      },
+      {
+        "name": "Error-handling metrics",
+        "purpose": "Classifies the script’s overall response to errors.",
+        "application": "Used to evaluate error-handling capabilities of models.",
+        "evidence": "We score each error-matrix cell on three error-handling metrics — referred to here as the handle category, recover, and diagnose."
+      }
+    ]
+  },
+  "benchmark_dataset": {
+    "name": "Human mitochondria dataset",
+    "description": "Four deeply downsized paired-end Illumina samples derived from blood and cheek tissues.",
+    "usage": "Used for evaluating variant-calling workflow.",
+    "evidence": "It contains four deeply downsized paired-end Illumina samples derived from blood and cheek tissues of a mother–child pair."
+  },
+  "limitations": {
+    "limitations": [
+      {
+        "name": "Single Workflow Coverage",
+        "description": "The study covers only a single workflow, which may not generalize to other bioinformatics tasks.",
+        "evidence": "First, our study covers a single workflow — per-sample mtDNA variant calling on a 16.6 kb reference."
+      },
+      {
+        "name": "Dependency on Closed API",
+        "description": "Reproducibility of the recipes depends on Anthropic's continued availability of the model identifier.",
+        "evidence": "Second, claude-opus-4-7 is an API-only model and reproducibility of the recipes themselves depends on Anthropic’s continued availability of that model identifier."
+      }
+    ]
+  },
+  "future_directions": {
+    "future_directions": [
+      {
+        "name": "Explore Larger References",
+        "description": "Investigate the recipe-implementer split on larger references and longer pipelines.",
+        "evidence": "The recipe-implementer split may behave differently on larger references, longer pipelines."
+      }
+    ]
+  },
+  "resource_link": {
+    "answer": "https://github.com/nekrut/LLM-eval-paper",
+    "evidence": "we provide the plans, harness, scoring code, and per-cell artifacts at https://github.com/nekrut/LLM-eval-paper as a framework for re-evaluating future models."
+  }
+}

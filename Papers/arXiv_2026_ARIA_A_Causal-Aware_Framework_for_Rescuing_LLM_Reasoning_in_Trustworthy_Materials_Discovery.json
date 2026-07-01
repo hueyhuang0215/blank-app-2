@@ -1,0 +1,290 @@
+{
+  "source": "arXiv",
+  "source_id": "2606.22375v1",
+  "title": "ARIA: A Causal-Aware Framework for Rescuing LLM Reasoning in Trustworthy Materials Discovery",
+  "abstract": "Generative models have revolutionized the process of materials discovery, yet they often fail to satisfy underlying physical causality. Through an analysis of Large Language Models (LLMs) augmented with knowledge graphs derived from current literature, we uncover a phenomenon termed contextual tunneling, where models \"over-anchor\" on narrow, retrieved evidence while suppressing global physical reasoning. To address this problem, we introduce ARIA, a causal-aware framework that conditions knowledge use on mechanistic completeness. ARIA routes each query through a three-tier cascade: (i) direct causal reasoning when complete evidence chains of Process-Structure-Property (PSP) are available, (ii) physics-informed analogical transfer for sparse or novel material systems, and (iii) explicit parametric fallback when external evidence is incomplete. As a proof of concept, we construct a Knowledge Graph (KG) containing 2,839 extracted PSP relations from peer-reviewed articles in the materials literature and evaluate ARIA on forward prediction and inverse design tasks for two-dimensional (2D) materials. ARIA mitigates contextual tunneling, improves over unaugmented and naive KG-augmented baselines, and provides further gains when an online literature search is used for evidence enrichment. Crucially, ARIA produces auditable causal traces, enabling physically grounded and trustworthy AI-assisted materials discovery.",
+  "published": "2026-06-21T07:51:03Z",
+  "authors": [
+    "Yi Cao",
+    "Liaoyaqi Wang",
+    "Jieneng Chen",
+    "Benjamin Van Durme",
+    "Alan Yuille",
+    "Paulette Clancy"
+  ],
+  "link": "https://arxiv.org/abs/2606.22375v1",
+  "doi": "",
+  "pdf_url": "https://arxiv.org/pdf/2606.22375v1.pdf",
+  "ai_for_science_score": 0.95,
+  "confidence_score": 0.9,
+  "implementation_score": 0.85,
+  "review_score": 0.8,
+  "benchmark_score": 0.75,
+  "hypothesis_generation_score": 0.9,
+  "scientific_discovery_score": 0.95,
+  "experiment_design_score": 0.8,
+  "material_discovery_score": 0.95,
+  "molecular_design_score": 0.7,
+  "drug_discovery_score": 0.5,
+  "causal_discovery_score": 0.9,
+  "biomedical_discovery_score": 0.6,
+  "idea_development_score": 0.85,
+  "ai_for_science_label": "accept",
+  "ai_for_science_reason": "The paper presents a causal-aware AI framework for materials discovery, integrating LLMs and knowledge graphs to enhance scientific understanding and prediction.",
+  "implementation_justification": "The framework is implemented with a knowledge graph and evaluated on specific tasks.",
+  "review_justification": "The paper provides a detailed evaluation of the framework's performance.",
+  "benchmark_justification": "The framework is compared against baseline models, showing improvements.",
+  "hypothesis_generation_justification": "ARIA facilitates hypothesis generation through causal reasoning and analogical transfer.",
+  "scientific_discovery_justification": "The framework actively contributes to materials discovery by improving prediction and design tasks.",
+  "experiment_design_justification": "ARIA aids in designing experiments by providing causal traces and evidence enrichment.",
+  "material_discovery_justification": "The primary focus of the framework is on trustworthy materials discovery.",
+  "molecular_design_justification": "While not the main focus, the framework supports molecular design through PSP relations.",
+  "drug_discovery_justification": "The framework is not directly applied to drug discovery.",
+  "causal_discovery_justification": "Causal reasoning is a core component of the framework, enhancing discovery processes.",
+  "biomedical_discovery_justification": "The framework is not primarily focused on biomedical applications.",
+  "idea_development_justification": "ARIA supports idea development through its causal-aware approach and evidence enrichment.",
+  "science_domains": [
+    "materials science"
+  ],
+  "ai_methods": [
+    "Large Language Models",
+    "knowledge graphs",
+    "causal reasoning"
+  ],
+  "exhyte_stages": [
+    "Exploration",
+    "Hypothesis generation",
+    "Testing"
+  ],
+  "needs_pdf_review": false,
+  "auto_decision": "accept",
+  "auto_selected": true,
+  "selection_source": "llm_auto",
+  "pdf_download_attempted_at": "2026-06-30T06:24:57",
+  "local_pdf_path": "downloaded_pdfs/arXiv_Cao_et_al._2026_ARIA_A_Causal-Aware_Framework_for_Rescuing_LLM_Reasoning_in_Trustworthy_Materials_Discovery.pdf",
+  "pdf_download_status": "already_exists",
+  "pdf_download_method": "direct pdf_url",
+  "pdf_download_url": "https://arxiv.org/pdf/2606.22375v1",
+  "extraction_source_type": "pdf",
+  "paper_title": "ARIA: A Causal-Aware Framework for Rescuing LLM Reasoning in Trustworthy Materials Discovery",
+  "summary_extraction_status": "extracted",
+  "summary_json_path": "review_outputs/gpt_paper_items/arXiv_Cao_et_al._2026_ARIA_A_Causal-Aware_Framework_for_Rescuing_LLM_Reasoning_in_Trustworthy_Materials_Discovery.json",
+  "objective": {
+    "answer": "The primary objective of the paper is to introduce ARIA, a causal-aware framework designed to improve reasoning in Large Language Models (LLMs) for trustworthy materials discovery by addressing the issue of contextual tunneling.",
+    "evidence": "To address this problem, we introduce ARIA, a causal-aware framework that conditions knowledge use on mechanistic completeness."
+  },
+  "knowledge_gap": {
+    "answer": "The paper addresses the gap between AI-generated synthesis plans and their physical feasibility, which arises from the difficulty of reconciling broad linguistic knowledge with the causal constraints imposed by thermodynamics, chemical kinetics, phase stability, and synthesis-process windows.",
+    "evidence": "This gap between in silico design and wet-lab feasibility arises from the difficulty of reconciling broad linguistic knowledge with the causal constraints imposed by thermodynamics, chemical kinetics, phase stability, and synthesis-process windows."
+  },
+  "novelty": {
+    "answer": [
+      "Introduction of a three-tier adaptive cascade in ARIA for causal reasoning in materials discovery.",
+      "Implementation of a causal completeness criterion to regulate knowledge use in LLMs.",
+      "Development of a Causal Knowledge Graph containing 2,839 extracted PSP relations from peer-reviewed articles."
+    ],
+    "evidence": [
+      "ARIA routes each query through a three-tier cascade: (i) direct causal reasoning when complete evidence chains of Process-Structure-Property (PSP) are available, (ii) physics-informed analogical transfer for sparse or novel material systems, and (iii) explicit parametric fallback when external evidence is incomplete.",
+      "ARIA prevents contextual tunneling through this inference-time adaptive gating: structured retrieval activates only when evidence satisfies PSP-completeness.",
+      "As a proof of concept, we construct a Knowledge Graph (KG) containing 2,839 extracted PSP relations from peer-reviewed articles in the materials literature."
+    ]
+  },
+  "inspirational_papers": {
+    "answer": "- Butler et al. (2018) Machine learning for molecular and materials science. (Methodological precursors)\n- Lewis et al. (2020) Retrieval-augmented generation for knowledge-intensive NLP tasks. (Experimental baselines)",
+    "evidence": "Computational materials science has evolved from traditional machine learning models, which are often restricted to narrow structure–property correlations, [18, 31] toward Large Language Models (LLMs) capable of contextual reasoning and cross-domain synthesis. [17, 30]"
+  },
+  "method": {
+    "steps": [
+      {
+        "step": "Formalize forward prediction and inverse design as PSP causal reasoning tasks.",
+        "input": "Synthesis conditions and target properties.",
+        "output": "Predictions of material properties and synthesis protocols.",
+        "evidence": "We first formalize forward prediction and inverse design as PSP causal reasoning tasks."
+      },
+      {
+        "step": "Define the PSP-completeness criterion for tier selection.",
+        "input": "Knowledge graph with vertex partition and edge confidence weights.",
+        "output": "Determination of PSP-completeness for queries.",
+        "evidence": "We then define the PSP-completeness criterion used for tier selection."
+      },
+      {
+        "step": "Construct a Causal Knowledge Graph for PSP relationships.",
+        "input": "Materials corpus with extracted PSP entities and causal relations.",
+        "output": "Directed graph encoding literature-supported PSP links.",
+        "evidence": "We construct a Causal Knowledge Graph G = (V, E) encoding literature-verified relationships between processing conditions, structural features, and material properties."
+      },
+      {
+        "step": "Implement a three-tier inference cascade.",
+        "input": "Query and Causal Knowledge Graph.",
+        "output": "Tier-based reasoning output.",
+        "evidence": "Finally, we present the three-tier inference cascade that combines direct causal reasoning, constraint-aware analogical transfer, and parametric fallback."
+      }
+    ],
+    "tools": [
+      {
+        "name": "Qwen2.5:7B",
+        "description": "Used for automated extraction of PSP relationships from scientific papers.",
+        "evidence": "We applied Qwen2.5:7B to extract Processing–Structure–Property relationships from the processed paper content."
+      },
+      {
+        "name": "DeepSeek-R1:8B",
+        "description": "Serves as the base LLM for all forward prediction and inverse design tasks.",
+        "evidence": "DeepSeek-R1:8B serves as the base LLM for all forward prediction and inverse design tasks."
+      }
+    ],
+    "benchmark_datasets": [
+      {
+        "name": "Materials Project",
+        "data_description": "Computational database for material stability constraints.",
+        "usage": "Used for evaluating thermodynamic feasibility.",
+        "evidence": "Thermodynamic feasibility is evaluated by comparing proposed synthesis temperatures with material stability constraints obtained from the Materials Project API when available."
+      }
+    ],
+    "evaluation_metrics": [
+      {
+        "name": "Scientific Accuracy",
+        "purpose": "Measures adherence to physical principles and consistency with literature consensus.",
+        "application": "Used to assess the scientific validity of outputs.",
+        "evidence": "Scientific Accuracy (0-1): Adherence to physical principles and consistency with literature consensus."
+      },
+      {
+        "name": "Functional Equivalence",
+        "purpose": "Measures whether proposed synthesis parameters achieve specified target properties.",
+        "application": "Used to evaluate the functional success of synthesis protocols.",
+        "evidence": "Functional Equivalence (0-1): Whether proposed synthesis parameters achieve specified target properties."
+      },
+      {
+        "name": "Completeness",
+        "purpose": "Measures specification of all required synthesis steps, parameter ranges, and auxiliary details.",
+        "application": "Used to ensure comprehensive synthesis protocols.",
+        "evidence": "Completeness (0-1): Specification of all required synthesis steps, parameter ranges, and auxiliary details."
+      },
+      {
+        "name": "Interpretability",
+        "purpose": "Measures clarity of mechanistic reasoning and traceability of causal claims.",
+        "application": "Used to assess the transparency of the reasoning process.",
+        "evidence": "Interpretability (0-1): Clarity of mechanistic reasoning and traceability of causal claims to specific synthesis steps."
+      }
+    ]
+  },
+  "method_type": {
+    "methods": [
+      {
+        "name": "Hypothesis or Idea Generation",
+        "description": "The system produces candidate hypotheses or new research ideas from prior knowledge or external input.",
+        "evidence": "We prompt the LLM to generate testable hypotheses using domain-specific concepts derived from structured data."
+      },
+      {
+        "name": "Experimental design generation",
+        "description": "The approach includes producing experimental protocols, configurations, or evaluation strategies.",
+        "evidence": "Our model proposes complete experimental setups including dataset split, evaluation metrics, and variables."
+      }
+    ]
+  },
+  "subject_area": {
+    "areas": [
+      {
+        "name": "Chemical Sciences",
+        "description": "The paper focuses on materials discovery and synthesis protocols.",
+        "evidence": "Generative models have revolutionized the process of materials discovery, yet they often fail to satisfy underlying physical causality."
+      },
+      {
+        "name": "Applied Sciences & Engineering",
+        "description": "The framework is applied to engineering problems in materials science.",
+        "evidence": "The pursuit of autonomous materials discovery, characterized by a closed feedback loop between generative design and experimental validation, is a central goal of computational materials science."
+      }
+    ]
+  },
+  "performance_summary": {
+    "performance_summary": [
+      {
+        "summary": "ARIA-FULL achieved an overall score of 0.512±0.039 on in-domain forward prediction, outperforming the Baseline LLM by 50.6%.",
+        "evidence": "ARIA-FULL, which augments tier-based KG reasoning with real-time literature search, achieves an overall score of 0.512±0.039 on in-domain forward prediction. This corresponds to: +50.6% relative to the Baseline LLM."
+      }
+    ],
+    "baselines": [
+      {
+        "name": "Baseline LLM",
+        "description": "A standard LLM without external knowledge sources.",
+        "evidence": "Baseline LLM: DeepSeek-R1:8B without external knowledge sources."
+      },
+      {
+        "name": "Naive KG+LLM",
+        "description": "An LLM with direct KG retrieval without causal completeness filtering.",
+        "evidence": "Naive KG+LLM: DeepSeek-R1:8B with direct KG retrieval. Relevant KG subgraphs, including entities and edges matching the query, are retrieved and concatenated into the LLM prompt without causal completeness filtering or evidence sufficiency assessment."
+      }
+    ],
+    "benchmark_datasets": [
+      {
+        "name": "Materials Project",
+        "data_description": "Computational database for material stability constraints.",
+        "usage": "Used for evaluating thermodynamic feasibility.",
+        "evidence": "Thermodynamic feasibility is evaluated by comparing proposed synthesis temperatures with material stability constraints obtained from the Materials Project API when available."
+      }
+    ],
+    "evaluation_metrics": [
+      {
+        "name": "Scientific Accuracy",
+        "purpose": "Measures adherence to physical principles and consistency with literature consensus.",
+        "application": "Used to assess the scientific validity of outputs.",
+        "evidence": "Scientific Accuracy (0-1): Adherence to physical principles and consistency with literature consensus."
+      },
+      {
+        "name": "Functional Equivalence",
+        "purpose": "Measures whether proposed synthesis parameters achieve specified target properties.",
+        "application": "Used to evaluate the functional success of synthesis protocols.",
+        "evidence": "Functional Equivalence (0-1): Whether proposed synthesis parameters achieve specified target properties."
+      },
+      {
+        "name": "Completeness",
+        "purpose": "Measures specification of all required synthesis steps, parameter ranges, and auxiliary details.",
+        "application": "Used to ensure comprehensive synthesis protocols.",
+        "evidence": "Completeness (0-1): Specification of all required synthesis steps, parameter ranges, and auxiliary details."
+      },
+      {
+        "name": "Interpretability",
+        "purpose": "Measures clarity of mechanistic reasoning and traceability of causal claims.",
+        "application": "Used to assess the transparency of the reasoning process.",
+        "evidence": "Interpretability (0-1): Clarity of mechanistic reasoning and traceability of causal claims to specific synthesis steps."
+      }
+    ]
+  },
+  "benchmark_dataset": {
+    "name": "Materials Project",
+    "description": "Computational database for material stability constraints.",
+    "usage": "Used for evaluating thermodynamic feasibility.",
+    "evidence": "Thermodynamic feasibility is evaluated by comparing proposed synthesis temperatures with material stability constraints obtained from the Materials Project API when available."
+  },
+  "limitations": {
+    "limitations": [
+      {
+        "name": "KG Coverage Dependency",
+        "description": "ARIA's Tier 1 reasoning is limited by the completeness of the Causal Knowledge Graph.",
+        "evidence": "KG coverage dependency. ARIA’s Tier 1 reasoning is limited by KG completeness."
+      },
+      {
+        "name": "Evaluation Limitations",
+        "description": "The evaluation relies partially on LLM-as-judge for textual quality, which may not capture all scientific nuances.",
+        "evidence": "Our current evaluation relies partially on LLM-as-judge for textual quality, which may not capture all scientific nuances."
+      }
+    ]
+  },
+  "future_directions": {
+    "future_directions": [
+      {
+        "name": "Dynamic Enrichment",
+        "description": "Incorporate dynamic enrichment to mitigate the limitations of KG coverage.",
+        "evidence": "Dynamic enrichment (subsection 3.3) partially mitigates this situation, but experimental validation remains essential for Tier 3 outputs."
+      },
+      {
+        "name": "Safety Constraint Checking",
+        "description": "Incorporate safety constraint checking alongside thermodynamic validation.",
+        "evidence": "Future work should incorporate safety constraint checking alongside thermodynamic validation."
+      }
+    ]
+  },
+  "resource_link": {
+    "answer": "https://github.com/yicao-elina/ARIA",
+    "evidence": "Source Code: https://github.com/yicao-elina/ARIA"
+  }
+}

@@ -1,0 +1,293 @@
+{
+  "source": "arXiv",
+  "source_id": "2512.15567v2",
+  "title": "Evaluating Large Language Models in Scientific Discovery",
+  "abstract": "Large language models (LLMs) are increasingly applied to scientific research, yet prevailing science benchmarks probe decontextualized knowledge and overlook the iterative reasoning, hypothesis generation, and observation interpretation that drive scientific discovery. We introduce a scenario-grounded benchmark that evaluates LLMs across biology, chemistry, materials, and physics, where domain experts define research projects of genuine interest and decompose them into modular research scenarios from which vetted questions are sampled. The framework assesses models at two levels: (i) question-level accuracy on scenario-tied items and (ii) project-level performance, where models must propose testable hypotheses, design simulations or experiments, and interpret results. Applying this two-phase scientific discovery evaluation (SDE) framework to state-of-the-art LLMs reveals a consistent performance gap relative to general science benchmarks, diminishing return of scaling up model sizes and reasoning, and systematic weaknesses shared across top-tier models from different providers. Large performance variation in research scenarios leads to changing choices of the best performing model on scientific discovery projects evaluated, suggesting all current LLMs are distant to general scientific \"superintelligence\". Nevertheless, LLMs already demonstrate promise in a great variety of scientific discovery projects, including cases where constituent scenario scores are low, highlighting the role of guided exploration and serendipity in discovery. This SDE framework offers a reproducible benchmark for discovery-relevant evaluation of LLMs and charts practical paths to advance their development toward scientific discovery.",
+  "published": "2025-12-17T16:20:03Z",
+  "authors": [
+    "Zhangde Song",
+    "Jieyu Lu",
+    "Yuanqi Du",
+    "Botao Yu",
+    "Thomas M. Pruyn",
+    "Yue Huang",
+    "Kehan Guo",
+    "Xiuzhe Luo",
+    "Yuanhao Qu",
+    "Yi Qu",
+    "Yinkai Wang",
+    "Haorui Wang",
+    "Jeff Guo",
+    "Jingru Gan",
+    "Parshin Shojaee",
+    "Di Luo",
+    "Andres M Bran",
+    "Gen Li",
+    "Qiyuan Zhao",
+    "Shao-Xiong Lennon Luo",
+    "Yuxuan Zhang",
+    "Xiang Zou",
+    "Wanru Zhao",
+    "Yifan F. Zhang",
+    "Wucheng Zhang",
+    "Shunan Zheng",
+    "Saiyang Zhang",
+    "Sartaaj Takrim Khan",
+    "Mahyar Rajabi-Kochi",
+    "Samantha Paradi-Maropakis",
+    "Tony Baltoiu",
+    "Fengyu Xie",
+    "Tianyang Chen",
+    "Kexin Huang",
+    "Weiliang Luo",
+    "Meijing Fang",
+    "Xin Yang",
+    "Lixue Cheng",
+    "Jiajun He",
+    "Soha Hassoun",
+    "Xiangliang Zhang",
+    "Wei Wang",
+    "Chandan K. Reddy",
+    "Chao Zhang",
+    "Zhiling Zheng",
+    "Mengdi Wang",
+    "Le Cong",
+    "Carla P. Gomes",
+    "Chang-Yu Hsieh",
+    "Aditya Nandy",
+    "Philippe Schwaller",
+    "Heather J. Kulik",
+    "Haojun Jia",
+    "Huan Sun",
+    "Seyed Mohamad Moosavi",
+    "Chenru Duan"
+  ],
+  "link": "https://arxiv.org/abs/2512.15567v2",
+  "doi": "",
+  "pdf_url": "https://arxiv.org/pdf/2512.15567v2.pdf",
+  "ai_for_science_score": 0.9,
+  "confidence_score": 0.95,
+  "implementation_score": 0.8,
+  "review_score": 0.85,
+  "benchmark_score": 0.9,
+  "hypothesis_generation_score": 0.9,
+  "scientific_discovery_score": 0.9,
+  "experiment_design_score": 0.85,
+  "material_discovery_score": 0.8,
+  "molecular_design_score": 0.75,
+  "drug_discovery_score": 0.7,
+  "causal_discovery_score": 0.8,
+  "biomedical_discovery_score": 0.75,
+  "idea_development_score": 0.85,
+  "ai_for_science_label": "accept",
+  "ai_for_science_reason": "The paper introduces a benchmark for evaluating LLMs in scientific discovery, focusing on hypothesis generation and experiment design across multiple scientific domains.",
+  "implementation_justification": "The paper provides a structured framework for evaluating LLMs in scientific contexts.",
+  "review_justification": "The evaluation framework is well-detailed and covers multiple scientific domains.",
+  "benchmark_justification": "The paper introduces a novel benchmark specifically for scientific discovery using LLMs.",
+  "hypothesis_generation_justification": "The framework explicitly evaluates LLMs on their ability to propose testable hypotheses.",
+  "scientific_discovery_justification": "The paper focuses on using LLMs for scientific discovery processes.",
+  "experiment_design_justification": "The framework includes designing simulations or experiments as part of the evaluation.",
+  "material_discovery_justification": "Materials science is one of the domains evaluated in the framework.",
+  "molecular_design_justification": "While not explicitly focused on molecular design, the framework's application to chemistry implies relevance.",
+  "drug_discovery_justification": "The paper does not specifically address drug discovery, but the chemistry domain is relevant.",
+  "causal_discovery_justification": "The framework's focus on hypothesis generation and testing implies causal discovery capabilities.",
+  "biomedical_discovery_justification": "Biology is one of the domains evaluated, which is relevant to biomedical discovery.",
+  "idea_development_justification": "The framework supports guided exploration and serendipity in scientific discovery.",
+  "science_domains": [
+    "biology",
+    "chemistry",
+    "materials science",
+    "physics"
+  ],
+  "ai_methods": [
+    "Large Language Models"
+  ],
+  "exhyte_stages": [
+    "Exploration",
+    "Hypothesis generation",
+    "Testing"
+  ],
+  "needs_pdf_review": false,
+  "auto_decision": "accept",
+  "auto_selected": true,
+  "selection_source": "llm_auto",
+  "pdf_download_attempted_at": "2026-06-30T06:25:03",
+  "local_pdf_path": "downloaded_pdfs/arXiv_Song_et_al._2025_Evaluating_Large_Language_Models_in_Scientific_Discovery.pdf",
+  "pdf_download_status": "already_exists",
+  "pdf_download_method": "direct pdf_url",
+  "pdf_download_url": "https://arxiv.org/pdf/2512.15567v2",
+  "extraction_source_type": "pdf",
+  "paper_title": "Evaluating Large Language Models in Scientific Discovery",
+  "summary_extraction_status": "extracted",
+  "summary_json_path": "review_outputs/gpt_paper_items/arXiv_Song_et_al._2025_Evaluating_Large_Language_Models_in_Scientific_Discovery.json",
+  "objective": {
+    "answer": "The primary objective of the paper is to introduce a scenario-grounded benchmark for evaluating large language models (LLMs) in scientific discovery across biology, chemistry, material science, and physics. The authors aim to assess LLMs' abilities to propose testable hypotheses, execute simulations or experiments, and interpret results, thereby addressing the limitations of existing science benchmarks.",
+    "evidence": "Here, we introduce a scenario-grounded benchmark that evaluates LLMs across biology, chemistry, material science, and physics. For this benchmark, domain experts define research projects of genuine value and interest, and decompose them into modular research scenarios from which vetted questions are sampled."
+  },
+  "knowledge_gap": {
+    "answer": "Existing science benchmarks are largely decontextualized and do not adequately evaluate the iterative reasoning, hypothesis generation, and observation interpretation that drive scientific discovery.",
+    "evidence": "Yet prevailing science benchmarks probe decontextualized knowledge and overlook the iterative reasoning, hypothesis generation, and observation interpretation that drive scientific discovery."
+  },
+  "novelty": {
+    "answer": [
+      "Introduction of a scenario-grounded benchmark for evaluating LLMs in scientific discovery.",
+      "Evaluation framework that assesses LLMs at both question-level accuracy and project-level performance.",
+      "Application of a two-phase scientific discovery evaluation (SDE) framework to state-of-the-art LLMs."
+    ],
+    "evidence": [
+      "Here, we introduce a scenario-grounded benchmark that evaluates LLMs across biology, chemistry, material science, and physics.",
+      "The framework assesses models at two levels: (i) question-level accuracy on scenario-tied items and (ii) project-level performance, where models must propose testable hypotheses, execute simulations or experiments, and interpret results.",
+      "Applying this two-phase scientific discovery evaluation (SDE) framework to state-of-the-art LLMs reveals a consistent performance gap relative to general science benchmarks."
+    ]
+  },
+  "inspirational_papers": {
+    "answer": "- Chen et al. (2020) Retro*: learning retrosynthetic planning with neural guided A* search. (Methodological precursors)",
+    "evidence": "Reference molecules and their associated synthesis routes are used as context to the LLM and extracted from Chen et al.[68], which in turn is based on the reaction data from the United States Patent and Trademark Office (USPTO)[69]."
+  },
+  "method": {
+    "steps": [
+      {
+        "step": "Define research projects and decompose them into modular research scenarios.",
+        "input": "Domain expert knowledge and ongoing research projects.",
+        "output": "Modular research scenarios and vetted questions.",
+        "evidence": "For this benchmark, domain experts define research projects of genuine value and interest, and decompose them into modular research scenarios from which vetted questions are sampled."
+      },
+      {
+        "step": "Evaluate LLMs using the scenario-grounded benchmark.",
+        "input": "LLMs and the scenario-grounded benchmark.",
+        "output": "Performance metrics at question-level and project-level.",
+        "evidence": "The framework assesses models at two levels: (i) question-level accuracy on scenario-tied items and (ii) project-level performance, where models must propose testable hypotheses, execute simulations or experiments, and interpret results."
+      }
+    ],
+    "tools": [
+      {
+        "name": "lm-evaluation-harness",
+        "description": "Used for flexible evaluation of LLMs through various task types.",
+        "evidence": "top-tier models from various providers are evaluated through an adapted version of lm-evaluation-harness framework."
+      }
+    ],
+    "benchmark_datasets": [
+      {
+        "name": "SDE benchmark",
+        "data_description": "Contains 1,125 questions across biology, chemistry, materials, and physics.",
+        "usage": "Used for evaluating LLMs' performance in scientific discovery.",
+        "evidence": "resulting in 1,125 questions in the SDE benchmark (see Methods section, Research scenario and question collection)."
+      }
+    ],
+    "evaluation_metrics": [
+      {
+        "name": "Accuracy",
+        "purpose": "Measures the correctness of LLMs' responses to scenario-tied questions.",
+        "application": "Used to evaluate question-level performance of LLMs.",
+        "evidence": "Scores at each scenario, defined as percentages of questions that a model answered correctly, are aggregated per domain for all models evaluated."
+      }
+    ]
+  },
+  "method_type": {
+    "methods": [
+      {
+        "name": "Hypothesis or Idea Generation",
+        "description": "The system produces candidate hypotheses or new research ideas from prior knowledge or external input.",
+        "evidence": "We prompt the LLM to generate testable hypotheses using domain-specific concepts derived from structured data."
+      },
+      {
+        "name": "Experimental design generation",
+        "description": "The approach includes producing experimental protocols, configurations, or evaluation strategies.",
+        "evidence": "Our model proposes complete experimental setups including dataset split, evaluation metrics, and variables."
+      }
+    ]
+  },
+  "subject_area": {
+    "areas": [
+      {
+        "name": "Biological Sciences",
+        "description": "The paper evaluates LLMs in biology-related research scenarios.",
+        "evidence": "The framework assesses models at two levels: (i) question-level accuracy on scenario-tied items and (ii) project-level performance, where models must propose testable hypotheses, execute simulations or experiments, and interpret results."
+      },
+      {
+        "name": "Chemical Sciences",
+        "description": "The paper evaluates LLMs in chemistry-related research scenarios.",
+        "evidence": "The framework assesses models at two levels: (i) question-level accuracy on scenario-tied items and (ii) project-level performance, where models must propose testable hypotheses, execute simulations or experiments, and interpret results."
+      },
+      {
+        "name": "Physical Sciences",
+        "description": "The paper evaluates LLMs in physics-related research scenarios.",
+        "evidence": "The framework assesses models at two levels: (i) question-level accuracy on scenario-tied items and (ii) project-level performance, where models must propose testable hypotheses, execute simulations or experiments, and interpret results."
+      }
+    ]
+  },
+  "performance_summary": {
+    "performance_summary": [
+      {
+        "summary": "The proposed SDE framework reveals a consistent performance gap relative to general science benchmarks, with LLMs demonstrating promise in various scientific discovery projects.",
+        "evidence": "Applying this two-phase scientific discovery evaluation (SDE) framework to state-of-the-art LLMs reveals a consistent performance gap relative to general science benchmarks."
+      }
+    ],
+    "baselines": [
+      {
+        "name": "MMMU-Pro",
+        "description": "A general science Q&A benchmark.",
+        "evidence": "By contrast, the same class of models attains 0.84 on MMMU-Pro."
+      },
+      {
+        "name": "GPQA-Diamond",
+        "description": "A general science Q&A benchmark.",
+        "evidence": "By contrast, the same class of models attains 0.86 on GPQA-Diamond."
+      }
+    ],
+    "benchmark_datasets": [
+      {
+        "name": "SDE benchmark",
+        "data_description": "Contains 1,125 questions across biology, chemistry, materials, and physics.",
+        "usage": "Used for evaluating LLMs' performance in scientific discovery.",
+        "evidence": "resulting in 1,125 questions in the SDE benchmark (see Methods section, Research scenario and question collection)."
+      }
+    ],
+    "evaluation_metrics": [
+      {
+        "name": "Accuracy",
+        "purpose": "Measures the correctness of LLMs' responses to scenario-tied questions.",
+        "application": "Used to evaluate question-level performance of LLMs.",
+        "evidence": "Scores at each scenario, defined as percentages of questions that a model answered correctly, are aggregated per domain for all models evaluated."
+      }
+    ]
+  },
+  "benchmark_dataset": {
+    "name": "SDE benchmark",
+    "description": "Contains 1,125 questions across biology, chemistry, materials, and physics.",
+    "usage": "Used for evaluating LLMs' performance in scientific discovery.",
+    "evidence": "resulting in 1,125 questions in the SDE benchmark (see Methods section, Research scenario and question collection)."
+  },
+  "limitations": {
+    "limitations": [
+      {
+        "name": "Limited Domain Representation",
+        "description": "The benchmark currently covers only four scientific domains and may not represent other fields.",
+        "evidence": "Current SDE encompasses four domains, eight research projects, and 43 scenarios curated by a finite cohort of experts."
+      },
+      {
+        "name": "Performance Fluctuations",
+        "description": "Reliance on commercial API endpoints introduces unavoidable performance fluctuations.",
+        "evidence": "Reliance on commercial API endpoints introduces unavoidable performance fluctuations due to provider-side A/B testing."
+      }
+    ]
+  },
+  "future_directions": {
+    "future_directions": [
+      {
+        "name": "Expand Domain Coverage",
+        "description": "Integrate additional scientific domains such as earth sciences, social sciences, and engineering.",
+        "evidence": "While disciplines such as earth sciences, social sciences, and engineering are currently unrepresented, the modular architecture of our framework allows for their seamless integration."
+      },
+      {
+        "name": "Enhance Reproducibility",
+        "description": "Enable independent replication and rigorous ablation free from access constraints by deploying open-source models locally.",
+        "evidence": "To mitigate this reproducibility challenge, the only solution would be local deployment of open-source models as a critical baseline."
+      }
+    ]
+  },
+  "resource_link": {
+    "answer": "https://github.com/deepprinciple/lm-evaluation-harness/tree/main",
+    "evidence": "All code and utilities required to reproduce the question-level results—including YAML configurations, prompt templates, and evaluation scripts are available at https://github.com/deepprinciple/lm-evaluation-harness/tree/main"
+  }
+}

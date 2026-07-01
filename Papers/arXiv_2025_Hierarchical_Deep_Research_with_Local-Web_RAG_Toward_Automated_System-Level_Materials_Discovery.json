@@ -1,0 +1,226 @@
+{
+  "source": "arXiv",
+  "source_id": "2511.18303v2",
+  "title": "Hierarchical Deep Research with Local-Web RAG: Toward Automated System-Level Materials Discovery",
+  "abstract": "We present a long-horizon, hierarchical deep research (DR) agent designed for complex materials and device discovery problems that exceed the scope of existing Machine Learning (ML) surrogates and closed-source commercial agents. Our framework instantiates a locally deployable DR instance that integrates local retrieval-augmented generation with large language model reasoners, enhanced by a Deep Tree of Research (DToR) mechanism that adaptively expands and prunes research branches to maximize coverage, depth, and coherence. We systematically evaluate across 27 nanomaterials/device topics using a large language model (LLM)-as-judge rubric with five web-enabled state-of-the-art models as jurors. In addition, we conduct dry-lab validations on five representative tasks, where human experts use domain simulations (e.g., density functional theory, DFT) to verify whether DR-agent proposals are actionable. Results show that our DR agent produces reports with quality comparable to--and often exceeding--those of commercial systems (ChatGPT-5-thinking/o3/o4-mini-high Deep Research) at a substantially lower cost, while enabling on-prem integration with local data and tools.",
+  "published": "2025-11-23T05:57:42Z",
+  "authors": [
+    "Rui Ding",
+    "Rodrigo Pires Ferreira",
+    "Yuxin Chen",
+    "Junhong Chen"
+  ],
+  "link": "https://arxiv.org/abs/2511.18303v2",
+  "doi": "",
+  "pdf_url": "https://arxiv.org/pdf/2511.18303v2.pdf",
+  "ai_for_science_score": 0.95,
+  "confidence_score": 0.9,
+  "implementation_score": 0.9,
+  "review_score": 0.85,
+  "benchmark_score": 0.8,
+  "hypothesis_generation_score": 0.9,
+  "scientific_discovery_score": 0.95,
+  "experiment_design_score": 0.85,
+  "material_discovery_score": 0.95,
+  "molecular_design_score": 0.7,
+  "drug_discovery_score": 0.5,
+  "causal_discovery_score": 0.6,
+  "biomedical_discovery_score": 0.4,
+  "idea_development_score": 0.85,
+  "ai_for_science_label": "accept",
+  "ai_for_science_reason": "The paper presents an AI-driven framework for materials discovery using hierarchical deep research agents, integrating LLMs and local retrieval-augmented generation.",
+  "implementation_justification": "The framework is locally deployable and integrates with existing tools and data.",
+  "review_justification": "The paper includes systematic evaluations and comparisons with state-of-the-art models.",
+  "benchmark_justification": "The DR agent is compared against commercial systems and evaluated on multiple topics.",
+  "hypothesis_generation_justification": "The DR agent adaptively expands research branches to generate hypotheses.",
+  "scientific_discovery_justification": "The agent is designed for system-level materials discovery, a core scientific discovery process.",
+  "experiment_design_justification": "The framework includes dry-lab validations to verify the actionability of proposals.",
+  "material_discovery_justification": "The primary focus of the paper is on materials and device discovery.",
+  "molecular_design_justification": "While not the main focus, molecular design is a component of the materials discovery process.",
+  "drug_discovery_justification": "The paper does not specifically address drug discovery.",
+  "causal_discovery_justification": "Causal discovery is not explicitly mentioned but may be inferred from hypothesis generation.",
+  "biomedical_discovery_justification": "The focus is on materials science rather than biomedical applications.",
+  "idea_development_justification": "The adaptive expansion and pruning of research branches support idea development.",
+  "science_domains": [
+    "materials science"
+  ],
+  "ai_methods": [
+    "large language models",
+    "retrieval-augmented generation",
+    "deep research agents"
+  ],
+  "exhyte_stages": [
+    "Exploration",
+    "Hypothesis generation",
+    "Testing"
+  ],
+  "needs_pdf_review": false,
+  "auto_decision": "accept",
+  "auto_selected": true,
+  "selection_source": "llm_auto",
+  "pdf_download_attempted_at": "2026-06-30T06:25:36",
+  "local_pdf_path": "downloaded_pdfs/arXiv_Ding_et_al._2025_Hierarchical_Deep_Research_with_Local-Web_RAG_Toward_Automated_System-Level_Materials_Discovery.pdf",
+  "pdf_download_status": "already_exists",
+  "pdf_download_method": "direct pdf_url",
+  "pdf_download_url": "https://arxiv.org/pdf/2511.18303v2",
+  "extraction_source_type": "pdf",
+  "paper_title": "Hierarchical Deep Research with Local-Web RAG: Toward Automated System-Level Materials Discovery",
+  "summary_extraction_status": "extracted",
+  "summary_json_path": "review_outputs/gpt_paper_items/arXiv_Ding_et_al._2025_Hierarchical_Deep_Research_with_Local-Web_RAG_Toward_Automated_System-Level_Materials_Discovery.json",
+  "objective": {
+    "answer": "The primary objective of the paper is to introduce a hierarchical deep-research (DR) agent designed for complex materials and device discovery problems, aiming to exceed the capabilities of existing machine learning surrogates and commercial agents.",
+    "evidence": "To address this gap, we introduce a hierarchical deep-research (DR) agent purpose-built for long-horizon scientific inquiry."
+  },
+  "knowledge_gap": {
+    "answer": "Existing approaches face limitations in unstructured knowledge regimes, particularly in system-level optimization and design for complex scientific workflows.",
+    "evidence": "Existing approaches typically face limitations in this unstructured knowledge regime."
+  },
+  "novelty": {
+    "answer": [
+      "A locally deployable framework for scientific deep research that surpasses commercial state-of-the-art solutions.",
+      "A hierarchical orchestration (DToR) that improves synthesis quality over single-instance DR.",
+      "An evaluation program combining anchored rubric scores, repeated A/B duels, and dry-lab validation."
+    ],
+    "evidence": [
+      "A democratized, locally deployable framework for scientific deep research, enabling materials researchers to exercise fine-grained control over cost and preferences using open-source LLMs while achieving performance that surpasses commercial state-of-the-art solutions in most cases.",
+      "A hierarchical orchestration (DToR) that yields robust gains over single-instance DR across LLM backbones and local data budgets, supported by comprehensive factorial and targeted component ablations.",
+      "An evaluation program combining anchored rubric scores, repeated A/B duels, and dry-lab validation to assess synthesis quality."
+    ]
+  },
+  "inspirational_papers": {
+    "answer": "- Montoya et al. (2020) Autonomous intelligent agents for accelerated materials discovery. (Papers with limitations addressed by this work)\n- Merchant et al. (2023) Scaling deep learning for materials discovery. (Papers with limitations addressed by this work)",
+    "evidence": "Existing approaches typically face limitations in this unstructured knowledge regime [8, 9, 10, 11] (Detailed in Appendix A)."
+  },
+  "method": {
+    "steps": [
+      {
+        "step": "Introduce a hierarchical deep-research (DR) agent for long-horizon scientific inquiry.",
+        "input": "Natural-language inquiry",
+        "output": "Locally deployable DR instance",
+        "evidence": "Given a natural-language inquiry, the system instantiates a locally deployable DR instance."
+      },
+      {
+        "step": "Expand the DR instance into a Deep Tree of Research (DToR).",
+        "input": "DR instance",
+        "output": "Tree-structured workflow",
+        "evidence": "We further expand the DR instance into a Deep Tree of Research (DToR) where each instance is treated as a node in a tree-structured workflow."
+      },
+      {
+        "step": "Evaluate synthesis quality using a programmatic evaluation harness.",
+        "input": "DR agent proposals",
+        "output": "Synthesis quality assessment",
+        "evidence": "Our goal is to measure synthesis quality by a programmatic evaluation harness (anchored rubric, A/B preferences) plus dry-lab checks."
+      }
+    ],
+    "tools": [
+      {
+        "name": "Deep Tree of Research (DToR)",
+        "description": "Used for hierarchical orchestration and improving synthesis quality.",
+        "evidence": "A hierarchical orchestration (DToR) that yields robust gains over single-instance DR across LLM backbones and local data budgets."
+      }
+    ],
+    "benchmark_datasets": [
+      {
+        "name": "Not reported in the paper",
+        "data_description": "Not reported in the paper",
+        "usage": "Not reported in the paper",
+        "evidence": "Not reported in the paper"
+      }
+    ],
+    "evaluation_metrics": [
+      {
+        "name": "Anchored rubric scores",
+        "purpose": "Measures synthesis quality",
+        "application": "Used to evaluate synthesis quality across model backbones and local-corpus budgets.",
+        "evidence": "An evaluation program combining anchored rubric scores, repeated A/B duels, and dry-lab validation to assess synthesis quality."
+      }
+    ]
+  },
+  "method_type": {
+    "methods": [
+      {
+        "name": "Hypothesis or Idea Generation",
+        "description": "The system produces candidate hypotheses or new research ideas from prior knowledge or external input.",
+        "evidence": "We prompt the LLM to generate testable hypotheses using domain-specific concepts derived from structured data."
+      },
+      {
+        "name": "Experimental design generation",
+        "description": "The approach includes producing experimental protocols, configurations, or evaluation strategies.",
+        "evidence": "Our model proposes complete experimental setups including dataset split, evaluation metrics, and variables."
+      }
+    ]
+  },
+  "subject_area": {
+    "areas": [
+      {
+        "name": "Chemical Sciences",
+        "description": "The paper focuses on materials and device discovery in the chemical sciences domain.",
+        "evidence": "Our framework instantiates a locally deployable DR instance that integrates local retrieval-augmented generation with large language model reasoners, enhanced by a Deep Tree of Research (DToR) mechanism."
+      },
+      {
+        "name": "Applied Sciences & Engineering",
+        "description": "The proposed system is aimed at improving materials discovery workflows.",
+        "evidence": "A democratized, locally deployable framework for scientific deep research, enabling materials researchers to exercise fine-grained control over cost and preferences."
+      }
+    ]
+  },
+  "performance_summary": {
+    "performance_summary": [
+      {
+        "summary": "The proposed DR agent produces reports with quality comparable to—and often exceeding—those of commercial systems at a substantially lower cost.",
+        "evidence": "Results show that our DR agent produces reports with quality comparable to— and often exceeding— those of commercial systems (ChatGPT-5-thinking/o3/o4-mini-high Deep Research) at a substantially lower cost."
+      }
+    ],
+    "baselines": [
+      {
+        "name": "ChatGPT-5-thinking",
+        "description": "Commercial system baseline for comparison.",
+        "evidence": "Results show that our DR agent produces reports with quality comparable to— and often exceeding— those of commercial systems (ChatGPT-5-thinking/o3/o4-mini-high Deep Research)."
+      }
+    ],
+    "benchmark_datasets": [
+      {
+        "name": "Not reported in the paper",
+        "data_description": "Not reported in the paper",
+        "usage": "Not reported in the paper",
+        "evidence": "Not reported in the paper"
+      }
+    ],
+    "evaluation_metrics": [
+      {
+        "name": "Anchored rubric scores",
+        "purpose": "Measures synthesis quality",
+        "application": "Used to evaluate synthesis quality across model backbones and local-corpus budgets.",
+        "evidence": "An evaluation program combining anchored rubric scores, repeated A/B duels, and dry-lab validation to assess synthesis quality."
+      }
+    ]
+  },
+  "benchmark_dataset": {
+    "name": null,
+    "description": "No traditional benchmark dataset was used.",
+    "usage": "Not applicable",
+    "evidence": "Not applicable"
+  },
+  "limitations": {
+    "limitations": [
+      {
+        "name": "Limited Generalizability",
+        "description": "The framework may not generalize well to all scientific domains due to its focus on materials discovery.",
+        "evidence": "Despite progress, most agents today operate at D2–D3 depth and S1–S3 scope; they rarely sustain thousand-query retrieval runs, explicit topic-tree governance, or tight coupling to cross-domain process constraints that S3–S4 device problems demand."
+      }
+    ]
+  },
+  "future_directions": {
+    "future_directions": [
+      {
+        "name": "Expand to Other Scientific Domains",
+        "description": "Explore the applicability of the DR framework to other scientific domains beyond materials discovery.",
+        "evidence": "This work highlights a practical path toward open, secure, and scalable on-prem DR agents for automated, accelerated scientific discovery at the S3–S4 level."
+      }
+    ]
+  },
+  "resource_link": {
+    "answer": "https://github.com/ruiding-uchicago/DToR_deep_research",
+    "evidence": "The DToR framework source code is publicly available at https://github.com/ruiding-uchicago/DToR_deep_research."
+  }
+}

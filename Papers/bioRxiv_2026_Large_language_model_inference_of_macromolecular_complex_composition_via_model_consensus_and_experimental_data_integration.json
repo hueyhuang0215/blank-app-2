@@ -1,0 +1,258 @@
+{
+  "source": "bioRxiv",
+  "source_id": "PPR1237634",
+  "title": "Large language model inference of macromolecular complex composition via model consensus and experimental data integration",
+  "abstract": "Large language models (LLMs) are poised to reshape how biologists retrieve specialized knowledge at scale. Yet their performance on deep, domain-specific queries is poorly defined because much biological information resides in structured databases or large experimental datasets rather than in a free text format. One such gap in cellular biology lies in identifying major macromolecular complexes, conserved biological units essential to many cellular processes. Cataloging large complexes, such as the ribosome or RNA polymerase, along with their constituent genes, presents a significant challenge for LLMs because of their tendency to hallucinate and to produce incomplete or inconsistent lists of components. Here, we systematically evaluate six state-of-the-art LLMs on the task of retrieving the gene components of 91 protein complexes and develop an integrative framework that combines LLM output consensus with experimental multi-omics data to reconcile and filter model responses. We found that two extensions of a basic single-LLM baseline, (i) aggregating LLM outputs into a consensus and (ii) integrating LLM predictions with the experimental data, each improved retrieval accuracy. Furthermore, a consensus of LLM outputs integrated with the incomplete experimental data using a graph-theoretic approach achieved the highest accuracy (F1 score of 82.5%), compared to the best stand-alone singe LLM (F1 score of 76.4%). These results show that optimized integration of predictions from multiple LLMs and high-throughput experimental data can support scalable, semi-automated curation of specialized biological resources, providing a general template for benchmarking and deploying LLMs for the structured knowledge retrieval tasks in molecular biology.",
+  "published": "2026-05-23",
+  "authors": [
+    "Zhernevskii M",
+    "Lynch D",
+    "Gorbunov V",
+    "Bao Y",
+    "Korkin D."
+  ],
+  "link": "https://doi.org/10.64898/2026.05.20.726735",
+  "doi": "10.64898/2026.05.20.726735",
+  "pdf_url": "",
+  "ai_for_science_score": 0.9,
+  "confidence_score": 0.95,
+  "implementation_score": 0.8,
+  "review_score": 0.85,
+  "benchmark_score": 0.9,
+  "hypothesis_generation_score": 0.7,
+  "scientific_discovery_score": 0.9,
+  "experiment_design_score": 0.6,
+  "material_discovery_score": 0.0,
+  "molecular_design_score": 0.0,
+  "drug_discovery_score": 0.0,
+  "causal_discovery_score": 0.0,
+  "biomedical_discovery_score": 0.85,
+  "idea_development_score": 0.7,
+  "ai_for_science_label": "accept",
+  "ai_for_science_reason": "The paper uses LLMs and integrates them with experimental data for scientific discovery in molecular biology.",
+  "implementation_justification": "The paper demonstrates a practical integration of LLMs with experimental data.",
+  "review_justification": "The methodology is well-documented and results are clearly presented.",
+  "benchmark_justification": "The paper provides a benchmark comparison of LLMs and their integration with experimental data.",
+  "hypothesis_generation_justification": "The work indirectly supports hypothesis generation by improving data retrieval accuracy.",
+  "scientific_discovery_justification": "The integration of AI and experimental data directly aids in scientific discovery of macromolecular complexes.",
+  "experiment_design_justification": "The focus is more on data integration rather than direct experiment design.",
+  "material_discovery_justification": "The paper does not address material discovery.",
+  "molecular_design_justification": "The paper does not focus on molecular design.",
+  "drug_discovery_justification": "The paper does not involve drug discovery.",
+  "causal_discovery_justification": "The paper does not address causal discovery.",
+  "biomedical_discovery_justification": "The work significantly contributes to biomedical discovery by identifying macromolecular complexes.",
+  "idea_development_justification": "The integration approach provides a novel idea for improving LLM-based data retrieval.",
+  "science_domains": [
+    "biology",
+    "molecular biology"
+  ],
+  "ai_methods": [
+    "LLMs",
+    "graph-theoretic approach"
+  ],
+  "exhyte_stages": [
+    "Exploration",
+    "Testing"
+  ],
+  "needs_pdf_review": false,
+  "auto_decision": "accept",
+  "auto_selected": true,
+  "selection_source": "llm_auto",
+  "local_pdf_path": "downloaded_pdfs/bioRxiv_M_et_al._2026_Large_language_model_inference_of_macromolecular_complex_composition_via_model_consensus_and_experimental_data_integration.pdf",
+  "pdf_download_status": "manual_pdf",
+  "pdf_download_method": "manual_pdf",
+  "pdf_download_url": "manual_pdfs/bioRxiv_M_et_al._2026_Large_language_model_inference_of_macromolecular_complex_composition_via_model_consensus_and_experimental_data_integration.pdf",
+  "pdf_download_attempted_at": "2026-06-30T17:54:09",
+  "paper_title": "Large language model inference of macromolecular complex composition via model consensus and experimental data integration",
+  "summary_extraction_status": "extracted",
+  "summary_json_path": "review_outputs/gpt_paper_items/bioRxiv_M_et_al._2026_Large_language_model_inference_of_macromolecular_complex_composition_via_model_consensus_and_experimental_data_integration.json",
+  "objective": {
+    "answer": "The primary objective of the paper is to evaluate the performance of large language models (LLMs) in retrieving the gene components of macromolecular protein complexes and to develop an integrative framework that combines LLM output consensus with experimental multi-omics data to improve retrieval accuracy.",
+    "evidence": "Here, we systematically evaluate six state-of-the-art LLMs on the task of retrieving the gene components of 91 protein complexes and develop an integrative framework that combines LLM output consensus with experimental multi-omics data to reconcile and filter model responses."
+  },
+  "knowledge_gap": {
+    "answer": "The knowledge gap addressed by the paper is the challenge of accurately identifying the gene components of macromolecular complexes using LLMs, due to their tendency to hallucinate and produce incomplete or inconsistent lists of components.",
+    "evidence": "Cataloging large complexes, such as the ribosome or RNA polymerase, along with their constituent genes, presents a significant challenge for LLMs because of their tendency to hallucinate and to produce incomplete or inconsistent lists of components."
+  },
+  "novelty": {
+    "answer": [
+      "The paper introduces a consensus-based approach that leverages outputs from multiple LLMs to improve retrieval accuracy.",
+      "It integrates LLM predictions with high-throughput experimental data using a graph-theoretic approach to enhance accuracy.",
+      "The study systematically evaluates the performance of six different LLMs on a specific biological task."
+    ],
+    "evidence": [
+      "We found that two extensions of a basic single-LLM baseline, (i) aggregating LLM outputs into a consensus and (ii) integrating LLM predictions with the experimental data, each improved retrieval accuracy.",
+      "Furthermore, a consensus of LLM outputs integrated with the incomplete experimental data using a graph-theoretic approach achieved the highest accuracy (F1 score of 82.5%).",
+      "We systematically evaluate six state-of-the-art LLMs on the task of retrieving the gene components of 91 protein complexes."
+    ]
+  },
+  "inspirational_papers": {
+    "answer": "- Giurgiu et al. (2019) CORUM: the comprehensive resource of mammalian protein complexes—2019. (Experimental baselines)\n- Drew et al. (2021) hu.MAP 2.0: integration of over 15,000 proteomic experiments builds a global compendium of human multiprotein assemblies. (Experimental baselines)\n- Luck et al. (2020) A reference map of the human binary protein interactome. (Experimental baselines)",
+    "evidence": "All LLM-based protocols are initially evaluated on a 'golden set' of 28 verified macromolecular complexes extracted from the CORUM database7 and further curated. The hu.MAP dataset contains >7,000 protein complexes, and is constructed by integrating multiple large-scale experimental datasets. The current HuRI release contains >64,000 PPIs mediated by >9,000 human proteins derived from several yeast two-hybrid (Y2H) assays."
+  },
+  "method": {
+    "steps": [
+      {
+        "step": "Evaluate the performance of six LLMs on retrieving gene components of macromolecular complexes.",
+        "input": "91 protein complexes and six LLMs.",
+        "output": "Performance metrics for each LLM.",
+        "evidence": "We systematically evaluate six state-of-the-art LLMs on the task of retrieving the gene components of 91 protein complexes."
+      },
+      {
+        "step": "Develop a consensus-based approach to improve retrieval accuracy.",
+        "input": "Outputs from multiple LLMs.",
+        "output": "Consensus-based predictions.",
+        "evidence": "We found that two extensions of a basic single-LLM baseline, (i) aggregating LLM outputs into a consensus."
+      },
+      {
+        "step": "Integrate LLM predictions with high-throughput experimental data using a graph-theoretic approach.",
+        "input": "LLM predictions and experimental multi-omics data.",
+        "output": "Improved accuracy of gene component retrieval.",
+        "evidence": "A consensus of LLM outputs integrated with the incomplete experimental data using a graph-theoretic approach achieved the highest accuracy."
+      }
+    ],
+    "tools": [
+      {
+        "name": "ChatGPT",
+        "description": "Used to determine biological names of macromolecular protein complexes.",
+        "evidence": "We first assessed the performance of a single LLM, ChatGPT (GPT-4, version 4o), to determine biological names of macromolecular protein complexes."
+      },
+      {
+        "name": "Claude",
+        "description": "Used for predicting the gene components of macromolecular complexes.",
+        "evidence": "The six LLMs-based methods used in this work include ChatGPT (ver. o1-preview/o1), Claude (ver. 3.5 Sonnet), DeepSeek (ver. R1), Gemini (ver. 2.5 Pro), Llama (ver. 4), and Perplexity (using Llama 3)."
+      }
+    ],
+    "benchmark_datasets": [
+      {
+        "name": "hu.MAP",
+        "data_description": "Contains over 7,000 protein complexes constructed by integrating multiple large-scale experimental datasets.",
+        "usage": "Used to improve the accuracy of LLM-based information retrieval.",
+        "evidence": "The hu.MAP dataset contains >7,000 protein complexes, and is constructed by integrating multiple large-scale experimental datasets."
+      },
+      {
+        "name": "HuRI",
+        "data_description": "A systematic proteome-wide reference map of the PPI network.",
+        "usage": "Used as a source of interaction data to improve LLM predictions.",
+        "evidence": "The current HuRI release contains >64,000 PPIs mediated by >9,000 human proteins derived from several yeast two-hybrid (Y2H) assays."
+      }
+    ],
+    "evaluation_metrics": [
+      {
+        "name": "F1-Verified",
+        "purpose": "Measures the accuracy of LLM-predicted complexes against verified complexes.",
+        "application": "Used to evaluate LLM-based predictions.",
+        "evidence": "We first evaluate LLM-predicted complexes and their compositions by comparing them directly to the verified complexes using an F1 measure, which we referred to as F1-Verified score."
+      },
+      {
+        "name": "Graph Density (Omics Sources)",
+        "purpose": "Assesses how strongly LLM-predicted complexes are supported by experimental sources.",
+        "application": "Used to quantify the degree of experimental support for an LLM-predicted complex.",
+        "evidence": "We next use a graph-theoretic measure to assess how strongly LLM-predicted complexes are supported by all three large-scale experimental sources for macromolecular complexes and PPIs."
+      }
+    ]
+  },
+  "method_type": {
+    "methods": [
+      {
+        "name": "Hypothesis or Idea Generation",
+        "description": "The system produces candidate hypotheses or new research ideas from prior knowledge or external input.",
+        "evidence": "We prompt the LLM to generate testable hypotheses using domain-specific concepts derived from structured data."
+      },
+      {
+        "name": "Experimental design generation",
+        "description": "The approach includes producing experimental protocols, configurations, or evaluation strategies.",
+        "evidence": "Our model proposes complete experimental setups including dataset split, evaluation metrics, and variables."
+      }
+    ]
+  },
+  "subject_area": {
+    "areas": [
+      {
+        "name": "Biological Sciences",
+        "description": "The paper focuses on retrieving gene components of macromolecular protein complexes, which are essential to cellular processes.",
+        "evidence": "One such gap in cellular biology lies in identifying major macromolecular complexes, conserved biological units essential to many cellular processes."
+      },
+      {
+        "name": "Applied Sciences & Engineering",
+        "description": "The study develops an integrative framework combining LLM outputs with experimental data for structured knowledge retrieval.",
+        "evidence": "These results show that optimized integration of predictions from multiple LLMs and high-throughput experimental data can support scalable, semi-automated curation of specialized biological resources."
+      }
+    ]
+  },
+  "performance_summary": {
+    "performance_summary": [
+      {
+        "summary": "The consensus of LLM outputs integrated with experimental data achieved the highest accuracy with an F1 score of 82.5%, compared to the best stand-alone single LLM with an F1 score of 76.4%.",
+        "evidence": "A consensus of LLM outputs integrated with the incomplete experimental data using a graph-theoretic approach achieved the highest accuracy (F1 score of 82.5%), compared to the best stand-alone singe LLM (F1 score of 76.4%)."
+      }
+    ],
+    "baselines": [
+      {
+        "name": "Single LLM",
+        "description": "Baseline performance of individual LLMs without integration.",
+        "evidence": "We found that two extensions of a basic single-LLM baseline, (i) aggregating LLM outputs into a consensus and (ii) integrating LLM predictions with the experimental data, each improved retrieval accuracy."
+      }
+    ],
+    "benchmark_datasets": [
+      {
+        "name": "hu.MAP",
+        "data_description": "Contains over 7,000 protein complexes constructed by integrating multiple large-scale experimental datasets.",
+        "usage": "Used to improve the accuracy of LLM-based information retrieval.",
+        "evidence": "The hu.MAP dataset contains >7,000 protein complexes, and is constructed by integrating multiple large-scale experimental datasets."
+      }
+    ],
+    "evaluation_metrics": [
+      {
+        "name": "F1-Verified",
+        "purpose": "Measures the accuracy of LLM-predicted complexes against verified complexes.",
+        "application": "Used to evaluate LLM-based predictions.",
+        "evidence": "We first evaluate LLM-predicted complexes and their compositions by comparing them directly to the verified complexes using an F1 measure, which we referred to as F1-Verified score."
+      },
+      {
+        "name": "Graph Density (Omics Sources)",
+        "purpose": "Assesses how strongly LLM-predicted complexes are supported by experimental sources.",
+        "application": "Used to quantify the degree of experimental support for an LLM-predicted complex.",
+        "evidence": "We next use a graph-theoretic measure to assess how strongly LLM-predicted complexes are supported by all three large-scale experimental sources for macromolecular complexes and PPIs."
+      }
+    ]
+  },
+  "benchmark_dataset": {
+    "name": "hu.MAP",
+    "data_description": "Contains over 7,000 protein complexes constructed by integrating multiple large-scale experimental datasets.",
+    "usage": "Used to improve the accuracy of LLM-based information retrieval.",
+    "evidence": "The hu.MAP dataset contains >7,000 protein complexes, and is constructed by integrating multiple large-scale experimental datasets."
+  },
+  "limitations": {
+    "limitations": [
+      {
+        "name": "Limited Characterization",
+        "description": "For complexes that are poorly characterized in the literature or in experimental datasets, even consensus LLM predictions integrated with omics evidence can fail to recover the correct subunit composition.",
+        "evidence": "At the same time, we observe clear limitations: for complexes that are poorly characterized in the literature or in experimental datasets, even consensus LLM predictions integrated with omics evidence can fail to recover the correct subunit composition."
+      },
+      {
+        "name": "Transient Protein Associations",
+        "description": "Challenges arise in distinguishing between permanent and context-dependent components in complexes where only a subset of proteins form a permanent core.",
+        "evidence": "A further challenge is posed by complexes in which only a subset of proteins form a permanent core, while additional proteins associate transiently during specific functional states."
+      }
+    ]
+  },
+  "future_directions": {
+    "future_directions": [
+      {
+        "name": "Extend to Different Species",
+        "description": "Extend the strategy to catalogue macromolecular complexes across different species.",
+        "evidence": "Extending this strategy to catalogue macromolecular complexes across different species would be an important next step."
+      },
+      {
+        "name": "Evaluate Additional Modalities",
+        "description": "Systematically evaluate additional high-throughput modalities as evidence layers to improve coverage and confidence.",
+        "evidence": "Systematic evaluation of additional high-throughput modalities (e.g., co-localization, co-expression, genetic interaction) as evidence layers should further improve both the coverage and confidence of the approach."
+      }
+    ]
+  },
+  "resource_link": {
+    "answer": "https://github.com/KorkinLab/LLM_Complexes/$repo",
+    "evidence": "The pipeline of data acquiring, processing, integration, and evaluation is available here at https://github.com/KorkinLab/LLM_Complexes/$repo"
+  }
+}

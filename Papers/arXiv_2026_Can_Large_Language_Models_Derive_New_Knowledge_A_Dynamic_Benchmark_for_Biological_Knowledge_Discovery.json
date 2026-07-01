@@ -1,0 +1,250 @@
+{
+  "source": "arXiv",
+  "source_id": "2603.03322v1",
+  "title": "Can Large Language Models Derive New Knowledge? A Dynamic Benchmark for Biological Knowledge Discovery",
+  "abstract": "Recent advancements in Large Language Model (LLM) agents have demonstrated remarkable potential in automatic knowledge discovery. However, rigorously evaluating an AI's capacity for knowledge discovery remains a critical challenge. Existing benchmarks predominantly rely on static datasets, leading to inevitable data contamination where models have likely seen the evaluation knowledge during training. Furthermore, the rapid release cycles of modern LLMs render static benchmarks quickly outdated, failing to assess the ability to discover truly new knowledge. To address these limitations, we propose DBench-Bio, a dynamic and fully automated benchmark designed to evaluate AI's biological knowledge discovery ability. DBench-Bio employs a three-stage pipeline: (1) data acquisition of rigorous, authoritative paper abstracts; (2) QA extraction utilizing LLMs to synthesize scientific hypothesis questions and corresponding discovery answers; and (3) QA filter to ensure quality based on relevance, clarity, and centrality. We instantiate this pipeline to construct a monthly-updated benchmark covering 12 biomedical sub-domains. Extensive evaluations of SOTA models reveal current limitations in discovering new knowledge. Our work provides the first dynamic, automatic framework for assessing the new knowledge discovery capabilities of AI systems, establishing a living, evolving resource for AI research community to catalyze the development of knowledge discovery.",
+  "published": "2026-02-10T05:47:22Z",
+  "authors": [
+    "Chaoqun Yang",
+    "Xinyu Lin",
+    "Shulin Li",
+    "Wenjie Wang",
+    "Ruihan Guo",
+    "Fuli Feng",
+    "Tat-Seng Chua"
+  ],
+  "link": "https://arxiv.org/abs/2603.03322v1",
+  "doi": "",
+  "pdf_url": "https://arxiv.org/pdf/2603.03322v1.pdf",
+  "ai_for_science_score": 0.9,
+  "confidence_score": 0.95,
+  "implementation_score": 0.8,
+  "review_score": 0.85,
+  "benchmark_score": 0.9,
+  "hypothesis_generation_score": 0.9,
+  "scientific_discovery_score": 0.9,
+  "experiment_design_score": 0.7,
+  "material_discovery_score": 0.0,
+  "molecular_design_score": 0.0,
+  "drug_discovery_score": 0.0,
+  "causal_discovery_score": 0.7,
+  "biomedical_discovery_score": 0.9,
+  "idea_development_score": 0.8,
+  "ai_for_science_label": "accept",
+  "ai_for_science_reason": "The paper presents a dynamic benchmark for evaluating AI's ability in biological knowledge discovery, using LLMs for hypothesis generation and testing in biomedical domains.",
+  "implementation_justification": "The paper describes a well-structured pipeline for dynamic benchmarking.",
+  "review_justification": "The paper provides a comprehensive evaluation of current AI models' limitations.",
+  "benchmark_justification": "Introduces a novel, dynamic benchmark for ongoing assessment of AI capabilities.",
+  "hypothesis_generation_justification": "The benchmark includes a stage for generating scientific hypothesis questions.",
+  "scientific_discovery_justification": "Focuses on AI's ability to discover new biological knowledge.",
+  "experiment_design_justification": "While not the main focus, the benchmark indirectly supports experiment design through hypothesis testing.",
+  "material_discovery_justification": "The paper does not address material discovery.",
+  "molecular_design_justification": "The paper does not focus on molecular design.",
+  "drug_discovery_justification": "The paper does not specifically address drug discovery.",
+  "causal_discovery_justification": "The benchmark may aid in causal discovery through hypothesis testing.",
+  "biomedical_discovery_justification": "The benchmark is specifically designed for biomedical knowledge discovery.",
+  "idea_development_justification": "The dynamic nature of the benchmark supports ongoing idea development in AI research.",
+  "science_domains": [
+    "biology",
+    "medicine"
+  ],
+  "ai_methods": [
+    "Large Language Models",
+    "automated reasoning"
+  ],
+  "exhyte_stages": [
+    "Hypothesis generation",
+    "Testing"
+  ],
+  "needs_pdf_review": false,
+  "auto_decision": "accept",
+  "auto_selected": true,
+  "selection_source": "llm_auto",
+  "pdf_download_attempted_at": "2026-06-30T06:25:42",
+  "local_pdf_path": "downloaded_pdfs/arXiv_Yang_et_al._2026_Can_Large_Language_Models_Derive_New_Knowledge_A_Dynamic_Benchmark_for_Biological_Knowledge_Discovery.pdf",
+  "pdf_download_status": "already_exists",
+  "pdf_download_method": "direct pdf_url",
+  "pdf_download_url": "https://arxiv.org/pdf/2603.03322v1",
+  "extraction_source_type": "pdf",
+  "paper_title": "Can Large Language Models Derive New Knowledge? A Dynamic Benchmark for Biological Knowledge Discovery",
+  "summary_extraction_status": "extracted",
+  "summary_json_path": "review_outputs/gpt_paper_items/arXiv_Yang_et_al._2026_Can_Large_Language_Models_Derive_New_Knowledge_A_Dynamic_Benchmark_for_Biological_Knowledge_Discovery.json",
+  "objective": {
+    "answer": "The primary objective of the paper is to propose DBench-Bio, a dynamic and fully automated benchmark designed to evaluate AI's biological knowledge discovery ability. The authors aim to address the limitations of static benchmarks, which suffer from data contamination and quickly become outdated, by creating a living, evolving resource for assessing AI systems' capabilities in discovering new knowledge.",
+    "evidence": "To address these limitations, we propose DBench-Bio, a dynamic and fully automated benchmark designed to evaluate AI’s biological knowledge discovery ability."
+  },
+  "knowledge_gap": {
+    "answer": "Existing benchmarks for evaluating AI's knowledge discovery capabilities rely on static datasets, leading to data contamination and outdated assessments as models evolve. This makes it difficult to determine whether a model is genuinely discovering new knowledge or merely recalling previously seen information.",
+    "evidence": "Existing benchmarks predominantly rely on static datasets, leading to inevitable data contamination where models have likely seen the evaluation knowledge during training. Furthermore, the rapid release cycles of modern LLMs render static benchmarks quickly outdated, failing to assess the ability to discover truly new knowledge."
+  },
+  "novelty": {
+    "answer": [
+      "Introduction of a dynamic, fully automated benchmark for evaluating AI's knowledge discovery capabilities.",
+      "Implementation of a three-stage pipeline for benchmark construction, including data acquisition, QA extraction, and QA filtering.",
+      "Monthly updates to the benchmark to ensure it remains current and relevant for evaluating new AI models."
+    ],
+    "evidence": [
+      "We introduce the first methodology for constructing a dynamic, fully automatic benchmark for assessing AI’s new knowledge discovery ability.",
+      "DBench-Bio employs a three-stage pipeline to construct the benchmark: (1) Data Acquisition, (2) QA Extraction, (3) QA Filter.",
+      "We instantiate this pipeline to construct a monthly-updated benchmark covering 12 biomedical sub-domains."
+    ]
+  },
+  "inspirational_papers": {
+    "answer": "- Chen et al. (2025) Auto-Bench: An Automated Benchmark for Scientific Discovery in LLMs. (Methodological precursors)",
+    "evidence": "In response, many benchmarks have been proposed, such as Auto-Bench [4], ResearchBench [20], LLM-SRBench [26], and HiSciBench [35]."
+  },
+  "method": {
+    "steps": [
+      {
+        "step": "Data Acquisition",
+        "input": "Abstracts from JCR Q1 'Biology & Biochemistry' journals published post-model release.",
+        "output": "A collection of rigorous, authoritative, and temporally isolated data sources.",
+        "evidence": "We source abstracts from JCR Q1 'Biology & Biochemistry' journals published post-model release to ensure rigor and prevent data leakage."
+      },
+      {
+        "step": "QA Extraction",
+        "input": "Paper abstracts",
+        "output": "QA pairs consisting of scientific hypothesis questions and corresponding discovery answers.",
+        "evidence": "Utilizing LLMs, we synthesize new knowledge into pairs consisting of scientific hypothesis questions and corresponding discovery answers."
+      },
+      {
+        "step": "QA Filter",
+        "input": "Generated QA pairs",
+        "output": "Filtered high-quality QA pairs based on relevance, clarity, and centrality.",
+        "evidence": "We employ an LLM-based filter to remove low-quality pairs based on relevance, clarity, and centrality."
+      }
+    ],
+    "tools": [
+      {
+        "name": "LLM",
+        "description": "Used for synthesizing scientific hypothesis questions and discovery answers.",
+        "evidence": "Utilizing LLMs, we synthesize new knowledge into pairs consisting of scientific hypothesis questions and corresponding discovery answers."
+      },
+      {
+        "name": "LLM-based filter",
+        "description": "Used to ensure quality of QA pairs based on relevance, clarity, and centrality.",
+        "evidence": "We employ an LLM-based filter to remove low-quality pairs based on relevance, clarity, and centrality."
+      }
+    ],
+    "benchmark_datasets": [],
+    "evaluation_metrics": [
+      {
+        "name": "Relevance",
+        "purpose": "Measures the semantic alignment between the QA pair and the target biology sub-domain.",
+        "application": "Used to filter out misaligned content.",
+        "evidence": "Relevance: This metric measures the semantic alignment between the QA pair and the target biology sub-domain."
+      },
+      {
+        "name": "Clarity",
+        "purpose": "Evaluates the linguistic precision and coherence of both the question and the answer.",
+        "application": "Ensures that the question is unambiguous and the answer is articulated clearly.",
+        "evidence": "Clarity: This dimension evaluates the linguistic precision and coherence of both the question and the answer."
+      },
+      {
+        "name": "Centrality",
+        "purpose": "Assesses whether the QA pair corresponds to the primary scientific finding of the abstract.",
+        "application": "Prevents the benchmark from focusing on trivial details.",
+        "evidence": "Centrality: To prevent the benchmark from focusing on trivial details, this metric assesses whether the QA pair corresponds to the primary scientific finding of the abstract."
+      }
+    ]
+  },
+  "method_type": {
+    "methods": [
+      {
+        "name": "Hypothesis or Idea Generation",
+        "description": "The system produces candidate hypotheses or new research ideas from prior knowledge or external input.",
+        "evidence": "Utilizing LLMs, we synthesize new knowledge into pairs consisting of scientific hypothesis questions and corresponding discovery answers."
+      },
+      {
+        "name": "Experimental design generation",
+        "description": "The approach includes producing experimental protocols, configurations, or evaluation strategies.",
+        "evidence": "We employ an LLM-based filter to remove low-quality pairs based on relevance, clarity, and centrality."
+      }
+    ]
+  },
+  "subject_area": {
+    "areas": [
+      {
+        "name": "Biological Sciences",
+        "description": "The paper develops a benchmark for evaluating AI's ability to discover new biological knowledge.",
+        "evidence": "We propose DBench-Bio, a dynamic and fully automated benchmark designed to evaluate AI’s biological knowledge discovery ability."
+      }
+    ]
+  },
+  "performance_summary": {
+    "performance_summary": [
+      {
+        "summary": "The evaluation reveals that current LLMs excel at retrieval but have limited capacity for genuine discovery, particularly in mathematical biology.",
+        "evidence": "Our results reveal the current limitations of LLMs in discovering new knowledge: (1) While existing models excel at retrieval, their capacity for genuine discovery remains weak, particularly within the domain of mathematical biology."
+      }
+    ],
+    "baselines": [
+      {
+        "name": "Base LLMs",
+        "description": "A comprehensive selection of open-source and closed-source LLMs.",
+        "evidence": "We evaluate the following methods on our proposed benchmark: Base LLMs: A comprehensive selection of open-source and closed-source LLMs."
+      }
+    ],
+    "benchmark_datasets": [
+      {
+        "name": "DBench-Bio",
+        "data_description": "A dynamic benchmark for biological knowledge discovery.",
+        "usage": "Used for evaluating AI's ability to discover new biological knowledge.",
+        "evidence": "We propose DBench-Bio, a dynamic and fully automated benchmark designed to evaluate AI’s biological knowledge discovery ability."
+      }
+    ],
+    "evaluation_metrics": [
+      {
+        "name": "Relevance",
+        "purpose": "Measures the semantic alignment between the QA pair and the target biology sub-domain.",
+        "application": "Used to filter out misaligned content.",
+        "evidence": "Relevance: This metric measures the semantic alignment between the QA pair and the target biology sub-domain."
+      },
+      {
+        "name": "Clarity",
+        "purpose": "Evaluates the linguistic precision and coherence of both the question and the answer.",
+        "application": "Ensures that the question is unambiguous and the answer is articulated clearly.",
+        "evidence": "Clarity: This dimension evaluates the linguistic precision and coherence of both the question and the answer."
+      },
+      {
+        "name": "Centrality",
+        "purpose": "Assesses whether the QA pair corresponds to the primary scientific finding of the abstract.",
+        "application": "Prevents the benchmark from focusing on trivial details.",
+        "evidence": "Centrality: To prevent the benchmark from focusing on trivial details, this metric assesses whether the QA pair corresponds to the primary scientific finding of the abstract."
+      }
+    ]
+  },
+  "benchmark_dataset": null,
+  "limitations": {
+    "limitations": [
+      {
+        "name": "Limited Discovery Capability",
+        "description": "Current LLMs have limited capacity for genuine discovery, particularly in mathematical biology.",
+        "evidence": "Our results reveal the current limitations of LLMs in discovering new knowledge: (1) While existing models excel at retrieval, their capacity for genuine discovery remains weak, particularly within the domain of mathematical biology."
+      }
+    ]
+  },
+  "future_directions": {
+    "future_directions": [
+      {
+        "name": "Expand Model Evaluation",
+        "description": "Evaluate a broader range of models to ensure a more comprehensive analysis.",
+        "evidence": "Future studies should evaluate a broader range of models to ensure a more comprehensive analysis."
+      },
+      {
+        "name": "Develop Process-Level Evaluation",
+        "description": "Investigate the specific processes involved in knowledge discovery and propose evaluation metrics based on these intermediate steps.",
+        "evidence": "Investigating the specific processes involved in knowledge discovery and proposing evaluation metrics based on these intermediate steps is essential for future research."
+      },
+      {
+        "name": "Enhance Knowledge Discovery Ability",
+        "description": "Explore and implement new methods, such as specialized training strategies or architectural innovations, to improve the knowledge discovery capabilities of LLMs.",
+        "evidence": "Future work should explore and implement new methods, such as specialized training strategies or architectural innovations, to improve the knowledge discovery capabilities of LLMs."
+      }
+    ]
+  },
+  "resource_link": {
+    "answer": "https://github.com/transcend-0/DBench-Bio",
+    "evidence": "Code is available at https://github.com/transcend-0/DBench-Bio."
+  }
+}

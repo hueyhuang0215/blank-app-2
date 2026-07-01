@@ -1,0 +1,265 @@
+{
+  "source": "arXiv",
+  "source_id": "2510.09837v2",
+  "title": "Domain Knowledge Infused Conditional Generative Models for Accelerating Drug Discovery",
+  "abstract": "The role of Artificial Intelligence (AI) is growing in every stage of drug development. Nevertheless, a major challenge in drug discovery AI remains: Drug pharmacokinetic (PK) and Drug-Target Interaction (DTI) datasets collected in different studies often exhibit limited overlap, creating data overlap sparsity. Thus, data curation becomes difficult, negatively impacting downstream research investigations in high-throughput screening, polypharmacy, and drug combination. We propose xImagand-DKI, a novel SMILES/Protein-to-Pharmacokinetic/DTI (SP2PKDTI) diffusion model capable of generating an array of PK and DTI target properties conditioned on SMILES and protein inputs that exhibit data overlap sparsity. We infuse additional molecular and genomic domain knowledge from the Gene Ontology (GO) and molecular fingerprints to further improve our model performance. We show that xImagand-DKI-generated synthetic PK data closely resemble real data univariate and bivariate distributions, and can adequately fill in gaps among PK and DTI datasets. As such, xImagand-DKI is a promising solution for data overlap sparsity and may improve performance for downstream drug discovery research tasks. Code available at: https://github.com/GenerativeDrugDiscovery/xImagand-DKI",
+  "published": "2025-10-10T20:13:00Z",
+  "authors": [
+    "Bing Hu",
+    "Jong-Hoon Park",
+    "Helen Chen",
+    "Young-Rae Cho",
+    "Anita Layton"
+  ],
+  "link": "https://arxiv.org/abs/2510.09837v2",
+  "doi": "",
+  "pdf_url": "https://arxiv.org/pdf/2510.09837v2.pdf",
+  "ai_for_science_score": 0.95,
+  "confidence_score": 0.9,
+  "implementation_score": 0.9,
+  "review_score": 0.85,
+  "benchmark_score": 0.8,
+  "hypothesis_generation_score": 0.85,
+  "scientific_discovery_score": 0.9,
+  "experiment_design_score": 0.75,
+  "material_discovery_score": 0.0,
+  "molecular_design_score": 0.8,
+  "drug_discovery_score": 0.95,
+  "causal_discovery_score": 0.0,
+  "biomedical_discovery_score": 0.9,
+  "idea_development_score": 0.8,
+  "ai_for_science_label": "accept",
+  "ai_for_science_reason": "The paper presents a generative AI model for drug discovery, addressing data sparsity in pharmacokinetic and drug-target interaction datasets, which is a significant challenge in the scientific domain of drug discovery.",
+  "implementation_justification": "The paper provides a novel implementation of a diffusion model for drug discovery with available code.",
+  "review_justification": "The paper addresses a well-defined problem in drug discovery with a clear AI solution.",
+  "benchmark_justification": "The model's performance is validated against real data distributions.",
+  "hypothesis_generation_justification": "The model aids in generating hypotheses by filling data gaps in PK and DTI datasets.",
+  "scientific_discovery_justification": "The model contributes to scientific discovery by improving data availability for drug discovery tasks.",
+  "experiment_design_justification": "The model indirectly supports experiment design by providing more complete datasets.",
+  "material_discovery_justification": "The paper does not focus on material discovery.",
+  "molecular_design_justification": "The model uses molecular fingerprints to enhance its predictions.",
+  "drug_discovery_justification": "The primary focus of the paper is on accelerating drug discovery using AI.",
+  "causal_discovery_justification": "The paper does not address causal discovery.",
+  "biomedical_discovery_justification": "The model's application in drug discovery directly impacts biomedical research.",
+  "idea_development_justification": "The paper presents a novel approach to addressing data sparsity in drug discovery.",
+  "science_domains": [
+    "medicine",
+    "drug discovery"
+  ],
+  "ai_methods": [
+    "conditional generative models",
+    "diffusion models"
+  ],
+  "exhyte_stages": [
+    "Exploration",
+    "Hypothesis generation",
+    "Testing"
+  ],
+  "needs_pdf_review": false,
+  "auto_decision": "accept",
+  "auto_selected": true,
+  "selection_source": "llm_auto",
+  "pdf_download_attempted_at": "2026-06-30T06:25:00",
+  "local_pdf_path": "downloaded_pdfs/arXiv_Hu_et_al._2025_Domain_Knowledge_Infused_Conditional_Generative_Models_for_Accelerating_Drug_Discovery.pdf",
+  "pdf_download_status": "already_exists",
+  "pdf_download_method": "direct pdf_url",
+  "pdf_download_url": "https://arxiv.org/pdf/2510.09837v2",
+  "extraction_source_type": "pdf",
+  "paper_title": "Domain Knowledge Infused Conditional Generative Models for Accelerating Drug Discovery",
+  "summary_extraction_status": "extracted",
+  "summary_json_path": "review_outputs/gpt_paper_items/arXiv_Hu_et_al._2025_Domain_Knowledge_Infused_Conditional_Generative_Models_for_Accelerating_Drug_Discovery.json",
+  "objective": {
+    "answer": "The primary objective of the paper is to propose xImagand-DKI, a novel SMILES/Protein-to-Pharmacokinetic/DTI diffusion model that can generate pharmacokinetic and drug-target interaction properties conditioned on SMILES and protein inputs, addressing the issue of data overlap sparsity in drug discovery datasets.",
+    "evidence": "We propose xImagand-DKI, a novel SMILES/Protein-to-Pharmacokinetic/DTI diffusion model capable of generating an array of PK and DTI target properties conditioned on SMILES and protein inputs that exhibit data overlap sparsity."
+  },
+  "knowledge_gap": {
+    "answer": "The paper addresses the knowledge gap of limited overlap among pharmacokinetic and drug-target interaction datasets, which creates challenges for data integration and negatively impacts downstream drug discovery research.",
+    "evidence": "Nevertheless, a major challenge in drug discovery AI remains: Drug pharmacokinetic (PK) and Drug-Target Interaction (DTI) datasets collected in different studies often exhibit limited overlap, creating data overlap sparsity."
+  },
+  "novelty": {
+    "answer": [
+      "Proposes an end-to-end framework that unifies PK property prediction and DTI modeling into a single foundational model.",
+      "Introduces multi-view domain knowledge integration methods that incorporate protein knowledge from the Gene Ontology and various molecular fingerprints.",
+      "Demonstrates how end-to-end training combined with multi-view DKI can effectively address the challenge of data overlap sparsity."
+    ],
+    "evidence": [
+      "Proposes an end-to-end framework that unifies PK property prediction and DTI modeling into a single foundational model, advancing solutions to data overlap sparsity by generating high-quality synthetic drug discovery data.",
+      "Introduces multi-view domain knowledge integration (DKI) methods that incorporate protein knowledge from the Gene Ontology (GO) and various molecular fingerprints.",
+      "Demonstrates how end-to-end training method combined with multi-view DKI can effectively address the challenge of data overlap sparsity, bridging the gap between PK and DTI datasets."
+    ]
+  },
+  "inspirational_papers": {
+    "answer": "- Jonathan et al. (2020) Denoising diffusion probabilistic models inspired our diffusion model approach. (Methodological precursors)\n- Bing Hu et al. (2024) Their work on synthetic data from diffusion models informed our model's synthetic data generation. (Experimental baselines)",
+    "evidence": "Recent advances in AI for drug discovery have leveraged Denoising Diffusion Probabilistic Models (DDPMs) [15], a new class of diffusion models capable of generating ligand structures [8, 16–18]."
+  },
+  "method": {
+    "steps": [
+      {
+        "step": "Generate embeddings for proteins and SMILES using ProtBERT and DeBERTa.",
+        "input": "SMILES and protein sequences",
+        "output": "Protein and SMILES embeddings",
+        "evidence": "Embeddings for proteins and SMILES are generated using ProtBERT and DeBERTa, respectively."
+      },
+      {
+        "step": "Infuse protein knowledge from the Gene Ontology using PO2Vec and SMILES knowledge using FPFormer.",
+        "input": "Gene Ontology data and molecular fingerprints",
+        "output": "Enhanced protein and SMILES embeddings",
+        "evidence": "Protein knowledge infusion from the human Gene Ontology (GO) is generated using PO2Vec, and SMILES knowledge infusion from fingerprints is generated using FPFormer."
+      },
+      {
+        "step": "Train the model with PK and DTI data using diffusion steps.",
+        "input": "PK and DTI datasets",
+        "output": "Trained diffusion model",
+        "evidence": "The model undergoes 2.5k PK training steps and 3k DTI training steps every epoch."
+      },
+      {
+        "step": "Apply masking and Exponential Moving Average during training.",
+        "input": "Sparse ligand data",
+        "output": "Final model used for sampling",
+        "evidence": "As the data is sparse over ligands, we apply masking when computing the loss to flow gradients from known PK and DTI values during training. Exponential Moving Average (EMA) is applied to the base model during training to generate the final model used for sampling."
+      }
+    ],
+    "tools": [
+      {
+        "name": "ProtBERT",
+        "description": "Used for generating protein embeddings.",
+        "evidence": "Embeddings for proteins and SMILES are generated using ProtBERT and DeBERTa, respectively."
+      },
+      {
+        "name": "FPFormer",
+        "description": "Used for generating SMILES knowledge infusion from fingerprints.",
+        "evidence": "SMILES knowledge infusion from fingerprints is generated using FPFormer."
+      }
+    ],
+    "benchmark_datasets": [
+      {
+        "name": "TDCommons",
+        "data_description": "Contains 9 PK and 3 DTI datasets.",
+        "usage": "Used for training and testing the model.",
+        "evidence": "All 9 PK and 3 DTI datasets are collected from TDCommons."
+      }
+    ],
+    "evaluation_metrics": [
+      {
+        "name": "Hellinger Distance",
+        "purpose": "Measures the similarity between two probability distributions.",
+        "application": "Used to compare the distribution of synthetic and real data.",
+        "evidence": "Hellinger distance (HD) quantifies the similarity between two probability distributions and can be used as a summary statistic of differences for each PK target property between real and synthetic datasets."
+      },
+      {
+        "name": "Mean Squared Error (MSE)",
+        "purpose": "Measures the average of the squares of the errors.",
+        "application": "Used to evaluate regression performance.",
+        "evidence": "Mean Squared Error (mse), R-Squared (R2), and Pearson Correlation Coefficient (pcc) values are averaged over 30 trials."
+      }
+    ]
+  },
+  "method_type": {
+    "methods": [
+      {
+        "name": "Hypothesis or Idea Generation",
+        "description": "The system produces candidate hypotheses or new research ideas from prior knowledge or external input.",
+        "evidence": "Motivated by these advances, we present xImagand-DKI, a novel multi-view SMILES/Protein-to-PK/DTI (SP2PKDTI) diffusion model."
+      },
+      {
+        "name": "Experimental design generation",
+        "description": "The approach includes producing experimental protocols, configurations, or evaluation strategies.",
+        "evidence": "We describe the model training details and compare our synthetic data to real data, in terms of machine learning efficiency (MLE) and univariate and bivariate statistical distributions."
+      }
+    ]
+  },
+  "subject_area": {
+    "areas": [
+      {
+        "name": "Health Sciences",
+        "description": "The paper develops a model for generating pharmacokinetic and drug-target interaction properties, which are crucial for drug discovery.",
+        "evidence": "The role of Artificial intelligence (AI) is growing in every stage of drug development."
+      },
+      {
+        "name": "Applied Sciences & Engineering",
+        "description": "The proposed diffusion model is an engineering solution to address data overlap sparsity in drug discovery datasets.",
+        "evidence": "We propose xImagand-DKI, a novel SMILES/Protein-to-Pharmacokinetic/DTI diffusion model."
+      }
+    ]
+  },
+  "performance_summary": {
+    "performance_summary": [
+      {
+        "summary": "The proposed model generates synthetic data that closely resembles real data, with an average Hellinger distance of 0.11.",
+        "evidence": "Computing the Hellinger distance, Table 2, we see an average of 0.11, meaning that our model produces synthetic data that closely resembles the distribution of real data."
+      }
+    ],
+    "baselines": [
+      {
+        "name": "Conditional GAN (cGAN)",
+        "description": "A baseline model for generating PK properties.",
+        "evidence": "We compare Imagand with baselines of Conditional GAN (cGAN) [48] and Syngand [9]."
+      },
+      {
+        "name": "Syngand",
+        "description": "A baseline model for generating PK properties.",
+        "evidence": "We compare Imagand with baselines of Conditional GAN (cGAN) [48] and Syngand [9]."
+      }
+    ],
+    "benchmark_datasets": [
+      {
+        "name": "TDCommons",
+        "data_description": "Contains 9 PK and 3 DTI datasets.",
+        "usage": "Used for training and testing the model.",
+        "evidence": "All 9 PK and 3 DTI datasets are collected from TDCommons."
+      }
+    ],
+    "evaluation_metrics": [
+      {
+        "name": "Hellinger Distance",
+        "purpose": "Measures the similarity between two probability distributions.",
+        "application": "Used to compare the distribution of synthetic and real data.",
+        "evidence": "Hellinger distance (HD) quantifies the similarity between two probability distributions and can be used as a summary statistic of differences for each PK target property between real and synthetic datasets."
+      },
+      {
+        "name": "Mean Squared Error (MSE)",
+        "purpose": "Measures the average of the squares of the errors.",
+        "application": "Used to evaluate regression performance.",
+        "evidence": "Mean Squared Error (mse), R-Squared (R2), and Pearson Correlation Coefficient (pcc) values are averaged over 30 trials."
+      }
+    ]
+  },
+  "benchmark_dataset": {
+    "name": "BindingDB",
+    "description": "A database of experimentally determined protein–ligand binding affinities.",
+    "usage": "Used for collecting DTI datasets.",
+    "evidence": "We select DTI datasets from BindingDB [49] covering properties such as inhibition constant (Ki), dissociation constant (Kd), and half maximal inhibitory concentration (IC50)."
+  },
+  "limitations": {
+    "limitations": [
+      {
+        "name": "Limited Applicability to In Vivo Applications",
+        "description": "The model primarily uses in vitro datasets, which may not fully capture real-world conditions.",
+        "evidence": "Although we cover a wide variety of ADMET and DTI datasets, most of these datasets are in vitro."
+      },
+      {
+        "name": "Applicability Only to Numerical Drug Discovery Datasets",
+        "description": "The model is restricted to numerical datasets, limiting its applicability to certain types of data.",
+        "evidence": "With the limitations of our diffusion methods, we are restricted to utilizing only numerical datasets."
+      }
+    ]
+  },
+  "future_directions": {
+    "future_directions": [
+      {
+        "name": "Extend Model to In Vivo Datasets",
+        "description": "Investigate how generated data can be used for quantitative in vitro-to-in vivo extrapolation.",
+        "evidence": "Future work will look to extend our model to in vivo datasets and investigate how our generated data can be used for quantitative in vitro-to-in vivo extrapolation."
+      },
+      {
+        "name": "Explore Categorical Diffusion Methods",
+        "description": "Investigate integration with other drug discovery tasks in lead optimization, de novo generation, and protein-docking.",
+        "evidence": "We will look to extend our model to categorical diffusion methods as well as investigating integration with other drug discovery tasks in lead optimization, de novo generation, and protein-docking."
+      }
+    ]
+  },
+  "resource_link": {
+    "answer": "https://github.com/GenerativeDrugDiscovery/xImagand-DKI",
+    "evidence": "Our code and data are available open-source https://github.com/GenerativeDrugDiscovery/xImagand-DKI."
+  }
+}
