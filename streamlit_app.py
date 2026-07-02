@@ -1,12 +1,13 @@
 import streamlit as st
 import base64
+import html as html_lib
 import re
 import json
-import os
 from pathlib import Path
-import streamlit.components.v1 as components
 from bs4 import BeautifulSoup
 from openai import OpenAI 
+
+BASE_DIR = Path(__file__).resolve().parent
 
 # ---------------------------------------------------------
 # Page setup
@@ -54,21 +55,21 @@ def generate_summary_html(data):
                     
                     text_part = ""
                     if label:
-                        text_part += f"<strong>{label}</strong>"
-                        if desc: text_part += f": {desc}"
+                        text_part += f"<strong>{html_lib.escape(str(label))}</strong>"
+                        if desc: text_part += f": {html_lib.escape(str(desc))}"
                     elif desc:
-                        text_part += f"{desc}"
+                        text_part += f"{html_lib.escape(str(desc))}"
                     
                     html += f"<div>{text_part}</div>"
                     html += render_evidence(item)
                 else:
-                    html += f"{item}"
+                    html += f"{html_lib.escape(str(item))}"
                 html += "</li>"
             html += "</ul>"
             return html
         # CASE 2: Single String
         elif isinstance(content, str):
-            return f"<div>{content}</div>"
+            return f"<div>{html_lib.escape(content)}</div>"
         return ""
 
     # SECTIONS
@@ -173,16 +174,17 @@ def generate_summary_html(data):
 # ---------------------------------------------------------
 def load_papers_from_directory(directory_name="Papers"):
     papers = []
+    directory = BASE_DIR / directory_name
     
-    if not os.path.exists(directory_name):
+    if not directory.exists():
         return []
 
-    json_files = sorted([f for f in os.listdir(directory_name) if f.endswith(".json")])
+    json_files = sorted(directory.glob("*.json"))
     
-    for filename in json_files:
-        file_path = os.path.join(directory_name, filename)
+    for file_path in json_files:
+        filename = file_path.name
         try:
-            with open(file_path, "r", encoding="utf-8") as f:
+            with file_path.open("r", encoding="utf-8") as f:
                 data = json.load(f)
             
             raw_authors = data.get("authors", [])
@@ -222,15 +224,17 @@ PAPER_DATA = load_papers_from_directory("Papers")
 # Helpers
 # ---------------------------------------------------------
 def read_file(path):
+    file_path = BASE_DIR / path
     try:
-        return Path(path).read_text(encoding="utf-8")
+        return file_path.read_text(encoding="utf-8")
     except FileNotFoundError:
         st.error(f"Could not find file: {path}")
         return ""
 
 def load_image_as_base64(path):
+    file_path = BASE_DIR / path
     try:
-        with open(path, "rb") as f:
+        with file_path.open("rb") as f:
             data = f.read()
             return base64.b64encode(data).decode()
     except FileNotFoundError:
@@ -238,27 +242,57 @@ def load_image_as_base64(path):
 
 def process_html_content(html_content, image_map):
     soup = BeautifulSoup(html_content, 'html.parser')
+    for link in soup.find_all("a", href=True):
+        if "wordtohtml.net" in link["href"]:
+            removable = link.find_parent("div") or link
+            removable.decompose()
+
     for p in soup.find_all('p'):
         if not p.get_text(strip=True) and p.find('br'):
             p.decompose()
+
     images = soup.find_all('img')
     for img in images:
         src = img.get('src', '')
-        filename = src.split('/')[-1] if '/' in src else src
+        is_data_uri = src.startswith("data:")
+        filename = src.split('/')[-1].split("?")[0] if '/' in src else src.split("?")[0]
         if filename in image_map:
             ext = filename.split('.')[-1].lower()
             mime = "jpeg" if ext == "jpg" else ext
             img['src'] = f"data:image/{mime};base64,{image_map[filename]}"
-            img['style'] = "max-width: 100%; height: auto;"
+        elif not is_data_uri:
+            placeholder = soup.new_tag("div")
+            placeholder["style"] = (
+                "border: 1px dashed #aaa; background: #f8f8f8; color: #555; "
+                "font-family: 'Times New Roman', serif; text-align: center; "
+                "padding: 32px 16px; margin: 16px auto; max-width: 640px;"
+            )
+            placeholder.string = f"Missing image file: {filename or 'unknown image'}"
+            img.replace_with(placeholder)
+            continue
+        existing_style = img.get('style', '')
+        img['style'] = "; ".join([
+            part for part in [existing_style, 'max-width: 100%; height: auto; display: block; margin: 0 auto;'] if part
+        ])
     style_tag = soup.new_tag("style")
     style_tag.string = """
+        body {
+            margin: 0;
+            padding: 12px 16px 24px;
+            background: #ffffff;
+            color: #111;
+            font-family: "Times New Roman", serif;
+            line-height: 1.45;
+        }
         p, h1, h2, h3, h4, h5, li, div {
-            margin-top: 5px !important; margin-bottom: 5px !important; 
+            margin-top: 5px !important; margin-bottom: 5px !important;
             padding-top: 0px !important; padding-bottom: 0px !important;
-            line-height: 1.4 !important;
+            line-height: 1.45 !important;
         }
         li { margin-left: 20px !important; }
-        a { color: #0000EE; text-decoration: underline; }
+        figure { margin: 16px 0; }
+        img { max-width: 100%; height: auto; display: block; margin: 0 auto; }
+        a { color: #0b57d0; text-decoration: underline; }
     """
     if soup.head: soup.head.append(style_tag)
     else: soup.append(style_tag)
@@ -294,6 +328,16 @@ st.markdown("""
 /* Global Font Setting */
 html, body, [class*="css"], .stTextInput input, .stMultiSelect, .stButton button {
     font-family: 'Times New Roman', serif !important;
+}
+
+.stApp {
+    max-width: 1500px;
+    margin: 0 auto;
+}
+
+[data-testid="stMainBlockContainer"] {
+    padding-top: 0.5rem;
+    padding-bottom: 2rem;
 }
 
 /* Tabs Styling */
@@ -391,9 +435,9 @@ tab_sec2, tab_sec34, tab_sec5, tab_papers, tab_survey = st.tabs([
     "Survey Generator"
 ])
 
-with tab_sec2: components.html(html_tab1, height=1200, scrolling=True)
-with tab_sec34: components.html(html_tab2, height=1200, scrolling=True)
-with tab_sec5: components.html(html_tab3, height=1200, scrolling=True)
+with tab_sec2: st.iframe(html_tab1, height=1350)
+with tab_sec34: st.iframe(html_tab2, height=1350)
+with tab_sec5: st.iframe(html_tab3, height=1350)
 
 # --- TAB 4: PAPER LIST ---
 with tab_papers:
@@ -436,17 +480,23 @@ with tab_papers:
         with st.container(height=1000, border=False):
             for idx, paper in enumerate(filtered_papers):
                 with st.container():
+                    paper_id = re.sub(r"[^A-Za-z0-9_-]+", "_", paper.get("filename", str(idx)))
+                    summary_key = f"show_summary_{paper_id}"
                     c_num, c_content, c_btns = st.columns([1, 14, 3])
                     
                     with c_num:
                         st.markdown(f"<div class='paper-number'>{idx + 1}</div>", unsafe_allow_html=True)
                     
                     with c_content:
+                        title_html = html_lib.escape(paper['title'], quote=True)
+                        authors_html = html_lib.escape(paper['authors'], quote=True)
+                        venue_html = html_lib.escape(paper['venue'], quote=True)
+                        year_html = html_lib.escape(str(paper['year']), quote=True)
                         content_html = f"""
                         <div style="font-family: 'Times New Roman', serif;">
-                            <div style="font-size: 18px; font-weight: bold; color: #000;">{paper['title']}</div>
-                            <div style="font-size: 15px; color: #333; font-style: italic;">{paper['authors']} ({paper['year']})</div>
-                            <div style="font-size: 14px; color: #666;">{paper['venue']}</div>
+                            <div style="font-size: 18px; font-weight: bold; color: #000;">{title_html}</div>
+                            <div style="font-size: 15px; color: #333; font-style: italic;">{authors_html} ({year_html})</div>
+                            <div style="font-size: 14px; color: #666;">{venue_html}</div>
                         </div>
                         """
                         st.markdown(content_html, unsafe_allow_html=True)
@@ -454,13 +504,16 @@ with tab_papers:
                     with c_btns:
                         b1, b2 = st.columns([1, 1])
                         with b1:
-                            if st.button("📄", key=f"sum_btn_{idx}", help="View Summary"):
-                                state_key = f"show_summary_{idx}"
-                                st.session_state[state_key] = not st.session_state.get(state_key, False)
+                            if st.button("📄", key=f"sum_btn_{paper_id}", help="View Summary"):
+                                st.session_state[summary_key] = not st.session_state.get(summary_key, False)
                         with b2:
-                            st.link_button("🔗", paper['url'], help="Go to Source")
+                            url = paper.get("url", "")
+                            if isinstance(url, str) and url.startswith(("http://", "https://")):
+                                st.link_button("🔗", url, help="Go to Source")
+                            else:
+                                st.button("🔗", key=f"link_btn_{paper_id}", help="No source link available", disabled=True)
 
-                    if st.session_state.get(f"show_summary_{idx}", False):
+                    if st.session_state.get(summary_key, False):
                         rich_summary_html = generate_summary_html(paper['full_data'])
                         
                         st.markdown(f"""
@@ -501,6 +554,11 @@ with tab_survey:
     st.markdown("Generate a structured, scientific-style survey from selected papers.")
     st.markdown("---")
 
+    if "survey_selected_titles" not in st.session_state:
+        st.session_state.survey_selected_titles = []
+    if "survey_output" not in st.session_state:
+        st.session_state.survey_output = ""
+
     col_left, col_right = st.columns([1, 2])
 
     with col_left:
@@ -524,22 +582,33 @@ with tab_survey:
 
         # 3. PAPER SELECTION (Filtered by year)
         st.markdown("**3. Select Papers**")
-        
+
         # Filter titles based on selected years
         if selected_years:
             filtered_paper_data = [p for p in PAPER_DATA if p['year'] in selected_years]
         else:
             filtered_paper_data = PAPER_DATA
-            
+
         # Map Title -> Full Data
         paper_map = {p['title']: p['full_data'] for p in filtered_paper_data}
         all_titles = sorted(list(paper_map.keys()))
-        
+
+        valid_selected_titles = [title for title in st.session_state.survey_selected_titles if title in paper_map]
+        if valid_selected_titles != st.session_state.survey_selected_titles:
+            st.session_state.survey_selected_titles = valid_selected_titles
+
         selected_titles = st.multiselect(
             "Choose papers to include in the survey:",
             options=all_titles,
+            default=st.session_state.survey_selected_titles,
             help="Select multiple papers to synthesize into a survey."
         )
+        st.session_state.survey_selected_titles = selected_titles
+
+        if not all_titles:
+            st.info("No papers are available for the currently selected years.")
+        else:
+            st.caption(f"{len(all_titles)} papers available for the current filter.")
 
         # 4. GENERATE BUTTON
         st.markdown("<br>", unsafe_allow_html=True)
@@ -547,7 +616,7 @@ with tab_survey:
 
     with col_right:
         st.markdown("**Survey Output**")
-        
+
         if generate_clicked:
             if not openai_api_key:
                 st.error("Please enter your OpenAI API key first.")
@@ -568,27 +637,20 @@ with tab_survey:
 
                     with st.spinner("Generating survey summary... this may take a minute ⏳"):
                         response = client.chat.completions.create(
-                            model="gpt-4o", 
+                            model="gpt-4o",
                             messages=messages,
                             temperature=0.1,
                             max_tokens=4000,
                         )
 
                     survey_text = response.choices[0].message.content.strip()
+                    st.session_state.survey_output = survey_text
 
                     st.success("Survey Generated Successfully!")
-                    st.markdown(f"""
-                    <div style="
-                        background-color: #fff; 
-                        padding: 20px; 
-                        border: 1px solid #ddd; 
-                        border-radius: 5px; 
-                        font-family: 'Times New Roman', serif; 
-                        color: #000; 
-                        line-height: 1.6;">
-                        {survey_text}
-                    </div>
-                    """, unsafe_allow_html=True)
 
                 except Exception as e:
                     st.error(f"An error occurred: {e}")
+        if st.session_state.survey_output:
+            st.markdown(st.session_state.survey_output)
+        elif not generate_clicked:
+            st.info("Choose papers and click generate to create a survey.")
