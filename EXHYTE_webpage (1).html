@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>The EXHYTE Framework</title>
+<style>
+html {
+  background: #fff;
+  color: #000;
+}
+body.exhyte-paper {
+  box-sizing: border-box;
+  margin: 0 auto;
+  max-width: 1040px;
+  padding: 34px 34px 58px;
+  color: #000;
+  background: #fff;
+  font-family: "Times New Roman", Times, serif;
+  font-size: 16px;
+  line-height: 1.42;
+  text-rendering: optimizeLegibility;
+  font-kerning: normal;
+}
+.exhyte-paper * {
+  box-sizing: border-box;
+}
+h1 {
+  margin: 24px 0 15px;
+  font-size: 28px;
+  line-height: 1.18;
+  font-weight: 700;
+}
+h2 {
+  margin: 22px 0 12px;
+  font-size: 24px;
+  line-height: 1.2;
+  font-weight: 700;
+}
+h3 {
+  margin: 18px 0 9px;
+  font-size: 20px;
+  line-height: 1.22;
+  font-weight: 700;
+}
+p {
+  margin: 0 0 10px;
+  text-align: justify;
+  text-indent: 1.6em;
+}
+p.no-indent,
+figure + p,
+table + p,
+.table-wrap + p,
+.references p,
+li p {
+  text-indent: 0;
+}
+ul, ol {
+  margin: 8px 0 14px 28px;
+  padding: 0;
+}
+li {
+  margin: 0 0 8px;
+  text-align: justify;
+}
+li p {
+  margin: 0;
+}
+figure {
+  margin: 24px auto 26px;
+  text-align: center;
+  break-inside: avoid;
+}
+figure img {
+  height: auto;
+  display: block;
+  margin: 0 auto;
+}
+.figure-1 img { width: 80%; }
+.figure-2 img { width: 90%; }
+.figure-3 img { width: 90%; }
+.figure-4 img { width: 84%; }
+figcaption {
+  margin: 9px auto 0;
+  max-width: 1040px;
+  font-size: 14px;
+  line-height: 1.35;
+  text-align: left;
+}
+figcaption strong {
+  margin-right: 6px;
+}
+.table-wrap {
+  margin: 20px 0 26px;
+  break-inside: avoid;
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.24;
+  border-top: 1px solid #000;
+  border-bottom: 1px solid #000;
+}
+caption {
+  caption-side: top;
+  text-align: left;
+  margin: 0 0 11px;
+  font-size: 15px;
+  line-height: 1.25;
+}
+th, td {
+  padding: 7px 9px;
+  vertical-align: top;
+  text-align: left;
+  border: 0;
+  border-bottom: 0.5px solid #777;
+}
+tr:last-child td {
+  border-bottom: 0;
+}
+th {
+  font-weight: 400;
+}
+a {
+  color: #00f;
+  text-decoration: none;
+}
+.citation {
+  white-space: nowrap;
+}
+.references {
+  margin-top: 32px;
+  border-top: 1px solid #bbb;
+  padding-top: 16px;
+}
+.references h1 {
+  font-size: 24px;
+  margin: 0 0 14px;
+}
+.reference-entry {
+  position: relative;
+  margin: 0 0 8px 34px;
+  font-size: 14px;
+  line-height: 1.32;
+  text-align: left;
+}
+.reference-entry .ref-num {
+  position: absolute;
+  left: -34px;
+  color: #000;
+}
+code {
+  font-family: "Courier New", Courier, monospace;
+  font-size: 0.95em;
+}
+@media (max-width: 760px) {
+  body.exhyte-paper {
+    max-width: none;
+    padding: 22px 16px 40px;
+    font-size: 15.5px;
+  }
+  h1 { font-size: 25px; }
+  h2 { font-size: 22px; }
+  h3 { font-size: 19px; }
+  figure img { max-width: 100%; }
+  table { font-size: 13px; }
+}
+</style>
+</head>
+<body class="exhyte-paper">
+<h1 id="sec2">The EXHYTE Framework: An Empirical Workflow Abstraction
+for AI-Assisted Scientific Discovery</h1><p>This survey uses EXHYTE as a workflow abstraction for organizing and
+comparing AI-for-science systems (Fig. <a data-reference="fig:exhyte-cycle" data-reference-type="ref" href="#fig:exhyte-cycle">1</a>). We
+derived its stages through a comparative analysis of recent LLM- and
+agent-based research systems, in which a recurring operational structure
+appears across domains: scientific knowledge or data are first
+retrieved, organized, or analyzed; candidate hypotheses, ideas, designs,
+or interventions are then generated; and these candidates are
+subsequently evaluated through computational, experimental, or
+expert-mediated testing. EXHYTE formalizes this observed design pattern
+as a review framework for mapping system capabilities, not as a
+comprehensive account of scientific method.</p><p>This distinction matters. Scientific inquiry also involves problem
+formulation, theoretical framing, anomaly recognition, conceptual
+change, instrument development, social validation, and judgments about
+which questions are worth pursuing. Many of these activities are only
+partially represented in current AI-for-science systems, and several
+remain dependent on human researchers. EXHYTE should therefore be read
+as an empirical abstraction of the systems surveyed here, not as a claim
+that all discovery reduces to an explore-hypothesize-test sequence.</p><p>Research typically enters the EXHYTE workflow through an input or boundary condition: an open question, an unexpected observation, an anomaly in data, a new measurement technology, a dataset, a paper collection, or a user-specified research goal. We treat these inputs as boundary conditions because most existing systems still rely</p><figure class="figure-1" id="fig:exhyte-cycle"><img src="figure1.v10.png"/><figcaption><strong>Fig. 1</strong> Overview of EXHYTE as an empirical workflow abstraction for AI-assisted scientific discovery. Inputs and boundary conditions initiate or constrain the workflow. Outputs from testing can provide workflow feedback by updating the knowledge base, refining candidate hypotheses or designs, adjusting evaluation plans, or motivating additional exploration.</figcaption></figure><p class="no-indent">on human researchers to define the initial problem space, select contextual materials, specify constraints, and judge whether a question is worth pursuing. This boundary does not make problem formulation trivial; rather, it identifies automated support for problem formulation, anomaly recognition, and research-priority assessment as important open challenges for AI-assisted discovery.</p><p>Once an input has been specified, the first stage,
+<strong>EXPLORE</strong>, organizes what is known and exposes what
+remains uncertain. It assembles and structures knowledge so that gaps,
+unresolved questions, empirical patterns, or candidate search spaces
+become explicit and actionable. This stage consists of three
+substages:</p><ul>
+<li><p><strong>E1: Query structuring</strong> translates research
+questions, goals, or inputs into machine-actionable forms, such as key
+phrases, controlled vocabularies, domain schemas, or decomposed
+sub-queries, to guide retrieval and analysis.</p></li>
+<li><p><strong>E2: Data retrieval</strong> collects literature, code,
+structured datasets, molecular or materials records, and other
+scientific resources from repositories, databases, and APIs according to
+the structured query plan from E1.</p></li>
+<li><p><strong>E3: Knowledge assembly</strong> normalizes and integrates
+retrieved information into representations such as embeddings, graphs,
+feature tables, structured summaries, or curated databases, surfacing
+gaps, patterns, or candidate directions.</p></li>
+</ul><p>The output of EXPLORE is a structured knowledge base, set of
+retrieved resources, or empirical representation that supports
+downstream generation of candidate hypotheses, ideas, or designs.</p><p><strong>HYPOTHESIZE</strong> transforms knowledge gaps, empirical
+patterns, or design opportunities into candidate ideas or specific
+claims. It includes two substages:</p><ul>
+<li><p><strong>H1: Hypothesis/idea generation</strong> formulates
+candidate mechanisms, explanations, designs, or interventions through
+approaches such as literature-grounded reasoning, multi-agent synthesis,
+knowledge-graph reasoning, or data-driven pattern discovery.</p></li>
+<li><p><strong>H2: Hypothesis/idea prioritization</strong> evaluates
+these candidates for properties such as novelty, plausibility,
+feasibility, expected impact, testability, or alignment with domain
+constraints, using LLM-based evaluation, literature-based assessment,
+quantitative domain metrics, or expert review.</p></li>
+</ul><p>The outcome of HYPOTHESIZE is a ranked or filtered set of candidate
+hypotheses, ideas, or designs with rationales, evidence links, and, when
+available, success criteria for evaluation.</p><p><strong>TEST</strong> translates selected candidates into executable
+evaluations and produces evidence that informs subsequent workflow
+steps. It includes two substages:</p><ul>
+<li><p><strong>T1: Experimental design</strong> specifies objectives,
+protocols, datasets, materials, computational workflows, and measurable
+outcomes, yielding executable experimental or computational
+plans.</p></li>
+<li><p><strong>T2: Testing and refinement</strong> performs in silico,
+in vitro, in vivo, or expert-mediated evaluation and analyzes the
+results to assess, revise, or reject candidate hypotheses, ideas, or
+designs.</p></li>
+</ul><p>The output of TEST may include quantitative results, experimental
+observations, expert assessments, error analyses, updated evidence
+records, or revised candidate descriptions. In a workflow setting, these
+outputs can update the assembled knowledge base, refine candidate
+hypotheses or designs, adjust evaluation protocols, or identify
+additional information needed for subsequent analysis. Feedback in
+EXHYTE should thus be understood as a practical mechanism for linking
+evaluation results back to earlier workflow components, not as a
+philosophical claim that evidence mechanically confirms or falsifies
+hypotheses.</p><p>Taken together, the three stages provide a structured vocabulary for
+analyzing the current AI-for-science literature. EXHYTE lets us ask
+where existing systems concentrate their capabilities, which substages
+remain underdeveloped, how components connect across the workflow, and
+where human oversight remains necessary for problem choice, evidence
+interpretation, risk assessment, and scientific value judgment. In this
+sense, EXHYTE functions as both a review framework and a design map for
+AI-assisted discovery workflows.</p>
+</body>
+</html>

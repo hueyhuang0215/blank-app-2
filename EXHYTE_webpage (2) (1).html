@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>Tools and Datasets for Building EXHYTE Workflows</title>
+<style>
+html {
+  background: #fff;
+  color: #000;
+}
+body.exhyte-paper {
+  box-sizing: border-box;
+  margin: 0 auto;
+  max-width: 1040px;
+  padding: 34px 34px 58px;
+  color: #000;
+  background: #fff;
+  font-family: "Times New Roman", Times, serif;
+  font-size: 16px;
+  line-height: 1.42;
+  text-rendering: optimizeLegibility;
+  font-kerning: normal;
+}
+.exhyte-paper * {
+  box-sizing: border-box;
+}
+h1 {
+  margin: 24px 0 15px;
+  font-size: 28px;
+  line-height: 1.18;
+  font-weight: 700;
+}
+h2 {
+  margin: 22px 0 12px;
+  font-size: 24px;
+  line-height: 1.2;
+  font-weight: 700;
+}
+h3 {
+  margin: 18px 0 9px;
+  font-size: 20px;
+  line-height: 1.22;
+  font-weight: 700;
+}
+p {
+  margin: 0 0 10px;
+  text-align: justify;
+  text-indent: 1.6em;
+}
+p.no-indent,
+figure + p,
+table + p,
+.table-wrap + p,
+.references p,
+li p {
+  text-indent: 0;
+}
+ul, ol {
+  margin: 8px 0 14px 28px;
+  padding: 0;
+}
+li {
+  margin: 0 0 8px;
+  text-align: justify;
+}
+li p {
+  margin: 0;
+}
+figure {
+  margin: 24px auto 26px;
+  text-align: center;
+  break-inside: avoid;
+}
+figure img {
+  height: auto;
+  display: block;
+  margin: 0 auto;
+}
+.figure-1 img { width: 80%; }
+.figure-2 img { width: 90%; }
+.figure-3 img { width: 90%; }
+.figure-4 img { width: 84%; }
+figcaption {
+  margin: 9px auto 0;
+  max-width: 1040px;
+  font-size: 14px;
+  line-height: 1.35;
+  text-align: left;
+}
+figcaption strong {
+  margin-right: 6px;
+}
+.table-wrap {
+  margin: 20px 0 26px;
+  break-inside: avoid;
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.24;
+  border-top: 1px solid #000;
+  border-bottom: 1px solid #000;
+}
+caption {
+  caption-side: top;
+  text-align: left;
+  margin: 0 0 11px;
+  font-size: 15px;
+  line-height: 1.25;
+}
+th, td {
+  padding: 7px 9px;
+  vertical-align: top;
+  text-align: left;
+  border: 0;
+  border-bottom: 0.5px solid #777;
+}
+tr:last-child td {
+  border-bottom: 0;
+}
+th {
+  font-weight: 400;
+}
+a {
+  color: #00f;
+  text-decoration: none;
+}
+.citation {
+  white-space: nowrap;
+}
+.references {
+  margin-top: 32px;
+  border-top: 1px solid #bbb;
+  padding-top: 16px;
+}
+.references h1 {
+  font-size: 24px;
+  margin: 0 0 14px;
+}
+.reference-entry {
+  position: relative;
+  margin: 0 0 8px 34px;
+  font-size: 14px;
+  line-height: 1.32;
+  text-align: left;
+}
+.reference-entry .ref-num {
+  position: absolute;
+  left: -34px;
+  color: #000;
+}
+code {
+  font-family: "Courier New", Courier, monospace;
+  font-size: 0.95em;
+}
+@media (max-width: 760px) {
+  body.exhyte-paper {
+    max-width: none;
+    padding: 22px 16px 40px;
+    font-size: 15.5px;
+  }
+  h1 { font-size: 25px; }
+  h2 { font-size: 22px; }
+  h3 { font-size: 19px; }
+  figure img { max-width: 100%; }
+  table { font-size: 13px; }
+}
+</style>
+</head>
+<body class="exhyte-paper">
+<h1 id="tools-and-datasets-for-building-exhyte-workflows">Tools and
+Datasets for Building EXHYTE Workflows</h1><p>The preceding sections surveyed strategies for each EXHYTE stage.
+Here we complement that view with the practical tools, APIs, and
+datasets that enable those strategies to operate (Table <a data-reference="tab:tools-apis-exhyte" data-reference-type="ref" href="#tab:tools-apis-exhyte">1</a> and  <a data-reference="tab:benchmarks-domains" data-reference-type="ref" href="#tab:benchmarks-domains">2</a>). We group resources by
+their role in the framework and note where they most naturally plug into
+EXHYTE.</p><div class="table-wrap" id="tab:tools-apis-exhyte">
+<table>
+<caption><strong>Table 1</strong> AI tools and APIs supporting the EXHYTE workflow</caption>
+<thead>
+<tr>
+<th style="text-align: left;">Category</th>
+<th style="text-align: left;">Tools/APIs</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Literature &amp; Data Retrieval
+APIs (E2)</strong></td>
+<td style="text-align: left;">Semantic Scholar <span class="citation">[<a href="#ref-semanticscholar-api">81</a>]</span>, PubMed <span class="citation">[<a href="#ref-pubmed2025">82</a>]</span>, arXiv <span class="citation">[<a href="#ref-arxiv-api">83</a>]</span>, OpenAlex <span class="citation">[<a href="#ref-openalex2022">84</a>]</span>, PubChem <span class="citation">[<a href="#ref-pubchem2021">85</a>]</span>, NASA ADS <span class="citation">[<a href="#ref-ads2015">86</a>]</span>, Materials Project <span class="citation">[<a href="#ref-mp_time_split_guide">60</a>]</span></td>
+</tr>
+<tr>
+<td style="text-align: left;"><span>1-2</span> <strong>Text Parsing
+&amp; Normalization (E3)</strong></td>
+<td style="text-align: left;">PyPDF2 <span class="citation">[<a href="#ref-PyPDF2">87</a>]</span>, SciPDF <span class="citation">[<a href="#ref-scipdf-parser">88</a>]</span>, pymupdf4llm <span class="citation">[<a href="#ref-pymupdf4llm">89</a>]</span>, S2ORC doc2json <span class="citation">[<a href="#ref-s2orc2020">90</a>]</span>, RecursiveCharacterTextSplitter <span class="citation">[<a href="#ref-langchain2023">91</a>]</span>, BeautifulSoup <span class="citation">[<a href="#ref-beautifulsoup">92</a>]</span></td>
+</tr>
+<tr>
+<td style="text-align: left;"><span>1-2</span> <strong>Embedding &amp;
+Representation (E2/E3)</strong></td>
+<td style="text-align: left;">OpenAI text embeddings <span class="citation">[<a href="#ref-openai-embeddings">93</a>]</span>, BERT <span class="citation">[<a href="#ref-Devlin2019BERT">94</a>]</span>, SciBERT <span class="citation">[<a href="#ref-Beltagy2019SciBERT">95</a>]</span>, SentenceBERT
+<span class="citation">[<a href="#ref-Reimers2019SentenceBERT">96</a>]</span>,
+BAAI/bge-large-en-v1.5 <span class="citation">[<a href="#ref-bge_large_en_v1p5">97</a>]</span>, Google-GenerativeAIEmbeddings
+<span class="citation">[<a href="#ref-google_generativeai_embeddings">98</a>]</span>, jina-embedding-v3
+<span class="citation">[<a href="#ref-Sturua2024JinaEmbeddingV3">99</a>]</span>,
+ChemBERTa <span class="citation">[<a href="#ref-chemberta">100</a>]</span></td>
+</tr>
+<tr>
+<td style="text-align: left;"><span>1-2</span> <strong>Similarity Search
+&amp; Indexing (E2/H2)</strong></td>
+<td style="text-align: left;">FAISS <span class="citation">[<a href="#ref-johnson2017faiss">101</a>]</span>, Tanimoto <span class="citation">[<a href="#ref-bajusz2015tanimoto">102</a>]</span></td>
+</tr>
+<tr>
+<td style="text-align: left;"><span>1-2</span> <strong>Text Mining &amp;
+Knowledge Graph Construction (E3)</strong></td>
+<td style="text-align: left;">BLINK <span class="citation">[<a href="#ref-BLINK2020">103</a>]</span>, NER (Entity Linker) <span class="citation">[<a href="#ref-spacy2017">104</a>]</span>,PL-Marker <span class="citation">[<a href="#ref-PLMarker2022">105</a>]</span>, SciCo <span class="citation">[<a href="#ref-SciCo2021">106</a>]</span>, SciSpacy <span class="citation">[<a href="#ref-scispacy2019">107</a>]</span></td>
+</tr>
+</tbody>
+</table>
+</div><h2 id="core-tools-and-apis">Core tools and APIs</h2><p><strong>Literature &amp; data access (E2).</strong> For scientific
+publications and metadata, commonly used resources include
+<code>Semantic Scholar</code> <span class="citation">[<a href="#ref-semanticscholar-api">81</a>]</span>, <code>PubMed</code> <span class="citation">[<a href="#ref-pubmed2025">82</a>]</span>, <code>arXiv</code>
+<span class="citation">[<a href="#ref-arxiv-api">83</a>]</span>,
+<code>OpenAlex</code> <span class="citation">[<a href="#ref-openalex2022">84</a>]</span>, <code>NASA ADS</code> <span class="citation">[<a href="#ref-ads2015">86</a>]</span>. Chemical and materials
+data are typically sourced from <code>PubChem</code> <span class="citation">[<a href="#ref-pubchem2021">85</a>]</span> and the
+<code>Materials Project</code> <span class="citation">[<a href="#ref-mp_time_split_guide">60</a>]</span>.</p><p><strong>Text parsing, extraction &amp; normalization (E3).</strong> A
+variety of tools are employed for text parsing, extraction and
+normalization. PDF and document content are commonly processed using
+<code>PyPDF2</code> <span class="citation">[<a href="#ref-PyPDF2">87</a>]</span>,
+<code>SciPDF</code> <span class="citation">[<a href="#ref-scipdf-parser">88</a>]</span>, <code>pymupdf4llm</code> <span class="citation">[<a href="#ref-pymupdf4llm">89</a>]</span>, and
+<code>S2ORC-doc2json</code> <span class="citation">[<a href="#ref-s2orc2020">90</a>]</span>, while
+<code>RecursiveCharacterTextSplitter</code> <span class="citation">[<a href="#ref-langchain2023">91</a>]</span> is used for document chunking. HTML
+content is parsed with <code>BeautifulSoup</code> <span class="citation">[<a href="#ref-beautifulsoup">92</a>]</span>. For entity extraction and
+normalization, tools such as <code>BLINK</code> <span class="citation">[<a href="#ref-BLINK2020">103</a>]</span>, the <code>NER</code> <span class="citation">[<a href="#ref-spacy2017">104</a>]</span> tool,
+<code>PL-Marker</code> <span class="citation">[<a href="#ref-PLMarker2022">105</a>]</span>, <code>SciCo</code> <span class="citation">[<a href="#ref-SciCo2021">106</a>]</span>, and
+<code>ScispaCy</code> <span class="citation">[<a href="#ref-scispacy-entitylinker">108</a>]</span> are frequently applied.</p><p><strong>Vector representations, similarity search &amp; retrieval
+(E2/E3).</strong> A range of embedding generation methods are used to
+represent text, structured data, molecular properties, and knowledge
+graph nodes. Text embeddings are commonly produced using models such as
+<code>Text-Embedding-3 (OpenAI)</code> <span class="citation">[<a href="#ref-openai_text_embedding_3">109</a>]</span>, <code>BERT</code> <span class="citation">[<a href="#ref-Devlin2019BERT">94</a>]</span>,
+<code>SciBERT</code> <span class="citation">[<a href="#ref-Beltagy2019SciBERT">95</a>]</span>, <code>SentenceBERT</code> <span class="citation">[<a href="#ref-Reimers2019SentenceBERT">96</a>]</span>
+(all-MiniLM-L6-v2), <code>BAAI/bge-large-en-v1.5</code> <span class="citation">[<a href="#ref-bge_large_en_v1p5">97</a>]</span>,
+<code>Google-GenerativeAIEmbeddings</code> <span class="citation">[<a href="#ref-google_generativeai_embeddings">98</a>]</span>, and
+<code>jina-embedding-v3</code> <span class="citation">[<a href="#ref-Sturua2024JinaEmbeddingV3">99</a>]</span>. Molecular similarity is
+computed using measures such as the <code>Tanimoto coefficient</code>
+<span class="citation">[<a href="#ref-bajusz2015tanimoto">102</a>]</span> based on
+fingerprints and <code>ChemBERTa</code> <span class="citation">[<a href="#ref-chemberta">100</a>]</span> cosine similarity from last hidden state
+embeddings. For efficient similarity search and retrieval, vector
+indices and nearest neighbor search libraries such as <code>FAISS</code>
+<span class="citation">[<a href="#ref-johnson2017faiss">101</a>]</span> are widely
+used, supporting fast retrieval of semantically or chemically similar
+items.</p><p><strong>Cheminformatics and molecular analysis (H2).</strong> Several
+specialized tools such as <code>RDKit</code> <span class="citation">[<a href="#ref-rdkit-docs">110</a>]</span> for molecular feature calculation,
+<code>OmegaFold</code> <span class="citation">[<a href="#ref-OmegaFold">111</a>]</span> for protein folding prediction, and
+<code>SynergyFinder 3.0</code> <span class="citation">[<a href="#ref-SynergyFinder3">112</a>]</span> for evaluating drug synergy and
+additivity from experimental data.</p><h2 id="benchmark-datasets-and-evaluation-corpora">Benchmark datasets
+and evaluation corpora</h2><p><strong>Drug Discovery, Bioactivity, and Clinical:</strong> Several
+benchmark datasets are widely used in drug discovery and clinical
+research. <code>DrugBank</code><span class="citation">[<a href="#ref-knox2024drugbank">22</a>]</span> and <code>KIBA</code><span class="citation">[<a href="#ref-pahikkala2015kiba">23</a>]</span> provide
+molecular and bioactivity data for drug-target interaction prediction,
+while <code>DAVIS</code><span class="citation">[<a href="#ref-Davis2011">113</a>]</span> offers drug and protein binding affinity
+data. Large-scale compound collections such as <code>ZINC</code><span class="citation">[<a href="#ref-sterling2015zinc15">114</a>]</span> (over 230
+million purchasable 3D compounds) and <code>ChEMBL</code><span class="citation">[<a href="#ref-gaulton2017chembl">115</a>]</span> (bioactive
+compounds with properties) are commonly used for training, activity
+optimization, and modification tasks. Protein-ligand docking performance
+is assessed using <code>CrossDocked2020</code><span class="citation">[<a href="#ref-CrossDocked2020">116</a>]</span>, and clinical evaluation often
+relies on <code>MIMIC-CDM</code><span class="citation">[<a href="#ref-paris2021mimic_omop">117</a>]</span>, which contains 2,400 patients
+with four abdominal conditions including patient histories, physical
+exam notes, imaging reports, and laboratory results.</p><p><strong>Materials Science and Chemistry:</strong> In materials
+science, datasets such as <code>MP-20</code> (a subset of Materials
+Project<span class="citation">[<a href="#ref-mp_time_split_guide">60</a>]</span>
+with 45,231 inorganic crystalline materials), <code>NOMAD</code><span class="citation">[<a href="#ref-NOMADArchive">59</a>]</span> (2.9 million
+materials), <code>Matbench</code><span class="citation">[<a href="#ref-dunn2020matbench">119</a>]</span>, and <code>JARVIS-DFT</code><span class="citation">[<a href="#ref-JARVIS">118</a>]</span> (61,541 crystal structures
+with bandgap values) are commonly used for property prediction and
+generative modeling. <code>OC20-S2EF 2M</code><span class="citation">[<a href="#ref-oc20-s2ef">120</a>]</span> provides two million catalyst structures
+for training models such as CatGPT. Additional chemistry-focused
+benchmarks include <code>TOMATO-Chem</code><span class="citation">[<a href="#ref-yang2024moose">2</a>]</span>, for hypothesis rediscovery and
+ranking from annotated papers, and
+<code>Superconductor Optimization (SPO)</code><span class="citation">[<a href="#ref-pu2025piflow">17</a>]</span>, which contains 26,321 superconducting
+materials with chemical formulas and critical temperatures.</p><div class="table-wrap" id="tab:benchmarks-domains">
+<table>
+<caption><strong>Table 2</strong> Benchmark datasets across domains</caption>
+<thead>
+<tr>
+<th style="text-align: left;">Category</th>
+<th style="text-align: left;">Subcategory</th>
+<th style="text-align: left;">Dataset Names</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Drug Discovery &amp;
+Bioactivity</strong></td>
+<td style="text-align: left;">Drug-target interaction</td>
+<td style="text-align: left;"><strong>DrugBank</strong> <span class="citation">[<a href="#ref-knox2024drugbank">22</a>]</span>,
+<strong>KIBA</strong> <span class="citation">[<a href="#ref-pahikkala2015kiba">23</a>]</span>, <strong>DAVIS</strong> <span class="citation">[<a href="#ref-Davis2011">113</a>]</span></td>
+</tr>
+<tr>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">Large compound collections</td>
+<td style="text-align: left;"><strong>ZINC</strong> <span class="citation">[<a href="#ref-sterling2015zinc15">114</a>]</span>,
+<strong>ChEMBL</strong> <span class="citation">[<a href="#ref-gaulton2017chembl">115</a>]</span></td>
+</tr>
+<tr>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">Protein-ligand docking</td>
+<td style="text-align: left;"><strong>CrossDocked2020</strong> <span class="citation">[<a href="#ref-CrossDocked2020">116</a>]</span></td>
+</tr>
+<tr>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">Clinical / patient data</td>
+<td style="text-align: left;"><strong>MIMIC-CDM</strong> <span class="citation">[<a href="#ref-paris2021mimic_omop">117</a>]</span></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Materials Science &amp;
+Chemistry</strong></td>
+<td style="text-align: left;">Inorganic crystal structures</td>
+<td style="text-align: left;"><strong>MP-20</strong> <span class="citation">[<a href="#ref-mp_time_split_guide">60</a>]</span>,
+<strong>NOMAD</strong> <span class="citation">[<a href="#ref-NOMADArchive">59</a>]</span>, <strong>JARVIS-DFT</strong> <span class="citation">[<a href="#ref-JARVIS">118</a>]</span></td>
+</tr>
+<tr>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">Materials property prediction</td>
+<td style="text-align: left;"><strong>Matbench</strong> <span class="citation">[<a href="#ref-dunn2020matbench">119</a>]</span></td>
+</tr>
+<tr>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">Catalyst structures</td>
+<td style="text-align: left;"><strong>OC20-S2EF 2M</strong> <span class="citation">[<a href="#ref-oc20-s2ef">120</a>]</span></td>
+</tr>
+<tr>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">Chemistry hypothesis</td>
+<td style="text-align: left;"><strong>TOMATO-Chem</strong> <span class="citation">[<a href="#ref-yang2024moose">2</a>]</span></td>
+</tr>
+<tr>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">Superconducting materials</td>
+<td style="text-align: left;"><strong>Superconductor Optimization
+(SPO)</strong> <span class="citation">[<a href="#ref-pu2025piflow">17</a>]</span></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Multi-domain/ NLP/AI
+Reasoning</strong></td>
+<td style="text-align: left;">Binary classification / suitability</td>
+<td style="text-align: left;"><strong>BUSINESS SHOES</strong><span class="citation">[<a href="#ref-yang2025robust">121</a>]</span></td>
+</tr>
+<tr>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">Deception detection</td>
+<td style="text-align: left;"><strong>DECEPTIVE REVIEWS</strong> <span class="citation">[<a href="#ref-li2014towards">122</a>]</span></td>
+</tr>
+<tr>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">Popularity prediction</td>
+<td style="text-align: left;"><strong>HEADLINE POPULARITY</strong> <span class="citation">[<a href="#ref-banerjee2025language">123</a>]</span>,
+<strong>TWEET POPULARITY</strong> <span class="citation">[<a href="#ref-tan2014effect">124</a>]</span></td>
+</tr>
+<tr>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">Mental stress &amp; persuasion</td>
+<td style="text-align: left;"><strong>DREADDIT</strong> <span class="citation">[<a href="#ref-turcan2019dreaddit">125</a>]</span>,
+<strong>PERSUASIVE PAIRS</strong> <span class="citation">[<a href="#ref-pauli2025measuring">126</a>]</span></td>
+</tr>
+<tr>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">Systematic review &amp; literature
+reasoning</td>
+<td style="text-align: left;"><strong>RCT Summaries</strong> <span class="citation">[<a href="#ref-wallace2021generating">127</a>]</span>,
+<strong>HypoGen</strong> <span class="citation">[<a href="#ref-o2025sparks">42</a>]</span></td>
+</tr>
+</tbody>
+</table>
+</div><p><strong>Auxiliary Multi-domain Testbeds:</strong> Various
+multi-domain datasets are used for evaluation in NLP, AI reasoning, and
+behavioral tasks. <code>BUSINESS SHOES</code><span class="citation">[<a href="#ref-yang2025robust">121</a>]</span> evaluates binary classification for
+shoe suitability, and <code>DECEPTIVE REVIEWS</code><span class="citation">[<a href="#ref-li2014towards">122</a>]</span> contains genuine and
+fake hotel reviews for deception detection.
+<code>HEADLINE POPULARITY</code><span class="citation">[<a href="#ref-banerjee2025language">123</a>]</span> and
+<code>TWEET POPULARITY</code><span class="citation">[<a href="#ref-tan2014effect">124</a>]</span> assess popularity prediction of
+headlines and tweets, respectively, while <code>DREADDIT</code><span class="citation">[<a href="#ref-turcan2019dreaddit">125</a>]</span> and
+<code>PERSUASIVE PAIRS</code><span class="citation">[<a href="#ref-pauli2025measuring">126</a>]</span> focus on mental stress detection
+and persuasive argument prediction. Systematic review and reasoning
+datasets include <code>RCT Summaries</code><span class="citation">[<a href="#ref-wallace2021generating">127</a>]</span>, which links randomized
+controlled trials to PubMed papers, and <code>HypoGen</code><span class="citation">[<a href="#ref-o2025sparks">42</a>]</span>, containing
+approximately 5,500 structured problem-hypothesis pairs from NeurIPS
+2023 and ICLR 2024 papers, used for fine-tuning and evaluation.</p><h2 id="how-these-resources-connect-to-exhyte">How these resources
+connect to EXHYTE</h2><p><strong>E2 (Data Retrieval)</strong> is powered by literature and
+dataset retrieval APIs(Semantic Scholar<span class="citation">[<a href="#ref-semanticscholar-api">81</a>]</span>, PubMed<span class="citation">[<a href="#ref-pubmed2025">82</a>]</span>, arXiv<span class="citation">[<a href="#ref-arxiv-api">83</a>]</span>, OpenAlex<span class="citation">[<a href="#ref-openalex2022">84</a>]</span>, PubChem<span class="citation">[<a href="#ref-pubchem2021">85</a>]</span>) and efficient similarity search tools
+such as FIASS<span class="citation">[<a href="#ref-Johnson2019FAISS">128</a>]</span>, Tanimoto coefficient<span class="citation">[<a href="#ref-bajusz2015tanimoto">102</a>]</span> etc. <strong>E3
+(Knowledge Assembly)</strong> leverages PyPDF2<span class="citation">[<a href="#ref-PyPDF2">87</a>]</span>, SciPDF<span class="citation">[<a href="#ref-scipdf-parser">88</a>]</span> for parsing documents,
+RecursiveCharacterTextSplitter<span class="citation">[<a href="#ref-langchain2023">91</a>]</span> for document chunking,
+pymupdf4llm<span class="citation">[<a href="#ref-pymupdf4llm">89</a>]</span>,
+S2ORC-doc2json<span class="citation">[<a href="#ref-s2orc2020">90</a>]</span> for
+documents formatting, BLINK<span class="citation">[<a href="#ref-BLINK2020">103</a>]</span>, NER<span class="citation">[<a href="#ref-spacy2017">104</a>]</span>, PL-Marker<span class="citation">[<a href="#ref-PLMarker2022">105</a>]</span>, SciCo<span class="citation">[<a href="#ref-SciCo2021">106</a>]</span> for entity extraction and normalization.
+<strong>H2 (Prioritization)</strong> draws on similarity metrics
+(Tanimoto<span class="citation">[<a href="#ref-bajusz2015tanimoto">102</a>]</span>,
+ChemBERTa<span class="citation">[<a href="#ref-chemberta">100</a>]</span>) and
+benchmark corpora (e.g., TOMATO-Chem<span class="citation">[<a href="#ref-yang2024moose">2</a>]</span>, Matbench<span class="citation">[<a href="#ref-dunn2020matbench">119</a>]</span>) to score plausibility and novelty
+against known neighborhoods. <strong>T1–T2 (Test &amp;
+Refinement)</strong> use domain datasets (OC20-S2EF<span class="citation">[<a href="#ref-oc20-s2ef">120</a>]</span>, JARVIS-DFT<span class="citation">[<a href="#ref-JARVIS">118</a>]</span>, MIMIC-CDM<span class="citation">[<a href="#ref-paris2021mimic_omop">117</a>]</span>, ZINC<span class="citation">[<a href="#ref-sterling2015zinc15">114</a>]</span>) to instantiate
+executable protocols, measure performance with domain metrics, and
+iterate using empirical feedback.</p><p>A typical <em>in silico</em> screening loop begins by validating
+textual inputs (molecular SMILE string using <code>RDKit</code><span class="citation">[<a href="#ref-rdkit-docs">110</a>]</span>) and
+<code>PyPDF2</code><span class="citation">[<a href="#ref-PyPDF2">87</a>]</span>,
+<code>SciPDF</code><span class="citation">[<a href="#ref-scipdf-parser">88</a>]</span>, and <code>pymupdf4llm</code><span class="citation">[<a href="#ref-pymupdf4llm">89</a>]</span> are used for related
+PDF documents parsing and content extraction supported by structured
+conversion pipelines such as <code>S2ORC-doc2json</code><span class="citation">[<a href="#ref-s2orc2020">90</a>]</span> and the
+<code>RecursiveCharacterTextSplitter</code><span class="citation">[<a href="#ref-langchain2023">91</a>]</span>. Candidate representations are then
+retrieved through embedding-based similarity search, using
+<code>FAISS</code><span class="citation">[<a href="#ref-johnson2017faiss">101</a>]</span> for vector indexing and retrieval,
+<code>Tanimoto</code><span class="citation">[<a href="#ref-bajusz2015tanimoto">102</a>]</span> fingerprint similarity or
+<code>ChemBERTa</code><span class="citation">[<a href="#ref-chemberta">100</a>]</span> latent-space cosine similarity for
+molecular comparison, and text embeddings generated via models such as
+<code>Text-Embedding-3</code><span class="citation">[<a href="#ref-google_generativeai_embeddings">98</a>]</span>,
+<code>SciBERT</code><span class="citation">[<a href="#ref-Beltagy2019SciBERT">95</a>]</span>, or
+<code>BAAI/bge-large-en-v1.5</code><span class="citation">[<a href="#ref-bge_large_en_v1p5">97</a>]</span>. Task-relevant features are
+extracted and normalized via entity recognition and linking tools
+including <code>BLINK</code><span class="citation">[<a href="#ref-BLINK2020">103</a>]</span>, <code>NER</code><span class="citation">[<a href="#ref-spacy2017">104</a>]</span>, <code>PL-Marker</code><span class="citation">[<a href="#ref-PLMarker2022">105</a>]</span>,
+<code>SciCo</code><span class="citation">[<a href="#ref-SciCo2021">106</a>]</span>,
+and <code>ScispaCy</code><span class="citation">[<a href="#ref-scispacy-entitylinker">108</a>]</span>. Candidate hypotheses or
+molecular designs are subsequently evaluated on domain-specific
+benchmark datasets—such as <code>Matbench</code><span class="citation">[<a href="#ref-dunn2020matbench">119</a>]</span> or <code>MP-20</code><span class="citation">[<a href="#ref-mp_time_split_guide">60</a>]</span> providing
+quantitative feedback for <strong>H2</strong> prioritization and
+informing iterative refinement under <strong>T1–T2</strong>. This loop
+enables EXHYTE systems to continuously integrate retrieval (E2),
+structured knowledge assembly (E3), and hypothesis ranking (H2) within a
+unified testing and improvement cycle.</p><p>Together, these tools and datasets provide the material on which the
+EXHYTE strategies operate, enabling systems to move from retrieval and
+assembly to principled prioritization, testing, and refinement across
+chemistry, materials, biomedicine, and general scientific reasoning.</p><section class="references" id="references"><h1>References</h1><div class="reference-entry" id="ref-yang2024moose"><a id="ref-2"></a><span class="ref-num">[2]</span>Yang, Z., Liu, W., Gao, B., Xie, T., Li, Y., Ouyang, W., Poria, S., Cambria, E., Zhou, D.: Moose-chem: Large language models for rediscovering unseen chemistry scientific hypotheses. arXiv preprint arXiv:2410.07076 (2024)</div><div class="reference-entry" id="ref-pu2025piflow"><a id="ref-17"></a><span class="ref-num">[17]</span>Pu, Y., Lin, T., Chen, H.: Piflow: Principle-aware scientific discovery with multi-agent collaboration. arXiv preprint arXiv:2505.15047 (2025)</div><div class="reference-entry" id="ref-knox2024drugbank"><a id="ref-22"></a><span class="ref-num">[22]</span>Knox, C., Wilson, M., Klinger, C.M., Franklin, M., Oler, E., Wilson, A., Pon, A., Cox, J., Chin, N.E., Strawbridge, S.A., et al.: Drugbank 6.0: the drugbank knowledgebase for 2024. Nucleic acids research 52(D1), 1265–1275 (2024)</div><div class="reference-entry" id="ref-pahikkala2015kiba"><a id="ref-23"></a><span class="ref-num">[23]</span>Pahikkala, T., Airola, A., Pietilä, S., Shakyawar, S., Szwajda, A., Tang, J., Aittokallio, T.: Toward more realistic drug–target interaction predictions. Briefings in bioinformatics 16(2), 325–337 (2015)</div><div class="reference-entry" id="ref-o2025sparks"><a id="ref-42"></a><span class="ref-num">[42]</span>O’Neill, C., Ghosal, T., Răileanu, R., Walmsley, M., Bui, T., Schawinski, K., Ciucă, I.: Sparks of science: Hypothesis generation using structured paper data. arXiv preprint arXiv:2504.12976 (2025)</div><div class="reference-entry" id="ref-NOMADArchive"><a id="ref-59"></a><span class="ref-num">[59]</span>Laboratory, N.: NOMAD Repository and Archive. https://nomad-lab.eu. Accessed: 2025-11-20 (2025)</div><div class="reference-entry" id="ref-mp_time_split_guide"><a id="ref-60"></a><span class="ref-num">[60]</span>Materials Project: Materials Project Time Splits and MPTS-52 dataset documentation (2024). https://mp-time-split.readthedocs.io/</div><div class="reference-entry" id="ref-semanticscholar-api"><a id="ref-81"></a><span class="ref-num">[81]</span>Semantic Scholar API Documentation. https://api.semanticscholar.org/. Accessed: 2025-08-27</div><div class="reference-entry" id="ref-pubmed2025"><a id="ref-82"></a><span class="ref-num">[82]</span>Biotechnology Information, N.C.: PubMed and PubMed Central (PMC). https: //pubmed.ncbi.nlm.nih.gov/, https://www.ncbi.nlm.nih.gov/pmc/ (2025)</div><div class="reference-entry" id="ref-arxiv-api"><a id="ref-83"></a><span class="ref-num">[83]</span>arXiv API User’s Manual. https://info.arxiv.org/help/api/user-manual.html. Accessed: 2025-08-27</div><div class="reference-entry" id="ref-openalex2022"><a id="ref-84"></a><span class="ref-num">[84]</span>Priem, J., Piwowar, H., Orr, R.: OpenAlex: A fully-open index of scholarly works, authors, venues, institutions, and concepts. https://openalex.org/. Accessed: 2025-08-27 (2022)</div><div class="reference-entry" id="ref-pubchem2021"><a id="ref-85"></a><span class="ref-num">[85]</span>Kim, S., et al.: Pubchem in 2021: new data content and improved web interfaces. Nucleic Acids Research (2021)</div><div class="reference-entry" id="ref-ads2015"><a id="ref-86"></a><span class="ref-num">[86]</span>Accomazzi, A., Kurtz, M.J., Henneken, E.A., et al.: Ads: The next generation search platform. arXiv preprint arXiv:1503.04194 (2015)</div><div class="reference-entry" id="ref-PyPDF2"><a id="ref-87"></a><span class="ref-num">[87]</span>Developers, P.: PyPDF2: A Pure-Python PDF Library. Accessed: 2025-11-20 (2025). https://github.com/py-pdf/PyPDF2</div><div class="reference-entry" id="ref-scipdf-parser"><a id="ref-88"></a><span class="ref-num">[88]</span>Achakulvisut, T.: scipdf_parser: Python PDF parser for scientific publications (GROBID-based). https://github.com/titipata/scipdf_parser. Accessed: 202508-27</div><div class="reference-entry" id="ref-pymupdf4llm"><a id="ref-89"></a><span class="ref-num">[89]</span>Team, P.: pymupdf4llm: PDF Parsing Tools for LLM Pipelines. Accessed: 202511-20 (2025). https://github.com/pymupdf/PyMuPDF-Utilities/tree/main/ pymupdf4llm</div><div class="reference-entry" id="ref-s2orc2020"><a id="ref-90"></a><span class="ref-num">[90]</span>Lo, K., Wang, L.L., Neumann, M.e.a.: S2orc: The open research corpus. In: ACL (2020). https://arxiv.org/abs/1911.01729</div><div class="reference-entry" id="ref-langchain2023"><a id="ref-91"></a><span class="ref-num">[91]</span>Developers, L.: LangChain: Building Applications with LLMs. Accessed: 202511-20 (2023). https://python.langchain.com</div><div class="reference-entry" id="ref-beautifulsoup"><a id="ref-92"></a><span class="ref-num">[92]</span>Richardson, L.: Beautiful Soup Documentation. Accessed: 2025-11-20 (2025). https://www.crummy.com/software/BeautifulSoup/</div><div class="reference-entry" id="ref-openai-embeddings"><a id="ref-93"></a><span class="ref-num">[93]</span>Text Embeddings. https://platform.openai.com/docs/guides/embeddings. Accessed: 2025-08-27</div><div class="reference-entry" id="ref-Devlin2019BERT"><a id="ref-94"></a><span class="ref-num">[94]</span>Devlin, J., Chang, M., Lee, K., Toutanova, K.: Bert: Pre-training of deep bidirectional transformers for language understanding. In: NAACL-HLT, pp. 4171–4186 (2019). https://doi.org/10.18653/v1/N19-1423 36</div><div class="reference-entry" id="ref-Beltagy2019SciBERT"><a id="ref-95"></a><span class="ref-num">[95]</span>Beltagy, I., Lo, K., Cohan, A.: Scibert: A pretrained language model for scientific text. arXiv preprint arXiv:1903.10676 (2019)</div><div class="reference-entry" id="ref-Reimers2019SentenceBERT"><a id="ref-96"></a><span class="ref-num">[96]</span>Reimers, N., Gurevych, I.: Sentence-bert: Sentence embeddings using siamese bert-networks. In: EMNLP/IJCNLP (EMNLP’19), pp. 3982–3992 (2019). https://arxiv.org/abs/1908.10084</div><div class="reference-entry" id="ref-bge_large_en_v1p5"><a id="ref-97"></a><span class="ref-num">[97]</span>Xiao, S., Liu, Z., Zhang, P., et al.: BAAI/bge-large-en-v1.5 Embedding Model. https://bge-model.com/bge/bge_v1_v1.5.html. Model documentation (2023)</div><div class="reference-entry" id="ref-google_generativeai_embeddings"><a id="ref-98"></a><span class="ref-num">[98]</span>Cloud, G.: Google Generative AI Embeddings (Gemini Embedding) API. (2025). Accessed: 2025-11-20. https://ai.google.dev/api/embeddings</div><div class="reference-entry" id="ref-Sturua2024JinaEmbeddingV3"><a id="ref-99"></a><span class="ref-num">[99]</span>Sturua, S., Mohr, I., Akram, M.K., Günther, M., Wang, B., Krimmel, M., Wang, F., et al.: jina-embeddings-v3: Multilingual embeddings with task lora. In: ArXiv Preprint, vol. arXiv:2409.10173 (2024). https://arxiv.org/abs/2409.10173</div><div class="reference-entry" id="ref-chemberta"><a id="ref-100"></a><span class="ref-num">[100]</span>Chithrananda, S., Grand, G., Ramsundar, B.: Chemberta: Large-scale selfsupervised pretraining for molecular property prediction. arXiv preprint arXiv:2010.09885 (2020)</div><div class="reference-entry" id="ref-johnson2017faiss"><a id="ref-101"></a><span class="ref-num">[101]</span>Johnson, J., Douze, M., Jégou, H.: Billion-scale similarity search with gpus. IEEE Transactions on Big Data 7(3), 535–547 (2019)</div><div class="reference-entry" id="ref-bajusz2015tanimoto"><a id="ref-102"></a><span class="ref-num">[102]</span>Bajusz, D., Rácz, A., Héberger, K.: Why is tanimoto index an appropriate choice for fingerprint-based similarity calculations? Journal of cheminformatics 7(1), 20 (2015)</div><div class="reference-entry" id="ref-BLINK2020"><a id="ref-103"></a><span class="ref-num">[103]</span>Wu, L., Petroni, F., et al.: Blink: Better entity linking through neural bidirectional encoders. In: EMNLP (2020). https://arxiv.org/abs/1911.03814</div><div class="reference-entry" id="ref-spacy2017"><a id="ref-104"></a><span class="ref-num">[104]</span>Honnibal, M., Montani, I.: spacy: Industrial-strength natural language processing. (2017). https://spacy.io</div><div class="reference-entry" id="ref-PLMarker2022"><a id="ref-105"></a><span class="ref-num">[105]</span>Ye, D., al.: Marker-based entity and relation extraction. In: ACL (2022). https://arxiv.org/abs/2203.00149</div><div class="reference-entry" id="ref-SciCo2021"><a id="ref-106"></a><span class="ref-num">[106]</span>Friedrich, A., et al.: Scico: Hierarchical scientific concept extraction. In: ACL (2021). https://arxiv.org/abs/2108.09672</div><div class="reference-entry" id="ref-scispacy2019"><a id="ref-107"></a><span class="ref-num">[107]</span>Neumann, M., King, D., Beltagy, I., Ammar, W.: Scispacy: Fast and robust models for biomedical nlp. In: BioNLP (2019). https://arxiv.org/abs/1902.07669</div><div class="reference-entry" id="ref-scispacy-entitylinker"><a id="ref-108"></a><span class="ref-num">[108]</span>scispaCy EntityLinker documentation. https://allenai.github.io/scispacy/usage. html#entitylinker. Accessed: 2025-08-27</div><div class="reference-entry" id="ref-openai_text_embedding_3"><a id="ref-109"></a><span class="ref-num">[109]</span>OpenAI: Text-Embedding-3 (OpenAI Embeddings API). https://openai.com/. Embedding model documentation. Accessed: 2025-11-20 (2024) 37</div><div class="reference-entry" id="ref-rdkit-docs"><a id="ref-110"></a><span class="ref-num">[110]</span>The RDKit: Open-source cheminformatics. https://www.rdkit.org/docs/. Accessed: 2025-08-27</div><div class="reference-entry" id="ref-OmegaFold"><a id="ref-111"></a><span class="ref-num">[111]</span>Wu, R., Ding, F., Wang, R., Shen, R., Zhang, X., Luo, S., Su, C., Wu, Z., Xie, Q., Berger, B., Ma, J., Peng, J.: High-resolution de novo structure prediction from primary sequence using omegafold. bioRxiv (2022) https://doi.org/10.1101/ 2022.07.21.500999</div><div class="reference-entry" id="ref-SynergyFinder3"><a id="ref-112"></a><span class="ref-num">[112]</span>Ianevski, A., Giri, A., Aittokallio, T.: Synergyfinder 3.0: an interactive analysis and consensus interpretation of multi-drug synergies across multiple samples. Nucleic Acids Research 50(W1), 739–743 (2022) https://doi.org/10.1093/nar/ gkac382</div><div class="reference-entry" id="ref-Davis2011"><a id="ref-113"></a><span class="ref-num">[113]</span>Davis, M.I., Hunt, J.P., Herrgard, S., Ciceri, P., Wodicka, L.M., Pallares, G., Hocker, M., Treiber, D.K., Zarrinkar, P.P.: Comprehensive analysis of kinase inhibitor selectivity. Nature Biotechnology 29(11), 1046–1051 (2011) https: //doi.org/10.1038/nbt.1990</div><div class="reference-entry" id="ref-sterling2015zinc15"><a id="ref-114"></a><span class="ref-num">[114]</span>Sterling, T., Irwin, J.J.: Zinc 15–ligand discovery for everyone. Journal of chemical information and modeling 55(11), 2324–2337 (2015)</div><div class="reference-entry" id="ref-gaulton2017chembl"><a id="ref-115"></a><span class="ref-num">[115]</span>Gaulton, A., Hersey, A., Nowotka, M., Bento, A.P., Chambers, J., Mendez, D., Mutowo, P., Atkinson, F., Bellis, L.J., Cibrián-Uhalte, E., et al.: The chembl database in 2017. Nucleic acids research 45(D1), 945–954 (2017)</div><div class="reference-entry" id="ref-CrossDocked2020"><a id="ref-116"></a><span class="ref-num">[116]</span>Francoeur, P.G., Masuda, T., Koes, D.R.: 3d convolutional neural networks and a crossdocked dataset for structure-based drug design. Journal of Chemical Information and Modeling 60(9), 4200–4210 (2020) https://doi.org/10.1021/acs. jcim.0c00411</div><div class="reference-entry" id="ref-paris2021mimic_omop"><a id="ref-117"></a><span class="ref-num">[117]</span>Paris, N., Vialaneix, N., Rossi, F., Trojette, H., Esteban, C.D.S., Bouzgarrou, M.D., Matta, N., Kanoun, S., Falco, E.: Transformation and evaluation of the mimic database in the omop common data model. JMIR Medical Informatics 9(3), 31829 (2021)</div><div class="reference-entry" id="ref-JARVIS"><a id="ref-118"></a><span class="ref-num">[118]</span>Choudhary, K., Garrity, K., Tavazza, F.: Data-driven discovery of 3d and 2d thermoelectric materials from jarvis-dft database. arXiv preprint arXiv:1906.06024 (2019)</div><div class="reference-entry" id="ref-dunn2020matbench"><a id="ref-119"></a><span class="ref-num">[119]</span>Dunn, A., Wang, Q., Ganose, A., Dopp, D., Jain, A.: Benchmarking materials property prediction methods: the matbench test set and automatminer reference algorithm. npj Computational Materials 6, 138 (2020)</div><div class="reference-entry" id="ref-oc20-s2ef"><a id="ref-120"></a><span class="ref-num">[120]</span>Mok, D.H., Back, S.: Generative language model for catalyst discovery. arXiv preprint arXiv:2407.14040 (2024) 38</div><div class="reference-entry" id="ref-yang2025robust"><a id="ref-121"></a><span class="ref-num">[121]</span>Yang, Y., Wu, J., Yue, Y.: Robust hypothesis generation: Llm-automated language bias for inductive logic programming. arXiv preprint arXiv:2505.21486 (2025)</div><div class="reference-entry" id="ref-li2014towards"><a id="ref-122"></a><span class="ref-num">[122]</span>Li, J., Ott, M., Cardie, C., Hovy, E.: Towards a general rule for identifying deceptive opinion spam. In: Proceedings of the 52nd Annual Meeting of the Association for Computational Linguistics (Volume 1: Long Papers), pp. 1566– 1576 (2014)</div><div class="reference-entry" id="ref-banerjee2025language"><a id="ref-123"></a><span class="ref-num">[123]</span>Banerjee, A., Urminsky, O.: The language that drives engagement: A systematic large-scale analysis of headline experiments. Marketing Science 44(3), 566–592 (2025)</div><div class="reference-entry" id="ref-tan2014effect"><a id="ref-124"></a><span class="ref-num">[124]</span>Tan, C., Lee, L., Pang, B.: The effect of wording on message propagation: Topic-and author-controlled natural experiments on twitter. arXiv preprint arXiv:1405.1438 (2014)</div><div class="reference-entry" id="ref-turcan2019dreaddit"><a id="ref-125"></a><span class="ref-num">[125]</span>Turcan, E., McKeown, K.: Dreaddit: A reddit dataset for stress analysis in social media. arXiv preprint arXiv:1911.00133 (2019)</div><div class="reference-entry" id="ref-pauli2025measuring"><a id="ref-126"></a><span class="ref-num">[126]</span>Pauli, A.B., Augenstein, I., Assent, I.: Measuring and benchmarking large language models’ capabilities to generate persuasive language. In: Proceedings of the 2025 Conference of the Nations of the Americas Chapter of the Association for Computational Linguistics: Human Language Technologies (Volume 1: Long Papers), pp. 10056–10075 (2025)</div><div class="reference-entry" id="ref-wallace2021generating"><a id="ref-127"></a><span class="ref-num">[127]</span>Wallace, B.C., Saha, S., Soboczenski, F., Marshall, I.J.: Generating (factual?) narrative summaries of rcts: Experiments with neural multi-document summarization. AMIA Summits on Translational Science Proceedings 2021, 605 (2021)</div><div class="reference-entry" id="ref-Johnson2019FAISS"><a id="ref-128"></a><span class="ref-num">[128]</span>Johnson, J., Douze, M., Jégou, H.: Billion-scale similarity search with GPUs. IEEE Transactions on Big Data 7(3), 535–547 (2019)</div></section>
+</body>
+</html>

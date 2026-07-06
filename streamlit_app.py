@@ -190,8 +190,9 @@ def load_papers_from_directory(directory_name="Papers"):
             raw_authors = data.get("authors", [])
             authors_str = ", ".join(raw_authors) if isinstance(raw_authors, list) else str(raw_authors)
             
-            pub_date = data.get("published", "")
-            year_str = pub_date[:4] if len(pub_date) >= 4 else "N/A"
+            pub_date = str(data.get("published", ""))
+            year_match = re.search(r"\b(?:19|20)\d{2}\b", pub_date)
+            year_str = year_match.group(0) if year_match else "N/A"
             
             topics = []
             raw_areas = data.get("subject_area", {}).get("areas", [])
@@ -274,24 +275,37 @@ def process_html_content(html_content, image_map):
         img['style'] = "; ".join([
             part for part in [existing_style, 'max-width: 100%; height: auto; display: block; margin: 0 auto;'] if part
         ])
+    if soup.body and "exhyte-paper" in soup.body.get("class", []):
+        return str(soup)
     style_tag = soup.new_tag("style")
     style_tag.string = """
-        body {
-            margin: 0;
-            padding: 12px 16px 24px;
+        html, body {
+            background: #ffffff;
+            color: #111;
+        }
+        body, body.pdf-article, body.exhyte-paper {
+            box-sizing: border-box;
+            margin: 0 auto !important;
+            max-width: 920px !important;
+            padding: 20px 26px 34px !important;
             background: #ffffff;
             color: #111;
             font-family: "Times New Roman", serif;
-            line-height: 1.45;
+            font-size: 16px !important;
+            line-height: 1.45 !important;
         }
         p, h1, h2, h3, h4, h5, li, div {
             margin-top: 5px !important; margin-bottom: 5px !important;
             padding-top: 0px !important; padding-bottom: 0px !important;
             line-height: 1.45 !important;
         }
+        h1 { font-size: 26px !important; line-height: 1.22 !important; }
+        h2 { font-size: 22px !important; line-height: 1.25 !important; }
+        h3 { font-size: 18px !important; line-height: 1.28 !important; }
         li { margin-left: 20px !important; }
         figure { margin: 16px 0; }
         img { max-width: 100%; height: auto; display: block; margin: 0 auto; }
+        figcaption { font-size: 14px !important; line-height: 1.35 !important; text-align: justify; }
         a { color: #0b57d0; text-decoration: underline; }
     """
     if soup.head: soup.head.append(style_tag)
@@ -302,12 +316,21 @@ def process_html_content(html_content, image_map):
 # Load Files
 # ---------------------------------------------------------
 FILES = {
-    "tab1_html": "EXHYTE_webpage.html",
-    "tab2_html": "EXHYTE_webpage (1)-1.html",
-    "tab3_html": "EXHYTE_webpage (2).html",
+    "tab1_html": "EXHYTE_webpage (1).html",
+    "tab2_html": "EXHYTE_webpage (1)-1 (1).html",
+    "tab3_html": "EXHYTE_webpage (2) (1).html",
 }
 
-IMAGE_FILES = ["image001.png", "image001_t2.jpg", "image002.jpg", "image003.jpg"]
+IMAGE_FILES = [
+    "image001.png",
+    "image001_t2.jpg",
+    "image002.jpg",
+    "image003.jpg",
+    "figure1.v10.png",
+    "figure_2_v4_062126.png",
+    "EXHYTE_stages_input_outputs_v4.png",
+    "figure4_ai_methods.png",
+]
 image_map = {}
 for img_name in IMAGE_FILES:
     b64_data = load_image_as_base64(img_name)
@@ -378,46 +401,53 @@ st.markdown("""
 A Process-Centric Survey of AI for Scientific Discovery Through the EXHYTE Framework
 </h1>
 <p style="text-align:center; font-size:20px; margin-top:5px; margin-bottom:10px; font-family: 'Times New Roman', serif;">
-Md Musaddaqqul Hasib<sup>1,2</sup>, Sumin Jo<sup>3</sup>, Harsh Sinha<sup>1,4</sup>,
-Jifeng Song<sup>1,3</sup>, Huey Huang<sup>9</sup>, Arun Das<sup>1,2</sup>,
-Zhentao Liu<sup>1,4</sup>, Hugh Galloway<sup>1</sup>, Kexun Zhang<sup>8</sup>,
-Shou-Jiang Gao<sup>1,5</sup>, Yu-Chiao Chiu<sup>1,2,6,7</sup>, Lei Li<sup>8</sup>,
-Yufei Huang<sup>1,2,3*</sup>
+Md Musaddaqul Hasib<sup>1,2</sup>, Sumin Jo<sup>3</sup>, Harsh Sinha<sup>1,4</sup>,
+Jifeng Song<sup>1,3</sup>, Arun Das<sup>1,2</sup>, Zhentao Liu<sup>1</sup>,
+Hugh Galloway<sup>1</sup>, Huey Huang<sup>5</sup>, Jianqiu (Michelle) Zhang<sup>10</sup>,
+Kexun Zhang<sup>6</sup>, Shou-Jiang Gao<sup>1,7</sup>, Yu-Chiao Chiu<sup>2,8,9</sup>,
+Lei Li<sup>6</sup>, Yufei Huang<sup>1,2,3*</sup>
 </p>
 <p style="text-align:center; font-size:16px; max-width:900px; margin:auto; line-height:1.4; font-family: 'Times New Roman', serif;">
 1 Cancer Virology Program, UPMC Hillman Cancer Center, Pittsburgh, PA, USA;
 2 Department of Medicine, University of Pittsburgh, Pittsburgh, PA, USA;
-3 Department of Electrical and Computer Engineering, University of Pittsburgh, Pittsburgh, PA, USA;
-4 Intelligent Systems Program, School of Computing & Information, University of Pittsburgh, Pittsburgh, PA, USA;
-5 Department of Microbiology and Molecular Genetics, University of Pittsburgh School of Medicine, Pittsburgh, PA, USA;
-6 Department of Computational and Systems Biology, University of Pittsburgh School of Medicine, Pittsburgh, PA, USA;
-7 Pittsburgh Liver Research Center, UPMC, Pittsburgh, PA, USA;
-8 Carnegie Mellon University, Pittsburgh, PA, USA;
-9 University of Texas at Austin, Austin, TX, USA.
+3 Department of Electrical and Computer Engineering, Swanson School of Engineering, University of Pittsburgh, Pittsburgh, PA, USA;
+4 Intelligent Systems Program, School of Computing and Information, University of Pittsburgh, Pittsburgh, PA, USA;
+5 Electrical and Computer Engineering, University of Texas at Austin, Austin, TX, USA;
+6 Language Technologies Institute, Carnegie Mellon University, Pittsburgh, PA, USA;
+7 Department of Microbiology and Molecular Genetics, University of Pittsburgh School of Medicine, Pittsburgh, PA, USA;
+8 Department of Computational and Systems Biology, University of Pittsburgh School of Medicine, Pittsburgh, PA, USA;
+9 Cancer Therapeutics Program, UPMC Hillman Cancer Center, Pittsburgh, PA, USA;
+10 Klesse College of Engineering and Integrated Design, University of Texas at San Antonio, San Antonio, TX, USA.
+</p>
+<p style="text-align:center; font-size:15px; max-width:900px; margin:10px auto 0; line-height:1.35; font-family: 'Times New Roman', serif;">
+*Corresponding author(s). E-mail(s): yuh119@pitt.edu;<br>
+Contributing authors: mdh121@pitt.edu; sumin.jo@pitt.edu; has197@pitt.edu;
+jis219@pitt.edu; ard212@pitt.edu; zhl169@pitt.edu; hug18@pitt.edu;
+hueyhuang@utexas.edu; michelle.zhang@utsa.edu; kexunz@andrew.cmu.edu;
+gaos8@upmc.edu; yuc250@pitt.edu; leili@andrew.cmu.edu;
 </p>
 
 <div style="max-width:900px; margin:auto; margin-top:25px; margin-bottom:20px; font-family: 'Times New Roman', serif;">
     <h3 style="text-align:center; font-size:24px; font-weight:bold; margin-bottom:10px; font-family: 'Times New Roman', serif;">Abstract</h3>
     <p style="font-size:18px; line-height:1.5; text-align:justify; margin-bottom:15px;">
-    Large language models (LLMs) and agent systems are increasingly transforming
-    scientific discovery, driving progress across chemistry, biology, materials science,
-    and physics. Yet most existing work and surveys remain fragmented, focusing on
-    isolated tasks such as idea generation or experiment design without addressing
-    how these components fit within the broader discovery process. To bridge this gap,
-    we introduce the EXHYTE cycle, an iterative framework that formalizes scientific
-    discovery as a sequence of Exploration, Hypothesis generation, and Testing. We
-    assembled a corpus of recent studies, distilled recurring strategies that characterize
-    how AI methods contribute to each EXHYTE substage, and organized the
-    literature accordingly to representative strategies and domain-specific advances.
-    This process-centric perspective unifies diverse methodologies under a single
-    structured workflow, identifies substages that are mature versus underexplored,
-    and reveals complementarities that enable closed-loop discovery systems. It also
-    clarifies the evolving division of labor between human researchers and AI systems,
-    offering a roadmap for developing adaptive, autonomous frameworks for AI-driven
-    scientific discovery.
+    Large language models (LLMs) and agent systems increasingly support scientific discovery across domains.
+    Yet the literature remains fragmented around isolated tasks, with limited attention to how components
+    form integrated workflows. Here, we introduce <strong>EX</strong>ploration, <strong>HY</strong>pothesis generation, and <strong>TE</strong>sting (EXHYTE)
+    as an empirical workflow abstraction for reviewing AI-assisted scientific discovery. We mapped a corpus
+    of recent studies to EXHYTE stages and substages to identify recurring strategies, workflow connections,
+    and capability gaps. The analysis shows strong progress in exploration, especially retrieval, knowledge
+    assembly, and representation learning, and growing capacity for hypothesis and idea generation. The central
+    bottleneck remains the transition from hypothesis or idea generation to executable experimental or
+    computational testing, followed by feedback that can refine subsequent workflow steps. Because EXHYTE
+    organizes systems by workflow function rather than agent architecture, it applies to both multi-agent
+    scaffolds and emerging generalist tool-using agents. It also shows that integrated workflows do not imply
+    full automation: current systems still depend on human judgment for problem formulation, contextualization,
+    interpretation, risk assessment, and oversight. We discuss evaluation, reproducibility, hypothesis-space
+    narrowing, external validation, and governance considerations. An accompanying website at
+    https://webapps.crc.pitt.edu/exhyte/ provides paper summaries and an EXHYTE-based interactive survey.
     </p>
     <p style="font-size:18px; text-align:justify;">
-    <strong>Keywords:</strong> Large language models, Scientific discovery, Hypothesis generation, Idea generation
+    <strong>Keywords:</strong> AI for Scientific discovery, the EXHYTE framework, Large language models, Hypothesis generation, Idea generation
     </p>
 </div>
 
@@ -428,7 +458,7 @@ Yufei Huang<sup>1,2,3*</sup>
 # TABS & CONTENT
 # ---------------------------------------------------------
 tab_sec2, tab_sec34, tab_sec5, tab_papers, tab_survey = st.tabs([
-    "The EXHYTE Cycle",
+    "The EXHYTE Framework",
     "AI Methods for EXHYTE",
     "Tools & Datasets",
     "Paper List",
@@ -573,7 +603,11 @@ with tab_survey:
         # 2. FILTER BY YEAR
         st.markdown("**2. Filter Papers by Year**")
         # Extract all unique years
-        all_years = sorted(list(set(p['year'] for p in PAPER_DATA if p['year'] != "N/A")), reverse=True)
+        all_years = sorted(
+            {p['year'] for p in PAPER_DATA if re.fullmatch(r"(?:19|20)\d{2}", str(p['year']))},
+            key=int,
+            reverse=True
+        )
         selected_years = st.multiselect(
             "Select Publication Years:",
             options=all_years,

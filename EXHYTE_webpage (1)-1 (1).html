@@ -1,0 +1,924 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>AI Methods for EXHYTE</title>
+<style>
+html {
+  background: #fff;
+  color: #000;
+}
+body.exhyte-paper {
+  box-sizing: border-box;
+  margin: 0 auto;
+  max-width: 1040px;
+  padding: 34px 34px 58px;
+  color: #000;
+  background: #fff;
+  font-family: "Times New Roman", Times, serif;
+  font-size: 16px;
+  line-height: 1.42;
+  text-rendering: optimizeLegibility;
+  font-kerning: normal;
+}
+.exhyte-paper * {
+  box-sizing: border-box;
+}
+h1 {
+  margin: 24px 0 15px;
+  font-size: 28px;
+  line-height: 1.18;
+  font-weight: 700;
+}
+h2 {
+  margin: 22px 0 12px;
+  font-size: 24px;
+  line-height: 1.2;
+  font-weight: 700;
+}
+h3 {
+  margin: 18px 0 9px;
+  font-size: 20px;
+  line-height: 1.22;
+  font-weight: 700;
+}
+p {
+  margin: 0 0 10px;
+  text-align: justify;
+  text-indent: 1.6em;
+}
+p.no-indent,
+figure + p,
+table + p,
+.table-wrap + p,
+.references p,
+li p {
+  text-indent: 0;
+}
+ul, ol {
+  margin: 8px 0 14px 28px;
+  padding: 0;
+}
+li {
+  margin: 0 0 8px;
+  text-align: justify;
+}
+li p {
+  margin: 0;
+}
+figure {
+  margin: 24px auto 26px;
+  text-align: center;
+  break-inside: avoid;
+}
+figure img {
+  height: auto;
+  display: block;
+  margin: 0 auto;
+}
+.figure-1 img { width: 80%; }
+.figure-2 img { width: 90%; }
+.figure-3 img { width: 90%; }
+.figure-4 img { width: 84%; }
+figcaption {
+  margin: 9px auto 0;
+  max-width: 1040px;
+  font-size: 14px;
+  line-height: 1.35;
+  text-align: left;
+}
+figcaption strong {
+  margin-right: 6px;
+}
+.table-wrap {
+  margin: 20px 0 26px;
+  break-inside: avoid;
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.24;
+  border-top: 1px solid #000;
+  border-bottom: 1px solid #000;
+}
+caption {
+  caption-side: top;
+  text-align: left;
+  margin: 0 0 11px;
+  font-size: 15px;
+  line-height: 1.25;
+}
+th, td {
+  padding: 7px 9px;
+  vertical-align: top;
+  text-align: left;
+  border: 0;
+  border-bottom: 0.5px solid #777;
+}
+tr:last-child td {
+  border-bottom: 0;
+}
+th {
+  font-weight: 400;
+}
+a {
+  color: #00f;
+  text-decoration: none;
+}
+.citation {
+  white-space: nowrap;
+}
+.references {
+  margin-top: 32px;
+  border-top: 1px solid #bbb;
+  padding-top: 16px;
+}
+.references h1 {
+  font-size: 24px;
+  margin: 0 0 14px;
+}
+.reference-entry {
+  position: relative;
+  margin: 0 0 8px 34px;
+  font-size: 14px;
+  line-height: 1.32;
+  text-align: left;
+}
+.reference-entry .ref-num {
+  position: absolute;
+  left: -34px;
+  color: #000;
+}
+code {
+  font-family: "Courier New", Courier, monospace;
+  font-size: 0.95em;
+}
+@media (max-width: 760px) {
+  body.exhyte-paper {
+    max-width: none;
+    padding: 22px 16px 40px;
+    font-size: 15.5px;
+  }
+  h1 { font-size: 25px; }
+  h2 { font-size: 22px; }
+  h3 { font-size: 19px; }
+  figure img { max-width: 100%; }
+  table { font-size: 13px; }
+}
+</style>
+</head>
+<body class="exhyte-paper">
+<h1 id="sec3">AI Methods Across the EXHYTE Workflow</h1><p>To construct the survey corpus, we focused on the literature
+published between 2018 and July 2025 to capture recent advances in LLMs
+and agent systems for scientific discovery. Articles were retrieved
+through keyword searches on arXiv, bioRxiv, and Semantic Scholar APIs,
+using queries such as LLM, idea generation, hypothesis generation,
+scientific discovery, experiment design, material discovery, molecular
+design, drug discovery, and biomedical discovery. Retrieved results were
+then manually filtered to remove irrelevant articles and ensure
+inclusion of high-quality papers from major conferences and journals.
+The final corpus comprises 87 papers spanning diverse disciplines.
+Because research in this area is advancing rapidly, a number of relevant
+papers released after our July 2025 cutoff could not be included in the
+analyzed corpus; to keep the survey current, these newer studies are
+incorporated into the accompanying website, which we update on an
+ongoing basis.</p><p>Because EXHYTE is used here as an empirical abstraction of observed
+AI-for-science workflows, our analysis proceeded in two steps. First, we
+mapped each paper to the broad workflow functions it addressed: EXPLORE,
+HYPOTHESIZE, and TEST. Second, we identified recurring implementation
+strategies within each function and grouped them into substages. This
+procedure allowed the framework to emerge from observed design patterns
+in the technical literature rather than from a presupposed general
+theory of scientific method.</p><p>The publication volume in this area surged between 2023 and 2024 and
+continued to rise sharply in 2025 (Fig. <a data-reference="fig:Temporal and thematic analysis of publications" data-reference-type="ref" href="#fig:Temporal and thematic analysis of publications">2</a><span>A</span>),
+reflecting both growing cross-domain interest and rapid methodological
+progress in applying AI to scientific discovery (Fig. <a data-reference="fig:Temporal and thematic analysis of publications" data-reference-type="ref" href="#fig:Temporal and thematic analysis of publications">2</a><span>D</span>).
+Across subject areas, most papers come from Applied Sciences and
+Engineering, followed by Social, Chemical, and Biological Sciences (Fig.
+<a data-reference="fig:Temporal and thematic analysis of publications" data-reference-type="ref" href="#fig:Temporal and thematic analysis of publications">2</a><span>B</span>).
+Based on our systematic review of the corpus, many papers progress
+beyond exploration to the HYPOTHESIZE stage, yet fewer continue to the
+TEST stage (Fig. <a data-reference="fig:Temporal and thematic analysis of publications" data-reference-type="ref" href="#fig:Temporal and thematic analysis of publications">2</a><span>C</span>).
+This disparity highlights a persistent disconnect between hypothesis or
+idea generation and empirical or computational evaluation in
+contemporary AI-assisted scientific discovery.</p><p>To systematically analyze and organize this rapidly expanding body of
+work, we identified recurring AI strategies that address challenges in
+each EXHYTE substage. Organizing the literature around these strategies
+moves beyond task- or domain-specific taxonomies and provides a
+structured view of how AI methods operate across the workflow. In the
+following sections, we present these strategies substage by substage,
+defining core patterns, summarizing representative studies and
+domain-specific variants, and highlighting how each approach is
+implemented and supported by empirical evidence.</p><figure class="figure-2" id="fig:Temporal and thematic analysis of publications"><img src="figure_2_v4_062126.png"/><figcaption><strong>Fig. 2</strong> Temporal and thematic analysis of publications. (A) Quarterly count of publications over time. The bar height represents the number of papers published in each quarter. (B) Quarterly distribution of publications by subject area. Bars indicate the number of papers in each subject area per quarter. (C) Upset plot showing the number of publications covering different stages of the EXHYTE framework (Explore, Idea/Hypothesis, Test). Bars represent the number of papers in each combination of stages. (D) Scatter plot of highly cited papers (red dots), with citations per month on the y-axis and quarter/year on the x-axis. Highly cited papers are defined as those receiving &gt;= 2 citations per month. The red bars in the overlaid bar plot indicates the number of highly cited papers per quarter.</figcaption></figure><h2 id="subsec3">Inputs and Boundary Conditions for EXHYTE
+Workflows</h2><p>In automated scientific discovery systems, inputs range from natural
+language queries and high-level research goals to domain-specific
+papers, datasets, structured specifications, and unexpected
+observations. In the EXHYTE framework, these inputs are treated as
+boundary conditions for the workflow rather than as evidence that the
+system has autonomously formulated a research problem. This distinction
+is important because many current systems still depend on human
+researchers to define the initial problem space, provide contextual
+materials, specify constraints, recognize anomalies, or determine which
+questions are worth pursuing. Thus, placing inputs at the boundary of
+EXHYTE is not meant to make problem formulation or anomaly recognition
+appear trivial. Rather, it makes visible a current limitation of
+AI-for-science systems: upstream problem framing and research-priority
+judgment remain only partially automated.</p><p>High-level research directions, such as workshop themes, set the
+scope for the automated scientific workflow. For example, the ICLR 2025
+workshop “I Can’t Believe It’s Not Better” (ICBINB) focused on
+real-world pitfalls, challenges, and negative or inconclusive results in
+deep learning, a perspective incorporated in AI-Scientist-v2 <span class="citation">[<a href="#ref-yamada2025ai">12</a>]</span>. Similarly, focused
+problem statements, such as “How can we improve the energy efficiency of
+AI models?” (e.g., SCI-IDEA <span class="citation">[<a href="#ref-keya2025sci">13</a>]</span>), guide idea and hypothesis generation.
+Extending this idea, IRIS <span class="citation">[<a href="#ref-garikaparthi2025iris">14</a>]</span> formalizes user input as
+research goals that are explicitly transformed into a problem and its
+motivation/context. For example, the research goal “To improve the
+balance between quality and diversity in text generation (Problem) by
+addressing the limitations of existing sampling methods like top-p
+(nucleus sampling), which often produce incoherent or repetitive outputs
+at higher temperatures (motivation/context)”. Structured,
+domain-specific inputs similarly allow users to express goals and
+constraints in scientific formats. For example, LLMatDesign <span class="citation">[<a href="#ref-jia2024llmatdesign">5</a>]</span> begins with
+user-specified chemical compositions and target properties for candidate
+materials, while AutoMAT <span class="citation">[<a href="#ref-yang2025automat">15</a>]</span> accepts user-specified targets such
+as yield strength, density, or elemental cost constraints. In drug
+discovery, systems such as <span class="citation">[<a href="#ref-lee2025rag">16</a>]</span> operate on query molecules represented
+as SMILES strings and PiFlow <span class="citation">[<a href="#ref-pu2025piflow">17</a>]</span> integrates foundational scientific
+laws or expert-defined principles to guide search.</p><p>Beyond explicit goal specification, user-provided resources such as
+research papers and datasets function as empirical and contextual
+inputs. Systems like ResearchAgent <span class="citation">[<a href="#ref-baek2024researchagent">18</a>]</span>, CodeScientist <span class="citation">[<a href="#ref-jansen2025codescientist">19</a>]</span>, and HypER
+<span class="citation">[<a href="#ref-vasu2025hyper">20</a>]</span> leverage
+literature for retrieval and idea grounding. CodeScientist <span class="citation">[<a href="#ref-jansen2025codescientist">19</a>]</span>, for
+example, summarizes vetted code blocks to ensure that generated research
+ideas are practical, implementable, and executable. Similarly, domain
+specific datasets provide an empirical foundation for discovery.
+DrugMCTS <span class="citation">[<a href="#ref-yang2025drugmcts">21</a>]</span>,
+for example, employs molecule–protein interaction datasets such as
+DrugBank <span class="citation">[<a href="#ref-knox2024drugbank">22</a>]</span>
+and KIBA <span class="citation">[<a href="#ref-pahikkala2015kiba">23</a>]</span>
+to support drug discovery tasks.</p><p>Together, these examples show that inputs are not merely technical prompts that initiate the EXHYTE workflow. They shape the scope, direction, and epistemic limits of downstream exploration, hypothesis generation, and testing. When users heavily pre-load a system with selected papers, datasets, assumptions, or domain constraints, the resulting workflow may become less sensitive to alternative hypotheses, overlooked evidence, or competing empirical paradigms. For this reason, EXHYTE treats inputs as boundary conditions that reveal, rather than hide, the dependence of</p><figure class="figure-3" id="fig:inputs and outputs"><img src="EXHYTE_stages_input_outputs_v4.png"/><figcaption><strong>Fig. 3</strong> Inputs and outputs associated with each substage of the EXHYTE workflow.</figcaption></figure><p class="no-indent">current AI-for-science systems on human problem formulation, contextualization, and judgment.</p><h2 id="the-explore-stage">The Explore Stage</h2><h3 id="e1-query-structuring">E1: Query Structuring</h3><p>User query structuring is the first step in the Explore Stage, where
+it transforms raw, unstructured research inputs into actionable
+representations. This process employs complementary strategies including
+decomposition, vector representation, and information extraction from
+datasets to enable targeted exploration across literature and data
+(Fig. <a data-reference="fig:inputs and outputs" data-reference-type="ref" href="#fig:inputs and outputs">3</a>A and <a data-reference="fig:exhyte-cycle2" data-reference-type="ref" href="#fig:exhyte-cycle2">4</a>).</p><p><strong>E1-S1: Decomposition.</strong> Decomposition transforms
+complex research queries into tractable sub-queries/questions or tasks
+that enable focused literature/dataset retrieval, reasoning, and
+solution design using LLM. Different systems operationalize
+decomposition at various levels. Chain of Ideas <span class="citation">[<a href="#ref-li2024chain">24</a>]</span> decomposes initial research topic into
+multiple sub-queries that capture diverse perspectives on the same
+problem, SCI-IDEA <span class="citation">[<a href="#ref-keya2025sci">13</a>]</span> extracts key-phrases that represent the
+underlying research focus of a scientist’s query, Assay2Mol <span class="citation">[<a href="#ref-deng2025assay2mol">25</a>]</span> identifies
+keywords from user-provided text descriptions of target proteins or
+phenotypes, Robin <span class="citation">[<a href="#ref-ghareeb2025robin">26</a>]</span> formulates a series of general
+questions based on the name of the target disease that the scientist
+inputs into the system, DrugLLM <span class="citation">[<a href="#ref-liu2024drugllm">27</a>]</span> decomposes molecules into structural
+groups to facilitate reasoning about chemical properties.</p><figure class="figure-4" id="fig:exhyte-cycle2"><img src="figure4_ai_methods.png"/><figcaption><strong>Fig. 4</strong> AI Methods Across the EXHYTE Workflow and substages.</figcaption></figure><p>Building on this principle, several systems employ LLM-based agents
+to decompose complex user inputs, whether research queries or design
+tasks, into smaller, manageable sub-tasks and to generate detailed,
+step-by-step workflow plans. General-purpose frameworks such as
+ResearchAgent <span class="citation">[<a href="#ref-baek2024researchagent">18</a>]</span>, AI-Researcher <span class="citation">[<a href="#ref-tang2025ai">39</a>]</span>, SciAgent <span class="citation">[<a href="#ref-ghafarollahi2025sciagents">28</a>]</span>, Zhou et
+al. <span class="citation">[<a href="#ref-zhou2025toward">55</a>]</span> and
+domain specific system such as ProtAgent(protein design) <span class="citation">[<a href="#ref-ghafarollahi2024protagents">29</a>]</span>,
+AtomAgents(alloy design) <span class="citation">[<a href="#ref-ghafarollahi2024atomagents">30</a>]</span>, MatExpert(material
+discovery) <span class="citation">[<a href="#ref-ding2024matexpert">4</a>]</span>,DrugAgents(drug discovery) <span class="citation">[<a href="#ref-liu2024drugagent">31</a>]</span> all follow
+similar decomposition pipeline.</p><p><strong>E1-S2: Vector representations.</strong> Encoding user inputs
+as vector representations enables efficient retrieval, semantic
+similarity search, and context-aware reasoning. Frameworks such as Chain
+of Ideas <span class="citation">[<a href="#ref-li2024chain">24</a>]</span>, SciPIP
+<span class="citation">[<a href="#ref-wang2024scipip">35</a>]</span>, SCI-IDEA
+<span class="citation">[<a href="#ref-keya2025sci">13</a>]</span>, SCIMON <span class="citation">[<a href="#ref-wang2024scimon">36</a>]</span>, IRIS <span class="citation">[<a href="#ref-garikaparthi2025iris">14</a>]</span> transform
+research queries, questions, background knowledge into embeddings to
+support retrieval of relevant scientific literature.</p><p>In domain-specific applications, Chemist-X <span class="citation">[<a href="#ref-chen2023chemist">1</a>]</span> encodes molecules as SMILES strings
+to retrieve reaction conditions for target products, while DrugMCTS
+<span class="citation">[<a href="#ref-yang2025drugmcts">21</a>]</span> identifies
+structurally similar molecules using vectorized molecular
+representations. Assay2Mol <span class="citation">[<a href="#ref-deng2025assay2mol">25</a>]</span> embeds protein target
+descriptions and phenotypic data for BioAssay retrieval, and MatExpert
+<span class="citation">[<a href="#ref-ding2024matexpert">4</a>]</span> employs
+dual encoders with one for property descriptions and another for
+structural representations to improve reference material retrieval.
+Collectively, these systems show how vector representations encode
+scientific knowledge in a machine-interpretable form, enabling efficient
+semantic retrieval and context-aware scientific discovery.</p><p><strong>E1-S3: Information Extraction from Datasets.</strong>
+Extracting key features and annotations from structured datasets enables
+automated systems to generate empirical inputs for downstream tasks such
+as model training, hypothesis formulation, and idea generation.
+AstroAgents <span class="citation">[<a href="#ref-saeedi2025astroagents">32</a>]</span>, for instance, employs a
+<em>Data Analyst Agent</em> to identify polycyclic aromatic hydrocarbon
+(PAH) patterns from user-provided mass spectrometry data, thereby
+generating testable hypotheses in astrobiology. Proteus <span class="citation">[<a href="#ref-qu2025automating">33</a>]</span> integrates
+bioinformatics tools to uncover biological relationships through
+statistical analyses, while Qu et al. <span class="citation">[<a href="#ref-qu2025automating">33</a>]</span> further identify pairs of
+biological entities (e.g., protein, clinic) to define research
+directions from multi-omics datasets. ProteinHypothesis <span class="citation">[<a href="#ref-bazgir2025proteinhypothesis">34</a>]</span>
+retrieves protein sequence descriptions, structural features, and
+physicochemical properties to inform LLMs about
+sequence–structure–function relationships during hypothesis generation.
+In drug discovery, DrugMCTS <span class="citation">[<a href="#ref-yang2025drugmcts">21</a>]</span> extracts molecular properties and
+annotations from DrugBank <span class="citation">[<a href="#ref-knox2024drugbank">22</a>]</span> and KIBA <span class="citation">[<a href="#ref-pahikkala2015kiba">23</a>]</span>, while MatExpert <span class="citation">[<a href="#ref-ding2024matexpert">4</a>]</span> extracts
+chemical formulas and physical properties (e.g., formation energy,
+elemental composition) from databases such as NOMAD <span class="citation">[<a href="#ref-NOMADArchive">59</a>]</span> and Materials Project
+<span class="citation">[<a href="#ref-mp_time_split_guide">60</a>]</span> to
+generate candidate crystal structures. LLM-Feynman <span class="citation">[<a href="#ref-song2025llm">6</a>]</span> automates feature
+selection and iterative refinement to construct high-quality feature
+sets, which are subsequently used in symbolic regression to derive
+interpretable physical equations. Together, these systems illustrate how
+information extraction transforms raw datasets into structured,
+semantically meaningful inputs that drive empirical reasoning and
+hypothesis development across scientific domains.</p><h3 id="e2-data-retrieval">E2: Data Retrieval</h3><p>Retrieving literature and datasets is a foundational step in
+scientific discovery, ensuring that exploration remains grounded in
+comprehensive and relevant knowledge. Guided by user inputs, this E2
+step compiles scientific publications and datasets that support informed
+hypothesis exploration and validation. We identified three key
+strategies that capture how systems retrieve information through
+LLM-based agents, related-work networks, and scientific repositories,
+respectively (Fig.  <a data-reference="fig:inputs and outputs" data-reference-type="ref" href="#fig:inputs and outputs">3</a>A
+and <a data-reference="fig:exhyte-cycle2" data-reference-type="ref" href="#fig:exhyte-cycle2">4</a>).</p><p><strong>E2-S1: LLM Agent–Based Retrieval.</strong> LLM agents now
+routinely query and curate literature and datasets. General-purpose
+frameworks such as Chain of Ideas <span class="citation">[<a href="#ref-li2024chain">24</a>]</span> and Graph of AI Ideas <span class="citation">[<a href="#ref-gao2025graph">61</a>]</span> use LLMs to generate
+multiple research queries from an initial topic, capturing diverse
+conceptual angles. SciAgents <span class="citation">[<a href="#ref-ghafarollahi2025sciagents">28</a>]</span> and AI-Scientist <span class="citation">[<a href="#ref-lu2024ai">38</a>]</span>, along with
+AI-Scientist-v2 <span class="citation">[<a href="#ref-yamada2025ai">12</a>]</span>, retrieve literature via the Semantic
+Scholar API for novelty checks and evidence gathering.</p><p>LLM agents are also tasked with prioritizing the most relevant
+papers. IRIS <span class="citation">[<a href="#ref-garikaparthi2025iris">14</a>]</span> introduces a retrieval agent
+that issues targeted queries answered by the specialized “AI2 Scholar
+QA” API. Moose-Chem <span class="citation">[<a href="#ref-yang2024moose">2</a>]</span> generates titles from background
+papers to retrieve inspirational works. AI-Researcher <span class="citation">[<a href="#ref-tang2025ai">39</a>]</span> designs a “Knowledge
+Acquisition Agent” that, given reference papers, retrieves additional
+papers and code repositories from scientific databases.</p><p>In domain-specific settings, retrieval is coupled with scientific
+reasoning. DrugAgent <span class="citation">[<a href="#ref-liu2024drugagent">31</a>]</span> employs an “Instructor Agent” to
+query domain libraries and translate abstract ideas into executable code
+via domain-specific examples. AtomAgents <span class="citation">[<a href="#ref-ghafarollahi2024atomagents">30</a>]</span> integrates a specialized
+knowledge-retrieval tool that extracts material properties directly from
+published papers. Chemist-X <span class="citation">[<a href="#ref-chen2023chemist">1</a>]</span> produces executable code to
+interrogate repositories such as PubChem for chemical literature and
+molecular datasets, while ProtAgents <span class="citation">[<a href="#ref-ghafarollahi2024protagents">29</a>]</span> retrieves specific data
+points (e.g., Protein Data Bank (PDB) identifiers) for protein design.
+In materials discovery, AutoMAT <span class="citation">[<a href="#ref-yang2025automat">15</a>]</span> uses LLMs, together with
+user-defined property targets and constraints, to consult reference
+handbooks (e.g., titanium alloy databases) and identify candidates
+meeting elemental criteria.</p><p><strong>E2-S2: Related-Work Based Retrieval.</strong> Citation
+networks and semantic similarity are widely used to link related works
+and surface new directions. ResearchAgent <span class="citation">[<a href="#ref-baek2024researchagent">18</a>]</span>, SCIMON <span class="citation">[<a href="#ref-wang2024scimon">36</a>]</span>, HypER <span class="citation">[<a href="#ref-vasu2025hyper">20</a>]</span>, and Chain of Ideas
+<span class="citation">[<a href="#ref-li2024chain">24</a>]</span> expand from an
+anchor paper by retrieving both citing and cited works to capture the
+evolution of research themes; HypER further adds LLM-based relevancy
+scoring. AI-Researcher <span class="citation">[<a href="#ref-tang2025ai">39</a>]</span> incorporates multi-step reference
+selection for each target paper, including citation-pattern analysis
+(frequency), context analysis (influence on methods/theory/experiments),
+evidence collection (textual support), and an integrated impact score.
+SciPIP <span class="citation">[<a href="#ref-wang2024scipip">35</a>]</span>
+combines keyword, co-occurrence, and semantics-based retrieval, then
+applies a cluster-based selection of representative papers. SCI-IDEA
+<span class="citation">[<a href="#ref-keya2025sci">13</a>]</span> queries academic
+sources using key phrases drawn from a researcher’s work and similar
+literature. Scideator <span class="citation">[<a href="#ref-radensky2024scideator">40</a>]</span> retrieves multiple analogs
+per source paper, uses an LLM to generate “purpose–mechanism” pairs, and
+then issues queries per pair to find additional relevant papers.
+Domain-focused approaches tailor queries to specialized terms. For
+example, ProteinHypothesis <span class="citation">[<a href="#ref-bazgir2025proteinhypothesis">34</a>]</span> uses domain-specific
+keywords (e.g., “Protein Science”) to retrieve metadata (titles,
+abstracts, links); AstroAgents <span class="citation">[<a href="#ref-saeedi2025astroagents">32</a>]</span> selects relevant papers and
+books to provide astrobiology context; and Tong et al. <span class="citation">[<a href="#ref-tong2024automating">41</a>]</span> require the
+presence of terms such as “psychol,” “clin psychol,” and “biol psychol”
+in titles or abstracts for psychology/neuroscience. Manual and
+semi-automatic curation complement these methods via direct selection
+from leading databases (e.g., Sparks of Science <span class="citation">[<a href="#ref-o2025sparks">42</a>]</span>, Perovskite-R1 <span class="citation">[<a href="#ref-wang2025perovskite">57</a>]</span>, Budget AI Researcher <span class="citation">[<a href="#ref-lee2025budget">62</a>]</span>, Lee et al. <span class="citation">[<a href="#ref-lee2025rag">16</a>]</span>, Quilodrán-Casas et al.
+<span class="citation">[<a href="#ref-quilodran2024towards">63</a>]</span>, Cheng
+et al. <span class="citation">[<a href="#ref-cheng2025language">50</a>]</span>,
+Ciucua et al. <span class="citation">[<a href="#ref-ciucua2023harnessing">64</a>]</span>).</p><p><strong>E2-S3: Dataset Retrieval from Scientific
+Repositories.</strong> Datasets provide the empirical foundation for
+analysis, model training, and validation. In drug discovery, DrugMCTS
+<span class="citation">[<a href="#ref-yang2025drugmcts">21</a>]</span> queries
+databases to retrieve molecules structurally similar to a query
+compound, associated protein interactors, and binding-pocket information
+parsed from Protein Data Bank (PDB) files to improve LLM
+interpretability. DrugAgent <span class="citation">[<a href="#ref-liu2024drugagent">31</a>]</span> retrieves biological datasets from
+the Therapeutics Data Commons (TDC), which offers structured, AI-ready
+datasets and benchmarks across drug development stages. In materials
+discovery, FlowLLM <span class="citation">[<a href="#ref-sriram2024flowllm">37</a>]</span> retrieves inorganic crystalline
+materials from the Materials Project for LLM fine-tuning, and
+Perovskite-R1 <span class="citation">[<a href="#ref-wang2025perovskite">57</a>]</span> assembles drug-like compounds
+from a comprehensive library to enhance generalization across chemical
+space. MatExpert <span class="citation">[<a href="#ref-ding2024matexpert">4</a>]</span> and LLMatDesign <span class="citation">[<a href="#ref-jia2024llmatdesign">5</a>]</span> access NOMAD
+ <span class="citation">[<a href="#ref-NOMADArchive">59</a>]</span> and the
+Materials Project  <span class="citation">[<a href="#ref-mp_time_split_guide">60</a>]</span> for reference materials used in
+training, evaluation, and modification workflows. Zhou et al. <span class="citation">[<a href="#ref-zhou2025toward">55</a>]</span> retrieve crystal
+structures with compositions or reduced formulas similar to a query from
+structural databases to identify promising crystal prototypes.</p><h3 id="e3-knowledge-assembly">E3: Knowledge Assembly</h3><p>The knowledge-assembly stage transforms unstructured scientific text
+into structured, queryable representations that enable efficient
+reasoning during discovery. The existing literature typically employs
+three strategies: structured extraction and summarization from
+literature, knowledge-graph construction, and database construction for
+large-scale retrieval and synthesis (Fig.  <a data-reference="fig:inputs and outputs" data-reference-type="ref" href="#fig:inputs and outputs">3</a>A and <a data-reference="fig:exhyte-cycle2" data-reference-type="ref" href="#fig:exhyte-cycle2">4</a>).</p><p><strong>E3-S1: Structured extraction and summarization from
+literature</strong> To make literature readily usable for idea and
+hypothesis generation, systems extract and summarize standardized
+sections (e.g., titles, abstracts, methods, results). SciPIP <span class="citation">[<a href="#ref-wang2024scipip">35</a>]</span>, Chain of Ideas
+<span class="citation">[<a href="#ref-li2024chain">24</a>]</span>, SCI-IDEA <span class="citation">[<a href="#ref-keya2025sci">13</a>]</span>, and AstroAgents <span class="citation">[<a href="#ref-saeedi2025astroagents">32</a>]</span> implement
+pipelines that segment papers into consistent fields. Papers like SciPIP
+<span class="citation">[<a href="#ref-wang2024scipip">35</a>]</span>, AtomAgents
+<span class="citation">[<a href="#ref-ghafarollahi2024atomagents">30</a>]</span>,
+Robin <span class="citation">[<a href="#ref-ghareeb2025robin">26</a>]</span>,
+Literature Meets Data <span class="citation">[<a href="#ref-liu2024literature">48</a>]</span>, AI-co-scientist <span class="citation">[<a href="#ref-gottweis2025towards">44</a>]</span> and IRIS <span class="citation">[<a href="#ref-garikaparthi2025iris">14</a>]</span> further
+produce concise synopses of key findings. Sparks of Science <span class="citation">[<a href="#ref-o2025sparks">42</a>]</span> uses LLMs to extract
+each paper’s conventional assumption and innovative approach alongside a
+concise insight summary from abstracts. Several systems including
+SCI-IDEA <span class="citation">[<a href="#ref-keya2025sci">13</a>]</span>,
+Scideator <span class="citation">[<a href="#ref-radensky2024scideator">40</a>]</span>, SCIMON <span class="citation">[<a href="#ref-wang2024scimon">36</a>]</span>, and Chen et al.
+<span class="citation">[<a href="#ref-chen2025structuring">65</a>]</span> extract
+facets such as objectives, methods, evaluation, and future work.
+Domain-tailored extraction includes causal relations in psychology (Tong
+et al. <span class="citation">[<a href="#ref-tong2024automating">41</a>]</span>),
+question–answer pairs for Perovskite precursors (Perovskite-R1 <span class="citation">[<a href="#ref-wang2025perovskite">57</a>]</span>),
+frequent-topic mining to guide retrieval (Lee et al. <span class="citation">[<a href="#ref-lee2025budget">62</a>]</span>), structured tables
+of target properties, related structures, and linking mechanisms (Beyond
+Designer’s Knowledge <span class="citation">[<a href="#ref-liu2025beyond">45</a>]</span>), parsing mechanical properties and
+compositions to propose alloys (AutoMAT <span class="citation">[<a href="#ref-yang2025automat">15</a>]</span>), and sentence-level evidence
+selection for property-optimization queries (dziner <span class="citation">[<a href="#ref-ansari2024dziner">46</a>]</span>).</p><p><strong>E3-S2: Knowledge graph construction.</strong> Knowledge
+graphs (KGs) encode entities and relations to support structured
+reasoning and discovery. SCIMON <span class="citation">[<a href="#ref-wang2024scimon">36</a>]</span> represents tasks, methods,
+materials, and metrics as nodes, with “used-for” edges to ground
+generated ideas. Tong et al. <span class="citation">[<a href="#ref-tong2024automating">41</a>]</span> construct causal KGs in
+psychology, where cause and effect pairs are directed nodes with
+attributes (interpretations) and relation types (causal vs.
+correlational). Y-Mol <span class="citation">[<a href="#ref-ma2024mol">43</a>]</span> builds a biomedical KG with interactions
+among drugs, genes, and diseases (Drug–Target, Drug–Drug, and
+Disease–Gene). ResearchAgent <span class="citation">[<a href="#ref-baek2024researchagent">18</a>]</span> assembles an entity-centric
+store from co-occurrences in literature to expose cross-domain
+connections (topics, keywords, individuals, events). SciPIP <span class="citation">[<a href="#ref-wang2024scipip">35</a>]</span> links papers to
+LLM-extracted keywords in a paper–keyword graph for efficient
+keyword-based retrieval. Graph of AI Ideas <span class="citation">[<a href="#ref-gao2025graph">61</a>]</span> constructs a paper-level graph using
+structured quadruples <em>(paper, citation position, citation semantics,
+paper)</em>, where citation position captures reference importance and
+citation semantics defines the purpose of each citation.</p><p><strong>E3-S3: Database construction.</strong> Curated databases
+consolidate heterogeneous resources into structured repositories for
+retrieval, analysis, and synthesis. SciPIP <span class="citation">[<a href="#ref-wang2024scipip">35</a>]</span> builds a literature database from
+top venues over the past decade, storing key sections and re-summarizing
+each paper into a quintuple (keywords, background, ideas, concise
+methods, core references), with background/ideas encoded as embeddings.
+ResearchAgent <span class="citation">[<a href="#ref-baek2024researchagent">18</a>]</span> extracts entities from
+titles/abstracts (e.g., post-2023 Semantic Scholar) and encodes their
+co-occurrences in a sparse matrix. HypER <span class="citation">[<a href="#ref-vasu2025hyper">20</a>]</span> compiles temporal reasoning-chain
+datasets linked to related papers for effective reasoning over
+scientific literature. SCIMON <span class="citation">[<a href="#ref-wang2024scimon">36</a>]</span> builds corpora from the ACL
+Anthology and PubMed, organizing the papers with extracted (Background,
+Target) pairs, seed terms, and their relations. Sparks of Science <span class="citation">[<a href="#ref-o2025sparks">42</a>]</span> constructs the
+“HypoGen” dataset by extracting assumptions, innovations, and core
+insights from abstracts. ProteinHypothesis <span class="citation">[<a href="#ref-bazgir2025proteinhypothesis">34</a>]</span>, Lee et al. <span class="citation">[<a href="#ref-lee2025budget">62</a>]</span>, and Cheng et al.
+<span class="citation">[<a href="#ref-cheng2025language">50</a>]</span> store
+vector embeddings of papers from arXiv and major conferences (e.g.,
+NeurIPS, ICLR) to support scalable retrieval.</p><h2 id="the-hypothesize-stage">The Hypothesize Stage</h2><h3 id="h1-hypothesisidea-generation">H1: Hypothesis/Idea
+Generation</h3><p>Hypothesis and idea generation mark the transition from structured
+knowledge to novel discovery, synthesizing literature, data, and
+reasoning strategies into creative, testable hypotheses. We identify
+four strategies commonly employed in the literature, including zero-shot
+generation, multi-agent generation, literature-based generation, and
+data-driven generation (Fig.  <a data-reference="fig:inputs and outputs" data-reference-type="ref" href="#fig:inputs and outputs">3</a>B
+and <a data-reference="fig:exhyte-cycle2" data-reference-type="ref" href="#fig:exhyte-cycle2">4</a>).</p><p><strong>H1-S1: Zero-shot generation.</strong> Zero-shot generation
+relies on the internal knowledge encoded in LLMs, thus enabling
+idea/hypothesis creation without explicit external context-useful when
+domain-specific training data are limited. Frameworks illustrating this
+approach include LLMatDesign <span class="citation">[<a href="#ref-jia2024llmatdesign">5</a>]</span>, Buehler et al. <span class="citation">[<a href="#ref-buehler2024generative">51</a>]</span>, Tang et al.
+<span class="citation">[<a href="#ref-tang2025street">66</a>]</span>, Yin et al.
+<span class="citation">[<a href="#ref-yin2025optimizing">67</a>]</span>,
+Bystronski et al. <span class="citation">[<a href="#ref-bystronski2025large">68</a>]</span>, Abdel et al. <span class="citation">[<a href="#ref-abdel2025scientific">52</a>]</span>, Rabby et al.
+<span class="citation">[<a href="#ref-rabby2025iterative">53</a>]</span>, Guo et
+al. <span class="citation">[<a href="#ref-guo2024coevo">69</a>]</span>, Pu et al.
+<span class="citation">[<a href="#ref-pu2025piflow">17</a>]</span>, Liu et al.
+<span class="citation">[<a href="#ref-liu2024evolution">70</a>]</span>, and
+Manning et al. <span class="citation">[<a href="#ref-manning2024automated">71</a>]</span>.</p><p><strong>H1-S2: Multi-agent generation.</strong> Multi-agent
+frameworks build specialized agents, coordinated under an orchestrator
+agent to produce and refine hypotheses. AstroAgents <span class="citation">[<a href="#ref-saeedi2025astroagents">32</a>]</span> employs a
+hierarchical design, where a ‘Data Analysis’ agent first uncovers key
+patterns and trends and a ‘Planner’ agent delegates distinct data
+segments to multiple ‘Scientist’ agents for in-depth exploration and
+investigation; finally each ’Scientist’ agent operates within its
+assigned domain to produce novel hypotheses, which are consolidated by
+an ‘Accumulator’ agent that de-duplicates and integrates the results.
+The Virtual Lab <span class="citation">[<a href="#ref-swanson2024virtual">72</a>]</span> uses a ‘Principal Investigator’
+agent to spawn a team of domain-specific ‘Scientist’ agents and a
+‘Scientific Critic’ agent that, through structured meetings, generate
+and iteratively refine candidate hypotheses and designs (e.g.,
+SARS-CoV-2 nanobody candidates). In the KG-grounded SciAgents <span class="citation">[<a href="#ref-ghafarollahi2025sciagents">28</a>]</span>, an
+’Assistant’ agent drafts an initial subgraph to contextualize the idea,
+an ’Ontologist’ agent defines nodes and interprets edges, and two
+’Scientist’ agents iteratively draft, elaborate, and critique detailed
+hypotheses. Robin <span class="citation">[<a href="#ref-ghareeb2025robin">26</a>]</span> specializes in biomedicine and
+designed an agent (‘Crow’) to identify causal disease mechanisms and
+suitable <em>in vitro</em> models and another agent (‘Falcon’) to
+conduct deep literature review to evaluate therapeutic candidates. In
+chemical discovery, DrugMCTS <span class="citation">[<a href="#ref-yang2025drugmcts">21</a>]</span> coordinates multiple sequential
+agents to incrementally build reasoning paths for protein target
+identification, where a ‘Molecule-Analysis’ agent produces
+natural-language molecular reports, a ‘Molecule-Selection’ agent filters
+candidates, an ‘Interaction-Analysis’ agent explores molecule–protein
+interactions, and a ‘Decision’ agent synthesizes upstream findings to
+predict promising targets.</p><p><strong>H1-S3: Literature-based generation.</strong>
+Literature-driven approaches retrieve, synthesize, and recombine
+knowledge from scientific texts to propose novel hypotheses.
+ResearchAgent <span class="citation">[<a href="#ref-baek2024researchagent">18</a>]</span> and Moose-Chem <span class="citation">[<a href="#ref-yang2024moose">2</a>]</span> provide
+titles/abstracts of various related papers as context for LLM. Genesys
+<span class="citation">[<a href="#ref-cheng2025language">50</a>]</span> formulates
+new LLM design ideas by modifying parent designs from the Knowledge
+Engine (KE), which integrates the curated literature with code and
+external sources. Similarly, dziner <span class="citation">[<a href="#ref-ansari2024dziner">46</a>]</span> generates modifications based on
+retrieved material-design guidelines mined from unstructured text (e.g.
+scientific literature and the Internet). Another common strategy is
+summarization-based synthesis, where relevant sections are distilled and
+restructured before prompting the LLM (e.g., AI-co-scientist <span class="citation">[<a href="#ref-gottweis2025towards">44</a>]</span>, SciPIP <span class="citation">[<a href="#ref-wang2024scipip">35</a>]</span>, ProteinHypothesis
+<span class="citation">[<a href="#ref-bazgir2025proteinhypothesis">34</a>]</span>,
+Perovskite-R1 <span class="citation">[<a href="#ref-wang2025perovskite">57</a>]</span>). Another approach is facet
+recombination, in which facets (e.g. purpose and mechanism) are
+recombined to surface gaps and generate ideas. For example, Scideator
+<span class="citation">[<a href="#ref-radensky2024scideator">40</a>]</span>
+constructs analogies from purpose-mechanism pairs across papers;
+SCI-IDEA <span class="citation">[<a href="#ref-keya2025sci">13</a>]</span>
+analyzes similar facets to detect patterns, inconsistencies, and
+unexplored areas; Liu et al. <span class="citation">[<a href="#ref-liu2025beyond">45</a>]</span> and Lee et al. <span class="citation">[<a href="#ref-lee2025budget">62</a>]</span> synthesize novel interdependencies
+among mechanisms or topics not explicitly linked in the source
+literature; and CODESCIENTIST <span class="citation">[<a href="#ref-jansen2025codescientist">19</a>]</span> explores combinatorial idea
+generation via genetic operators (e.g., crossover, mutation). A
+complementary line of work is a reasoning chain based generation, which
+reconstructs explanatory pathways from the noisy/fragmented literature.
+HypER <span class="citation">[<a href="#ref-vasu2025hyper">20</a>]</span>, Sparks
+of Science <span class="citation">[<a href="#ref-o2025sparks">42</a>]</span>, and
+Graph of AI Ideas <span class="citation">[<a href="#ref-gao2025graph">61</a>]</span> fall into this line and identify valid
+chains in the literature graphs and use them as scaffolds for
+evidence-grounded hypotheses. Finally, KGs are proposed to structure
+scientific concepts and relations for systematic hypothesis generation.
+For example, Tong et al. <span class="citation">[<a href="#ref-tong2024automating">41</a>]</span> employ link prediction
+algorithms on causal knowledge graphs to identify high-probability
+causal relationships among previously unconnected concepts.; Lee et al.
+<span class="citation">[<a href="#ref-lee2025rag">16</a>]</span> integrate
+biochemical drug-drug relationships from a KG to interpret the network
+structure, then pass these summaries to a prediction agent; Gao et al.
+<span class="citation">[<a href="#ref-gao2025controllable">54</a>]</span> generate
+plausible logical hypotheses from KG entity sets.</p><p><strong>H1-S4: Data-driven generation.</strong> Structured datasets
+provide a complementary source, where data instances and patterns can
+guide hypothesis formation. One group of systems detects patterns and
+supplies them as context to the LLM. In AstroAgents <span class="citation">[<a href="#ref-saeedi2025astroagents">32</a>]</span>, a ‘Data
+Analyst’ Agent examines mass spectrometry to uncover PAH (Polycyclic
+Aromatic Hydrocarbons) distributions and alkylation patterns,
+highlighting unexpected findings. ProteinHypothesis <span class="citation">[<a href="#ref-bazgir2025proteinhypothesis">34</a>]</span>
+analyzes sequence motifs, secondary-structure correlations, and
+functional-site patterns from experimental data. Proteus <span class="citation">[<a href="#ref-qu2025automating">33</a>]</span> runs targeted
+statistical analyses over multi-omics data using bioinformatics tools,
+recording quantified relationships between biological entities (e.g.
+proteins, transcripts, variants) and clinical features (e.g. survival
+time, tumor stage) as edges in a ‘Conclusion Graph’ that then grounds
+LLM hypothesis generation. Biomni <span class="citation">[<a href="#ref-huang2025biomni">73</a>]</span>, a general-purpose biomedical
+agent, follows similar approach but composes its analytical pipeline
+dynamically through code execution by LLM agent, rather than relying on
+a fixed analyst module. Another line seeds the LLM with few-shot data
+instances: HypoGeniC <span class="citation">[<a href="#ref-zhou2024hypothesis">47</a>]</span>, Literature Meets Data <span class="citation">[<a href="#ref-liu2024literature">48</a>]</span>, and Hypotheses
+for Inductive Reasoning <span class="citation">[<a href="#ref-lee2024generating">74</a>]</span> provide small sets of (input,
+label) pairs to induce initial hypotheses. In DrSR <span class="citation">[<a href="#ref-wang2025drsr">49</a>]</span>, ChatSR <span class="citation">[<a href="#ref-lichatsr">75</a>]</span>, and LLM-Feynman <span class="citation">[<a href="#ref-song2025llm">6</a>]</span>, observational pairs
+guide LLM in analyzing structural relationships, which are then used by
+symbolic regression to produce interpretable formulas. Zheng et al.
+<span class="citation">[<a href="#ref-zheng2025large">76</a>]</span> discover
+novel molecular patterns using structural/chemical features and then use
+them to predict molecular properties. Liu et al. <span class="citation">[<a href="#ref-liu2023chatgpt">77</a>]</span> retrieve domain-specific drug data
+as demonstrations for LLM to perform drug-editing tasks. In material,
+MAPPS <span class="citation">[<a href="#ref-zhou2025toward">55</a>]</span> queries
+structural databases for crystal prototypes with compositions/reduced
+formulas similar to a query, using them to generate initial candidate
+structures; MatExpert <span class="citation">[<a href="#ref-ding2024matexpert">4</a>]</span> fine-tunes a small LLM on curated
+transition pathways and target materials from NOMAD to generate
+plausible transition pathways. In healthcare and clinical design, Zhu et
+al. <span class="citation">[<a href="#ref-zhu2022generative">78</a>]</span> and
+Bani et al. <span class="citation">[<a href="#ref-bani2025language">56</a>]</span>
+fine-tune LLMs on patent–title pairs or clinical datasets containing
+various clinical scenarios and ground-truth diagnoses to enable new
+design ideas and hypotheses.</p><h3 id="h2-hypothesis-or-idea-prioritization">H2: Hypothesis or Idea
+Prioritization</h3><p>Hypothesis prioritization focuses analytical and computational
+resources on the most promising ideas by evaluating their novelty,
+plausibility, feasibility, and potential impact. We identify four common
+strategies: LLM-based evaluation, literature-based assessment,
+quantitative assessment using domain metrics, and human evaluation (Fig.
+ <a data-reference="fig:inputs and outputs" data-reference-type="ref" href="#fig:inputs and outputs">3</a>B and <a data-reference="fig:exhyte-cycle2" data-reference-type="ref" href="#fig:exhyte-cycle2">4</a>).</p><p><strong>H2-S1: LLM-based evaluation.</strong> LLM agents can act as
+evaluators, ranking ideas/hypotheses on clarity, feasibility, novelty,
+plausibility, consistency, and impact. Exemples include ResearchAgent
+<span class="citation">[<a href="#ref-baek2024researchagent">18</a>]</span>,AstroAgents <span class="citation">[<a href="#ref-saeedi2025astroagents">32</a>]</span>, SciAgents
+<span class="citation">[<a href="#ref-ghafarollahi2025sciagents">28</a>]</span>,
+AI-co-scientist <span class="citation">[<a href="#ref-gottweis2025towards">44</a>]</span>, Sparks of Science <span class="citation">[<a href="#ref-o2025sparks">42</a>]</span>, Moose-chem <span class="citation">[<a href="#ref-yang2024moose">2</a>]</span>, Tong et al <span class="citation">[<a href="#ref-tong2024automating">41</a>]</span>, PROTEUS <span class="citation">[<a href="#ref-qu2025automating">33</a>]</span>, Rabby et al
+<span class="citation">[<a href="#ref-rabby2025iterative">53</a>]</span>,
+ProteinHypothesis <span class="citation">[<a href="#ref-bazgir2025proteinhypothesis">34</a>]</span>. Robin <span class="citation">[<a href="#ref-ghareeb2025robin">26</a>]</span> uses an LLM judge
+to rank drug candidates by scientific rationale, pharmacological
+profile, and methodology of the supporting literature. AstroAgents <span class="citation">[<a href="#ref-saeedi2025astroagents">32</a>]</span> uses a
+critic agent to assess the alignment between hypotheses and
+observational data. CLADD <span class="citation">[<a href="#ref-lee2025rag">16</a>]</span> evaluates drugs by predicting toxicity
+from a molecule’s chemical representation (SMILES), inferring likely
+protein targets (mechanism of action) from an LLM-agent-generated report
+on the query molecule, and categorizing molecular properties from a
+generated textual description concatenated with the SMILES
+representation. DrugMCTS <span class="citation">[<a href="#ref-yang2025drugmcts">21</a>]</span> extends this by integrating
+LLM-based reward functions within a Monte Carlo Tree Search framework to
+score molecular–protein interactions using structural (binding pocket)
+and literature-derived contextual evidence. ChatBattery <span class="citation">[<a href="#ref-liu2025expert">58</a>]</span> uses a ‘Search’
+agent to verify novelty by querying the Materials Project database and a
+‘Retrieval’ agent to identify similar lithium-based compounds from the
+ICSD, guiding subsequent hypothesis revisions. Liu et al <span class="citation">[<a href="#ref-liu2025beyond">45</a>]</span> evaluate materials
+design hypotheses based on the alignment between the stated materials
+design goals and the content of the hypothesis. LLM-Feynman <span class="citation">[<a href="#ref-song2025llm">6</a>]</span> employs an LLM to
+assign ‘interpretability score’ to its own generated formulas,
+quantifying their physical and chemical meaning and ProtAgents <span class="citation">[<a href="#ref-ghafarollahi2024protagents">29</a>]</span> assess
+success in generating proteins with desired secondary structures.</p><p><strong>H2-S2: Literature-based assessment.</strong> To ensure that
+generated hypotheses are both novel and scientifically grounded, many
+systems incorporate literature-based assessment as a critical step. This
+process involves retrieving relevant prior work, evaluating semantic
+similarity, and determining whether the proposed idea contributes to new
+insights. Systems such as Scideator <span class="citation">[<a href="#ref-radensky2024scideator">40</a>]</span>, HypER <span class="citation">[<a href="#ref-vasu2025hyper">20</a>]</span>, SCIMON <span class="citation">[<a href="#ref-wang2024scimon">36</a>]</span>, AI-scientist <span class="citation">[<a href="#ref-lu2024ai">38</a>]</span>, AI-Scientist-v2 <span class="citation">[<a href="#ref-yamada2025ai">12</a>]</span>, AstroAgents <span class="citation">[<a href="#ref-saeedi2025astroagents">32</a>]</span>, Graph of AI Ideas <span class="citation">[<a href="#ref-gao2025graph">61</a>]</span>, SCI-IDEA <span class="citation">[<a href="#ref-keya2025sci">13</a>]</span>, SciAgents <span class="citation">[<a href="#ref-ghafarollahi2025sciagents">28</a>]</span>, Budget
+AI Researcher <span class="citation">[<a href="#ref-lee2025budget">62</a>]</span>,
+Cheng et al <span class="citation">[<a href="#ref-cheng2025language">50</a>]</span>, Lee et al <span class="citation">[<a href="#ref-lee2025budget">62</a>]</span> deploy LLM-based ‘Novelty Checker’,
+which assesses the idea’s novelty against relevant papers. HypER <span class="citation">[<a href="#ref-vasu2025hyper">20</a>]</span> evaluates whether
+the rationale and hypothesis track the logic and chronology of
+literature chains. CtrlHGen <span class="citation">[<a href="#ref-gao2025controllable">54</a>]</span> measures the alignment between
+hypothesis conclusions and the observed entities in the knowledge graph
+using multiple similarity metrics. These metrics are incorporated into
+the reward function that guides hypothesis generation.</p><p><strong>H2-S3: Quantitative Assessment Using Domain Metrics.</strong>
+Quantitative evaluation using domain-specific scientific metrics and
+computational models provides an objective measure of hypothesis. dziner
+<span class="citation">[<a href="#ref-ansari2024dziner">46</a>]</span> calculate
+‘synthesizability’ (e.g. synthetic accessibility score, quantitative
+estimate of drug-likeness (QED score)) using PubChem-scale molecule
+dataset and specialized tools. The effectiveness of a proposed
+modification is then evaluated with domain-expert predictive models, and
+the LLM ultimately decides whether to accept or reject the modification
+based on these quantitative results. Matexpert <span class="citation">[<a href="#ref-ding2024matexpert">4</a>]</span> evaluates generated material
+structural validity, chemical feasibility and stability using
+quantitative and physics-informed metrics. ChatBattery <span class="citation">[<a href="#ref-liu2025expert">58</a>]</span> verifies the
+stability and properties of the top-ranked cathode candidates using a
+machine learning surrogate model(MACE-MP) that predicts the energies and
+forces of the sampled structures. MAPPS <span class="citation">[<a href="#ref-zhou2025toward">55</a>]</span> evaluates crystal structures for
+structural quality, thermodynamic stability, novelty, and accuracy. Liu
+et al <span class="citation">[<a href="#ref-liu2023chatgpt">77</a>]</span> compare
+edited molecules with desired properties, quantify binding affinity for
+peptide editing and secondary structural content for protein secondary
+structure editing relative to desired targets. LLMatdesign <span class="citation">[<a href="#ref-jia2024llmatdesign">5</a>]</span> predicts
+properties via a Machine Learning Property Predictor (MLPP) after a
+Machine-Learning-Force-Field (MLFF) based relaxation of modified
+material structures, declaring success when the predicted properties of
+the new material align with target specifications. In symbolic reasoning
+and equation discovery, DrSR <span class="citation">[<a href="#ref-wang2025drsr">49</a>]</span> and ChatSR <span class="citation">[<a href="#ref-lichatsr">75</a>]</span> iteratively improve model output by
+assessing generated equations using numerical fitness scores and domain
+performance metrics. LLM-Feynman <span class="citation">[<a href="#ref-song2025llm">6</a>]</span> provides a comprehensive quantitative
+evaluation framework using the Coefficient of Determination and Mean
+Absolute Error (MAE) for regression tasks, and accuracy, precision,
+recall, F1 score, and cross-entropy loss for classification-based
+symbolic modeling.</p><p><strong>H2-S4: Human evaluation.</strong> Expert review complements
+automated scoring with contextual judgment and domain nuance. Chain of
+Ideas <span class="citation">[<a href="#ref-li2024chain">24</a>]</span>, Tong et
+al <span class="citation">[<a href="#ref-tong2024automating">41</a>]</span>,
+AstroAgents <span class="citation">[<a href="#ref-saeedi2025astroagents">32</a>]</span>, SciPIP <span class="citation">[<a href="#ref-wang2024scipip">35</a>]</span>, SciMON <span class="citation">[<a href="#ref-wang2024scimon">36</a>]</span>, CODESCIENTIST
+<span class="citation">[<a href="#ref-jansen2025codescientist">19</a>]</span>,
+SCI-IDEA <span class="citation">[<a href="#ref-keya2025sci">13</a>]</span>,
+Literature Meets Data <span class="citation">[<a href="#ref-liu2024literature">48</a>]</span>, ChatBattery <span class="citation">[<a href="#ref-liu2025expert">58</a>]</span>, Rabby et al <span class="citation">[<a href="#ref-rabby2025iterative">53</a>]</span> and HypER <span class="citation">[<a href="#ref-vasu2025hyper">20</a>]</span> incorporate expert
+feedback to refine, rank, or filter hypotheses.</p><h2 id="the-test-stage">The Test Stage</h2><h3 id="t1-experimental-design-generation">T1: Experimental Design
+Generation</h3><p>Experimental design generation translates top-ranked ideas and
+hypotheses into verifiable experimental plans, creating a systematic
+path to evaluate scientific propositions. It comprises three common
+strategies: literature-informed design, LLM-based design generation, and
+test execution (Fig.  <a data-reference="fig:inputs and outputs" data-reference-type="ref" href="#fig:inputs and outputs">3</a>C
+and <a data-reference="fig:exhyte-cycle2" data-reference-type="ref" href="#fig:exhyte-cycle2">4</a>).</p><p><strong>T1-S1: Literature-informed experimental design.</strong> This
+strategy leverages prior studies and domain references to ground
+experimental plans in established scientific practices. Robin <span class="citation">[<a href="#ref-ghareeb2025robin">26</a>]</span> selects
+top-ranked ’in vitro’ models from the literature review to define
+therapeutic testing strategies and generates concise experimental
+outlines. ResearchAgent <span class="citation">[<a href="#ref-baek2024researchagent">18</a>]</span> synthesizes problem
+information, methods, and existing designs from the literature into new
+protocols that emphasizing clarity, robustness, reproducibility,
+validity, and feasibility. Chain of Ideas <span class="citation">[<a href="#ref-li2024chain">24</a>]</span> uses the few-shot prompting with
+examples of prior experiments, together with user-provided ideas and key
+entities, to guide design generation. Similarly, DrugAgent <span class="citation">[<a href="#ref-liu2024drugagent">31</a>]</span> constructs
+executable code from curated documentation, compiled from widely used
+libraries and models from the literature. Together, these approaches
+ensure the design evidence-based while adaptable to novel scientific
+contexts.</p><p><strong>T1-S2: LLM-based experiment design generation.</strong>
+Beyond literature grounding, systems increasingly rely on LLM reasoning
+to autonomously generate experimental designs, often producing
+executable workflows or code for validation. AI-Scientist-v2 <span class="citation">[<a href="#ref-yamada2025ai">12</a>]</span> employs ‘Agentic Tree
+Search algorithm’ to systematically explore hypotheses during the
+experimentation phase. For each node in the experimental pathway, an LLM
+proposes a concrete experimentation plan and the Python code to
+implement it. Similarly, AI-researcher <span class="citation">[<a href="#ref-tang2025ai">39</a>]</span>, Lee et al <span class="citation">[<a href="#ref-lee2024generating">74</a>]</span>, Lui et al <span class="citation">[<a href="#ref-liu2024evolution">70</a>]</span>, Cheng et al <span class="citation">[<a href="#ref-cheng2025language">50</a>]</span> transform
+research analyses and development plans into executable code via LLM
+agents. In physics-based discovery, Zhou et al <span class="citation">[<a href="#ref-zhou2025toward">55</a>]</span> invoke tools from a physics toolbox
+to translate workflow steps into executable, physically grounded Python
+code. CODESCIENTIST <span class="citation">[<a href="#ref-jansen2025codescientist">19</a>]</span> uses a ‘planer’ agent that
+ingests the idea, expert comments, and a codeblock library to produce a
+concrete plan and required codeblocks. AI-co-scientist <span class="citation">[<a href="#ref-gottweis2025towards">44</a>]</span> features a
+‘Generation’ agent that proposes experimental protocols for downstream
+validations. In biomedical experimental setting, ProteinHypothesis <span class="citation">[<a href="#ref-bazgir2025proteinhypothesis">34</a>]</span>
+assesses the experimental feasibility of hypotheses and maps the
+hypotheses to laboratory techniques, while Chemist-X <span class="citation">[<a href="#ref-chen2023chemist">1</a>]</span> generates control
+scripts for an agent to operate wet-lab platforms for validation.
+Brunnsåker et al. <span class="citation">[<a href="#ref-brunnsaaker2025agentic">79</a>]</span> likewise uses LLM agents to
+turn a hypothesis into an experimental plan and auto-formalize it into a
+validated, machine-readable protocol for an automated yeast
+platform.</p><p><strong>T1-S3: Test execution.</strong> This strategy validates
+LLM-generated hypotheses via <em>in silico</em> or wet-lab experiments,
+closing the discovery loop by determining the real-world feasibility and
+accuracy of these hypotheses. In Robin <span class="citation">[<a href="#ref-ghareeb2025robin">26</a>]</span>, the experimental strategies are
+proposed for validating therapeutic candidates by identifying a relevant
+disease mechanism and <em>in vitro</em> models and executed by human
+researchers in an iterative lab-in-the-loop framework. In clinical
+hypothesis refinement, LA-CDM <span class="citation">[<a href="#ref-bani2025language">56</a>]</span> uses a ‘decision’ agent to request
+additional diagnostic tests to reduce uncertainty. Perovskite-R1 <span class="citation">[<a href="#ref-wang2025perovskite">57</a>]</span> implements
+recommended protocols and fabricates complete solar cell devices to
+assess the efficacy of the selected additives. ChatBattery <span class="citation">[<a href="#ref-liu2025expert">58</a>]</span> synthesizes and
+tests cathode candidates through wet-lab experiments. Chemist-X <span class="citation">[<a href="#ref-chen2023chemist">1</a>]</span> validates
+generated reaction conditions through fully automated wet-lab
+experiments under LLM supervision. Brunnsåker et al. <span class="citation">[<a href="#ref-brunnsaaker2025agentic">79</a>]</span> executes
+auto-formalized protocols on a fully automated cell-culture and
+mass-spectrometry platform. Abdel et al <span class="citation">[<a href="#ref-abdel2025scientific">52</a>]</span> test LLM-proposed drug
+combinations in the lab.</p><p>Execution also includes computational validation. Tang et al <span class="citation">[<a href="#ref-tang2025street">66</a>]</span> apply
+regression-based statistical models to test hypotheses about LLM’s
+explanatory power for societal outcomes. Genesys <span class="citation">[<a href="#ref-cheng2025language">50</a>]</span> evaluates the proposed language
+model design by verifying code correctness, conducting training-time
+experiments, and measuring success via a multi-scale fitness function.
+CODESCIENTIST <span class="citation">[<a href="#ref-jansen2025codescientist">19</a>]</span> follows an iterative
+generate-execute-reflect debugging loop, while AI-Scientist <span class="citation">[<a href="#ref-tang2025ai">39</a>]</span> and AI-Scientist-v2
+<span class="citation">[<a href="#ref-yamada2025ai">12</a>]</span> test
+LLM-generated experiment prototypes by running associated Python code to
+test conceptual validity.</p><h3 id="t2-iterative-refinement">T2: Iterative refinement</h3><p>Iterative refinement improves the quality and feasibility of
+hypotheses, ideas, and experimental designs by incorporating feedback
+from agents, data, and experts, ensuring responsive to new information
+and evaluations. There are three common strategies: agent
+feedback–guided refinement, data-driven refinement, and human
+feedback–guided refinement (Fig.  <a data-reference="fig:inputs and outputs" data-reference-type="ref" href="#fig:inputs and outputs">3</a>C
+and <a data-reference="fig:exhyte-cycle2" data-reference-type="ref" href="#fig:exhyte-cycle2">4</a>).</p><p><strong>T2-S1: Agent feedback–guided refinement.</strong> Systems
+employ feedback loops in which LLM-based agents iteratively revise
+hypotheses, code, and designs to improve feasibility and correctness.
+AI-Scientist-v2 <span class="citation">[<a href="#ref-yamada2025ai">12</a>]</span>
+refines algorithm nodes through agent feedback by evaluating ’parent
+nodes’ outcome, where buggy parents trigger debugging using child nodes,
+while non-buggy parents prompt experimental refinement. Key metrics
+(e.g., loss values, training data) are logged and visualized and a
+Vision Language Model (VLM) then critiques plots for label clarity,
+legend completeness, and data accuracy. Nodes flagged by the VLM are
+marked buggy, whereas validated nodes are retained, enabling continuous,
+feedback-driven improvement. Similarly, AI-researcher <span class="citation">[<a href="#ref-tang2025ai">39</a>]</span> utilizes an ‘Advisor’
+agent to propose actionable refinement spanning implementation details,
+validation studies, visualizations, and comparative analyses. In
+clinical settings, the ‘Hypothesis’ agent in LA-CDM <span class="citation">[<a href="#ref-bani2025language">56</a>]</span> updates diagnoses
+and confidence estimates as patient-state information evolves, repeating
+until a final diagnosis is produced.</p><p><strong>T2-S2: Data-driven refinement.</strong> Data-driven
+refinement keeps hypotheses, models, and experimental plans empirically
+grounded by updating them with new computational and experimental
+evidence. In Robin <span class="citation">[<a href="#ref-ghareeb2025robin">26</a>]</span>, human scientists upload raw or
+semi-processed data (e.g., flow cytometry, RNA-seq data), which are
+processed by the ‘Finch’ analysis agent with the requested analysis to
+generate statistical tests, differential gene expression plots. Robin
+also distills actionable insights from the analysis results and proposes
+follow-up assays. Fully automated systems such as Chemist-X <span class="citation">[<a href="#ref-chen2023chemist">1</a>]</span> execute
+LLM-generated reaction conditions with closed-loop wet-lab experiments
+and quantify reaction outcomes (e.g., the product yield using
+High-Performance Liquid Chromatography). Abdel et al. <span class="citation">[<a href="#ref-abdel2025scientific">52</a>]</span> validate
+LLM-generated drug combinations experimentally and compute Highest
+Single Agent (HSA) synergy scores to quantify performance. In materials
+science, ChatBattery <span class="citation">[<a href="#ref-liu2025expert">58</a>]</span> characterizes physical/structural
+performance with power conversion efficiency, film quality, and
+stability. Perovskite-R1 <span class="citation">[<a href="#ref-wang2025perovskite">57</a>]</span> assess the efficacy of the
+selected additives by fabricating complete solar cell devices and
+evaluating metrics such as Power Conversion Efficiency (PCE), film
+quality, and long-term device performance. In social science, Tang et al
+<span class="citation">[<a href="#ref-tang2025street">66</a>]</span> convert
+natural language hypotheses into interpretable embeddings used as
+explanatory variables in a linear regression model to predict societal
+outcomes. Coefficients are tested for significance, non-significant
+hypotheses are pruned, and the feedback guides subsequent LLM
+proposals.</p><p><strong>T2-S3: Human feedback guided refinement.</strong> Expert
+review adds domain-specific judgment that complements automated
+evaluations. In ChatBattery <span class="citation">[<a href="#ref-liu2025expert">58</a>]</span>, human researchers revise hypotheses
+after examining experimental outcomes, aligning hypotheses with
+objectives and constraints when results indicate limited validity or
+feasibility. CODESCIENTIST <span class="citation">[<a href="#ref-jansen2025codescientist">19</a>]</span> generates concise reports
+indicating whether each hypothesis was confirmed, rejected, or
+inconclusive, and final expert screening substantially narrows the
+candidate set.</p><h1 id="integrated-exhyte-workflows-case-studies">Integrated EXHYTE
+Workflows: Case Studies</h1><p>The previous sections examined how individual studies address
+specific stages and substages of the EXHYTE framework. This
+stage-by-stage analysis provides a granular view of methodological
+contributions, but it does not fully show how these components are
+combined in existing AI-for-science systems. To illustrate workflow
+integration in practice, we examine two published systems from the
+surveyed literature: AI-Researcher <span class="citation">[<a href="#ref-tang2025ai">39</a>]</span> and AI Co-Scientist <span class="citation">[<a href="#ref-gottweis2025towards">44</a>]</span>. These systems
+were selected as case studies because they connect multiple EXHYTE
+functions within relatively complete workflows while differing in
+modality, degree of autonomy, and human involvement. AI-Researcher
+illustrates an <em>in silico</em> workflow centered on literature, code,
+algorithm design, and computational evaluation, whereas AI Co-Scientist
+illustrates a scientist-in-the-loop workflow that links LLM-based
+reasoning with wet-lab validation. We use these examples not as systems
+proposed by us, but as representative cases for analyzing how existing
+methods instantiate the EXHYTE workflow abstraction.</p><h2 id="ai-researcher-an-in-silico-workflow">AI-Researcher: an <em>in
+silico</em> workflow </h2><p>The goal of the AI-Researcher system is to design a complete research
+pipeline with minimal human intervention capable of systematically
+targeting the conceptual frontiers of science, deliberately seeking
+conceptual gaps, contradictory findings, and emerging patterns across
+literature and implementations. It begins with a curated collection of
+approximately 15–20 reference papers, along with optional datasets, that
+form the foundation of knowledge for the system. These sources mirror
+the intellectual basis of a target publication, providing the conceptual
+and methodological context from which new discoveries emerge.</p><p><strong>Explore.</strong> During the exploration stage, AI-researcher
+establishes the technical and conceptual groundwork for autonomous
+algorithm design. This process is jointly managed by the <em>Knowledge
+Acquisition Agent</em> and the <em>Resource Analyst Agent</em>,
+supported by their respective sub-agents. The <em>Resource Analyst
+Agent</em> decomposes the research objective into atomic academic
+concepts, which are fundamental, indivisible elements requiring targeted
+investigation. Guided by these concepts, the <em>Knowledge Acquisition
+Agent</em> retrieves relevant papers and code repositories from
+scientific databases, applying multi-criteria filtering to select
+high-quality sources (E2-S1/S2). The <em>Paper Analyst</em> sub-agent
+extracts mathematical formulations from LaTeX files using a
+retrieval-augmented generation (RAG) approach (E3-S1), while the
+<em>Code Analyst</em> identifies corresponding code implementations,
+establishing explicit bidirectional mappings between theory and code
+(E3-S3). The resulting structured report provides the empirical and
+theoretical foundation for downstream reasoning.</p><p><strong>Hypothesize.</strong> Building on the knowledge assembled
+during exploration, the <em>Idea Generator</em> identifies conceptual
+gaps, contradictory findings, and emerging patterns across literature
+and implementations (H1-S3). It employs a Divergent–Convergent Discovery
+Framework: the divergent phase produces multiple conceptually distinct
+research directions, while the convergent phase evaluates them using
+criteria such as novelty, soundness, and transformative potential
+(H2-S1/S2). The <em>Advisor Agent</em> provides expert-style feedback
+linking theoretical concepts to implementation plans, embodying the
+human-in-the-loop evaluation principle (H2-S4).</p><p><strong>Test.</strong> The testing phase operationalizes selected
+hypotheses through experimental planning, implementation, and iterative
+refinement. The <em>Plan Agent</em> generates a comprehensive
+development plan, including dataset selection, training/testing
+methodology, and evaluation metrics (T1-S1). The <em>Code Agent</em>
+translates this plan into executable implementations, verifying dataset
+usage and experimental consistency (T1-S2). Results are analyzed by the
+<em>Experiment Analysis Agent</em>, which recommends code modifications
+and further experimentation (T2-S1). Finally, the <em>Automated
+Documentation Agent</em> revises the manuscript using an academic
+checklist to ensure clarity, reproducibility, and completeness (T2-S3).
+Together, these stages demonstrate a continuous feedback loop linking
+hypothesis generation to empirical validation within a coherent <em>in
+silico</em> research pipeline.</p><h2 id="ai-co-scientist-a-wet-lab-integrated-workflow">AI Co-Scientist:
+a wet-lab-integrated workflow </h2><p>The primary goal of the AI Co-scientist is to accelerate the process
+of scientific discovery by uncovering new, original knowledge operating
+within a “scientist-in-the-loop” collaborative paradigm. AI Co-Scientist
+implements the EXHYTE framework with physical experimentation by
+coupling LLM reasoning with wet-lab validation. The system accepts
+multiple input types from the human scientist, most critically a
+research goal, which may range from concise statements to long documents
+containing numerous prior publications.</p><p><strong>Explore.</strong> Upon receiving the research goal, AI
+Co-Scientist parses it into a <em>research plan configuration</em>
+specifying desired outputs, constraints, and evaluation criteria
+(E1-S1). This configuration serves as a blueprint for downstream
+hypothesis generation. The <em>Generation Agent</em> then explores
+relevant literature via web search and retrieval tools (E2-S1/S2) to
+identify promising directions for novel findings.</p><p><strong>Hypothesize.</strong> The <em>Generation Agent</em> grounds
+its reasoning in summarized prior work and produces hypotheses and
+research plans (H1-S3). A <em>Reflection Agent</em> simulates a
+scientific peer-review process, critically examining each hypothesis for
+correctness, novelty, and evidential grounding (H2-S2). Quick reviews
+are followed by comprehensive evaluations that integrate external search
+and evidence retrieval to assess validity. For complex hypotheses, deep
+verification decomposes each claim into constituent assumptions, which
+are independently examined to detect invalid components. The <em>Ranking
+Agent</em> employs an Elo-style tournament framework to compare
+hypotheses through multi-turn debates, scoring them on novelty,
+correctness, and testability (H2-S1). The top-ranked hypotheses are
+iteratively refined by an <em>Evolution Agent</em> (T2-S1/S3).</p><p><strong>Test.</strong> The testing stage connects LLM-generated
+hypotheses to real-world validation. AI Co-Scientist has been deployed
+in several biomedical domains, with wet-lab validation. Notably, the
+system generated the hypothesis that <em>chromosomal phage-inducible
+chromosomal islands (cf-PICIs) hijack phage tails to expand host
+range</em>, which was experimentally validated <span class="citation">[<a href="#ref-penades2025ai">80</a>]</span>. This “tail-hijacking” mechanism
+revealed a previously unknown route for horizontal gene transfer in
+bacteria, advancing understanding of antimicrobial resistance evolution.
+This case exemplifies how EXHYTE-integrated reasoning—spanning
+literature exploration, hypothesis generation, prioritization, and
+refinement—can produce experimentally verified discoveries.</p><p>Together, AI-Researcher and AI Co-Scientist illustrate how EXHYTE
+strategies interconnect across modalities. In both, <em>Explore</em>
+stages ground the system in literature and data; <em>Hypothesize</em>
+stages generate and prioritize testable ideas; and <em>Test</em> stages
+operationalize and refine them through computation or experimentation.
+These integrated workflows demonstrate the practical synthesis of the
+modular strategies surveyed earlier. This integration, however, is
+achieved through extensive orchestration. Both systems decompose the
+discovery pipeline into specialized, prompted agents connected by
+explicit control logic. This fragmentation is not inherently a weakness:
+separating roles improves interpretability, isolates failures, and
+allows targeted prompting and verification at each step. It also,
+however, introduces coordination overhead, numerous inter-agent
+interfaces that can drift or fail, and reproducibility challenges
+arising from accumulated orchestration logic. Much of this partitioning
+reflects the current engineering strategy for eliciting reliable
+behavior from general-purpose LLMs rather than an intrinsic requirement
+of scientific discovery; accordingly, newer general-purpose coding
+agents (e.g., Claude Code, Codex), whose explicit planning and execution
+phases can spawn sub-agents on demand, are beginning to collapse several
+of these hand-specified roles into fewer, more capable agents.</p><section class="references" id="references"><h1>References</h1><div class="reference-entry" id="ref-chen2023chemist"><a id="ref-1"></a><span class="ref-num">[1]</span>Chen, K., Li, J., Wang, K., Du, Y., Yu, J., Lu, J., Li, L., Qiu, J., Pan, J., Huang, Y., et al.: Chemist-x: Large language model-empowered agent for reaction condition recommendation in chemical synthesis. arXiv preprint arXiv:2311.10776 (2023)</div><div class="reference-entry" id="ref-yang2024moose"><a id="ref-2"></a><span class="ref-num">[2]</span>Yang, Z., Liu, W., Gao, B., Xie, T., Li, Y., Ouyang, W., Poria, S., Cambria, E., Zhou, D.: Moose-chem: Large language models for rediscovering unseen chemistry scientific hypotheses. arXiv preprint arXiv:2410.07076 (2024)</div><div class="reference-entry" id="ref-ding2024matexpert"><a id="ref-4"></a><span class="ref-num">[4]</span>Ding, Q., Miret, S., Liu, B.: Matexpert: Decomposing materials discovery by mimicking human experts. arXiv preprint arXiv:2410.21317 (2024)</div><div class="reference-entry" id="ref-jia2024llmatdesign"><a id="ref-5"></a><span class="ref-num">[5]</span>Jia, S., Zhang, C., Fung, V.: Llmatdesign: Autonomous materials discovery with large language models. arXiv preprint arXiv:2406.13163 (2024)</div><div class="reference-entry" id="ref-song2025llm"><a id="ref-6"></a><span class="ref-num">[6]</span>Song, Z., Ju, M., Ren, C., Li, Q., Li, C., Zhou, Q., Wang, J.: Llm-feynman: Leveraging large language models for universal scientific formula and theory discovery. arXiv preprint arXiv:2503.06512 (2025)</div><div class="reference-entry" id="ref-yamada2025ai"><a id="ref-12"></a><span class="ref-num">[12]</span>Yamada, Y., Lange, R.T., Lu, C., Hu, S., Lu, C., Foerster, J., Clune, J., Ha, D.: The ai scientist-v2: Workshop-level automated scientific discovery via agentic tree search. arXiv preprint arXiv:2504.08066 (2025)</div><div class="reference-entry" id="ref-keya2025sci"><a id="ref-13"></a><span class="ref-num">[13]</span>Keya, F., Rabby, G., Mitra, P., Vahdati, S., Auer, S., Jaradeh, Y.: Sci-idea: Context-aware scientific ideation using token and sentence embeddings. arXiv preprint arXiv:2503.19257 (2025)</div><div class="reference-entry" id="ref-garikaparthi2025iris"><a id="ref-14"></a><span class="ref-num">[14]</span>Garikaparthi, A., Patwardhan, M., Vig, L., Cohan, A.: Iris: Interactive research ideation system for accelerating scientific discovery. arXiv preprint arXiv:2504.16728 (2025)</div><div class="reference-entry" id="ref-yang2025automat"><a id="ref-15"></a><span class="ref-num">[15]</span>Yang, P., Zhao, C., Tang, B., Zhang, Z., Wang, X., Deng, Y., Lu, Y., Guan, C., Liu, Z., An, B.: Automat: A hierarchical framework for autonomous alloy discovery. arXiv preprint arXiv:2507.16005 (2025)</div><div class="reference-entry" id="ref-lee2025rag"><a id="ref-16"></a><span class="ref-num">[16]</span>Lee, N., De Brouwer, E., Hajiramezanali, E., Biancalani, T., Park, C., Scalia, G.: Rag-enhanced collaborative llm agents for drug discovery. arXiv preprint arXiv:2502.17506 (2025)</div><div class="reference-entry" id="ref-pu2025piflow"><a id="ref-17"></a><span class="ref-num">[17]</span>Pu, Y., Lin, T., Chen, H.: Piflow: Principle-aware scientific discovery with multi-agent collaboration. arXiv preprint arXiv:2505.15047 (2025)</div><div class="reference-entry" id="ref-baek2024researchagent"><a id="ref-18"></a><span class="ref-num">[18]</span>Baek, J., Jauhar, S.K., Cucerzan, S., Hwang, S.J.: Researchagent: Iterative research idea generation over scientific literature with large language models. arXiv preprint arXiv:2404.07738 (2024)</div><div class="reference-entry" id="ref-jansen2025codescientist"><a id="ref-19"></a><span class="ref-num">[19]</span>Jansen, P., Tafjord, O., Radensky, M., Siangliulue, P., Hope, T., Mishra, B.D., Majumder, B.P., Weld, D.S., Clark, P.: Codescientist: End-to-end semiautomated scientific discovery with code-based experimentation. arXiv preprint arXiv:2503.22708 (2025)</div><div class="reference-entry" id="ref-vasu2025hyper"><a id="ref-20"></a><span class="ref-num">[20]</span>Vasu, R., Basu, C., Mishra, B.D., Sarasua, C., Clark, P., Bernstein, A.: Hyper: Literature-grounded hypothesis generation and distillation with provenance. arXiv preprint arXiv:2506.12937 (2025)</div><div class="reference-entry" id="ref-yang2025drugmcts"><a id="ref-21"></a><span class="ref-num">[21]</span>Yang, Z., Wan, Y., Li, Y., Matsuda, Y., Xie, T., Song, L.: Drugmcts: a drug repurposing framework combining multi-agent, rag and monte carlo tree search. arXiv preprint arXiv:2507.07426 (2025)</div><div class="reference-entry" id="ref-knox2024drugbank"><a id="ref-22"></a><span class="ref-num">[22]</span>Knox, C., Wilson, M., Klinger, C.M., Franklin, M., Oler, E., Wilson, A., Pon, A., Cox, J., Chin, N.E., Strawbridge, S.A., et al.: Drugbank 6.0: the drugbank knowledgebase for 2024. Nucleic acids research 52(D1), 1265–1275 (2024)</div><div class="reference-entry" id="ref-pahikkala2015kiba"><a id="ref-23"></a><span class="ref-num">[23]</span>Pahikkala, T., Airola, A., Pietilä, S., Shakyawar, S., Szwajda, A., Tang, J., Aittokallio, T.: Toward more realistic drug–target interaction predictions. Briefings in bioinformatics 16(2), 325–337 (2015)</div><div class="reference-entry" id="ref-li2024chain"><a id="ref-24"></a><span class="ref-num">[24]</span>Li, L., Xu, W., Guo, J., Zhao, R., Li, X., Yuan, Y., Zhang, B., Jiang, Y., Xin, Y., Dang, R., et al.: Chain of ideas: Revolutionizing research via novel idea development with llm agents. arXiv preprint arXiv:2410.13185 (2024)</div><div class="reference-entry" id="ref-deng2025assay2mol"><a id="ref-25"></a><span class="ref-num">[25]</span>Deng, Y., Ericksen, S.S., Gitter, A.: Assay2mol: large language model-based drug design using bioassay context. arXiv preprint arXiv:2507.12574 (2025)</div><div class="reference-entry" id="ref-ghareeb2025robin"><a id="ref-26"></a><span class="ref-num">[26]</span>Ghareeb, A.E., Chang, B., Mitchener, L., Yiu, A., Szostkiewicz, C.J., Laurent, J.M., Razzak, M.T., White, A.D., Hinks, M.M., Rodriques, S.G.: Robin: A multiagent system for automating scientific discovery. arXiv preprint arXiv:2505.13400 (2025)</div><div class="reference-entry" id="ref-liu2024drugllm"><a id="ref-27"></a><span class="ref-num">[27]</span>Liu, X., Guo, Y., Li, H., Liu, J., Huang, S., Ke, B., Lv, J.: Drugllm: Open large language model for few-shot molecule generation. arXiv preprint arXiv:2405.06690 (2024)</div><div class="reference-entry" id="ref-ghafarollahi2025sciagents"><a id="ref-28"></a><span class="ref-num">[28]</span>Ghafarollahi, A., Buehler, M.J.: Sciagents: automating scientific discovery through bioinspired multi-agent intelligent graph reasoning. Advanced Materials 37(22), 2413523 (2025)</div><div class="reference-entry" id="ref-ghafarollahi2024protagents"><a id="ref-29"></a><span class="ref-num">[29]</span>Ghafarollahi, A., Buehler, M.J.: Protagents: protein discovery via large language model multi-agent collaborations combining physics and machine learning. Digital Discovery 3(7), 1389–1409 (2024)</div><div class="reference-entry" id="ref-ghafarollahi2024atomagents"><a id="ref-30"></a><span class="ref-num">[30]</span>Ghafarollahi, A., Buehler, M.J.: Atomagents: Alloy design and discovery through physics-aware multi-modal multi-agent artificial intelligence. arXiv preprint arXiv:2407.10022 (2024)</div><div class="reference-entry" id="ref-liu2024drugagent"><a id="ref-31"></a><span class="ref-num">[31]</span>Liu, S., Lu, Y., Chen, S., Hu, X., Zhao, J., Lu, Y., Zhao, Y.: Drugagent: Automating ai-aided drug discovery programming through llm multi-agent collaboration. arXiv preprint arXiv:2411.15692 (2024) 31</div><div class="reference-entry" id="ref-saeedi2025astroagents"><a id="ref-32"></a><span class="ref-num">[32]</span>Saeedi, D., Buckner, D., Aponte, J.C., Aghazadeh, A.: Astroagents: A multiagent ai for hypothesis generation from mass spectrometry data. arXiv preprint arXiv:2503.23170 (2025)</div><div class="reference-entry" id="ref-qu2025automating"><a id="ref-33"></a><span class="ref-num">[33]</span>Qu, S., Ding, N., Xie, L., Li, Y., Liu, Z., Zhang, K., Xiong, Y., Zuo, Y., Chen, Z., Hua, E., et al.: Automating exploratory multiomics research via language models. arXiv preprint arXiv:2506.07591 (2025)</div><div class="reference-entry" id="ref-bazgir2025proteinhypothesis"><a id="ref-34"></a><span class="ref-num">[34]</span>Bazgir, A., Zhang, Y., et al.: Proteinhypothesis: A physics-aware chain of multiagent rag llm for hypothesis generation in protein science. In: Towards Agentic AI for Science: Hypothesis Generation, Comprehension, Quantification, and Validation (2025)</div><div class="reference-entry" id="ref-wang2024scipip"><a id="ref-35"></a><span class="ref-num">[35]</span>Wang, W., Gu, L., Zhang, L., Luo, Y., Dai, Y., Shen, C., Xie, L., Lin, B., He, X., Ye, J.: Scipip: An llm-based scientific paper idea proposer. arXiv preprint arXiv:2410.23166 (2024)</div><div class="reference-entry" id="ref-wang2024scimon"><a id="ref-36"></a><span class="ref-num">[36]</span>Wang, Q., Downey, D., Ji, H., Hope, T.: Scimon: Scientific inspiration machines optimized for novelty. In: Proceedings of the 62nd Annual Meeting of the Association for Computational Linguistics (Volume 1: Long Papers), pp. 279–299 (2024)</div><div class="reference-entry" id="ref-sriram2024flowllm"><a id="ref-37"></a><span class="ref-num">[37]</span>Sriram, A., Miller, B.K., Chen, R.T., Wood, B.M.: Flowllm: Flow matching for material generation with large language models as base distributions. Advances in Neural Information Processing Systems 37, 46025–46046 (2024)</div><div class="reference-entry" id="ref-lu2024ai"><a id="ref-38"></a><span class="ref-num">[38]</span>Lu, C., Lu, C., Lange, R.T., Foerster, J., Clune, J., Ha, D.: The ai scientist: Towards fully automated open-ended scientific discovery. arXiv preprint arXiv:2408.06292 (2024)</div><div class="reference-entry" id="ref-tang2025ai"><a id="ref-39"></a><span class="ref-num">[39]</span>Tang, J., Xia, L., Li, Z., Huang, C.: Ai-researcher: Autonomous scientific innovation. arXiv preprint arXiv:2505.18705 (2025)</div><div class="reference-entry" id="ref-radensky2024scideator"><a id="ref-40"></a><span class="ref-num">[40]</span>Radensky, M., Shahid, S., Fok, R., Siangliulue, P., Hope, T., Weld, D.S.: Scideator: Human-llm scientific idea generation grounded in research-paper facet recombination. arXiv preprint arXiv:2409.14634 (2024)</div><div class="reference-entry" id="ref-tong2024automating"><a id="ref-41"></a><span class="ref-num">[41]</span>Tong, S., Mao, K., Huang, Z., Zhao, Y., Peng, K.: Automating psychological hypothesis generation with ai: when large language models meet causal graph. Humanities and Social Sciences Communications 11(1), 1–14 (2024)</div><div class="reference-entry" id="ref-o2025sparks"><a id="ref-42"></a><span class="ref-num">[42]</span>O’Neill, C., Ghosal, T., Răileanu, R., Walmsley, M., Bui, T., Schawinski, K., Ciucă, I.: Sparks of science: Hypothesis generation using structured paper data. arXiv preprint arXiv:2504.12976 (2025)</div><div class="reference-entry" id="ref-ma2024mol"><a id="ref-43"></a><span class="ref-num">[43]</span>Ma, T., Lin, X., Li, T., Li, C., Chen, L., Zhou, P., Cai, X., Yang, X., Zeng, D., Cao, D., et al.: Y-mol: A multiscale biomedical knowledge-guided large language 32 model for drug development. arXiv preprint arXiv:2410.11550 (2024)</div><div class="reference-entry" id="ref-gottweis2025towards"><a id="ref-44"></a><span class="ref-num">[44]</span>Gottweis, J., Weng, W.-H., Daryin, A., Tu, T., Palepu, A., Sirkovic, P., Myaskovsky, A., Weissenberger, F., Rong, K., Tanno, R., et al.: Towards an ai co-scientist. arXiv preprint arXiv:2502.18864 (2025)</div><div class="reference-entry" id="ref-liu2025beyond"><a id="ref-45"></a><span class="ref-num">[45]</span>Liu, Q., Polak, M.P., Kim, S.Y., Shuvo, M.A.A., Deodhar, H.S., Han, J., Morgan, D., Oh, H.: Beyond designer’s knowledge: Generating materials design hypotheses via a large language model. Acta Materialia, 121307 (2025)</div><div class="reference-entry" id="ref-ansari2024dziner"><a id="ref-46"></a><span class="ref-num">[46]</span>Ansari, M., Watchorn, J., Brown, C.E., Brown, J.S.: dziner: Rational inverse design of materials with ai agents. arXiv preprint arXiv:2410.03963 (2024)</div><div class="reference-entry" id="ref-zhou2024hypothesis"><a id="ref-47"></a><span class="ref-num">[47]</span>Zhou, Y., Liu, H., Srivastava, T., Mei, H., Tan, C.: Hypothesis generation with large language models. arXiv preprint arXiv:2404.04326 (2024)</div><div class="reference-entry" id="ref-liu2024literature"><a id="ref-48"></a><span class="ref-num">[48]</span>Liu, H., Zhou, Y., Li, M., Yuan, C., Tan, C.: Literature meets data: A synergistic approach to hypothesis generation. arXiv preprint arXiv:2410.17309 (2024)</div><div class="reference-entry" id="ref-wang2025drsr"><a id="ref-49"></a><span class="ref-num">[49]</span>Wang, R., Wang, B., Li, K., Zhang, Y., Cheng, J.: Drsr: Llm based scientific equation discovery with dual reasoning from data and experience. arXiv preprint arXiv:2506.04282 (2025)</div><div class="reference-entry" id="ref-cheng2025language"><a id="ref-50"></a><span class="ref-num">[50]</span>Cheng, J., Clark, P., Richardson, K.: Language modeling by language models. arXiv preprint arXiv:2506.20249 (2025)</div><div class="reference-entry" id="ref-buehler2024generative"><a id="ref-51"></a><span class="ref-num">[51]</span>Buehler, M.J.: Generative retrieval-augmented ontologic graph and multiagent strategies for interpretive large language model-based materials design. ACS Engineering Au 4(2), 241–277 (2024)</div><div class="reference-entry" id="ref-abdel2025scientific"><a id="ref-52"></a><span class="ref-num">[52]</span>Abdel-Rehim, A., Zenil, H., Orhobor, O., Fisher, M., Collins, R.J., Bourne, E., Fearnley, G.W., Tate, E., Smith, H.X., Soldatova, L.N., et al.: Scientific hypothesis generation by large language models: laboratory validation in breast cancer treatment. Journal of the Royal Society Interface 22(227), 20240674 (2025)</div><div class="reference-entry" id="ref-rabby2025iterative"><a id="ref-53"></a><span class="ref-num">[53]</span>Rabby, G., Muhammed, D., Mitra, P., Auer, S.: Iterative hypothesis generation for scientific discovery with monte carlo nash equilibrium self-refining trees. arXiv preprint arXiv:2503.19309 (2025)</div><div class="reference-entry" id="ref-gao2025controllable"><a id="ref-54"></a><span class="ref-num">[54]</span>Gao, Y., Bai, J., Zheng, T., Sun, Q., Zhang, Z., Li, J., Song, Y., Fu, X.: Controllable logical hypothesis generation for abductive reasoning in knowledge graphs. arXiv preprint arXiv:2505.20948 (2025)</div><div class="reference-entry" id="ref-zhou2025toward"><a id="ref-55"></a><span class="ref-num">[55]</span>Zhou, L., Ling, H., Yan, K., Zhao, K., Qian, X., Arróyave, R., Qian, X., Ji, S.: Toward greater autonomy in materials discovery agents: Unifying planning, physics, and scientists. arXiv preprint arXiv:2506.05616 (2025) 33</div><div class="reference-entry" id="ref-bani2025language"><a id="ref-56"></a><span class="ref-num">[56]</span>Bani-Harouni, D., Pellegrini, C., Özsoy, E., Keicher, M., Navab, N.: Language agents for hypothesis-driven clinical decision making with reinforcement learning. arXiv preprint arXiv:2506.13474 (2025)</div><div class="reference-entry" id="ref-wang2025perovskite"><a id="ref-57"></a><span class="ref-num">[57]</span>Wang, X.-D., Chen, Z.-R., Guo, P.-J., Gao, Z.-F., Mu, C., Lu, Z.-Y.: Perovskiter1: A domain-specialized llm for intelligent discovery of precursor additives and experimental design. arXiv preprint arXiv:2507.16307 (2025)</div><div class="reference-entry" id="ref-liu2025expert"><a id="ref-58"></a><span class="ref-num">[58]</span>Liu, S., Xu, H., Ai, Y., Li, H., Bengio, Y., Guo, H.: Expert-guided llm reasoning for battery discovery: From ai-driven hypothesis to synthesis and characterization. arXiv preprint arXiv:2507.16110 (2025)</div><div class="reference-entry" id="ref-NOMADArchive"><a id="ref-59"></a><span class="ref-num">[59]</span>Laboratory, N.: NOMAD Repository and Archive. https://nomad-lab.eu. Accessed: 2025-11-20 (2025)</div><div class="reference-entry" id="ref-mp_time_split_guide"><a id="ref-60"></a><span class="ref-num">[60]</span>Materials Project: Materials Project Time Splits and MPTS-52 dataset documentation (2024). https://mp-time-split.readthedocs.io/</div><div class="reference-entry" id="ref-gao2025graph"><a id="ref-61"></a><span class="ref-num">[61]</span>Gao, X., Zhang, Z., Xie, M., Liu, T., Fu, Y.: Graph of ai ideas: Leveraging knowledge graphs and llms for ai research idea generation. arXiv preprint arXiv:2503.08549 (2025)</div><div class="reference-entry" id="ref-lee2025budget"><a id="ref-62"></a><span class="ref-num">[62]</span>Lee, F., Ma, T.: The budget ai researcher and the power of rag chains. arXiv preprint arXiv:2506.12317 (2025)</div><div class="reference-entry" id="ref-quilodran2024towards"><a id="ref-63"></a><span class="ref-num">[63]</span>Quilodrán-Casas, C., Waite, C., Alhadeff, N., Dsouza, D., Hughes, C., KunstelTabet, L., Gilbert, A.: Towards unearthing neglected climate innovations from scientific literature using large language models. arXiv preprint arXiv:2411.10055 (2024)</div><div class="reference-entry" id="ref-ciucua2023harnessing"><a id="ref-64"></a><span class="ref-num">[64]</span>Ciucă, I., Ting, Y.-S., Kruk, S., Iyer, K.: Harnessing the power of adversarial prompting and large language models for robust hypothesis generation in astronomy. arXiv preprint arXiv:2306.11648 (2023)</div><div class="reference-entry" id="ref-chen2025structuring"><a id="ref-65"></a><span class="ref-num">[65]</span>Chen, J., Zhang, K., Li, D., Feng, Y., Zhang, Y., Deng, B.: Structuring scientific innovation: A framework for modeling and discovering impactful knowledge combinations. arXiv preprint arXiv:2503.18865 (2025)</div><div class="reference-entry" id="ref-tang2025street"><a id="ref-66"></a><span class="ref-num">[66]</span>Tang, Y., Qu, A., Yu, X., Deng, W., Ma, J., Zhao, J., Sun, L.: From street views to urban science: Discovering road safety factors with multimodal large language models. arXiv preprint arXiv:2506.02242 (2025)</div><div class="reference-entry" id="ref-yin2025optimizing"><a id="ref-67"></a><span class="ref-num">[67]</span>Yin, H., Kononova, A.V., Bäck, T., Stein, N.: Optimizing photonic structures with large language model driven algorithm discovery. In: Proceedings of the Genetic and Evolutionary Computation Conference Companion, pp. 2354–2362 (2025) 34</div><div class="reference-entry" id="ref-bystronski2025large"><a id="ref-68"></a><span class="ref-num">[68]</span>Bystroński, M., Hołysz, M., Piotrowski, G., Chawla, N.V., Kajdanowicz, T.: Large language models as innovators: A framework to leverage latent space exploration for novelty discovery. arXiv preprint arXiv:2507.13874 (2025)</div><div class="reference-entry" id="ref-guo2024coevo"><a id="ref-69"></a><span class="ref-num">[69]</span>Guo, P., Zhang, Q., Lin, X.: Coevo: Continual evolution of symbolic solutions using large language models. arXiv preprint arXiv:2412.18890 (2024)</div><div class="reference-entry" id="ref-liu2024evolution"><a id="ref-70"></a><span class="ref-num">[70]</span>Liu, F., Tong, X., Yuan, M., Lin, X., Luo, F., Wang, Z., Lu, Z., Zhang, Q.: Evolution of heuristics: Towards efficient automatic algorithm design using large language model. arXiv preprint arXiv:2401.02051 (2024)</div><div class="reference-entry" id="ref-manning2024automated"><a id="ref-71"></a><span class="ref-num">[71]</span>Manning, B.S., Zhu, K., Horton, J.J.: Automated social science: Language models as scientist and subjects. Technical report, National Bureau of Economic Research (2024)</div><div class="reference-entry" id="ref-swanson2024virtual"><a id="ref-72"></a><span class="ref-num">[72]</span>Swanson, K., Wu, W., Bulaong, N., Pak, J., Zou, J.: The virtual lab: Ai agents design new sars-cov-2 nanobodies with experimental validation. biorxiv, 2024. URL https://www. biorxiv. org/content/early/2024/11/12/2024.11 11 (2024)</div><div class="reference-entry" id="ref-huang2025biomni"><a id="ref-73"></a><span class="ref-num">[73]</span>Huang, K., Zhang, S., Wang, H., Qu, Y., Lu, Y., Roohani, Y., Li, R., Qiu, L., Li, G., Zhang, J., et al.: Biomni: A general-purpose biomedical ai agent. biorxiv (2025)</div><div class="reference-entry" id="ref-lee2024generating"><a id="ref-74"></a><span class="ref-num">[74]</span>Lee, K.-i., Koh, H., Lee, D., Yoon, S., Kim, M., Jung, K.: Generating diverse hypotheses for inductive reasoning. arXiv preprint arXiv:2412.13422 (2024)</div><div class="reference-entry" id="ref-lichatsr"><a id="ref-75"></a><span class="ref-num">[75]</span>Li, Y., Li, W., Yu, L., Wu, M., Liu, J., Wei, S., Deng, Y.: Chatsr: Conversational symbolic regression</div><div class="reference-entry" id="ref-zheng2025large"><a id="ref-76"></a><span class="ref-num">[76]</span>Zheng, Y., Koh, H.Y., Ju, J., Nguyen, A.T., May, L.T., Webb, G.I., Pan, S.: Large language models for scientific discovery in molecular property prediction. Nature Machine Intelligence, 1–11 (2025)</div><div class="reference-entry" id="ref-liu2023chatgpt"><a id="ref-77"></a><span class="ref-num">[77]</span>Liu, S., Wang, J., Yang, Y., Wang, C., Liu, L., Guo, H., Xiao, C.: Chatgptpowered conversational drug editing using retrieval and domain feedback. arXiv preprint arXiv:2305.18090 (2023)</div><div class="reference-entry" id="ref-zhu2022generative"><a id="ref-78"></a><span class="ref-num">[78]</span>Zhu, Q., Luo, J.: Generative design ideation: a natural language generation approach. In: International Conference on-Design Computing and Cognition, pp. 39–50 (2022). Springer</div><div class="reference-entry" id="ref-brunnsaaker2025agentic"><a id="ref-79"></a><span class="ref-num">[79]</span>Brunnsåker, D., Gower, A., Naval, P., Bjurström, E., Kronström, F., Tiukova, I., King, R.: Agentic ai integrated with scientific knowledge: Laboratory validation in systems biology. biorxiv (2025)</div><div class="reference-entry" id="ref-penades2025ai"><a id="ref-80"></a><span class="ref-num">[80]</span>Penadés, J.R., Gottweis, J., He, L., Patkowski, J.B., Daryin, A., Weng, W.-H., Tu, T., Palepu, A., Myaskovsky, A., Pawlosky, A., et al.: Ai mirrors experimental 35 science to uncover a mechanism of gene transfer crucial to bacterial evolution. Cell (2025)</div></section>
+</body>
+</html>
