@@ -172,14 +172,22 @@ def generate_summary_html(data):
 # ---------------------------------------------------------
 # DATA LOADING
 # ---------------------------------------------------------
+def resolve_papers_directory(directory_name="Papers"):
+    cwd_directory = Path.cwd() / directory_name
+    base_directory = BASE_DIR / directory_name
+    for directory in (cwd_directory, base_directory):
+        if directory.exists() and directory.is_dir():
+            return directory
+    return base_directory
+
 def load_papers_from_directory(directory_name="Papers"):
     papers = []
-    directory = BASE_DIR / directory_name
+    directory = resolve_papers_directory(directory_name)
     
     if not directory.exists():
         return []
 
-    json_files = sorted(directory.glob("*.json"))
+    json_files = sorted(directory.rglob("*.json"))
     
     for file_path in json_files:
         filename = file_path.name
@@ -189,13 +197,16 @@ def load_papers_from_directory(directory_name="Papers"):
             
             raw_authors = data.get("authors", [])
             authors_str = ", ".join(raw_authors) if isinstance(raw_authors, list) else str(raw_authors)
+            paper_link = data.get("link") or "#"
+            paper_link = paper_link if isinstance(paper_link, str) else str(paper_link)
             
             pub_date = str(data.get("published", ""))
             year_match = re.search(r"\b(?:19|20)\d{2}\b", pub_date)
             year_str = year_match.group(0) if year_match else "N/A"
             
             topics = []
-            raw_areas = data.get("subject_area", {}).get("areas", [])
+            subject_area = data.get("subject_area") or {}
+            raw_areas = subject_area.get("areas", []) if isinstance(subject_area, dict) else []
             for area in raw_areas:
                 if isinstance(area, dict):
                     topics.append(area.get("name", "Unknown"))
@@ -203,11 +214,11 @@ def load_papers_from_directory(directory_name="Papers"):
                     topics.append(str(area))
             
             papers.append({
-                "title": data.get("paper_title", "Untitled Paper"),
+                "title": data.get("paper_title") or "Untitled Paper",
                 "authors": authors_str,
                 "year": year_str,
-                "venue": "arXiv" if "arxiv" in data.get("link", "").lower() else "Scientific Publication",
-                "url": data.get("link", "#"),
+                "venue": "arXiv" if "arxiv" in paper_link.lower() else "Scientific Publication",
+                "url": paper_link,
                 "topics": topics,
                 "filename": filename,
                 "full_data": data
@@ -286,12 +297,13 @@ def process_html_content(html_content, image_map):
         body, body.pdf-article, body.exhyte-paper {
             box-sizing: border-box;
             margin: 0 auto !important;
-            max-width: 920px !important;
-            padding: 20px 26px 34px !important;
+            max-width: none !important;
+            width: 100% !important;
+            padding: 20px 24px 34px !important;
             background: #ffffff;
             color: #111;
             font-family: "Times New Roman", serif;
-            font-size: 16px !important;
+            font-size: 14pt !important;
             line-height: 1.45 !important;
         }
         p, h1, h2, h3, h4, h5, li, div {
@@ -299,13 +311,13 @@ def process_html_content(html_content, image_map):
             padding-top: 0px !important; padding-bottom: 0px !important;
             line-height: 1.45 !important;
         }
-        h1 { font-size: 26px !important; line-height: 1.22 !important; }
-        h2 { font-size: 22px !important; line-height: 1.25 !important; }
-        h3 { font-size: 18px !important; line-height: 1.28 !important; }
+        h1 { font-size: 22pt !important; line-height: 1.22 !important; }
+        h2 { font-size: 18pt !important; line-height: 1.25 !important; }
+        h3 { font-size: 16pt !important; line-height: 1.28 !important; }
         li { margin-left: 20px !important; }
         figure { margin: 16px 0; }
         img { max-width: 100%; height: auto; display: block; margin: 0 auto; }
-        figcaption { font-size: 14px !important; line-height: 1.35 !important; text-align: justify; }
+        figcaption { font-size: 14pt !important; line-height: 1.35 !important; text-align: justify; }
         a { color: #0b57d0; text-decoration: underline; }
     """
     if soup.head: soup.head.append(style_tag)
@@ -354,13 +366,18 @@ html, body, [class*="css"], .stTextInput input, .stMultiSelect, .stButton button
 }
 
 .stApp {
-    max-width: 1500px;
+    max-width: none;
+    width: 100%;
     margin: 0 auto;
 }
 
 [data-testid="stMainBlockContainer"] {
     padding-top: 0.5rem;
     padding-bottom: 2rem;
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
+    max-width: none !important;
+    width: 100% !important;
 }
 
 /* Tabs Styling */
@@ -375,10 +392,36 @@ html, body, [class*="css"], .stTextInput input, .stMultiSelect, .stButton button
     font-size: 24px !important; font-weight: 600 !important;
 }
 .stTabs [aria-selected="true"] { background-color: #ffffff !important; border-top: 3px solid #ff4b4b !important; }
+.stTabs [data-baseweb="tab-panel"] {
+    width: 100% !important;
+    max-width: none !important;
+    font-size: 14pt !important;
+}
+.stTabs [data-baseweb="tab-panel"] iframe {
+    width: 100% !important;
+}
+.stTabs [data-baseweb="tab-panel"] p,
+.stTabs [data-baseweb="tab-panel"] li,
+.stTabs [data-baseweb="tab-panel"] label,
+.stTabs [data-baseweb="tab-panel"] span,
+.stTabs [data-baseweb="tab-panel"] input,
+.stTabs [data-baseweb="tab-panel"] textarea,
+.stTabs [data-baseweb="tab-panel"] button {
+    font-size: 14pt !important;
+    line-height: 1.42 !important;
+}
+.stTabs [data-baseweb="tab-panel"] h1 { font-size: 22pt !important; }
+.stTabs [data-baseweb="tab-panel"] h2 { font-size: 18pt !important; }
+.stTabs [data-baseweb="tab-panel"] h3 { font-size: 16pt !important; }
+.stTabs [data-baseweb="tab-panel"] h4,
+.stTabs [data-baseweb="tab-panel"] h5,
+.stTabs [data-baseweb="tab-panel"] h6 {
+    font-size: 14pt !important;
+}
 
 /* Paper List Numbering */
 .paper-number {
-    font-size: 18px; font-weight: bold; color: #555; text-align: right;
+    font-size: 14pt; font-weight: bold; color: #555; text-align: right;
     padding-right: 10px; font-family: 'Times New Roman', serif;
     white-space: nowrap !important; width: 100%;
 }
@@ -389,6 +432,10 @@ div[data-baseweb="select"] > div {
 }
 div[data-baseweb="popover"] {
     font-family: 'Times New Roman', serif !important;
+    font-size: 14pt !important;
+}
+div[data-baseweb="popover"] * {
+    font-size: 14pt !important;
 }
 </style>
 """, unsafe_allow_html=True)
@@ -524,9 +571,9 @@ with tab_papers:
                         year_html = html_lib.escape(str(paper['year']), quote=True)
                         content_html = f"""
                         <div style="font-family: 'Times New Roman', serif;">
-                            <div style="font-size: 18px; font-weight: bold; color: #000;">{title_html}</div>
-                            <div style="font-size: 15px; color: #333; font-style: italic;">{authors_html} ({year_html})</div>
-                            <div style="font-size: 14px; color: #666;">{venue_html}</div>
+                            <div style="font-size: 14pt; font-weight: bold; color: #000;">{title_html}</div>
+                            <div style="font-size: 14pt; color: #333; font-style: italic;">{authors_html} ({year_html})</div>
+                            <div style="font-size: 14pt; color: #666;">{venue_html}</div>
                         </div>
                         """
                         st.markdown(content_html, unsafe_allow_html=True)

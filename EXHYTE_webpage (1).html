@@ -13,12 +13,13 @@ html {
 body.exhyte-paper {
   box-sizing: border-box;
   margin: 0 auto;
-  max-width: 1040px;
-  padding: 34px 34px 58px;
+  max-width: none;
+  width: 100%;
+  padding: 34px 24px 58px;
   color: #000;
   background: #fff;
   font-family: "Times New Roman", Times, serif;
-  font-size: 16px;
+  font-size: 14pt;
   line-height: 1.42;
   text-rendering: optimizeLegibility;
   font-kerning: normal;
@@ -28,19 +29,19 @@ body.exhyte-paper {
 }
 h1 {
   margin: 24px 0 15px;
-  font-size: 28px;
+  font-size: 22pt;
   line-height: 1.18;
   font-weight: 700;
 }
 h2 {
   margin: 22px 0 12px;
-  font-size: 24px;
+  font-size: 18pt;
   line-height: 1.2;
   font-weight: 700;
 }
 h3 {
   margin: 18px 0 9px;
-  font-size: 20px;
+  font-size: 16pt;
   line-height: 1.22;
   font-weight: 700;
 }
@@ -84,8 +85,8 @@ figure img {
 .figure-4 img { width: 84%; }
 figcaption {
   margin: 9px auto 0;
-  max-width: 1040px;
-  font-size: 14px;
+  max-width: none;
+  font-size: 14pt;
   line-height: 1.35;
   text-align: left;
 }
@@ -95,12 +96,13 @@ figcaption strong {
 .table-wrap {
   margin: 20px 0 26px;
   break-inside: avoid;
+  overflow-x: auto;
 }
 table {
   width: 100%;
   border-collapse: collapse;
   margin: 0;
-  font-size: 14px;
+  font-size: 14pt;
   line-height: 1.24;
   border-top: 1px solid #000;
   border-bottom: 1px solid #000;
@@ -109,7 +111,7 @@ caption {
   caption-side: top;
   text-align: left;
   margin: 0 0 11px;
-  font-size: 15px;
+  font-size: 14pt;
   line-height: 1.25;
 }
 th, td {
@@ -138,13 +140,13 @@ a {
   padding-top: 16px;
 }
 .references h1 {
-  font-size: 24px;
+  font-size: 18pt;
   margin: 0 0 14px;
 }
 .reference-entry {
   position: relative;
   margin: 0 0 8px 34px;
-  font-size: 14px;
+  font-size: 14pt;
   line-height: 1.32;
   text-align: left;
 }
@@ -155,19 +157,19 @@ a {
 }
 code {
   font-family: "Courier New", Courier, monospace;
-  font-size: 0.95em;
+  font-size: 14pt;
 }
 @media (max-width: 760px) {
   body.exhyte-paper {
     max-width: none;
     padding: 22px 16px 40px;
-    font-size: 15.5px;
+    font-size: 14pt;
   }
-  h1 { font-size: 25px; }
-  h2 { font-size: 22px; }
-  h3 { font-size: 19px; }
+  h1 { font-size: 20pt; }
+  h2 { font-size: 18pt; }
+  h3 { font-size: 16pt; }
   figure img { max-width: 100%; }
-  table { font-size: 13px; }
+  table { font-size: 14pt; }
 }
 </style>
 </head>
