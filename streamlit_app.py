@@ -381,21 +381,55 @@ html, body, [class*="css"], .stTextInput input, .stMultiSelect, .stButton button
 }
 
 /* Tabs Styling */
-.stTabs [data-baseweb="tab-list"] { gap: 2px; width: 100%; }
-.stTabs [data-baseweb="tab"] {
-    height: 60px; white-space: pre-wrap; background-color: #f0f2f6;
-    border-radius: 4px 4px 0px 0px; gap: 1px; padding-top: 10px; padding-bottom: 10px;
-    flex-grow: 1; width: 100%;  
+.stTabs [data-baseweb="tab-list"],
+.stTabs [role="tablist"] {
+    gap: 8px !important;
+    width: 100% !important;
+    border-bottom: 1px solid #d8d8d8 !important;
+    align-items: flex-end !important;
 }
-.stTabs [data-baseweb="tab"] p, .stTabs [data-baseweb="tab"] div {
+.stTabs [data-baseweb="tab"],
+.stTabs [role="tab"] {
+    min-height: 60px !important;
+    height: auto !important;
+    white-space: normal !important;
+    background-color: #f0f2f6 !important;
+    border: 1px solid #d8dce2 !important;
+    border-bottom: 0 !important;
+    border-radius: 4px 4px 0 0 !important;
+    gap: 1px !important;
+    padding: 10px 14px !important;
+    flex: 1 1 0 !important;
+    width: 100% !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+}
+.stTabs [data-baseweb="tab"] p,
+.stTabs [data-baseweb="tab"] div,
+.stTabs [role="tab"] p,
+.stTabs [role="tab"] div,
+.stTabs [role="tab"] span {
     font-family: "Times New Roman", Times, serif !important;
-    font-size: 24px !important; font-weight: 600 !important;
+    font-size: 24px !important;
+    font-weight: 600 !important;
+    line-height: 1.15 !important;
+    margin: 0 !important;
+    text-align: center !important;
 }
-.stTabs [aria-selected="true"] { background-color: #ffffff !important; border-top: 3px solid #ff4b4b !important; }
+.stTabs [aria-selected="true"] {
+    background-color: #ffffff !important;
+    border-top: 4px solid #ff4b4b !important;
+    color: #ff4b4b !important;
+}
+.stTabs [data-baseweb="tab-highlight"] {
+    display: none !important;
+}
 .stTabs [data-baseweb="tab-panel"] {
     width: 100% !important;
     max-width: none !important;
     font-size: 14pt !important;
+    padding-top: 18px !important;
 }
 .stTabs [data-baseweb="tab-panel"] iframe {
     width: 100% !important;
