@@ -383,22 +383,26 @@ html, body, [class*="css"], .stTextInput input, .stMultiSelect, .stButton button
 /* Tabs Styling */
 .stTabs [data-baseweb="tab-list"],
 .stTabs [role="tablist"] {
-    gap: 8px !important;
+    gap: 0 !important;
     width: 100% !important;
+    height: 64px !important;
     border-bottom: 1px solid #d8d8d8 !important;
-    align-items: flex-end !important;
+    align-items: stretch !important;
+    display: flex !important;
 }
 .stTabs [data-baseweb="tab"],
 .stTabs [role="tab"] {
-    min-height: 60px !important;
-    height: auto !important;
+    box-sizing: border-box !important;
+    min-height: 64px !important;
+    height: 64px !important;
     white-space: normal !important;
     background-color: #f0f2f6 !important;
     border: 1px solid #d8dce2 !important;
+    border-top: 4px solid transparent !important;
     border-bottom: 0 !important;
     border-radius: 4px 4px 0 0 !important;
     gap: 1px !important;
-    padding: 10px 14px !important;
+    padding: 8px 14px 10px !important;
     flex: 1 1 0 !important;
     width: 100% !important;
     display: flex !important;
